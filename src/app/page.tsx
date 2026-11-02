@@ -15,10 +15,12 @@ import { AiSettingsPanel, SchedulePanel, CostsPanel, ErrorsPanel, ProviderKeysPa
 import { ChannelReaderPanel } from '@/components/panels/channel-reader';
 import { EventsPanel } from '@/components/panels/events';
 import { AnalysisPanel, ClustersTab } from '@/components/panels/analysis';
-import { Radar, Newspaper, FolderTree, Radio, Sparkles, Archive, Search, GitCompareArrows, ShieldCheck, MessageSquareCode, Bot, Timer, Coins, AlertTriangle, MessagesSquare, CalendarClock, Network, Send, Waypoints } from 'lucide-react';
+import { Radar, Newspaper, FolderTree, Radio, Sparkles, Archive, Search, GitCompareArrows, ShieldCheck, MessageSquareCode, Bot, Timer, Coins, AlertTriangle, MessagesSquare, CalendarClock, Network, Send, Waypoints, Activity } from 'lucide-react';
+import { LiveNewsPanel } from '@/components/panels/live';
 
 const TABS = [
   { key: 'dashboard', label: 'داشبورد امروز', icon: Radar },
+  { key: 'live', label: 'اخبار لحظه‌ای', icon: Activity },
   { key: 'newsline', label: 'خط خبری', icon: Waypoints },
   { key: 'report', label: 'گزارش روزانه', icon: Newspaper },
   { key: 'categories', label: 'دسته‌بندی‌ها', icon: FolderTree },
@@ -86,6 +88,7 @@ export default function Home() {
       {/* محتوا */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-5">
         {tab === 'dashboard' && <DashboardPanel />}
+        {tab === 'live' && <LiveNewsPanel />}
         {tab === 'newsline' && <ClustersTab />}
         {tab === 'report' && <DailyReportPanel />}
         {tab === 'categories' && <CategoriesPanel />}

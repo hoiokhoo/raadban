@@ -1,0 +1,11 @@
+import { PrismaClient } from '@prisma/client';
+const db = new PrismaClient();
+const cats = await db.category.findMany({ select: { name: true, slug: true, isActive: true } });
+console.log('categories:', JSON.stringify(cats));
+const srcs = await db.source.groupBy({ by: ['platform'], _count: true, where: { isActive: true } });
+console.log('active sources by platform:', JSON.stringify(srcs));
+const total = await db.source.count({ where: { isActive: true } });
+console.log('total active:', total);
+const today = await db.post.count({ where: { publishedDateOnly: '2026-11-01' } });
+console.log('posts today:', today);
+await db.$disconnect();

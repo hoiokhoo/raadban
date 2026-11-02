@@ -1,0 +1,49 @@
+name: رصدبان‌بات — خبررسان بله هر ۳۰ دقیقه
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # هر نیم ساعت (زمان رسمی UTC — گیت‌هاب ممکن است چند دقیقه تأخیر داشته باشد)
+  workflow_dispatch: {} # اجرای آزمایشی دستی از تب Actions
+
+concurrency:
+  group: bale-bot
+  cancel-in-progress: false # دو چرخه هم‌زمان → ضدتکرار خراب نمی‌شود
+
+permissions:
+  contents: write # برای کامیت bot/state.json (حافظهٔ ضدتکرار)
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: دریافت ریپو
+        uses: actions/checkout@v4
+
+      - name: نصب Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: اجرای ربات (جمع‌آوری، ترجمه، ارسال به بله)
+        env:
+          BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
+          BALE_CHAT_ID: ${{ secrets.BALE_CHAT_ID }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NEWS_WINDOW_HOURS: '3'
+          MAX_ITEMS: '12'
+          BOT_STATE_FILE: bot/state.json
+        run: bun bot/bot.ts
+
+      - name: ثبت حافظهٔ ضدتکرار (state) در ریپو
+        run: |
+          git config user.name "raadban-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add bot/state.json
+          if git diff --cached --quiet; then
+            echo "state تغییری نکرد — کامیت لازم نیست"
+          else
+            git commit -m "وضعیت ضدتکرار ربات: $(date -u +'%Y-%m-%dT%H:%MZ')"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi

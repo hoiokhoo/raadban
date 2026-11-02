@@ -1,0 +1,518 @@
+// ============================================================
+// سامانه هوشمند رصد، راستی‌آزمایی و تحلیل تاریخ‌محور اخبار
+// مدل داده — همه موجودیت‌ها شناسه پایدار و زمان ایجاد دارند
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- دسته‌بندی‌های موضوعی ----------
+model Category {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  description   String?
+  color         String   @default("#0f766e")
+  isActive      Boolean  @default(true)
+  // پرامپت اختصاصی این دسته (فصل ۱۲ سند: تنظیمات پرامپت هر دسته)
+  promptTemplate String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sources       SourceCategory[]
+  posts         PostCategory[]
+  events        Event[]
+  reports       DailyReport[]
+  predictions   Prediction[]
+  suggestions   SourceSuggestion[]
+}
+
+// ---------- منابع خبری ----------
+model Source {
+  id               String    @id @default(cuid())
+  name             String
+  // تلگرام | ایتا | بله | rss | وب | ... (پلتفرم‌های پشتیبانی‌نشده صریحاً علامت می‌خورند)
+  platform         String
+  identifier       String    // نام کانال یا شناسه پایدار منبع
+  url              String?   // پیوند اصلی منبع
+  isActive         Boolean   @default(true)
+  // وضعیت روشن منبع: فعال | غیرفعال | نیازمند_احراز | خطای_اتصال | محدود_دسترسی | دریافت_موفق
+  status           String    @default("غیرفعال")
+  statusDetail     String?
+  priority         String    @default("عادی") // بالا | عادی | پایین
+  language         String    @default("fa")
+  region           String    @default("ایران")  // کشور/قلمرو برای منابع خارجی
+  topic            String?
+  // نوع موجودیت منبع: رسانه | شخصیت | نهاد رسمی
+  entityType       String?
+  // گرایش سیاسی ثبت‌شده (توصیف مستند مالکیت/خط تحریریه برای پوشش متوازن — قابل ویرایش توسط کاربر، قضاوت صحت خبر با موتور راستی‌آزمایی)
+  politicalOrientation String?
+  trustNote        String?   // یادداشت دلیل اعتماد یا عدم اعتماد
+  notes            String?
+  fetchIntervalMin Int       @default(60)
+  maxItemsPerFetch Int       @default(30)
+  fetchMethod      String    @default("عمومی") // عمومی | توکن‌دار | نامشخص
+  limitsNote       String?   // محدودیت‌های شناخته‌شده دسترسی/پوشش
+  lastFetchAt      DateTime?
+  lastErrorAt      DateTime?
+  lastError        String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  categories    SourceCategory[]
+  posts         Post[]
+  suggestions   SourceSuggestion[]
+
+  @@unique([platform, identifier])
+}
+
+// پیوند چند‌به‌چند منبع-دسته (یک منبع می‌تواند در چند دسته باشد)
+model SourceCategory {
+  sourceId   String
+  categoryId String
+  source     Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([sourceId, categoryId])
+}
+
+// ---------- مطالب خام دریافتی ----------
+model Post {
+  id             String    @id @default(cuid())
+  sourceId       String?
+  source         Source?   @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  externalId     String?   // شناسه پایدار مطلب در پلتفرم مقصد
+  content        String    // متن خام اصلی
+  normalized     String?   // متن پاک‌سازی و نرمال‌شده
+  url            String?
+  // تصویر شاخص مطلب (از خوراک/پلتفرم) — برای ارسال عکس بالای خبر در بله
+  imageUrl       String?
+  publishedAt    DateTime? // زمان انتشار در پلتفرم
+  publishedDateOnly String? // تاریخ انتشار (yyyy-mm-dd میلادی محاسبه‌شده در TZ مبنای سامانه)
+  eventDateISO   String?   // تاریخ وقوع رویداد استخراج‌شده از متن (اگر مشخص باشد)
+  fetchedAt      DateTime  @default(now())
+  metadata       String?   // فراداده JSON موجود از پلتفرم
+  language       String    @default("fa")
+  contentHash    String    // هش نرمال‌شده برای تشخیص تکرار
+  // وضعیت پردازش: خام | پردازش‌شده | حذف_تبلیغات | نامرتبط | ناقص | خطا
+  processingStatus String  @default("خام")
+  processingError String?
+  processingSteps String?  // JSON ردیابی مراحل انجام‌شده خط لوله
+  isForwarded    Boolean   @default(false)
+  isAd           Boolean   @default(false)
+  isIrrelevant   Boolean   @default(false)
+  // ترجمه فارسی روان مطالب خارجی (قابلیت ۱٫۱-ب)
+  translationFa           String?
+  translationSummary      String?
+  translationConclusion   String?
+  translatedAt            DateTime?
+  // تشخیص تکرار/بازنشر
+  duplicateOfId  String?
+  duplicateOf    Post?    @relation("PostDuplicates", fields: [duplicateOfId], references: [id], onDelete: SetNull)
+  duplicates     Post[]   @relation("PostDuplicates")
+  importanceScore Int?    // ۰ تا ۵ ارزیابی اهمیت
+  urgencyScore   Int?     // ۰ تا ۵ ارزیابی فوریت
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  categories  PostCategory[]
+  claims      Claim[]
+  eventPosts  EventPost[]
+  clusterMembers ClusterMember[]
+  clusterFirstOf NewsCluster? @relation("ClusterFirstPost")
+  references  PostReference[]
+
+  @@unique([sourceId, externalId])
+  @@index([contentHash])
+  @@index([publishedDateOnly])
+}
+
+// پیوند چند‌به‌چند مطلب-دسته (دسته اصلی + دسته‌های مرتبط)
+model PostCategory {
+  postId     String
+  categoryId String
+  isMain     Boolean  @default(false)
+  confidence Float    @default(0)
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([postId, categoryId])
+}
+
+// ---------- رویدادهای یکتا (ادغام بازنشرهای یک خبر) ----------
+model Event {
+  id             String    @id @default(cuid())
+  dedupKey       String    @unique // کلید تشخیص یکتایی رویداد
+  title          String
+  summary        String?  
+  categoryId     String?
+  category       Category? @relation(fields: [categoryId], references: [id])
+  originSourceId String?   // منشأ اولیه شناسایی‌شده (در حد امکان)
+  originNote     String?   // توضیح منشأ و وابستگی احتمالی منابع
+  importance     Int       @default(0) // ۰-۵
+  urgency        Int       @default(0) // ۰-۵
+  firstSeenAt    DateTime  @default(now())
+  lastSeenAt     DateTime  @default(now())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  posts       EventPost[]
+  claims      Claim[]
+}
+
+// پیوند رویداد-مطلب (چه مطالبی به این رویداد اشاره کردند)
+model EventPost {
+  eventId   String
+  postId    String
+  event     Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  post      Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([eventId, postId])
+}
+
+// ---------- ادعاها (راستی‌آزمایی در سطح ادعا) ----------
+model Claim {
+  id             String    @id @default(cuid())
+  eventId        String?
+  event          Event?    @relation(fields: [eventId], references: [id])
+  postId         String?   // مطلبی که ادعا از آن استخراج شد
+  post           Post?     @relation(fields: [postId], references: [id])
+  text           String    // متن دقیق ادعا
+  kind           String    @default("ادعای_خبری") // عدد | نقل_قول | آمار | اطلاعیه | رویداد
+  claimedActors  String?   // JSON اشخاص/سازمان‌های نام‌برده
+  publisherName  String?   // منبع منتشرکننده
+  publishedAt    DateTime? // زمان انتشار ادعا
+  eventDate      DateTime? // زمان وقوع ادعاشده
+  // وضعیت استاندارد ۸گانه:
+  // تأییدشده_با_شواهد_کافی | عمدتاً_تأییدشده | تأییدنشده | مورد_اختلاف
+  // گمراه‌کننده | ردشده_با_شواهد_کافی | منسوخ_یا_اصلاح‌شده | در_انتظار_بررسی
+  status         String    @default("در_انتظار_بررسی")
+  confidence     String    @default("نامعلوم") // بالا | متوسط | پایین | نامعلوم
+  confidenceNote String?   // دلیل درجه اطمینان
+  // منابع مستقل بررسی‌شده (JSON آرایه‌ای از {name,url})
+  independentSources String?
+  supportingEvidenceNotes String?
+  contradictingEvidenceNotes String?
+  primarySourcesNotes String? // منابع اولیه احتمالی
+  dependencyNote String?   // هشدار وابستگی بازنشرها
+  originClaimUrl String?   // پیوند قدیمی‌ترین انتشار شناسایی‌شده
+  notVerifiableNote String? // مثلاً «امکان تأیید مستقل فراهم نشد»
+  evidenceSearchedAt DateTime? // تاریخ آخرین بررسی/جست‌وجو
+  model          String?   // نام مدل به‌کاررفته برای استخراج/بررسی
+  promptVersion  String?   // نسخه پرامپت
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  evidence Evidence[]
+  factcheckReports FactcheckReport[]
+}
+
+// ---------- شواهد و پیوندها ----------
+model Evidence {
+  id         String   @id @default(cuid())
+  claimId    String
+  claim      Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  url        String?
+  title      String?
+  snippet    String? 
+  stance     String   @default("بی‌طرف") // موافق | مخالف | بی‌طرف | اولیه
+  sourceType String   @default("ثانویه") // اولیه | رسمی | ثانویه | بازنشر
+  retrievedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+// ---------- گزارش‌های راستی‌آزمایی (قابل بازبینی) ----------
+model FactcheckReport {
+  id         String   @id @default(cuid())
+  claimId    String
+  claim      Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  content    String   // متن کامل بررسی
+  model      String?
+  promptVersion String?
+  generatedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+// ---------- خلاصه‌ها و گزارش‌های روزانه ----------
+model DailyReport {
+  id            String   @id @default(cuid())
+  reportDate    String   // yyyy-mm-dd میلادی بر مبنای منطقه زمانی سامانه (تهران پیش‌فرض)
+  jDate         String   // نمایش شمسی
+  categoryId    String?
+  category      Category? @relation(fields: [categoryId], references: [id])
+  // وضعیت: کامل | ناقص | ناموفق
+  status        String   @default("کامل")
+  incompleteNote String? // هشدار پوشش ناقص
+  coverageNote  String?  // وضعیت پوشش منابع و محدودیت‌ها
+  content       String   // JSON ساختار ۱۴ بخشی
+  model         String?
+  promptVersion String?
+  timezone      String   @default("Asia/Tehran")
+  sourcesCount  Int      @default(0)
+  postsCount    Int      @default(0)
+  eventsCount   Int      @default(0)
+  claimsCount   Int      @default(0)
+  generatedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  @@unique([reportDate, categoryId])
+}
+
+// ---------- تحلیل‌ها و پیش‌بینی‌ها ----------
+model Prediction {
+  id          String    @id @default(cuid())
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  reportDate  String
+  text        String    // پیش‌بینی/تحلیل
+  horizon     String?   // افق زمانی پیش‌بینی
+  status      String    @default("در_انتظار_ارزیابی") // در_انتظار_ارزیابی | تأییدشده | تکذیب‌شده | ناقص‌ارزیابی
+  evaluatedAt DateTime?
+  evalNote    String?  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ---------- پیشنهاد منابع توسط هوش مصنوعی ----------
+model SourceSuggestion {
+  id           String    @id @default(cuid())
+  name         String
+  platform     String
+  identifier   String
+  url          String?
+  reason       String?   // دلیل پیشنهاد
+  evidence     String?   // شواهد (تاریخ مطالب، کیفیت پوشش...)
+  // آمار نامعلوم = صریحاً «نامعلوم» ثبت می‌شود؛ هرگز ساختگی تولید نمی‌شود
+  membersInfo  String    @default("نامعلوم")
+  activityInfo String    @default("نامعلوم")
+  confidence   String    @default("پایین") // بالا | متوسط | پایین
+  score        Float?    // امتیاز قابل توضیح
+  scoreBreakdown String?
+  status       String    @default("در_انتظار_تأیید") // در_انتظار_تأیید | تأییدشده | ردشده
+  categoryId   String?
+  category     Category? @relation(fields: [categoryId], references: [id])
+  evaluatedAt  DateTime?
+  sourceId     String?   // اگر تأیید شد به منبع پیوند می‌خورد
+  source       Source?   @relation(fields: [sourceId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([platform, identifier])
+}
+
+// ---------- تنظیمات سامانه ----------
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  updatedAt DateTime @updatedAt
+}
+
+// ---------- سرویس هوش مصنوعی و مصرف ----------
+model AiUsage {
+  id          String   @id @default(cuid())
+  purpose     String   // استخراج_ادعا | راستی_آزمایی | گزارش | کشف_منبع | تحلیل
+  model       String
+  promptVersion String
+  inputChars  Int      @default(0)
+  outputChars Int      @default(0)
+  estTokens   Int      @default(0)
+  status      String   @default("موفق") // موفق | ناموفق | سقف_هزینه
+  error       String? 
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// ---------- سوابق اجرای وظایف و خطاها ----------
+model JobRun {
+  id         String    @id @default(cuid())
+  jobType    String    // fetch | pipeline | factcheck | report | discovery | housekeeping
+  targetId   String?   // شناسه منبع/دسته/تاریخ گزارش
+  // موفق | ناقص | ناموفق | در_حال_اجرا
+  status     String    @default("در_حال_اجرا")
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  durationMs Int?
+  details    String?  
+  error      String?  
+  createdAt  DateTime  @default(now())
+
+  @@index([jobType, startedAt])
+  @@index([status])
+}
+
+// ---------- نسخه پرامپت‌ها ----------
+model PromptVersion {
+  id        String   @id @default(cuid())
+  name      String   // extract_claims | factcheck | daily_report | discover_sources
+  version   String   // مثل v1
+  content   String
+  isActive  Boolean  @default(true)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, version])
+}
+
+// ---------- کانال‌های سنجاق‌شده برای خوانش (قابلیت ۱٫۱-الف) ----------
+model WatchedChannel {
+  id            String    @id @default(cuid())
+  // telegram | eitaa | bale
+  platform      String
+  identifier    String
+  displayName   String?
+  url           String?
+  isActive      Boolean   @default(true)
+  lastSyncAt    DateTime?
+  lastSyncError String?
+  // محدودیت‌های صریح دسترسی (مثل limitsDescription اتصال‌دهنده)
+  limitsNote    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  messages ChannelMessage[]
+
+  @@unique([platform, identifier])
+}
+
+// پیام‌های دریافت‌شده از کانال‌های سنجاق‌شده — نمایش پیام‌رسان‌مانند
+model ChannelMessage {
+  id          String    @id @default(cuid())
+  channelId   String
+  channel     WatchedChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  externalId  String
+  content     String
+  url         String?
+  publishedAt DateTime?
+  fetchedAt   DateTime  @default(now())
+  isForwarded Boolean   @default(false)
+  metadata    String?
+  language    String    @default("fa")
+  // ترجمه برای پیام‌های خارجی
+  translationFa String?
+  translatedAt  DateTime?
+
+  factcheck MessageFactcheck?
+
+  @@unique([channelId, externalId])
+  @@index([channelId, publishedAt])
+}
+
+// نتیجه راستی‌آزمایی هوش مصنوعیِ یک پیام (سگمنت‌به‌سگمنت)
+model MessageFactcheck {
+  id          String   @id @default(cuid())
+  messageId   String   @unique
+  message     ChannelMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  // کامل | ناموفق
+  status      String   @default("کامل")
+  // آرایه [{quote, verdict, explanation, basis}] — quote دقیقاً بخشی از متن پیام است
+  segmentsJson String  @default("[]")
+  // حکم کلی: عموماً_درست | عموماً_نادرست | آمیخته | عمدتاً_نظر/تحلیل | نامشخص
+  overallVerdict String?
+  summary     String?
+  conclusion  String?
+  evidenceNotes String?
+  injectionWarnings String?
+  model       String?
+  promptVersion String?
+  error       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------- رویدادهای مهم پیش رو (قابلیت ۱٫۱-د) ----------
+model MajorEvent {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  scope       String   // کشور/منطقه: «ایالات متحده» | «جهانی» | ...
+  category    String   // انتخابات | اجلاس بین‌المللی | کنفرانس | اقتصاد | ...
+  eventDateISO     String? // تاریخ قطعی شروع (yyyy-mm-dd میلادی)
+  eventDateEndISO  String? // پایان بازه در صورت وجود
+  // وقتی تاریخ قطعی نیست: «آوریل-مه ۲۰۲۷ (تاریخ دقیق اعلام‌نشده)»
+  dateNote        String?
+  // قطعی | تقریبی | نامشخص
+  dateCertainty   String  @default("قطعی")
+  description String
+  importance  Int      @default(3) // ۰-۵
+  // پیش_رو | در_جریان | برگزارشده | به_تعویق_افتاده
+  status      String   @default("پیش_رو")
+  // نظرسنجی‌های مستند: [{label, value, unit, color, source, sourceUrl, asOf}]
+  pollsJson   String?
+  // نقشه/ترکیب آرا: [{label, value, color, note}] + note عمومی
+  mapJson     String?
+  liveMapUrl  String?  // پیوند نقشه/ردیاب زنده معتبر
+  sourcesJson String?  // منابع مستندکننده [{name, url}]
+  // تحلیل AI: {explanation, whyImportant, scenarios[], whatToWatch, disclaimer, model, generatedAt}
+  analysisJson String?
+  analysisGeneratedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------- خوشه‌بندی اخبار مشابه + تایم‌لاین گره‌دار (قابلیت T9) ----------
+// مثال هدف: بی‌بی‌سی ۹:۰۰ (اولین انتشار) → CNN ۱۰:۰۰ (بازنشر) → صداوسیما ۱۰:۳۰ (بازنشر)
+model NewsCluster {
+  id               String   @id @default(cuid())
+  title            String   // عنوان نماینده از خبر اول
+  firstPostId      String   @unique // کهن‌ترین پست = نخستین منبع
+  firstSourceName  String
+  firstPublishedAt DateTime
+  memberCount      Int      @default(0)
+  language         String   @default("fa")
+  createdAt        DateTime @default(now())
+
+  members  ClusterMember[]
+  firstPost Post @relation("ClusterFirstPost", fields: [firstPostId], references: [id], onDelete: Cascade)
+
+  @@index([firstPublishedAt])
+  @@index([createdAt])
+}
+
+model ClusterMember {
+  id          String   @id @default(cuid())
+  clusterId   String
+  cluster     NewsCluster @relation(fields: [clusterId], references: [id], onDelete: Cascade)
+  postId      String   @unique
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  isFirst     Boolean  @default(false) // نخستین انتشار؟
+  publishedAt DateTime
+  similarity  Float    @default(0) // شباهت به نماینده خوشه (برای اولی ۱)
+  sourceName  String
+  sourcePlatform String
+
+  @@index([clusterId, publishedAt])
+}
+
+// ---------- تحلیل رفرنس‌ها: ارجاع خبر به واقعه تاریخی یا خبر دیگر (قابلیت T9) ----------
+model PostReference {
+  id          String   @id @default(cuid())
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  // خبر_دیگر | واقعه_تاریخی | نقل_قول_مستقیم
+  refKind     String
+  refText     String   // عبارت ارجاع‌دهنده در متن خبر
+  refDescription String? // توضیح AI: به چه واقعه/خبری ارجاع می‌دهد
+  matchedPostId  String? // اگر درون‌پایگاه تطبیقی یافت شد
+  matchedTitle   String?
+  similarity     Float?
+  // مرتبط_و_معتبر | مرتبط_اما_تأییدنشده | بی‌ارتباط | یافت_نشده
+  verdict     String   @default("یافت_نشده")
+  analysis    String?  // تحلیل ارتباط و صحت
+  model       String?
+  createdAt   DateTime @default(now())
+
+  @@index([postId])
+  @@index([verdict])
+}

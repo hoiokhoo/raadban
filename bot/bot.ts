@@ -445,13 +445,65 @@ export function verdictToEmoji(verdict: string | undefined | null): string {
 }
 
 /** پیام هر خبر — فقط «نام منبع: متن خبر» + ایموجی حکم در صورت وجود.
- *  بدون پیوند، بدون زمان، بدون توضیح راستی‌آزمایی — خواستهٔ صریح کاربر. */
-export function composeNewsMessage(input: { sourceName: string; text: string; verdict?: string }): string {
+ *  بدون پیوند، بدون زمان، بدون توضیح راستی‌آزمایی — خواستهٔ صریح کاربر.
+ *  textLimit: در حالت عکس، متن کوتاه‌تر می‌شود تا «متن + حکم» همیشه در سقف کپشن ۱۰۲۴ جا شود
+ *  و ایموجی حکم هرگز به‌تنهایی در پیام جدایی بیفتد (ایراد یافت‌شده در نقد). */
+export function composeNewsMessage(input: { sourceName: string; text: string; verdict?: string }, textLimit = 1200): string {
   const src = (input.sourceName || '').trim() || 'منبع ناشناس';
-  const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, 1200))}`];
+  const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, textLimit))}`];
   const em = verdictToEmoji(input.verdict);
   if (em) L.push('', em);
   return L.join('\n');
+}
+
+/** واکشی موجودیت‌های HTML برای مسیر ارسال بدون parse_mode — وگرنه «&amp;» عیناً نمایش داده می‌شود */
+export function unescapeEntities(s: string): string {
+  return s
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h: string) => {
+      const code = parseInt(h, 16);
+      return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : ' ';
+    })
+    .replace(/&#(\d+);/g, (_, d: string) => {
+      const code = Number(d);
+      return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : ' ';
+    })
+    .replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+}
+
+// ---------- برنامه‌ریزی ارسال‌های مسیر مدل (خالص و تست‌پذیر) ----------
+
+export interface PlannedSend { g: ItemGroup; text: string; verdict: string; refs: number[] }
+
+/** تبدیل خروجی مدل به فهرست ارسال نهایی — همهٔ تضمین‌های ضدتکرار و ترتیب اینجاست:
+ *  ۱) refs نامعتبر حذف؛ ۲) رویدادی که در همین چرخه قبلاً ارسال/برنامه‌ریزی شده دوباره نمی‌آید؛
+ *  ۳) دو متن بسیار مشابه (همان رویداد با شماره‌های متفاوت) فقط یک‌بار ارسال می‌شود؛
+ *  ۴) ترتیب نهایی: خارجی اول، داخلی بعد — خواستهٔ صریح کاربر. */
+export function planBotSends(
+  items: OneShotItem[],
+  ordered: ItemGroup[],
+  opts: { textLimit?: number; simThreshold?: number } = {}
+): { sends: PlannedSend[]; skippedBadRef: number; skippedDupGroup: number; skippedDupText: number } {
+  const sim = opts.simThreshold ?? 0.55;
+  const limit = opts.textLimit ?? 1200;
+  const used = new Set<number>();
+  const texts: string[] = [];
+  const raw: PlannedSend[] = [];
+  let skippedBadRef = 0, skippedDupGroup = 0, skippedDupText = 0;
+  for (const item of items) {
+    const validRefs = item.refs.filter((n) => n >= 1 && n <= ordered.length);
+    if (validRefs.length === 0) { skippedBadRef++; continue; }
+    if (validRefs.some((n) => used.has(n))) { skippedDupGroup++; continue; }
+    const g = ordered[validRefs[0] - 1];
+    const body = item.text.trim();
+    if (texts.some((t) => jaccard(t, body) >= sim)) { skippedDupText++; continue; }
+    texts.push(body);
+    for (const n of validRefs) used.add(n);
+    raw.push({ g, text: body, verdict: item.verdict, refs: validRefs });
+  }
+  // ۴) ترتیب خارجی اول — بر نمایندهٔ گروه
+  const sends = foreignFirstOrder(raw, (s) => isForeignItem(s.g.primary));
+  return { sends, skippedBadRef, skippedDupGroup, skippedDupText };
 }
 
 export function splitForBale(text: string, maxLen = 3500): string[] {
@@ -530,7 +582,8 @@ export async function sendBaleMessage(token: string, chatId: string, text: strin
         continue;
       }
       if (String(r.error || '').includes('parse')) {
-        const r2 = await baleApi(token, 'sendMessage', { chat_id: chatId, text: parts[i] });
+        // مسیر بدون parse_mode — موجودیت‌ها واکشی می‌شوند وگرنه «&amp;» عیناً نمایش داده می‌شود
+        const r2 = await baleApi(token, 'sendMessage', { chat_id: chatId, text: unescapeEntities(parts[i]) });
         if (r2.ok) { sent++; break; }
         return { ok: false, chunks: sent, error: `ارسال قطعهٔ ${i + 1}/${parts.length} ناموفق: ${r2.error}` };
       }
@@ -555,7 +608,7 @@ export async function sendBalePhoto(token: string, chatId: string, imageUrl: str
       continue;
     }
     if (cap && String(r.error || '').includes('parse')) {
-      const r2 = await baleApi(token, 'sendPhoto', { chat_id: chatId, photo: imageUrl, caption: plainCap });
+      const r2 = await baleApi(token, 'sendPhoto', { chat_id: chatId, photo: imageUrl, caption: unescapeEntities(plainCap) });
       if (r2.ok) return { ok: true };
       return { ok: false, error: r2.error };
     }
@@ -946,13 +999,14 @@ async function main(): Promise<void> {
   if (CFG.dryRun) {
     console.log('=== DRY_RUN — پیش‌نمایش پیام‌ها (بدون ارسال) ===');
     if (one && one.items.length) {
-      for (const item of one.items) {
-        const ref = item.refs.find((n) => n >= 1 && n <= ordered.length);
-        if (!ref) continue;
-        const g = ordered[ref - 1];
+      const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered);
+      console.log(`برنامهٔ ارسال: ${sends.length} پیام (حذف: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه)`);
+      for (const s of sends) {
         console.log('---');
-        console.log(composeNewsMessage({ sourceName: g.primary.sourceName, text: item.text, verdict: item.verdict }));
-        if (g.primary.imageUrl) console.log(`[عکس جداگانه] ${g.primary.imageUrl}`);
+        // حالت عکس: سقف ۹۵۰ تا «متن + حکم» در کپشن ۱۰۲۴ جا شود و ایموجی تنها نماند
+        console.log(composeNewsMessage({ sourceName: s.g.primary.sourceName, text: s.text, verdict: s.verdict }, s.g.primary.imageUrl ? 950 : 1200));
+        const img = s.g.primary.imageUrl || s.g.members.find((m) => m.imageUrl)?.imageUrl;
+        if (img) console.log(`[عکس جداگانه] ${img}`);
       }
     } else {
       for (const g of ordered) {
@@ -994,14 +1048,20 @@ async function main(): Promise<void> {
   };
 
   if (one && one.items.length > 0) {
-    for (const item of one.items) {
-      const validRefs = item.refs.filter((n) => n >= 1 && n <= ordered.length);
-      if (validRefs.length === 0) continue;
-      const g = ordered[validRefs[0] - 1];
-      const msg = composeNewsMessage({ sourceName: g.primary.sourceName, text: item.text, verdict: item.verdict });
-      if (await sendOne(msg, g.primary.imageUrl)) {
+    const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered);
+    if (skippedBadRef || skippedDupGroup || skippedDupText) {
+      console.log(`فیلتر خروجی مدل: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه حذف شد`);
+    }
+    for (const s of sends) {
+      const msg = composeNewsMessage(
+        { sourceName: s.g.primary.sourceName, text: s.text, verdict: s.verdict },
+        s.g.primary.imageUrl ? 950 : 1200, // حالت عکس: متن + حکم همیشه در کپشن جا می‌شود
+      );
+      // عکس خود خبر؛ اگر نماینده عکس نداشت از اعضای همان رویداد (خبر مرتبط)
+      const img = s.g.primary.imageUrl || s.g.members.find((m) => m.imageUrl)?.imageUrl;
+      if (await sendOne(msg, img)) {
         summary.sent++;
-        for (const n of validRefs) mark(ordered[n - 1]);
+        for (const n of s.refs) mark(ordered[n - 1]);
       }
       await sleep(700);
     }

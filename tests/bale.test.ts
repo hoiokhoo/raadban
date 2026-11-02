@@ -13,6 +13,7 @@ import {
   composeDailyReport,
   validateBatchTranslation,
   cleanNewsText,
+  newsTextSimilarity,
   SYSTEM_BALE_ONESHOT,
   SYSTEM_BALE_BATCH_TRANSLATE,
   sourceDisplayName,
@@ -469,5 +470,34 @@ describe('SYSTEM_BALE_ONESHOT نسخهٔ ۴ — قواعد حیاتی خواست
     expect(SYSTEM_BALE_ONESHOT).toContain('injectionWarnings');
     expect(SYSTEM_BALE_ONESHOT).toContain('"text"');
     expect(SYSTEM_BALE_ONESHOT).toContain('"verdict"');
+  });
+});
+
+// ---------- نقد ۳ نوامبر: سقف کپشن عکس + ضدتکرار متن مدل ----------
+
+describe('composeNewsMessageV4 — حالت عکس (سقف کپشن ۱۰۲۴)', () => {
+  test('با سقف ۹۵۰، متن + حکم در کپشن جا می‌شود و ایموجی تنها نمی‌ماند', () => {
+    const long = 'خبر بسیار بلند درباره توافق سیاسی. '.repeat(60);
+    const msg = composeNewsMessageV4({ sourceName: 'خبرگزاری', text: long, verdict: 'تأیید می‌شود' }, 950);
+    expect(msg.length).toBeLessThanOrEqual(1024);
+    expect(msg.endsWith('✅')).toBe(true);
+  });
+  test('بدون عکس، سقف ۱۲۰۰ حفظ می‌شود', () => {
+    const long = 'خبر. '.repeat(400);
+    const msg = composeNewsMessageV4({ sourceName: 'منبع', text: long });
+    expect(msg.length).toBeGreaterThan(1024);
+    expect(msg.length).toBeLessThanOrEqual(1300);
+  });
+});
+
+describe('newsTextSimilarity — ضدتکرار متن دو آیتم مدل', () => {
+  test('همان متن = ۱؛ متن بی‌ربط نزدیک صفر', () => {
+    expect(newsTextSimilarity('توافق تجاری دو کشور امضا شد', 'توافق تجاری دو کشور امضا شد')).toBe(1);
+    expect(newsTextSimilarity('توافق تجاری دو کشور امضا شد', 'قیمت جهانی نفت کاهش یافت')).toBeLessThan(0.2);
+  });
+  test('بازگویی همان رویداد بالای آستانه است', () => {
+    const a = 'نشست سه‌جانبه وزرای خارجه در ژنو درباره آتش‌بس برگزار شد';
+    const b = 'وزرای خارجه در ژنو نشست سه‌جانبه درباره آتش‌بس برگزار کردند';
+    expect(newsTextSimilarity(a, b)).toBeGreaterThanOrEqual(0.55);
   });
 });

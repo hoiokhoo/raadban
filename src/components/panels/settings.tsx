@@ -224,6 +224,116 @@ interface BaleStatus {
   lastJobs: Array<{ status: string; startedAt: string; error: string | null; durationMs: number | null; targetId?: string }>;
 }
 
+// ---------- پیش‌نمایش لیست نهایی ارسال به بله ----------
+interface PreviewItem {
+  order: number;
+  scope: 'خارجی' | 'داخلی';
+  sourceName: string;
+  platform?: string;
+  message: string;
+  text: string;
+  imageUrl: string | null;
+  sourcesCount: number;
+  sourceNames: string[];
+  isTweet: boolean;
+  isTranslated: boolean;
+  publishedAt: string | null;
+  url: string | null;
+}
+
+interface BalePreviewData {
+  windowFrom: string;
+  windowTo: string;
+  totalInWindow: number;
+  alreadySent: number;
+  pendingGroups: number;
+  items: PreviewItem[];
+  note: string;
+}
+
+function BalePreviewCard() {
+  const [preview, setPreview] = useState<BalePreviewData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showImages, setShowImages] = useState(true);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const r = await api<BalePreviewData>('/api/bale/preview');
+    if (r.ok) setPreview(r);
+    else setError(r.error || 'پیش‌نمایش ناموفق بود');
+    setLoading(false);
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  return (
+    <Card>
+      <CardHeader className="pb-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <CardTitle className="text-sm flex items-center gap-1.5"><Send className="h-4 w-4 text-teal-600" /> پیش‌نمایش لیست نهایی ارسال به بله</CardTitle>
+          <Badge variant="outline">صف بعدی: {faNum(preview?.items.length ?? 0)} خبر</Badge>
+          {preview && (
+            <>
+              <Badge variant="outline">در بازه: {faNum(preview.totalInWindow)}</Badge>
+              {preview.alreadySent > 0 && <Badge variant="outline">قبلاً ارسال‌شده (حذف‌شده): {faNum(preview.alreadySent)}</Badge>}
+            </>
+          )}
+          <div className="ms-auto flex gap-2">
+            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={load} disabled={loading}>
+              {loading ? '...' : 'به‌روزرسانی'}
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="text-xs space-y-2">
+        {loading && <LoadingCard title="پیش‌نمایش" />}
+        {error && <p className="text-rose-600">{error}</p>}
+        {preview && !loading && (
+          <>
+            <p className="text-slate-500 leading-5">
+              بازه: از {faDateTime(preview.windowFrom)} تا {faDateTime(preview.windowTo)} — ترتیب واقعی: خارجی اول، داخلی بعد.
+              همین پیام‌ها در چرخهٔ بعدی جداگانه (هر خبر یک پیام) به کانال بله می‌رود؛ عکسِ هر خبر بالای همان پیام.
+            </p>
+            {preview.items.length === 0 && (
+              <p className="text-slate-400 py-2">در این بازه خبر تازه‌ای در صف ارسال نیست — چرخهٔ بعدی بعد از دریافت منابع دوباره پُر می‌شود.</p>
+            )}
+            <div className="space-y-2">
+              {preview.items.map((it) => (
+                <div key={it.order} className="border rounded-lg p-2.5 bg-slate-50 space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="bg-teal-700 text-white rounded-full w-5 h-5 inline-flex items-center justify-center text-[10px]">{faNum(it.order)}</span>
+                    <Badge className={it.scope === 'خارجی' ? 'bg-indigo-100 text-indigo-800' : 'bg-emerald-100 text-emerald-800'}>{it.scope}</Badge>
+                    <b>{it.sourceName}</b>
+                    {it.platform && <Badge variant="outline">{PLATFORM_LABELS[it.platform] || it.platform}</Badge>}
+                    {it.isTweet && <Badge className="bg-sky-100 text-sky-800">توییت</Badge>}
+                    {it.isTweet && !it.isTranslated && <Badge className="bg-amber-100 text-amber-800">بدون ترجمهٔ ثبت‌شده</Badge>}
+                    {it.sourcesCount > 1 && <Badge className="bg-violet-100 text-violet-800">تجمیع: {faNum(it.sourcesCount)} منبع</Badge>}
+                  </div>
+                  <div className="flex gap-2">
+                    {showImages && it.imageUrl && (
+                      <img src={it.imageUrl} alt="" className="w-20 h-20 object-cover rounded border shrink-0"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    )}
+                    <div className="min-w-0">
+                      <p className="text-[13px] leading-6 whitespace-pre-wrap break-words">{it.text}</p>
+                      {it.sourceNames.length > 1 && (
+                        <p className="text-[11px] text-slate-400 mt-1">منابع این رویداد: {it.sourceNames.join('، ')}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <label className="flex items-center gap-2 pt-1"><Switch checked={showImages} onCheckedChange={setShowImages} /> نمایش بندانگشتی عکس‌ها</label>
+            <p className="text-slate-400 leading-5 border-t pt-2">{preview.note}</p>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export function BaleBotPanel() {
   const [st, setSt] = useState<BaleStatus | null>(null);
   const [token, setToken] = useState('');
@@ -261,6 +371,7 @@ export function BaleBotPanel() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold flex items-center gap-2"><Send className="h-5 w-5 text-teal-600" /> بات بله — گزارش خودکار</h2>
+      <BalePreviewCard />
       <Card>
         <CardContent className="p-4 space-y-3">
           <div className="flex flex-wrap items-center gap-2 text-xs">

@@ -7,8 +7,8 @@ import {
   cleanNewsText, clusterItems, composeNewsMessage, emptyState, extractItemImage,
   extractMessageImage, foreignFirstOrder, isAlreadySent, isForeignItem, isLikelyForeign,
   jaccard, makeIds, mergeSentState, normalizeTitle, parseBingNewsRss, parseFeed,
-  parseTelegramPage, splitForBale, splitPhotoCaption, validateBatchTranslation,
-  validateOneShot, verdictToEmoji, type BotItem,
+  parseTelegramPage, planBotSends, splitForBale, splitPhotoCaption, unescapeEntities,
+  validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem,
 } from '../bot/bot';
 
 // ---------- کمکی ----------
@@ -336,5 +336,72 @@ describe('jaccard', () => {
   test('همان خبر = ۱، بی‌ربط = نزدیک صفر', () => {
     expect(jaccard('توافق تجاری دو کشور امضا شد', 'توافق تجاری دو کشور امضا شد!')).toBe(1);
     expect(jaccard('جلسه شورای امنیت', 'قیمت جهانی گندم')).toBeLessThan(0.2);
+  });
+});
+
+describe('planBotSends — برنامهٔ ارسال مسیر مدل', () => {
+  const g = (content: string, lang = 'fa'): ReturnType<typeof makeGroup> => makeGroup(content, lang);
+  function makeGroup(content: string, lang: string) {
+    const it = item({ content, language: lang, region: lang === 'fa' ? 'ایران' : 'آمریکا' });
+    return { primary: it, members: [it] };
+  }
+  const groups = [
+    g('توافق تجاری جدید واشنگتن و پکن امضا شد'),
+    g('European Union leaders meet in Brussels on sanctions', 'en'),
+    g('جلسه شورای امنیت درباره آتش‌بس برگزار شد'),
+  ];
+  test('refs نامعتبر حذف می‌شود', () => {
+    const r = planBotSends([{ refs: [99], text: 'متن خبر', verdict: '' }, { refs: [1], text: 'خبر معتبر', verdict: '' }], groups);
+    expect(r.skippedBadRef).toBe(1);
+    expect(r.sends.length).toBe(1);
+    expect(r.sends[0].g).toBe(groups[0]);
+  });
+  test('دو آیتم با refs مشترک — رویداد دوباره ارسال نمی‌شود', () => {
+    const r = planBotSends([
+      { refs: [1], text: 'توافق تجاری واشنگتن و پکن امروز نهایی شد', verdict: '' },
+      { refs: [1, 2], text: 'گزارش دیگر از همین نشست اروپایی', verdict: '' },
+    ], groups);
+    expect(r.skippedDupGroup).toBe(1);
+    expect(r.sends.length).toBe(1);
+  });
+  test('دو متن بسیار مشابه از شماره‌های مختلف — فقط یکی ارسال می‌شود', () => {
+    const r = planBotSends([
+      { refs: [1], text: 'توافق تجاری جدید واشنگتن و پکن امروز امضا شد', verdict: '' },
+      { refs: [3], text: 'توافق تجاری جدید واشنگتن و پکن امروز در پایتخت امضا شد', verdict: '' },
+    ], groups);
+    expect(r.skippedDupText).toBe(1);
+    expect(r.sends.length).toBe(1);
+  });
+  test('ترتیب نهایی: خارجی اول، داخلی بعد — حتی اگر مدل برعکس داده', () => {
+    const r = planBotSends([
+      { refs: [1], text: 'خبر داخلی نخست', verdict: '' },
+      { refs: [2], text: 'Brussels summit conclusions', verdict: '' },
+      { refs: [3], text: 'خبر داخلی دوم', verdict: '' },
+    ], groups);
+    expect(r.sends[0].g).toBe(groups[1]); // خارجی اول
+    expect(r.sends.map((s) => s.g)).toEqual([groups[1], groups[0], groups[2]]);
+  });
+});
+
+describe('unescapeEntities — مسیر ارسال بدون parse_mode', () => {
+  test('موجودیت‌ها واکشی می‌شوند — دیگر «&amp;» عیناً نمایش داده نمی‌شود', () => {
+    expect(unescapeEntities('قرارداد &amp; توافق')).toBe('قرارداد & توافق');
+    expect(unescapeEntities('&quot;نقل&quot; &lt;تگ&gt;')).toBe('"نقل" <تگ>');
+    expect(unescapeEntities('عدد &#x06F1;&#x06F2;')).toBe('عدد ۱۲');
+  });
+});
+
+describe('composeNewsMessage — حالت عکس (سقف کپشن)', () => {
+  test('با سقف ۹۵۰، «متن + حکم» همیشه زیر ۱۰۲۴ می‌ماند و ایموجی تنها نمی‌ماند', () => {
+    const long = 'خبر بسیار بلند. '.repeat(150);
+    const msg = composeNewsMessage({ sourceName: 'منبع', text: long, verdict: 'تأیید می‌شود' }, 950);
+    expect(msg.length).toBeLessThanOrEqual(1024);
+    expect(msg.endsWith('✅')).toBe(true); // حکم در همان کپشن می‌ماند
+  });
+  test('پیش‌فرض همچنان ۱۲۰۰ است', () => {
+    const long = 'خبر. '.repeat(400);
+    const msg = composeNewsMessage({ sourceName: 'منبع', text: long });
+    expect(msg.length).toBeGreaterThan(1024);
+    expect(msg.length).toBeLessThanOrEqual(1300);
   });
 });

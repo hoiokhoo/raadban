@@ -250,18 +250,30 @@ export function verdictToEmoji(verdict: string | undefined | null): string {
 }
 
 /** پیام هر خبر — نسخهٔ ۴: فقط «نام منبع: متن خبر» + ایموجی قضاوت در صورت وجود.
- *  بدون پیوند، بدون زمان، بدون توضیح راستی‌آزمایی، بدون امضا — خواستهٔ صریح کاربر (۲ نوامبر ۲۰۲۶). */
+ *  بدون پیوند، بدون زمان، بدون توضیح راستی‌آزمایی، بدون امضا — خواستهٔ صریح کاربر (۲ نوامبر ۲۰۲۶).
+ *  textLimit: در حالت عکس سقف پایین‌تر تا «متن + حکم» در کپشن ۱۰۲۴ جا شود و ایموجی تنها نماند. */
 export function composeNewsMessageV4(input: {
   sourceName: string;
   platform?: string;
   text: string;
   verdict?: string;
-}): string {
+}, textLimit = 1200): string {
   const src = sourceDisplayName(input.sourceName, input.platform) || 'منبع ناشناس';
-  const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, 1200))}`];
+  const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, textLimit))}`];
   const em = verdictToEmoji(input.verdict);
   if (em) L.push('', em);
   return L.join('\n');
+}
+
+/** شباهت دو متن خبری برای ضدتکرار متن مدل درون چرخه — خالص و تست‌پذیر (۰..۱) */
+export function newsTextSimilarity(a: string, b: string): number {
+  const toks = (s: string): Set<string> =>
+    new Set(cleanNewsText(s).toLowerCase().split(/\s+/).filter((w) => w.length > 1));
+  const A = toks(a), B = toks(b);
+  if (A.size === 0 || B.size === 0) return 0;
+  let inter = 0;
+  for (const x of A) if (B.has(x)) inter++;
+  return inter / (A.size + B.size - inter);
 }
 
 export interface PostRow {
@@ -674,6 +686,7 @@ export async function runBaleDigest(opts: { force?: boolean } = {}): Promise<Dig
   let newsSent = 0;
   let images = 0;
   const markIds: string[] = [];
+  const sentTexts: string[] = []; // متن‌های ارسالی همین چرخه — ضدتکرار متن مدل
 
   // ۷) شکست مدل → مسیر خام: هر گروه (خبر تجمیع‌شده) یک پیام — با ترتیب خارجی اول
   if (aiFailed || !one) {
@@ -725,16 +738,21 @@ export async function runBaleDigest(opts: { force?: boolean } = {}): Promise<Dig
 
   for (const s of foreignFirstOrder(sends, (x) => x.primary.language)) {
     if (sentIds.has(s.primary.id) || markIds.some((id) => s.refIds.includes(id))) continue;
+    // ضدتکرار متن: دو آیتم مدل که دربارهٔ همان رویدادند (شباهت ≥ ۰٫۵۵) فقط یک‌بار ارسال می‌شوند
+    if (sentTexts.some((t) => newsTextSimilarity(t, s.text) >= 0.55)) continue;
+    sentTexts.push(s.text);
+    // عکس خود خبر؛ اگر خبر اصلی عکس نداشت از اعضای همان رویداد تجمیع‌شده
+    const img = s.primary.imageUrl || (sendable.find((p) => s.refIds.includes(p.id) && p.imageUrl)?.imageUrl ?? null);
     const msg = composeNewsMessageV4({
       sourceName: s.origin.source?.name || s.primary.source?.name || 'منبع ناشناس',
       platform: s.primary.source?.platform || undefined,
       text: s.text,
       verdict: s.verdict,
-    });
-    const ok1 = await sendOne(msg, s.primary.imageUrl ?? null);
+    }, img ? 950 : 1200); // حالت عکس: متن + حکم همیشه در کپشن ۱۰۲۴ جا می‌شود — ایموجی تنها نمی‌ماند
+    const ok1 = await sendOne(msg, img);
     if (ok1) {
       newsSent++;
-      if (s.primary.imageUrl) images++;
+      if (img) images++;
       markIds.push(...s.refIds); // همهٔ اعضای رویداد تجمیع‌شده علامت می‌خورند — بازنگشتن در چرخهٔ بعد
     }
     await sleep(700);
@@ -924,5 +942,108 @@ export async function runBaleDailyReport(opts: { force?: boolean; dayISO?: strin
   return {
     ran: true, sent: send.ok, posts: posts.length, items: items.length,
     chunks: send.chunks, aiCalls: 1, searches, aiFailed, error: send.ok ? undefined : send.error,
+  };
+}
+
+// ---------- پیش‌نمایش لیست نهایی ارسال به بله (فقط‌خواندنی — خواستهٔ صریح کاربر) ----------
+
+export interface PreviewItem {
+  order: number;
+  scope: 'خارجی' | 'داخلی';
+  sourceName: string;
+  platform?: string;
+  /** متن دقیق پیام با همان قالب نسخهٔ ۴ — «منبع: متن» (حکم ✅/⚠️ در لحظهٔ ارسال با جست‌وجوی وب اضافه می‌شود) */
+  message: string;
+  text: string;
+  imageUrl: string | null;
+  /** چند منبع این رویداد را پوشش داده‌اند (تجمیع) */
+  sourcesCount: number;
+  sourceNames: string[];
+  isTweet: boolean;
+  isTranslated: boolean;
+  publishedAt: string | null;
+  url: string | null;
+}
+
+export interface BalePreview {
+  windowFrom: string;
+  windowTo: string;
+  totalInWindow: number;
+  alreadySent: number;
+  pendingGroups: number;
+  items: PreviewItem[];
+  note: string;
+}
+
+/** پیش‌نمایش صادقانهٔ همان‌ چیزی که در چرخهٔ بعدی به بله می‌رود — بدون ارسال، بدون علامت‌زدن، بدون فراخوانی مدل.
+ *  تجمیع بر پایهٔ خوشه‌های واقعی سامانه؛ ترتیب: خارجی اول، داخلی بعد؛ همان قالب پیام نسخهٔ ۴.
+ *  حکم ✅/⚠️ فقط پس از جست‌وجوی وب در لحظهٔ ارسال معلوم می‌شود — اینجا هرگز حکم ساختگی نمایش داده نمی‌شود. */
+export async function previewBaleDigest(): Promise<BalePreview> {
+  const cfg = await getDigestConfig();
+  const lastRow = await db.setting.findUnique({ where: { key: 'bale_digest_last_at' } });
+  const windowStart = lastRow && !Number.isNaN(new Date(lastRow.value).getTime())
+    ? new Date(lastRow.value)
+    : new Date(Date.now() - cfg.intervalMin * 60_000);
+  const now = new Date();
+
+  const posts = (await db.post.findMany({
+    where: {
+      isAd: false, isIrrelevant: false,
+      duplicateOfId: null,
+      processingStatus: { not: 'خطا' },
+      OR: [{ publishedAt: { gte: windowStart } }, { publishedAt: null, createdAt: { gte: windowStart } }],
+    },
+    include: { source: { select: { name: true, platform: true } } },
+    orderBy: [{ publishedAt: { sort: 'desc', nulls: 'last' } }, { createdAt: 'desc' }],
+    take: cfg.maxPosts,
+  })) as PostRow[];
+
+  const sentIds = await loadSentPostIds();
+  const sendable = posts.filter((p) => !sentIds.has(p.id));
+
+  const memberships = await db.clusterMember.findMany({
+    where: { postId: { in: sendable.map((p) => p.id) } },
+    select: { postId: true, clusterId: true },
+  });
+  const clusterOfPost = new Map(memberships.map((m) => [m.postId, m.clusterId]));
+  const groups = groupFallbackPosts(sendable, clusterOfPost);
+
+  const items: PreviewItem[] = foreignFirstOrder(groups, (x) => x.primary.language).map((g, i) => {
+    const p = g.primary;
+    const isTweet = isTweetPost(p);
+    const text = isTweet
+      ? tweetMessageText(p)
+      : trimFa((p.translationFa || '').trim() || cleanNewsText(p.content), 950);
+    // عکس خود خبر؛ اگر خبر اصلی عکس نداشت از اعضای همان رویداد — همان منطق ارسال واقعی
+    const memberImg = sendable.find((q) => g.memberIds.includes(q.id) && q.imageUrl)?.imageUrl ?? null;
+    return {
+      order: i + 1,
+      scope: (p.language || 'fa').trim().toLowerCase() !== 'fa' ? ('خارجی' as const) : ('داخلی' as const),
+      sourceName: p.source?.name || 'منبع ناشناس',
+      platform: p.source?.platform || undefined,
+      message: composeNewsMessageV4({
+        sourceName: p.source?.name || 'منبع ناشناس',
+        platform: p.source?.platform || undefined,
+        text,
+      }, memberImg ? 950 : 1200),
+      text,
+      imageUrl: p.imageUrl || memberImg,
+      sourcesCount: g.memberIds.length,
+      sourceNames: g.sourceNames,
+      isTweet,
+      isTranslated: Boolean((p.translationFa || '').trim()),
+      publishedAt: p.publishedAt ? p.publishedAt.toISOString() : null,
+      url: p.url,
+    };
+  });
+
+  return {
+    windowFrom: windowStart.toISOString(),
+    windowTo: now.toISOString(),
+    totalInWindow: posts.length,
+    alreadySent: posts.length - sendable.length,
+    pendingGroups: groups.length,
+    items,
+    note: 'حکم ✅/⚠️ فقط در لحظهٔ ارسال و فقط با شواهد جست‌وجوی وب اضافه می‌شود — پیش‌نمایش هرگز حکم ساختگی نشان نمی‌دهد.',
   };
 }

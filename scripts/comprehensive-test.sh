@@ -35,11 +35,11 @@ H=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 http://localhost:3000/)
 if [ "$H" = "200" ]; then ok "صفحهٔ اصلی 200"; else bad "صفحهٔ اصلی: $H"; fi
 
 BAD_API=""
-for ep in status sources posts events claims categories topics clusters reports schedule jobs costs errors references channels settings ai/keys ai/providers bale; do
+for ep in status sources posts events claims categories topics clusters reports schedule jobs costs errors references channels settings ai/keys ai/providers bale bale/preview; do
   C=$(curl -s -o /dev/null -w "%{http_code}" --max-time 25 "http://localhost:3000/api/$ep")
   [ "$C" = "200" ] || BAD_API="$BAD_API /api/$ep=$C"
 done
-if [ -z "$BAD_API" ]; then ok "همهٔ ۲۰ مسیر API در دسترس"; else bad "API خراب:$BAD_API"; fi
+if [ -z "$BAD_API" ]; then ok "همهٔ ۲۱ مسیر API در دسترس (شامل پیش‌نمایش بله)"; else bad "API خراب:$BAD_API"; fi
 
 # مسیرهای پویا — یک پست واقعی (references فقط POST است؛ 405 یعنی مسیر وصل است)
 PID=$(bun -e 'import {PrismaClient} from "@prisma/client"; const db=new PrismaClient(); const p=await db.post.findFirst({select:{id:true}}); console.log(p?.id||""); process.exit(0);' 2>/dev/null | tail -1)

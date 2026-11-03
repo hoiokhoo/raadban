@@ -1,0 +1,31 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'app.raadban.viewer'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'app.raadban.viewer'
+        minSdk 24
+        targetSdk 35
+        versionCode 2
+        versionName '1.1'
+        // نشانی پیش‌فرض سرور — از ورودی ورک‌فلو (APP_URL) یا پیش‌فرض خالی
+        resValue 'string', 'app_default_url', (project.findProperty('APP_URL') ?: '')
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+}

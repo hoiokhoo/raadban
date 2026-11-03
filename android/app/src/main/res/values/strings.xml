@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">رصد‌بان</string>
+    <string name="setup_title">رصد‌بان موبایل</string>
+    <string name="setup_hint">نشانی سرور برنامه را وارد کنید (مثال: http://192.168.1.5:3000)</string>
+    <string name="setup_button">اتصال</string>
+    <string name="setup_error">نشانی معتبر نیست — با http:// یا https:// شروع شود</string>
+</resources>

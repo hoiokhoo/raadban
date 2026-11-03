@@ -56,7 +56,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="apk-$(date -u +'%Y%m%d-%H%M')"
+          TAG="apk-$(date -u +'%Y%m%d-%H%M')-r${GITHUB_RUN_NUMBER}"
           gh release create "$TAG" dist/raadban-mobile.apk \
             --repo "$GITHUB_REPOSITORY" \
             --title "رصد‌بان موبایل — $TAG" \

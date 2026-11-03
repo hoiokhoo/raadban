@@ -13,8 +13,14 @@ function encrypt(plain) {
 }
 const db = new PrismaClient();
 const row = await db.setting.findUnique({ where: { key: 'ai_provider_keys' } });
+// کلید فقط از محیط خوانده می‌شود — هرگز در کد یا تاریخچه گیت هاردکد نشود
+const key = process.env.OPENROUTER_API_KEY;
+if (!key) {
+  console.error('OPENROUTER_API_KEY در محیط تنظیم نشده — کاری انجام نشد');
+  process.exit(1);
+}
 const obj = row ? JSON.parse(row.value) : {};
-obj.openrouter = encrypt('REDACTED-PURGED-FROM-HISTORY');
+obj.openrouter = encrypt(key);
 await db.setting.upsert({
   where: { key: 'ai_provider_keys' },
   create: { key: 'ai_provider_keys', value: JSON.stringify(obj) },

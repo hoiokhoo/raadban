@@ -1,14 +1,14 @@
-name: رصدبان‌بات — خبررسان بله هر ۳۰ دقیقه
+name: رصدبان‌بات — خبررسان ۲۴ ساعتهٔ بله (هر ۳۰ دقیقه)
 
 on:
   schedule:
     - cron: '*/30 * * * *' # اسلات اصلی — هر ۳۰ دقیقه رأس و نیم‌رأس
-    - cron: '13,43 * * * *' # اسلات پشتیبان — در ساعات شلوغی گیت‌هاب اجرای رأس ساعت ممکن است حذف یا تأخیر شود؛ حافظهٔ ضدتکرار ربات مانع ارسال دوبارهٔ همان خبر می‌شود
-  workflow_dispatch: {} # اجرای آزمایشی دستی از تب Actions
+    - cron: '13,43 * * * *' # اسلات پشتیبان — در ساعات شلوغی گیت‌هاب اجرای رأس ساعت ممکن است حذف یا تأخیر طولانی شود؛ حافظهٔ ضدتکرار ربات مانع ارسال دوبارهٔ همان خبر می‌شود
+  workflow_dispatch: {} # اجرای دستی از تب Actions
 
 concurrency:
   group: bale-bot
-  cancel-in-progress: false # دو چرخه هم‌زمان → ضدتکرار خراب نمی‌شود
+  cancel-in-progress: false # اجراها پشت‌سرهم صف می‌شوند؛ ضدتکرار از ارسال دوباره جلوگیری می‌کند
 
 permissions:
   contents: write # برای کامیت bot/state.json (حافظهٔ ضدتکرار)
@@ -16,7 +16,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 45 # چرخه = اجرای ربات (۲-۳ دقیقه) + انتظار ۲۶ دقیقه تا dispatch چرخهٔ بعد
     steps:
       - name: دریافت ریپو
         uses: actions/checkout@v4
@@ -48,3 +48,17 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
+
+      # چرخهٔ خودادامهٔ ۲۴ ساعته: هر اجرا پس از ۲۶ دقیقه انتظار، اجرای بعدی را خودش راه می‌اندازد.
+      # به این ترتیب حتی اگر cron گیت‌هاب در ساعات شلوغی حذف شود، زنجیره قطع نمی‌شود.
+      # نکته: dispatch با GITHUB_TOKEN اجرای جدید نمی‌سازد؛ برای همین از BOT_DISPATCH_TOKEN استفاده می‌شود.
+      - name: ادامهٔ زنجیرهٔ ۲۴ ساعته (راه‌اندازی چرخهٔ بعد)
+        if: always() # حتی اگر ربات خطا داد، زنجیره نبخشد
+        env:
+          GH_TOKEN: ${{ secrets.BOT_DISPATCH_TOKEN }}
+        run: |
+          sleep 1560 # ۲۶ دقیقه — فاصلهٔ چرخهٔ بعدی از همین اجرا (با اجرای ~۳ دقیقه‌ای ربات ≈ هر ۳۰ دقیقه)
+          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/bale-bot.yml/dispatches" \
+            -f ref="${GITHUB_REF_NAME}" --silent \
+            && echo "چرخهٔ بعدی راه‌اندازی شد" \
+            || echo "::warning::dispatch چرخهٔ بعدی ناموفق بود — cron پشتیبان چرخه را ادامه می‌دهد"

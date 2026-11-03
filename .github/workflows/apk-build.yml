@@ -1,0 +1,64 @@
+name: ساخت APK موبایل رصد‌بان
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_url:
+        description: 'نشانی وب برنامه (مثل http://192.168.1.5:3000) — خالی یعنی بعد از نصب داخل خود اپ وارد می‌شود'
+        required: false
+        default: ''
+  push:
+    paths: ['android/**', '.github/workflows/apk-build.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: دریافت ریپو
+        uses: actions/checkout@v4
+
+      - name: جاوا ۱۷
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: گریدل ۸٫۱۰٫۲
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: ساخت APK
+        env:
+          APP_URL: ${{ inputs.app_url }}
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+          cd android
+          gradle -PAPP_URL="$APP_URL" assembleDebug --no-daemon --stacktrace
+
+      - name: آماده‌سازی خروجی
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/debug/app-debug.apk dist/raadban-mobile.apk
+          ls -lh dist/
+
+      - name: بارگذاری آرتیفکت
+        uses: actions/upload-artifact@v4
+        with:
+          name: raadban-apk
+          path: dist/raadban-mobile.apk
+
+      - name: انتشار در Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="apk-$(date -u +'%Y%m%d-%H%M')"
+          gh release create "$TAG" dist/raadban-mobile.apk \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "رصد‌بان موبایل — $TAG" \
+            --notes "نصب: فایل APK را در موبایل باز کنید و اجازهٔ نصب از مرورگر را بدهید. بار اول، نشانی سرور برنامه را وارد کنید (مثال: http://192.168.1.5:3000). رابط فارسی راست‌چین است." \
+            --latest

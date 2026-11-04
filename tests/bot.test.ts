@@ -4,11 +4,11 @@
  */
 import { describe, expect, test } from 'bun:test';
 import {
-  cleanNewsText, clusterItems, composeNewsMessage, emptyState, extractItemImage,
-  extractMessageImage, fluentFaText, foreignFirstOrder, isAlreadySent, isForeignItem, isLikelyForeign,
+  cleanNewsText, clusterItems, composeNewsMessage, emptyState, extractAvatarUrl, extractItemImage,
+  extractMessageImage, extractTweetsFromHtml, fluentFaText, foreignFirstOrder, freshTweets, isAlreadySent, isForeignItem, isLikelyForeign,
   isSimilarToAny, isStorySent, jaccard, makeIds, mergeSentState, needsTranslation, normalizeTitle, parseBingNewsRss, parseFeed,
-  parseTelegramPage, planBotSends, splitForBale, splitPhotoCaption, tokensOf, unescapeEntities,
-  validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem,
+  parseGeminiKeys, parseTargets, parseTelegramPage, planBotSends, rotateAccounts, splitForBale, splitPhotoCaption, tokensOf, unescapeEntities,
+  validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem, type BotState,
 } from '../bot/bot';
 
 // ---------- کمکی ----------
@@ -540,5 +540,110 @@ describe('composeNewsMessage — حالت عکس (سقف کپشن)', () => {
     const msg = composeNewsMessage({ sourceName: 'منبع', text: long });
     expect(msg.length).toBeGreaterThan(1024);
     expect(msg.length).toBeLessThanOrEqual(1300);
+  });
+});
+
+// ---------- استخر کلیدهای جمینی و مقصدهای ارسال (نسخهٔ ۲ ربات) ----------
+
+describe('parseGeminiKeys — استخر چندکلید جمینی', () => {
+  test('آرایهٔ JSON کلیدها به ترتیب', () => {
+    expect(parseGeminiKeys('["AQ.k1","AQ.k2"]')).toEqual(['AQ.k1', 'AQ.k2']);
+  });
+  test('جداشده با ویرگول/خط جدید + حذف تکراری', () => {
+    expect(parseGeminiKeys('AQ.a, AQ.b\nAQ.a')).toEqual(['AQ.a', 'AQ.b']);
+  });
+  test('پشتیبان تک‌کلید GEMINI_API_KEY', () => {
+    expect(parseGeminiKeys(undefined, 'AQ.env')).toEqual(['AQ.env']);
+    expect(parseGeminiKeys('', 'AQ.env')).toEqual(['AQ.env']);
+  });
+  test('بدون هیچ کلیدی → خالی', () => {
+    expect(parseGeminiKeys('', '')).toEqual([]);
+    expect(parseGeminiKeys(undefined, undefined)).toEqual([]);
+  });
+});
+
+describe('parseTargets — چت شخصی + کانال‌های ادمین‌شده', () => {
+  test('چت و کانال‌ها یکتا و مرتب', () => {
+    expect(parseTargets('1234', '@chan1, -1001234567\n@chan1')).toEqual(['1234', '@chan1', '-1001234567']);
+  });
+  test('بدون کانال → فقط چت شخصی', () => {
+    expect(parseTargets('999', '')).toEqual(['999']);
+    expect(parseTargets('999', undefined)).toEqual(['999']);
+  });
+});
+
+describe('rotateAccounts — چرخش حساب‌های توییت', () => {
+  const accs = [{ handle: 'a' }, { handle: 'b' }, { handle: 'c' }];
+  test('پنجرهٔ چرخشی از cursor', () => {
+    const { picked, nextCursor } = rotateAccounts(accs, 1, 2);
+    expect(picked.map((a) => a.handle)).toEqual(['b', 'c']);
+    expect(nextCursor).toBe(0);
+  });
+  test('بیشتر از طول فهرست → فهرست کامل بدون تکرار', () => {
+    const { picked, nextCursor } = rotateAccounts(accs, 0, 5);
+    expect(picked.map((a) => a.handle)).toEqual(['a', 'b', 'c']);
+    expect(nextCursor).toBe(0);
+  });
+  test('فهرست خالی', () => {
+    expect(rotateAccounts([], 0, 3).picked).toEqual([]);
+  });
+});
+
+// ---------- توییت‌های ایکس ----------
+
+const TWEET_HTML = `<html><head>
+<link href="https://pbs.twimg.com/profile_images/1580000/test_avatar_normal.jpg" rel="shortcut icon"/>
+</head><body>
+<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"timeline":{"entries":[
+{"content":{"tweet":{"id_str":"1711111111111111111","full_text":"Breaking: talks resume in Geneva tomorrow &amp; more https://t.co/xyz","created_at":"Tue Nov 04 09:30:00 +0000 2026","user":{"screen_name":"Reuters"}}}},
+{"content":{"tweet":{"id_str":"1712222222222222222","full_text":"Statement on sanctions package released today https://t.co/ab2","created_at":"Tue Nov 04 10:05:00 +0000 2026","user":{"screen_name":"Reuters"}}}},
+{"content":{"tweet":{"id_str":"1713333333333333333","full_text":"Old post from last week","created_at":"Mon Oct 27 08:00:00 +0000 2026","user":{"screen_name":"Reuters"}}}}
+]}}}}</script>
+</body></html>`;
+
+describe('extractTweetsFromHtml — پارس خط زمانی سندیکاسیون ایکس', () => {
+  test('توییت‌های بیرونی استخراج و پاک‌سازی می‌شوند (بدون t.co، واکشی موجودیت)', () => {
+    const ts = extractTweetsFromHtml(TWEET_HTML, 'Reuters');
+    expect(ts.length).toBe(3);
+    expect(ts[0].id).toBe('1711111111111111111');
+    expect(ts[0].text).toContain('Geneva tomorrow & more');
+    expect(ts[0].text).not.toContain('t.co');
+    expect(ts[0].createdAt).not.toBeNull();
+  });
+  test('بدون __NEXT_DATA__ → مسیر پشتیبان HTML خالی است ولی خطا نمی‌دهد', () => {
+    expect(extractTweetsFromHtml('<div class="tweet">no data</div>', 'Reuters')).toEqual([]);
+    expect(extractTweetsFromHtml('', 'Reuters')).toEqual([]);
+  });
+});
+
+describe('extractAvatarUrl — عکس پروفایل صاحب حساب', () => {
+  test('نسخهٔ ۴۰۰x400 جای _normal ترجیح داده می‌شود', () => {
+    expect(extractAvatarUrl(TWEET_HTML)).toBe('https://pbs.twimg.com/profile_images/1580000/test_avatar_400x400.jpg');
+  });
+  test('بدون عکس پروفایل → undefined', () => {
+    expect(extractAvatarUrl('<html></html>')).toBeUndefined();
+  });
+});
+
+describe('freshTweets — ضدتکرار توییت بین‌چرخه‌ای', () => {
+  const now = new Date('2026-11-04T11:00:00Z').getTime();
+  const tw = (id: string, daysAgo: number): { id: string; text: string; createdAt: Date | null } => ({
+    id,
+    text: `Fresh statement number ${id} about negotiations`,
+    createdAt: new Date(now - daysAgo * 3600_000),
+  });
+  const st: BotState = { ...emptyState(), sentIds: { 'tw-reuters-999': now } };
+  const tweets = [tw('999', 1), tw('888', 1), tw('777', 50)]; // 999 ارسال‌شده؛ 777 خارج از پنجره
+  test('توییت ارسال‌شده و خارج از پنجره رد می‌شود؛ تازه باقی می‌ماند', () => {
+    const { fresh } = freshTweets(st, tweets, 'Reuters', [], { windowHours: 3, nowMs: now, limit: 10 });
+    expect(fresh.map((t) => t.id)).toEqual(['888']);
+  });
+  test('blocked شامل تکراری و قدیمی است', () => {
+    const { blocked } = freshTweets(st, tweets, 'Reuters', [], { windowHours: 3, nowMs: now, limit: 10 });
+    expect(blocked).toBe(2);
+  });
+  test('سقف limit رعایت می‌شود', () => {
+    const { fresh } = freshTweets(st, [tw('1', 1), tw('2', 1), tw('3', 1)], 'Reuters', [], { windowHours: 3, nowMs: now, limit: 2 });
+    expect(fresh.length).toBe(2);
   });
 });

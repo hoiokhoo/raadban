@@ -1,10 +1,16 @@
-name: رصدبان‌بات — خبررسان ۲۴ ساعتهٔ بله (هر ۳۰ دقیقه)
+name: رصدبان‌بات — خبررسان ریل‌تایم بله (هر ~۱۰ دقیقه)
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # اسلات اصلی — هر ۳۰ دقیقه رأس و نیم‌رأس
-    - cron: '13,43 * * * *' # اسلات پشتیبان — در ساعات شلوغی گیت‌هاب اجرای رأس ساعت ممکن است حذف یا تأخیر طولانی شود؛ حافظهٔ ضدتکرار ربات مانع ارسال دوبارهٔ همان خبر می‌شود
-  workflow_dispatch: {} # اجرای دستی از تب Actions
+    - cron: '*/10 * * * *' # اسلات اصلی — هر ۱۰ دقیقه؛ ضدتکرار state مانع ارسال دوبارهٔ همان خبر می‌شود
+    - cron: '6,16,26,36,46,56 * * * *' # اسلات پشتیبان — در ساعات شلوغی گیت‌هاب اجرای رأس اسلات ممکن است تأخیر طولانی داشته باشد
+  workflow_dispatch:
+    inputs:
+      discover_chats:
+        description: 'فقط کشف چت‌ها/کانال‌ها (بدون جمع‌آوری خبر و ارسال)'
+        type: boolean
+        default: false
+  # چرخهٔ خودادامه: هر اجرا پس از خواب کوتاه، اجرای بعدی را خودش dispatch می‌کند (پایین)
 
 concurrency:
   group: bale-bot
@@ -16,7 +22,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 45 # چرخه = اجرای ربات (۲-۳ دقیقه) + انتظار ۲۶ دقیقه تا dispatch چرخهٔ بعد
+    timeout-minutes: 30 # چرخه = اجرای ربات (۲-۴ دقیقه) + انتظار ~۷ دقیقه تا dispatch چرخهٔ بعد
     steps:
       - name: دریافت ریپو
         uses: actions/checkout@v4
@@ -24,17 +30,21 @@ jobs:
       - name: نصب Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: اجرای ربات (جمع‌آوری، ترجمه، ارسال به بله)
+      - name: اجرای ربات (جمع‌آوری، ترجمه، ارسال به بله — خبر + توییت)
         env:
           BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
           BALE_CHAT_ID: ${{ secrets.BALE_CHAT_ID }}
+          BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }} # کانال‌های ادمین‌شده — اختیاری، جداشده با ویرگول
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }} # استخر کلیدهای جمینی — اولویت اول و چرخش خودکار
           NEWS_WINDOW_HOURS: '3'
           MAX_ITEMS: '12'
+          MAX_TWEETS: '6'
+          TWEET_ACCOUNTS_PER_CYCLE: '6'
           BOT_STATE_FILE: bot/state.json
-        run: bun bot/bot.ts
+        run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }}
 
       - name: ثبت حافظهٔ ضدتکرار (state) در ریپو
         run: |
@@ -49,15 +59,16 @@ jobs:
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
 
-      # چرخهٔ خودادامهٔ ۲۴ ساعته: هر اجرا پس از ۲۶ دقیقه انتظار، اجرای بعدی را خودش راه می‌اندازد.
-      # به این ترتیب حتی اگر cron گیت‌هاب در ساعات شلوغی حذف شود، زنجیره قطع نمی‌شود.
+      # چرخهٔ خودادامهٔ ۲۴ ساعته: هر اجرا پس از ~۷ دقیقه انتظار، اجرای بعدی را خودش راه می‌اندازد.
+      # با اجرای ~۲ تا ۴ دقیقه‌ای ربات، فاصلهٔ واقعی پیام‌ها ≈ هر ۱۰ دقیقه — ریل‌تایم بدون لیمیت.
+      # ریپوی عمومی: دقایق رانر گیت‌هاب رایگان و نامحدود است (۲۸۸ اجرا/روز ≈ ۹۰۰ دقیقه/روز — بدون هزینه).
       # نکته: dispatch با GITHUB_TOKEN اجرای جدید نمی‌سازد؛ برای همین از BOT_DISPATCH_TOKEN استفاده می‌شود.
       - name: ادامهٔ زنجیرهٔ ۲۴ ساعته (راه‌اندازی چرخهٔ بعد)
         if: always() # حتی اگر ربات خطا داد، زنجیره نبخشد
         env:
           GH_TOKEN: ${{ secrets.BOT_DISPATCH_TOKEN }}
         run: |
-          sleep 1560 # ۲۶ دقیقه — فاصلهٔ چرخهٔ بعدی از همین اجرا (با اجرای ~۳ دقیقه‌ای ربات ≈ هر ۳۰ دقیقه)
+          sleep 420 # ~۷ دقیقه — فاصلهٔ چرخهٔ بعدی از همین اجرا؛ در حالت کشف چت‌ها بی‌اثر است
           gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/bale-bot.yml/dispatches" \
             -f ref="${GITHUB_REF_NAME}" --silent \
             && echo "چرخهٔ بعدی راه‌اندازی شد" \

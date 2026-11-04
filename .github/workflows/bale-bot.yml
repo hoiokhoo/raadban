@@ -40,6 +40,7 @@ jobs:
           OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }} # استخر کلیدهای جمینی — اولویت اول و چرخش خودکار
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
           NEWS_WINDOW_HOURS: '3'
           MAX_ITEMS: '12'
           MAX_TWEETS: '6'

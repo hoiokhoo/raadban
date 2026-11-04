@@ -14,6 +14,9 @@ ok()   { PASS=$((PASS+1)); echo "✅ $1"; }
 bad()  { FAIL=$((FAIL+1)); echo "❌ $1"; }
 section() { echo; echo "━━━ $1 ━━━"; }
 
+# ۰) آماده‌سازی: seed رویدادهای مستند (upsert idempotent — بانک تازهٔ سندباکس را کامل می‌کند)
+bun run scripts/seed-events.ts >/dev/null 2>&1 || echo "⚠️  seed رویدادها اجرا نشد — اگر تست رویدادها قرمز شد این را ببینید"
+
 # ۱) تایپ‌چک — فقط src و tests (نمونه‌ها/اسکریپت‌های قدیمی خارج از دامنهٔ محصول)
 section "۱) تایپ‌چک TypeScript"
 ERRS=$(bunx tsc --noEmit 2>&1 | grep -cE "^(src|tests)/")

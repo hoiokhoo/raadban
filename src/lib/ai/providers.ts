@@ -106,38 +106,54 @@ const FREE_PROVIDERS: FreeProviderSpec[] = [
 
 /**
  * زنجیره پیش‌فرض — تابع خالص (برای تست):
- * اگر کلید OpenRouter موجود باشد، OpenRouter پیش‌فرض (سرِ زنجیره) است؛
- * وگرنه gemini اول؛ zai/GLM همیشه پشتیبان اولِ پس از پیش‌فرض؛ Pollinations رایگان؛ بقیه فقط با کلید.
+ * سرِ زنجیره همیشه «جمینی» است (اولویت اول کاربر — ۴ نوامبر ۲۰۲۶) با استخر چندکلید؛
+ * پس از آن GLM (پشتیبان اول)، Pollinations رایگان، FCC و تأمین‌کنندگان کلیددار (OpenRouter و...).
  * providerKeys: کلیدهای افزوده‌شده از رابط کاربری (رمزگشایی‌شده) — بر محیط اولویت دارند.
+ * geminiPool: کلیدهای بخش «کلیدهای جمینی» (رمزگشایی‌شده، به ترتیب افزوده‌شدن).
  */
 export function buildDefaultChain(
   env: Record<string, string | undefined>,
   settingsApiKey?: string,
-  providerKeys: Record<string, string> = {}
+  providerKeys: Record<string, string> = {},
+  geminiPool: string[] = []
 ): ProviderConfig[] {
-  const geminiKey = providerKeys[GEMINI_SPEC.id]?.trim() || env[GEMINI_SPEC.keyEnv]?.trim();
-  const chain: ProviderConfig[] = [
-    {
+  // استخر جمینی: کلیدهای رابط کاربری (به ترتیب) + کلید تنظیمات تکی + کلید محیط — یکتا و مرتب
+  const uniqueGemini = [...new Set([
+    ...geminiPool.map((k) => k.trim()),
+    providerKeys[GEMINI_SPEC.id]?.trim() || '',
+    env[GEMINI_SPEC.keyEnv]?.trim() || '',
+  ].filter(Boolean))];
+  const chain: ProviderConfig[] = uniqueGemini.length
+    ? uniqueGemini.map((k, i) => ({
+      id: i === 0 ? 'gemini' : `gemini-${i + 1}`,
+      label: i === 0 ? GEMINI_SPEC.label : `Gemini — کلید ${i + 1}`,
+      kind: 'openai-compatible' as const,
+      baseUrl: GEMINI_SPEC.base,
+      apiKey: k,
+      model: env[GEMINI_SPEC.modelEnv]?.trim() || GEMINI_SPEC.defModel,
+      enabled: true,
+      note: i === 0
+        ? 'تأمین‌کنندهٔ پیش‌فرض کاربر — اولویت اول؛ در خطا (۴۲۹/سهمیهٔ روزانه/تحریم جغرافیایی) خودکار کلید بعدی استخر و سپس GLM'
+        : `کلید ${i + 1} استخر جمینی — در سهمیه/خطای کلید قبل چرخش خودکار`,
+    }))
+    : [{
       id: GEMINI_SPEC.id,
       label: GEMINI_SPEC.label,
       kind: 'openai-compatible',
       baseUrl: GEMINI_SPEC.base,
-      apiKey: geminiKey || undefined,
       model: env[GEMINI_SPEC.modelEnv]?.trim() || GEMINI_SPEC.defModel,
-      enabled: Boolean(geminiKey),
-      note: geminiKey
-        ? 'تأمین‌کنندهٔ پیش‌فرض — در خطا (۴۲۹/تحریم جغرافیایی/تایم‌اوت) خودکار به GLM منتقل می‌شود'
-        : `غیرفعال تا ${GEMINI_SPEC.keyEnv} تنظیم شود`,
-    },
-    {
-      id: 'zai',
-      label: 'سرویس داخلی GLM (z-ai)',
-      kind: 'zai',
-      enabled: true,
-      maxAttempts: 3,
-      note: 'پشتیبان اول — همیشه فعال؛ در ۴۲۹ با فاصله تدریجی تا ۳ تلاش می‌کند',
-    },
-  ];
+      enabled: false,
+      note: `غیرفعال تا ${GEMINI_SPEC.keyEnv} تنظیم شود یا کلیدی در بخش «کلیدهای جمینی» افزوده شود`,
+    }];
+
+  chain.push({
+    id: 'zai',
+    label: 'سرویس داخلی GLM (z-ai)',
+    kind: 'zai',
+    enabled: true,
+    maxAttempts: 3,
+    note: 'پشتیبان اول — همیشه فعال؛ در ۴۲۹ با فاصله تدریجی تا ۳ تلاش می‌کند',
+  });
 
   // Pollinations — همیشه فعال، بدون کلید؛ خطای ۴۲۹ مدل اول را خودکار جبران می‌کند
   chain.push({
@@ -184,38 +200,20 @@ export function buildDefaultChain(
     });
   }
 
-  // پیش‌فرض کاربر (۳۱ اکتبر ۲۰۲۶): با وجود کلید OpenRouter، OpenRouter سرِ زنجیره است —
-  // مدل‌های رایگان واقعی با ماندهٔ قابل‌نمایش؛ در خطا/محدودیت نرخ، زنجیره به GLM و بقیه منتقل می‌شود.
-  const orIdx = chain.findIndex((p) => p.id === 'openrouter');
-  if (orIdx > 0 && chain[orIdx].enabled) {
-    const [or] = chain.splice(orIdx, 1);
-    chain.unshift({
-      ...or,
-      label: 'OpenRouter — پیش‌فرض (رایگان)',
-      maxAttempts: 1, // سهمیهٔ رایگان روزانه (۵۰ درخواست) تمام‌شدنی است — در ۴۲۹ بی‌درنگ به مدل بعدی
-      note: `تأمین‌کنندهٔ پیش‌فرض (${or.model}) — سهمیهٔ رایگان روزانه ۵۰ درخواست؛ در ۴۲۹ بی‌درنگ به GLM و بقیهٔ زنجیره منتقل می‌شود`,
-    });
-    // GLM پشتیبان اول می‌ماند — بلافاصله پس از پیش‌فرض؛ gemini پشتیبان دوم
-    const zaiIdx = chain.findIndex((p) => p.id === 'zai');
-    if (zaiIdx > 1) {
-      const [z] = chain.splice(zaiIdx, 1);
-      chain.splice(1, 0, z);
-    }
-    const gem = chain.find((p) => p.id === 'gemini');
-    if (gem && gem.enabled) {
-      gem.label = 'Gemini';
-      gem.note = 'پشتیبان دوم پس از GLM — تحریم جغرافیایی/سهمیهٔ گوگل از این سرور: گذر سریع ۵/۴ دقیقه‌ای';
-    }
-  }
+  // اولویت اول جمینی (خواستهٔ صریح کاربر ۴ نوامبر ۲۰۲۶ — بر تصمیم ۳۱ اکتبر مقدم است):
+  // OpenRouter سرِ زنجیره نیست؛ فقط در جایگاه خودش (پس از GLM/Pollinations/FCC) با کلیدش فعال می‌شود.
+  // برای حفظ تاب‌آوری سهمیهٔ رایگان روزانه، در ۴۲۹ بی‌درنگ به مدل بعدی منتقل می‌شود.
+  const or = chain.find((p) => p.id === 'openrouter' && p.enabled);
+  if (or) or.maxAttempts = 1;
 
   return chain;
 }
 
 // ---------- تعریف سفارشی کاربر (Setting «ai_providers») ----------
 
-/** معناشناسی: فهرست سفارشی «جایگزین کامل» زنجیره است؛ تأمین‌کنندهٔ پیشرو (openrouter فعال،
- *  وگرنه gemini فعال، وگرنه zai) اگر در فهرست ذکر نشده باشد به صدر بازمی‌گردد. id شناخته‌شده تنظیم همان
- *  تأمین‌کننده پیش‌فرض را بازنویسی می‌کند؛ id تازه باید baseUrl معتبر داشته باشد. */
+/** معناشناسی: فهرست سفارشی «جایگزین کامل» زنجیره است؛ تأمین‌کنندهٔ پیشرو (gemini فعال،
+ *  وگرنه zai، وگرنه openrouter) اگر در فهرست ذکر نشده باشد به صدر بازمی‌گردد. id شناخته‌شده تنظیم همان
+ *  تأمین‌کننده پیش‌فرض را بازنویسی می‌کند؛ id تازه باید baseUrl معتبر داشته باشد. ذکر «gemini» کل استخر جمینی را جابه‌جا می‌کند. */
 export function applyCustomProviders(
   defaults: ProviderConfig[],
   raw: string | null | undefined
@@ -252,6 +250,22 @@ export function applyCustomProviders(
       continue;
     }
 
+    // استخر جمینی (gemini، gemini-2، ...) همیشه با هم جابه‌جا می‌شود — ذکر «gemini» یعنی کل استخر
+    if (id === 'gemini') {
+      for (const d of defaults) {
+        if (d.id !== 'gemini' && !d.id.startsWith('gemini-')) continue;
+        if (mentioned.has(d.id)) continue;
+        mentioned.add(d.id);
+        const p = { ...byId.get(d.id)! };
+        if (e.enabled === false) p.enabled = false;
+        if (typeof e.model === 'string' && e.model.trim()) p.model = e.model.trim();
+        if (typeof e.apiKey === 'string' && e.apiKey.trim()) p.apiKey = e.apiKey.trim();
+        out.push(p);
+      }
+      mentioned.add('gemini'); // پس از حلقه — تا پیشرو بازنگردد و تکرار نشود
+      continue;
+    }
+
     const existing = byId.get(id);
     if (existing) {
       mentioned.add(id);
@@ -278,8 +292,8 @@ export function applyCustomProviders(
     }
   }
 
-  // تأمین‌کنندهٔ پیشرو (openrouter فعال، وگرنه gemini، وگرنه zai) اگر ذکر نشده باشد به صدر زنجیره بازمی‌گردد
-  const lead = defaults.find((p) => (p.id === 'openrouter' || p.id === 'gemini' || p.id === 'zai') && p.enabled);
+  // تأمین‌کنندهٔ پیشرو (gemini فعال، وگرنه zai، وگرنه openrouter) اگر ذکر نشده باشد به صدر زنجیره بازمی‌گردد
+  const lead = defaults.find((p) => (p.id === 'gemini' || p.id === 'zai' || p.id === 'openrouter') && p.enabled);
   if (lead && !mentioned.has(lead.id)) out.unshift(byId.get(lead.id)!);
 
   if (zaiDisabled) out.push(zaiDisabled);
@@ -295,6 +309,27 @@ export function applyCustomProviders(
 }
 
 /** کلیدهای افزوده‌شده از رابط کاربری — Setting «ai_provider_keys»: {providerId: رمزنگاری‌شده} */
+/** استخر کلیدهای جمینی افزوده‌شده از رابط کاربری — Setting «gemini_api_keys»: [{enc, masked, label, addedAt}]
+ *  خواستهٔ کاربر (۴ نوامبر ۲۰۲۶): بخش افزودن/حذف کلید جمینی در برنامه؛ چند کلید = چرخش و سهمیهٔ روزانهٔ چندبرابر */
+export async function loadGeminiKeyPool(): Promise<string[]> {
+  try {
+    const row = await db.setting.findUnique({ where: { key: 'gemini_api_keys' } });
+    if (!row?.value) return [];
+    const parsed = JSON.parse(row.value) as Array<{ enc?: string }>;
+    if (!Array.isArray(parsed)) return [];
+    const out: string[] = [];
+    for (const it of parsed) {
+      if (it && typeof it.enc === 'string' && it.enc) {
+        const dec = decrypt(it.enc);
+        if (dec) out.push(dec);
+      }
+    }
+    return out;
+  } catch {
+    return []; // تنظیم استخر در دسترس نیست — زنجیره با کلید محیطی ادامه می‌دهد
+  }
+}
+
 export async function loadProviderKeys(): Promise<Record<string, string>> {
   try {
     const row = await db.setting.findUnique({ where: { key: 'ai_provider_keys' } });
@@ -322,6 +357,7 @@ export async function getProviderChain(): Promise<ProviderConfig[]> {
     // کلید رمزنگاری‌شده قابل خواندن نبود — بدون کلید ادامه می‌دهیم
   }
   const providerKeys = await loadProviderKeys();
+  const geminiPool = await loadGeminiKeyPool();
   let customRaw: string | null | undefined;
   try {
     const row = await db.setting.findUnique({ where: { key: 'ai_providers' } });
@@ -329,10 +365,10 @@ export async function getProviderChain(): Promise<ProviderConfig[]> {
   } catch {
     // تنظیم سفارشی در دسترس نیست — زنجیره پیش‌فرض
   }
-  const defaults = buildDefaultChain(process.env as Record<string, string | undefined>, settingsApiKey, providerKeys);
-  // کلید تنظیماتی کاربر بر کلید محیطی اولویت دارد
+  const defaults = buildDefaultChain(process.env as Record<string, string | undefined>, settingsApiKey, providerKeys, geminiPool);
+  // کلید تنظیماتی کاربر بر کلید محیطی اولویت دارد — به‌جز ورودی‌های استخر جمینی که خودشان کلید دارند
   const withKeys = defaults.map((p) =>
-    providerKeys[p.id] ? { ...p, apiKey: providerKeys[p.id], enabled: true, note: p.note } : p
+    p.id.startsWith('gemini') ? p : providerKeys[p.id] ? { ...p, apiKey: providerKeys[p.id], enabled: true, note: p.note } : p
   );
   return applyCustomProviders(withKeys, customRaw);
 }

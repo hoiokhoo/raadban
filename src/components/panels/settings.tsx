@@ -130,6 +130,7 @@ export function AiSettingsPanel() {
         </CardContent>
       </Card>
 
+      <GeminiKeysPanel />
       <ProviderKeysPanel />
     </div>
   );
@@ -178,7 +179,7 @@ export function ProviderKeysPanel() {
       <CardContent className="grid gap-2">
         <p className="text-xs text-slate-500 leading-6">
           کلید هر تأمین‌کننده را جداگانه اضافه کنید — ذخیره‌سازی سمت سرور و رمزنگاری‌شده است و کلید هرگز به مرورگر برنمی‌گردد.
-          مصرف توکن از فراخوانی‌های واقعی امروز ثبت می‌شود. تأمین‌کنندهٔ اول زنجیره «Gemini» است؛ خطای آن به‌صورت خودکار به GLM منتقل می‌شود.
+          مصرف توکن از فراخوانی‌های واقعی امروز ثبت می‌شود. سرِ زنجیره «Gemini» است (اولویت اول کاربر)؛ برای استخر چندکلید جمینی از بخش «کلیدهای جمینی» بالای همین جدول استفاده کنید.
         </p>
         {providers.map((p, i) => (
           <div key={p.id} className="text-xs border rounded-lg p-2.5 space-y-1.5">
@@ -210,6 +211,116 @@ export function ProviderKeysPanel() {
             )}
           </div>
         ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ---------- کلیدهای جمینی — افزودن/حذف چند کلید + اتصال به ربات (خواستهٔ کاربر ۴ نوامبر ۲۰۲۶) ----------
+interface GeminiKeysData {
+  keys: Array<{ masked: string; label: string | null; addedAt: string }>;
+  keysCount: number;
+  maxKeys: number;
+  envKeyMasked: string | null;
+  hasPat: boolean;
+  patMasked: string | null;
+  repo: string;
+}
+
+export function GeminiKeysPanel() {
+  const [data, setData] = useState<GeminiKeysData | null>(null);
+  const [newKey, setNewKey] = useState('');
+  const [newLabel, setNewLabel] = useState('');
+  const [pat, setPat] = useState('');
+  const [busy, setBusy] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const load = useCallback(async () => {
+    const r = await api<GeminiKeysData>('/api/gemini-keys');
+    if (r.ok) setData(r);
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  const add = async () => {
+    const key = newKey.trim();
+    if (!key) return;
+    setBusy('add');
+    const r = await api<{ added: string }>('/api/gemini-keys', { method: 'POST', body: { apiKey: key, label: newLabel.trim() } });
+    setBusy(null);
+    toast({ title: r.ok ? 'کلید جمینی افزوده شد (رمزنگاری‌شده)' : 'خطا', description: r.ok ? r.added : r.error, variant: r.ok ? 'default' : 'destructive' });
+    if (r.ok) { setNewKey(''); setNewLabel(''); load(); }
+  };
+  const remove = async (idx: number) => {
+    setBusy(`rm-${idx}`);
+    const r = await api('/api/gemini-keys', { method: 'POST', body: { removeIndex: idx } });
+    setBusy(null);
+    if (r.ok) { toast({ title: 'کلید حذف شد' }); load(); }
+    else toast({ title: 'خطا', description: r.error, variant: 'destructive' });
+  };
+  const savePat = async () => {
+    const p = pat.trim();
+    if (!p) return;
+    setBusy('pat');
+    const r = await api<{ savedPat: string }>('/api/gemini-keys', { method: 'POST', body: { pat: p } });
+    setBusy(null);
+    toast({ title: r.ok ? 'توکن گیت‌هاب ذخیره شد (رمزنگاری‌شده)' : 'خطا', description: r.ok ? r.savedPat : r.error, variant: r.ok ? 'default' : 'destructive' });
+    if (r.ok) { setPat(''); load(); }
+  };
+  const sync = async () => {
+    setBusy('sync');
+    const r = await api<{ synced: number; detail: string }>('/api/gemini-keys', { method: 'POST', body: { syncToBot: true } });
+    setBusy(null);
+    toast({ title: r.ok ? 'با ربات همگام شد' : 'خطا', description: r.ok ? r.detail : r.error, variant: r.ok ? 'default' : 'destructive' });
+    load();
+  };
+
+  return (
+    <Card>
+      <CardHeader className="pb-1"><CardTitle className="text-sm flex items-center gap-2"><KeyRound className="h-4 w-4" /> کلیدهای جمینی — استخر چندکلید (اولویت اول زنجیره) و اتصال به ربات</CardTitle></CardHeader>
+      <CardContent className="grid gap-2 text-xs">
+        <p className="text-slate-500 leading-6">
+          هر کلید یک ورودی مستقل زنجیره است: کلید اول اولویت اول دارد؛ در خطا یا سهمیهٔ روزانه (۴۲۹) کلید بعدی خودکار چرخش می‌شود —
+          با هر کلید اضافه، سهمیهٔ روزانهٔ جمینی چندبرابر می‌شود. همین استخر با «همگام‌سازی با ربات» در سکرت
+          <code dir="ltr"> GEMINI_API_KEYS </code>ریپو ربات نوشته می‌شود تا ربات بله هم از همین کلیدها (اولویت اول) استفاده کند.
+        </p>
+        {data?.envKeyMasked && (
+          <p className="text-slate-400">کلید محیط (<code dir="ltr">GEMINI_API_KEY</code>): <span dir="ltr">{data.envKeyMasked}</span> — پس از کلیدهای افزوده‌شده به‌کار می‌رود.</p>
+        )}
+        <div className="space-y-1.5">
+          {data?.keys.map((k, i) => (
+            <div key={i} className="border rounded p-2 flex flex-wrap items-center gap-2">
+              <span className="text-slate-400 w-5 text-center">{faNum(i + 1)}</span>
+              <Badge className="bg-teal-100 text-teal-800">اولویت {faNum(i + 1)}</Badge>
+              <b>{k.label || 'کلید جمینی'}</b>
+              <span dir="ltr" className="text-slate-400">{k.masked}</span>
+              <span className="text-slate-400">افزوده: {faDateTime(k.addedAt)}</span>
+              <Button size="sm" variant="outline" className="h-7 text-xs ms-auto" onClick={() => remove(i)} disabled={busy === `rm-${i}`}>حذف</Button>
+            </div>
+          ))}
+          {data && data.keysCount === 0 && <p className="text-slate-400 py-1">هنوز کلیدی افزوده نشده — زنجیره از کلید محیط استفاده می‌کند.</p>}
+        </div>
+        <div className="grid md:grid-cols-[1fr_2fr_auto] gap-2 items-end">
+          <div>
+            <Label>عنوان (اختیاری)</Label>
+            <Input className="h-8 text-xs" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} placeholder="مثل کلید دوم استودیو" />
+          </div>
+          <div>
+            <Label>کلید API جمینی</Label>
+            <Input dir="ltr" type="password" className="h-8 text-xs" value={newKey} onChange={(e) => setNewKey(e.target.value)} placeholder="AQ.... یا AIza..." />
+          </div>
+          <Button size="sm" className="h-8" onClick={add} disabled={busy === 'add' || !newKey.trim()}>افزودن</Button>
+        </div>
+        <div className="border-t pt-2 space-y-1.5">
+          <p className="text-slate-500 leading-6">
+            اتصال به ربات: توکن گیت‌هاب با دسترسی repo ذخیره کنید تا «همگام‌سازی» کلیدها را در سکرت‌های ریپو
+            <span dir="ltr"> {data?.repo || 'hoiokhoo/raadban'} </span>بنویسد. توکن رمزنگاری‌شده سمت سرور می‌ماند و هرگز نمایش داده نمی‌شود.
+          </p>
+          <div className="grid md:grid-cols-[2fr_auto_auto] gap-2 items-end">
+            <Input dir="ltr" type="password" className="h-8 text-xs" value={pat} onChange={(e) => setPat(e.target.value)} placeholder={data?.patMasked ? `ذخیره‌شده: ${data.patMasked}` : 'ghp_... (توکن با دسترسی repo)'} />
+            <Button size="sm" variant="outline" className="h-8" onClick={savePat} disabled={busy === 'pat' || !pat.trim()}>ذخیره توکن</Button>
+            <Button size="sm" className="h-8" onClick={sync} disabled={busy === 'sync'}>همگام‌سازی با ربات</Button>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

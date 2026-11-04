@@ -14,18 +14,57 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 // ---------- پیکربندی از محیط ----------
 
+/** پارس کلیدهای جمینی — خواستهٔ کاربر: مدیریت چند کلید برای چرخش و پرهیز از سهمیهٔ روزانه.
+ *  ورودی: GEMINI_API_KEYS (آرایهٔ JSON یا جداشده با ویرگول/خط جدید) + GEMINI_API_KEY (تکی، پشتیبان).
+ *  خروجی: فهرست یکتا و مرتب — تابع خالص تست‌پذیر. */
+export function parseGeminiKeys(primary?: string, fallback?: string): string[] {
+  const out: string[] = [];
+  const raw = (primary || '').trim();
+  if (raw) {
+    if (raw.startsWith('[')) {
+      try {
+        const arr = JSON.parse(raw) as unknown;
+        if (Array.isArray(arr)) for (const x of arr) if (typeof x === 'string' && x.trim()) out.push(x.trim());
+      } catch { /* شکست JSON → تفکیک خطی */ }
+    }
+    if (out.length === 0) for (const part of raw.split(/[\n,]+/)) if (part.trim()) out.push(part.trim());
+  }
+  if (!out.length && fallback?.trim()) out.push(fallback.trim());
+  return [...new Set(out.filter(Boolean))];
+}
+
+/** مقصدهای ارسال: چت شخصی + کانال‌ها (BALE_CHANNEL_ID — جداشده با ویرگول/خط جدید).
+ *  خواستهٔ کاربر: پیام‌های ربات باید مستقیم در کانالی که ربات ادمینش است هم برود —
+ *  ادمین‌بودن به‌تنهایی کافی نیست؛ ربات باید صریحاً به شناسهٔ کانال sendMessage کند.
+ *  تابع خالص تست‌پذیر. */
+export function parseTargets(chatId?: string, channelsEnv?: string): string[] {
+  const out: string[] = [];
+  if (chatId?.trim()) out.push(chatId.trim());
+  for (const part of (channelsEnv || '').split(/[\n,]+/)) {
+    const t = part.trim();
+    if (t && !out.includes(t)) out.push(t);
+  }
+  return out;
+}
+
 const CFG = {
   token: process.env.BALE_BOT_TOKEN?.trim() || '',
-  chatId: process.env.BALE_CHAT_ID?.trim() || '',
+  targets: parseTargets(process.env.BALE_CHAT_ID, process.env.BALE_CHANNEL_ID),
   openrouterKey: process.env.OPENROUTER_API_KEY?.trim() || '',
   openrouterModel: process.env.OPENROUTER_MODEL?.trim() || 'nvidia/nemotron-3-ultra-550b-a55b:free',
-  geminiKey: process.env.GEMINI_API_KEY?.trim() || '',
+  // اولویت اول جمینی — چند کلید با چرخش؛ GEMINI_API_KEY تکی همچنان پشتیبان است
+  geminiKeys: parseGeminiKeys(process.env.GEMINI_API_KEYS, process.env.GEMINI_API_KEY),
   geminiModel: process.env.GEMINI_MODEL?.trim() || 'gemini-3.8-flash',
   githubToken: process.env.GITHUB_MODELS_TOKEN?.trim() || '',
   githubModel: process.env.GITHUB_MODEL?.trim() || 'openai/gpt-4o-mini',
   windowHours: Number(process.env.NEWS_WINDOW_HOURS || 3) || 3,
   maxItems: Math.max(1, Math.min(25, Number(process.env.MAX_ITEMS || 12) || 12)),
   maxSearch: Math.max(0, Math.min(4, Number(process.env.BOT_MAX_SEARCH || 2) || 2)),
+  // توییت‌ها — ترجمهٔ روان کامل و ارسال بلافاصله پس از دریافت (خواستهٔ کاربر)
+  tweetsFile: process.env.BOT_TWEETS_FILE || 'bot/tweets.json',
+  maxTweets: Math.max(0, Math.min(12, Number(process.env.MAX_TWEETS || 6) || 6)),
+  tweetAccountsPerCycle: Math.max(0, Math.min(20, Number(process.env.TWEET_ACCOUNTS_PER_CYCLE || 6) || 6)),
+  tweetFetchGapMs: Math.max(500, Math.min(15_000, Number(process.env.TWEET_FETCH_GAP_MS || 2000) || 2000)),
   dryRun: process.env.DRY_RUN === '1',
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
@@ -386,6 +425,8 @@ export interface BotState {
   sentTitleTexts: Record<string, number>;
   /** متنِ نرمال‌شدهٔ پیام‌های ارسال‌شدهٔ مدل — ترجمه‌های متفاوتِ مدل از یک رویداد هم بلاک می‌شود */
   sentMsgTexts: Record<string, number>;
+  /** نشانگر چرخش حساب‌های توییت — هر چرخه پنجرهٔ بعدی فهرست bot/tweets.json */
+  tweetCursor?: number;
   lastRunAt?: string;
   lastRun?: Record<string, unknown>;
 }
@@ -409,6 +450,7 @@ export function loadState(path: string): BotState {
       sentTitles: raw.sentTitles && typeof raw.sentTitles === 'object' ? raw.sentTitles : {},
       sentTitleTexts: raw.sentTitleTexts && typeof raw.sentTitleTexts === 'object' ? raw.sentTitleTexts : {},
       sentMsgTexts: raw.sentMsgTexts && typeof raw.sentMsgTexts === 'object' ? raw.sentMsgTexts : {},
+      tweetCursor: typeof raw.tweetCursor === 'number' ? raw.tweetCursor : undefined,
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
@@ -697,11 +739,20 @@ interface Provider {
 
 export function buildChain(): Provider[] {
   const chain: Provider[] = [];
+  // اولویت اول جمینی (خواستهٔ صریح کاربر) — هر کلید یک تأمین‌کنندهٔ مستقل؛
+  // سهمیهٔ ۴۲۹/روزانهٔ یک کلید، بقیهٔ کلیدها را از کار نمی‌اندازد (چرخش خودکار در زنجیره)
+  CFG.geminiKeys.forEach((key, i) => {
+    chain.push({
+      id: i === 0 ? 'gemini' : `gemini-${i + 1}`,
+      base: 'https://generativelanguage.googleapis.com/v1beta/openai',
+      apiKey: key,
+      model: CFG.geminiModel,
+      maxAttempts: 2,
+      maxTokens: 4000,
+    });
+  });
   if (CFG.openrouterKey) {
     chain.push({ id: 'openrouter', base: 'https://openrouter.ai/api/v1', apiKey: CFG.openrouterKey, model: CFG.openrouterModel, maxAttempts: 1, maxTokens: 4000 });
-  }
-  if (CFG.geminiKey) {
-    chain.push({ id: 'gemini', base: 'https://generativelanguage.googleapis.com/v1beta/openai', apiKey: CFG.geminiKey, model: CFG.geminiModel, maxAttempts: 2, maxTokens: 4000 });
   }
   if (CFG.githubToken) {
     chain.push({ id: 'github-models', base: 'https://models.github.ai/inference', apiKey: CFG.githubToken, model: CFG.githubModel, maxAttempts: 2, maxTokens: 4000 });
@@ -934,6 +985,206 @@ export async function searchWeb(query: string): Promise<WebEvidence[]> {
   return parseBingNewsRss(res.text);
 }
 
+// ---------- توییت‌های ایکس (خط زمانی عمومی سندیکاسیون — صفر کلید) ----------
+// عیناً منطق اتصال‌دهندهٔ سامانه (src/lib/connectors/twitter.ts): فقط پست‌های عمومی بیرونی،
+// بدون ریپلای؛ ایکس از IP دیتاسنتر (GitHub Actions) سهمیهٔ تنگ دارد — ۴۲۹ صادقانه ثبت و
+// در چرخهٔ بعدی دوباره تلاش می‌شود؛ هرگز داده ساختگی تولید نمی‌شود.
+
+export interface TweetAccount { handle: string; name?: string }
+
+export function readTweetAccounts(file: string): TweetAccount[] {
+  try {
+    const raw = JSON.parse(readFileSync(file, 'utf8')) as unknown;
+    if (!Array.isArray(raw)) return [];
+    const out: TweetAccount[] = [];
+    for (const x of raw) {
+      if (typeof x === 'string' && x.trim()) {
+        const handle = x.trim().replace(/^@/, '').split('/')[0];
+        if (/^[A-Za-z0-9_]{2,15}$/.test(handle)) out.push({ handle });
+      } else if (typeof x === 'object' && x !== null) {
+        const o = x as Record<string, unknown>;
+        const handle = typeof o.handle === 'string' ? o.handle.trim().replace(/^@/, '') : '';
+        if (/^[A-Za-z0-9_]{2,15}$/.test(handle)) out.push({ handle, name: typeof o.name === 'string' ? o.name : undefined });
+      }
+    }
+    return out;
+  } catch {
+    return []; // فایل نبود/خراب بود → این چرخه توییت نمی‌رود (صادقانه در لاگ)
+  }
+}
+
+interface RawTweet { id: string; text: string; createdAt: string | undefined; author?: string }
+
+function tweetUnescape(s: string): string {
+  return s
+    .replace(/\\n/g, '\n')
+    .replace(/\\"/g, '"')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/https:\/\/t\.co\/\w+/g, '')
+    .trim();
+}
+
+/** استخراج نشانی عکس پروفایل صاحب حساب — توییت با عکس صاحب اکانت (خواستهٔ کاربر) */
+export function extractAvatarUrl(html: string): string | undefined {
+  if (!html) return undefined;
+  const m = html.match(/https:\/\/pbs\.twimg\.com\/profile_images\/[A-Za-z0-9_\-./]+/);
+  if (!m) return undefined;
+  return m[0]
+    .replace(/_normal(\.\w+)$/, '_400x400$1')
+    .replace(/_bigger(\.\w+)$/, '_400x400$1')
+    .replace(/[)\]"',]+$/, '');
+}
+
+/** پارس tolerant: همهٔ آبجکت‌های شبه‌توییت از JSON تو در تو */
+function walkTweets(obj: unknown, out: RawTweet[], depth = 0): void {
+  if (depth > 12 || !obj || typeof obj !== 'object') return;
+  if (Array.isArray(obj)) {
+    for (const item of obj) walkTweets(item, out, depth + 1);
+    return;
+  }
+  const rec = obj as Record<string, unknown>;
+  const id = rec.id_str;
+  const text = rec.full_text || rec.text;
+  if (typeof id === 'string' && id.length >= 5 && typeof text === 'string' && rec.created_at) {
+    const user = rec.user as { screen_name?: string } | undefined;
+    out.push({ id, text, createdAt: typeof rec.created_at === 'string' ? rec.created_at : undefined, author: user?.screen_name });
+  }
+  for (const v of Object.values(rec)) {
+    if (v && typeof v === 'object') walkTweets(v, out, depth + 1);
+  }
+}
+
+/** پارس خط زمانی عمومی ایکس — مسیر __NEXT_DATA__ + پشتیبان HTML؛ فقط توییت‌های خودِ حساب */
+export function extractTweetsFromHtml(html: string, handle: string, maxItems = 20): ParsedTweet[] {
+  const out: ParsedTweet[] = [];
+  if (!html) return out;
+  const seen = new Set<string>();
+  const push = (rt: RawTweet | null) => {
+    if (!rt) return;
+    const text = tweetUnescape(rt.text);
+    if (!text || text.length < 10 || seen.has(rt.id)) return;
+    const t = rt.createdAt ? new Date(rt.createdAt) : null;
+    out.push({
+      id: rt.id,
+      text,
+      createdAt: t && !Number.isNaN(t.getTime()) ? t : null,
+    });
+    seen.add(rt.id);
+  };
+  const m = html.match(/<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/i);
+  if (m) {
+    try {
+      const data = JSON.parse(m[1]) as unknown;
+      // مسیر ۱-الف: ساختار رسمی entries — فقط توییت‌های بیرونی خط زمانی
+      const pageProps = (data as Record<string, unknown>)?.props as Record<string, unknown> | undefined;
+      const entries = (pageProps?.pageProps as Record<string, unknown> | undefined)?.timeline as Record<string, unknown> | undefined;
+      const list = entries?.entries;
+      if (Array.isArray(list)) {
+        for (const entry of list) {
+          const content = (entry as Record<string, unknown>)?.content as Record<string, unknown> | undefined;
+          const tweet = content?.tweet as Record<string, unknown> | undefined;
+          if (tweet && typeof tweet.id_str === 'string') {
+            const user = tweet.user as { screen_name?: string } | undefined;
+            push({
+              id: tweet.id_str,
+              text: typeof tweet.full_text === 'string' ? tweet.full_text : typeof tweet.text === 'string' ? tweet.text : '',
+              createdAt: typeof tweet.created_at === 'string' ? tweet.created_at : undefined,
+              author: user?.screen_name,
+            });
+          }
+        }
+      }
+      // مسیر ۱-ب: پشتیبان tolerant — فقط نویسنده = خودِ حساب (نقل‌قول حساب دیگر ثبت نمی‌شود)
+      if (out.length === 0) {
+        const tweets: RawTweet[] = [];
+        walkTweets(data, tweets);
+        for (const t of tweets) {
+          if ((t.author || '').toLowerCase() === handle.toLowerCase()) push(t);
+        }
+      }
+    } catch { /* JSON نامعتبر → مسیر ۲ */ }
+  }
+  // مسیر ۲ (پشتیبان): بلوک‌های توییت‌گونه در HTML
+  if (out.length === 0) {
+    const blocks = html.split(/class="tweet[^"]*"/i).slice(1);
+    for (const b of blocks.slice(0, maxItems)) {
+      const id = b.match(/data-tweet-id="(\d+)"/)?.[1] || b.match(/status\/(\d+)/)?.[1];
+      const text = b.match(/class="tweet-text[^"]*"[^>]*>([\s\S]*?)<\/p>/i)?.[1]
+        ?.replace(/<[^>]+>/g, ' ').trim();
+      const timeStr = b.match(/data-time="(\d+)"/)?.[1];
+      if (id && text) push({ id, text, createdAt: timeStr ? new Date(Number(timeStr) * 1000).toISOString() : undefined });
+    }
+  }
+  return out.slice(0, maxItems);
+}
+
+export interface ParsedTweet { id: string; text: string; createdAt: Date | null }
+
+export interface TweetFetchResult { ok: boolean; tweets: ParsedTweet[]; rateLimited?: boolean; avatarUrl?: string; error?: string }
+
+export async function fetchTweetTimeline(handle: string, timeoutMs = 15_000): Promise<TweetFetchResult> {
+  const url = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${handle}?showReplies=false`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml',
+        'Accept-Language': 'en-US,en;q=0.9,fa;q=0.8',
+      },
+      signal: controller.signal,
+      redirect: 'follow',
+    });
+    if (res.status === 429) return { ok: false, tweets: [], rateLimited: true, error: 'ایکس این IP را موقتاً محدود کرده (HTTP 429) — چرخهٔ بعدی دوباره تلاش می‌کند' };
+    if (!res.ok) return { ok: false, tweets: [], error: `HTTP ${res.status}` };
+    const html = await res.text().catch(() => '');
+    const tweets = extractTweetsFromHtml(html, handle, 20);
+    if (tweets.length === 0) return { ok: false, tweets: [], error: 'توییت قابل استخراج نبود (حساب خصوصی یا ساختار عوض‌شده)' };
+    return { ok: true, tweets, avatarUrl: extractAvatarUrl(html) };
+  } catch (e) {
+    const msg = e instanceof Error ? (e.name === 'AbortError' ? `timeout پس از ${timeoutMs}ms` : e.message) : 'خطای ناشناخته';
+    return { ok: false, tweets: [], error: msg };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/** گزینش چرخشی حساب‌ها حول cursor — هر چرخه پنجرهٔ بعدی فهرست (تابع خالص) */
+export function rotateAccounts(accounts: TweetAccount[], start: number, count: number): { picked: TweetAccount[]; nextCursor: number } {
+  if (accounts.length === 0 || count <= 0) return { picked: [], nextCursor: 0 };
+  const safeStart = ((start % accounts.length) + accounts.length) % accounts.length;
+  const picked: TweetAccount[] = [];
+  for (let i = 0; i < Math.min(count, accounts.length); i++) {
+    picked.push(accounts[(safeStart + i) % accounts.length]);
+  }
+  return { picked, nextCursor: (safeStart + picked.length) % accounts.length };
+}
+
+/** فیلتر توییت‌های تازه — ضدتکرار: هش «tw-<handle>-<id>» در sentIds + شباهت متن با ارسال‌های ۳۶ ساعت اخیر.
+ *  توییت بی‌تاریخ: رد (هیچ توییت قدیمی بی‌علامت ارسال نمی‌شود). تابع خالص تست‌پذیر. */
+export function freshTweets(
+  st: BotState,
+  tweets: ParsedTweet[],
+  handle: string,
+  titleSets: Set<string>[],
+  opts: { windowHours: number; nowMs: number; limit: number }
+): { fresh: ParsedTweet[]; blocked: number } {
+  const windowStart = opts.nowMs - opts.windowHours * 3600_000;
+  const fresh: ParsedTweet[] = [];
+  let blocked = 0;
+  for (const tw of tweets) {
+    if (!tw.createdAt || tw.createdAt.getTime() < windowStart) { blocked++; continue; }
+    const idKey = `tw-${handle.toLowerCase()}-${tw.id}`;
+    if (st.sentIds[idKey]) { blocked++; continue; }
+    if (isSimilarToAny(tw.text, titleSets, 0.55)) { blocked++; continue; }
+    fresh.push(tw);
+  }
+  fresh.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
+  return { fresh: fresh.slice(0, opts.limit), blocked };
+}
+
 // ---------- اجرای چرخه ----------
 
 export interface RunSummary {
@@ -950,18 +1201,84 @@ export interface RunSummary {
   translated: number;
   searches: number;
   skippedUntranslated?: number;
+  // توییت‌ها
+  tweetsFetched?: number;
+  tweetsSent?: number;
+  tweetAccountsTried?: number;
+  tweetRateLimited?: boolean;
+  tweetCursor?: number;
   dryRun?: boolean;
   error?: string;
+}
+
+/** کشف چت‌های ربات از getUpdates — برای یافتن شناسهٔ کانال‌ها (حالت --discover-chats).
+ *  فقط شناسه/نوع/عنوان در لاگ می‌آید؛ متن هیچ پیامی چاپ نمی‌شود. */
+export async function discoverChats(token: string, pages = 3): Promise<{ ok: boolean; chats: string[]; error?: string }> {
+  const seen = new Map<string, string>();
+  let offset = 0;
+  for (let p = 0; p < pages; p++) {
+    const r = await baleApi(token, 'getUpdates', { offset, timeout: 1, limit: 100 }, 25_000);
+    if (!r.ok) return { ok: false, chats: [...seen.values()], error: r.error };
+    const upd = ((r.data as { result?: Array<Record<string, unknown>> } | null)?.result || []) as Array<{
+      update_id?: number;
+      message?: { chat?: Record<string, unknown> };
+      channel_post?: { chat?: Record<string, unknown> };
+      edited_channel_post?: { chat?: Record<string, unknown> };
+      my_chat_member?: { chat?: Record<string, unknown> };
+    }>;
+    if (upd.length === 0) break;
+    for (const u of upd) {
+      offset = Math.max(offset, (u.update_id || 0) + 1);
+      const chat = (u.channel_post || u.message || u.edited_channel_post || u.my_chat_member)?.chat;
+      if (chat && typeof chat.id !== 'undefined') {
+        const key = String(chat.id);
+        seen.set(key, [
+          key,
+          typeof chat.type === 'string' ? chat.type : '?',
+          typeof chat.title === 'string' ? chat.title : typeof chat.first_name === 'string' ? chat.first_name : '',
+          typeof chat.username === 'string' ? `@${chat.username}` : '',
+        ].filter(Boolean).join(' | '));
+      }
+    }
+    if (upd.length < 100) break;
+  }
+  return { ok: true, chats: [...seen.values()] };
 }
 
 async function main(): Promise<void> {
   const summary: RunSummary = {
     ran: true, sources: 0, sourcesFailed: 0, fetched: 0, inWindow: 0, fresh: 0,
     sent: 0, images: 0, translated: 0, searches: 0, dryRun: CFG.dryRun,
+    tweetsFetched: 0, tweetsSent: 0, tweetAccountsTried: 0,
   };
-  console.log('=== رصدبان‌بات — چرخهٔ نیم‌ساعته آغاز شد ===');
+  console.log('=== رصدبان‌بات — چرخهٔ ریل‌تایم (~۱۰ دقیقه) آغاز شد ===');
 
-  if (!CFG.token || !CFG.chatId) {
+  // حالت کشف چت‌ها: «bun bot/bot.ts --discover-chats» — هیچ خبری جمع نمی‌شود و چیزی ارسال نمی‌شود
+  if (process.argv.includes('--discover-chats')) {
+    if (!CFG.token) { console.error('❌ BALE_BOT_TOKEN تنظیم نشده است'); process.exitCode = 1; return; }
+    const me = await baleApi(CFG.token, 'getMe');
+    if (me.ok) {
+      const u = (me.data as { result?: { username?: string } })?.result?.username;
+      console.log(`بات: @${u || 'نامشخص'}`);
+    } else {
+      console.error(`❌ getMe ناموفق: ${me.error}`);
+    }
+    const chats = await discoverChats(CFG.token);
+    if (!chats.ok) {
+      console.error(`❌ کشف چت‌ها ناموفق: ${chats.error}`);
+      process.exitCode = 1;
+      return;
+    }
+    console.log(`چت‌های شناسایی‌شده (${chats.chats.length}):`);
+    console.log('شناسه | نوع | عنوان | نام‌کاربری');
+    for (const c of chats.chats) console.log(`  ${c}`);
+    if (chats.chats.length === 0) {
+      console.log('هیچ چتی در getUpdates نبود — یک بار در بله به بات Start بدهید یا در کانالِ ادمین‌شده یک پیام بگذارید و دوباره اجرا کنید.');
+    }
+    return;
+  }
+
+  if (CFG.targets.length === 0) {
     if (CFG.dryRun) {
       console.warn('⚠️ DRY_RUN بدون BALE_BOT_TOKEN/BALE_CHAT_ID — پیش‌نمایش بدون ارسال انجام می‌شود');
     } else {
@@ -970,6 +1287,19 @@ async function main(): Promise<void> {
       process.exitCode = 1;
       return;
     }
+  }
+
+  // ۰) راستی‌آزمایی توکن (getMe) — صادقانه: توکن خراب = توقف چرخه؛ خطا شفاف در لاگ
+  if (CFG.token && !CFG.dryRun) {
+    const me = await baleApi(CFG.token, 'getMe');
+    if (!me.ok) {
+      summary.error = `توکن بات نامعتبر است: ${me.error}`;
+      console.error('❌', summary.error);
+      process.exitCode = 1;
+      return;
+    }
+    const meUser = (me.data as { result?: { username?: string } } | null)?.result?.username;
+    console.log(`بات: @${meUser || 'نامشخص'} — مقصدها: ${enToFaDigits(String(CFG.targets.length))} (چت شخصی${CFG.targets.length > 1 ? ' + کانال' : ''})`);
   }
 
   // ۱) منابع
@@ -1114,20 +1444,31 @@ async function main(): Promise<void> {
     return;
   }
 
-  const sendOne = async (text: string, imageUrl?: string): Promise<boolean> => {
+  const sendToTarget = async (target: string, text: string, imageUrl?: string): Promise<{ ok: boolean; error?: string }> => {
     if (imageUrl) {
       const cap = splitPhotoCaption(text, 1024);
-      const ph = await sendBalePhoto(CFG.token, CFG.chatId, imageUrl, cap.caption || undefined);
+      const ph = await sendBalePhoto(CFG.token, target, imageUrl, cap.caption || undefined);
       if (ph.ok) {
         summary.images++;
-        if (cap.rest) await sendBaleMessage(CFG.token, CFG.chatId, cap.rest);
-        return true;
+        if (cap.rest) await sendBaleMessage(CFG.token, target, cap.rest);
+        return { ok: true };
       }
-      console.warn(`⚠️ ارسال عکس ناموفق (${ph.error}) — خبر بدون عکس ارسال می‌شود`);
+      console.warn(`⚠️ ارسال عکس به ${target} ناموفق (${ph.error}) — خبر بدون عکس ارسال می‌شود`);
     }
-    const s = await sendBaleMessage(CFG.token, CFG.chatId, text);
-    if (!s.ok) { console.error(`❌ ارسال پیام ناموفق: ${s.error}`); return false; }
-    return true;
+    const s = await sendBaleMessage(CFG.token, target, text);
+    return s.ok ? { ok: true } : { ok: false, error: s.error };
+  };
+
+  // هر پیام به همهٔ مقصدها می‌رود: چت شخصی + کانال‌های ادمین‌شده (خواستهٔ کاربر)
+  const sendOne = async (text: string, imageUrl?: string): Promise<boolean> => {
+    let anyOk = false;
+    for (const t of CFG.targets) {
+      const r = await sendToTarget(t, text, imageUrl);
+      if (r.ok) anyOk = true;
+      else console.error(`❌ ارسال به ${t} ناموفق: ${r.error}`);
+    }
+    if (!anyOk) console.error('❌ ارسال پیام ناموفق: هیچ مقصدی موفق نشد');
+    return anyOk;
   };
 
   const sentIds: string[] = [];
@@ -1145,7 +1486,6 @@ async function main(): Promise<void> {
     const k = normalizeTitle(text).slice(0, 160);
     if (k) sentMsgTexts.push(k);
   };
-
   if (one && one.items.length > 0) {
     const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
     if (skippedBadRef || skippedDupGroup || skippedDupText) {
@@ -1179,10 +1519,13 @@ async function main(): Promise<void> {
     const fluent = ordered.filter((g) => fluentFaText(g) !== null);
     const stuck = ordered.length - fluent.length;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
-    await sendBaleMessage(CFG.token, CFG.chatId, [
-      '📡 اخبار نیم‌ساعت گذشته',
-      `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(fluent.length))} خبر فارسی، پیاپی${stuck ? `؛ ${enToFaDigits(String(stuck))} خبر غیرفارسی برای چرخهٔ بعد ماند (ترجمه نشد)` : ''}:`,
-    ].join('\n'));
+    for (const t of CFG.targets) {
+      const h = await sendBaleMessage(CFG.token, t, [
+        '📡 اخبار یک ساعت گذشته',
+        `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(fluent.length))} خبر فارسی، پیاپی${stuck ? `؛ ${enToFaDigits(String(stuck))} خبر غیرفارسی برای چرخهٔ بعد ماند (ترجمه نشد)` : ''}:`,
+      ].join('\n'));
+      if (!h.ok) console.error(`❌ پیام سربرگ به ${t} ناموفق: ${h.error}`);
+    }
     for (const g of fluent) {
       const msg = composeNewsMessage({
         sourceName: g.primary.sourceName,
@@ -1193,8 +1536,81 @@ async function main(): Promise<void> {
     }
   }
 
+  // ── توییت‌ها: دریافت از ایکس، ترجمهٔ روان کامل، ارسال بلافاصله پس از توییت (خواستهٔ کاربر) ──
+  let tweetNextCursor: number | null = null;
+  const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
+  if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
+    const cursor = Number(state.tweetCursor) || 0;
+    const { picked, nextCursor } = rotateAccounts(tweetAccounts, cursor, CFG.tweetAccountsPerCycle);
+    tweetNextCursor = nextCursor;
+    summary.tweetAccountsTried = picked.length;
+    console.log(`توییت‌ها: ${picked.length} حساب از ${tweetAccounts.length} (چرخش از ایندکس ${cursor})`);
+    const candidates: Array<{ tweet: ParsedTweet; handle: string; label: string; avatarUrl?: string }> = [];
+    let rateLimited = false;
+    for (const acc of picked) {
+      const r = await fetchTweetTimeline(acc.handle);
+      if (r.ok) summary.tweetsFetched = (summary.tweetsFetched || 0) + r.tweets.length;
+      if (r.rateLimited) {
+        rateLimited = true;
+        console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیهٔ حساب‌ها به چرخهٔ بعد می‌روند`);
+        break;
+      }
+      if (!r.ok) {
+        console.warn(`⚠️ توییت @${acc.handle}: ${r.error} (صادقانه — در چرخهٔ بعدی دوباره)`);
+      } else {
+        const ft = freshTweets(state, r.tweets, acc.handle, titleSets, { windowHours: CFG.windowHours, nowMs: Date.now(), limit: CFG.maxTweets });
+        for (const tw of ft.fresh) candidates.push({ tweet: tw, handle: acc.handle, label: acc.name || `@${acc.handle}`, avatarUrl: r.avatarUrl });
+        console.log(`  @${acc.handle}: ${ft.fresh.length} توییت تازه (${ft.blocked} قدیمی/تکراری رد شد)`);
+      }
+      await sleep(CFG.tweetFetchGapMs);
+    }
+    summary.tweetRateLimited = rateLimited;
+    const toSend = candidates.slice(0, CFG.maxTweets);
+    if (toSend.length > 0) {
+      // ترجمهٔ دسته‌جمعی توییت‌های غیرفارسی — یک فراخوانی مدل برای کل چرخه (بدون OpenRouter)
+      const needIdx = toSend.map((c, i) => ({ c, i })).filter(({ c }) => needsTranslation(c.tweet.text));
+      if (needIdx.length > 0) {
+        const corpus = needIdx.map(({ c }, j) => `[${j + 1}] ${c.tweet.text.slice(0, 400).replace(/\n+/g, ' ')}`).join('\n');
+        const r = await chainCall(SYSTEM_BOT_TRANSLATE, corpus, { maxTokens: 2500, skipIds: ['openrouter'] });
+        if (r.ok && r.content) {
+          const entries = extractJson(r.content, validateBatchTranslation);
+          if (entries) {
+            let tr = 0;
+            for (const e of entries) {
+              const t = needIdx[e.n - 1];
+              if (t && !needsTranslation(e.fa)) { t.c.tweet.text = e.fa; tr++; } // فقط ترجمهٔ واقعاً فارسی
+            }
+            summary.translated += tr;
+            console.log(`ترجمهٔ دسته‌جمعی توییت: ${tr} مورد (${r.providerId})`);
+          } else console.warn('⚠️ پاسخ ترجمهٔ توییت قابل تجزیه نبود — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند');
+        } else console.warn(`⚠️ ترجمهٔ توییت ناموفق: ${r.error} — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند (هیچ ساختگی)`);
+      }
+      for (const c of toSend) {
+        // گیت بازرسی نهایی — هیچ توییت غیرفارسی ارسال نمی‌شود؛ نشد → چرخهٔ بعد تلاش می‌کند
+        const fa = await gateFa(c.tweet.text);
+        if (!fa) {
+          summary.skippedUntranslated = (summary.skippedUntranslated || 0) + 1;
+          console.warn(`⚠️ توییت ${c.label} غیرفارسی و ترجمه ناموفق — چرخهٔ بعد تلاش می‌کند`);
+          continue;
+        }
+        if (fa !== c.tweet.text) c.tweet.text = fa;
+        const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 1200);
+        if (await sendOne(msg, c.avatarUrl)) {
+          summary.tweetsSent = (summary.tweetsSent || 0) + 1;
+          sentIds.push(`tw-${c.handle.toLowerCase()}-${c.tweet.id}`);
+          sentTitleTexts.push(normalizeTitle(c.tweet.text).slice(0, 160));
+          markMsg(fa);
+        }
+        await sleep(700);
+      }
+    }
+  } else if (tweetAccounts.length === 0) {
+    console.log('توییت‌ها: فهرست حساب‌ها خالی است (bot/tweets.json) — این چرخه توییت نمی‌رود');
+  }
+
   // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد
   const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });
+  if (tweetNextCursor !== null) merged.tweetCursor = tweetNextCursor;
   merged.lastRunAt = new Date().toISOString();
   merged.lastRun = { ...summary };
   saveState(CFG.stateFile, merged);

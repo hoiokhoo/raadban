@@ -83,20 +83,36 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(nvidia.enabled).toBe(false);
   });
 
-  test('OpenRouter با کلید → پیش‌فرض (سرِ زنجیره) و جمینی به موقعیت پشتیبان می‌رود', () => {
+  test('OpenRouter با کلید فعال است اما دیگر سرِ زنجیره نیست — اولویت اول کاربر جمینی است (۴ نوامبر ۲۰۲۶)', () => {
     const chain = buildDefaultChain(
       { OPENROUTER_API_KEY: 'sk-or-v1-test-123', GEMINI_API_KEY: 'gem-key-123' }, undefined
     );
-    expect(chain[0].id).toBe('openrouter');
+    expect(chain[0].id).toBe('gemini');
     expect(chain[0].enabled).toBe(true);
     expect(chain[0].label).toContain('پیش‌فرض');
-    expect(chain[0].model).toBe('nvidia/nemotron-3-ultra-550b-a55b:free'); // مدل مردود قبلی جایگزین شد
-    // zai/GLM بلافاصله پس از پیش‌فرض می‌ماند؛ gemini حاضر اما دیگر سرِ زنجیره نیست
+    const or = chain.find((p) => p.id === 'openrouter')!;
+    expect(or.enabled).toBe(true);
+    expect(or.maxAttempts).toBe(1); // در ۴۲۹ بی‌درنگ به مدل بعدی — سهمیهٔ رایگان روزانه تمام‌شدنی است
     const ids = chain.map((p) => p.id);
-    expect(ids.indexOf('zai')).toBeLessThan(ids.indexOf('gemini'));
-    expect(ids).toContain('gemini');
-    const gem = chain.find((p) => p.id === 'gemini')!;
-    expect(gem.label).toBe('Gemini'); // برچسب «پیش‌فرض» از جمینی برداشته شد
+    expect(ids.indexOf('zai')).toBeLessThan(ids.indexOf('openrouter'));
+  });
+
+  test('استخر چندکلید جمینی — هر کلید یک ورودی مستقل به ترتیب و بعد از همه GLM', () => {
+    const chain = buildDefaultChain({ GEMINI_API_KEY: 'env-key' }, undefined, {}, ['pool-key-1', 'pool-key-2']);
+    const gem = chain.filter((p) => p.id.startsWith('gemini'));
+    expect(gem.map((p) => p.apiKey)).toEqual(['pool-key-1', 'pool-key-2', 'env-key']);
+    expect(gem[0].id).toBe('gemini');
+    expect(gem[1].id).toBe('gemini-2');
+    expect(gem[2].id).toBe('gemini-3');
+    expect(chain[gem.length].id).toBe('zai');
+  });
+
+  test('ذکر gemini در تعریف سفارشی، کل استخر جمینی را جابه‌جا می‌کند', () => {
+    const defaults = buildDefaultChain({}, undefined, {}, ['k1', 'k2']);
+    const out = applyCustomProviders(defaults, JSON.stringify([{ id: 'zai' }, { id: 'gemini' }]));
+    expect(out[0].id).toBe('zai');
+    expect(out[1].id).toBe('gemini');
+    expect(out[2].id).toBe('gemini-2');
   });
 
   test('بدون کلید OpenRouter — ترتیب سابق حفظ می‌شود (gemini، zai، pollinations)', () => {

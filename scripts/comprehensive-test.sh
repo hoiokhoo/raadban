@@ -38,7 +38,7 @@ H=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 http://localhost:3000/)
 if [ "$H" = "200" ]; then ok "صفحهٔ اصلی 200"; else bad "صفحهٔ اصلی: $H"; fi
 
 BAD_API=""
-for ep in status sources posts live events claims categories topics clusters reports schedule jobs costs errors references channels settings ai/keys ai/providers bale bale/preview; do
+for ep in status sources posts live events claims categories topics clusters reports schedule jobs costs errors references channels settings ai/keys ai/providers bale bale/preview gemini-keys; do
   C=$(curl -s -o /dev/null -w "%{http_code}" --max-time 25 "http://localhost:3000/api/$ep")
   [ "$C" = "200" ] || BAD_API="$BAD_API /api/$ep=$C"
 done
@@ -49,7 +49,7 @@ if echo "$LIVE" | grep -q '"ok":true' && echo "$LIVE" | grep -q '"posts":\['; th
 else
   bad "خط لحظه‌ای (/api/live): پاسخ ناقص — $(echo "$LIVE" | head -c 200)"
 fi
-if [ -z "$BAD_API" ]; then ok "همهٔ ۲۲ مسیر API در دسترس (شامل پیش‌نمایش بله و خط لحظه‌ای)"; else bad "API خراب:$BAD_API"; fi
+if [ -z "$BAD_API" ]; then ok "همهٔ ۲۳ مسیر API در دسترس (شامل کلیدهای جمینی و پیش‌نمایش بله)"; else bad "API خراب:$BAD_API"; fi
 
 # مسیرهای پویا — یک پست واقعی (references فقط POST است؛ 405 یعنی مسیر وصل است)
 PID=$(bun -e 'import {PrismaClient} from "@prisma/client"; const db=new PrismaClient(); const p=await db.post.findFirst({select:{id:true}}); console.log(p?.id||""); process.exit(0);' 2>/dev/null | tail -1)
@@ -62,20 +62,27 @@ if [ -n "$PID" ]; then
   esac
 fi
 
-# ۵) سلامت زنجیرهٔ تأمین مدل — اگر کلید OpenRouter موجود باشد باید سرِ زنجیره باشد (خواستهٔ کاربر)؛
-#    بدون کلید، زنجیره باید دست‌کم یک تأمین‌کنندهٔ سالم داشته باشد (پشتیبان‌های zai/pollinations)
+# ۵) سلامت زنجیرهٔ تأمین مدل — اولویت اول کاربر (۴ نوامبر ۲۰۲۶): جمینی سرِ زنجیره است؛
+#    بدون کلید جمینی، زنجیره باید دست‌کم یک تأمین‌کنندهٔ سالم داشته باشد (پشتیبان‌های zai/pollinations)
 section "۵) زنجیرهٔ مدل"
 CHAIN=$(bun -e 'import {getProviderChain} from "./src/lib/ai/providers"; const c=await getProviderChain(); console.log(c.filter(p=>p.enabled).map(p=>p.id).join(",")); process.exit(0);' 2>/dev/null | tail -1)
-if grep -q '^OPENROUTER_API_KEY=..' .env 2>/dev/null; then
-  echo "$CHAIN" | grep -q "openrouter" && { echo "$CHAIN" | grep -qE "^openrouter" && ok "سرِ زنجیره: OpenRouter (پیش‌فرض) → $CHAIN" || bad "کلید OpenRouter هست ولی سرِ زنجیره نیست: $CHAIN"; } || bad "کلید OpenRouter هست ولی غیرفعال است: $CHAIN"
+if grep -q '^GEMINI_API_KEY=..' .env 2>/dev/null || grep -q '^GEMINI_API_KEYS=..' .env 2>/dev/null; then
+  echo "$CHAIN" | grep -qE "^gemini" && ok "سرِ زنجیره: Gemini (اولویت اول کاربر) → $CHAIN" || bad "کلید جمینی هست ولی سرِ زنجیره نیست: $CHAIN"
 else
-  if [ -n "$CHAIN" ]; then ok "زنجیره بدون کلید OpenRouter سالم است: $CHAIN (برای بازگشت OpenRouter به سرِ زنجیره، کلید را در .env یا تب «مدل و API» وارد کنید)"; else bad "زنجیرهٔ مدل خالی است — هیچ تأمین‌کننده‌ای فعال نیست"; fi
+  if [ -n "$CHAIN" ]; then ok "زنجیره بدون کلید جمینی سالم است: $CHAIN (برای اولویت اول جمینی، کلید را در .env یا بخش «کلیدهای جمینی» وارد کنید)"; else bad "زنجیرهٔ مدل خالی است — هیچ تأمین‌کننده‌ای فعال نیست"; fi
 fi
 
-# ۶) اتصال بله (getMe — بدون ارسال پیام مزاحم)
+# ۶) اتصال بله (getMe — بدون ارسال پیام مزاحم) — اگر توکن در این محیط تنظیم نشده باشد
+#    این بخش صادقانه «قابل آزمون نیست» گزارش می‌شود (محیط کاربر/رانر گیت‌هاب توکن را دارد)
 section "۶) بات بله"
 ME=$(bun -e 'import {baleGetMe} from "./src/lib/bale-bot"; const m=await baleGetMe(); console.log(JSON.stringify(m)); process.exit(0);' 2>/dev/null | tail -1)
-echo "$ME" | grep -q '"ok":true' && ok "getMe بله موفق ($(echo "$ME" | grep -oE '"username":"[^"]+"'))" || bad "بله: $ME"
+if echo "$ME" | grep -q '"ok":true'; then
+  ok "getMe بله موفق ($(echo "$ME" | grep -oE '"username":"[^"]+"'))"
+elif echo "$ME" | grep -q 'تنظیم نشده'; then
+  echo "⚠️  توکن بات بله در این محیط تنظیم نشده — اتصال در محیط کاربر (با .env یا تنظیمات برنامه) و ربات ۲۴ ساعتهٔ گیت‌هاب (با سکرت خودش) کامل آزموده می‌شود"
+else
+  bad "بله: $ME"
+fi
 
 # ۷) منابع و مدارشکن ایکس
 section "۷) منابع و مدارشکن"

@@ -40,8 +40,10 @@ jobs:
               try:
                   with urllib.request.urlopen(url, timeout=25) as r:
                       data = json.load(r)
-                      n = len(data.get('models', []))
-                      print(f'کلید {i+1} ({masked}): OK — {n} مدل در دسترس')
+                      models = data.get('models', [])
+                      print(f'کلید {i+1} ({masked}): OK — {len(models)} مدل در دسترس')
+                      for m in models[:40]:
+                          print('   ', m.get('name', '?'))
               except urllib.error.HTTPError as e:
                   try:
                       detail = json.loads(e.read()).get('error', {}).get('message', '')[:220]

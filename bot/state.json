@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "29a099358ae6848b9eff27b05dd3323749c5af83": 1793813248880,
+  "tw-ap-2118027568993464574": 1793813248880,
+  "tw-ajenglish-2118026739314225257": 1793813248880,
+  "tw-ajenglish-2118024142566158727": 1793813248880,
   "94f472aa210597ca2ab9f80405de0524ee01c69c": 1793812490269,
   "b2ab40402b2f1a58d33e4e0af5605ae2869659fc": 1793812490269,
   "ead4b615ed840f7f7c23b5357a3ac949c0a255f6": 1793812490269,
@@ -461,6 +465,7 @@
   "c7763924a56a876c34a35c0098a5202f5595a117": 1793729606426
  },
  "sentTitles": {
+  "2da32709abb2631bc13de8148d0a241dc5545656": 1793813248880,
   "6d2ad9b5a779e55c682e6cae0803e220b17cebb8": 1793812490269,
   "2f6f32e1feab3b7b10f81f24a65591bf28129cad": 1793812490269,
   "c00a598930a3e65ff1626f7be20d8bba447b2857": 1793812490269,
@@ -846,6 +851,10 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "سازمان ملل فقط ۳۰ درصد نیاز مالی سازگاری اقلیمی تامین می شود گزارش جدید برنامه محیط زیست سازمان ملل متحد نشان می دهد کشورهای در حال توسعه برای سازگاری با پیامده": 1793813248880,
+  "جویس دی ویت هم نویس three s company جان ر یتر را تحسین می کند و درباره تاثیر برنامه صحبت می کند": 1793813248880,
+  "پیامدهای انتخابات میانی امریکا ممکن است فراتر از مرزهای داخلی امریکا گسترش یابد با تسلط دموکرات بر کنگره ترامپ با بررسی سخت گیرانه تری در خصوص سیاست خارجی اش از": 1793813248880,
+  "گورنر فلوریدا رون د سانتیس که جمهوری خواه است نتایج انتخابات میانی را به عنوان رویداد سطح انقراض برای جمهوری خواهان توصیف کرد پس از اینکه دموکرات ها کنترل کنگره": 1793813248880,
   "agniveers get 2 year extension higher pay key changes under scheme explained with diwali approaching nearly 20 000 agniveers will have the opportunity to serve ": 1793812490269,
   "wall street s reckoning looms as democrats take over congress bloomberg com wall street s reckoning looms as democrats take over congress bloomberg com": 1793812490269,
   "us two party system could face anti war challenger marandi video professor mohammad marandi says republican midterm losses could pave the way for a third party ": 1793812490269,
@@ -1071,6 +1080,9 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "جویس دی ویت هم نویس three s company جان ر یتر را تحسین می کند و درباره تاثیر برنامه صحبت می کند": 1793813248880,
+  "پیامدهای انتخابات میانی امریکا ممکن است فراتر از مرزهای داخلی امریکا گسترش یابد با تسلط دموکرات بر کنگره ترامپ با بررسی سخت گیرانه تری در خصوص سیاست خارجی اش از": 1793813248880,
+  "گورنر فلوریدا رون د سانتیس که جمهوری خواه است نتایج انتخابات میانی را به عنوان رویداد سطح انقراض برای جمهوری خواهان توصیف کرد پس از اینکه دموکرات ها کنترل کنگره": 1793813248880,
   "با پیش بینی تجاوز گرمایش جهانی به ۱ ۵ درجه سانتی گراد سازگاری عقب می ماند در حالی که خسارات و زیان های مرتبط با اقلیم در حال افزایش است کشورهای در حال توسعه نیا": 1793812490269,
   "نتایج انتخابات میانه امریکا برای کاناداییان امیدوار به تخفیف تعرفه پیروزی محسوب می شود": 1793812490269,
   "ازمایش ملی بریتانیا در جمهوری دموکراتیک کنگو بر روی ویروس ایبو مثبت شد": 1793812490269,
@@ -1186,25 +1198,25 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 2,
- "lastRunAt": "2026-11-04T17:14:50.271Z",
+ "tweetCursor": 8,
+ "lastRunAt": "2026-11-04T17:27:28.882Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 2,
-  "fetched": 1041,
-  "inWindow": 335,
-  "fresh": 316,
-  "sent": 12,
-  "images": 10,
-  "translated": 14,
+  "sourcesFailed": 3,
+  "fetched": 1042,
+  "inWindow": 343,
+  "fresh": 322,
+  "sent": 1,
+  "images": 6,
+  "translated": 3,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
+  "tweetsFetched": 120,
   "tweetsSent": 3,
   "tweetAccountsTried": 6,
   "aiFailed": true,
-  "skippedUntranslated": 0,
+  "skippedUntranslated": 11,
   "tweetRateLimited": false
  }
 }

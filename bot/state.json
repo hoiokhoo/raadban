@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "tw-un-2117996504694641109": 1793807156550,
+  "tw-bbcworld-2118003090045481406": 1793807156550,
   "716db22f1c0d06968c72075358e9354c0ea9001d": 1793806491598,
   "0a636751a01ddc773d519e4d398901f02b936399": 1793806491598,
   "5304219ec3ec087a1c584c7c8cbf1dafe718f473": 1793806491598,
@@ -708,6 +710,8 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "rt unep کشورهای اسیب پذیرترین به تغییرات اقلیمی در کل تقریبا هیچ سهمی در انتشار گازهای گلخانه ای جهانی نداشته اند اما": 1793807156550,
+  "اسناد پلیس مخفی در مجارستان منتشر شد ۴۷ سال پس از سقوط کمونیسم": 1793807156550,
   "ukraine bonds jump as democrat win seen helping defense efforts bloomberg com ukraine bonds jump as democrat win seen helping defense efforts bloomberg com": 1793806491598,
   "power ranking the top men s college basketball conferences for 2026 27 espn power ranking the top men s college basketball conferences for 2026 27 espn": 1793806491598,
   "trump loses us congress netanyahu faces deadlock at home what happens to iran war now": 1793806491598,
@@ -848,6 +852,8 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "rt unep کشورهای اسیب پذیرترین به تغییرات اقلیمی در کل تقریبا هیچ سهمی در انتشار گازهای گلخانه ای جهانی نداشته اند اما": 1793807156550,
+  "اسناد پلیس مخفی در مجارستان منتشر شد ۴۷ سال پس از سقوط کمونیسم": 1793807156550,
   "یک حمله سایبری به انبارهای سرد خون اهدا شده در فرانسه هدف قرار داد بر اساس گفته مقامات این اخرین مورد از سری حملات مشکوک است که در سراسر اروپا هشدار ایجاد کرده ": 1793806491598,
   "نیروهای اسراییل خانه ها را در شهر هادتها در جنوب لبنان به اتش انداختند و چندین منطقه در بخش های بینجبیل و تیر را شلیک کردند بر اساس رسانه های دولتی لبنان": 1793806491598,
   "رییس جمهور امریکا دونالد ترامپ اعلام کرد واشنگتن تا پایان سال جاری کمک های نظامی به اسراییل را متوقف خواهد کرد پس از توافق با نخست وزیر اسراییل بنیامین نتانیاهو": 1793806491598,
@@ -931,25 +937,26 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-04T15:34:51.600Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-04T15:45:56.552Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 1,
-  "fetched": 1036,
-  "inWindow": 323,
-  "fresh": 316,
-  "sent": 12,
-  "images": 19,
-  "translated": 10,
+  "sourcesFailed": 2,
+  "fetched": 1038,
+  "inWindow": 321,
+  "fresh": 314,
+  "sent": 0,
+  "images": 4,
+  "translated": 2,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 6,
+  "tweetsFetched": 100,
+  "tweetsSent": 2,
   "tweetAccountsTried": 6,
+  "aiProvider": "pollinations",
   "aiFailed": true,
-  "skippedUntranslated": 0,
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

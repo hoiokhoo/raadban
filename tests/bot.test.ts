@@ -647,3 +647,118 @@ describe('freshTweets — ضدتکرار توییت بین‌چرخه‌ای', (
     expect(fresh.length).toBe(2);
   });
 });
+
+// ---------- دسته‌ها، تجمیع منابع و پرامپت‌های ویرایش‌شده (۵ نوامبر ۲۰۲۶) ----------
+import {
+  parseCategoryConfig, parseBotConfig, parsePromptFile, applyPromptOverrides, loadPromptOverrides,
+  aggregateSourceLabel, composeGroupMessage, DEFAULT_SYSTEM_BOT_ONESHOT, DEFAULT_SYSTEM_BOT_TRANSLATE,
+  getOneshotPrompt, getTranslatePrompt, type CategoryRouting,
+} from '../bot/bot';
+import { writeFileSync, rmSync } from 'node:fs';
+
+describe('parseCategoryConfig — پیکربندی توکن هر بخش خبری', () => {
+  test('پیکربندی معتبر پارس می‌شود', () => {
+    const raw = JSON.stringify({
+      sports: { token: '111:abc', targets: ['@sports_ch', '12345'] },
+      energy: { token: '222:def', targets: ['-100999'], title: 'انرژی' },
+    });
+    const cfg = parseCategoryConfig(raw);
+    expect(Object.keys(cfg).sort()).toEqual(['energy', 'sports']);
+    expect(cfg.sports.targets).toEqual(['@sports_ch', '12345']);
+    expect(cfg.energy.title).toBe('انرژی');
+  });
+  test('دستهٔ ناقص (بی‌توکن یا بی‌مقصد) حذف می‌شود', () => {
+    const raw = JSON.stringify({ aa: { token: '', targets: ['x'] }, bb: { token: 't', targets: [] }, cc: { token: 't', targets: ['y'] } });
+    const cfg = parseCategoryConfig(raw);
+    expect(Object.keys(cfg)).toEqual(['cc']);
+  });
+  test('JSON خراب/خالی = پیکربندی تهی (بدون پرتاب خطا)', () => {
+    expect(parseCategoryConfig('not-json')).toEqual({});
+    expect(parseCategoryConfig('')).toEqual({});
+    expect(parseCategoryConfig('[1,2]')).toEqual({});
+  });
+  test('اسلاگ نامعتبر پذیرفته نمی‌شود', () => {
+    const raw = JSON.stringify({ 'Bad Slug!': { token: 't', targets: ['x'] }, ok_slug: { token: 't', targets: ['x'] } });
+    expect(Object.keys(parseCategoryConfig(raw))).toEqual(['ok_slug']);
+  });
+});
+
+describe('aggregateSourceLabel — تجمیع چند خبرگزاری در یک پیام', () => {
+  test('تک‌منبع = نام همان منبع (بدون پیشوند)', () => {
+    expect(aggregateSourceLabel(['بی‌بی‌سی'])).toBe('بی‌بی‌سی');
+  });
+  test('چند منبع = «خبرگزاری‌های A و B و C» — خواستهٔ صریح کاربر', () => {
+    expect(aggregateSourceLabel(['تی‌آر‌تی', 'بی‌بی‌سی', 'رویترز'])).toBe('خبرگزاری‌های تی‌آر‌تی و بی‌بی‌سی و رویترز');
+  });
+  test('تکرار نام‌ها حذف و سقف ۵ نام با «و …»', () => {
+    expect(aggregateSourceLabel(['A', 'A', 'B'])).toBe('خبرگزاری‌های A و B');
+    const many = aggregateSourceLabel(['۱', '۲', '۳', '۴', '۵', '۶', '۷']);
+    expect(many).toBe('خبرگزاری‌های ۱ و ۲ و ۳ و ۴ و ۵ و …');
+  });
+  test('لیست خالی = منبع ناشناس', () => {
+    expect(aggregateSourceLabel(['', '  '])).toBe('منبع ناشناس');
+  });
+  test('composeGroupMessage پیام تجمیع‌شده با متن و حکم می‌سازد', () => {
+    const g = { members: [{ sourceName: 'TRT' }, { sourceName: 'BBC' }] };
+    const msg = composeGroupMessage(g, 'متن خبر مشترک', 'تأیید می‌شود');
+    expect(msg).toContain('خبرگزاری‌های TRT و BBC: متن خبر مشترک');
+    expect(msg).toContain('✅');
+  });
+});
+
+describe('پرامپت‌های ویرایش‌شده از اپلیکیشن', () => {
+  test('parsePromptFile فیلدهای درست/نادرست را جداسازی می‌کند', () => {
+    const pf = parsePromptFile('{"oneshot":"متن","updatedAt":"2026-11-05"}');
+    expect(pf.oneshot).toBe('متن');
+    expect(pf.translate).toBeUndefined();
+    expect(parsePromptFile('bad').oneshot).toBeUndefined();
+  });
+  test('applyPromptOverrides فقط متن بلند معتبر را می‌پذیرد', () => {
+    const r1 = applyPromptOverrides({ oneshot: 'کوتاه', translate: 'x' });
+    expect(r1.oneshot).toBe(false);
+    const r2 = applyPromptOverrides({ oneshot: 'ش'.repeat(500) });
+    expect(r2.oneshot).toBe(true);
+    expect(getOneshotPrompt()).toBe('ش'.repeat(500));
+    // بازگرداندن به پیش‌فرض برای بقیهٔ تست‌ها
+    applyPromptOverrides({ oneshot: DEFAULT_SYSTEM_BOT_ONESHOT, translate: DEFAULT_SYSTEM_BOT_TRANSLATE });
+    expect(getOneshotPrompt()).toBe(DEFAULT_SYSTEM_BOT_ONESHOT);
+  });
+  test('loadPromptOverrides فایل واقعی bot/prompts.json را اعمال می‌کند', () => {
+    const tmp = 'bot/__test-prompts.json';
+    writeFileSync(tmp, JSON.stringify({ oneshot: 'پ'.repeat(450) }), 'utf8');
+    loadPromptOverrides(tmp);
+    expect(getOneshotPrompt()).toBe('پ'.repeat(450));
+    rmSync(tmp);
+    loadPromptOverrides(tmp); // فایل نبود → بدون خطا، بدون تغییر
+    applyPromptOverrides({ oneshot: DEFAULT_SYSTEM_BOT_ONESHOT, translate: DEFAULT_SYSTEM_BOT_TRANSLATE });
+  });
+  test('پرامپت سوپر حرفه‌ای قواعد کلیدی کاربر را دارد', () => {
+    expect(DEFAULT_SYSTEM_BOT_ONESHOT).toContain('cat');
+    expect(DEFAULT_SYSTEM_BOT_ONESHOT).toContain('تجمیع');
+    expect(DEFAULT_SYSTEM_BOT_TRANSLATE).toContain('تمام‌وکمال');
+    expect(DEFAULT_SYSTEM_BOT_TRANSLATE).toContain('خلاصه‌سازی');
+  });
+});
+
+describe('parseBotConfig — فهرست دسته‌های مجاز', () => {
+  test('دسته‌های معتبر استخراج می‌شوند', () => {
+    const c = parseBotConfig('{"categories":[{"slug":"politics","title":"سیاسی"},{"slug":"sports","title":"ورزشی"}]}');
+    expect(c.categories).toEqual([{ slug: 'politics', title: 'سیاسی' }, { slug: 'sports', title: 'ورزشی' }]);
+  });
+  test('اسلاگ خراب حذف؛ JSON خراب = تهی', () => {
+    expect(parseBotConfig('{"categories":[{"slug":"BAD!","title":"x"},{"slug":"ok","title":"y"}]}').categories.map((c) => c.slug)).toEqual(['ok']);
+    expect(parseBotConfig('nope').categories).toEqual([]);
+  });
+});
+
+describe('validateOneShot با فهرست دسته‌های مجاز', () => {
+  test('cat مجاز حفظ و نامعتبر حذف می‌شود', async () => {
+    const { validateOneShot } = await import('../bot/bot');
+    const out = validateOneShot(
+      { items: [{ refs: [1], text: 'خبر', verdict: '', cat: 'sports' }, { refs: [2], text: 'خبر۲', verdict: '', cat: 'hacked' }] },
+      ['sports', 'general'],
+    );
+    expect(out?.items[0].cat).toBe('sports');
+    expect(out?.items[1].cat).toBeUndefined();
+  });
+});

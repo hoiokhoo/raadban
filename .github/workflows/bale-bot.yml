@@ -35,6 +35,7 @@ jobs:
           BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
           BALE_CHAT_ID: ${{ secrets.BALE_CHAT_ID }}
           BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }} # کانال‌های ادمین‌شده — اختیاری، جداشده با ویرگول
+          BALE_CATEGORIES: ${{ secrets.BALE_CATEGORIES }} # توکن بات هر بخش خبری (سیاسی/ورزشی/...) — از اپلیکیشن همگام می‌شود
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

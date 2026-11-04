@@ -70,6 +70,43 @@ export async function baleApi(method: string, payload?: Record<string, unknown>,
   }
 }
 
+/** فراخوانی API با توکن صریح — برای مدیریت بات‌های اختصاصی هر بخش خبری (BotCategory) */
+export async function baleApiWith(token: string, method: string, payload?: Record<string, unknown>, timeoutMs = 15000): Promise<BaleApiResult> {
+  if (!token?.trim()) return { ok: false, error: 'توکن خالی است' };
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${BALES_API_BASE}/bot${token.trim()}/${method}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload ?? {}),
+      signal: controller.signal,
+    });
+    const text = await res.text().catch(() => '');
+    let data: unknown = null;
+    try { data = JSON.parse(text); } catch { data = null; }
+    const errObj = (data as { error_code?: number; description?: string } | null);
+    if (!res.ok || (errObj && typeof errObj.error_code === 'number' && errObj.error_code >= 400)) {
+      const retryAfter = (data as { parameters?: { retry_after?: number } } | null)?.parameters?.retry_after;
+      return { ok: false, status: res.status, error: `HTTP ${res.status}${errObj?.description ? `: ${errObj.description}` : text.slice(0, 160)}`, retryAfterSec: retryAfter };
+    }
+    return { ok: true, status: res.status, data };
+  } catch (e) {
+    const msg = e instanceof Error ? (e.name === 'AbortError' ? `timeout پس از ${timeoutMs}ms` : e.message) : 'خطای ناشناخته';
+    return { ok: false, error: msg };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/** شمار اعضای چت/کانال — برای آمار «تعداد نفرات عضو شده» در اپلیکیشن (خواستهٔ کاربر) */
+export async function getChatMemberCount(token: string, chatId: string): Promise<{ ok: boolean; count?: number; error?: string }> {
+  const r = await baleApiWith(token, 'getChatMemberCount', { chat_id: chatId });
+  if (!r.ok) return { ok: false, error: r.error };
+  const count = (r.data as { result?: number } | null)?.result;
+  return typeof count === 'number' ? { ok: true, count } : { ok: false, error: 'پاسخ بدون شمار اعضا' };
+}
+
 /** تست اتصال — getMe */
 export async function baleGetMe(): Promise<{ ok: boolean; username?: string; botId?: number; error?: string }> {
   const r = await baleApi('getMe');

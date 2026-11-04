@@ -6,7 +6,8 @@
   "url": "https://www.bbc.com/sport",
   "language": "en",
   "region": "بریتانیا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "sports"
  },
  {
   "name": "CGTN (China Global TV Network)",
@@ -24,7 +25,8 @@
   "url": "https://www.espn.com",
   "language": "en",
   "region": "آمریکا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "sports"
  },
  {
   "name": "RT (Russia Today)",
@@ -42,7 +44,8 @@
   "url": "https://www.trt.net.tr/persian",
   "language": "fa",
   "region": "ترکیه",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "presstv",
@@ -114,7 +117,8 @@
   "url": "https://www.eghtesadonline.com/",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "economy"
  },
  {
   "name": "الجزیره انگلیسی (Al Jazeera English)",
@@ -222,7 +226,8 @@
   "url": "https://www.iranintl.com",
   "language": "fa",
   "region": "بریتانیا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "باشگاه خبرنگاران جوان (YJC)",
@@ -231,7 +236,8 @@
   "url": "https://www.yjc.ir",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "بلومبرگ (Bloomberg — تجمیعی)",
@@ -240,7 +246,8 @@
   "url": "https://www.bloomberg.com",
   "language": "en",
   "region": "آمریکا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "economy"
  },
  {
   "name": "بی‌بی‌سی فارسی",
@@ -249,7 +256,8 @@
   "url": "https://www.bbc.com/persian",
   "language": "fa",
   "region": "بریتانیا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "بی‌بی‌سی — بین‌الملل (BBC World)",
@@ -303,7 +311,8 @@
   "url": "https://www.khabaronline.ir/",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "خبرگزاری ایسنا (ISNA)",
@@ -312,7 +321,8 @@
   "url": "https://www.isna.ir",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "خبرگزاری ایلنا (ILNA)",
@@ -330,7 +340,8 @@
   "url": "https://t.me/TasnimNews_Agency",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "خبرگزاری صدا و سیما (IRIB News)",
@@ -348,7 +359,8 @@
   "url": "https://farsnews.ir",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "خبرگزاری مهر (RSS)",
@@ -357,7 +369,8 @@
   "url": "https://www.mehrnews.com/",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "د هیل (The Hill)",
@@ -402,7 +415,8 @@
   "url": "https://www.donya-e-eqtesad.com/",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "economy"
  },
  {
   "name": "دونالد ترامپ — تروث سوشال (بایگانی عمومی)",
@@ -429,7 +443,8 @@
   "url": "https://www.dw.com/fa-IR",
   "language": "fa",
   "region": "آلمان",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "رادیو زمانه (Radio Zamaneh — تجمیعی)",
@@ -447,7 +462,8 @@
   "url": "https://www.rfi.fr/fa/",
   "language": "fa",
   "region": "فرانسه",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "رادیو فردا (Radio Farda — تجمیعی)",
@@ -456,7 +472,8 @@
   "url": "https://www.radiofarda.com",
   "language": "fa",
   "region": "چک/آمریکا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "روزنامه مردم انگلیسی (People's Daily English)",
@@ -465,7 +482,8 @@
   "url": "https://en.people.cn",
   "language": "en",
   "region": "چین",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "tech"
  },
  {
   "name": "رویترز (Reuters — مسیر جایگزین)",
@@ -555,7 +573,8 @@
   "url": "https://www.asriran.com",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  },
  {
   "name": "فاکس‌نیوز (Fox News World)",
@@ -627,7 +646,8 @@
   "url": "https://www.varzesh3.com",
   "language": "fa",
   "region": "ایران",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "sports"
  },
  {
   "name": "پرس‌تی‌وی (Press TV — انگلیسی)",
@@ -654,7 +674,8 @@
   "url": "https://www.chinadaily.com.cn",
   "language": "en",
   "region": "چین",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "tech"
  },
  {
   "name": "گاردین — بین‌الملل (Guardian World)",
@@ -690,6 +711,7 @@
   "url": "https://parsi.euronews.com",
   "language": "fa",
   "region": "فرانسه/اروپا",
-  "priority": "عادی"
+  "priority": "عادی",
+  "category": "iran"
  }
 ]

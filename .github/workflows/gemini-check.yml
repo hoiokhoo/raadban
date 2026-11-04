@@ -34,6 +34,26 @@ jobs:
               print('هیچ کلید جمینی تنظیم نشده است')
           else:
               print(f'تعداد کلیدهای استخر: {len(keys)}')
+          # آزمون واقعی endpoint سازگار OpenAI (همان مسیر زنجیرهٔ ربات) با چند نام مدل
+          key0 = keys[0] if keys else ''
+          if key0:
+              for model in ['gemini-flash-latest', 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-3.6-flash']:
+                  req = urllib.request.Request(
+                      'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+                      data=json.dumps({'model': model, 'messages': [{'role': 'user', 'content': 'فقط بنویس: سلام'}], 'max_tokens': 10}).encode(),
+                      headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key0})
+                  try:
+                      with urllib.request.urlopen(req, timeout=30) as r:
+                          txt = json.load(r)['choices'][0]['message']['content']
+                          print(f'model {model}: OK — پاسخ: {txt[:40]}')
+                  except urllib.error.HTTPError as e:
+                      try:
+                          detail = json.loads(e.read()).get('error', {}).get('message', '')[:200]
+                      except Exception:
+                          detail = f'HTTP {e.code}'
+                      print(f'model {model}: FAIL — {detail}')
+                  except Exception as e:
+                      print(f'model {model}: FAIL — {str(e)[:200]}')
           for i, k in enumerate(keys):
               masked = (k[:6] + '…' + k[-4:]) if len(k) > 12 else '***'
               url = 'https://generativelanguage.googleapis.com/v1beta/models?key=' + k

@@ -1245,6 +1245,18 @@ export async function discoverChats(token: string, pages = 3): Promise<{ ok: boo
   return { ok: true, chats: [...seen.values()] };
 }
 
+/** آزمون‌گر زنجیرهٔ مدل (حالت --discover-chats) — خطای هر تأمین‌کننده شفاف در لاگ؛
+ *  کلیدها هرگز چاپ نمی‌شوند — فقط شناسه/مدل/خطا. */
+export async function diagnoseChain(): Promise<void> {
+  console.log('آزمون زنجیرهٔ مدل (یک پرسش کوچک از هر تأمین‌کننده):');
+  for (const p of buildChain()) {
+    const t0 = Date.now();
+    const r = await rawCall(p, 'فقط خود کلمه را پاسخ بده', 'سلام — فقط بنویس: سلام', 30_000, 40);
+    console.log(`  ${p.id}${p.model ? `/${p.model}` : ''}: ${r.ok ? 'OK' : `FAIL — ${r.error}`} (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+    if (!r.ok) await sleep(1500);
+  }
+}
+
 async function main(): Promise<void> {
   const summary: RunSummary = {
     ran: true, sources: 0, sourcesFailed: 0, fetched: 0, inWindow: 0, fresh: 0,
@@ -1263,6 +1275,7 @@ async function main(): Promise<void> {
     } else {
       console.error(`❌ getMe ناموفق: ${me.error}`);
     }
+    await diagnoseChain();
     const chats = await discoverChats(CFG.token);
     if (!chats.ok) {
       console.error(`❌ کشف چت‌ها ناموفق: ${chats.error}`);
@@ -1410,6 +1423,7 @@ async function main(): Promise<void> {
     aiProvider = aiRes.providerId;
     if (!one) console.warn('⚠️ پاسخ مدل قابل تجزیه نبود — مسیر خام');
   }
+  if (!one && aiRes.error) console.error(`❌ زنجیرهٔ مدل ناموفق: ${aiRes.error}`); // شفافیت کامل خطای هر تأمین‌کننده در لاگ
   summary.aiProvider = aiProvider;
   summary.aiFailed = !one;
   console.log(`فراخوانی مدل: ${one ? `موفق (${aiProvider})` : 'ناموفق'} — ${((Date.now() - aiStart) / 1000).toFixed(1)}s`);

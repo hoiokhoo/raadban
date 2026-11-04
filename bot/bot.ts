@@ -880,6 +880,8 @@ export async function chainCall(systemPrompt: string, userContent: string, opts:
       for (let attempt = 1; attempt <= p.maxAttempts; attempt++) {
         const r = await rawCall(p, systemPrompt, userContent, opts.timeoutMs ?? 90_000, opts.maxTokens ?? p.maxTokens);
         if (r.ok) return { ok: true, content: r.content, providerId: p.id };
+        // شفافیت کامل: خطای هر تأمین‌کننده در لاگ می‌آید (بدون هیچ کلیدی) — دیباگ زنجیره از Actions ممکن باشد
+        if (attempt === 1 && round === 1) console.warn(`⚠️ ${p.id}: ${r.error}`);
         if (r.rateLimited && p.rateLimitRetryMs) {
           await sleep(Math.min(p.rateLimitRetryMs, 32_000));
           continue; // یک تلاش مجدد درون همان تأمین‌کننده

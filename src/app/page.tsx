@@ -12,6 +12,7 @@ import { DiscoveryPanel } from '@/components/panels/discovery';
 import { FactcheckPanel } from '@/components/panels/factcheck';
 import { ArchivePanel, SearchPanel, ComparePanel } from '@/components/panels/archive';
 import { AiSettingsPanel, SchedulePanel, CostsPanel, ErrorsPanel, ProviderKeysPanel, BaleBotPanel } from '@/components/panels/settings';
+import { BotManagePanel } from '@/components/panels/bot-manage';
 import { ChannelReaderPanel } from '@/components/panels/channel-reader';
 import { EventsPanel } from '@/components/panels/events';
 import { AnalysisPanel, ClustersTab } from '@/components/panels/analysis';
@@ -36,6 +37,7 @@ const TABS = [
   { key: 'prompts', label: 'پرامپت دسته‌ها', icon: MessageSquareCode },
   { key: 'ai', label: 'مدل و API', icon: Bot },
   { key: 'bale', label: 'ربات بله', icon: Send },
+  { key: 'bot24', label: 'ربات ۲۴ ساعته', icon: Bot },
   { key: 'schedule', label: 'زمان‌بندی', icon: Timer },
   { key: 'costs', label: 'هزینه و مصرف', icon: Coins },
   { key: 'errors', label: 'خطاها و سرویس‌ها', icon: AlertTriangle },
@@ -104,6 +106,7 @@ export default function Home() {
         {tab === 'prompts' && <CategoriesPanel promptFocus />}
         {tab === 'ai' && <AiSettingsPanel />}
         {tab === 'bale' && <BaleBotPanel />}
+        {tab === 'bot24' && <BotManagePanel />}
         {tab === 'schedule' && <SchedulePanel />}
         {tab === 'costs' && <CostsPanel />}
         {tab === 'errors' && <ErrorsPanel />}

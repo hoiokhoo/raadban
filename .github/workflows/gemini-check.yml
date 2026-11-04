@@ -1,0 +1,53 @@
+name: بررسی کلیدهای جمینی (بدون ارسال پیام)
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: gemini-check
+      cancel-in-progress: false
+    steps:
+      - name: آزمون تک‌تک کلیدهای استخر (فقط نتیجهٔ ماسک‌شده — کلید هرگز چاپ نمی‌شود)
+        env:
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          raw = os.environ.get('GEMINI_API_KEYS', '')
+          keys = []
+          try:
+              arr = json.loads(raw)
+              if isinstance(arr, list):
+                  keys = [k for k in arr if isinstance(k, str) and k.strip()]
+          except Exception:
+              pass
+          if not keys and os.environ.get('GEMINI_API_KEY', '').strip():
+              keys = [os.environ['GEMINI_API_KEY'].strip()]
+          if not keys:
+              print('هیچ کلید جمینی تنظیم نشده است')
+          else:
+              print(f'تعداد کلیدهای استخر: {len(keys)}')
+          for i, k in enumerate(keys):
+              masked = (k[:6] + '…' + k[-4:]) if len(k) > 12 else '***'
+              url = 'https://generativelanguage.googleapis.com/v1beta/models?key=' + k
+              try:
+                  with urllib.request.urlopen(url, timeout=25) as r:
+                      data = json.load(r)
+                      n = len(data.get('models', []))
+                      print(f'کلید {i+1} ({masked}): OK — {n} مدل در دسترس')
+              except urllib.error.HTTPError as e:
+                  try:
+                      detail = json.loads(e.read()).get('error', {}).get('message', '')[:220]
+                  except Exception:
+                      detail = f'HTTP {e.code}'
+                  print(f'کلید {i+1} ({masked}): FAIL — {detail}')
+              except Exception as e:
+                  print(f'کلید {i+1} ({masked}): FAIL — {str(e)[:220]}')
+          PY

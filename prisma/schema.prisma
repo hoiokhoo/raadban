@@ -317,6 +317,21 @@ model Setting {
   updatedAt DateTime @updatedAt
 }
 
+// ---------- ربات ۲۴ ساعته گیت‌هاب — مدیریت از اپلیکیشن ----------
+// دسته‌های خبری ربات با توکن بات و مقصدهای بلهٔ هر بخش — همگام‌سازی به سکرت BALE_CATEGORIES
+model BotCategory {
+  id        String   @id @default(cuid())
+  slug      String   @unique // politics | sports | iran | energy | ...
+  title     String // فارسی: سیاسی، ورزشی...
+  tokenEnc  String? // توکن بات بلهٔ این بخش — رمزنگاری‌شده
+  tokenMask String? // نمایش ماسک‌شده در رابط
+  targets   String? // JSON آرایه شناسه‌های چت/کانال بله
+  enabled   Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // ---------- سرویس هوش مصنوعی و مصرف ----------
 model AiUsage {
   id          String   @id @default(cuid())

@@ -762,3 +762,17 @@ describe('validateOneShot با فهرست دسته‌های مجاز', () => {
     expect(out?.items[1].cat).toBeUndefined();
   });
 });
+
+describe('نردبان ارسال عکس — fetchImageBytes', () => {
+  test('URL نامعتبر = خطای شفاف، بدون پرتاب', async () => {
+    const { fetchImageBytes } = await import('../bot/bot');
+    const r = await fetchImageBytes('https://example.invalid/no-image.jpg', 3000);
+    expect(r.ok).toBe(false);
+    expect(r.error).toBeTruthy();
+  });
+  test('URL غیرتصویری (متن کوچک) رد می‌شود', async () => {
+    const { fetchImageBytes } = await import('../bot/bot');
+    const r = await fetchImageBytes('https://example.com', 5000);
+    expect(r.ok).toBe(false);
+  });
+});

@@ -5,9 +5,9 @@
 import { describe, expect, test } from 'bun:test';
 import {
   cleanNewsText, clusterItems, composeNewsMessage, emptyState, extractItemImage,
-  extractMessageImage, foreignFirstOrder, isAlreadySent, isForeignItem, isLikelyForeign,
-  jaccard, makeIds, mergeSentState, normalizeTitle, parseBingNewsRss, parseFeed,
-  parseTelegramPage, planBotSends, splitForBale, splitPhotoCaption, unescapeEntities,
+  extractMessageImage, fluentFaText, foreignFirstOrder, isAlreadySent, isForeignItem, isLikelyForeign,
+  isSimilarToAny, isStorySent, jaccard, makeIds, mergeSentState, normalizeTitle, parseBingNewsRss, parseFeed,
+  parseTelegramPage, planBotSends, splitForBale, splitPhotoCaption, tokensOf, unescapeEntities,
   validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem,
 } from '../bot/bot';
 
@@ -95,6 +95,27 @@ describe('mergeSentState', () => {
     expect(merged.sentIds.id0).toBeDefined();
     expect(merged.sentIds.id49).toBeUndefined(); // مابقی از سقف بیرون می‌ماند
   });
+
+  test('متن‌های عنوان/پیام هم ذخیره و سقف‌گذاری می‌شوند', () => {
+    const now = 1_000_000_000;
+    const st = emptyState();
+    const titles = Array.from({ length: 20 }, (_, i) => `عنوان شمارهٔ ${i} دربارهٔ سیاست`);
+    const msgs = Array.from({ length: 20 }, (_, i) => `متن پیام شمارهٔ ${i} دربارهٔ دیپلماسی`);
+    const merged = mergeSentState(st, [], [], now, undefined, undefined, undefined, { titleTexts: titles, msgTexts: msgs, maxTexts: 8 });
+    expect(Object.keys(merged.sentTitleTexts).length).toBe(8);
+    expect(Object.keys(merged.sentMsgTexts).length).toBe(8);
+    expect(merged.sentTitleTexts['عنوان شمارهٔ 0 دربارهٔ سیاست']).toBe(now); // جدیدها اول
+    expect(merged.sentTitleTexts['عنوان شمارهٔ 19 دربارهٔ سیاست']).toBeUndefined();
+  });
+
+  test('state قدیمی بدون فیلدهای متن — سازگار با عقب', () => {
+    const now = 1_000_000_000;
+    const st = { sentIds: { a: now }, sentTitles: {} } as unknown as ReturnType<typeof emptyState>;
+    const merged = mergeSentState(st, ['b'], [], now);
+    expect(merged.sentTitleTexts).toEqual({});
+    expect(merged.sentMsgTexts).toEqual({});
+    expect(merged.sentIds.b).toBe(now);
+  });
 });
 
 describe('isAlreadySent', () => {
@@ -106,6 +127,76 @@ describe('isAlreadySent', () => {
     const it2 = item({ content: 'خبر دیگر', url: 'https://x.example/2' });
     st.sentIds[it2.id] = Date.now();
     expect(isAlreadySent(st, it2)).toBe(true);
+  });
+});
+
+describe('isStorySent — ضدتکرار شباهتی بین‌چرخه‌ای', () => {
+  test('هش دقیق شناسه/عنوان هنوز کار می‌کند', () => {
+    const st = emptyState();
+    const it = item({ content: 'نشست فوری شورای امنیت دربارهٔ آتش‌بس', url: 'https://x.example/a' });
+    st.sentIds[it.id] = Date.now();
+    expect(isStorySent(st, it)).toBe(true);
+  });
+
+  test('همان خبر با نگارش متفاوت از منبع دیگر بلاک می‌شود', () => {
+    const st = emptyState();
+    st.sentTitleTexts[normalizeTitle('توافق آتش‌بس میان اسرائیل و حماس امروز امضا شد')] = Date.now();
+    const reworded = item({ content: 'امضا شد today? توافق آتش‌بس میان اسرائیل و حماس', url: 'https://other.example/b' });
+    // محتوای بازنویسی‌شده با توکن‌های مشترک زیاد
+    const reworded2 = item({ content: 'توافق آتش‌بس میان اسرائیل و حماس امروز امضا شد و قرار است اجرایی شود', url: 'https://other.example/c' });
+    expect(isStorySent(st, reworded)).toBe(true);
+    expect(isStorySent(st, reworded2)).toBe(true);
+  });
+
+  test('خبر کاملاً متفاوت رد نمی‌شود', () => {
+    const st = emptyState();
+    st.sentTitleTexts[normalizeTitle('توافق آتش‌بس میان اسرائیل و حماس امروز امضا شد')] = Date.now();
+    const other = item({ content: 'قیمت نفت خام برنت در بازار آسیا کاهش یافت', url: 'https://other.example/d' });
+    expect(isStorySent(st, other)).toBe(false);
+  });
+
+  test('مجموعه‌های ازپیش‌محاسبه همان نتیجه را می‌دهند (کارایی)', () => {
+    const st = emptyState();
+    st.sentTitleTexts[normalizeTitle('توافق آتش‌بس میان اسرائیل و حماس امروز امضا شد')] = Date.now();
+    const sets = Object.keys(st.sentTitleTexts).map((t) => tokensOf(t));
+    const reworded = item({ content: 'توافق آتش‌بس میان اسرائیل و حماس امروز امضا شد', url: 'https://other.example/e' });
+    expect(isStorySent(st, reworded, sets)).toBe(true);
+  });
+});
+
+describe('isSimilarToAny و tokensOf', () => {
+  test('متن مشابه با هر مجموعه پیدا می‌شود', () => {
+    const sets = [tokensOf('قیمت نفت امروز افزایش یافت'), tokensOf('جلسه مجلس فردا برگزار می‌شود')];
+    expect(isSimilarToAny('افزایش قیمت نفت امروز در بازار جهانی', sets)).toBe(true);
+    expect(isSimilarToAny('برنامهٔ جدید ناسا برای مریخ اعلام شد', sets)).toBe(false);
+  });
+
+  test('متن کوتاه بدون توکن معتبر، مشابه نیست', () => {
+    expect(isSimilarToAny('!!', [tokensOf('قیمت نفت امروز افزایش یافت')])).toBe(false);
+  });
+});
+
+describe('fluentFaText — تضمین فارسی‌روانی', () => {
+  test('محتوای فارسی مستقیماً مجاز است', () => {
+    const g = { primary: { language: 'fa', content: 'وزیر خارجه امروز دیدار کرد', translationFa: undefined } };
+    expect(fluentFaText(g)).toBe('وزیر خارجه امروز دیدار کرد');
+  });
+
+  test('خبر انگلیسی با ترجمهٔ موجود، ترجمه را می‌دهد', () => {
+    const g = { primary: { language: 'en', content: 'US officials met in Washington', translationFa: 'مقام‌های آمریکایی در واشنگتن دیدار کردند' } };
+    expect(fluentFaText(g)).toBe('مقام‌های آمریکایی در واشنگتن دیدار کردند');
+  });
+
+  test('خبر انگلیسی بدون ترجمه → null (ارسال ممنوع)', () => {
+    const g = { primary: { language: 'en', content: 'US officials met in Washington today', translationFa: undefined } };
+    expect(fluentFaText(g)).toBeNull();
+  });
+
+  test('ترجمهٔ خودِ لاتین → معتبر نیست (fallback به محتوای فارسی اگر باشد)', () => {
+    const g = { primary: { language: 'fa', content: 'متن فارسی خبر', translationFa: 'Broken latin translation text' } };
+    expect(fluentFaText(g)).toBe('متن فارسی خبر');
+    const g2 = { primary: { language: 'en', content: 'English content here', translationFa: 'Latin words inside' } };
+    expect(fluentFaText(g2)).toBeNull();
   });
 });
 
@@ -380,6 +471,16 @@ describe('planBotSends — برنامهٔ ارسال مسیر مدل', () => {
     ], groups);
     expect(r.sends[0].g).toBe(groups[1]); // خارجی اول
     expect(r.sends.map((s) => s.g)).toEqual([groups[1], groups[0], groups[2]]);
+  });
+
+  test('priorTexts — متن مشابه با پیام ارسال‌شدهٔ چرخهٔ قبل بلاک می‌شود', () => {
+    const r = planBotSends([
+      { refs: [1], text: 'توافق تجاری جدید واشنگتن و پکن امروز امضا شد', verdict: '' },
+      { refs: [3], text: 'جلسهٔ کاملاً متفاوت دربارهٔ بودجه داخلی', verdict: '' },
+    ], groups, { priorTexts: ['متن پیشین: توافق تجاری جدید واشنگتن و پکن امروز امضا شد'] });
+    expect(r.skippedDupText).toBe(1);
+    expect(r.sends.length).toBe(1);
+    expect(r.sends[0].g).toBe(groups[2]);
   });
 });
 

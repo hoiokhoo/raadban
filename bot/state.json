@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "tw-trtworld-2118097221614706994": 1793829648278,
   "4f796310c6afb1955cea40f92104e37c9fdf1949": 1793828962951,
   "32e0acad8421158f233b897b109f839ee642c36f": 1793828962951,
   "1018668fe48a5d32b6b54cadc8b7986b6bf0d1c6": 1793828962951,
@@ -1114,6 +1115,7 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "نیروی نظامی یمن می گوید ضربه بزرگی به شبه نظامی های هوتی وارد کرده اعلام می کند که ۳۴۰ عضو و فرمانده در ۱ ۳۲۲ عملیات نظامی کشته یا ناتوان شده اند به روزرسانی ها": 1793829648278,
   "midterms have israel fearing us alliance essentially broken bloomberg midterms have israel fearing us alliance essentially broken bloomberg": 1793828962951,
   "sources slumping eagles turn to joe milton as starting qb vs giants espn sources slumping eagles turn to joe milton as starting qb vs giants espn": 1793828962951,
   "record number of black governors elected in tuesday s midterms the washington post record number of black governors elected in tuesday s midterms the washington": 1793828962951,
@@ -1504,6 +1506,7 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "نیروی نظامی یمن می گوید ضربه بزرگی به شبه نظامی های هوتی وارد کرده اعلام می کند که ۳۴۰ عضو و فرمانده در ۱ ۳۲۲ عملیات نظامی کشته یا ناتوان شده اند به روزرسانی ها": 1793829648278,
   "نتایج انتخابات میان دوره ای امریکا موجب شکل گیری نگرانی هایی در میان مقام های اسراییلی درباره اینده و پایداری روابط راهبردی تل اویو و واشنگتن شده است ارزیابی ها": 1793828962951,
   "تیم فوتبال امریکایی فیلادلفیا ایگلز تصمیم گرفته است در بازی برابر نیویورک جاینتز جو میلتون را به عنوان کوارتربک اصلی وارد زمین کند این تصمیم پس از افت عملکرد تی": 1793828962951,
   "در جریان انتخابات میان دوره ای ایالات متحده رکورد تازه ای از انتخاب فرمانداران سیاه پوست به ثبت رسید این رویداد تغییری چشمگیر در ترکیب رهبری ایالتی امریکا ایجاد": 1793828962951,
@@ -1696,32 +1699,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-04T21:49:22.952Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-04T22:00:48.280Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 2,
-  "fetched": 1042,
+  "fetched": 1043,
   "inWindow": 282,
   "fresh": 260,
-  "sent": 4,
+  "sent": 0,
   "images": 0,
-  "translated": 2,
+  "translated": 1,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 112,
-  "tweetsSent": 2,
+  "tweetsFetched": 100,
+  "tweetsSent": 1,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "gemini",
-  "aiFailed": false,
+  "aiFailed": true,
+  "skippedUntranslated": 12,
+  "tweetRateLimited": false,
   "perCategory": {
-   "politics": 2,
-   "sports": 1,
-   "world": 1,
-   "general": 2
-  },
-  "tweetRateLimited": false
+   "general": 1
+  }
  }
 }

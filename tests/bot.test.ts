@@ -6,7 +6,7 @@ import { describe, expect, test } from 'bun:test';
 import {
   cleanNewsText, clusterItems, composeNewsMessage, emptyState, extractItemImage,
   extractMessageImage, fluentFaText, foreignFirstOrder, isAlreadySent, isForeignItem, isLikelyForeign,
-  isSimilarToAny, isStorySent, jaccard, makeIds, mergeSentState, normalizeTitle, parseBingNewsRss, parseFeed,
+  isSimilarToAny, isStorySent, jaccard, makeIds, mergeSentState, needsTranslation, normalizeTitle, parseBingNewsRss, parseFeed,
   parseTelegramPage, planBotSends, splitForBale, splitPhotoCaption, tokensOf, unescapeEntities,
   validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem,
 } from '../bot/bot';
@@ -164,6 +164,37 @@ describe('isStorySent — ضدتکرار شباهتی بین‌چرخه‌ای',
   });
 });
 
+describe('needsTranslation — گیت بازرسی قطعی', () => {
+  test('انگلیسی → ترجمه لازم', () => {
+    expect(needsTranslation('US officials said the talks will continue next week in Washington')).toBe(true);
+  });
+
+  test('فارسی روان → ترجمه لازم نیست', () => {
+    expect(needsTranslation('وزیر خارجه امروز در نشست خبری گفت که مذاکرات ادامه خواهد یافت و توافق نزدیک است')).toBe(false);
+  });
+
+  test('فارسی بدون پچژگ هم فارسی شمرده می‌شود', () => {
+    expect(needsTranslation('مجلس شورای اسلامی امروز نشست علنی داشت و طرح بودجه را بررسی کرد')).toBe(false);
+  });
+
+  test('عربی (ة ي ك بدون پچژگ) → ترجمه لازم', () => {
+    expect(needsTranslation('قال الوزير إن الاجتماع الذى عقد اليوم فى العاصمة ناقش الملف كاملا وحضرته وفود من عدة دول')).toBe(true);
+  });
+
+  test('روسی (سیریلیک) → ترجمه لازم', () => {
+    expect(needsTranslation('Президент России заявил, что переговоры продолжатся на следующей неделе в Москве')).toBe(true);
+  });
+
+  test('متن کوتاه عربی‌نما زیر آستانه → فارسی فرض می‌شود (محافظه‌کار)', () => {
+    expect(needsTranslation('کلمة الى')).toBe(false);
+  });
+
+  test('متن خالی/نشانه‌ای → ترجمه لازم نیست', () => {
+    expect(needsTranslation('')).toBe(false);
+    expect(needsTranslation('!!! ???')).toBe(false);
+  });
+});
+
 describe('isSimilarToAny و tokensOf', () => {
   test('متن مشابه با هر مجموعه پیدا می‌شود', () => {
     const sets = [tokensOf('قیمت نفت امروز افزایش یافت'), tokensOf('جلسه مجلس فردا برگزار می‌شود')];
@@ -197,6 +228,11 @@ describe('fluentFaText — تضمین فارسی‌روانی', () => {
     expect(fluentFaText(g)).toBe('متن فارسی خبر');
     const g2 = { primary: { language: 'en', content: 'English content here', translationFa: 'Latin words inside' } };
     expect(fluentFaText(g2)).toBeNull();
+  });
+
+  test('محتوای برچسب‌خوردهٔ فارسی که عربی است → null (گیت بازرسی)', () => {
+    const g = { primary: { language: 'fa', content: 'قال الوزير إن الاجتماع الذى عقد اليوم فى العاصمة ناقش الملف كاملا وحضرته وفود دول كبرى', translationFa: undefined } };
+    expect(fluentFaText(g)).toBeNull();
   });
 });
 

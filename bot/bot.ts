@@ -90,12 +90,31 @@ export function isLikelyForeign(s: string): boolean {
   return latin / t.length > 0.35;
 }
 
+/** ── گیت بازرسی ۱ (قطعی، بدون مدل) — آیا این متن غیرفارسی است؟ ──
+ *  لاتین (انگلیسی/فرانسه/...)، سیریلیک (روسی) و عربی (نویسه‌های عربی خالص بدون پچژگ فارسی) را می‌گیرد.
+ *  تضمین خواستهٔ کاربر: هیچ خبر غیرفارسی بدون ترجمه به بله نمی‌رود. */
+export function needsTranslation(s: string): boolean {
+  const t = s.slice(0, 500);
+  if (!t.trim()) return false;
+  const letters = t.match(/\p{L}/gu) || [];
+  if (letters.length === 0) return false;
+  const latin = letters.filter((c) => /[A-Za-z]/.test(c)).length;
+  if (latin / letters.length > 0.35) return true;
+  const cyrillic = letters.filter((c) => /[\u0400-\u04FF]/.test(c)).length;
+  if (cyrillic / letters.length > 0.2) return true;
+  // عربی: نویسه‌های انحصاری عربی (ة ي ك ـة) و نبود نویسه‌های انحصاری فارسی (پ چ ژ گ)
+  const arabicOnly = (t.match(/[ةيك]/g) || []).length;
+  const persianOnly = (t.match(/[پچژگ]/g) || []).length;
+  if (arabicOnly >= 2 && persianOnly === 0 && letters.length > 40) return true;
+  return false;
+}
+
 /** متن فارسیِ روانِ قابل ارسال از یک گروه — null یعنی «ترجمه نشده، ارسال ممنوع».
  *  تضمین خواستهٔ کاربر: هیچ خبر انگلیسی/خارجی‌زبان خام به بله نمی‌رود. */
 export function fluentFaText(g: { primary: Pick<BotItem, 'language' | 'content' | 'translationFa'> }): string | null {
   const t = (g.primary.translationFa || '').trim();
-  if (t && !isLikelyForeign(t)) return t;
-  if (g.primary.language === 'fa' && !isLikelyForeign(g.primary.content)) return g.primary.content;
+  if (t && !needsTranslation(t)) return t;
+  if (g.primary.language === 'fa' && !needsTranslation(g.primary.content)) return g.primary.content;
   return null;
 }
 
@@ -827,9 +846,21 @@ export function validateBatchTranslation(x: unknown): BatchTranslationEntry[] | 
   return out.length ? out : null;
 }
 
-/** ترجمهٔ تک‌موردی روان (بدون OpenRouter) — آخرین سپر ضدِ انگلیسی قبل از ارسال */
+/** ── گیت بازرسی و ترجمهٔ نهایی — هر متن پیام قبل از ارسال از این می‌گذرد ──
+ *  ۱) بازرسی قطعی (needsTranslation) — فارسی بود → همان برمی‌گردد؛
+ *  ۲) ترجمه با کل زنجیرهٔ مدل (OpenRouter اگر کلید داشت → Gemini → Pollinations)؛
+ *  ۳) ترجمهٔ حاصل هم دوباره بازرسی می‌شود؛ فارسی نشد → null (ارسال ممنوع، صادقانه).
+ *  در این حالت خبر «نشان‌گذاری ارسال» هم نمی‌شود تا چرخهٔ بعد دوباره تلاش کند. */
+export async function gateFa(text: string): Promise<string | null> {
+  if (!needsTranslation(text)) return text;
+  const tr = await translateOne(text);
+  if (!tr || needsTranslation(tr)) return null;
+  return tr;
+}
+
+/** ترجمهٔ تک‌موردی روان با کل زنجیرهٔ مدل — سپر ضدِ انگلیسی قبل از ارسال */
 export async function translateOne(text: string): Promise<string | null> {
-  const r = await chainCall(SYSTEM_BOT_TRANSLATE, `[1] ${text.slice(0, 600)}`, { maxTokens: 900, skipIds: ['openrouter'] });
+  const r = await chainCall(SYSTEM_BOT_TRANSLATE, `[1] ${text.slice(0, 600)}`, { maxTokens: 900 });
   if (!r.ok || !r.content) return null;
   const entries = extractJson(r.content, validateBatchTranslation);
   return entries?.find((e) => e.n === 1)?.fa || null;
@@ -1121,17 +1152,14 @@ async function main(): Promise<void> {
       console.log(`فیلتر خروجی مدل: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه حذف شد`);
     }
     for (const s of sends) {
-      // تضمین فارسی‌روانی: متن لاتین مدل → ترجمهٔ تک‌موردی؛ ناموفق → این خبر برای چرخهٔ بعد می‌ماند
-      let text = s.text;
-      if (isLikelyForeign(text)) {
-        const tr = await translateOne(text);
-        if (tr) { text = tr; summary.translated++; }
-        else {
-          summary.skippedUntranslated = (summary.skippedUntranslated || 0) + 1;
-          console.warn(`⚠️ متن غیرفارسی و ترجمهٔ تک‌موردی ناموفق — ارسال نمی‌شود تا چرخهٔ بعد: ${trimFa(text, 60)}`);
-          continue;
-        }
+      // ── گیت بازرسی و ترجمه: متن لاتین/عربی/روسی → ترجمه؛ نشد → ارسال نمی‌شود تا چرخهٔ بعد
+      let text = await gateFa(s.text);
+      if (!text) {
+        summary.skippedUntranslated = (summary.skippedUntranslated || 0) + 1;
+        console.warn(`⚠️ گیت بازرسی: متن غیرفارسی و ترجمه ناموفق — ارسال نمی‌شود تا چرخهٔ بعد: ${trimFa(s.text, 60)}`);
+        continue;
       }
+      if (text !== s.text) summary.translated++;
       const msg = composeNewsMessage(
         { sourceName: s.g.primary.sourceName, text, verdict: s.verdict },
         s.g.primary.imageUrl ? 950 : 1200, // حالت عکس: متن + حکم همیشه در کپشن جا می‌شود

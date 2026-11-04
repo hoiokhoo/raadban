@@ -102,7 +102,7 @@ const CFG = {
   openrouterModel: process.env.OPENROUTER_MODEL?.trim() || 'nvidia/nemotron-3-ultra-550b-a55b:free',
   // اولویت اول جمینی — چند کلید با چرخش؛ GEMINI_API_KEY تکی همچنان پشتیبان است
   geminiKeys: parseGeminiKeys(process.env.GEMINI_API_KEYS, process.env.GEMINI_API_KEY),
-  geminiModel: process.env.GEMINI_MODEL?.trim() || 'gemini-3.8-flash',
+  geminiModel: process.env.GEMINI_MODEL?.trim() || 'gemini-flash-latest',
   githubToken: process.env.GITHUB_MODELS_TOKEN?.trim() || '',
   githubModel: process.env.GITHUB_MODEL?.trim() || 'openai/gpt-4o-mini',
   windowHours: Number(process.env.NEWS_WINDOW_HOURS || 3) || 3,

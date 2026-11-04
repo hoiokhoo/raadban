@@ -93,7 +93,7 @@ const GEMINI_SPEC = {
   keyEnv: 'GEMINI_API_KEY',
   modelEnv: 'GEMINI_MODEL',
   base: 'https://generativelanguage.googleapis.com/v1beta/openai',
-  defModel: 'gemini-3.8-flash',
+  defModel: 'gemini-flash-latest',
 } as const;
 
 const FREE_PROVIDERS: FreeProviderSpec[] = [

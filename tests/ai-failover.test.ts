@@ -28,7 +28,7 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(chain[0].enabled).toBe(true);
     expect(chain[0].kind).toBe('openai-compatible');
     expect(chain[0].baseUrl).toBe('https://generativelanguage.googleapis.com/v1beta/openai');
-    expect(chain[0].model).toBe('gemini-3.8-flash');
+    expect(chain[0].model).toBe('gemini-flash-latest');
     expect(chain[1].id).toBe('zai');
     expect(chain[1].enabled).toBe(true);
     expect(chain[1].kind).toBe('zai');

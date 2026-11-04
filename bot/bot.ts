@@ -772,7 +772,29 @@ export async function sendBaleMessage(token: string, chatId: string, text: strin
   return { ok: true, chunks: sent };
 }
 
-/** ارسال عکس با کپشن — URL مستقیم؛ HTML رد شد → کپشن ساده */
+/** دانلود امن باینری تصویر — پشتیبان ارسال با URL (سرور بله گاهی به منبع عکس دسترسی ندارد) */
+export async function fetchImageBytes(url: string, timeoutMs = 15_000): Promise<{ ok: boolean; bytes?: Uint8Array; contentType?: string; error?: string }> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA, Accept: 'image/*,application/octet-stream;q=0.8,*/*;q=0.5' },
+      signal: controller.signal,
+      redirect: 'follow',
+    });
+    if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
+    const buf = new Uint8Array(await res.arrayBuffer());
+    if (buf.length < 1000) return { ok: false, error: `پاسخ خیلی کوچک بود (${buf.length} بایت) — تصویر نیست` };
+    if (buf.length > 10 * 1024 * 1024) return { ok: false, error: 'عکس بزرگ‌تر از ۱۰ مگابایت است' };
+    return { ok: true, bytes: buf, contentType: res.headers.get('content-type') || 'image/jpeg' };
+  } catch (e) {
+    const msg = e instanceof Error ? (e.name === 'AbortError' ? `timeout پس از ${timeoutMs}ms` : e.message) : 'خطای ناشناخته';
+    return { ok: false, error: msg };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function sendBalePhoto(token: string, chatId: string, imageUrl: string, caption?: string): Promise<{ ok: boolean; error?: string }> {
   const cap = (caption || '').trim().slice(0, 1024);
   const plainCap = cap.replace(/<[^>]+>/g, '');
@@ -794,6 +816,35 @@ export async function sendBalePhoto(token: string, chatId: string, imageUrl: str
     return { ok: false, error: r.error };
   }
   return { ok: false, error: 'نامشخص' };
+}
+
+/** نردبان کامل ارسال عکس: URL → کپشن ساده → دانلود و آپلود multipart —
+ *  «invalid file id / ۴۰۴» یعنی سرور بله به URL دسترسی ندارد → عکس دانلود و مستقیم آپلود می‌شود */
+export async function sendBalePhotoLadder(token: string, chatId: string, imageUrl: string, caption?: string): Promise<{ ok: boolean; mode?: 'url' | 'upload'; error?: string }> {
+  const byUrl = await sendBalePhoto(token, chatId, imageUrl, caption);
+  if (byUrl.ok) return { ok: true, mode: 'url' };
+  const dl = await fetchImageBytes(imageUrl);
+  if (!dl.ok || !dl.bytes) {
+    return { ok: false, error: `ارسال با URL ناموفق (${byUrl.error}) و دریافت تصویر هم ناموفق: ${dl.error || 'نامشخص'}` };
+  }
+  const form = new FormData();
+  form.append('chat_id', chatId);
+  const cap = (caption || '').trim().slice(0, 1024);
+  if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
+  form.append('photo', new Blob([dl.bytes as BlobPart], { type: dl.contentType || 'image/jpeg' }), 'photo.jpg');
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 30_000);
+  try {
+    const res = await fetch(`${BALES_API_BASE}/bot${token}/sendPhoto`, { method: 'POST', body: form, signal: controller.signal });
+    const text = await res.text().catch(() => '');
+    if (!res.ok) return { ok: false, error: `آپلود عکس ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}` };
+    return { ok: true, mode: 'upload' };
+  } catch (e) {
+    const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود عکس' : e.message) : 'خطای ناشناخته';
+    return { ok: false, error: msg };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // ---------- زنجیرهٔ مدل (رایگان‌محور) ----------
@@ -1664,7 +1715,7 @@ async function main(): Promise<void> {
   const sendToTarget = async (token: string, target: string, text: string, imageUrl?: string): Promise<{ ok: boolean; error?: string }> => {
     if (imageUrl) {
       const cap = splitPhotoCaption(text, 1024);
-      const ph = await sendBalePhoto(token, target, imageUrl, cap.caption || undefined);
+      const ph = await sendBalePhotoLadder(token, target, imageUrl, cap.caption || undefined);
       if (ph.ok) {
         summary.images++;
         if (cap.rest) await sendBaleMessage(token, target, cap.rest);

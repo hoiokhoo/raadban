@@ -252,18 +252,18 @@ function CategoryManager({ data, act, busy }: {
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead><tr className="text-slate-500 border-b">
-              <th className="py-1.5 text-right">بخش</th><th className="text-right">شناسه</th><th className="text-right">توکن بات</th>
-              <th className="text-right">مقصدها</th><th className="text-right">فعال</th><th className="text-right">عملیات</th>
+              <th className="py-2 px-2 text-right">بخش</th><th className="py-2 px-2 text-right">شناسه</th><th className="py-2 px-2 text-right">توکن بات</th>
+              <th className="py-2 px-2 text-right">مقصدها</th><th className="py-2 px-2 text-right">فعال</th><th className="py-2 px-2 text-right">عملیات</th>
             </tr></thead>
             <tbody>
               {data.categories.map((c) => (
                 <tr key={c.id} className="border-b align-top">
-                  <td className="py-2 font-medium">{c.title}</td>
-                  <td dir="ltr" className="text-slate-500">{c.slug}</td>
-                  <td>{c.hasToken ? <Badge className="bg-emerald-100 text-emerald-800" dir="ltr">{c.tokenMask}</Badge> : <span className="text-slate-400">پیش‌فرض</span>}</td>
-                  <td dir="ltr" className="text-slate-500 max-w-56 truncate">{c.targets.length ? c.targets.join(' ، ') : 'پیش‌فرض'}</td>
-                  <td><Switch checked={c.enabled} onCheckedChange={(v) => act({ action: 'saveCategory', id: c.id, slug: c.slug, title: c.title, targets: c.targets.join('، '), enabled: v }, 'وضعیت دسته به‌روز شد', `en-${c.id}`)} disabled={busy === `en-${c.id}`} /></td>
-                  <td>
+                  <td className="py-2 px-2 font-medium whitespace-nowrap">{c.title}</td>
+                  <td dir="ltr" className="py-2 px-2 text-slate-500 whitespace-nowrap">{c.slug}</td>
+                  <td className="py-2 px-2">{c.hasToken ? <Badge className="bg-emerald-100 text-emerald-800" dir="ltr">{c.tokenMask}</Badge> : <span className="text-slate-400">پیش‌فرض</span>}</td>
+                  <td dir="ltr" className="py-2 px-2 text-slate-500 max-w-56 truncate">{c.targets.length ? c.targets.join(' ، ') : 'پیش‌فرض'}</td>
+                  <td className="py-2 px-2"><Switch checked={c.enabled} onCheckedChange={(v) => act({ action: 'saveCategory', id: c.id, slug: c.slug, title: c.title, targets: c.targets.join('، '), enabled: v }, 'وضعیت دسته به‌روز شد', `en-${c.id}`)} disabled={busy === `en-${c.id}`} /></td>
+                  <td className="py-2 px-2">
                     <div className="flex gap-1">
                       <Button size="sm" variant="outline" onClick={() => startEdit(c)}>ویرایش</Button>
                       <Button size="sm" variant="outline" onClick={() => probe(c)} disabled={!c.hasToken || busy === `probe-${c.id}`}>اعضا</Button>

@@ -90,6 +90,15 @@ export function isLikelyForeign(s: string): boolean {
   return latin / t.length > 0.35;
 }
 
+/** متن فارسیِ روانِ قابل ارسال از یک گروه — null یعنی «ترجمه نشده، ارسال ممنوع».
+ *  تضمین خواستهٔ کاربر: هیچ خبر انگلیسی/خارجی‌زبان خام به بله نمی‌رود. */
+export function fluentFaText(g: { primary: Pick<BotItem, 'language' | 'content' | 'translationFa'> }): string | null {
+  const t = (g.primary.translationFa || '').trim();
+  if (t && !isLikelyForeign(t)) return t;
+  if (g.primary.language === 'fa' && !isLikelyForeign(g.primary.content)) return g.primary.content;
+  return null;
+}
+
 // ---------- منابع و مطالب ----------
 
 export interface BotSource {
@@ -134,17 +143,31 @@ export function makeIds(item: { url?: string; content: string }): { id: string; 
   };
 }
 
+/** توکن‌های عنوان/متن — یک‌بار محاسبه برای مقایسهٔ پرتکرار */
+export function tokensOf(s: string): Set<string> {
+  return new Set(normalizeTitle(s).split(' ').filter((w) => w.length > 1));
+}
+
 /** شباهت ژاکارد توکن‌ها — ۰..۱ */
 export function jaccard(a: string, b: string): number {
-  const toks = (s: string): Set<string> => {
-    const t = normalizeTitle(s).split(' ').filter((w) => w.length > 1);
-    return new Set(t);
-  };
-  const A = toks(a), B = toks(b);
+  const A = tokensOf(a), B = tokensOf(b);
   if (A.size === 0 || B.size === 0) return 0;
   let inter = 0;
   for (const x of A) if (B.has(x)) inter++;
   return inter / (A.size + B.size - inter);
+}
+
+/** شباهت متن با هرکدام از مجموعه‌توکن‌های ازپیش‌محاسبه — برای فیلتر ضدتکرار بین‌چرخه‌ای */
+export function isSimilarToAny(text: string, sets: Set<string>[], threshold = 0.5): boolean {
+  if (sets.length === 0) return false;
+  const T = tokensOf(text);
+  if (T.size === 0) return false;
+  for (const S of sets) {
+    let inter = 0;
+    for (const x of T) if (S.has(x)) inter++;
+    if (inter / (T.size + S.size - inter) >= threshold) return true;
+  }
+  return false;
 }
 
 // ---------- دریافت منابع (RSS/Atom + تلگرام t.me/s) ----------
@@ -340,16 +363,22 @@ export async function fetchAllSources(srcs: BotSource[]): Promise<{ items: BotIt
 export interface BotState {
   sentIds: Record<string, number>;
   sentTitles: Record<string, number>;
+  /** متنِ نرمال‌شدهٔ عنوان‌های ارسال‌شده — ضدتکرار بین‌چرخه‌ای با شباهت (خبرِ بازنویسی‌شده از منبع دیگر هم بلاک می‌شود) */
+  sentTitleTexts: Record<string, number>;
+  /** متنِ نرمال‌شدهٔ پیام‌های ارسال‌شدهٔ مدل — ترجمه‌های متفاوتِ مدل از یک رویداد هم بلاک می‌شود */
+  sentMsgTexts: Record<string, number>;
   lastRunAt?: string;
   lastRun?: Record<string, unknown>;
 }
 
-const STATE_KEEP_MS = 72 * 3600_000;
-const STATE_MAX_IDS = 3000;
-const STATE_MAX_TITLES = 1500;
+// نگه‌داشت ۳۶ ساعته (پنجرهٔ خبر ۳ ساعت است + حاشیهٔ امن) — حجم state و رشد ریپو گیت‌هاب کنترل می‌شود
+const STATE_KEEP_MS = 36 * 3600_000;
+const STATE_MAX_IDS = 1200;
+const STATE_MAX_TITLES = 600;
+const STATE_MAX_TEXTS = 600;
 
 export function emptyState(): BotState {
-  return { sentIds: {}, sentTitles: {} };
+  return { sentIds: {}, sentTitles: {}, sentTitleTexts: {}, sentMsgTexts: {} };
 }
 
 export function loadState(path: string): BotState {
@@ -359,6 +388,8 @@ export function loadState(path: string): BotState {
     return {
       sentIds: raw.sentIds && typeof raw.sentIds === 'object' ? raw.sentIds : {},
       sentTitles: raw.sentTitles && typeof raw.sentTitles === 'object' ? raw.sentTitles : {},
+      sentTitleTexts: raw.sentTitleTexts && typeof raw.sentTitleTexts === 'object' ? raw.sentTitleTexts : {},
+      sentMsgTexts: raw.sentMsgTexts && typeof raw.sentMsgTexts === 'object' ? raw.sentMsgTexts : {},
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
@@ -375,6 +406,8 @@ export function saveState(path: string, s: BotState): void {
   }
 }
 
+export interface StateTextAdds { titleTexts?: string[]; msgTexts?: string[]; maxTexts?: number }
+
 /** ادغام و هرس state — تابع خالص تست‌پذیر (جدیدترین‌ها می‌مانند؛ قدیمی‌تر از keepMs حذف) */
 export function mergeSentState(
   st: BotState,
@@ -383,26 +416,38 @@ export function mergeSentState(
   now: number,
   keepMs = STATE_KEEP_MS,
   maxIds = STATE_MAX_IDS,
-  maxTitles = STATE_MAX_TITLES
+  maxTitles = STATE_MAX_TITLES,
+  addTexts: StateTextAdds = {}
 ): BotState {
-  const mergeMap = (m: Record<string, number>, add: string[], cap: number): Record<string, number> => {
+  const mergeMap = (m: Record<string, number> | undefined, add: string[], cap: number): Record<string, number> => {
     const out: Record<string, number> = {};
     for (const k of add) if (k) out[k] = now; // جدیدها اول
-    for (const [k, ts] of Object.entries(m)) {
+    for (const [k, ts] of Object.entries(m || {})) {
       if (k in out) continue;
       if (now - ts < keepMs) out[k] = ts;
     }
     const entries = Object.entries(out).sort((a, b) => b[1] - a[1]).slice(0, cap);
     return Object.fromEntries(entries);
   };
+  const maxTexts = addTexts.maxTexts ?? STATE_MAX_TEXTS;
   return {
     sentIds: mergeMap(st.sentIds, addIds, maxIds),
     sentTitles: mergeMap(st.sentTitles, addTitles, maxTitles),
+    sentTitleTexts: mergeMap(st.sentTitleTexts, addTexts.titleTexts || [], maxTexts),
+    sentMsgTexts: mergeMap(st.sentMsgTexts, addTexts.msgTexts || [], maxTexts),
   };
 }
 
 export function isAlreadySent(st: BotState, it: BotItem): boolean {
   return Boolean(st.sentIds[it.id] || st.sentTitles[it.titleKey]);
+}
+
+/** ضدتکرار رویداد بین‌چرخه‌ای: هش دقیق + شباهت متن با عنوان‌های ۳۶ ساعت اخیر.
+ *  titleSets از پیش محاسبه می‌شود تا در فیلتر حلقه‌ای گران نباشد. */
+export function isStorySent(st: BotState, it: BotItem, titleSets?: Set<string>[], threshold = 0.5): boolean {
+  if (isAlreadySent(st, it)) return true;
+  const sets = titleSets ?? Object.keys(st.sentTitleTexts).map((t) => tokensOf(t));
+  return isSimilarToAny(it.content, sets, threshold);
 }
 
 // ---------- تجمیع خبرهای یکسان درون بازه ----------
@@ -478,16 +523,18 @@ export interface PlannedSend { g: ItemGroup; text: string; verdict: string; refs
 /** تبدیل خروجی مدل به فهرست ارسال نهایی — همهٔ تضمین‌های ضدتکرار و ترتیب اینجاست:
  *  ۱) refs نامعتبر حذف؛ ۲) رویدادی که در همین چرخه قبلاً ارسال/برنامه‌ریزی شده دوباره نمی‌آید؛
  *  ۳) دو متن بسیار مشابه (همان رویداد با شماره‌های متفاوت) فقط یک‌بار ارسال می‌شود؛
- *  ۴) ترتیب نهایی: خارجی اول، داخلی بعد — خواستهٔ صریح کاربر. */
+ *  ۴) متن‌های ارسال‌شدهٔ چرخه‌های قبل (priorTexts از state) هم در مقایسهٔ مشابهت‌اند —
+ *  ترجمهٔ متفاوت مدل از رویداد ارسال‌شده دوباره پیام نمی‌سازد؛
+ *  ۵) ترتیب نهایی: خارجی اول، داخلی بعد — خواستهٔ صریح کاربر. */
 export function planBotSends(
   items: OneShotItem[],
   ordered: ItemGroup[],
-  opts: { textLimit?: number; simThreshold?: number } = {}
+  opts: { textLimit?: number; simThreshold?: number; priorTexts?: string[] } = {}
 ): { sends: PlannedSend[]; skippedBadRef: number; skippedDupGroup: number; skippedDupText: number } {
   const sim = opts.simThreshold ?? 0.55;
   const limit = opts.textLimit ?? 1200;
   const used = new Set<number>();
-  const texts: string[] = [];
+  const texts: string[] = [...(opts.priorTexts || [])];
   const raw: PlannedSend[] = [];
   let skippedBadRef = 0, skippedDupGroup = 0, skippedDupText = 0;
   for (const item of items) {
@@ -780,6 +827,14 @@ export function validateBatchTranslation(x: unknown): BatchTranslationEntry[] | 
   return out.length ? out : null;
 }
 
+/** ترجمهٔ تک‌موردی روان (بدون OpenRouter) — آخرین سپر ضدِ انگلیسی قبل از ارسال */
+export async function translateOne(text: string): Promise<string | null> {
+  const r = await chainCall(SYSTEM_BOT_TRANSLATE, `[1] ${text.slice(0, 600)}`, { maxTokens: 900, skipIds: ['openrouter'] });
+  if (!r.ok || !r.content) return null;
+  const entries = extractJson(r.content, validateBatchTranslation);
+  return entries?.find((e) => e.n === 1)?.fa || null;
+}
+
 // ---------- پرامپت‌ها (برگرفته از نسخهٔ ۴ سامانه) ----------
 
 export const SYSTEM_BOT_ONESHOT = `
@@ -863,6 +918,7 @@ export interface RunSummary {
   aiFailed?: boolean;
   translated: number;
   searches: number;
+  skippedUntranslated?: number;
   dryRun?: boolean;
   error?: string;
 }
@@ -905,18 +961,20 @@ async function main(): Promise<void> {
   summary.inWindow = inWindow.length;
   console.log(`در پنجرهٔ ${CFG.windowHours} ساعته: ${inWindow.length}`);
 
-  // ۴) ضدتکرار بین‌چرخه‌ای + درون‌بازه
+  // ۴) ضدتکرار بین‌چرخه‌ای + درون‌بازه — هم هش دقیق و هم شباهت متن با ارسال‌های ۳۶ ساعت اخیر
   const state = loadState(CFG.stateFile);
+  const titleSets = Object.keys(state.sentTitleTexts).map((t) => tokensOf(t));
   const seenTitles = new Set<string>();
   const fresh: BotItem[] = [];
+  let dupBlocked = 0;
   for (const it of inWindow) {
-    if (isAlreadySent(state, it)) continue;
+    if (isStorySent(state, it, titleSets)) { dupBlocked++; continue; }
     if (seenTitles.has(it.titleKey)) continue;
     seenTitles.add(it.titleKey);
     fresh.push(it);
   }
   summary.fresh = fresh.length;
-  console.log(`تازه (غیرتکراری): ${fresh.length}`);
+  console.log(`تازه (غیرتکراری): ${fresh.length}${dupBlocked ? ` — ${dupBlocked} تکراری بلاک شد` : ''}`);
 
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
@@ -996,25 +1054,25 @@ async function main(): Promise<void> {
   console.log(`فراخوانی مدل: ${one ? `موفق (${aiProvider})` : 'ناموفق'} — ${((Date.now() - aiStart) / 1000).toFixed(1)}s`);
 
   // ۹) ارسال
+  const priorMsgTexts = Object.keys(state.sentMsgTexts);
   if (CFG.dryRun) {
     console.log('=== DRY_RUN — پیش‌نمایش پیام‌ها (بدون ارسال) ===');
     if (one && one.items.length) {
-      const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered);
+      const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
       console.log(`برنامهٔ ارسال: ${sends.length} پیام (حذف: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه)`);
       for (const s of sends) {
         console.log('---');
-        // حالت عکس: سقف ۹۵۰ تا «متن + حکم» در کپشن ۱۰۲۴ جا شود و ایموجی تنها نماند
+        // حالت عکس: سقف ۹۵۰ تا «متن + حکم» همیشه در سقف کپشن ۱۰۲۴ جا شود و ایموجی حکم هرگز تنها نماند
         console.log(composeNewsMessage({ sourceName: s.g.primary.sourceName, text: s.text, verdict: s.verdict }, s.g.primary.imageUrl ? 950 : 1200));
         const img = s.g.primary.imageUrl || s.g.members.find((m) => m.imageUrl)?.imageUrl;
         if (img) console.log(`[عکس جداگانه] ${img}`);
       }
     } else {
       for (const g of ordered) {
+        const fa = fluentFaText(g);
         console.log('---');
-        console.log(composeNewsMessage({
-          sourceName: g.primary.sourceName,
-          text: trimFa(g.primary.translationFa || g.primary.content, 300),
-        }));
+        if (!fa) { console.log(`[ناموفق در ترجمه — ارسال نمی‌شود] ${g.primary.sourceName}`); continue; }
+        console.log(composeNewsMessage({ sourceName: g.primary.sourceName, text: trimFa(fa, 300) }));
         if (g.primary.imageUrl) console.log(`[عکس جداگانه] ${g.primary.imageUrl}`);
       }
     }
@@ -1043,47 +1101,72 @@ async function main(): Promise<void> {
 
   const sentIds: string[] = [];
   const sentTitles: string[] = [];
+  const sentTitleTexts: string[] = [];
+  const sentMsgTexts: string[] = [];
   const mark = (g: ItemGroup) => {
-    for (const m of g.members) { sentIds.push(m.id); sentTitles.push(m.titleKey); }
+    for (const m of g.members) {
+      sentIds.push(m.id);
+      sentTitles.push(m.titleKey);
+      sentTitleTexts.push(normalizeTitle(m.content).slice(0, 160));
+    }
+  };
+  const markMsg = (text: string) => {
+    const k = normalizeTitle(text).slice(0, 160);
+    if (k) sentMsgTexts.push(k);
   };
 
   if (one && one.items.length > 0) {
-    const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered);
+    const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
     if (skippedBadRef || skippedDupGroup || skippedDupText) {
       console.log(`فیلتر خروجی مدل: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه حذف شد`);
     }
     for (const s of sends) {
+      // تضمین فارسی‌روانی: متن لاتین مدل → ترجمهٔ تک‌موردی؛ ناموفق → این خبر برای چرخهٔ بعد می‌ماند
+      let text = s.text;
+      if (isLikelyForeign(text)) {
+        const tr = await translateOne(text);
+        if (tr) { text = tr; summary.translated++; }
+        else {
+          summary.skippedUntranslated = (summary.skippedUntranslated || 0) + 1;
+          console.warn(`⚠️ متن غیرفارسی و ترجمهٔ تک‌موردی ناموفق — ارسال نمی‌شود تا چرخهٔ بعد: ${trimFa(text, 60)}`);
+          continue;
+        }
+      }
       const msg = composeNewsMessage(
-        { sourceName: s.g.primary.sourceName, text: s.text, verdict: s.verdict },
+        { sourceName: s.g.primary.sourceName, text, verdict: s.verdict },
         s.g.primary.imageUrl ? 950 : 1200, // حالت عکس: متن + حکم همیشه در کپشن جا می‌شود
       );
       // عکس خود خبر؛ اگر نماینده عکس نداشت از اعضای همان رویداد (خبر مرتبط)
       const img = s.g.primary.imageUrl || s.g.members.find((m) => m.imageUrl)?.imageUrl;
       if (await sendOne(msg, img)) {
         summary.sent++;
+        markMsg(text);
         for (const n of s.refs) mark(ordered[n - 1]);
       }
       await sleep(700);
     }
   } else {
-    // مسیر شکست مدل — مسیر خام صادقانه با همان قالب
+    // مسیر شکست مدل — فقط خبرهای فارسیِ روان ارسال می‌شود؛ غیرفارسی بدون ترجمه هرگز نمی‌رود
     const aiError = aiRes.error || 'پاسخ مدل قابل تجزیه نبود';
+    const fluent = ordered.filter((g) => fluentFaText(g) !== null);
+    const stuck = ordered.length - fluent.length;
+    summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
     await sendBaleMessage(CFG.token, CFG.chatId, [
       '📡 اخبار نیم‌ساعت گذشته',
-      `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(ordered.length))} خبر خام، پیاپی:`,
+      `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(fluent.length))} خبر فارسی، پیاپی${stuck ? `؛ ${enToFaDigits(String(stuck))} خبر غیرفارسی برای چرخهٔ بعد ماند (ترجمه نشد)` : ''}:`,
     ].join('\n'));
-    for (const g of ordered) {
+    for (const g of fluent) {
       const msg = composeNewsMessage({
         sourceName: g.primary.sourceName,
-        text: trimFa(g.primary.translationFa || g.primary.content, 300),
+        text: trimFa(fluentFaText(g) || '', 300),
       });
       if (await sendOne(msg, g.primary.imageUrl)) { summary.sent++; mark(g); }
       await sleep(700);
     }
   }
 
-  // ۱۰) ثبت state و خلاصه
-  const merged = mergeSentState(state, sentIds, sentTitles, Date.now());
+  // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد
+  const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });
   merged.lastRunAt = new Date().toISOString();
   merged.lastRun = { ...summary };
   saveState(CFG.stateFile, merged);

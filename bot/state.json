@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "tw-bbcworld-2118031575187095975": 1793814539639,
   "9a854c00876fe26224634830457289757ff33a6d": 1793813898275,
   "af609f085d19789691e7a2f4366c2425ef529bde": 1793813898275,
   "e8df2a93cb3977f6c034ea1c00563babff488d72": 1793813898275,
@@ -875,6 +876,7 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "اخرین باری که یک دموکرات کنساس در سنا حضور داشت جادوگر اوز در سینماها بود": 1793814539639,
   "browns qb watson in concussion protocol status vs saints unclear espn browns qb watson in concussion protocol status vs saints unclear espn": 1793813898275,
   "election stiffens the fed s guardrails but independence risks remain reuters election stiffens the fed s guardrails but independence risks remain reuters": 1793813898275,
   "السفیر العراقی فی بیروت یلتقی میقاتی ونظیره المصری ویبحث تعزیز العلاقات والتطورات الاقلیمیه alsumaria السفیر العراقی فی بیروت یلتقی میقاتی ونظیره المصری ویبحث ت": 1793813898275,
@@ -1117,6 +1119,7 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "اخرین باری که یک دموکرات کنساس در سنا حضور داشت جادوگر اوز در سینماها بود": 1793814539639,
   "نایب رییس جمهور امریکا وانس می گوید جنگ ایران جمهوری خواهان را در انتخابات میانه تهی نشان کرده است و اضافه می کند دلیل شکست ما جنگ است خود رییس جمهور همین طور ر": 1793813898275,
   "رهبران اروپایی به دستاوردهای دموکراتیک در انتخابات میانه امریکا خوشامد می گویند و چندین نفر نتایج را به عنوان تقویت دموکراسی و تایید همکاری با واشنگتن توصیف می ": 1793813898275,
   "جویس دی ویت هم نویس three s company جان ر یتر را تحسین می کند و درباره تاثیر برنامه صحبت می کند": 1793813248880,
@@ -1237,25 +1240,25 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-04T17:38:18.277Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-04T17:48:59.640Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 5,
-  "fetched": 1014,
-  "inWindow": 323,
-  "fresh": 311,
-  "sent": 11,
-  "images": 8,
-  "translated": 13,
+  "sourcesFailed": 3,
+  "fetched": 1044,
+  "inWindow": 338,
+  "fresh": 322,
+  "sent": 0,
+  "images": 2,
+  "translated": 1,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 2,
+  "tweetsFetched": 120,
+  "tweetsSent": 1,
   "tweetAccountsTried": 6,
   "aiFailed": true,
-  "skippedUntranslated": 1,
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

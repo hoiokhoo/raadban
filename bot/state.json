@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "tw-trtworld-2118142546211745844": 1793840914132,
   "8e1ba36a71c514ad72569dbfc320dc6d30ff24a0": 1793840066371,
   "08ee6a7fc35217383fe2cf0af5cddf87545a1367": 1793840066371,
   "61a0fa8d6df2e74ab9cdca49f362a899ae453db1": 1793840066371,
@@ -1193,6 +1194,7 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "کاندیدهای نسل z تاریخ می سازند ریپبلکان مایکل الفونسو 26 ساله کمترین سن عضو مجلس نمایندگان شد و ملات کیروس 29 ساله اولین زن نسل z انتخاب شده به کنگره شد": 1793840914132,
   "scott jennings republicans suffered country a whooping in midterms conservative commentator scott jennings on tuesday called the gop s losses in the 2026 midter": 1793840066371,
   "republican blame game starts as 2028 hopefuls angle for position bloomberg com republican blame game starts as 2028 hopefuls angle for position bloomberg com": 1793840066371,
   "palestinians israelis react after democrats sweep us midterms palestinians and israelis are divided in their opinion following the win by democrats in the us mi": 1793840066371,
@@ -1632,6 +1634,7 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "کاندیدهای نسل z تاریخ می سازند ریپبلکان مایکل الفونسو 26 ساله کمترین سن عضو مجلس نمایندگان شد و ملات کیروس 29 ساله اولین زن نسل z انتخاب شده به کنگره شد": 1793840914132,
   "در انتخابات میان دوره ای امریکا دموکرات ها بر اساس پیش بینی ها اکثریت هر دو کنگره را از دست جمهوری خواهان گرفتند و ۲۷ نماینده incumbent جمهوری خواه شکست خوردند ": 1793840066371,
   "موشک بالیستی حوثی ها به یک خانه مسکونی در تعز یمن برخورد کرد و بر اثر ان چهار کودک کشته و چهار نفر دیگر زخمی شدند شبکه العربیه این حمله را تایید کرد": 1793840066371,
   "هوبرت ایوانگر معاون نخست وزیر و وزیر اقتصاد باواری در سن ۵۵ سالگی در هتلی در برلین مرده یافت رسانه های المانی از جمله تاس و ارتی گزارش دادند که نشانه ای از مرگ ": 1793840066371,
@@ -1862,31 +1865,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-05T00:54:26.373Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-05T01:08:34.134Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
   "fetched": 1045,
-  "inWindow": 178,
-  "fresh": 169,
-  "sent": 6,
-  "images": 6,
-  "translated": 3,
+  "inWindow": 170,
+  "fresh": 155,
+  "sent": 0,
+  "images": 0,
+  "translated": 1,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 118,
-  "tweetsSent": 3,
+  "tweetsFetched": 100,
+  "tweetsSent": 1,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "openrouter",
-  "aiFailed": false,
+  "aiFailed": true,
+  "skippedUntranslated": 12,
+  "tweetRateLimited": false,
   "perCategory": {
-   "politics": 5,
-   "sports": 1,
-   "general": 3
-  },
-  "tweetRateLimited": false
+   "general": 1
+  }
  }
 }

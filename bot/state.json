@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "9961691953cb3185734f2fd5bf1386d62f0efc28": 1793845844582,
+  "tw-bbcworld-2118164285226463715": 1793845844582,
   "f8646df3b8110c132fb8928139a9197638195dbd": 1793844998885,
   "81b1bf939a176700b58ced385c454f3de9aae48d": 1793844998885,
   "054ecfe2ed84be1dac54be8a63b57bf7969e7bc8": 1793844998885,
@@ -722,6 +724,7 @@
   "c7763924a56a876c34a35c0098a5202f5595a117": 1793729606426
  },
  "sentTitles": {
+  "968a1a1ceffc644372dd0c7facb3e8e19377f00f": 1793845844582,
   "4324e91e9df0fe63c24a85ce0ab70d9273708985": 1793844998885,
   "fad3a51290306a030a0cdabccc6f2c3010c40832": 1793844998885,
   "4e525561263e0ec96ca314e395466b6ccb3dc5e9": 1793844998885,
@@ -1275,6 +1278,8 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "انتخابات امریکا چه تاثیری بر اینده ایران دارد واکنش های متفاوت در شبکه های اجتماعی انتخابات میان دوره ای امریکا از هفته ها پیش از برگزاری تا اعلام نتایج موضوع ب": 1793845844582,
+  "پاپ لیو با باب دیلن در محل اقامت رسمی خود در رم میزبانی می کند": 1793845844582,
   "trump blames iran war for midterms losses president donald trump said the war in iran likely contributed to republican setbacks in the midterm elections": 1793844998885,
   "ترمب عن هزیمه حزبه فی الانتخابات الحرب علی ایران کانت تستحق الشرق الاوسط ترمب عن هزیمه حزبه فی الانتخابات الحرب علی ایران کانت تستحق الشرق الاوسط": 1793844998885,
   "bob dylan meets with pope leo pope leo wore his usual white vestments bob dylan visited the vatican in a hooded sweatshirt and polka dot tie there was no singin": 1793844998885,
@@ -1761,6 +1766,7 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "پاپ لیو با باب دیلن در محل اقامت رسمی خود در رم میزبانی می کند": 1793845844582,
   "دونالد ترامپ شکست حزب جمهوریخواه در انتخابات میاندوره را به جنگ با ایران منتسب کرد و گفت که این جنگ ارزشش را داشته است ترامپ ادعا کرد درگیری با ایران احتمالا عا": 1793844998885,
   "باب دیلن با پاپ لیو چهاردهم در واتیکان دیدار کرد و طرفین در این ملاقات نادر هدایایی را تبادل نمودند دیلن با هودی و کراوات نقطه دار در مراسم حاضر شد": 1793844998885,
   "تلسکوپ فضایی سوییفت swift ناسا با عمر ۲۲ سال پس از اتمام ماموریت به اتمسفر زمین وارد شده و در یک پایان سوختن دار نابود گردید این تلسکوپ برای رصد انفجارهای اشعه ": 1793844998885,
@@ -2019,33 +2025,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-05T02:16:38.888Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-05T02:30:44.584Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
-  "fetched": 1046,
-  "inWindow": 145,
-  "fresh": 143,
-  "sent": 9,
-  "images": 8,
-  "translated": 2,
+  "fetched": 1047,
+  "inWindow": 138,
+  "fresh": 129,
+  "sent": 1,
+  "images": 2,
+  "translated": 1,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 2,
+  "tweetsFetched": 100,
+  "tweetsSent": 1,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "openrouter",
-  "aiFailed": false,
+  "aiFailed": true,
+  "skippedUntranslated": 11,
   "perCategory": {
-   "politics": 4,
-   "world": 1,
-   "tech": 1,
-   "sports": 1,
-   "economy": 2,
-   "general": 2
+   "iran": 1,
+   "general": 1
   },
   "tweetRateLimited": false
  }

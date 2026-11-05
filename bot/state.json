@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "tw-bbcworld-2118170509896548559": 1793848105123,
   "54d6174d7767750e29b7abe4ae20f2bba087ebc6": 1793847248321,
   "f3425f549641e08e6781d8bd43c9fe22690dc8c6": 1793847248321,
   "a70a50a3780929cfb8ccd4dc79925a3e5934bc77": 1793847248321,
@@ -1303,6 +1304,7 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "تحلیل ونسک در طناب ریزه ترامپ قدم می زند با انتقاد تند و خشمگین از انتخابات و سرزنش جنگ ایران": 1793848105123,
   "یا میشیغان لقد فعلناها عبد الرحمن السید یعلن فوزه بعضویه مجلس الشیوخ الشرق الاوسط یا میشیغان لقد فعلناها عبد الرحمن السید یعلن فوزه بعضویه مجلس الشیوخ الشرق الا": 1793847248321,
   "من غزه الی الکونغرس ادم حموی اول مسلم یمث ل نیوجیرسی بمجلس النواب الشرق الاوسط من غزه الی الکونغرس ادم حموی اول مسلم یمث ل نیوجیرسی بمجلس النواب الشرق الاوسط": 1793847248321,
   "historic firsts redraw us political map in 2026 midterm elections the 2026 us midterms delivered a wave of historic firsts for women black muslim gay and native": 1793847248321,
@@ -1806,6 +1808,7 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "تحلیل ونسک در طناب ریزه ترامپ قدم می زند با انتقاد تند و خشمگین از انتخابات و سرزنش جنگ ایران": 1793848105123,
   "در انتخابات میان دوره ای ۲۰۲۶ امریکا دموکرات ها اکثریت کنگره را بدست اوردند عبدالرحمن السید کرسی سنای مشیگان را گرفت و ادام حموی نخستین نماینده مسلمان نیوجرزی ش": 1793847248321,
   "رهبر معظم ایران ایت الله خامنه ای اعلام کرد که خصومت امریکا با ایران صرف نظر از نتایج انتخابات میان دوره ای امریکا ادامه خواهد داشت": 1793847248321,
   "دبیرکل سازمان ملل متحد انتونیو گوترش به ۱۲ سوال سرگیی لاوروف وزیر خارجه روسیه درباره بوچا پاسخ نداد وزارت خارجه روسیه از جانب داری گوترش در بحران اوکراین انتقاد": 1793847248321,
@@ -2077,34 +2080,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-05T02:54:08.323Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-05T03:08:25.125Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
   "fetched": 1048,
-  "inWindow": 136,
-  "fresh": 132,
-  "sent": 7,
+  "inWindow": 134,
+  "fresh": 123,
+  "sent": 0,
   "images": 0,
-  "translated": 15,
+  "translated": 1,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 3,
+  "tweetsFetched": 120,
+  "tweetsSent": 1,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "openrouter",
-  "aiFailed": false,
+  "aiFailed": true,
+  "skippedUntranslated": 12,
+  "tweetRateLimited": false,
   "perCategory": {
-   "politics": 2,
-   "iran": 1,
-   "world": 2,
-   "economy": 1,
-   "sports": 1,
-   "general": 3
-  },
-  "tweetRateLimited": false
+   "general": 1
+  }
  }
 }

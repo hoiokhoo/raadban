@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "976547e5cfbdbc956103a353b439aa15c9efb431": 1793883336004,
   "tw-ajenglish-2118323594522448220": 1793882743046,
   "tw-ajenglish-2118322577227632822": 1793882743046,
   "tw-ajenglish-2118319926750371970": 1793882743046,
@@ -991,6 +992,7 @@
   "38662136a62c61647ca9efaacd26597ee38df257": 1793754253275
  },
  "sentTitles": {
+  "6cd28220eb4c83b5631251da8cbfef736f2d05ed": 1793883336004,
   "cf744cc6dce26364828dfee727600ffcd7188c0e": 1793882056685,
   "32445080f41749fc43e7e46fc0adc190f06131eb": 1793880171349,
   "ab001c038d83451b95a24c117591d9ada4e50848": 1793880171349,
@@ -1589,10 +1591,10 @@
   "4bd376c4ea5e06b67c795b9afac972c2e7a023c0": 1793773629828,
   "3d3d258aef51500184383a4311e442e114964843": 1793771641247,
   "831d305b8d17dfa579ce1e97f30270edaf2794c5": 1793771641247,
-  "6fe7f760c2dd5e2fefbceff6e1bb732aa9a3ad75": 1793771641247,
-  "737a25335e00087f3729b4e715f4dcd1673a9664": 1793771641247
+  "6fe7f760c2dd5e2fefbceff6e1bb732aa9a3ad75": 1793771641247
  },
  "sentTitleTexts": {
+  "judges consider summoning attorney general in netanyahu trial israel national news judges consider summoning attorney general in netanyahu trial israel national": 1793883336004,
   "rt aje sport لیورپول در فینرباشه با شکست ۳ ۲ مواجه شد در حالی که کمو با نتیجه شگفت انگیز ۹ ۱ به رکوردهای لیگ قهرمانان دست یافت": 1793882743046,
   "۱۰ سال پیش توافقنامه پاریس وارد عمل شد و اکثر کشورهای جهان را به هدف حفظ گرمایش جهانی در زیر ۲ درجه سلسیوس و تلاش برای محدود کردن ان به ۱ ۵ درجه سلسیوس متعهد کر": 1793882743046,
   "در یک تلاش عجیب برای قاچاق ۳۰۰۰ تارانتولا در فرودگاه پرو ضبط شد پس از انکه هشدار ناشناس باعث شد مقامات چمدان های دو شهروند المانی و یک شهروند لهستانی که به پروا": 1793882743046,
@@ -2191,10 +2193,10 @@
   "desantis calls midterm bloodbath an extinction level event for republicans politico desantis calls midterm bloodbath an extinction level event for republicans p": 1793815820474,
   "sharad pawar hospitalised again hours after discharge": 1793815820474,
   "no regrets trump says iran war justified despite polls drubbing trump acknowledges iran war played role in defeats but says he would launch it again": 1793815820474,
-  "secret police files released in hungary 37 years after fall of communism critics say the move comes too late that the files themselves are incomplete and the mo": 1793815820474,
-  "xinhua world news summary at 1530 gmt nov 4 xinhua xinhua world news summary at 1530 gmt nov 4 xinhua": 1793815820474
+  "secret police files released in hungary 37 years after fall of communism critics say the move comes too late that the files themselves are incomplete and the mo": 1793815820474
  },
  "sentMsgTexts": {
+  "قاضیان دادگاه عالی اسراییل در جریان دادگاه رییس جمهور سابق بنیامین نتانیاهو در حال بررسی امکان احضار دادستان عمومی اویچای ماندلبلیت برای شهادت در مورد تاییدهای ": 1793883336004,
   "rt aje sport لیورپول در فینرباشه با شکست ۳ ۲ مواجه شد در حالی که کمو با نتیجه شگفت انگیز ۹ ۱ به رکوردهای لیگ قهرمانان دست یافت": 1793882743046,
   "۱۰ سال پیش توافقنامه پاریس وارد عمل شد و اکثر کشورهای جهان را به هدف حفظ گرمایش جهانی در زیر ۲ درجه سلسیوس و تلاش برای محدود کردن ان به ۱ ۵ درجه سلسیوس متعهد کر": 1793882743046,
   "در یک تلاش عجیب برای قاچاق ۳۰۰۰ تارانتولا در فرودگاه پرو ضبط شد پس از انکه هشدار ناشناس باعث شد مقامات چمدان های دو شهروند المانی و یک شهروند لهستانی که به پروا": 1793882743046,
@@ -2747,29 +2749,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-05T12:45:43.049Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-05T12:55:36.006Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
-  "fetched": 1041,
-  "inWindow": 321,
-  "fresh": 302,
-  "sent": 0,
+  "fetched": 1042,
+  "inWindow": 324,
+  "fresh": 304,
+  "sent": 1,
   "images": 0,
-  "translated": 6,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 6,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiFailed": true,
-  "skippedUntranslated": 12,
-  "tweetRateLimited": false,
+  "aiProvider": "pollinations",
+  "aiFailed": false,
   "perCategory": {
-   "general": 6
-  }
+   "politics": 1
+  },
+  "tweetRateLimited": false
  }
 }

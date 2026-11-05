@@ -948,16 +948,7 @@
   "29016ac8082c43828281812f728bb0c9cde84ed5": 1793742400117,
   "61989761cb39642c6e6314a9e1c538c75f45fb70": 1793742400117,
   "ba66ffbc607a11a457fc94dbdd46f579dd5322b6": 1793742400117,
-  "08649bf0be57fc3569a9c85fb00ee552da5eea8e": 1793742400117,
-  "81177d1658e589dd0d01dcb63e64db3fab6312b1": 1793740726946,
-  "c5bd340f246d95eff0c3bd7ed0b6d7f83cb635dc": 1793740726946,
-  "4ed31961bfa1c5308af6e4e751b103f6435b3e60": 1793740726946,
-  "1bafff36d3f7f1408d68c3ab40a8a6f051e65dc0": 1793740726946,
-  "f14121f261f9e4bcbca50fc2fba711d423531e52": 1793740726946,
-  "9f8804d7e95d5a74236fb1ab61f29485f12af3a2": 1793740726946,
-  "217702c7a37fdb12d5564ea46dca06504acafffc": 1793740726946,
-  "7cba763bd1640e872fbf5d0a90a272c272bb28c7": 1793740726946,
-  "7b4ad49637883a934b3c12c930c26e8c952c042f": 1793740726946
+  "08649bf0be57fc3569a9c85fb00ee552da5eea8e": 1793742400117
  },
  "sentTitles": {
   "4ce505bfc3e674c35b17880911bba54b30b363f1": 1793870259113,
@@ -2649,31 +2640,27 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-05T09:17:39.116Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-05T09:26:27.619Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 1,
-  "fetched": 1046,
-  "inWindow": 264,
+  "sourcesFailed": 2,
+  "fetched": 1029,
+  "inWindow": 262,
   "fresh": 211,
-  "sent": 4,
+  "sent": 0,
   "images": 0,
   "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 5,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "openrouter",
-  "aiFailed": false,
-  "perCategory": {
-   "world": 1,
-   "politics": 3,
-   "general": 5
-  },
+  "aiProvider": "pollinations",
+  "aiFailed": true,
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

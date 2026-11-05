@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "tw-ap-2118150079919821089": 1793841782721,
+  "tw-ap-2118147809195024797": 1793841782721,
   "tw-trtworld-2118142546211745844": 1793840914132,
   "8e1ba36a71c514ad72569dbfc320dc6d30ff24a0": 1793840066371,
   "08ee6a7fc35217383fe2cf0af5cddf87545a1367": 1793840066371,
@@ -1194,6 +1196,8 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "رانبیری کاپور و یاش افشا می کنند که در نقش پردازی برای شخصیت های رامایانا چه نکاتی را در ذهن داشتند ranbirkapoor yash ramayana": 1793841782721,
+  "دستگاه گیرنده ی ستاره ی میامی مالاکی تونی طبق گفته ی منبع ap به دلیل اسیب مچ پا که نیاز به جراحی دارد چند هفته را از مسابقه غایب خواهد بود": 1793841782721,
   "کاندیدهای نسل z تاریخ می سازند ریپبلکان مایکل الفونسو 26 ساله کمترین سن عضو مجلس نمایندگان شد و ملات کیروس 29 ساله اولین زن نسل z انتخاب شده به کنگره شد": 1793840914132,
   "scott jennings republicans suffered country a whooping in midterms conservative commentator scott jennings on tuesday called the gop s losses in the 2026 midter": 1793840066371,
   "republican blame game starts as 2028 hopefuls angle for position bloomberg com republican blame game starts as 2028 hopefuls angle for position bloomberg com": 1793840066371,
@@ -1634,6 +1638,8 @@
   "hakeem jeffries poised to become first black speaker of u s house of representatives as speaker mr jeffries representing a new york city congressional district ": 1793790236204
  },
  "sentMsgTexts": {
+  "رانبیری کاپور و یاش افشا می کنند که در نقش پردازی برای شخصیت های رامایانا چه نکاتی را در ذهن داشتند ranbirkapoor yash ramayana": 1793841782721,
+  "دستگاه گیرنده ی ستاره ی میامی مالاکی تونی طبق گفته ی منبع ap به دلیل اسیب مچ پا که نیاز به جراحی دارد چند هفته را از مسابقه غایب خواهد بود": 1793841782721,
   "کاندیدهای نسل z تاریخ می سازند ریپبلکان مایکل الفونسو 26 ساله کمترین سن عضو مجلس نمایندگان شد و ملات کیروس 29 ساله اولین زن نسل z انتخاب شده به کنگره شد": 1793840914132,
   "در انتخابات میان دوره ای امریکا دموکرات ها بر اساس پیش بینی ها اکثریت هر دو کنگره را از دست جمهوری خواهان گرفتند و ۲۷ نماینده incumbent جمهوری خواه شکست خوردند ": 1793840066371,
   "موشک بالیستی حوثی ها به یک خانه مسکونی در تعز یمن برخورد کرد و بر اثر ان چهار کودک کشته و چهار نفر دیگر زخمی شدند شبکه العربیه این حمله را تایید کرد": 1793840066371,
@@ -1865,29 +1871,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-05T01:08:34.134Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-05T01:23:02.723Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
-  "fetched": 1045,
-  "inWindow": 170,
-  "fresh": 155,
+  "fetched": 1044,
+  "inWindow": 154,
+  "fresh": 152,
   "sent": 0,
   "images": 0,
-  "translated": 1,
+  "translated": 2,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 1,
+  "tweetsFetched": 120,
+  "tweetsSent": 2,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
   "skippedUntranslated": 12,
   "tweetRateLimited": false,
   "perCategory": {
-   "general": 1
+   "general": 2
   }
  }
 }

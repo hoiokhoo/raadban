@@ -1760,29 +1760,26 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-04T23:49:48.573Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-05T00:02:25.122Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 2,
-  "fetched": 1042,
-  "inWindow": 206,
-  "fresh": 202,
+  "fetched": 1041,
+  "inWindow": 197,
+  "fresh": 194,
   "sent": 0,
   "images": 0,
-  "translated": 3,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 115,
-  "tweetsSent": 3,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
   "skippedUntranslated": 12,
-  "tweetRateLimited": false,
-  "perCategory": {
-   "general": 3
-  }
+  "tweetRateLimited": false
  }
 }

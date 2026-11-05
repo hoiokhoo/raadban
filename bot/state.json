@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "f3723c7bf5df15fcdfd4a367408b199b546a046e": 1793850627723,
   "346b6674c473774a3fcc52ec082321ed10d664d0": 1793850074743,
   "57f72b2d8be4c20b2044797646ef42f98883322a": 1793850074743,
   "c9d971c03a247295574be7ae34e724b4560a3a47": 1793850074743,
@@ -766,6 +767,7 @@
   "c7763924a56a876c34a35c0098a5202f5595a117": 1793729606426
  },
  "sentTitles": {
+  "18cb4371de4f6a3e4718a78c4d63168ff3b9234f": 1793850627723,
   "65f8c88f208f812b65ad6ef9aa98210d97e2aeba": 1793850074743,
   "aea04248ce2b9a4a9007bb77ef1acba944faca9b": 1793850074743,
   "8f8c6bf9c1174eab03936a1fdd418ab04bb25158": 1793850074743,
@@ -1348,6 +1350,7 @@
   "e298ca3269592dec732c3fd55a5440f218ca015d": 1793729606426
  },
  "sentTitleTexts": {
+  "چهره های تاریخ ساز انتخابات امریکا نخستین فرمانداران سیاه پوست نخستین سناتور اشکارا همجنس گرا و نخستین نماینده زن نسل زد دموکرات ها با چند پیروزی بزرگ و ثبت چند": 1793850627723,
   "korea to introduce cornerstone lockups to curb post ipo selloffs bloomberg com korea to introduce cornerstone lockups to curb post ipo selloffs bloomberg com": 1793850074743,
   "texas state rep calls on abbott to curb hinojosa s power before inauguration texas state rep brian harrison r on wednesday called on gov greg abbott r to curb g": 1793850074743,
   "ترامپ تاثیر جنگ ایران بر شکست جمهوری خواهان را پذیرفت ساعتی پس از ان که جی دی ونس معاون ریاست جمهوری امریکا در توییتی مفصل به دلایل شکست جمهوری خواهان در انتخاب": 1793850074743,
@@ -2164,32 +2167,29 @@
   "کمیسیون انتخاباتی اسراییل اتهامات تقلب در مورد نتانیاهو را رد کرد": 1793790236204,
   "هاکم جفریز در مسیر تبدیل شدن به اولین سخنگوی سیاه پوست مجلس نمایندگان امریکا قرار دارد": 1793790236204
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-05T03:41:14.746Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-05T03:50:27.726Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 1,
-  "fetched": 1047,
-  "inWindow": 167,
-  "fresh": 153,
-  "sent": 12,
-  "images": 12,
-  "translated": 17,
+  "sourcesFailed": 2,
+  "fetched": 1033,
+  "inWindow": 162,
+  "fresh": 141,
+  "sent": 1,
+  "images": 2,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 113,
-  "tweetsSent": 6,
+  "tweetsFetched": 120,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "pollinations",
+  "aiProvider": "openrouter",
   "aiFailed": true,
-  "skippedUntranslated": 0,
+  "skippedUntranslated": 11,
   "perCategory": {
-   "economy": 2,
-   "general": 14,
-   "iran": 1,
-   "sports": 1
+   "iran": 1
   },
   "tweetRateLimited": false
  }

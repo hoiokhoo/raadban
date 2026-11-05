@@ -2851,30 +2851,26 @@
   "یک موج ابی در سراسر ایالات متحده موج زد حزب دموکرات کنترل هر دو مجلس نمایندگان و مجلس سناتور را به دست اورد که برای حزب جمهوری خواه یک شکست بزرگ بود دموکرات ها ": 1793808499658,
   "تلاش نزدیک به نیم میلیارد دلاری الون ماسک برای حمایت از جمهوری خواهان در انتخابات میانی امریکا نتوانست از دست دادن بزرگ دموکرات ها جلوگیری کند و شرکت های او را ": 1793808499658
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-05T21:12:51.741Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-05T21:23:53.095Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 1,
-  "fetched": 1038,
-  "inWindow": 265,
-  "fresh": 260,
-  "sent": 1,
+  "sourcesFailed": 2,
+  "fetched": 1023,
+  "inWindow": 263,
+  "fresh": 258,
+  "sent": 0,
   "images": 0,
-  "translated": 2,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 2,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 11,
-  "perCategory": {
-   "iran": 1,
-   "general": 2
-  },
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

@@ -2809,30 +2809,26 @@
   "مجلس نمایندگان امریکا لایحه الزامی شناسنامه برای رای گیری را تصویب کرد": 1793790236204,
   "مجلس نمایندگان امریکا اصلاحیه حقوق سقط جنین را تایید کرد": 1793790236204
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-05T15:38:34.955Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-05T15:48:54.015Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
   "sourcesFailed": 1,
-  "fetched": 1043,
-  "inWindow": 335,
-  "fresh": 324,
-  "sent": 1,
-  "images": 2,
-  "translated": 4,
+  "fetched": 1044,
+  "inWindow": 341,
+  "fresh": 329,
+  "sent": 0,
+  "images": 0,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 4,
+  "tweetsFetched": 120,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 11,
-  "perCategory": {
-   "iran": 1,
-   "general": 4
-  },
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

@@ -13,6 +13,7 @@ import { isoDateInTz, timeInTz, SYSTEM_TIMEZONE, addDaysISO } from './persian';
 import { evaluateClaim } from './factcheck/engine';
 import { getDigestConfig, runBaleDigest, runBaleDailyReport } from './bale-digest';
 import { rebuildClusters } from './pipeline/clustering-run';
+import { translatePost, isLikelyForeign } from './translate';
 
 interface SchedulerState {
   timer: NodeJS.Timeout | null;
@@ -93,6 +94,34 @@ async function tick(): Promise<void> {
         update: { key: 'pipeline_last_at', value: new Date().toISOString() },
       });
       await guarded('pipeline', async () => { await processPendingPosts(2); });
+    }
+  }
+
+  // ۲-ب) ترجمهٔ خودکار اخبار غیرفارسی — خواستهٔ کاربر (۶ نوامبر ۲۰۲۶): ترجمه نباید فقط با دکمهٔ دستی باشد؛
+  // هر ۱۰ دقیقه حداکثر ۳ خبر — زنجیرهٔ مدل با فاصله‌سنج/قطع‌کن خودش نرخ را کنترل می‌کند
+  const lastTr = await db.setting.findUnique({ where: { key: 'translate_last_at' } });
+  const lastTrMs = lastTr ? new Date(lastTr.value).getTime() : 0;
+  if (Date.now() - (Number.isNaN(lastTrMs) ? 0 : lastTrMs) >= 10 * 60_000) {
+    const pendingSample = await db.post.findMany({
+      where: { translationFa: null },
+      orderBy: { publishedAt: 'desc' },
+      take: 120,
+      select: { id: true, content: true, language: true },
+    });
+    const targets = pendingSample
+      .filter((p) => (p.language && p.language !== 'fa') || isLikelyForeign(p.content))
+      .slice(0, 3);
+    if (targets.length > 0) {
+      await db.setting.upsert({
+        where: { key: 'translate_last_at' },
+        create: { key: 'translate_last_at', value: new Date().toISOString() },
+        update: { key: 'translate_last_at', value: new Date().toISOString() },
+      });
+      await guarded('translate:auto', async () => {
+        for (const t of targets) {
+          await translatePost(t.id).catch(() => {}); // خطای هر مورد مسیر بقیه را نمی‌بندد
+        }
+      });
     }
   }
 

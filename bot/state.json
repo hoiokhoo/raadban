@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "tw-bbcworld-2118516953144774788": 1793929399148,
+  "tw-bbcworld-2118514671879647638": 1793929399148,
   "tw-trtworld-2118514857980920120": 1793928844978,
   "59139e7781bbb373019346c2b95d8bc316df89c9": 1793928063669,
   "tw-ap-2118509951265956169": 1793928063669,
@@ -1052,21 +1054,7 @@
   "8dbd102009013d2c608de1762940199da9806ae9": 1793799937104,
   "67e2c157ec29c9f9c68814b37d61052fcf3e114b": 1793799937104,
   "tw-un-2117965335248650496": 1793799937104,
-  "tw-bbcworld-2117974220634275965": 1793799937104,
-  "c9973e4afe3afc6f925f295e7a5ff212e5a2ccec": 1793799294157,
-  "951ef24de9f5b6e04c09710ed486c77d160f56c6": 1793799294157,
-  "8baa5ecedb5a34d74906f1d7a3ed0b1334c3bf09": 1793799294157,
-  "4bcb85747efdabc494f6174bfbe7448be948d86d": 1793799294157,
-  "3e30e536956e53ef6efaf358958132388dd333a0": 1793799294157,
-  "cf33a53ca4e61e408e36b410236f34b9b499b036": 1793799294157,
-  "07bc4ff11a943983b71ad6dfcc8975aa910451dd": 1793799294157,
-  "d8599eadd8035c2259f7ddbf4fbf680440eb0ca4": 1793799294157,
-  "tw-trtworld-2117972034177085851": 1793799294157,
-  "tw-trtworld-2117964601958490230": 1793799294157,
-  "tw-trtworld-2117962475429679534": 1793799294157,
-  "tw-trtworld-2117957537777787386": 1793799294157,
-  "tw-trtworld-2117953778523553879": 1793799294157,
-  "tw-trtworld-2117950384341705164": 1793799294157
+  "tw-bbcworld-2117974220634275965": 1793799937104
  },
  "sentTitles": {
   "f5299e46d93d3c7a094dd95a626178622650696d": 1793928063669,
@@ -1671,6 +1659,8 @@
   "480225c761d750e538736056b6329f8d6a859152": 1793799937104
  },
  "sentTitleTexts": {
+  "خانه سفید به هگست و روبیو اجازه نمی دهد پس از شکست های انتخاباتی از کارهایشان کنار بیایند": 1793929399148,
+  "ترامپ دستور می نویسد که از تغییرات اینده در دفتر حاشیه ای توسط روسای اینده جلوگیری کند": 1793929399148,
   "رییس جمهور امریکا دونالد ترامپ اعلام کرده است که قصد دارد پیته هگس ت را به عنوان وزیر دفاع خود نگه دارد علیرغم پیامدهای انتخابات میانی ناشی از جنگ ایران هگس ت ا": 1793928844978,
   "کرانه باختری برداشت زیتون فلسطینیان زیر محدودیت های ارتش اسراییل کشاورزان فلسطینی در کرانه باختری اشغالی فقط با دسترسی محدود می توانند به باغ های زیتون خود برون": 1793928063669,
   "کلو فاینمن یک حساب اینستاگرام برای یک دلیل ایجاد کرد و در نهایت جایگاهی در ساعت ششم شب پیدا کرد chloefineman saturdaynightlive snl": 1793928063669,
@@ -2268,11 +2258,11 @@
   "conflict with iran impacts domestic processes in us russian diplomat it was a free choice of the current us administration russia s permanent representative to ": 1793850074743,
   "live updates trump blames iran war for midterm loss while touting ballroom construction in his first public appearance since republicans lost big in the midterm": 1793850074743,
   "sources miami star wr malachi toney to have surgery for high ankle sprain espn sources miami star wr malachi toney to have surgery for high ankle sprain espn": 1793850074743,
-  "star mathematician ma xiao leaves the us for china and a career pivot to ai two years ago chinese mathematician ma xiao helped crack a century old puzzle known ": 1793850074743,
-  "العقاب العربی الجدید العقاب العربی الجدید": 1793850074743,
-  "democrats prepare for something new in the house teamwork politico democrats prepare for something new in the house teamwork politico": 1793850074743
+  "star mathematician ma xiao leaves the us for china and a career pivot to ai two years ago chinese mathematician ma xiao helped crack a century old puzzle known ": 1793850074743
  },
  "sentMsgTexts": {
+  "خانه سفید به هگست و روبیو اجازه نمی دهد پس از شکست های انتخاباتی از کارهایشان کنار بیایند": 1793929399148,
+  "ترامپ دستور می نویسد که از تغییرات اینده در دفتر حاشیه ای توسط روسای اینده جلوگیری کند": 1793929399148,
   "رییس جمهور امریکا دونالد ترامپ اعلام کرده است که قصد دارد پیته هگس ت را به عنوان وزیر دفاع خود نگه دارد علیرغم پیامدهای انتخابات میانی ناشی از جنگ ایران هگس ت ا": 1793928844978,
   "کلو فاینمن یک حساب اینستاگرام برای یک دلیل ایجاد کرد و در نهایت جایگاهی در ساعت ششم شب پیدا کرد chloefineman saturdaynightlive snl": 1793928063669,
   "شکست انتخابات میانی جمهوری خواه در حال شکل دادن به این است که چه کسی در اینده سرنوشت اسراییل را هدایت خواهد کرد در حالی که روابط نجاتی با امریکا سموم می شود": 1793928063669,
@@ -2870,33 +2860,32 @@
   "امریکا در مسیر دو سالی از تلاطم دست نشانانه قانون اساسی است ajopinion توسط ادولفو فرانکو": 1793820646281,
   "دموکرات ها در هر دو مجلس کنگره به قدرت رسیدند ضربه بزرگی به ترامپ و جمهوری خواهان در انتخابات میانه امریکا وارد کردند از نخستین دستاوردهای تاریخی تا پیروزی های ": 1793820646281,
   "rt trtworldnow رییس جمهور امریکا ترامپ اعتراف می کند که جنگ ایران بر انتخابات میانه تاثیر گذاشت اما ادعا می کند که ان را دوباره انجام می دهد اضافه می کند که او ": 1793820646281,
-  "رییس جمهور ترامپ می گوید جنگ ایران ارزش هزینه های سیاسی و اقتصادی را داشت در حالی که جمهوری خواهان او در انتخابات میانه شکست خوردند و تاکید می کند که امریکا گزی": 1793820646281,
-  "اتش سوزی در انبار اوزون در ادیگایسک روسیه رخ داد پس از ان که شرکت تجارت الکترونیک بزرگ اعلام کرد که این مرکز در حمله بدون پایدار در ۴ نوامبر هدف قرار گرفته است ": 1793820646281,
-  "دونالد ترامپ می گوید جنگ با ایران قابل تقدیر بود اما اعتراف می کند که نقش ان در شکست جمهوری خواهان در کنگره ایفا کرده است": 1793819940629
+  "رییس جمهور ترامپ می گوید جنگ ایران ارزش هزینه های سیاسی و اقتصادی را داشت در حالی که جمهوری خواهان او در انتخابات میانه شکست خوردند و تاکید می کند که امریکا گزی": 1793820646281
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-06T01:34:04.980Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-06T01:43:19.152Z",
  "lastRun": {
   "ran": true,
   "sources": 77,
-  "sourcesFailed": 1,
-  "fetched": 1024,
-  "inWindow": 150,
-  "fresh": 143,
+  "sourcesFailed": 0,
+  "fetched": 1039,
+  "inWindow": 152,
+  "fresh": 146,
   "sent": 0,
   "images": 0,
-  "translated": 1,
+  "translated": 2,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 1,
+  "tweetsFetched": 100,
+  "tweetsSent": 2,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
+  "aiProvider": "gemini",
   "aiFailed": true,
   "skippedUntranslated": 12,
   "tweetRateLimited": false,
   "perCategory": {
-   "general": 1
+   "general": 2
   }
  }
 }

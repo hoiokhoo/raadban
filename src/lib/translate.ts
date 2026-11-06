@@ -36,6 +36,9 @@ export async function translateText(content: string): Promise<{ ok: boolean; dat
     systemPrompt: SYSTEM_TRANSLATE,
     userContent: shielded.wrapped,
     maxChars: 9000,
+    // سقف خروجی — ترجمهٔ کامل بدون بریدن؛ بدون آن سرویس‌های رایگان روی متن بلند
+    // با خطای قطعی output_token_limit شکست می‌خورند
+    maxTokens: 4000,
   });
   if (!res.ok || !res.content) return { ok: false, error: res.error };
   const parsed = extractJson<TranslationResult>(res.content, validateTranslation);

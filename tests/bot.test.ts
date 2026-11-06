@@ -8,6 +8,7 @@ import {
   extractMessageImage, extractTweetsFromHtml, fluentFaText, foreignFirstOrder, freshTweets, isAlreadySent, isForeignItem, isLikelyForeign,
   isSimilarToAny, isStorySent, jaccard, makeIds, mergeSentState, needsTranslation, normalizeTitle, parseBingNewsRss, parseFeed,
   parseGeminiKeys, parseTargets, parseTelegramPage, planBotSends, rotateAccounts, splitForBale, splitPhotoCaption, tokensOf, unescapeEntities,
+  selectWithDomesticQuota,
   validateBatchTranslation, validateOneShot, verdictToEmoji, type BotItem, type BotState,
 } from '../bot/bot';
 
@@ -282,6 +283,40 @@ describe('isForeignItem', () => {
   });
 });
 
+describe('selectWithDomesticQuota — سهمیهٔ الزامی اخبار داخلی ایران', () => {
+  const isForeign = (x: { lang: string }) => x.lang !== 'fa'; // قاعدهٔ همان isForeignItem
+  test('خبر داخلی هرگز با سقف maxItems بیرون نمی‌ماند — حتی با انبوه خارجی', () => {
+    const foreign = Array.from({ length: 30 }, (_, i) => ({ lang: 'en', n: i }));
+    const domestic = Array.from({ length: 24 }, (_, i) => ({ lang: 'fa', n: i }));
+    const out = selectWithDomesticQuota([...foreign, ...domestic], isForeign, 12, 4);
+    expect(out.length).toBe(12);
+    expect(out.filter((x) => x.lang === 'fa').length).toBe(4); // حداقل ۴ داخلی
+    expect(out.filter((x) => x.lang === 'en').length).toBe(8);
+  });
+  test('خارجی کم بود، جای خالی با داخلی پر می‌شود', () => {
+    const foreign = Array.from({ length: 3 }, (_, i) => ({ lang: 'en', n: i }));
+    const domestic = Array.from({ length: 10 }, (_, i) => ({ lang: 'fa', n: i }));
+    const out = selectWithDomesticQuota([...foreign, ...domestic], isForeign, 12, 4);
+    expect(out.length).toBe(12); // ۳ خارجی + ۹ داخلی
+    expect(out.filter((x) => x.lang === 'fa').length).toBe(9);
+  });
+  test('داخلی کمتر از سهمیه → همهٔ داخلی‌ها می‌آیند', () => {
+    const foreign = Array.from({ length: 20 }, (_, i) => ({ lang: 'en', n: i }));
+    const domestic = Array.from({ length: 2 }, (_, i) => ({ lang: 'fa', n: i }));
+    const out = selectWithDomesticQuota([...foreign, ...domestic], isForeign, 12, 4);
+    expect(out.length).toBe(12);
+    expect(out.filter((x) => x.lang === 'fa').length).toBe(2);
+  });
+  test('سقف ۰ → خالی؛ سهمیهٔ ۰ = بدون رزرو ولی داخلی جای خالی را پر می‌کند', () => {
+    const foreign = [{ lang: 'en', n: 1 }, { lang: 'en', n: 2 }];
+    const domestic = [{ lang: 'fa', n: 1 }];
+    expect(selectWithDomesticQuota([...foreign, ...domestic], isForeign, 0, 4)).toEqual([]);
+    const out = selectWithDomesticQuota([...foreign, ...domestic], isForeign, 12, 0);
+    expect(out.filter((x) => x.lang === 'fa').length).toBe(1); // بدون سهمیه، جای خالی با داخلی پر می‌شود
+    expect(out.length).toBe(3);
+  });
+});
+
 // ---------- قالب پیام ----------
 
 describe('composeNewsMessage — قالب نسخهٔ ۴', () => {
@@ -535,11 +570,11 @@ describe('composeNewsMessage — حالت عکس (سقف کپشن)', () => {
     expect(msg.length).toBeLessThanOrEqual(1024);
     expect(msg.endsWith('✅')).toBe(true); // حکم در همان کپشن می‌ماند
   });
-  test('پیش‌فرض همچنان ۱۲۰۰ است', () => {
+  test('پیش‌فرض ۳۴۰۰ است — خبر کامل زیر سقف پیام بله (خواستهٔ کاربر ۶ نوامبر ۲۰۲۶)', () => {
     const long = 'خبر. '.repeat(400);
     const msg = composeNewsMessage({ sourceName: 'منبع', text: long });
-    expect(msg.length).toBeGreaterThan(1024);
-    expect(msg.length).toBeLessThanOrEqual(1300);
+    expect(msg.length).toBeGreaterThan(2000);
+    expect(msg.length).toBeLessThanOrEqual(3460);
   });
 });
 

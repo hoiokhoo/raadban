@@ -10,7 +10,7 @@
   "category": "sports"
  },
  {
-  "name": "CGTN (China Global TV Network)",
+  "name": "CGTN",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:cgtn.com+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.cgtn.com",
@@ -19,7 +19,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ESPN (تجمیعی)",
+  "name": "ESPN",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:espn.com+when:2d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.espn.com",
@@ -29,7 +29,7 @@
   "category": "sports"
  },
  {
-  "name": "RT (Russia Today)",
+  "name": "RT",
   "platform": "rss",
   "identifier": "https://www.rt.com/rss/news/",
   "url": "https://www.rt.com",
@@ -38,7 +38,7 @@
   "priority": "عادی"
  },
  {
-  "name": "TRT فارسی (TRT Persian — تجمیعی)",
+  "name": "TRT Persian",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:trt.net.tr+when:7d&hl=fa&gl=TR&ceid=TR:fa",
   "url": "https://www.trt.net.tr/persian",
@@ -48,7 +48,7 @@
   "category": "iran"
  },
  {
-  "name": "presstv",
+  "name": "Press TV (تلگرام)",
   "platform": "telegram",
   "identifier": "presstv",
   "url": "https://t.me/presstv",
@@ -57,7 +57,7 @@
   "priority": "عادی"
  },
  {
-  "name": "آسوشیتد پرس (AP News)",
+  "name": "AP News",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:apnews.com+when:2d&hl=en&gl=US&ceid=US:en",
   "url": "https://apnews.com",
@@ -66,7 +66,7 @@
   "priority": "عادی"
  },
  {
-  "name": "آژانس آناتولی (Anadolu — تجمیعی)",
+  "name": "Anadolu Agency",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:aa.com.tr+when:2d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.aa.com.tr/en",
@@ -75,7 +75,7 @@
   "priority": "عادی"
  },
  {
-  "name": "اخبار ملی اسرائیل (Israel National News — جایگزین قابل‌دسترس)",
+  "name": "Israel National News",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:israelnationalnews.com+when:1d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.israelnationalnews.com",
@@ -84,7 +84,7 @@
   "priority": "عادی"
  },
  {
-  "name": "اسپوتنیک (Sputnik)",
+  "name": "Sputnik",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:sputnikglobe.com+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://sputnikglobe.com",
@@ -93,7 +93,7 @@
   "priority": "عادی"
  },
  {
-  "name": "اسکای‌نیوز (Sky News World)",
+  "name": "Sky News World",
   "platform": "rss",
   "identifier": "https://feeds.skynews.com/feeds/rss/world.xml",
   "url": "https://news.sky.com/world",
@@ -102,7 +102,7 @@
   "priority": "عادی"
  },
  {
-  "name": "اعتمادآنلاین (Etemad Online)",
+  "name": "اعتمادآنلاین",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:etemadonline.com+when:5d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://etemadonline.com",
@@ -111,7 +111,7 @@
   "priority": "عادی"
  },
  {
-  "name": "اقتصادآنلاین (RSS)",
+  "name": "اقتصادآنلاین",
   "platform": "rss",
   "identifier": "https://www.eghtesadonline.com/rss",
   "url": "https://www.eghtesadonline.com/",
@@ -121,7 +121,7 @@
   "category": "economy"
  },
  {
-  "name": "الجزیره انگلیسی (Al Jazeera English)",
+  "name": "Al Jazeera English",
   "platform": "rss",
   "identifier": "https://www.aljazeera.com/xml/rss/all.xml",
   "url": "https://www.aljazeera.com",
@@ -130,7 +130,7 @@
   "priority": "عادی"
  },
  {
-  "name": "الجزیره عربی (الجزيرة نت)",
+  "name": "Al Jazeera Arabic",
   "platform": "rss",
   "identifier": "https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b1f0-c3e0a0a1e579",
   "url": "https://www.aljazeera.net",
@@ -139,7 +139,7 @@
   "priority": "عادی"
  },
  {
-  "name": "السومرية (Alsumaria — عراق)",
+  "name": "Alsumaria",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:alsumaria.tv+when:5d&hl=ar&gl=IQ&ceid=IQ:ar",
   "url": "https://www.alsumaria.tv",
@@ -148,7 +148,7 @@
   "priority": "عادی"
  },
  {
-  "name": "الشرق الاوسط (Asharq Al-Awsat)",
+  "name": "Asharq Al-Awsat",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:aawsat.com+when:3d&hl=ar&gl=SA&ceid=SA:ar",
   "url": "https://www.aawsat.com",
@@ -157,7 +157,7 @@
   "priority": "عادی"
  },
  {
-  "name": "العربی الجدید (Al-Araby Al-Jadeed)",
+  "name": "Al-Araby Al-Jadeed",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:alaraby.co.uk+when:5d&hl=ar&gl=QA&ceid=QA:ar",
   "url": "https://www.alaraby.co.uk",
@@ -166,7 +166,7 @@
   "priority": "عادی"
  },
  {
-  "name": "العربیه (Al Arabiya — مسیر جایگزین)",
+  "name": "Al Arabiya",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:alarabiya.net+when:1d&hl=ar&gl=SA&ceid=SA:ar",
   "url": "https://www.alarabiya.net",
@@ -175,7 +175,7 @@
   "priority": "عادی"
  },
  {
-  "name": "المسیره (Al Masirah — مسیر جایگزین)",
+  "name": "Al Masirah",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:almasirah.net+OR+site:masirahtv.net&hl=ar&gl=YE&ceid=YE:ar",
   "url": "https://almasirah.net",
@@ -184,7 +184,7 @@
   "priority": "عادی"
  },
  {
-  "name": "المیادین (Al Mayadeen — مسیر جایگزین)",
+  "name": "Al Mayadeen",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:almayadeen.net+when:2d&hl=ar&gl=LB&ceid=LB:ar",
   "url": "https://www.almayadeen.net",
@@ -193,7 +193,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ام‌اس‌ان‌بی‌سی (MSNBC)",
+  "name": "MSNBC",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:msnbc.com+when:7d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.msnbc.com",
@@ -202,7 +202,7 @@
   "priority": "عادی"
  },
  {
-  "name": "انصاف نیوز (Ensaf)",
+  "name": "انصاف نیوز",
   "platform": "rss",
   "identifier": "https://ensafnews.com/feed",
   "url": "https://ensafnews.com",
@@ -211,7 +211,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ان‌پی‌آر (NPR World)",
+  "name": "NPR World",
   "platform": "rss",
   "identifier": "https://feeds.npr.org/1004/rss.xml",
   "url": "https://www.npr.org/sections/world",
@@ -220,7 +220,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ایران اینترنشنال (Iran International)",
+  "name": "Iran International",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:iranintl.com+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://www.iranintl.com",
@@ -232,7 +232,7 @@
  {
   "name": "باشگاه خبرنگاران جوان (YJC)",
   "platform": "rss",
-  "identifier": "https://www.yjc.ir/fa/rss/2",
+  "identifier": "https://news.google.com/rss/search?q=site:yjc.ir+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://www.yjc.ir",
   "language": "fa",
   "region": "ایران",
@@ -240,7 +240,7 @@
   "category": "iran"
  },
  {
-  "name": "بلومبرگ (Bloomberg — تجمیعی)",
+  "name": "Bloomberg",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:bloomberg.com+when:2d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.bloomberg.com",
@@ -250,7 +250,7 @@
   "category": "economy"
  },
  {
-  "name": "بی‌بی‌سی فارسی",
+  "name": "BBC Persian",
   "platform": "rss",
   "identifier": "https://feeds.bbci.co.uk/persian/rss.xml",
   "url": "https://www.bbc.com/persian",
@@ -260,7 +260,7 @@
   "category": "iran"
  },
  {
-  "name": "بی‌بی‌سی — بین‌الملل (BBC World)",
+  "name": "BBC World",
   "platform": "rss",
   "identifier": "https://feeds.bbci.co.uk/news/world/rss.xml",
   "url": "https://www.bbc.com/news/world",
@@ -269,7 +269,7 @@
   "priority": "عادی"
  },
  {
-  "name": "تاس انگلیسی (TASS English)",
+  "name": "TASS English",
   "platform": "rss",
   "identifier": "https://tass.com/rss/v2.xml",
   "url": "https://tass.com",
@@ -278,7 +278,7 @@
   "priority": "عادی"
  },
  {
-  "name": "تایمز آو اسرائیل (Times of Israel — تجمیعی)",
+  "name": "Times of Israel",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:timesofisrael.com+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.timesofisrael.com",
@@ -287,7 +287,7 @@
   "priority": "عادی"
  },
  {
-  "name": "تایمز آو ایندیا (Times of India)",
+  "name": "Times of India",
   "platform": "rss",
   "identifier": "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
   "url": "https://timesofindia.indiatimes.com",
@@ -296,7 +296,7 @@
   "priority": "عادی"
  },
  {
-  "name": "تجارت نیوز (Tejarat News)",
+  "name": "تجارت نیوز",
   "platform": "rss",
   "identifier": "https://tejaratnews.com/feed",
   "url": "https://tejaratnews.com",
@@ -305,7 +305,7 @@
   "priority": "عادی"
  },
  {
-  "name": "خبرآنلاین (RSS)",
+  "name": "خبرآنلاین",
   "platform": "rss",
   "identifier": "https://www.khabaronline.ir/rss",
   "url": "https://www.khabaronline.ir/",
@@ -315,7 +315,7 @@
   "category": "iran"
  },
  {
-  "name": "خبرگزاری ایسنا (ISNA)",
+  "name": "خبرگزاری ایسنا",
   "platform": "rss",
   "identifier": "https://www.isna.ir/rss",
   "url": "https://www.isna.ir",
@@ -325,7 +325,7 @@
   "category": "iran"
  },
  {
-  "name": "خبرگزاری ایلنا (ILNA)",
+  "name": "خبرگزاری ایلنا",
   "platform": "rss",
   "identifier": "https://www.ilna.ir/rss",
   "url": "https://www.ilna.ir",
@@ -344,18 +344,9 @@
   "category": "iran"
  },
  {
-  "name": "خبرگزاری صدا و سیما (IRIB News)",
+  "name": "خبرگزاری فارس",
   "platform": "rss",
-  "identifier": "https://www.iribnews.ir/fa/rss/allnews",
-  "url": "https://www.iribnews.ir",
-  "language": "fa",
-  "region": "ایران",
-  "priority": "عادی"
- },
- {
-  "name": "خبرگزاری فارس (Fars)",
-  "platform": "rss",
-  "identifier": "https://news.google.com/rss/search?q=site:farsnews.ir&hl=fa&gl=IR&ceid=IR:fa",
+  "identifier": "https://news.google.com/rss/search?q=site:farsnews.ir+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://farsnews.ir",
   "language": "fa",
   "region": "ایران",
@@ -363,7 +354,7 @@
   "category": "iran"
  },
  {
-  "name": "خبرگزاری مهر (RSS)",
+  "name": "خبرگزاری مهر",
   "platform": "rss",
   "identifier": "https://www.mehrnews.com/rss",
   "url": "https://www.mehrnews.com/",
@@ -373,7 +364,7 @@
   "category": "iran"
  },
  {
-  "name": "د هیل (The Hill)",
+  "name": "The Hill",
   "platform": "rss",
   "identifier": "https://thehill.com/feed/",
   "url": "https://thehill.com",
@@ -382,7 +373,7 @@
   "priority": "عادی"
  },
  {
-  "name": "د هیندو (The Hindu — International)",
+  "name": "The Hindu",
   "platform": "rss",
   "identifier": "https://www.thehindu.com/news/international/feeder/default.rss",
   "url": "https://www.thehindu.com/news/international",
@@ -391,7 +382,7 @@
   "priority": "عادی"
  },
  {
-  "name": "دان (Dawn — پاکستان، تجمیعی)",
+  "name": "Dawn",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:dawn.com+when:3d&hl=en&gl=PK&ceid=PK:en",
   "url": "https://www.dawn.com",
@@ -409,7 +400,7 @@
   "priority": "عادی"
  },
  {
-  "name": "دنیای اقتصاد (RSS)",
+  "name": "دنیای اقتصاد",
   "platform": "rss",
   "identifier": "https://www.donya-e-eqtesad.com/rss",
   "url": "https://www.donya-e-eqtesad.com/",
@@ -428,7 +419,7 @@
   "priority": "عادی"
  },
  {
-  "name": "دی‌وی انگلیسی (DW English World)",
+  "name": "DW English",
   "platform": "rss",
   "identifier": "https://rss.dw.com/rdf/rss-en-world",
   "url": "https://www.dw.com/en",
@@ -437,7 +428,7 @@
   "priority": "عادی"
  },
  {
-  "name": "دی‌وی فارسی (DW Persian)",
+  "name": "DW Persian",
   "platform": "rss",
   "identifier": "https://rss.dw.com/rdf/rss-per-all",
   "url": "https://www.dw.com/fa-IR",
@@ -447,7 +438,7 @@
   "category": "iran"
  },
  {
-  "name": "رادیو زمانه (Radio Zamaneh — تجمیعی)",
+  "name": "Radio Zamaneh",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:radiozamaneh.com+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://radiozamaneh.com",
@@ -456,7 +447,7 @@
   "priority": "عادی"
  },
  {
-  "name": "رادیو فرانس اینترناسیونال فارسی (RFI فارسی)",
+  "name": "RFI Persian",
   "platform": "rss",
   "identifier": "https://www.rfi.fr/fa/rss",
   "url": "https://www.rfi.fr/fa/",
@@ -466,7 +457,7 @@
   "category": "iran"
  },
  {
-  "name": "رادیو فردا (Radio Farda — تجمیعی)",
+  "name": "Radio Farda",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:radiofarda.com+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://www.radiofarda.com",
@@ -476,7 +467,7 @@
   "category": "iran"
  },
  {
-  "name": "روزنامه مردم انگلیسی (People's Daily English)",
+  "name": "People's Daily English",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:en.people.cn+when:5d&hl=en&gl=US&ceid=US:en",
   "url": "https://en.people.cn",
@@ -486,7 +477,7 @@
   "category": "tech"
  },
  {
-  "name": "رویترز (Reuters — مسیر جایگزین)",
+  "name": "Reuters",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:reuters.com+when:1d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.reuters.com",
@@ -495,7 +486,7 @@
   "priority": "عادی"
  },
  {
-  "name": "سازمان جهانی بهداشت (WHO News)",
+  "name": "WHO News",
   "platform": "rss",
   "identifier": "https://www.who.int/rss-feeds/news-english.xml",
   "url": "https://www.who.int/news",
@@ -504,7 +495,7 @@
   "priority": "عادی"
  },
  {
-  "name": "سازمان خواربار و کشاورزی (FAO News)",
+  "name": "FAO News",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:fao.org+when:14d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.fao.org/newsroom",
@@ -513,7 +504,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ساوت چاینا مورنینگ پست (SCMP)",
+  "name": "SCMP",
   "platform": "rss",
   "identifier": "https://www.scmp.com/rss/4/feed",
   "url": "https://www.scmp.com",
@@ -522,7 +513,7 @@
   "priority": "عادی"
  },
  {
-  "name": "سی‌ان‌ان (CNN World)",
+  "name": "CNN World",
   "platform": "rss",
   "identifier": "http://rss.cnn.com/rss/edition_world.rss",
   "url": "https://edition.cnn.com/world",
@@ -531,7 +522,7 @@
   "priority": "عادی"
  },
  {
-  "name": "شبکه ۱۲ اسرائیل (کانال ۱۲ — مسیر جایگزین)",
+  "name": "Israel Channel 12",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:mako.co.il+when:7d&hl=he&gl=IL&ceid=IL:he",
   "url": "https://www.mako.co.il/news",
@@ -540,7 +531,7 @@
   "priority": "عادی"
  },
  {
-  "name": "شبکه ۱۴ اسرائیل (NOW14 — مسیر جایگزین)",
+  "name": "NOW14 Israel",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:now14.co.il&hl=he&gl=IL&ceid=IL:he",
   "url": "https://www.now14.co.il",
@@ -549,7 +540,7 @@
   "priority": "عادی"
  },
  {
-  "name": "شینهوا انگلیسی (Xinhua English)",
+  "name": "Xinhua English",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:english.news.cn+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://english.news.cn",
@@ -558,7 +549,7 @@
   "priority": "عادی"
  },
  {
-  "name": "طلوع‌نیوز (TOLOnews — افغانستان)",
+  "name": "TOLOnews",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:tolonews.com+when:7d&hl=en&gl=US&ceid=US:en",
   "url": "https://tolonews.com",
@@ -577,7 +568,7 @@
   "category": "iran"
  },
  {
-  "name": "فاکس‌نیوز (Fox News World)",
+  "name": "Fox News World",
   "platform": "rss",
   "identifier": "https://feeds.foxnews.com/foxnews/world",
   "url": "https://www.foxnews.com/world",
@@ -586,7 +577,7 @@
   "priority": "عادی"
  },
  {
-  "name": "فرانس ۲۴ انگلیسی (France 24 English)",
+  "name": "France 24 English",
   "platform": "rss",
   "identifier": "https://www.france24.com/en/rss",
   "url": "https://www.france24.com/en",
@@ -595,7 +586,7 @@
   "priority": "عادی"
  },
  {
-  "name": "مشرق نیوز (RSS)",
+  "name": "مشرق نیوز",
   "platform": "rss",
   "identifier": "https://www.mashreghnews.ir/rss",
   "url": "https://www.mashreghnews.ir/",
@@ -604,7 +595,7 @@
   "priority": "عادی"
  },
  {
-  "name": "نیویورک تایمز (NYT World)",
+  "name": "NYT World",
   "platform": "rss",
   "identifier": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
   "url": "https://www.nytimes.com/section/world",
@@ -613,7 +604,7 @@
   "priority": "عادی"
  },
  {
-  "name": "هاآرتص انگلیسی (Haaretz English)",
+  "name": "Haaretz English",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:haaretz.com+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.haaretz.com",
@@ -622,7 +613,7 @@
   "priority": "عادی"
  },
  {
-  "name": "واشنگتن پست (Washington Post — تجمیعی)",
+  "name": "Washington Post",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:washingtonpost.com+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.washingtonpost.com",
@@ -631,7 +622,7 @@
   "priority": "عادی"
  },
  {
-  "name": "وال‌استریت ژورنال (WSJ World)",
+  "name": "WSJ World",
   "platform": "rss",
   "identifier": "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
   "url": "https://www.wsj.com",
@@ -640,7 +631,7 @@
   "priority": "عادی"
  },
  {
-  "name": "ورزش۳ (Varzesh3)",
+  "name": "ورزش۳",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:varzesh3.com+when:3d&hl=fa&gl=IR&ceid=IR:fa",
   "url": "https://www.varzesh3.com",
@@ -650,7 +641,7 @@
   "category": "sports"
  },
  {
-  "name": "پرس‌تی‌وی (Press TV — انگلیسی)",
+  "name": "Press TV",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:presstv.ir+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.presstv.ir",
@@ -659,7 +650,7 @@
   "priority": "عادی"
  },
  {
-  "name": "پولیتیکو (Politico — تجمیعی)",
+  "name": "Politico",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:politico.com+when:2d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.politico.com",
@@ -668,7 +659,7 @@
   "priority": "عادی"
  },
  {
-  "name": "چاینا دیلی (China Daily)",
+  "name": "China Daily",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:chinadaily.com.cn+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.chinadaily.com.cn",
@@ -678,7 +669,7 @@
   "category": "tech"
  },
  {
-  "name": "گاردین — بین‌الملل (Guardian World)",
+  "name": "Guardian World",
   "platform": "rss",
   "identifier": "https://www.theguardian.com/world/rss",
   "url": "https://www.theguardian.com/world",
@@ -687,7 +678,7 @@
   "priority": "عادی"
  },
  {
-  "name": "گاردین — محیط زیست (Guardian Environment)",
+  "name": "Guardian Environment",
   "platform": "rss",
   "identifier": "https://www.theguardian.com/environment/rss",
   "url": "https://www.theguardian.com/environment",
@@ -696,7 +687,7 @@
   "priority": "عادی"
  },
  {
-  "name": "گلوبال تایمز (Global Times)",
+  "name": "Global Times",
   "platform": "rss",
   "identifier": "https://news.google.com/rss/search?q=site:globaltimes.cn+when:3d&hl=en&gl=US&ceid=US:en",
   "url": "https://www.globaltimes.cn",
@@ -705,7 +696,7 @@
   "priority": "عادی"
  },
  {
-  "name": "یورونیوز فارسی (Euronews Persian)",
+  "name": "Euronews Persian",
   "platform": "rss",
   "identifier": "https://parsi.euronews.com/rss",
   "url": "https://parsi.euronews.com",
@@ -713,5 +704,32 @@
   "region": "فرانسه/اروپا",
   "priority": "عادی",
   "category": "iran"
+ },
+ {
+  "name": "خبرگزاری جمهوری اسلامی (ایرنا)",
+  "platform": "rss",
+  "identifier": "https://www.irna.ir/rss",
+  "url": "https://www.irna.ir",
+  "language": "fa",
+  "region": "ایران",
+  "priority": "عادی"
+ },
+ {
+  "name": "همشهری آنلاین",
+  "platform": "rss",
+  "identifier": "https://www.hamshahrionline.ir/rss",
+  "url": "https://www.hamshahrionline.ir",
+  "language": "fa",
+  "region": "ایران",
+  "priority": "عادی"
+ },
+ {
+  "name": "انتخاب",
+  "platform": "rss",
+  "identifier": "https://news.google.com/rss/search?q=site:entekhab.ir+when:3d&hl=fa&gl=IR&ceid=IR:fa",
+  "url": "https://www.entekhab.ir",
+  "language": "fa",
+  "region": "ایران",
+  "priority": "عادی"
  }
 ]

@@ -107,6 +107,8 @@ const CFG = {
   githubModel: process.env.GITHUB_MODEL?.trim() || 'openai/gpt-4o-mini',
   windowHours: Number(process.env.NEWS_WINDOW_HOURS || 3) || 3,
   maxItems: Math.max(1, Math.min(25, Number(process.env.MAX_ITEMS || 12) || 12)),
+  // سهمیهٔ الزامی داخلی: حداقل ۴ رویداد ایران همیشه در فهرست مدل (خواستهٔ کاربر ۶ نوامبر ۲۰۲۶)
+  minDomestic: Math.max(0, Math.min(12, Number(process.env.BOT_MIN_DOMESTIC ?? 4) || 0)),
   maxSearch: Math.max(0, Math.min(4, Number(process.env.BOT_MAX_SEARCH || 2) || 2)),
   // توییت‌ها — ترجمهٔ روان کامل و ارسال بلافاصله پس از دریافت (خواستهٔ کاربر)
   tweetsFile: process.env.BOT_TWEETS_FILE || 'bot/tweets.json',
@@ -590,6 +592,22 @@ export function foreignFirstOrder<T>(items: T[], isForeignOf: (x: T) => boolean)
     .map((x) => x.it);
 }
 
+/** گزینش با سهمیهٔ الزامی داخلی — تابع خالص تست‌پذیر.
+ *  خواستهٔ کاربر (۶ نوامبر ۲۰۲۶): «اخبار داخلی ایران جزو اخبار نیست» — علتش این بود که
+ *  «خارجی اول + سقف maxItems» خبر داخلی را کامل بیرون می‌انداخت (مثلاً ۳۰ رویداد خارجی، ۲۴ داخلی → فقط خارجی‌ها می‌رفتند).
+ *  حالا: حداقل minDomestic رویداد داخلی همیشه در فهرست مدل هست؛ بقیهٔ سقف به خارجی‌ها می‌رسد؛
+ *  اگر خارجی کم بود، جای خالی با داخلی‌های بعدی پر می‌شود. ترتیب ارسال نهایی همچنان خارجی اول است (planBotSends). */
+export function selectWithDomesticQuota<T>(items: T[], isForeignOf: (x: T) => boolean, maxItems: number, minDomestic: number): T[] {
+  const foreign = items.filter((x) => isForeignOf(x));
+  const domestic = items.filter((x) => !isForeignOf(x));
+  const domQuota = Math.max(0, Math.min(minDomestic, domestic.length, maxItems));
+  const picked: T[] = domestic.slice(0, domQuota);
+  const fTake = Math.max(0, Math.min(foreign.length, maxItems - picked.length));
+  picked.push(...foreign.slice(0, fTake));
+  if (picked.length < maxItems) picked.push(...domestic.slice(domQuota, domQuota + (maxItems - picked.length)));
+  return picked.slice(0, maxItems);
+}
+
 export function isForeignItem(it: { language: string; region: string }): boolean {
   return (it.language || 'fa').trim().toLowerCase() !== 'fa' || (it.region || 'ایران').trim() !== 'ایران';
 }
@@ -606,9 +624,11 @@ export function verdictToEmoji(verdict: string | undefined | null): string {
 
 /** پیام هر خبر — فقط «نام منبع: متن خبر» + ایموجی حکم در صورت وجود.
  *  بدون پیوند، بدون زمان، بدون توضیح راستی‌آزمایی — خواستهٔ صریح کاربر.
- *  textLimit: در حالت عکس، متن کوتاه‌تر می‌شود تا «متن + حکم» همیشه در سقف کپشن ۱۰۲۴ جا شود
- *  و ایموجی حکم هرگز به‌تنهایی در پیام جدایی بیفتد (ایراد یافت‌شده در نقد). */
-export function composeNewsMessage(input: { sourceName: string; text: string; verdict?: string }, textLimit = 1200): string {
+ *  textLimit پیش‌فرض ۳۴۰۰ نویسه (زیر سقف پیام بله ۴۰۹۶) — خواستهٔ کاربر (۶ نوامبر ۲۰۲۶):
+ *  «اخبار طولانی به‌جای خلاصه‌نویسی ناقص کامل بیایند» — خبر کامل می‌آید؛
+ *  در حالت عکس، splitPhotoCaption خودش متن را به کپشن ۱۰۲۴ + پیام ادامه تقسیم می‌کند
+ *  و ایموجی حکم هرگز به‌تنهایی در پیام جدایی نمی‌افتد. */
+export function composeNewsMessage(input: { sourceName: string; text: string; verdict?: string }, textLimit = 3400): string {
   const src = (input.sourceName || '').trim() || 'منبع ناشناس';
   const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, textLimit))}`];
   const em = verdictToEmoji(input.verdict);
@@ -629,7 +649,7 @@ export function aggregateSourceLabel(names: string[]): string {
 }
 
 /** پیام یک رویداد با ذکر همهٔ منابع پوشش‌دهنده — تک‌منبعی = «نام منبع: متن» (بدون تغییر) */
-export function composeGroupMessage(g: { members: Array<{ sourceName: string }> }, text: string, verdict?: string, textLimit = 1200): string {
+export function composeGroupMessage(g: { members: Array<{ sourceName: string }> }, text: string, verdict?: string, textLimit = 3400): string {
   return composeNewsMessage({ sourceName: aggregateSourceLabel(g.members.map((m) => m.sourceName)), text, verdict }, textLimit);
 }
 
@@ -664,7 +684,7 @@ export function planBotSends(
   opts: { textLimit?: number; simThreshold?: number; priorTexts?: string[] } = {}
 ): { sends: PlannedSend[]; skippedBadRef: number; skippedDupGroup: number; skippedDupText: number } {
   const sim = opts.simThreshold ?? 0.55;
-  const limit = opts.textLimit ?? 1200;
+  const limit = opts.textLimit ?? 3400;
   const used = new Set<number>();
   const texts: string[] = [...(opts.priorTexts || [])];
   const raw: PlannedSend[] = [];
@@ -991,7 +1011,8 @@ export function validateOneShot(x: unknown, allowedCats?: string[]): OneShotOut 
     // دستهٔ مدل فقط از فهرست مجاز پذیرفته می‌شود — دستهٔ بیرون از فهرست نادیده گرفته می‌شود
     const cat = typeof i.cat === 'string' && (!allowedCats || allowedCats.includes(i.cat.trim())) ? i.cat.trim() : undefined;
     if (refs.length === 0 || text.length < 2) continue;
-    items.push({ refs, text: text.slice(0, 1500), verdict, cat });
+    // سقف ۳۵۰۰ نویسه — خبر کامل می‌آید (قبلاً ۱۵۰۰ بود که خلاصه‌نویسی ناقص می‌ساخت)
+    items.push({ refs, text: text.slice(0, 3500), verdict, cat });
   }
   const injectionWarnings = Array.isArray(o.injectionWarnings)
     ? o.injectionWarnings.filter((w): w is string => typeof w === 'string').slice(0, 5)
@@ -1014,9 +1035,10 @@ export function validateBatchTranslation(x: unknown): BatchTranslationEntry[] | 
     if (typeof raw !== 'object' || raw === null) continue;
     const e = raw as Record<string, unknown>;
     const n = Number(e.n);
+    // سقف ۳۵۰۰ نویسه — خواستهٔ کاربر: ترجمهٔ کامل، بدون بریدن (خبر بلند کامل می‌آید)
     const fa = typeof e.fa === 'string'
-      ? e.fa.trim().slice(0, 600)
-      : typeof e.translation === 'string' ? e.translation.trim().slice(0, 600) : '';
+      ? e.fa.trim().slice(0, 3500)
+      : typeof e.translation === 'string' ? e.translation.trim().slice(0, 3500) : '';
     if (!Number.isInteger(n) || n < 1 || n > 200 || fa.length < 2) continue;
     out.push({ n, fa });
   }
@@ -1035,9 +1057,10 @@ export async function gateFa(text: string): Promise<string | null> {
   return tr;
 }
 
-/** ترجمهٔ تک‌موردی روان با کل زنجیرهٔ مدل — سپر ضدِ انگلیسی قبل از ارسال */
+/** ترجمهٔ تک‌موردی روان با کل زنجیرهٔ مدل — سپر ضدِ انگلیسی قبل از ارسال.
+ *  ورودی تا ۳۰۰۰ نویسه (قبلاً ۶۰۰ بود که عامل اصلی «ترجمهٔ ناقص» بود — نقد ۶ نوامبر ۲۰۲۶). */
 export async function translateOne(text: string): Promise<string | null> {
-  const r = await chainCall(getTranslatePrompt(), `[1] ${text.slice(0, 600)}`, { maxTokens: 900 });
+  const r = await chainCall(getTranslatePrompt(), `[1] ${text.slice(0, 3000)}`, { maxTokens: 2200 });
   if (!r.ok || !r.content) return null;
   const entries = extractJson(r.content, validateBatchTranslation);
   return entries?.find((e) => e.n === 1)?.fa || null;
@@ -1069,14 +1092,18 @@ export const DEFAULT_SYSTEM_BOT_ONESHOT = `
    فقط «یک» آیتم بسازید و شمارهٔ «همهٔ» آن پوشش‌ها را در refs بنویسید؛ متن بر پایهٔ کامل‌ترین و معتبرترین منبع است.
    هرگز یک رویداد را در دو آیتم تکرار نکنید؛ هرگز رویدادِ دستِ‌دوم را که فقط بازتاب همان خبر است جدا نیاورید.
 
-۴) متن هر رویداد (فیلد text): ۲ تا ۴ جملهٔ فارسیِ روان، سلیس و بی‌حاشیه — فقط خود خبر:
-   چه کسی، چه چیزی، کجا، کی — با اعداد و نام‌های دقیقِ همین منابع.
-   بدون مقدمه («به گزارش...» ممنوع)، بدون تحلیل و برداشت شخصی، بدون نتیجه‌گیری، بدون پرسش،
-   بدون خطاب به مخاطب، بدون نقل‌قول جداگانه، بدون ایموجی در متن، بدون اشاره به «این خبر/این گزارش».
-   این متن عیناً بدنهٔ پیام می‌شود؛ از بریدنِ وسط جمله خودداری کنید.
+۴) متن هر رویداد (فیلد text) — قانون «خبر کامل، بدون خلاصه‌سازی» (خواستهٔ صریح کاربر):
+   کل محتوای منبع را به فارسیِ روان، سلیس و بی‌حاشیه بنویسید — «تمامِ» مطلب، نه چکیدهٔ آن:
+   - هر جمله، هر جزئیات، هر عدد، هر نام و هر نقل‌قولِ مهمِ منبع باید در متن بیاید.
+   - طول متن تابع خود خبر است: خبر کوتاه = متن کوتاه؛ خبر بلند = متن کامل و بلند.
+   - حذف جملهٔ مهم، فشرده‌سازی، چکیده‌نویسی یا «...» مطلقاً ممنوع؛ وسط جمله بریده نشود.
+   - بدون مقدمه («به گزارش...» ممنوع)، بدون تحلیل و برداشت شخصی، بدون نتیجه‌گیری، بدون پرسش،
+     بدون خطاب به مخاطب، بدون نقل‌قول جداگانه، بدون ایموجی در متن، بدون اشاره به «این خبر/این گزارش».
+   - این متن عیناً بدنهٔ پیام می‌شود.
 
-۵) ترجمهٔ مطالب غیرفارسی: ترجمهٔ روان، کامل و دقیق به فارسی — معادل‌سازی طبیعی به‌جای ترجمهٔ تحت‌اللفظی؛
-   هیچ افزودن، حذف یا خلاصه‌سازی مطلقاً ممنوع؛ نام اشخاص و نهادها به فارسیِ رایج (ترامپ، پوتین، اوپک)،
+۵) ترجمهٔ مطالب غیرفارسی: ترجمهٔ روان، کامل و تمام‌وکمال به فارسی — معادل‌سازی طبیعی به‌جای ترجمهٔ تحت‌اللفظی؛
+   هیچ افزودن، حذف، خلاصه‌سازی یا کوتاه‌سازی مطلقاً ممنوع — طول ترجمه هم‌عرض اصل مطلب است؛
+   نام اشخاص و نهادها به فارسیِ رایج (ترامپ، پوتین، اوپک)،
    نام برندها و نهادهای بی‌معادل فارسی لاتین می‌ماند؛ اعداد به رقم فارسی نیستند — همان رقم اصلی.
 
 ۶) حکم فقط برای ایموجی (بدون هیچ توضیحی) — فقط با شواهد جست‌وجوی وبِ ارائه‌شده:
@@ -1598,8 +1625,10 @@ async function main(): Promise<void> {
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
 
-  // ۵) مرتب‌سازی: خارجی اول، داخلی بعد؛ سقف ارسال
-  const ordered = foreignFirstOrder(groups, (g) => isForeignItem(g.primary)).slice(0, CFG.maxItems);
+  // ۵) گزینش با سهمیهٔ الزامی داخلی — خارجی‌ها پر می‌کنند ولی هرگز اخبار ایران را بیرون نمی‌اندازند
+  const ordered = selectWithDomesticQuota(groups, (g) => isForeignItem(g.primary), CFG.maxItems, CFG.minDomestic);
+  const domCount = ordered.filter((g) => !isForeignItem(g.primary)).length;
+  console.log(`گزینش نهایی: ${ordered.length} رویداد (داخلی ایران: ${domCount} — سهمیهٔ الزامی ${CFG.minDomestic})`);
 
   if (ordered.length === 0) {
     console.log('هیچ خبر تازهٔ قابل ارسالی نبود — پایان چرخه.');
@@ -1610,14 +1639,15 @@ async function main(): Promise<void> {
   }
 
   // ۶) ترجمهٔ دسته‌جمعی تیترهای غیرفارسی (یک فراخوانی سبک — بدون OpenRouter)
+  //  ورودی هر مورد تا ۱۲۰۰ نویسه (قبلاً ۳۰۰ بود — عامل ترجمهٔ ناقص) و سقف خروجی ۶۰۰۰ توکن
   const needTr = ordered
     .map((g, i) => ({ g, i }))
     .filter(({ g }) => !(g.primary.translationFa || '').trim() &&
       (g.primary.language !== 'fa' || isLikelyForeign(g.primary.content)));
   if (needTr.length > 0) {
     const corpus = needTr.map(({ g }, j) =>
-      `[${j + 1}] ${g.primary.content.slice(0, 300).replace(/\n+/g, ' ')}`).join('\n');
-    const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 2500, skipIds: ['openrouter'] });
+      `[${j + 1}] ${g.primary.content.slice(0, 1200).replace(/\n+/g, ' ')}`).join('\n');
+    const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 6000, skipIds: ['openrouter'] });
     if (r.ok && r.content) {
       const entries = extractJson(r.content, validateBatchTranslation);
       if (entries) {
@@ -1636,7 +1666,7 @@ async function main(): Promise<void> {
   const webLines: string[] = [];
   if (CFG.maxSearch > 0) {
     for (const g of ordered.slice(0, CFG.maxSearch)) {
-      const q = trimFa(g.primary.translationFa || g.primary.content, 90);
+      const q = trimFa(g.primary.translationFa || g.primary.content, 90); // فقط پرسش جست‌وجو کوتاه می‌ماند — نه خود خبر
       const found = await searchWeb(q).catch(() => [] as WebEvidence[]);
       summary.searches++;
       if (found.length) {
@@ -1651,8 +1681,9 @@ async function main(): Promise<void> {
   const catLine = allowedCats.length > 1
     ? `دسته‌های مجاز (فیلد cat فقط یکی از این‌ها): ${allowedCats.join('، ')}`
     : '';
+  // کل محتوای هر رویداد تا ۲۶۰۰ نویسه به مدل می‌رسد (قبلاً ۱۲۰۰ بود) — پیش‌شرط «خبر کامل بدون خلاصه‌سازی»
   const corpus = ordered.map((g, i) => {
-    const text = (g.primary.translationFa || g.primary.content).slice(0, 1200);
+    const text = (g.primary.translationFa || g.primary.content).slice(0, 2600);
     const cat = g.primary.category ? ` | دستهٔ منبع: ${g.primary.category}` : '';
     return `[شماره ${i + 1}] منبع: ${g.primary.sourceName} | زبان: ${g.primary.language} | منطقه: ${g.primary.region}${cat}\n${text}`;
   }).join('\n\n———\n\n');
@@ -1667,7 +1698,8 @@ async function main(): Promise<void> {
   let one: OneShotOut | null = null;
   let aiProvider: string | undefined;
   const aiStart = Date.now();
-  const aiRes = await chainCall(getOneshotPrompt(), oneShotUser, { maxTokens: 4000 });
+  // سقف خروجی ۸۰۰۰ توکن — مدل باید «متن کامل» همهٔ رویدادها را بنویسد، نه چکیده
+  const aiRes = await chainCall(getOneshotPrompt(), oneShotUser, { maxTokens: 8000 });
   if (aiRes.ok && aiRes.content) {
     one = extractJson(aiRes.content, (x) => validateOneShot(x, allowedCats));
     aiProvider = aiRes.providerId;
@@ -1687,8 +1719,7 @@ async function main(): Promise<void> {
       console.log(`برنامهٔ ارسال: ${sends.length} پیام (حذف: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه)`);
       for (const s of sends) {
         console.log('---');
-        // حالت عکس: سقف ۹۵۰ تا «متن + حکم» همیشه در سقف کپشن ۱۰۲۴ جا شود و ایموجی حکم هرگز تنها نماند
-        console.log(composeGroupMessage(s.g, s.text, s.verdict, s.g.primary.imageUrl ? 950 : 1200));
+        console.log(composeGroupMessage(s.g, s.text, s.verdict, 3400));
         const cat = s.cat || s.g.primary.category || 'general';
         const route = validCategoryRoutes[cat];
         console.log(`[مسیر: ${catTitles.get(cat) || cat}${route ? ' — بات اختصاصی' : ' — مقصد پیش‌فرض'}]`);
@@ -1701,7 +1732,7 @@ async function main(): Promise<void> {
         const fa = fluentFaText(g);
         console.log('---');
         if (!fa) { console.log(`[ناموفق در ترجمه — ارسال نمی‌شود] ${g.primary.sourceName}`); continue; }
-        console.log(composeGroupMessage(g, trimFa(fa, 300)));
+        console.log(composeGroupMessage(g, fa, undefined, 3400));
         if (g.primary.imageUrl) console.log(`[عکس خود خبر] ${g.primary.imageUrl}`);
       }
     }
@@ -1773,10 +1804,8 @@ async function main(): Promise<void> {
       }
       if (text !== s.text) summary.translated++;
       // تجمیع منابع: چند خبرگزاری = «خبرگزاری‌های A و B و C: متن خبر» (خواستهٔ صریح کاربر)
-      const msg = composeGroupMessage(
-        s.g, text, s.verdict,
-        s.g.primary.imageUrl ? 950 : 1200, // حالت عکس: متن + حکم همیشه در کپشن جا می‌شود
-      );
+      // textLimit ۳۴۰۰ — خبر کامل می‌آید؛ حالت عکس خودش در sendToTarget به کپشن + پیام ادامه تقسیم می‌شود
+      const msg = composeGroupMessage(s.g, text, s.verdict, 3400);
       // قانون عکس: فقط عکسِ خودِ خبر؛ خبر بی‌عکس هیچ تصویری نمی‌گیرد (بدون عکس اعضا، بدون عکس ساختگی)
       const img = s.g.primary.imageUrl;
       // مسیریابی دسته: دستهٔ مدل ← دستهٔ منبع ← عمومی
@@ -1802,8 +1831,8 @@ async function main(): Promise<void> {
       if (!h.ok) console.error(`❌ پیام سربرگ به ${t} ناموفق: ${h.error}`);
     }
     for (const g of fluent) {
-      // تجمیع منابع در مسیر شکست مدل هم اعمال می‌شود
-      const msg = composeGroupMessage(g, trimFa(fluentFaText(g) || '', 300));
+      // تجمیع منابع در مسیر شکست مدل هم اعمال می‌شود — خبر کامل، بدون خلاصه‌نویسی (خواستهٔ کاربر)
+      const msg = composeGroupMessage(g, fluentFaText(g) || '', undefined, 3400);
       const cat = g.primary.category || 'general';
       if (await sendForCategory(cat, msg, g.primary.imageUrl)) { summary.sent++; mark(g); }
       await sleep(700);
@@ -1842,11 +1871,11 @@ async function main(): Promise<void> {
     const toSend = candidates.slice(0, CFG.maxTweets);
     if (toSend.length > 0) {
       // ترجمهٔ دسته‌جمعی توییت‌های غیرفارسی — یک فراخوانی مدل برای کل چرخه (بدون OpenRouter)
-      // متن کامل توییت (تا ۹۰۰ نویسه) به مدل می‌رود — ترجمهٔ تمام‌وکمال بدون خلاصه‌سازی (خواستهٔ کاربر)
+      // متن کامل توییت (تا ۹۰۰ نویسه — سقف واقعی ایکس) به مدل می‌رود — ترجمهٔ تمام‌وکمال بدون خلاصه‌سازی
       const needIdx = toSend.map((c, i) => ({ c, i })).filter(({ c }) => needsTranslation(c.tweet.text));
       if (needIdx.length > 0) {
         const corpus = needIdx.map(({ c }, j) => `[${j + 1}] ${c.tweet.text.slice(0, 900).replace(/\n+/g, ' ')}`).join('\n');
-        const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 2500, skipIds: ['openrouter'] });
+        const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 6000, skipIds: ['openrouter'] });
         if (r.ok && r.content) {
           const entries = extractJson(r.content, validateBatchTranslation);
           if (entries) {
@@ -1869,7 +1898,7 @@ async function main(): Promise<void> {
           continue;
         }
         if (fa !== c.tweet.text) c.tweet.text = fa;
-        const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 1200);
+        const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 3400);
         // قانون عکس: توییت بدون عکسِ خودش، بدون تصویر ارسال می‌شود (بدون آواتار — خواستهٔ کاربر)
         if (await sendForCategory('general', msg)) {
           summary.tweetsSent = (summary.tweetsSent || 0) + 1;

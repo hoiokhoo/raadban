@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "d20446f4bd68b4eab239865443ebaa267c3122c7": 1794045047567,
   "35ce648ca6bb1e2fa609fc4970e58d0ef283a1f5": 1794044352148,
   "1d9b1a736a558ff0a5981a07508e26fd36de2938": 1794044352148,
   "tw-trtworld-2119000718484938999": 1794044352148,
@@ -1198,10 +1199,10 @@
   "tw-ap-2118487586654093606": 1793924002101,
   "tw-bbcworld-2118486921219330303": 1793923035316,
   "4b45d26add74ec7835efeaee9ab51a92d5f23fc7": 1793922365647,
-  "tw-trtworld-2118480364054130744": 1793922365647,
-  "tw-bbcworld-2118483523875012895": 1793921665427
+  "tw-trtworld-2118480364054130744": 1793922365647
  },
  "sentTitles": {
+  "9beff6ac13a69da0a76dc426122fa9f28049bfb0": 1794045047567,
   "76c1510fd952e612a1c92e82e859ac93a0b3ac05": 1794044352148,
   "8a93e736661ad7977ff502ef16cd313b37896dc0": 1794044352148,
   "0a48af6f64edb4dd38662f888031e3d6f9321336": 1794043529988,
@@ -1800,10 +1801,10 @@
   "b70d9aa0fe9650eb3296fc01bf92918343d223a5": 1793965412816,
   "8d63404aaf7c9e635d2452d0874e211fdacb52b1": 1793965412816,
   "390b7e8ffe03a876e514ab7298d30dfefb3df58c": 1793965412816,
-  "f541aa9dfdff5683eab4a72a8bbe8f02f8ed4409": 1793965412816,
-  "005df560d1dc9b9c58fc6b72722cf9f0f3939314": 1793964877682
+  "f541aa9dfdff5683eab4a72a8bbe8f02f8ed4409": 1793965412816
  },
  "sentTitleTexts": {
+  "جامعه شناسی اعتراضات فرانسه چگونه من های ناراضی به ما ی پلتفرمی تبدیل می شود محمد اقاسی جامعه شناس و پژوهشگر افکارعمومی در یادداشتی که در اختیار انصاف نیوز قرار": 1794045047567,
   "تهران از ساعت ۱۳ وارد وضعیت قرمز می شود رییس مرکز هماهنگی عملیات اضطراری سازمان پیشگیری و مدیریت بحران شهر تهران با تشریح اخرین وضعیت روددره ها و مسیل های پایتخ": 1794044352148,
   "رشد ۶۵ ۹ درصدی پرداخت تسهیلات بانکی جزییات در هفت ماهه نخست سال جاری بیش از ۹۲۴۱ همت تسهیلات از سوی شبکه بانکی پرداخت شده که در مقایسه با مدت مشابه سال گذشته ۶۵": 1794044352148,
   "هاکان فیدان دیپلمات ارشد ترکیه خواستار مالکیت و مسیولیت پذیری منطقه ای در قبال مشکلات مربوط به راه های ارتباطی شد و بر اهمیت ابتکارهای ترکیه برای ارایه مسیرهای ": 1794044352148,
@@ -2402,8 +2403,7 @@
   "fbi arrests thomas markle father of meghan over child sexual abuse material meghan markle recently said she was deeply distressed by allegations that a collecti": 1793992060149,
   "jay rockefeller heir to famed dynasty and healthcare advocate in u s senate dies at 89 jay rockefeller a tall soft spoken democrat with liberal views was a grea": 1793992060149,
   "turkey s parliament approves pact with saudi arabia pakistan despite warnings turkish parliament has ratified the so called mecca defense pact among saudi arabi": 1793992060149,
-  "qatar to become world s largest buyer of us lng qatarenergy is set to become the world s largest buyer of us lng as the us israeli war on iran disrupted qatar s": 1793992060149,
-  "fars nato chief russia us diesel deal caused panic in europe fars news agency fars nato chief russia us diesel deal caused panic in europe fars news agency": 1793992060149
+  "qatar to become world s largest buyer of us lng qatarenergy is set to become the world s largest buyer of us lng as the us israeli war on iran disrupted qatar s": 1793992060149
  },
  "sentMsgTexts": {
   "هاکان فیدان دیپلمات ارشد ترکیه خواستار مالکیت و مسیولیت پذیری منطقه ای در قبال مشکلات مربوط به راه های ارتباطی شد و بر اهمیت ابتکارهای ترکیه برای ارایه مسیرهای ": 1794044352148,
@@ -3007,29 +3007,28 @@
   "قیمت طلا در معاملات روز جمعه بازار جهانی تحت تاثیر افزایش قیمت نفت و چشم انداز افزایش نرخ بهره امریکا کاهش یافت اما همچنان در مسیر ثبت رشد هفتگی ماند": 1793965412816,
   "ترافیک هوایی اروپا در حداقل سه حادثه توسط تهدیدهای جدید هدف قرار گرفته است پس از زنجیره ای از شایعات هدف گیری پروازها در این هفته": 1793964877682
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-07T09:39:12.150Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-07T09:50:47.570Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1070,
-  "inWindow": 254,
-  "fresh": 232,
-  "sent": 2,
-  "images": 2,
-  "translated": 4,
+  "inWindow": 258,
+  "fresh": 239,
+  "sent": 1,
+  "images": 0,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 4,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 10,
+  "skippedUntranslated": 11,
   "perCategory": {
-   "general": 5,
-   "economy": 1
+   "general": 1
   },
   "tweetRateLimited": false
  }

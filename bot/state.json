@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "16787ab6e164a808e4883b83a248f51dee4350f3": 1794069760973,
+  "ba58e79ac7a0932c49ebb7f5a220bdeab40cf801": 1794069760973,
   "6e17594caf5061aa4143a8d98029a19b43da003c": 1794069044010,
   "ef0f27af9e755a2a9fa0d76130618b9be3c61486": 1794069044010,
   "57e6e9b5ce55f887f95d10df80cf9f6cddb48a65": 1794069044010,
@@ -1197,11 +1199,11 @@
   "57316bdf4f8672ea2e2586681b5e80a07233b163": 1793944912196,
   "tw-ajenglish-2118583452337660406": 1793944912196,
   "tw-trtworld-2118584191235293368": 1793944912196,
-  "tw-trtworld-2118580391871164605": 1793944912196,
-  "b9b8e95dbb483271d289457980c8931ad2e0935a": 1793944228025,
-  "cfe4bfb78ea971e8dec3ecf7e9b59436c9318a7f": 1793944228025
+  "tw-trtworld-2118580391871164605": 1793944912196
  },
  "sentTitles": {
+  "f51b60b148b94f1037b2438513e96fe41e65af78": 1794069760973,
+  "6ec53875c0d3045358266af81a99415d8587c826": 1794069760973,
   "d5e70f48f54fcef71027f95c70724db39952c1ab": 1794069044010,
   "8b51e11fe4f27e82a9ea1e3bbbae893e5a56946c": 1794069044010,
   "3a46c25e6a6f05e5efe1e98be73cc226f2e7daef": 1794069044010,
@@ -1799,11 +1801,11 @@
   "a383c20518be8bfa89c75e8a05d21b9b7738888c": 1793987400668,
   "776695fca7f040010144b203c1c42155eb6b360c": 1793987400668,
   "9f1e54931c0282a18df7f48b30fa9669227357d8": 1793987400668,
-  "16bbd4696c7f743bc1bdea0d4dea9effbc28493d": 1793987400668,
-  "5a0efe6258b0d6c4cecad596ce12138df98ae4f8": 1793987400668,
-  "92dc9b8fc60eb95fc44b1a680e23298cd77594d1": 1793987400668
+  "16bbd4696c7f743bc1bdea0d4dea9effbc28493d": 1793987400668
  },
  "sentTitleTexts": {
+  "ماندگاری سرما در تهران تا پایان هفته مدیرکل هواشناسی استان تهران اعلام کرد که سرما تا پایان هفته در این استان ادامه دارد پست ماندگاری سرما در تهران تا پایان هفت": 1794069760973,
+  "حملات سایبری علیه وزیر خارجه ایتالیا و شرکت مجری پروژه تونل پایه برنر شرکت مجری پروژه تونل پایه برنر و یک مسیر ریلی ۵۵ کیلومتری میان اینسبروک در اتریش و فورتتسا": 1794069760973,
   "if the green party can withstand this pressure we ll start to see the growth of anti zionist ideas says david miller in a discussion with chris williamson about": 1794069044010,
   "25 people killed and 30 injured in a preliminary toll from the saudi enemy s attack on civilian homes in bani hashish district sana a governorate presstv": 1794069044010,
   "fars fears of rent rise disaster in uk as majority of landlords plan to sell up fars news agency fars fears of rent rise disaster in uk as majority of landlords": 1794069044010,
@@ -2401,9 +2403,7 @@
   "hedge funds fled bullish oil bets ahead of election day drop bloomberg com hedge funds fled bullish oil bets ahead of election day drop bloomberg com": 1794011061008,
   "bottoms taps tyler perry for her georgia transition team georgia gov elect keisha lance bottoms d has tapped media mogul tyler perry to join her gubernatorial t": 1794011061008,
   "palestinian couples tie the knot in mass wedding in gaza the event brought 250 couples together to celebrate love and new beginnings despite israel s genocidal ": 1794011061008,
-  "۱۹ هواپیمای امریکایی حریم هوایی عراق را نقض کردند مقاومت اسلامی عراق اعلام کرد نیروهای امریکایی همچنان از پایگاه های الزرقاء اردن و انجرلیک ترکیه برای نقض حریم ": 1794011061008,
-  "هشدار توییتری رییس کمیسیون امنیت ملی مجلس به امریکا ابراهیم عزیزی در توییتی نوشت پاسخ ما به هر خطای امریکا ضربه ای کاری است": 1794011061008,
-  "نگرانی از تکرار فاجعه هسته ای در اوکراین گروسی خواستار توقف حملات در اطراف زاپوریژیا شد رافایل گروسی مدیرکل اژانس بین المللی انرژی اتمی با هشدار درباره خطر وقوع": 1794011061008
+  "۱۹ هواپیمای امریکایی حریم هوایی عراق را نقض کردند مقاومت اسلامی عراق اعلام کرد نیروهای امریکایی همچنان از پایگاه های الزرقاء اردن و انجرلیک ترکیه برای نقض حریم ": 1794011061008
  },
  "sentMsgTexts": {
   "روسیه حملات موشکی و بدون پایدار بر کیف و منطقه اطراف ان اغاز کرد چند ساعت پس از اینکه رییس جمهور زلنسکی درباره حملات برنامه ریزی شده به زیرساخت ها هشدار داد حدا": 1794069044010,
@@ -3007,31 +3007,29 @@
   "این شهر به من و خانواده ام این قدر کمک کرده است نیتیا رمان شهردار منتخب لس انجلس در حالی که عظمت پیروزی اش در انتخابات میانه ایالات متحده در حال درک شدن بود در ": 1793983776231,
   "خبر فوری دوراندازی اسراییلی نوجوانی را در منطقه جنوبی گزه الماواسی کشته است به روزرسانی های زنده https": 1793983776231
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-07T16:30:44.013Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-07T16:42:40.976Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1069,
-  "inWindow": 279,
-  "fresh": 270,
-  "sent": 12,
-  "images": 10,
-  "translated": 11,
+  "inWindow": 282,
+  "fresh": 264,
+  "sent": 2,
+  "images": 0,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 2,
+  "tweetsFetched": 120,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 0,
+  "skippedUntranslated": 10,
   "perCategory": {
-   "general": 8,
-   "iran": 4,
-   "economy": 1,
-   "sports": 1
+   "general": 1,
+   "iran": 1
   },
   "tweetRateLimited": false
  }

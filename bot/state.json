@@ -3007,29 +3007,26 @@
   "لاک پشت پس از ۲۲ سال در حوض اکواریوم ایرلندی بهبود یافته به دریا بازگشت": 1793969851047,
   "مردی مورد بررسی قرار گرفته است که ۱۷ ساله را روی بلندترین کوه المان رها کرده بود": 1793969851047
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-07T12:15:48.488Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-07T12:27:14.202Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1066,
-  "inWindow": 255,
-  "fresh": 243,
+  "fetched": 1068,
+  "inWindow": 258,
+  "fresh": 248,
   "sent": 0,
   "images": 0,
-  "translated": 5,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 5,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
   "skippedUntranslated": 12,
-  "tweetRateLimited": false,
-  "perCategory": {
-   "general": 5
-  }
+  "tweetRateLimited": false
  }
 }

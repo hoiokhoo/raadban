@@ -3007,30 +3007,26 @@
   "چندین سازمان رسانه ای ایرلندی از جمله پخش کننده ملی rte پس از دریافت تهدید ایمیلی با بمب کارکنان را تخلیه می کنند پلیس دفتر مرکزی rte در دوبلین را جستجو می کند ": 1793969174874,
   "ساکنان غیرقانونی اسراییلی به هشت خانه در نزدیکی شهر یریحه در ناحیه اشغالی ناحیه غربی نقل مکان کردند و ادعا کردند که این املاک به صورت قانونی از طریق نچالا سازما": 1793969174874
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-07T11:52:18.395Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-07T12:03:34.401Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1066,
-  "inWindow": 254,
-  "fresh": 242,
-  "sent": 1,
+  "fetched": 1067,
+  "inWindow": 251,
+  "fresh": 240,
+  "sent": 0,
   "images": 0,
-  "translated": 1,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 1,
+  "tweetsFetched": 120,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 11,
-  "perCategory": {
-   "iran": 1,
-   "general": 1
-  },
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

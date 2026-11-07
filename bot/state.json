@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "db02ae5379322f80b88b20c2cdd8fa703a97320a": 1794071088731,
+  "c2845f18702dc7ee5ca4290c8c7ce4f870ae420d": 1794071088731,
   "f56ef201013ec9287e19c3501a12a66054dbdcab": 1794070382838,
   "f5c0b7247c8380f353ee26221f6e9679adaaf88b": 1794070382838,
   "1596a10535a32cd8f152236284acee450a697308": 1794070382838,
@@ -1197,11 +1199,11 @@
   "2d9610fba4c9b3d00fb6c7fdd93bca4d782a99f8": 1793946494173,
   "87e47a608a67826120430a767fc8bc2cb22be35c": 1793946494173,
   "tw-bbcworld-2118585490123182433": 1793946494173,
-  "tw-bbcworld-2118585485429760303": 1793946494173,
-  "tw-ajenglish-2118589203164340703": 1793946494173,
-  "tw-ajenglish-2118586280368046181": 1793946494173
+  "tw-bbcworld-2118585485429760303": 1793946494173
  },
  "sentTitles": {
+  "a2caad97eccda7e58aacc4addb01427e7b185978": 1794071088731,
+  "ba34ac648c298ad15e1138e6c1961ab760e5018d": 1794071088731,
   "16f27c8cd1b81c333543f9fcf4c6577994ab09bc": 1794070382838,
   "2835d18c10f6924becf15b1c637ba8010b1f8c8d": 1794070382838,
   "501e2a3ae3287807dfcc066daba4ec94c65dd702": 1794070382838,
@@ -1799,11 +1801,11 @@
   "6b83c27b2847aa00c52aa84cc5f619eb7ab1d0f6": 1793988754877,
   "1e5c87dab52b306f89decb7bd002a525a365c5c5": 1793988754877,
   "028472caa3854b666095c71f8387071cad68e52c": 1793988754877,
-  "5bb2ac75676d289e29508859cf0e4446bd854d81": 1793988102281,
-  "e5e7adc74195a58bdf1394bc3aa3d4183ed74bfb": 1793988102281,
-  "98d4852b5e1c2b78041a5852c26b63e66c279f51": 1793988102281
+  "5bb2ac75676d289e29508859cf0e4446bd854d81": 1793988102281
  },
  "sentTitleTexts": {
+  "قایم پناه باید قیمت تمام شده خدمات در دستگاه ها و نهادهای حاکمیتی مشخص شود با مشخص شدن قیمت تمام شده خدمات در دستگاه ها و نهادهای حاکمیتی به تدریج روشن می شود ه": 1794071088731,
+  "قایم پناه باید قیمت تمام شده خدمات در دستگاه ها و نهادهای حاکمیتی مشخص شود معاون اجرایی رییس جمهوری از وزرای دولت خواست پرداخت مبتنی بر عملکرد را در مجموعه های ": 1794071088731,
   "airstrike kills 22 people near yemen s capital houthi official says footage from houthi run al masirah tv of the aftermath of november 7 strikes showed staff ca": 1794070382838,
   "new zealand s prime minister says election is too close to call new zealand prime minister christopher luxon says he has a pathway to form the next government": 1794070382838,
   "برشلونه یعلن جاهزیه غارسیا لقمه اتلتیکو العربیه برشلونه یعلن جاهزیه غارسیا لقمه اتلتیکو العربیه": 1794070382838,
@@ -2401,9 +2403,7 @@
   "openai completes 11 billion portion of funding at 1 25 trillion value bloomberg com openai completes 11 billion portion of funding at 1 25 trillion value bloomb": 1794011650996,
   "democrats blast dangerous elevation of miller as refusal to learn from the election to congressional democrats president trump s decision to promote aide stephe": 1794011650996,
   "some german politicians could help revive russian house official according to igor chaika head of russia s agency for international humanitarian cooperation the": 1794011650996,
-  "warriors kristaps porzingis to step away prioritize health espn warriors kristaps porzingis to step away prioritize health espn": 1794011650996,
-  "pope leo xiv hopes mission in alyoshki will continue the pontiff added that much needs to be done to achieve peace": 1794011650996,
-  "israeli attacks kill three palestinians including 15 year old boy and medical student at least three palestinians including a 15 year old boy and a medical stud": 1794011650996
+  "warriors kristaps porzingis to step away prioritize health espn warriors kristaps porzingis to step away prioritize health espn": 1794011650996
  },
  "sentMsgTexts": {
   "به گفته یک مقام حوثی بر اثر حمله هوایی در نزدیکی صنعا پایتخت یمن ۲۲ نفر کشته شدند تصاویر منتشرشده از شبکه تلویزیونی المسیره متعلق به حوثی ها از پیامدهای حملات ۷": 1794070382838,
@@ -3007,32 +3007,28 @@
   "دوازده ها از دموکرات ها در حال بررسی کاندیداتوری برای انتخابات ریاست جمهوری ۲۰۲۸ هستند می گوید معاون سابق اوباما": 1793986030301,
   "در فوروم جهانی trt ۲۰۲۶ رییس اطلاعات ترکیه ابراهیم کلین می گوید فلسطینیان مشکل نیستند بلکه اشغال اسراییلی مشکل واقعی است و اضافه می کند فلسطین فقط درباره قطعه ا": 1793985173549
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-07T16:53:02.840Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-07T17:04:48.735Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1070,
-  "inWindow": 286,
-  "fresh": 271,
-  "sent": 7,
-  "images": 4,
-  "translated": 4,
+  "inWindow": 281,
+  "fresh": 265,
+  "sent": 1,
+  "images": 0,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 4,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "aiProvider": "gemini",
-  "aiFailed": false,
+  "aiFailed": true,
+  "skippedUntranslated": 11,
   "perCategory": {
-   "politics": 2,
-   "sports": 1,
-   "world": 2,
-   "iran": 2,
-   "general": 4
+   "general": 1
   },
   "tweetRateLimited": false
  }

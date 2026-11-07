@@ -1185,11 +1185,7 @@
   "tw-bbcworld-2118421034739089539": 1793908736143,
   "tw-ajenglish-2118431239493611805": 1793908736143,
   "tw-ajenglish-2118429505853260023": 1793908736143,
-  "tw-ajenglish-2118423739390116174": 1793908736143,
-  "9c861751a18d3e534d9e3f25a1ef85cc499c1392": 1793907942787,
-  "76a0ab56d067664ff3b1ccc72669345b5d67f43a": 1793907942787,
-  "227ea0091f69d5aa3a3c28b4e3c9a77bec46cf88": 1793907942787,
-  "e235bc74ed6632a78233ebd5b7c28a1d8028c7fd": 1793907942787
+  "tw-ajenglish-2118423739390116174": 1793908736143
  },
  "sentTitles": {
   "2e92f42d5a2b34095e6e87526b51ddc1088c23dc": 1794037191141,
@@ -2997,30 +2993,26 @@
   "دیوان عالی ایالات متحده پرونده اختلاف میان دامداران داپوتای شمالی و شرکت wbi energy transmission را درباره مبلغ 383 375 76 دلار هزینه قانونی بررسی می کند قضات د": 1793953499965,
   "یک مربی ژیمناستیک بریتانیایی که پس از تحقیقات رسمی از سوی فدراسیون ژیمناستیک این کشور هشدار دریافت کرده بود در رقابت های بین المللی جوانان در پایان این هفته مرب": 1793953499965
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-07T07:39:51.144Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-07T07:51:04.553Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1070,
-  "inWindow": 246,
-  "fresh": 218,
-  "sent": 1,
-  "images": 2,
-  "translated": 5,
+  "fetched": 1069,
+  "inWindow": 245,
+  "fresh": 220,
+  "sent": 0,
+  "images": 0,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 5,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 11,
-  "perCategory": {
-   "economy": 1,
-   "general": 5
-  },
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

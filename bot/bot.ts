@@ -953,6 +953,9 @@ export async function chainCall(systemPrompt: string, userContent: string, opts:
         if (r.ok) return { ok: true, content: r.content, providerId: p.id };
         // شفافیت کامل: خطای هر تأمین‌کننده در لاگ می‌آید (بدون هیچ کلیدی) — دیباگ زنجیره از Actions ممکن باشد
         if (attempt === 1 && round === 1) console.warn(`⚠️ ${p.id}: ${r.error}`);
+        // سهمیهٔ روزانهٔ تمام‌شده (RESOURCE_EXHAUSTED) — تلاش مجدد روی همان کلید بی‌فایده است
+        // (تا ۱۰+ ساعت خالی می‌ماند)؛ فوراً کلید/تأمین‌کنندهٔ بعدی — خواستهٔ کاربر: «سهمی‌اش تمام شد بره بعدی»
+        if (/You exceeded your current quota|RESOURCE_EXHAUSTED/i.test(r.error || '')) break;
         if (r.rateLimited && p.rateLimitRetryMs) {
           await sleep(Math.min(p.rateLimitRetryMs, 32_000));
           continue; // یک تلاش مجدد درون همان تأمین‌کننده

@@ -113,6 +113,10 @@ model Post {
   translationSummary      String?
   translationConclusion   String?
   translatedAt            DateTime?
+  // خلاصه و تحلیل هوشمند هر خبر — همه زبان‌ها (قابلیت ۱۰، خواستهٔ ۸ نوامبر ۲۰۲۶)
+  summaryFa               String?
+  analysisFa              String?
+  analyzedAt              DateTime?
   // تشخیص تکرار/بازنشر
   duplicateOfId  String?
   duplicateOf    Post?    @relation("PostDuplicates", fields: [duplicateOfId], references: [id], onDelete: SetNull)

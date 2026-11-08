@@ -56,8 +56,9 @@ jobs:
           PRICE_HOURS: '12:30,21:00' # گزارش بازار: ظهر و شب (خواستهٔ کاربر)
           CAR_CHANNELS: 'irankhodro3007,akhbar_khodroei' # کانال(های) قیمت روز خودرو در تلگرام (فهرست «مدل⬅️قیمت»)
           # ورودی dispatch آزمون: ارسال فوری تحلیل جامع + گزارش بازار مستقل از اسلات‌ها
-          FORCE_DIGEST: ${{ inputs.force_digest == true && '1' || '' }}
-          FORCE_PRICE: ${{ inputs.force_digest == true && '1' || '' }}
+          # (REST dispatch بولین را گاهی «true» رشته‌ای می‌دهد — هر دو صورت مقایسه می‌شود)
+          FORCE_DIGEST: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
+          FORCE_PRICE: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
         run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }}
 
       - name: ثبت حافظهٔ ضدتکرار (state) در ریپو

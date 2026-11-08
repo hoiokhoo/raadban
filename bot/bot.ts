@@ -1786,8 +1786,9 @@ async function main(): Promise<void> {
       if (twRes.added > 0) console.log(`توییت‌ها به استخر تحلیل اضافه شد: +${twRes.added}`);
     }
 
-    // ۴) تحلیل جامع — اسلات تهران (پیش‌فرض ۸ و ۱۴ و ۲۰ — DIGEST_HOURS) یا ارسال فوری (FORCE_DIGEST — dispatch آزمون)
-    const forceDigest = process.env.FORCE_DIGEST === '1';
+    // ۴) تحلیل جامع — اسلات تهران (پیش‌فرض ۸ و ۱۴ و ۲۰ — DIGEST_HOURS) یا ارسال فوری
+    //    (--force-digest / FORCE_DIGEST — dispatch آزمون، مستقل از اسلات‌ها)
+    const forceDigest = process.argv.includes('--force-digest') || process.env.FORCE_DIGEST === '1';
     const dKey = forceDigest
       ? `force-${new Date().toISOString().slice(0, 16)}`
       : dueSlotKey(Date.now(), CFG.digestSlots, state.lastDigestKey);
@@ -1836,7 +1837,7 @@ async function main(): Promise<void> {
     // ۵) گزارش بازار — اسلات ظهر/شب (پیش‌فرض ۱۲:۳۰ و ۲۱ — PRICE_HOURS)
     //    خودرو + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju) + شاخص بورس (تستمسن → tgju) + برنت
     //    درصد تغییر هر قلم نسبت به گزارش قبلی رصدبان (state.priceSnap — خواستهٔ کاربر)
-    const forcePrice = process.env.FORCE_PRICE === '1';
+    const forcePrice = process.argv.includes('--force-digest') || process.env.FORCE_PRICE === '1';
     const pKey = forcePrice
       ? `force-price-${new Date().toISOString().slice(0, 16)}`
       : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);

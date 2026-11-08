@@ -81,27 +81,29 @@ async function tick(): Promise<void> {
     }
   }
 
-  // ۲) پردازش مطالب خام در انتظار — حالت اقتصادی: هر ۳۰ دقیقه و فقط ۲ مطلب
-  //    (قبلاً هر تیک ۶۰ ثانیه‌ای ۴ مطلب پردازش می‌شد = مصرف بی‌رویهٔ سهمیهٔ مدل)
+  // ۲) پردازش مطالب خام در انتظار — تطبیقی (خواستهٔ کاربر ۹ نوامبر ۲۰۲۶: «تحلیل باید هرطور شده کار کند»):
+  //    هر ۵ دقیقه، دسته بر اساس عمق صف — صف بزرگ (بیش از ۲۰۰) → ۲۵ مطلب، وگرنه ۸؛
+  //    زنجیرهٔ مدل خودش با فاصله‌سنج/قطع‌کن نرخ را کنترل می‌کند و صف تحلیل نباید بی‌حرکت بماند
   const pendingCount = await db.post.count({ where: { processingStatus: 'خام' } });
   if (pendingCount > 0) {
     const lastPipe = await db.setting.findUnique({ where: { key: 'pipeline_last_at' } });
     const lastPipeMs = lastPipe ? new Date(lastPipe.value).getTime() : 0;
-    if (Date.now() - (Number.isNaN(lastPipeMs) ? 0 : lastPipeMs) >= 30 * 60_000) {
+    if (Date.now() - (Number.isNaN(lastPipeMs) ? 0 : lastPipeMs) >= 5 * 60_000) {
       await db.setting.upsert({
         where: { key: 'pipeline_last_at' },
         create: { key: 'pipeline_last_at', value: new Date().toISOString() },
         update: { key: 'pipeline_last_at', value: new Date().toISOString() },
       });
-      await guarded('pipeline', async () => { await processPendingPosts(2); });
+      const batch = pendingCount > 200 ? 25 : 8;
+      await guarded('pipeline', async () => { await processPendingPosts(batch); });
     }
   }
 
   // ۲-ب) ترجمهٔ خودکار اخبار غیرفارسی — خواستهٔ کاربر (۶ نوامبر ۲۰۲۶): ترجمه نباید فقط با دکمهٔ دستی باشد؛
-  // هر ۱۰ دقیقه حداکثر ۳ خبر — زنجیرهٔ مدل با فاصله‌سنج/قطع‌کن خودش نرخ را کنترل می‌کند
+  // هر ۵ دقیقه حداکثر ۶ خبر (تشدید ۹ نوامبر برای زدودن صف ترجمه) — زنجیرهٔ مدل با فاصله‌سنج/قطع‌کن خودش نرخ را کنترل می‌کند
   const lastTr = await db.setting.findUnique({ where: { key: 'translate_last_at' } });
   const lastTrMs = lastTr ? new Date(lastTr.value).getTime() : 0;
-  if (Date.now() - (Number.isNaN(lastTrMs) ? 0 : lastTrMs) >= 10 * 60_000) {
+  if (Date.now() - (Number.isNaN(lastTrMs) ? 0 : lastTrMs) >= 5 * 60_000) {
     const pendingSample = await db.post.findMany({
       where: { translationFa: null },
       orderBy: { publishedAt: 'desc' },
@@ -110,7 +112,7 @@ async function tick(): Promise<void> {
     });
     const targets = pendingSample
       .filter((p) => (p.language && p.language !== 'fa') || isLikelyForeign(p.content))
-      .slice(0, 3);
+      .slice(0, 6);
     if (targets.length > 0) {
       await db.setting.upsert({
         where: { key: 'translate_last_at' },

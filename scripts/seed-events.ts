@@ -155,8 +155,8 @@ const EVENTS: Array<{
   },
 ];
 
-async function main() {
-  console.log('=== seed رویدادهای پیش رو (فقط داده مستند) ===');
+/** درج/به‌روزرسانی رویدادهای مستند — هم برای CLI هم برای خودترمیمی src/lib/bootstrap */
+export async function seedEvents(): Promise<number> {
   for (const ev of EVENTS) {
     const data = {
       slug: ev.slug,
@@ -189,8 +189,13 @@ async function main() {
     });
     console.log(`  ✓ ${ev.title}`);
   }
-  const count = await db.majorEvent.count();
-  console.log(`مجموع رویدادها: ${count}`);
+  return await db.majorEvent.count();
 }
 
-main().finally(() => db.$disconnect());
+if (import.meta.main) {
+  console.log('=== seed رویدادهای پیش رو (فقط داده مستند) ===');
+  seedEvents().then((c) => {
+    console.log(`مجموع رویدادها: ${c}`);
+    return db.$disconnect();
+  }).catch((e) => { console.error(e); process.exit(1); });
+}

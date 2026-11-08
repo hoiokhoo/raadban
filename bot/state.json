@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "d31fb5707366ebccae8b77ce98901cb6d6d68e3a": 1794164061988,
+  "0f5f389f48e2975671aa6275fa43efde7a9fd6ac": 1794164061988,
   "7a5bd54632df370418f4bcf9f4febd587db9ecb1": 1794163404046,
   "e3007c8dd34591aacfab3941a30c06e01e593d40": 1794163404046,
   "7d3785f812d525e1f97fba1e8658f1bcb1e9fe29": 1794163404046,
@@ -1197,11 +1199,11 @@
   "tw-ajenglish-2118988190241431777": 1794042225061,
   "tw-ajenglish-2118986573593141585": 1794042225061,
   "tw-ajenglish-2118985907542147569": 1794042225061,
-  "tw-trtworld-2118991529679225252": 1794042225061,
-  "1878e4cb811439469b67bb3f57ee3b9a7ccc95aa": 1794041665428,
-  "166c9cdf4565a6e562a4c85549769d4433972e10": 1794041665428
+  "tw-trtworld-2118991529679225252": 1794042225061
  },
  "sentTitles": {
+  "fea96c42ca523234fdc58f342555fa3d5bc7868c": 1794164061988,
+  "7218ce2e7cd0ee8cfa69cb7ef5a049dff03f8157": 1794164061988,
   "7ddf2e46153a0adea9388866a122975f65c9cef2": 1794163404046,
   "ab3ff224edb8f513224f94a2270e5aa41367be8d": 1794163404046,
   "e27f112e84da669c6adadfba2dceb4009dc2868d": 1794163404046,
@@ -1799,11 +1801,11 @@
   "dc9d1021b8541708dfe63a48785c4ed594a63cd4": 1794091457216,
   "0d4952956830f4d91dcfa1ac85ee7f0d6096da21": 1794091457216,
   "af6974f61c9f85ec3ef7cc14e6af83f4eae58b10": 1794091457216,
-  "77d4ff4a9765eb744fc6df14a8cbe79d9b598385": 1794091457216,
-  "3b41af11a47ad7de32ebd9ff88910d336e1e30bc": 1794090802225,
-  "08ef5a6ba2120cbfcd91fb112ddadc8290400beb": 1794090802225
+  "77d4ff4a9765eb744fc6df14a8cbe79d9b598385": 1794091457216
  },
  "sentTitleTexts": {
+  "کوروش زارعی درگذشت کوروش زارعی بازیگر و کارگردان پیشکسوت تیاتر سینما و تلویزیون و از چهره های باسابقه هنرهای نمایشی حوزه هنری درگذشت پست کوروش زارعی درگذشت اولی": 1794164061988,
+  "کسری تجاری فرانسه به بالاترین سطح از ماه مه رسید کسری تجاری فرانسه در سپتامبر با افزایش واردات انرژی به شدت افزایش یافت و به بالاترین سطح از ماه مه رسید پست کسر": 1794164061988,
   "توزیع هفت هزار تن کالای اساسی در فارس با هدف حمایت از قدرت خرید مردم سازمان جهاد کشاورزی فارس با هدف تنظیم بازار و حمایت از قدرت خرید مردم از ابتدای سال جاری تا": 1794163404046,
   "پزشک خانواده در هیرمند اغاز می شود مدیر شبکه بهداشت و درمان هیرمند از اغاز اجرای طرح پزشکی خانواده و نظام ارجاع از ۱۶ ابان ماه خبر داد و بر نقش این برنامه در ار": 1794163404046,
   "ارسال پیامک به بازنشستگان تامین اجتماعی واجد شرایط برای وام ۶۰ میلیون تومانی به گزارش خبرنگار ایلنا متن پیامک دریافتی بازنشستگان به شرح زیر است درخواست بهره مند": 1794163404046,
@@ -2401,9 +2403,7 @@
   "رستوران ها منبع پنهان الودگی هوای شهرها نتایج تحقیقی جدید نشان می دهد دود ناشی از پخت وپز در رستوران ها به ویژه در زمان ناهار و شام ذرات ریز معلق بیشتری نسبت به": 1794101324311,
   "هشدار پلیس راهور به رانندگان درباره سفر در روزهای برفی و بارانی پلیس راهور درباره خطر تصادف در جاده های برفی و بارانی هشدار داد": 1794101324311,
   "eisenkot netanyahu rival and opposition leader tapped to try to form government gadi eisenkot a former military chief hopes to succeed benjamin netanyahu as pri": 1794100742302,
-  "israeli president instructs netanyahu s rival to form government former military chief gadi eisenkot has secured the backing of 67 lawmakers but faces a difficu": 1794100742302,
-  "ex president of paraguay to be held in pretrial detention santiago pena will be confined at the headquarters of the presidential security regiment ultima hora r": 1794100742302,
-  "ufc chief to discuss offer to become white house press secretary with trump sources told tmz that dana white is currently in london but will meet with the us le": 1794100742302
+  "israeli president instructs netanyahu s rival to form government former military chief gadi eisenkot has secured the backing of 67 lawmakers but faces a difficu": 1794100742302
  },
  "sentMsgTexts": {
   "سوریه حمله ای که به مقر شرکت ارامکو سعودی در ریاض اسیب رساند را محکوم کرد و مسیولیت ان را بر عهده الحوثی ها در یمن گذاشت به روزرسانی های زنده": 1794163404046,
@@ -3007,29 +3007,28 @@
   "فرمانده سابق سازمان حقوقدان فلسطین unrwa فلیپ لازاری نیا درخواست دسترسی خیلی دیرینه به کمک های بشردوستانه در غزه کرده و می گوید فلسطینیان بیش از یک سال پس از ان": 1794092162804,
   "حوثی های یمن می گویند حداقل ۲۵ نفر کشته و ۳۰ نفر زخمی شده اند در حملات هوایی که به ایتلاف پیش دست عربستان سعودی متهم می شوند رسانه های وابسته به حوثی گزارش می د": 1794092162804
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-08T18:43:24.050Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-08T18:54:21.992Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1078,
-  "inWindow": 295,
-  "fresh": 280,
-  "sent": 5,
+  "fetched": 1079,
+  "inWindow": 285,
+  "fresh": 273,
+  "sent": 2,
   "images": 0,
-  "translated": 6,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 6,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 7,
+  "skippedUntranslated": 10,
   "perCategory": {
-   "general": 9,
-   "iran": 2
+   "general": 2
   },
   "tweetRateLimited": false
  }

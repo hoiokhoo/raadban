@@ -3007,30 +3007,26 @@
   "پنج نفر کشته و حدود دوازده نفر زخمی در تیراندازی در میدان اصلی کراکوف پلیس لهستانی می گوید به روزرسانی ها را دنبال کنید": 1794066226820,
   "rt bbcbreaking پنج نفر کشته و حدود دوازده نفر زخمی در تیراندازی در میدان اصلی کراکوف پلیس لهستانی می گوید به روزرسانی ها را دنبال کنید https t co": 1794066226820
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-08T11:26:37.138Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-08T11:37:52.659Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1072,
-  "inWindow": 271,
-  "fresh": 250,
-  "sent": 1,
+  "inWindow": 274,
+  "fresh": 255,
+  "sent": 0,
   "images": 0,
-  "translated": 1,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 120,
-  "tweetsSent": 1,
+  "tweetsFetched": 100,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
-  "skippedUntranslated": 11,
-  "perCategory": {
-   "iran": 1,
-   "general": 1
-  },
+  "skippedUntranslated": 12,
   "tweetRateLimited": false
  }
 }

@@ -3007,29 +3007,26 @@
   "در میان جنگ امریکا و اسراییل علیه ایران اینستاگرام متعلق به شرکت متا حساب اصلی پرس تی وی با بیش از ۲۹۲ هزار دنبال کننده را بدون هشدار قبلی یا ارایه هرگونه توضیح": 1794066997895,
   "یکی از اعضای گروه تروریستی موسوم به جیش العدل که به اتهام حمله مسلحانه به یک پاسگاه پلیس در جنوب شرقی ایران و کشته و زخمی کردن چند تن از پرسنل محکوم شده بود اعد": 1794066997895
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-08T12:01:58.158Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-08T12:13:12.176Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1074,
+  "fetched": 1075,
   "inWindow": 276,
-  "fresh": 259,
+  "fresh": 258,
   "sent": 0,
   "images": 0,
-  "translated": 4,
+  "translated": 0,
   "searches": 2,
   "dryRun": false,
-  "tweetsFetched": 100,
-  "tweetsSent": 4,
+  "tweetsFetched": 120,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": true,
   "skippedUntranslated": 12,
-  "tweetRateLimited": false,
-  "perCategory": {
-   "general": 4
-  }
+  "tweetRateLimited": false
  }
 }

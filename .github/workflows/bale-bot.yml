@@ -59,7 +59,7 @@ jobs:
           # (REST dispatch بولین را گاهی «true» رشته‌ای می‌دهد — هر دو صورت مقایسه می‌شود)
           FORCE_DIGEST: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
           FORCE_PRICE: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
-        run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }}
+        run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }} ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '--force-digest' || '' }}
 
       - name: ثبت حافظهٔ ضدتکرار (state) در ریپو
         run: |

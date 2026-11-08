@@ -215,7 +215,10 @@ export async function ingestAll(): Promise<IngestOutcome[]> {
   return outcomes;
 }
 
-/** پردازش مطالب خام (نرمال + تکراری‌یابی سراسری + رویداد + ادعا + دسته) */
+/** پردازش مطالب خام (نرمال + تکراری‌یابی سراسری + رویداد + ادعا + دسته)
+ *  موازی‌سازی محدود (خواستهٔ کاربر ۹ نوامبر ۲۰۲۶: تحلیل نباید کُند باشد) —
+ *  ۳ کارگر هم‌زمان؛ هر مطلب دو فراخوانی AI دارد (دسته‌بندی + ادعا) که مستقل‌اند.
+ *  شمارنده‌ها درون کارگرها جمع می‌شوند؛ هیچ متغیر مشترکِ ناامنی وجود ندارد. */
 export async function processPendingPosts(limit = 12): Promise<{ processed: number; skipped: number }> {
   const pending = await db.post.findMany({
     where: { processingStatus: 'خام' },
@@ -224,8 +227,16 @@ export async function processPendingPosts(limit = 12): Promise<{ processed: numb
     take: limit,
   });
   let processed = 0, skipped = 0;
+  const CONCURRENCY = 3;
+  const queue = [...pending];
 
-  for (const post of pending) {
+  const worker = async (): Promise<void> => {
+    while (true) {
+      const post = queue.shift();
+      if (!post) return;
+      // فاصله‌گذاری بین مطالب هر کارگر — جلوگیری از موج 429 GLM و باز شدن قطع‌کن مدار
+      // (خواستهٔ تحلیل پایدار ۹ نوامبر ۲۰۲۶: نرخ ~۲۰ فراخوانی در دقیقه پایدار مانده است)
+      await new Promise((res) => setTimeout(res, 2_200));
     const steps = JSON.parse(post.processingSteps || '[]') as Array<Record<string, unknown>>;
     try {
       // تشخیص ناهنجاری: فوروارد بدون متن کافی
@@ -311,6 +322,10 @@ export async function processPendingPosts(limit = 12): Promise<{ processed: numb
       }).catch(() => {});
       skipped++;
     }
-  }
+    }
+  };
+
+  // کارگرهای هم‌زمان — هر یک مطلب بعدی را از صف برمی‌دارد
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, pending.length) }, () => worker()));
   return { processed, skipped };
 }

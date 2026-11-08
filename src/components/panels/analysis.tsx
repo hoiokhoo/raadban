@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Tags, Network, Languages, Quote, Loader2, Play, Clock, ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react';
+import { Tags, Network, Languages, Quote, FileText, Loader2, Play, Clock, ArrowLeft, ExternalLink, RefreshCw } from 'lucide-react';
 import { LoadingCard } from './dashboard';
 
 // ---------- انواع ----------
@@ -384,9 +384,95 @@ function ReferencesTab() {
   );
 }
 
+// ---------- تب خلاصه و تحلیل (قابلیت ۱۰) ----------
+interface SummaryRow {
+  postId: string; summary: string; analysis: string; importance?: number; model?: string; skipped?: string;
+}
+interface SummaryBatchResult { targeted: number; summarized: number; failed: number; remaining: number; errors: Array<{ postId: string; error: string }>; results: SummaryRow[] }
+
+function SummaryTab() {
+  const [data, setData] = useState<SummaryRow[] | null>(null);
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [running, setRunning] = useState(false);
+  const [limit, setLimit] = useState(5);
+  const [lastRun, setLastRun] = useState<SummaryBatchResult | null>(null);
+  const { toast } = useToast();
+
+  const load = useCallback(async () => {
+    const r = await api<{ posts: Array<{ id: string; summaryFa: string; analysisFa: string; analyzedAt: string; content: string; source?: { name: string } }> }>('/api/posts?hasSummary=1&take=30');
+    if (r.ok) {
+      setData(r.posts.map((p) => ({ postId: p.id, summary: p.summaryFa, analysis: p.analysisFa, model: undefined })));
+    }
+    const s = await api<{ remaining: number }>('/api/posts?summaryRemaining=1');
+    if (s.ok) setRemaining(s.remaining);
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  const run = async () => {
+    setRunning(true);
+    const r = await api<SummaryBatchResult>('/api/posts/summarize-pending', { method: 'POST', body: { limit } });
+    setRunning(false);
+    setLastRun(r.ok ? (r as unknown as SummaryBatchResult) : null);
+    if (r.ok) {
+      const d = r as unknown as SummaryBatchResult;
+      toast({
+        title: `خلاصه و تحلیل انجام شد: ${faNum(d.summarized)} خبر از ${faNum(d.targeted)}`,
+        description: d.failed ? `${faNum(d.failed)} مورد خطا — ${d.remaining} خبر باقی مانده` : `${faNum(d.remaining)} خبر باقی مانده`,
+        variant: d.failed ? 'destructive' : 'default',
+      });
+      load();
+    } else toast({ title: 'خطا در خلاصه و تحلیل', description: r.error, variant: 'destructive' });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Card className="border-indigo-200 bg-indigo-50">
+        <CardContent className="p-3 flex flex-wrap items-center justify-between gap-2 text-xs text-indigo-900">
+          <span>خلاصهٔ ۲-۳ جمله‌ای + تحلیل واقعی (زمینه، اهمیت، پیامد) برای هر خبر — فارسی، با زنجیرهٔ مدل (جمینی/GLM). مدل‌ها نمی‌سازند؛ اگر داده نیست صادقانه می‌گویند.</span>
+          <div className="flex items-center gap-2">
+            {remaining != null && <Badge variant="outline" className="bg-white">باقی‌مانده: {faNum(remaining)}</Badge>}
+            <select value={limit} onChange={(e) => setLimit(Number(e.target.value))} className="text-xs border rounded px-2 py-1 bg-white">
+              <option value={3}>۳ خبر</option>
+              <option value={5}>۵ خبر</option>
+              <option value={10}>۱۰ خبر</option>
+              <option value={25}>۲۵ خبر</option>
+            </select>
+            <Button size="sm" onClick={run} disabled={running}>
+              {running ? <Loader2 className="h-4 w-4 animate-spin ml-1" /> : <FileText className="h-4 w-4 ml-1" />}
+              خلاصه و تحلیل هوشمند
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {lastRun && lastRun.errors.length > 0 && (
+        <Card className="border-amber-200 bg-amber-50"><CardContent className="p-2.5 text-xs text-amber-900">
+          خطاهای این دور: {lastRun.errors.slice(0, 3).map((e) => e.error.slice(0, 120)).join(' | ')}
+        </CardContent></Card>
+      )}
+
+      {!data ? <LoadingCard title="خلاصه و تحلیل‌ها" /> : data.length === 0 ? (
+        <Card><CardContent className="p-6 text-sm text-slate-400">هنوز خبری خلاصه و تحلیل نشده — دکمه «خلاصه و تحلیل هوشمند» را بزنید (تازه‌ترین‌ها اول تحلیل می‌شوند).</CardContent></Card>
+      ) : (
+        <div className="grid gap-3">
+          {data.map((s) => (
+            <Card key={s.postId} className="border-r-4 border-r-indigo-500">
+              <CardContent className="p-4 space-y-2 text-xs">
+                <div className="bg-indigo-50 rounded p-2 leading-6 border border-indigo-100"><b className="text-indigo-800">خلاصه:</b> {s.summary}</div>
+                <div className="bg-slate-50 rounded p-2 leading-6"><b className="text-slate-800">تحلیل:</b> {s.analysis}</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ---------- پنل اصلی ----------
-type TabKey = 'topics' | 'clusters' | 'translate' | 'references';
+type TabKey = 'summary' | 'topics' | 'clusters' | 'translate' | 'references';
 const SUBTABS: Array<{ key: TabKey; label: string; icon: typeof Tags }> = [
+  { key: 'summary', label: 'خلاصه و تحلیل', icon: FileText },
   { key: 'topics', label: 'دسته‌بندی موضوعی', icon: Tags },
   { key: 'clusters', label: 'خوشه‌ها و تایم‌لاین', icon: Network },
   { key: 'translate', label: 'ترجمه فارسی', icon: Languages },
@@ -394,7 +480,7 @@ const SUBTABS: Array<{ key: TabKey; label: string; icon: typeof Tags }> = [
 ];
 
 export function AnalysisPanel() {
-  const [tab, setTab] = useState<TabKey>('topics');
+  const [tab, setTab] = useState<TabKey>('summary');
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -411,6 +497,7 @@ export function AnalysisPanel() {
           })}
         </div>
       </div>
+      {tab === 'summary' && <SummaryTab />}
       {tab === 'topics' && <TopicsTab />}
       {tab === 'clusters' && <ClustersTab />}
       {tab === 'translate' && <TranslateTab />}

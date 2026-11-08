@@ -435,10 +435,14 @@ async function rawOpenAiCall(input: {
     });
     if (!res.ok) {
       const text = await res.text().catch(() => '');
+      // فاصلهٔ انتظار سهمیهٔ گوگل پیش از برش ۲۰۰ نویسه‌ای حفظ می‌شود — تا کلید خالی مدت واقعی کنار گذاشته شود
+      const retryMatch = text.match(/Please retry in\s*\d+(?:\.\d+)?[hms][^\n"]*/i)
+        || text.match(/"retryDelay"\s*:\s*"\d+(?:\.\d+)?s"/);
+      const retryHint = retryMatch ? ` [${retryMatch[0].slice(0, 60)}]` : '';
       return {
         ok: false,
         rateLimited: res.status === 429,
-        error: `HTTP ${res.status}${text ? `: ${text.slice(0, 200)}` : ''}`,
+        error: `HTTP ${res.status}${retryHint}${text ? `: ${text.slice(0, 200)}` : ''}`,
       };
     }
     const data = (await res.json().catch(() => null)) as

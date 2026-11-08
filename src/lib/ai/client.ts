@@ -127,6 +127,26 @@ function isRateLimitedError(error?: string): boolean {
   return !!error && /429|Too many requests|نرخ/i.test(error);
 }
 
+/** استخراج فاصلهٔ انتظار سهمیه از پیام خطای گوگل — تابع خالص تست‌پذیر
+ *  «Please retry in 10h25m3.1s» یا «"retryDelay": "37503s"» → میلی‌ثانیه؛ سقف پیش‌فرض ۱۲ ساعت
+ *  خواستهٔ کاربر: «سهمی‌اش تمام شد بره بعدی» — کلید خالی تا بازسازی سهمیه کنار گذاشته می‌شود. */
+export function quotaCooldownMsFromError(error: string, capMs = 12 * 3600_000): number | null {
+  const human = error.match(/retry in\s*(?:(\d+(?:\.\d+)?)h)?\s*(?:(\d+(?:\.\d+)?)m)?\s*(?:(\d+(?:\.\d+)?)s)?/i);
+  if (human) {
+    const h = Number(human[1] || 0);
+    const m = Number(human[2] || 0);
+    const s = Number(human[3] || 0);
+    const ms = Math.round((h * 3600 + m * 60 + s) * 1000);
+    if (ms > 0) return Math.min(ms, capMs);
+  }
+  const json = error.match(/"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/);
+  if (json) {
+    const ms = Math.round(Number(json[1]) * 1000);
+    if (ms > 0) return Math.min(ms, capMs);
+  }
+  return null;
+}
+
 /** برای تست نیز صادر شده — ثبت پیامد یک تلاش روی قطع‌کن */
 export function noteAttemptOutcome(ok: boolean, error?: string): void {
   const b = breaker();
@@ -292,9 +312,11 @@ export async function aiCall(input: AiCallInput): Promise<AiCallResult> {
       if (!r.ok && r.error && /User location is not supported|FAILED_PRECONDITION/i.test(r.error)) {
         provLastCall()[p.id] = Date.now() + 300_000;
       }
-      // سهمیهٔ تمام‌شدهٔ جمینی (۴۲۹ quota): ۴ دقیقه گذر سریع — سهمیه رایگان فرصت بازسازی دارد
+      // سهمیهٔ تمام‌شدهٔ جمینی (۴۲۹ quota): کلید بعدی فوراً امتحان می‌شود؛ اگر گوگل «retry in XhYm»
+      // داده باشد همان فاصله (تا سقف ۱۲ ساعت) گذر سریع است — سهمیهٔ روزانه تا بازسازی دوباره امتحان نمی‌شود
       if (!r.ok && r.error && /You exceeded your current quota|RESOURCE_EXHAUSTED/i.test(r.error)) {
-        provLastCall()[p.id] = Math.max(provLastCall()[p.id] || 0, Date.now() + 240_000);
+        const cd = quotaCooldownMsFromError(r.error) ?? 240_000;
+        provLastCall()[p.id] = Math.max(provLastCall()[p.id] || 0, Date.now() + cd);
       }
       // خنک‌کننده مدل رایگان: دو شکست متوالی محدودیت نرخ (۴۲۹/۴۰۲ FREE_LIMIT)
       // → حدود ۴ دقیقه ردّ سریع (بدون صبر) تا سهمیه رایگان فرصت بازسازی داشته باشد

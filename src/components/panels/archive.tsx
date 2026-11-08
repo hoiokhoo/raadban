@@ -13,7 +13,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { LoadingCard } from './dashboard';
 import { TripleDate } from '@/components/triple-date';
-import { Search, GitCompareArrows, ClipboardPen, Languages, Loader2 } from 'lucide-react';
+import { Search, GitCompareArrows, ClipboardPen, Languages, Loader2, FileText } from 'lucide-react';
 
 interface ArchiveRow {
   id: string; reportDate: string; jDate: string; status: string; postsCount: number;
@@ -99,6 +99,12 @@ export function SearchPanel() {
                       {p.translationConclusion && <div className="mt-0.5 text-slate-600"><b>نتیجه‌گیری:</b> {p.translationConclusion}</div>}
                     </div>
                   )}
+                  {p.summaryFa && p.analysisFa && (
+                    <div className="bg-indigo-50 border border-indigo-100 rounded p-2 text-xs leading-7 text-slate-800">
+                      <b className="text-indigo-800">خلاصه:</b> {p.summaryFa.slice(0, 500)}
+                      <div className="mt-1"><b className="text-slate-800">تحلیل:</b> {p.analysisFa.slice(0, 800)}{p.analysisFa.length > 800 ? '…' : ''}</div>
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-2 text-xs text-slate-500 items-center">
                     <Badge variant="outline">{p.source?.name || '—'}</Badge>
                     <TripleDate date={p.publishedAt} className="text-xs" />
@@ -106,6 +112,7 @@ export function SearchPanel() {
                     <Badge className={statusStyle(p.processingStatus)}>{p.processingStatus}</Badge>
                     {p.duplicateOfId && <Badge variant="outline" className="text-orange-600">بازنشر شناسایی‌شده</Badge>}
                     <PostTranslateButton post={p} />
+                    <PostSummaryButton post={p} />
                   </div>
                 </div>
               ))}
@@ -130,7 +137,7 @@ export function SearchPanel() {
   );
 }
 
-interface PostRow { id: string; content: string; publishedAt: string; processingStatus: string; eventDateISO: string | null; duplicateOfId: string | null; language?: string; translationFa?: string | null; translationSummary?: string | null; translationConclusion?: string | null; source?: { name: string } | null }
+interface PostRow { id: string; content: string; publishedAt: string; processingStatus: string; eventDateISO: string | null; duplicateOfId: string | null; language?: string; translationFa?: string | null; translationSummary?: string | null; translationConclusion?: string | null; summaryFa?: string | null; analysisFa?: string | null; source?: { name: string } | null }
 interface ClaimLite { id: string; text: string; status: string; confidence: string; createdAt: string }
 
 /** دکمه ترجمه فارسی روان برای مطالب خارجی (قابلیت ۱٫۱-ب) */
@@ -150,6 +157,25 @@ function PostTranslateButton({ post }: { post: PostRow }) {
     <Button size="sm" variant="ghost" className="h-6 text-[11px]" onClick={go} disabled={busy}>
       {busy ? <Loader2 className="h-3 w-3 animate-spin ml-1" /> : <Languages className="h-3 w-3 ml-1" />}
       {post.translationFa ? 'ترجمه مجدد' : 'ترجمه فارسی روان'}
+    </Button>
+  );
+}
+
+/** دکمه خلاصه و تحلیل هوشمند برای هر خبر (قابلیت ۱۰ — زنجیرهٔ مدل: جمینی/GLM) */
+function PostSummaryButton({ post }: { post: PostRow }) {
+  const [busy, setBusy] = useState(false);
+  const { toast } = useToast();
+  const go = async () => {
+    setBusy(true);
+    const r = await api<{ summary: string; analysis: string }>(`/api/posts/${post.id}/summarize`, { method: 'POST' });
+    setBusy(false);
+    toast({ title: r.ok ? 'خلاصه و تحلیل ذخیره شد' : 'تحلیل ناموفق', description: r.error, variant: r.ok ? 'default' : 'destructive' });
+    if (r.ok) window.location.reload();
+  };
+  return (
+    <Button size="sm" variant="ghost" className="h-6 text-[11px]" onClick={go} disabled={busy}>
+      {busy ? <Loader2 className="h-3 w-3 animate-spin ml-1" /> : <FileText className="h-3 w-3 ml-1" />}
+      {post.summaryFa ? 'تحلیل مجدد' : 'خلاصه و تحلیل'}
     </Button>
   );
 }

@@ -12,7 +12,7 @@ import {
   FCC_DEFAULT_BASE_URL,
   type ProviderConfig,
 } from '../src/lib/ai/providers';
-import { noteAttemptOutcome, isBackgroundPaused } from '../src/lib/ai/client';
+import { noteAttemptOutcome, isBackgroundPaused, quotaCooldownMsFromError } from '../src/lib/ai/client';
 
 const realFetch = globalThis.fetch;
 afterEach(() => {
@@ -394,5 +394,35 @@ describe('قطع‌کن مدار — توقف تلاش پس‌زمینه هنگ�
   test('خطاهای غیر۴۲۹ روی قطع‌کن اثر نمی‌گذارند', () => {
     for (let i = 0; i < 10; i++) noteAttemptOutcome(false, 'HTTP 500: internal');
     expect(isBackgroundPaused()).toBe(false);
+  });
+});
+
+// ---------- سهمیهٔ روزانهٔ جمینی — استخراج فاصلهٔ انتظار از پیام خطا ----------
+
+describe('quotaCooldownMsFromError — پیام «Please retry in» گوگل', () => {
+  test('پیام واقعی گوگل: 10h25m3.1s → حدود ۳۷۵۰۳ ثانیه', () => {
+    const err = 'HTTP 429: You exceeded your current quota ... Please retry in 10h25m3.107041044s.';
+    const ms = quotaCooldownMsFromError(err);
+    expect(ms).not.toBeNull();
+    expect(ms! > 37_500_000 && ms! < 37_510_000).toBe(true);
+  });
+
+  test('فیلد JSON retryDelay: "37503s" → ۳۷۵۰۳ ثانیه', () => {
+    const ms = quotaCooldownMsFromError('HTTP 429: {"error":{"details":[{"@type":"...RetryInfo","retryDelay":"37503s"}]}}');
+    expect(ms).toBe(37_503_000);
+  });
+
+  test('فرمت فقط دقیقه/ثانیه و فقط ساعت', () => {
+    expect(quotaCooldownMsFromError('Please retry in 5m30s')).toBe((5 * 60 + 30) * 1000);
+    expect(quotaCooldownMsFromError('Please retry in 2h')).toBe(2 * 3600 * 1000);
+  });
+
+  test('سقف ۱۲ ساعت رعایت می‌شود', () => {
+    expect(quotaCooldownMsFromError('Please retry in 30h')).toBe(12 * 3600 * 1000);
+  });
+
+  test('بدون اشارهٔ retry → null (پیش‌فرض ۲۴۰ ثانیه در فراخواننده)', () => {
+    expect(quotaCooldownMsFromError('HTTP 429: Too many requests')).toBeNull();
+    expect(quotaCooldownMsFromError('HTTP 400: bad request')).toBeNull();
   });
 });

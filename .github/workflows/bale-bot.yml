@@ -10,6 +10,10 @@ on:
         description: 'فقط کشف چت‌ها/کانال‌ها (بدون جمع‌آوری خبر و ارسال)'
         type: boolean
         default: false
+      force_digest:
+        description: 'ارسال فوری تحلیل جامع + گزارش بازار (آزمون — مستقل از اسلات‌ها)'
+        type: boolean
+        default: false
   # چرخهٔ خودادامه: هر اجرا پس از خواب کوتاه، اجرای بعدی را خودش dispatch می‌کند (پایین)
 
 concurrency:
@@ -46,6 +50,14 @@ jobs:
           MAX_TWEETS: '6'
           TWEET_ACCOUNTS_PER_CYCLE: '6'
           BOT_STATE_FILE: bot/state.json
+          # ── حالت کانال (خواستهٔ ۹ نوامبر ۲۰۲۶): هیچ خبری ارسال نشود — فقط تحلیل جامع + گزارش بازار ──
+          CHANNEL_MODE: 'analysis' # analysis = فقط تحلیل جامع + گزارش بازار | news = رفتار قبلی (خبر پیاپی)
+          DIGEST_HOURS: '8,14,20' # اسلات‌های تحلیل جامع به وقت تهران (صبح/بعدازظهر/شب)
+          PRICE_HOURS: '12:30,21:00' # گزارش بازار: ظهر و شب (خواستهٔ کاربر)
+          CAR_CHANNELS: 'irankhodro3007,akhbar_khodroei' # کانال(های) قیمت روز خودرو در تلگرام (فهرست «مدل⬅️قیمت»)
+          # ورودی dispatch آزمون: ارسال فوری تحلیل جامع + گزارش بازار مستقل از اسلات‌ها
+          FORCE_DIGEST: ${{ inputs.force_digest == true && '1' || '' }}
+          FORCE_PRICE: ${{ inputs.force_digest == true && '1' || '' }}
         run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }}
 
       - name: ثبت حافظهٔ ضدتکرار (state) در ریپو

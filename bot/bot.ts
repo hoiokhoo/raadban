@@ -1,6 +1,16 @@
 /**
  * رصدبان‌بات — ربات مستقل خبررسان بله برای اجرای رایگان روی GitHub Actions
- * (نسخهٔ ۱ — ۳ نوامبر ۲۰۲۶ — بر پایهٔ خواستهٔ صریح کاربر: هر نیم‌ساعت، هر خبر جداگانه
+ * (نسخهٔ ۲ — ۹ نوامبر ۲۰۲۶ — خواستهٔ صریح کاربر: «هیچ خبری داخل کانال ارسال نشه —
+ *  فقط تحلیل جامع ارسال بشه» + گزارش بازار ظهر و شب)
+ *
+ * دو حالت کانال (CHANNEL_MODE):
+ *  - analysis (پیش‌فرض): خبر/توییت مستقیم ارسال نمی‌شود؛ رویدادهای تازه در استخر state انبار
+ *    و در اسلات‌های تهران (DIGEST_HOURS — پیش‌فرض ۸ و ۱۴ و ۲۰) یک «تحلیل جامع» و در
+ *    اسلات‌های بازار (PRICE_HOURS — پیش‌فرض ۱۲:۳۰ و ۲۱) «گزارش بازار» (خودرو، طلا و سکه،
+ *    دلار، شاخص بورس، بیت‌کوین، برنت + درصد تغییر نسبت به گزارش قبل) ارسال می‌شود.
+ *  - news: رفتار قبلی — هر رویداد جداگانه در هر چرخه.
+ *
+ * (نسخهٔ ۱ — ۳ نوامبر ۲۰۲۶: هر نیم‌ساعت، هر خبر جداگانه
  *  با عکس خود خبر، رایگان، بدون هیچ خبر تکراری، تجمیع خبرهای یکسان، خارجی اول)
  *
  * صفر وابستگی: فقط fetch استاندارد + node:crypto + node:fs — با «bun bot/bot.ts» اجرا می‌شود.
@@ -11,6 +21,18 @@
 
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import {
+  DEFAULT_SYSTEM_BOT_DIGEST,
+  addToPool,
+  poolCorpus,
+  validateDigestText,
+  parseSlots,
+  tehranParts,
+  dueSlotKey,
+  slotLabel,
+  type PoolItem,
+} from './digest';
+import { fetchMarketData, formatMarketMessage, snapshotOf } from './market';
 
 // ---------- پیکربندی از محیط ----------
 
@@ -119,6 +141,15 @@ const CFG = {
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
   promptsFile: process.env.BOT_PROMPTS_FILE || 'bot/prompts.json',
+  // ── حالت کانال (خواستهٔ ۹ نوامبر ۲۰۲۶): «هیچ خبری ارسال نشه — فقط تحلیل جامع» ──
+  channelMode: (process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase() === 'news' ? 'news' : 'analysis',
+  // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار (پیش‌فرض ظهر ۱۲:۳۰ و شب ۲۱)
+  digestSlots: parseSlots(process.env.DIGEST_HOURS, '8,14,20'),
+  priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
+  // کانال‌های خبری خودرو (t.me/s/<id>) — منبع قیمت خودرو با فرمت «مدل⬅️قیمت»
+  carChannels: (process.env.CAR_CHANNELS || 'akhbar_khodroei').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
+  // سقف استخر رویدادها — هنگام پرشدن، نیمهٔ قدیمی هر بار نصف می‌شود (پوشش زمانی حفظ می‌شود)
+  poolCap: Math.max(50, Math.min(600, Number(process.env.BOT_POOL_CAP || 260) || 260)),
   fetchConcurrency: 10,
   fetchTimeoutMs: 12_000,
 };
@@ -483,6 +514,13 @@ export interface BotState {
   sentMsgTexts: Record<string, number>;
   /** نشانگر چرخش حساب‌های توییت — هر چرخه پنجرهٔ بعدی فهرست bot/tweets.json */
   tweetCursor?: number;
+  /** استخر رویدادهای انبارشده برای «تحلیل جامع» — حالت analysis (خواستهٔ ۹ نوامبر ۲۰۲۶) */
+  pool?: PoolItem[];
+  /** آخرین اسلات انجام‌شدهٔ تحلیل/بازار — کلید «<تاریخ تهران>T<HH:MM>» (ضدتکرار روزانه) */
+  lastDigestKey?: string;
+  lastPriceKey?: string;
+  /** قیمت‌های آخرین گزارش بازار — پایهٔ «درصد تغییر از خبر قبلی» (خواستهٔ کاربر) */
+  priceSnap?: Record<string, number>;
   lastRunAt?: string;
   lastRun?: Record<string, unknown>;
 }
@@ -507,6 +545,10 @@ export function loadState(path: string): BotState {
       sentTitleTexts: raw.sentTitleTexts && typeof raw.sentTitleTexts === 'object' ? raw.sentTitleTexts : {},
       sentMsgTexts: raw.sentMsgTexts && typeof raw.sentMsgTexts === 'object' ? raw.sentMsgTexts : {},
       tweetCursor: typeof raw.tweetCursor === 'number' ? raw.tweetCursor : undefined,
+      pool: Array.isArray(raw.pool) ? (raw.pool as PoolItem[]) : [],
+      lastDigestKey: typeof raw.lastDigestKey === 'string' ? raw.lastDigestKey : undefined,
+      lastPriceKey: typeof raw.lastPriceKey === 'string' ? raw.lastPriceKey : undefined,
+      priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
@@ -552,6 +594,11 @@ export function mergeSentState(
     sentTitles: mergeMap(st.sentTitles, addTitles, maxTitles),
     sentTitleTexts: mergeMap(st.sentTitleTexts, addTexts.titleTexts || [], maxTexts),
     sentMsgTexts: mergeMap(st.sentMsgTexts, addTexts.msgTexts || [], maxTexts),
+    // فیلدهای حالت تحلیل جامع — دست‌نخورده منتقل می‌شوند (مدیریت‌شان در جریان اصلی است)
+    pool: st.pool,
+    lastDigestKey: st.lastDigestKey,
+    lastPriceKey: st.lastPriceKey,
+    priceSnap: st.priceSnap,
   };
 }
 
@@ -1149,19 +1196,22 @@ export const DEFAULT_SYSTEM_BOT_TRANSLATE = `
 // پرامپت‌های فعال — می‌توانند از bot/prompts.json بازنویسی شوند (ویرایش از اپلیکیشن)
 let activeOneshot = DEFAULT_SYSTEM_BOT_ONESHOT;
 let activeTranslate = DEFAULT_SYSTEM_BOT_TRANSLATE;
+let activeDigest = DEFAULT_SYSTEM_BOT_DIGEST;
 
 export function getOneshotPrompt(): string { return activeOneshot; }
 export function getTranslatePrompt(): string { return activeTranslate; }
+export function getDigestPrompt(): string { return activeDigest; }
 
 /** اعمال پرامپت‌های ویرایش‌شده — فقط متن بلند و معتبر پذیرفته می‌شود (محافظت از رفتار ربات) */
-export function applyPromptOverrides(p: { oneshot?: string; translate?: string }): { oneshot: boolean; translate: boolean } {
-  const r = { oneshot: false, translate: false };
+export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string }): { oneshot: boolean; translate: boolean; digest: boolean } {
+  const r = { oneshot: false, translate: false, digest: false };
   if (typeof p.oneshot === 'string' && p.oneshot.trim().length >= 400) { activeOneshot = p.oneshot.trim(); r.oneshot = true; }
   if (typeof p.translate === 'string' && p.translate.trim().length >= 200) { activeTranslate = p.translate.trim(); r.translate = true; }
+  if (typeof p.digest === 'string' && p.digest.trim().length >= 400) { activeDigest = p.digest.trim(); r.digest = true; }
   return r;
 }
 
-export interface PromptFile { oneshot?: string; translate?: string; updatedAt?: string }
+export interface PromptFile { oneshot?: string; translate?: string; digest?: string; updatedAt?: string }
 
 /** پارس فایل پرامپت‌های ویرایش‌شده — تابع خالص تست‌پذیر */
 export function parsePromptFile(raw: string): PromptFile {
@@ -1170,6 +1220,7 @@ export function parsePromptFile(raw: string): PromptFile {
     return {
       oneshot: typeof o.oneshot === 'string' ? o.oneshot : undefined,
       translate: typeof o.translate === 'string' ? o.translate : undefined,
+      digest: typeof o.digest === 'string' ? o.digest : undefined,
       updatedAt: typeof o.updatedAt === 'string' ? o.updatedAt : undefined,
     };
   } catch { return {}; }
@@ -1445,6 +1496,11 @@ export interface RunSummary {
   tweetAccountsTried?: number;
   tweetRateLimited?: boolean;
   tweetCursor?: number;
+  // حالت تحلیل جامع (خواستهٔ ۹ نوامبر ۲۰۲۶)
+  poolSize?: number;
+  digestSent?: boolean;
+  digestProvider?: string;
+  priceSent?: boolean;
   dryRun?: boolean;
   error?: string;
 }
@@ -1627,6 +1683,200 @@ async function main(): Promise<void> {
 
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
+
+  // ── حالت «تحلیل جامع» (خواستهٔ صریح کاربر ۹ نوامبر ۲۰۲۶): «هیچ خبری داخل کانال ارسال نشه —
+  //  فقط همین تحلیل جامع ارسال بشه» + گزارش بازار ظهر و شب ──
+  // جمع‌آوری/ترجمه/ضدتکرار ادامه دارد؛ رویدادها (خبر + توییت) در استخر state انبار می‌شوند و
+  // «هیچ خبر مستقیمی» ارسال نمی‌شود. در اسلات‌های تهران یک پیام تحلیل جامع و در اسلات‌های
+  // بازار یک پیام گزارش قیمت ارسال و پس از موفقیت استخر خالی و رویدادها علامت ارسال می‌خورند.
+  if (CFG.channelMode === 'analysis') {
+    const sentIds: string[] = [];
+    const sentTitles: string[] = [];
+    const sentTitleTexts: string[] = [];
+    const pool: PoolItem[] = Array.isArray(state.pool) ? state.pool : [];
+    state.pool = pool;
+
+    // ۱) ترجمهٔ دسته‌جمعی خوشه‌های غیرفارسی — مبنای پیکرهٔ تحلیل (فارسی روان)
+    const needTr = groups.filter((g) => !(g.primary.translationFa || '').trim() &&
+      (g.primary.language !== 'fa' || isLikelyForeign(g.primary.content)));
+    if (needTr.length > 0) {
+      const trCorpus = needTr.map((g, j) => `[${j + 1}] ${g.primary.content.slice(0, 1200).replace(/\n+/g, ' ')}`).join('\n');
+      const r = await chainCall(getTranslatePrompt(), trCorpus, { maxTokens: 6000, skipIds: ['openrouter'] });
+      if (r.ok && r.content) {
+        const entries = extractJson(r.content, validateBatchTranslation);
+        if (entries) {
+          let tr = 0;
+          for (const e of entries) {
+            const t = needTr[e.n - 1];
+            if (t && !needsTranslation(e.fa)) { t.primary.translationFa = e.fa; tr++; }
+          }
+          summary.translated += tr;
+          console.log(`ترجمهٔ پیکرهٔ تحلیل: ${tr} عنوان (${r.providerId})`);
+        }
+      } else console.warn(`⚠️ ترجمهٔ پیکرهٔ تحلیل ناموفق: ${r.error} — متن اصلی در استخر می‌ماند (هیچ ساختگی)`);
+    }
+
+    // ۲) همهٔ خوشه‌ها به استخر — بدون هیچ ارسال خبری
+    const poolRes = addToPool(pool, groups.map((g) => ({
+      id: g.primary.id,
+      titleKey: g.primary.titleKey,
+      source: g.primary.sourceName,
+      cat: g.primary.category,
+      lang: g.primary.language,
+      text: g.primary.content,
+      fa: g.primary.translationFa,
+      at: (g.primary.publishedAt || new Date()).toISOString(),
+      url: g.primary.url,
+    })), CFG.poolCap);
+    state.pool = poolRes.pool;
+    summary.poolSize = state.pool.length;
+    console.log(`استخر تحلیل: +${poolRes.added} (${poolRes.droppedDup} تکراری) — کل ${enToFaDigits(String(state.pool.length))}`);
+
+    // ۳) توییت‌ها → استخر تحلیل (بدون ارسال مستقیم — عیناً «هیچ خبری ارسال نشه»)
+    let tweetNextCursor: number | null = null;
+    const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
+    if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
+      const cursor = Number(state.tweetCursor) || 0;
+      const { picked, nextCursor } = rotateAccounts(tweetAccounts, cursor, CFG.tweetAccountsPerCycle);
+      tweetNextCursor = nextCursor;
+      summary.tweetAccountsTried = picked.length;
+      const twItems: PoolItem[] = [];
+      let rateLimited = false;
+      for (const acc of picked) {
+        const r = await fetchTweetTimeline(acc.handle);
+        if (r.ok) summary.tweetsFetched = (summary.tweetsFetched || 0) + r.tweets.length;
+        if (r.rateLimited) { rateLimited = true; console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیه به چرخهٔ بعد`); break; }
+        if (!r.ok) { console.warn(`⚠️ توییت @${acc.handle}: ${r.error} (صادقانه)`); }
+        else {
+          const ft = freshTweets(state, r.tweets, acc.handle, titleSets, { windowHours: CFG.windowHours, nowMs: Date.now(), limit: CFG.maxTweets });
+          for (const tw of ft.fresh) {
+            twItems.push({
+              id: `tw-${acc.handle.toLowerCase()}-${tw.id}`,
+              titleKey: sha1(`tw-title:${acc.handle}:${tw.id}`),
+              source: `𝕏 ${acc.name || `@${acc.handle}`}`,
+              cat: 'general',
+              lang: 'en',
+              text: tw.text,
+              at: (tw.createdAt || new Date()).toISOString(),
+            });
+          }
+        }
+        await sleep(CFG.tweetFetchGapMs);
+      }
+      summary.tweetRateLimited = rateLimited;
+      if (twItems.length > 0) {
+        // ترجمهٔ دسته‌جمعی توییت‌ها — متن کامل تا ۹۰۰ نویسه
+        const trCorpus = twItems.map((p, j) => `[${j + 1}] ${p.text.slice(0, 900).replace(/\n+/g, ' ')}`).join('\n');
+        const r = await chainCall(getTranslatePrompt(), trCorpus, { maxTokens: 6000, skipIds: ['openrouter'] });
+        if (r.ok && r.content) {
+          const entries = extractJson(r.content, validateBatchTranslation);
+          if (entries) {
+            let tr = 0;
+            for (const e of entries) {
+              const p = twItems[e.n - 1];
+              if (p && !needsTranslation(e.fa)) { p.fa = e.fa; tr++; }
+            }
+            summary.translated += tr;
+            if (tr) console.log(`ترجمهٔ دسته‌جمعی توییت: ${tr} مورد (${r.providerId})`);
+          }
+        } else console.warn(`⚠️ ترجمهٔ توییت ناموفق: ${r.error} — متن اصلی در استخر می‌ماند (هیچ ساختگی)`);
+      }
+      const twRes = addToPool(state.pool, twItems, CFG.poolCap);
+      state.pool = twRes.pool;
+      if (twRes.added > 0) console.log(`توییت‌ها به استخر تحلیل اضافه شد: +${twRes.added}`);
+    }
+
+    // ۴) تحلیل جامع — اسلات تهران (پیش‌فرض ۸ و ۱۴ و ۲۰ — DIGEST_HOURS) یا ارسال فوری (FORCE_DIGEST — dispatch آزمون)
+    const forceDigest = process.env.FORCE_DIGEST === '1';
+    const dKey = forceDigest
+      ? `force-${new Date().toISOString().slice(0, 16)}`
+      : dueSlotKey(Date.now(), CFG.digestSlots, state.lastDigestKey);
+    if (dKey && CFG.dryRun) {
+      console.log(`=== DRY_RUN — پیش‌نمایش پیکرهٔ تحلیل جامع (اسلات ${dKey}) ===`);
+      console.log(poolCorpus(state.pool, 12, 200).slice(0, 2400));
+      console.log('=== پایان پیش‌نمایش ===');
+    } else if (dKey && state.pool.length >= 5) {
+      const p = tehranParts(Date.now());
+      const corpus = poolCorpus(state.pool, 60, 480);
+      const userMsg = `تاریخ تهران: ${p.dateFa} — ساعت ${p.hhmm}\n\nرویدادهای تازه (هر سطر: شماره — منبع | دسته — متن):\n\n${corpus}`;
+      const t0 = Date.now();
+      const r = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000 });
+      const text = r.ok ? validateDigestText(r.content) : null;
+      summary.digestProvider = r.providerId;
+      console.log(`تحلیل جامع: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+      if (text) {
+        const label = dKey.startsWith('force') ? 'فوری' : slotLabel(dKey.split('T')[1] || '08:00');
+        const full = `🧭 <b>تحلیل جامع رصدبان</b> — ${esc(label)} ${esc(p.dateFa)}\n\n${esc(text)}`;
+        let ok = false;
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, full);
+          if (s.ok) ok = true;
+          else console.error(`❌ ارسال تحلیل جامع به ${t} ناموفق: ${s.error}`);
+        }
+        if (ok) {
+          summary.digestSent = true;
+          state.lastDigestKey = dKey;
+          // همهٔ رویدادهای استخر علامت ارسال می‌خورند (ضدتکرار چرخه‌های بعد) + استخر خالی
+          for (const pi of state.pool) {
+            sentIds.push(pi.id);
+            sentTitles.push(pi.titleKey);
+            sentTitleTexts.push(normalizeTitle(pi.text).slice(0, 160));
+          }
+          state.pool = [];
+          summary.poolSize = 0;
+        }
+      } else {
+        summary.aiFailed = true;
+        if (r.error) console.error(`❌ زنجیرهٔ تحلیل جامع ناموفق: ${r.error}`);
+      }
+    } else if (dKey) {
+      console.log(`اسلات تحلیل جامع رسید ولی استخر کوچک است (${state.pool.length}) — چرخهٔ بعد تلاش می‌کند`);
+    }
+
+    // ۵) گزارش بازار — اسلات ظهر/شب (پیش‌فرض ۱۲:۳۰ و ۲۱ — PRICE_HOURS)
+    //    خودرو + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju) + شاخص بورس (تستمسن → tgju) + برنت
+    //    درصد تغییر هر قلم نسبت به گزارش قبلی رصدبان (state.priceSnap — خواستهٔ کاربر)
+    const forcePrice = process.env.FORCE_PRICE === '1';
+    const pKey = forcePrice
+      ? `force-price-${new Date().toISOString().slice(0, 16)}`
+      : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
+    if (pKey) {
+      const md = await fetchMarketData({ carChannels: CFG.carChannels });
+      const pNow = tehranParts(Date.now());
+      const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: pNow.hhmm };
+      if (CFG.dryRun) {
+        console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
+        console.log(formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts));
+        console.log('=== پایان پیش‌نمایش ===');
+      } else if (md.quotes.length >= 3) {
+        const msg = formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts);
+        let ok = false;
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, msg);
+          if (s.ok) ok = true;
+          else console.error(`❌ ارسال گزارش بازار به ${t} ناموفق: ${s.error}`);
+        }
+        if (ok) {
+          summary.priceSent = true;
+          state.lastPriceKey = pKey;
+          state.priceSnap = snapshotOf(md.quotes);
+          console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+        }
+      } else {
+        console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
+      }
+    }
+
+    // ۶) ثبت state و خلاصه
+    const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts });
+    if (tweetNextCursor !== null) merged.tweetCursor = tweetNextCursor;
+    merged.lastRunAt = new Date().toISOString();
+    merged.lastRun = { ...summary };
+    saveState(CFG.stateFile, merged);
+    console.log('=== خلاصهٔ چرخه (حالت تحلیل جامع) ===');
+    console.log(JSON.stringify(summary, null, 2));
+    return;
+  }
 
   // ۵) گزینش با سهمیهٔ الزامی داخلی — خارجی‌ها پر می‌کنند ولی هرگز اخبار ایران را بیرون نمی‌اندازند
   const ordered = selectWithDomesticQuota(groups, (g) => isForeignItem(g.primary), CFG.maxItems, CFG.minDomestic);

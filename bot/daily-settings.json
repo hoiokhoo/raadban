@@ -1,0 +1,15 @@
+{
+  "morningEnabled": true,
+  "eveningEnabled": true,
+  "morningHour": "05:00",
+  "eveningHour": "20:00",
+  "timezone": "Asia/Tehran",
+  "city": "تهران",
+  "lat": 35.6892,
+  "lon": 51.389,
+  "prayerMethod": "tehran",
+  "fajrAngle": 17.7,
+  "ishaAngle": 14,
+  "maghribMinutes": 15,
+  "qamariBasis": "umalqura"
+}

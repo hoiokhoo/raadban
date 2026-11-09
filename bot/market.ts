@@ -89,6 +89,8 @@ export interface Quote {
   changeSrc?: 'prev' | 'source' | 'none';
   /** نمایش آمادهٔ مقدار */
   display?: string;
+  /** یادداشت صادقانه — مثلاً کهنگی قیمت خودرو */
+  note?: string;
   emoji: string;
 }
 
@@ -232,7 +234,9 @@ export function carListLineCount(text: string): number {
   return (text || '').split('\n').filter((l) => parseCarLine(l.trim()) !== null).length;
 }
 
-/** مدل‌های پرتقاضا به ترتیب نمایش — تطبیق با زیررشتهٔ نرمال‌شده */
+/** مدل‌های پرتیراژ و پرتقاضا به ترتیب نمایش — تطبیق با زیررشتهٔ نرمال‌شده.
+ *  خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶): «پرتیراژترین خودروهای داخل ایران در این لیست حتماً
+ *  همیشه آخرین قیمت آپدیت بشه» — این فهرست با انبار ماندگار (carStore) همیشه کامل می‌آید. */
 export const CAR_FEATURED: Array<{ match: string; label: string }> = [
   { match: 'پراید', label: 'پراید' },
   { match: 'تیبا', label: 'تیبا' },
@@ -244,16 +248,67 @@ export const CAR_FEATURED: Array<{ match: string; label: string }> = [
   { match: 'دنا', label: 'دنا' },
   { match: 'تارا', label: 'تارا' },
   { match: 'سمند', label: 'سمند' },
+  { match: 'پارس', label: 'پژو پارس' },
+  { match: '405', label: 'پژو ۴۰۵' },
   { match: '206', label: 'پژو ۲۰۶' },
   { match: '207', label: 'پژو ۲۰۷' },
   { match: 'رانا', label: 'رانا' },
+  { match: 'ری را', label: 'ری‌را' },
+  { match: 'ریرا', label: 'ری‌را' },
   { match: 'پیکان', label: 'پیکان' },
   { match: 'هایما', label: 'هایما' },
   { match: 'تیگو', label: 'تیگو' },
   { match: 'اریزو', label: 'آریزو' },
   { match: 'فید', label: 'فیدلیتی' },
   { match: 'لاماری', label: 'لاماری' },
+  { match: 'اتلس', label: 'اتلس اس' },
 ];
+
+// ---------- انبار ماندگار قیمت خودرو — همیشه پرتیراژها در فهرست ----------
+
+export interface CarStoreEntry { model: string; valueToman: number; date: string; source: string }
+export type CarStore = Record<string, CarStoreEntry>;
+
+/** ادغام قیمت‌های تازه در انبار — تاریخ تازه‌تر جایگزین می‌شود؛ تابع خالص تست‌پذیر */
+export function mergeCarStore(store: CarStore | undefined, cars: CarEntry[], nowIso: string): CarStore {
+  const out: CarStore = { ...(store || {}) };
+  for (const c of cars) {
+    const k = normalizeCarModel(c.model);
+    if (!k) continue;
+    const old = out[k];
+    const newTs = Date.parse(c.date || '') || Date.parse(nowIso) || Date.now();
+    if (!old || (Date.parse(old.date || '') || 0) <= newTs) {
+      out[k] = { model: c.model, valueToman: c.valueToman, date: new Date(newTs).toISOString(), source: c.date ? 'کانال اخبار خودرو' : 'آخرین اعلام' };
+    }
+  }
+  return out;
+}
+
+export interface FeaturedCar extends CarEntry { ageDays: number }
+
+/** فهرست نمایشی همیشگی از انبار — پرتیراژها همیشه می‌آیند حتی اگر امروز در کانال نبودند؛
+ *  کهنگی صادقانه با ageDays اعلام می‌شود (هیچ قیمت ساختگی). تابع خالص تست‌پذیر. */
+export function featuredCarsFromStore(store: CarStore | undefined, nowIso: string, limit = 12): FeaturedCar[] {
+  const now = Date.parse(nowIso) || Date.now();
+  const out: FeaturedCar[] = [];
+  const usedKeys = new Set<string>();
+  for (const f of CAR_FEATURED) {
+    if (out.length >= limit) break;
+    const fm = normalizeCarModel(f.match);
+    if (!fm) continue;
+    // تطبیق دقیق‌تر: کلید انبار که شامل مدل باشد — اولویت با کلید کوتاه‌تر (مدل خالص‌تر)
+    const hit = Object.entries(store || {})
+      .filter(([k]) => !usedKeys.has(k) && k.includes(fm))
+      .sort((a, b) => a[0].length - b[0].length)[0];
+    if (hit) {
+      usedKeys.add(hit[0]);
+      const e = hit[1];
+      const ageDays = Math.max(0, Math.floor((now - (Date.parse(e.date || '') || now)) / 86400000));
+      out.push({ model: e.model, valueToman: e.valueToman, displayRaw: String(e.valueToman), date: e.date, ageDays });
+    }
+  }
+  return out;
+}
 
 /** پارس چند پیام کانال خودرو — همهٔ پیام‌های فهرست‌قیمت (≥۳ خط قیمت) اسکن و
  *  برای هر مدل «تازه‌ترین» قیمت می‌ماند. تابع خالص تست‌پذیر. */
@@ -319,9 +374,11 @@ async function get(url: string, timeoutMs = 12_000): Promise<{ ok: boolean; text
 }
 
 export interface FetchMarketOpts {
-  /** فهرست شناسهٔ کانال‌های خودرو (t.me/s/<id>) — پیش‌فرض akhbar_khodroei */
+  /** فهرست شناسهٔ کانال‌های خودرو (t.me/s/<id>) — پیش‌فرض: پژو‌خودرو + اخبار خودروئی + آخرین خودرو */
   carChannels?: string[];
   timeoutMs?: number;
+  /** انبار ماندگار قیمت خودرو — ورودی/خروجی این واکشی (خواستهٔ کاربر: همیشه پرتیراژها) */
+  carStore?: CarStore;
 }
 
 export interface MarketData {
@@ -329,6 +386,22 @@ export interface MarketData {
   /** سطرهای «دریافت نشد» — صراحت کامل */
   failures: string[];
   sources: string[];
+  /** انبار به‌روزشدهٔ قیمت خودرو — caller در state ذخیره می‌کند */
+  carStore?: CarStore;
+}
+
+/** واکشی tgju با پشتیبان host دوم (call2) — خواستهٔ کاربر: «قیمت دلار خالی نباشه» */
+async function fetchTgjuCurrent(timeoutMs: number): Promise<{ cur: Record<string, TgjuEntry>; error?: string }> {
+  let firstErr = '';
+  for (const host of ['https://call1.tgju.org/ajax.json', 'https://call2.tgju.org/ajax.json']) {
+    const tg = await get(host, timeoutMs);
+    if (tg.ok && tg.text) {
+      const cur = parseTgjuCurrent(tg.text);
+      if (Object.keys(cur).length > 0) return { cur };
+    }
+    firstErr = tg.error || 'پاسخ قابل تجزیه نبود';
+  }
+  return { cur: {}, error: firstErr };
 }
 
 /** واکشی همهٔ قیمت‌ها — خطای هر منبع بقیه را نمی‌اندازد؛ هر شکست صادقانه در failures */
@@ -338,13 +411,12 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   const quotes: Quote[] = [];
   const timeoutMs = opts.timeoutMs ?? 12_000;
 
-  // ۱) tgju — طلا/سکه + پشتیبان‌ها (یک درخواست)
+  // ۱) tgju — طلا/سکه + پشتیبان‌ها (host اول → پشتیبان host دوم)
   let tgjuCur: Record<string, TgjuEntry> = {};
-  const tg = await get('https://call1.tgju.org/ajax.json', timeoutMs);
-  if (tg.ok && tg.text) {
-    tgjuCur = parseTgjuCurrent(tg.text);
-    if (Object.keys(tgjuCur).length === 0) failures.push('tgju: پاسخ قابل تجزیه نبود');
-    else sources.add('tgju');
+  const tg = await fetchTgjuCurrent(timeoutMs);
+  if (Object.keys(tg.cur).length > 0) {
+    tgjuCur = tg.cur;
+    sources.add('tgju');
   } else {
     failures.push(`tgju: ${tg.error || 'ناموفق'}`);
   }
@@ -453,7 +525,7 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
 
   // ۵) خودرو — کانال‌های خبری خودرو (فهرست‌های «مدل⬅️قیمت» — کف بازار به اعلام کانال)
   //  صفحه‌بندی تا ۴ صفحه در هر کانال تا یافتن فهرست واقعی قیمت (۳ خط قیمت یا بیشتر)
-  const chans = (opts.carChannels && opts.carChannels.length ? opts.carChannels : ['irankhodro3007', 'akhbar_khodroei']).slice(0, 5);
+  const chans = (opts.carChannels && opts.carChannels.length ? opts.carChannels : ['irankhodro3007', 'akhbar_khodroei', 'Akharin_khodro']).slice(0, 5);
   const carMsgs: Array<{ text: string; date?: string }> = [];
   for (const ch of chans) {
     let before = '';
@@ -481,19 +553,22 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   }
   if (carMsgs.length === 0) failures.push('خودرو: فهرست قیمت قابل استخراج از کانال‌ها نبود');
   const cars = parseCarPriceLists(carMsgs);
-  const featured = pickFeaturedCars(cars, 10);
+  // انبار ماندگار — پرتیراژها همیشه در فهرست می‌مانند حتی اگر امروز در کانال نبودند (خواستهٔ کاربر)
+  const carStore = mergeCarStore(opts.carStore, cars, new Date().toISOString());
+  const featured = featuredCarsFromStore(carStore, new Date().toISOString(), 12);
   for (const c of featured) {
     quotes.push({
       key: `car:${normalizeCarModel(c.model)}`,
       title: c.model,
       value: c.valueToman,
       unit: 'toman',
-      srcLabel: 'کانال اخبار خودرو',
+      srcLabel: c.ageDays === 0 ? 'کانال اخبار خودرو' : 'آخرین اعلام کانال',
+      note: c.ageDays >= 1 ? `آخرین به‌روزرسانی: ${faGroup(c.ageDays, 0)} روز پیش` : undefined,
       emoji: '🚗',
     });
   }
 
-  return { quotes: applyDeltas(quotes, undefined), failures, sources: [...sources] };
+  return { quotes: applyDeltas(quotes, undefined), failures, sources: [...sources], carStore };
 }
 
 // ---------- قالب پیام ----------
@@ -522,7 +597,7 @@ export function formatMarketMessage(quotes: Quote[], failures: string[], prev: P
   const cars = withDelta.filter((q) => q.key.startsWith('car:'));
   if (cars.length) {
     L.push('<b>🚗 خودرو (کف بازار):</b>');
-    for (const c of cars) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})`);
+    for (const c of cars) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
     L.push('');
   }
   const gold = withDelta.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));

@@ -16,8 +16,9 @@ import { BotManagePanel } from '@/components/panels/bot-manage';
 import { ChannelReaderPanel } from '@/components/panels/channel-reader';
 import { EventsPanel } from '@/components/panels/events';
 import { AnalysisPanel, ClustersTab } from '@/components/panels/analysis';
-import { Radar, Newspaper, FolderTree, Radio, Sparkles, Archive, Search, GitCompareArrows, ShieldCheck, MessageSquareCode, Bot, Timer, Coins, AlertTriangle, MessagesSquare, CalendarClock, Network, Send, Waypoints, Activity } from 'lucide-react';
+import { Radar, Newspaper, FolderTree, Radio, Sparkles, Archive, Search, GitCompareArrows, ShieldCheck, MessageSquareCode, Bot, Timer, Coins, AlertTriangle, MessagesSquare, CalendarClock, Network, Send, Waypoints, Activity, Sunrise } from 'lucide-react';
 import { LiveNewsPanel } from '@/components/panels/live';
+import { DailyMessagesPanel } from '@/components/panels/daily';
 
 const TABS = [
   { key: 'dashboard', label: 'داشبورد امروز', icon: Radar },
@@ -38,6 +39,7 @@ const TABS = [
   { key: 'ai', label: 'مدل و API', icon: Bot },
   { key: 'bale', label: 'ربات بله', icon: Send },
   { key: 'bot24', label: 'ربات ۲۴ ساعته', icon: Bot },
+  { key: 'daily', label: 'پیام‌های روزانه', icon: Sunrise },
   { key: 'schedule', label: 'زمان‌بندی', icon: Timer },
   { key: 'costs', label: 'هزینه و مصرف', icon: Coins },
   { key: 'errors', label: 'خطاها و سرویس‌ها', icon: AlertTriangle },
@@ -107,6 +109,7 @@ export default function Home() {
         {tab === 'ai' && <AiSettingsPanel />}
         {tab === 'bale' && <BaleBotPanel />}
         {tab === 'bot24' && <BotManagePanel />}
+        {tab === 'daily' && <DailyMessagesPanel />}
         {tab === 'schedule' && <SchedulePanel />}
         {tab === 'costs' && <CostsPanel />}
         {tab === 'errors' && <ErrorsPanel />}

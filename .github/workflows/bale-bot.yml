@@ -17,8 +17,9 @@ on:
   # چرخهٔ خودادامه: هر اجرا پس از خواب کوتاه، اجرای بعدی را خودش dispatch می‌کند (پایین)
 
 concurrency:
-  group: bale-bot
-  cancel-in-progress: false # اجراها پشت‌سرهم صف می‌شوند؛ ضدتکرار از ارسال دوباره جلوگیری می‌کند
+  # ران فوری (force_digest) گروه مستقل دارد — پشت ران‌های زنجیره صف نمی‌شود و کنسل نمی‌شود
+  group: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && 'bale-bot-force' || 'bale-bot' }}
+  cancel-in-progress: false # اجراها پشت‌سرهم صف می‌شوند؛ ضدتکرار state مانع ارسال دوبارهٔ همان خبر می‌شود
 
 permissions:
   contents: write # برای کامیت bot/state.json (حافظهٔ ضدتکرار)

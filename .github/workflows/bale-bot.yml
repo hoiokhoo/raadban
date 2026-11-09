@@ -35,6 +35,9 @@ jobs:
       - name: نصب Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: نصب وابستگی‌ها (adhan برای اوقات شرعی + بقیهٔ بانک)
+        run: bun install --frozen-lockfile
+
       - name: اجرای ربات (جمع‌آوری، ترجمه، ارسال به بله — خبر + توییت)
         env:
           BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
@@ -51,11 +54,14 @@ jobs:
           MAX_TWEETS: '6'
           TWEET_ACCOUNTS_PER_CYCLE: '6'
           BOT_STATE_FILE: bot/state.json
-          # ── حالت کانال (خواستهٔ ۹ نوامبر ۲۰۲۶): هیچ خبری ارسال نشود — فقط تحلیل جامع + گزارش بازار ──
-          CHANNEL_MODE: 'analysis' # analysis = فقط تحلیل جامع + گزارش بازار | news = رفتار قبلی (خبر پیاپی)
+          # ── حالت کانال (خواستهٔ ۱۰ نوامبر ۲۰۲۶): بست نیم‌ساعتهٔ خبر+توییت + تحلیل جامع + گزارش بازار ──
+          CHANNEL_MODE: 'bundle' # bundle = بست نیم‌ساعتهٔ خبر+توییت | analysis = فقط تحلیل جامع+بازار | news = خبر پیاپی
+          BUNDLE_MINUTES: '28' # فاصلهٔ حداقلی ارسال بست — چرخهٔ ~۱۰ دقیقه‌ای → تقریباً هر نیم ساعت
+          SALE_CHANNELS: 'Akharin_khodro' # اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — فوراً اعلام می‌شود
+          BOT_DAILY_SETTINGS_FILE: bot/daily-settings.json # پیام صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ + اوقات شرعی
           DIGEST_HOURS: '8,14,20' # اسلات‌های تحلیل جامع به وقت تهران (صبح/بعدازظهر/شب)
           PRICE_HOURS: '12:30,21:00' # گزارش بازار: ظهر و شب (خواستهٔ کاربر)
-          CAR_CHANNELS: 'irankhodro3007,akhbar_khodroei' # کانال(های) قیمت روز خودرو در تلگرام (فهرست «مدل⬅️قیمت»)
+          CAR_CHANNELS: 'irankhodro3007,akhbar_khodroei,Akharin_khodro' # کانال(های) قیمت روز خودرو در تلگرام (فهرست «مدل⬅️قیمت»)
           # ورودی dispatch آزمون: ارسال فوری تحلیل جامع + گزارش بازار مستقل از اسلات‌ها
           # (REST dispatch بولین را گاهی «true» رشته‌ای می‌دهد — هر دو صورت مقایسه می‌شود)
           FORCE_DIGEST: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}

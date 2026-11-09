@@ -1,22 +1,21 @@
 /**
  * رصدبان‌بات — ربات مستقل خبررسان بله برای اجرای رایگان روی GitHub Actions
- * (نسخهٔ ۲ — ۹ نوامبر ۲۰۲۶ — خواستهٔ صریح کاربر: «هیچ خبری داخل کانال ارسال نشه —
- *  فقط تحلیل جامع ارسال بشه» + گزارش بازار ظهر و شب)
+ * (نسخهٔ ۳ — ۱۰ نوامبر ۲۰۲۶ — خواستهٔ کاربر: «انتشار اخبار هم بکن هر نیم ساعت — کل اخبارها
+ *  و توییتهای اون نیم ساعت رو داخل بستت بزاری با همون خلاصه و تحلیل» + پیام صبحگاهی ۰۵:۰۰ و
+ *  شبانگاهی ۲۰:۰۰ با حدیث/طبیعت/تاریخ سه‌گانه/مناسبت‌ها/اوقات شرعی + اطلاعیهٔ فروش خودرو)
  *
- * دو حالت کانال (CHANNEL_MODE):
- *  - analysis (پیش‌فرض): خبر/توییت مستقیم ارسال نمی‌شود؛ رویدادهای تازه در استخر state انبار
- *    و در اسلات‌های تهران (DIGEST_HOURS — پیش‌فرض ۸ و ۱۴ و ۲۰) یک «تحلیل جامع» و در
- *    اسلات‌های بازار (PRICE_HOURS — پیش‌فرض ۱۲:۳۰ و ۲۱) «گزارش بازار» (خودرو، طلا و سکه،
- *    دلار، شاخص بورس، بیت‌کوین، برنت + درصد تغییر نسبت به گزارش قبل) ارسال می‌شود.
- *  - news: رفتار قبلی — هر رویداد جداگانه در هر چرخه.
+ * سه حالت کانال (CHANNEL_MODE):
+ *  - bundle: هر چرخه خبر/توییت‌های تازه در صف انبار و هر ~۳۰ دقیقه یک «بست خبری» چندپیامی
+ *    با همان خلاصه و تحلیل فعلی ارسال می‌شود + تحلیل جامع اسلات‌ها + گزارش بازار + اطلاعیهٔ فروش
+ *  - analysis: خبر/توییت مستقیم ارسال نمی‌شود؛ رویدادها در استخر انبار و در اسلات‌های تهران
+ *    (DIGEST_HOURS) «تحلیل جامع» و در اسلات‌های بازار (PRICE_HOURS) «گزارش بازار» ارسال می‌شود
+ *  - news: رفتار قدیمی — هر رویداد جداگانه در هر چرخه
  *
- * (نسخهٔ ۱ — ۳ نوامبر ۲۰۲۶: هر نیم‌ساعت، هر خبر جداگانه
- *  با عکس خود خبر، رایگان، بدون هیچ خبر تکراری، تجمیع خبرهای یکسان، خارجی اول)
+ * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ به وقت کانال
+ * با بسم‌الله، حدیث چهارده معصوم (بانک مستند + ضدتکرار دائمی)، تصویر طبیعت ویکی‌مدیا،
+ * تاریخ سه‌گانه (شمسی/قمری/میلادی)، مناسبت‌ها و اوقات شرعی فردا (کتابخانه adhan).
  *
- * صفر وابستگی: فقط fetch استاندارد + node:crypto + node:fs — با «bun bot/bot.ts» اجرا می‌شود.
- * منطق پیام عیناً همان نسخهٔ ۴ کانال بلهٔ سامانه است: «نام منبع: متن خبر» + ✅/⚠️ فقط با شواهد.
- *
- * صراحت: هیچ خبر/حکم/عکس ساختگی؛ خطای هر منبع و هر مدل شفاف در لاگ؛ کلیدها هرگز در خروجی.
+ * صراحت: هیچ خبر/حکم/عکس/حدیث/مناسبت/زمان شرعی ساختگی؛ خطای هر منبع و هر مدل شفاف در لاگ؛ کلیدها هرگز در خروجی.
  */
 
 import { createHash } from 'node:crypto';
@@ -30,9 +29,20 @@ import {
   tehranParts,
   dueSlotKey,
   slotLabel,
+  type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, snapshotOf } from './market';
+import { fetchMarketData, formatMarketMessage, snapshotOf, type CarStore } from './market';
+import { shouldFlushBundle, buildBundleChunks, type BundleItem } from './bundle';
+import { dateKeyOf, type QamariBasis } from './calendar';
+import {
+  pickHadith,
+  bankStatus,
+  fetchNatureImage,
+  buildDailyMessage,
+  type HadithUsage,
+} from './daily';
+import type { PrayerMethod, PrayerTimesDay } from './prayer';
 
 // ---------- پیکربندی از محیط ----------
 
@@ -141,8 +151,16 @@ const CFG = {
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
   promptsFile: process.env.BOT_PROMPTS_FILE || 'bot/prompts.json',
-  // ── حالت کانال (خواستهٔ ۹ نوامبر ۲۰۲۶): «هیچ خبری ارسال نشه — فقط تحلیل جامع» ──
-  channelMode: (process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase() === 'news' ? 'news' : 'analysis',
+  // ── حالت کانال: bundle = بست نیم‌ساعتهٔ خبر+توییت | analysis = فقط تحلیل جامع+بازار | news = خبر پیاپی ──
+  channelMode: (['bundle', 'analysis', 'news'].includes((process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase())
+    ? (process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase()
+    : 'analysis') as 'bundle' | 'analysis' | 'news',
+  // فاصلهٔ حداقلی ارسال بست (دقیقه) — چرخه ~۱۰ دقیقه‌ای است؛ ۲۸ دقیقه = تقریباً هر نیم ساعت
+  bundleMinMinutes: Math.max(10, Math.min(120, Number(process.env.BUNDLE_MINUTES || 28) || 28)),
+  // کانال‌های اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — خواستهٔ کاربر: کانال آخرین خودرو
+  saleChannels: (process.env.SALE_CHANNELS || 'Akharin_khodro').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
+  // تنظیمات پیام‌های روزانه (صبحگاهی/شبانگاهی) — فایل مدیریت‌شدهٔ اپلیکیشن، در ریپو کامیت می‌شود
+  dailySettingsFile: process.env.BOT_DAILY_SETTINGS_FILE || 'bot/daily-settings.json',
   // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار (پیش‌فرض ظهر ۱۲:۳۰ و شب ۲۱)
   digestSlots: parseSlots(process.env.DIGEST_HOURS, '8,14,20'),
   priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
@@ -521,8 +539,136 @@ export interface BotState {
   lastPriceKey?: string;
   /** قیمت‌های آخرین گزارش بازار — پایهٔ «درصد تغییر از خبر قبلی» (خواستهٔ کاربر) */
   priceSnap?: Record<string, number>;
+  /** صف بست نیم‌ساعته — حالت bundle (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) */
+  bundleQueue?: BundleItem[];
+  /** آخرین ارسال بست (ISO) — ریتم ~۳۰ دقیقه */
+  lastBundleAt?: string;
+  /** انبار ماندگار قیمت خودرو — پرتیراژها همیشه در گزارش بازار (خواستهٔ کاربر) */
+  carStore?: CarStore;
+  /** شناسهٔ اطلاعیه‌های فروش دیده‌شده — ضدتکرار هشدارها (۷ روز نگه‌داشت) */
+  saleAlertIds?: Record<string, number>;
+  /** پیام‌های روزانه — احادیث استفاده‌شده (هرگز هرس نمی‌شود)، تصاویر، سوابق انتشار */
+  daily?: DailyBotState;
   lastRunAt?: string;
   lastRun?: Record<string, unknown>;
+}
+
+// ---------- پیام‌های روزانه — state (دفتر کل ماندگار در ریپو) ----------
+
+export interface DailyRunEntry {
+  dateKey: string;
+  kind: 'morning' | 'evening';
+  slotKey: string;
+  /** sent | failed | skipped | preview */
+  status: string;
+  isTest: boolean;
+  hadithId?: string;
+  imageUrl?: string;
+  prayerTimes?: PrayerTimesDay;
+  error?: string;
+  at: string;
+}
+
+export interface DailyBotState {
+  lastMorningKey?: string;
+  lastEveningKey?: string;
+  /** احادیث استفاده‌شده — هرگز هرس نمی‌شود؛ ضدتکرار مطلق حتی پس از ری‌استارت (کامیت ریپو) */
+  usedHadiths: Record<string, HadithUsage>;
+  /** نشانگر چرخش چهارده معصوم ۰..۱۳ — انتخاب متعادل */
+  infallibleCursor: number;
+  /** تصاویر استفاده‌شده — ضدتکرار تصویر روزها */
+  usedImages: Record<string, { dateKey: string; kind: string }>;
+  /** سوابق انتشار — آخرین ۱۵۰ نوبت */
+  runs: DailyRunEntry[];
+}
+
+export interface DailySettingsFile {
+  morningEnabled: boolean;
+  eveningEnabled: boolean;
+  morningHour: string;
+  eveningHour: string;
+  timezone: string;
+  city: string;
+  lat: number;
+  lon: number;
+  prayerMethod: PrayerMethod;
+  fajrAngle: number;
+  ishaAngle: number;
+  maghribMinutes: number;
+  qamariBasis: QamariBasis;
+}
+
+export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
+  morningEnabled: true,
+  eveningEnabled: true,
+  morningHour: '05:00',
+  eveningHour: '20:00',
+  timezone: 'Asia/Tehran',
+  city: 'تهران',
+  lat: 35.6892,
+  lon: 51.389,
+  prayerMethod: 'tehran',
+  fajrAngle: 17.7,
+  ishaAngle: 14,
+  maghribMinutes: 15,
+  qamariBasis: 'umalqura',
+};
+
+const HHMM_RE = /^([01]?\d|2[0-3]):[0-5]\d$/;
+
+/** بارگذاری تنظیمات پیام‌های روزانه — فایل خراب/نبود → پیش‌فرض‌ها */
+export function loadDailySettings(file: string): DailySettingsFile {
+  try {
+    if (!existsSync(file)) return { ...DAILY_SETTINGS_DEFAULTS };
+    const raw = JSON.parse(readFileSync(file, 'utf8')) as Partial<DailySettingsFile>;
+    const out = { ...DAILY_SETTINGS_DEFAULTS, ...raw };
+    if (!HHMM_RE.test(out.morningHour)) out.morningHour = DAILY_SETTINGS_DEFAULTS.morningHour;
+    if (!HHMM_RE.test(out.eveningHour)) out.eveningHour = DAILY_SETTINGS_DEFAULTS.eveningHour;
+    if (out.timezone && !/^[\w\-+/]+$/.test(out.timezone)) out.timezone = DAILY_SETTINGS_DEFAULTS.timezone;
+    if (!Number.isFinite(out.lat) || Math.abs(out.lat) > 90) out.lat = DAILY_SETTINGS_DEFAULTS.lat;
+    if (!Number.isFinite(out.lon) || Math.abs(out.lon) > 180) out.lon = DAILY_SETTINGS_DEFAULTS.lon;
+    if (!['tehran', 'mwl', 'custom'].includes(out.prayerMethod)) out.prayerMethod = 'tehran';
+    if (!['umalqura', 'civil'].includes(out.qamariBasis)) out.qamariBasis = 'umalqura';
+    return out;
+  } catch {
+    return { ...DAILY_SETTINGS_DEFAULTS };
+  }
+}
+
+/** تضمین ساختار state روزانه */
+export function ensureDaily(st: BotState): DailyBotState {
+  if (!st.daily || typeof st.daily !== 'object') st.daily = { usedHadiths: {}, infallibleCursor: 0, usedImages: {}, runs: [] } as DailyBotState;
+  const d = st.daily;
+  if (!d.usedHadiths || typeof d.usedHadiths !== 'object') d.usedHadiths = {};
+  if (typeof d.infallibleCursor !== 'number') d.infallibleCursor = 0;
+  if (!d.usedImages || typeof d.usedImages !== 'object') d.usedImages = {};
+  if (!Array.isArray(d.runs)) d.runs = [];
+  return d;
+}
+
+const DAILY_RUNS_CAP = 150;
+const DAILY_IMAGES_CAP = 400;
+
+/** هرس state روزانه — سوابق به سقف؛ احادیث هرگز هرس نمی‌شوند (بانک محدود است) */
+export function trimDailyState(d: DailyBotState): void {
+  if (d.runs.length > DAILY_RUNS_CAP) d.runs = d.runs.slice(-DAILY_RUNS_CAP);
+  const keys = Object.keys(d.usedImages);
+  if (keys.length > DAILY_IMAGES_CAP) {
+    const sorted = keys.sort((a, b) => (d.usedImages[a]?.dateKey || '').localeCompare(d.usedImages[b]?.dateKey || ''));
+    for (const k of sorted.slice(0, keys.length - DAILY_IMAGES_CAP)) delete d.usedImages[k];
+  }
+}
+
+/** اجزای زمان یک منطقهٔ زمانی دلخواه — نسخهٔ پارامتری tehranParts */
+export function tzPartsOf(now: number, tz: string): TehranParts {
+  const dateKey = dateKeyOf(now, tz);
+  const hhmm = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour12: false, hour: '2-digit', minute: '2-digit' }).format(now);
+  const [hh, mm] = hhmm.split(':').map(Number);
+  let dateFa = '';
+  try {
+    dateFa = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { timeZone: tz, day: 'numeric', month: 'long' }).format(now);
+  } catch { dateFa = ''; }
+  return { dateKey, hhmm, minutes: hh * 60 + mm, dateFa };
 }
 
 // نگه‌داشت ۳۶ ساعته (پنجرهٔ خبر ۳ ساعت است + حاشیهٔ امن) — حجم state و رشد ریپو گیت‌هاب کنترل می‌شود
@@ -549,6 +695,11 @@ export function loadState(path: string): BotState {
       lastDigestKey: typeof raw.lastDigestKey === 'string' ? raw.lastDigestKey : undefined,
       lastPriceKey: typeof raw.lastPriceKey === 'string' ? raw.lastPriceKey : undefined,
       priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
+      bundleQueue: Array.isArray(raw.bundleQueue) ? (raw.bundleQueue as BundleItem[]) : [],
+      lastBundleAt: typeof raw.lastBundleAt === 'string' ? raw.lastBundleAt : undefined,
+      carStore: raw.carStore && typeof raw.carStore === 'object' ? (raw.carStore as CarStore) : undefined,
+      saleAlertIds: raw.saleAlertIds && typeof raw.saleAlertIds === 'object' ? (raw.saleAlertIds as Record<string, number>) : undefined,
+      daily: raw.daily && typeof raw.daily === 'object' ? raw.daily : undefined,
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
@@ -599,6 +750,12 @@ export function mergeSentState(
     lastDigestKey: st.lastDigestKey,
     lastPriceKey: st.lastPriceKey,
     priceSnap: st.priceSnap,
+    // فیلدهای بست/خودرو/اطلاعیه/روزانه — دست‌نخورده
+    bundleQueue: st.bundleQueue,
+    lastBundleAt: st.lastBundleAt,
+    carStore: st.carStore,
+    saleAlertIds: st.saleAlertIds,
+    daily: st.daily,
   };
 }
 
@@ -1503,6 +1660,12 @@ export interface RunSummary {
   priceSent?: boolean;
   dryRun?: boolean;
   error?: string;
+  // پیام‌های روزانه / بست نیم‌ساعته / اطلاعیهٔ فروش (خواستهٔ ۱۰ نوامبر ۲۰۲۶)
+  dailySent?: string;
+  queued?: number;
+  bundleSent?: boolean;
+  bundleItems?: number;
+  saleAlertsSent?: number;
 }
 
 /** کشف چت‌های ربات از getUpdates — برای یافتن شناسهٔ کانال‌ها (حالت --discover-chats).
@@ -1548,6 +1711,227 @@ export async function diagnoseChain(): Promise<void> {
     const r = await rawCall(p, 'فقط خود کلمه را پاسخ بده', 'سلام — فقط بنویس: سلام', 30_000, 40);
     console.log(`  ${p.id}${p.model ? `/${p.model}` : ''}: ${r.ok ? 'OK' : `FAIL — ${r.error}`} (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
     if (!r.ok) await sleep(1500);
+  }
+}
+
+// ---------- اسلات‌های تحلیل جامع و گزارش بازار — مشترک میان حالت analysis و bundle ----------
+
+export interface SlotsCtx {
+  state: BotState;
+  summary: RunSummary;
+  sentIds: string[];
+  sentTitles: string[];
+  sentTitleTexts: string[];
+  dryRun: boolean;
+}
+
+export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
+  const { state, summary } = ctx;
+  const pool = Array.isArray(state.pool) ? state.pool : [];
+
+  // ۴) تحلیل جامع — اسلات تهران (پیش‌فرض ۸ و ۱۴ و ۲۰ — DIGEST_HOURS) یا ارسال فوری
+  //    (--force-digest / FORCE_DIGEST — dispatch آزمون، مستقل از اسلات‌ها)
+  const forceDigest = process.argv.includes('--force-digest') || process.env.FORCE_DIGEST === '1';
+  const dKey = forceDigest
+    ? `force-${new Date().toISOString().slice(0, 16)}`
+    : dueSlotKey(Date.now(), CFG.digestSlots, state.lastDigestKey);
+  if (dKey && ctx.dryRun) {
+    console.log(`=== DRY_RUN — پیش‌نمایش پیکرهٔ تحلیل جامع (اسلات ${dKey}) ===`);
+    console.log(poolCorpus(pool, 12, 200).slice(0, 2400));
+    console.log('=== پایان پیش‌نمایش ===');
+  } else if (dKey && pool.length >= 5) {
+    const p = tehranParts(Date.now());
+    const corpus = poolCorpus(pool, 60, 480);
+    const userMsg = `تاریخ تهران: ${p.dateFa} — ساعت ${p.hhmm}\n\nرویدادهای تازه (هر سطر: شماره — منبع | دسته — متن):\n\n${corpus}`;
+    const t0 = Date.now();
+    const r = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000 });
+    const text = r.ok ? validateDigestText(r.content) : null;
+    summary.digestProvider = r.providerId;
+    console.log(`تحلیل جامع: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+    if (text) {
+      const label = dKey.startsWith('force') ? 'فوری' : slotLabel(dKey.split('T')[1] || '08:00');
+      const full = `🧭 <b>تحلیل جامع رصدبان</b> — ${esc(label)} ${esc(p.dateFa)}\n\n${esc(text)}`;
+      let ok = false;
+      for (const t of CFG.targets) {
+        const s = await sendBaleMessage(CFG.token, t, full);
+        if (s.ok) ok = true;
+        else console.error(`❌ ارسال تحلیل جامع به ${t} ناموفق: ${s.error}`);
+      }
+      if (ok) {
+        summary.digestSent = true;
+        state.lastDigestKey = dKey;
+        // همهٔ رویدادهای استخر علامت ارسال می‌خورند (ضدتکرار چرخه‌های بعد) + استخر خالی
+        for (const pi of state.pool || []) {
+          ctx.sentIds.push(pi.id);
+          ctx.sentTitles.push(pi.titleKey);
+          ctx.sentTitleTexts.push(normalizeTitle(pi.text).slice(0, 160));
+        }
+        state.pool = [];
+        summary.poolSize = 0;
+      }
+    } else {
+      summary.aiFailed = true;
+      if (r.error) console.error(`❌ زنجیرهٔ تحلیل جامع ناموفق: ${r.error}`);
+    }
+  } else if (dKey) {
+    console.log(`اسلات تحلیل جامع رسید ولی استخر کوچک است (${pool.length}) — چرخهٔ بعد تلاش می‌کند`);
+  }
+
+  // ۵) گزارش بازار — اسلات ظهر/شب (پیش‌فرض ۱۲:۳۰ و ۲۱ — PRICE_HOURS)
+  //    خودرو (انبار ماندگار — پرتیراژها همیشه) + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju)
+  //    + شاخص بورس (تستمسن → tgju) + برنت — درصد تغییر هر قلم نسبت به گزارش قبلی (state.priceSnap)
+  const forcePrice = process.argv.includes('--force-digest') || process.env.FORCE_PRICE === '1';
+  const pKey = forcePrice
+    ? `force-price-${new Date().toISOString().slice(0, 16)}`
+    : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
+  if (pKey) {
+    const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
+    const pNow = tehranParts(Date.now());
+    const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: pNow.hhmm };
+    if (ctx.dryRun) {
+      console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
+      console.log(formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts));
+      console.log('=== پایان پیش‌نمایش ===');
+    } else if (md.quotes.length >= 3) {
+      const msg = formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts);
+      let ok = false;
+      for (const t of CFG.targets) {
+        const s = await sendBaleMessage(CFG.token, t, msg);
+        if (s.ok) ok = true;
+        else console.error(`❌ ارسال گزارش بازار به ${t} ناموفق: ${s.error}`);
+      }
+      if (ok) {
+        summary.priceSent = true;
+        state.lastPriceKey = pKey;
+        state.priceSnap = snapshotOf(md.quotes);
+        state.carStore = md.carStore || state.carStore;
+        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+      }
+    } else {
+      console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
+    }
+  }
+}
+
+// ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
+
+const SALE_KEYWORDS = ['پیش‌فروش', 'پیش فروش', 'پیشفروش', 'اطلاعیه فروش', 'اطلاعیه‌ی فروش', 'شرایط فروش', 'شروع فروش', 'فروش اقساطی', 'عرضه خودرو', 'قرعه‌کشی', 'زمان فروش'];
+
+export function parseSaleAnnouncements(posts: ParsedTgPost[], seen: Record<string, number>, now = Date.now()): { fresh: ParsedTgPost[]; seen: Record<string, number> } {
+  const out: Record<string, number> = {};
+  for (const [k, ts] of Object.entries(seen || {})) if (now - ts < 7 * 86_400_000) out[k] = ts; // هرس ۷ روزه — کهنه‌ها دوباره «تازه» می‌شوند
+  const fresh: ParsedTgPost[] = [];
+  for (const p of posts) {
+    const isNew = !(p.dataPost in out); // مقایسه با نقشهٔ هرس‌شده — نه ورودی خام
+    out[p.dataPost] = now;
+    if (!isNew) continue;
+    const text = p.text || '';
+    if (text.length < 40) continue;
+    if (!SALE_KEYWORDS.some((kw) => text.includes(kw))) continue;
+    fresh.push(p);
+  }
+  const entries = Object.entries(out).sort((a, b) => b[1] - a[1]).slice(0, 300);
+  return { fresh, seen: Object.fromEntries(entries) };
+}
+
+/** بررسی هر چرخه — اطلاعیهٔ تازه فوراً اعلام می‌شود (سقف ۲ در هر چرخه — بدون اسپم) */
+export async function runSaleAlerts(state: BotState, summary: RunSummary): Promise<void> {
+  if (CFG.saleChannels.length === 0) return;
+  const posts: ParsedTgPost[] = [];
+  for (const ch of CFG.saleChannels.slice(0, 3)) {
+    const r = await fetchText(`https://t.me/s/${ch}`, 12_000);
+    if (r.ok && r.text) posts.push(...parseTelegramPage(r.text));
+    else console.warn(`⚠️ اطلاعیهٔ فروش کانال ${ch}: ${r.error || 'ناموفق'} (صادقانه)`);
+  }
+  if (posts.length === 0) return;
+  const res = parseSaleAnnouncements(posts, state.saleAlertIds || {});
+  state.saleAlertIds = res.seen;
+  for (const p of res.fresh.slice(0, 2)) {
+    const src = p.dataPost.split('/')[0] || CFG.saleChannels[0];
+    const msg = [
+      '🚗 <b>اطلاعیه فروش/پیش‌فروش خودرو</b>',
+      '',
+      esc(p.text.slice(0, 3200)),
+      '',
+      `🔗 منبع: t.me/${src}`,
+    ].join('\n');
+    for (const t of CFG.targets) {
+      const s = await sendBaleMessage(CFG.token, t, msg);
+      if (!s.ok) console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
+    }
+    summary.saleAlertsSent = (summary.saleAlertsSent || 0) + 1;
+    console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}`);
+    await sleep(700);
+  }
+  if (res.fresh.length > 2) console.log(`${res.fresh.length - 2} اطلاعیهٔ دیگر به چرخهٔ بعد ماند (سقف هر چرخه ۲)`);
+}
+
+// ---------- پیام‌های روزانه — صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ به وقت کانال ----------
+
+export async function runDailyMessages(state: BotState, summary: RunSummary): Promise<void> {
+  const dSettings = loadDailySettings(CFG.dailySettingsFile);
+  const daily = ensureDaily(state);
+  const pNow = tzPartsOf(Date.now(), dSettings.timezone);
+  for (const kind of ['morning', 'evening'] as const) {
+    const enabled = kind === 'morning' ? dSettings.morningEnabled : dSettings.eveningEnabled;
+    const slot = kind === 'morning' ? dSettings.morningHour : dSettings.eveningHour;
+    if (!enabled) continue;
+    const lastKey = kind === 'morning' ? daily.lastMorningKey : daily.lastEveningKey;
+    const dKey = dueSlotKey(Date.now(), [slot], lastKey, pNow);
+    if (!dKey) continue;
+    const label = kind === 'morning' ? 'صبحگاهی' : 'شبانگاهی';
+    const bank = bankStatus(daily.usedHadiths);
+    const pick = pickHadith({ kind, dateKey: pNow.dateKey, usedHadithIds: daily.usedHadiths, infallibleCursor: daily.infallibleCursor });
+    if (!pick) {
+      console.error(`❌ پیام ${label}: بانک احادیث به پایان رسیده است (${bank.used}/${bank.total}) — پیام بدون حدیث منتشر نمی‌شود (هیچ ساختگی)`);
+      daily.runs.push({ dateKey: pNow.dateKey, kind, slotKey: dKey, status: 'failed', isTest: false, error: 'بانک احادیث به پایان رسیده است', at: new Date().toISOString() });
+      trimDailyState(daily);
+      continue;
+    }
+    console.log(`پیام ${label}: اسلات ${dKey} — حدیث ${pick.hadith.id} از ${pick.hadith.narrator}`);
+    const img = await fetchNatureImage(kind, pNow.dateKey, daily.usedImages).catch(() => null);
+    if (!img) console.warn(`⚠️ تصویر طبیعت دریافت نشد — پیام ${label} بدون عکس ارسال می‌شود (صادقانه)`);
+    const msg = await buildDailyMessage({
+      kind, dateKey: pNow.dateKey, tz: dSettings.timezone, qamariBasis: dSettings.qamariBasis, city: dSettings.city,
+      prayer: { lat: dSettings.lat, lon: dSettings.lon, method: dSettings.prayerMethod, fajrAngle: dSettings.fajrAngle, ishaAngle: dSettings.ishaAngle, maghribMinutes: dSettings.maghribMinutes, tz: dSettings.timezone },
+      hadith: pick.hadith, image: img,
+    });
+    if (CFG.dryRun) {
+      console.log(`=== DRY_RUN — پیش‌نمایش پیام ${label} (اسلات ${dKey}) ===`);
+      console.log(msg.text.replace(/<[^>]+>/g, ''));
+      if (msg.photoUrl) console.log(`[عکس] ${msg.photoUrl}`);
+      console.log('=== پایان پیش‌نمایش ===');
+      daily.runs.push({ dateKey: pNow.dateKey, kind, slotKey: dKey, status: 'preview', isTest: true, hadithId: pick.hadith.id, imageUrl: img?.imageKey, at: new Date().toISOString() });
+      trimDailyState(daily);
+      continue;
+    }
+    let ok = false;
+    let lastErr = '';
+    for (const t of CFG.targets) {
+      const s = await sendBaleMessage(CFG.token, t, msg.text);
+      if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیام ${label} به ${t}: ${lastErr}`); continue; }
+      ok = true;
+      if (msg.photoUrl) {
+        const ph = await sendBalePhotoLadder(CFG.token, t, msg.photoUrl, msg.photoCaption);
+        if (!ph.ok) console.warn(`⚠️ ارسال عکس ${label} ناموفق (${ph.error}) — متن پیام ارسال شده است`);
+      }
+    }
+    if (ok) {
+      if (kind === 'morning') daily.lastMorningKey = dKey;
+      else daily.lastEveningKey = dKey;
+      daily.usedHadiths[pick.hadith.id] = { id: pick.hadith.id, dateKey: pNow.dateKey, kind };
+      daily.infallibleCursor = pick.nextCursor;
+      if (img) daily.usedImages[img.imageKey] = { dateKey: pNow.dateKey, kind };
+      daily.runs.push({ dateKey: pNow.dateKey, kind, slotKey: dKey, status: 'sent', isTest: false, hadithId: pick.hadith.id, imageUrl: img?.imageKey, at: new Date().toISOString() });
+      summary.dailySent = kind;
+      const b2 = bankStatus(daily.usedHadiths);
+      console.log(`✅ پیام ${label} ارسال شد — حدیث ثبت شد (${b2.used}/${b2.total}، مانده ${b2.remaining})`);
+    } else {
+      daily.runs.push({ dateKey: pNow.dateKey, kind, slotKey: dKey, status: 'failed', isTest: false, hadithId: pick.hadith.id, error: lastErr || 'هیچ مقصدی موفق نشد', at: new Date().toISOString() });
+      console.error(`❌ پیام ${label} ارسال نشد — چرخهٔ بعد تلاش می‌کند`);
+    }
+    trimDailyState(daily);
+    await sleep(500);
   }
 }
 
@@ -1646,6 +2030,15 @@ async function main(): Promise<void> {
     Object.assign(validCategoryRoutes, CFG.categories);
   }
 
+  // بارگذاری state یک‌بار در ابتدای چرخه — پیام‌های روزانه و ضدتکرار همه از همین
+  const state = loadState(CFG.stateFile);
+  ensureDaily(state);
+
+  // ── پیام‌های روزانه: صبحگاهی ۰۵:۰۰ / شبانگاهی ۲۰:۰۰ به وقت کانال (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ──
+  //  پیش از جمع‌آوری خبر اجرا می‌شود تا پیام ۰۵:۰۰ با تأخیر جمع‌آوری معوق نماند؛
+  //  ضدتکرار مطلق احادیث در state.daily (کامیت ریپو) — پس از ری‌استارت هم می‌ماند.
+  await runDailyMessages(state, summary);
+
   // ۱) منابع
   const srcs = (JSON.parse(readFileSync(CFG.sourcesFile, 'utf8')) as BotSource[])
     .filter((s) => s.platform === 'rss' || s.platform === 'telegram');
@@ -1667,7 +2060,6 @@ async function main(): Promise<void> {
   console.log(`در پنجرهٔ ${CFG.windowHours} ساعته: ${inWindow.length}`);
 
   // ۴) ضدتکرار بین‌چرخه‌ای + درون‌بازه — هم هش دقیق و هم شباهت متن با ارسال‌های ۳۶ ساعت اخیر
-  const state = loadState(CFG.stateFile);
   const titleSets = Object.keys(state.sentTitleTexts).map((t) => tokensOf(t));
   const seenTitles = new Set<string>();
   const fresh: BotItem[] = [];
@@ -1683,6 +2075,28 @@ async function main(): Promise<void> {
 
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
+
+  // ── حالت بست نیم‌ساعته (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶): «کل اخبارها و توییتهای اون نیم ساعت
+  //  رو داخل بستت بزاری با همون خلاصه و تحلیل» — پیام‌ها به صف می‌روند و هر ~۳۰ دقیقه یک بست
+  const bundleMode = CFG.channelMode === 'bundle';
+  const queue = Array.isArray(state.bundleQueue) ? state.bundleQueue : [];
+  state.bundleQueue = queue;
+  if (bundleMode && groups.length > 0) {
+    // رویدادها برای اسلات‌های تحلیل جامع هم در استخر می‌مانند (بست و تحلیل مستقل‌اند)
+    const poolRes = addToPool(Array.isArray(state.pool) ? state.pool : [], groups.map((g) => ({
+      id: g.primary.id,
+      titleKey: g.primary.titleKey,
+      source: g.primary.sourceName,
+      cat: g.primary.category,
+      lang: g.primary.language,
+      text: g.primary.content,
+      fa: g.primary.translationFa,
+      at: (g.primary.publishedAt || new Date()).toISOString(),
+      url: g.primary.url,
+    })), CFG.poolCap);
+    state.pool = poolRes.pool;
+    console.log(`استخر تحلیل (حالت بست): +${poolRes.added} — کل ${enToFaDigits(String(state.pool.length))}`);
+  }
 
   // ── حالت «تحلیل جامع» (خواستهٔ صریح کاربر ۹ نوامبر ۲۰۲۶): «هیچ خبری داخل کانال ارسال نشه —
   //  فقط همین تحلیل جامع ارسال بشه» + گزارش بازار ظهر و شب ──
@@ -1786,87 +2200,10 @@ async function main(): Promise<void> {
       if (twRes.added > 0) console.log(`توییت‌ها به استخر تحلیل اضافه شد: +${twRes.added}`);
     }
 
-    // ۴) تحلیل جامع — اسلات تهران (پیش‌فرض ۸ و ۱۴ و ۲۰ — DIGEST_HOURS) یا ارسال فوری
-    //    (--force-digest / FORCE_DIGEST — dispatch آزمون، مستقل از اسلات‌ها)
-    const forceDigest = process.argv.includes('--force-digest') || process.env.FORCE_DIGEST === '1';
-    const dKey = forceDigest
-      ? `force-${new Date().toISOString().slice(0, 16)}`
-      : dueSlotKey(Date.now(), CFG.digestSlots, state.lastDigestKey);
-    if (dKey && CFG.dryRun) {
-      console.log(`=== DRY_RUN — پیش‌نمایش پیکرهٔ تحلیل جامع (اسلات ${dKey}) ===`);
-      console.log(poolCorpus(state.pool, 12, 200).slice(0, 2400));
-      console.log('=== پایان پیش‌نمایش ===');
-    } else if (dKey && state.pool.length >= 5) {
-      const p = tehranParts(Date.now());
-      const corpus = poolCorpus(state.pool, 60, 480);
-      const userMsg = `تاریخ تهران: ${p.dateFa} — ساعت ${p.hhmm}\n\nرویدادهای تازه (هر سطر: شماره — منبع | دسته — متن):\n\n${corpus}`;
-      const t0 = Date.now();
-      const r = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000 });
-      const text = r.ok ? validateDigestText(r.content) : null;
-      summary.digestProvider = r.providerId;
-      console.log(`تحلیل جامع: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
-      if (text) {
-        const label = dKey.startsWith('force') ? 'فوری' : slotLabel(dKey.split('T')[1] || '08:00');
-        const full = `🧭 <b>تحلیل جامع رصدبان</b> — ${esc(label)} ${esc(p.dateFa)}\n\n${esc(text)}`;
-        let ok = false;
-        for (const t of CFG.targets) {
-          const s = await sendBaleMessage(CFG.token, t, full);
-          if (s.ok) ok = true;
-          else console.error(`❌ ارسال تحلیل جامع به ${t} ناموفق: ${s.error}`);
-        }
-        if (ok) {
-          summary.digestSent = true;
-          state.lastDigestKey = dKey;
-          // همهٔ رویدادهای استخر علامت ارسال می‌خورند (ضدتکرار چرخه‌های بعد) + استخر خالی
-          for (const pi of state.pool) {
-            sentIds.push(pi.id);
-            sentTitles.push(pi.titleKey);
-            sentTitleTexts.push(normalizeTitle(pi.text).slice(0, 160));
-          }
-          state.pool = [];
-          summary.poolSize = 0;
-        }
-      } else {
-        summary.aiFailed = true;
-        if (r.error) console.error(`❌ زنجیرهٔ تحلیل جامع ناموفق: ${r.error}`);
-      }
-    } else if (dKey) {
-      console.log(`اسلات تحلیل جامع رسید ولی استخر کوچک است (${state.pool.length}) — چرخهٔ بعد تلاش می‌کند`);
-    }
+    await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: CFG.dryRun });
 
-    // ۵) گزارش بازار — اسلات ظهر/شب (پیش‌فرض ۱۲:۳۰ و ۲۱ — PRICE_HOURS)
-    //    خودرو + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju) + شاخص بورس (تستمسن → tgju) + برنت
-    //    درصد تغییر هر قلم نسبت به گزارش قبلی رصدبان (state.priceSnap — خواستهٔ کاربر)
-    const forcePrice = process.argv.includes('--force-digest') || process.env.FORCE_PRICE === '1';
-    const pKey = forcePrice
-      ? `force-price-${new Date().toISOString().slice(0, 16)}`
-      : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
-    if (pKey) {
-      const md = await fetchMarketData({ carChannels: CFG.carChannels });
-      const pNow = tehranParts(Date.now());
-      const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: pNow.hhmm };
-      if (CFG.dryRun) {
-        console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
-        console.log(formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts));
-        console.log('=== پایان پیش‌نمایش ===');
-      } else if (md.quotes.length >= 3) {
-        const msg = formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts);
-        let ok = false;
-        for (const t of CFG.targets) {
-          const s = await sendBaleMessage(CFG.token, t, msg);
-          if (s.ok) ok = true;
-          else console.error(`❌ ارسال گزارش بازار به ${t} ناموفق: ${s.error}`);
-        }
-        if (ok) {
-          summary.priceSent = true;
-          state.lastPriceKey = pKey;
-          state.priceSnap = snapshotOf(md.quotes);
-          console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
-        }
-      } else {
-        console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
-      }
-    }
+    // اطلاعیه‌های فروش/پیش‌فروش خودرو — حالت تحلیل هم فعال است (خواسته‌ی کاربر)
+    await runSaleAlerts(state, summary);
 
     // ۶) ثبت state و خلاصه
     const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts });
@@ -1885,11 +2222,14 @@ async function main(): Promise<void> {
   console.log(`گزینش نهایی: ${ordered.length} رویداد (داخلی ایران: ${domCount} — سهمیهٔ الزامی ${CFG.minDomestic})`);
 
   if (ordered.length === 0) {
-    console.log('هیچ خبر تازهٔ قابل ارسالی نبود — پایان چرخه.');
-    state.lastRunAt = new Date().toISOString();
-    state.lastRun = { ...summary, sent: 0 };
-    saveState(CFG.stateFile, state);
-    return;
+    if (!bundleMode) {
+      console.log('هیچ خبر تازهٔ قابل ارسالی نبود — پایان چرخه.');
+      state.lastRunAt = new Date().toISOString();
+      state.lastRun = { ...summary, sent: 0 };
+      saveState(CFG.stateFile, state);
+      return;
+    }
+    console.log('هیچ خبر تازهٔ قابل ارسالی نبود — بست خالی ارسال نمی‌شود؛ توییت‌ها و اسلات‌ها ادامه می‌یابند');
   }
 
   // ۶) ترجمهٔ دسته‌جمعی تیترهای غیرفارسی (یک فراخوانی سبک — بدون OpenRouter)
@@ -1951,29 +2291,36 @@ async function main(): Promise<void> {
 
   let one: OneShotOut | null = null;
   let aiProvider: string | undefined;
+  let aiError = 'بدون خبر تازه';
   const aiStart = Date.now();
-  // سقف خروجی ۸۰۰۰ توکن — مدل باید «متن کامل» همهٔ رویدادها را بنویسد، نه چکیده
-  const aiRes = await chainCall(getOneshotPrompt(), oneShotUser, { maxTokens: 8000 });
-  if (aiRes.ok && aiRes.content) {
-    one = extractJson(aiRes.content, (x) => validateOneShot(x, allowedCats));
-    aiProvider = aiRes.providerId;
-    if (!one) console.warn('⚠️ پاسخ مدل قابل تجزیه نبود — مسیر خام');
+  if (ordered.length > 0) {
+    // سقف خروجی ۸۰۰۰ توکن — مدل باید «متن کامل» همهٔ رویدادها را بنویسد، نه چکیده
+    const aiRes = await chainCall(getOneshotPrompt(), oneShotUser, { maxTokens: 8000 });
+    if (aiRes.ok && aiRes.content) {
+      one = extractJson(aiRes.content, (x) => validateOneShot(x, allowedCats));
+      aiProvider = aiRes.providerId;
+      if (!one) console.warn('⚠️ پاسخ مدل قابل تجزیه نبود — مسیر خام');
+    }
+    if (!one && aiRes.error) console.error(`❌ زنجیرهٔ مدل ناموفق: ${aiRes.error}`); // شفافیت کامل خطای هر تأمین‌کننده در لاگ
+    aiError = aiRes.error || 'پاسخ مدل قابل تجزیه نبود';
   }
-  if (!one && aiRes.error) console.error(`❌ زنجیرهٔ مدل ناموفق: ${aiRes.error}`); // شفافیت کامل خطای هر تأمین‌کننده در لاگ
   summary.aiProvider = aiProvider;
-  summary.aiFailed = !one;
+  summary.aiFailed = !one && ordered.length > 0;
   console.log(`فراخوانی مدل: ${one ? `موفق (${aiProvider})` : 'ناموفق'} — ${((Date.now() - aiStart) / 1000).toFixed(1)}s`);
 
   // ۹) ارسال — مسیریابی چنددسته‌ای: هر بخش خبری به بات/کانال خودش (خواستهٔ کاربر)
   const priorMsgTexts = Object.keys(state.sentMsgTexts);
   if (CFG.dryRun) {
     console.log('=== DRY_RUN — پیش‌نمایش پیام‌ها (بدون ارسال) ===');
+    const previewItems: string[] = [];
     if (one && one.items.length) {
       const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
       console.log(`برنامهٔ ارسال: ${sends.length} پیام (حذف: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه)`);
       for (const s of sends) {
         console.log('---');
-        console.log(composeGroupMessage(s.g, s.text, s.verdict, 3400));
+        const m = composeGroupMessage(s.g, s.text, s.verdict, 3400);
+        console.log(m);
+        previewItems.push(m);
         const cat = s.cat || s.g.primary.category || 'general';
         const route = validCategoryRoutes[cat];
         console.log(`[مسیر: ${catTitles.get(cat) || cat}${route ? ' — بات اختصاصی' : ' — مقصد پیش‌فرض'}]`);
@@ -1986,9 +2333,20 @@ async function main(): Promise<void> {
         const fa = fluentFaText(g);
         console.log('---');
         if (!fa) { console.log(`[ناموفق در ترجمه — ارسال نمی‌شود] ${g.primary.sourceName}`); continue; }
-        console.log(composeGroupMessage(g, fa, undefined, 3400));
+        const m = composeGroupMessage(g, fa, undefined, 3400);
+        console.log(m);
+        previewItems.push(m);
         if (g.primary.imageUrl) console.log(`[عکس خود خبر] ${g.primary.imageUrl}`);
       }
+    }
+    if (bundleMode) {
+      console.log(`=== پیش‌نمایش بست نیم‌ساعته: ${enToFaDigits(String(previewItems.length))} مورد ===`);
+      const chunks = buildBundleChunks(previewItems, { maxLen: 3300 });
+      for (const c of chunks) {
+        console.log('···');
+        console.log(c.replace(/<[^>]+>/g, ''));
+      }
+      await runDigestAndMarketSlots({ state, summary, sentIds: [], sentTitles: [], sentTitleTexts: [], dryRun: true });
     }
     console.log('=== پایان پیش‌نمایش ===');
     state.lastRunAt = new Date().toISOString();
@@ -2012,8 +2370,23 @@ async function main(): Promise<void> {
     return s.ok ? { ok: true } : { ok: false, error: s.error };
   };
 
-  /** ارسال به مقصدهای دستهٔ خبری — دسته با توکن اختصاصی → بات همان بخش؛ بی‌توکن/توکن خراب → مقصد پیش‌فرض */
+  /** ارسال به مقصدهای دستهٔ خبری — دسته با توکن اختصاصی → بات همان بخش؛ بی‌توکن/توکن خراب → مقصد پیش‌فرض.
+   *  حالت بست: پیام‌ها به صف نیم‌ساعته می‌روند و در پایان چرخه یک‌جا به‌صورت بست ارسال می‌شوند. */
   const sendForCategory = async (cat: string, text: string, imageUrl?: string): Promise<boolean> => {
+    if (bundleMode) {
+      queue.push({
+        kind: 'news',
+        text: imageUrl ? `${text}\n\n🖼 عکس خود خبر: ${imageUrl}` : text,
+        ids: [], titleKeys: [], titleTexts: [], cat,
+        queuedAt: new Date().toISOString(),
+      });
+      if (queue.length > 24) {
+        const dropped = queue.splice(0, queue.length - 24);
+        console.warn(`⚠️ سرریز صف بست — ${dropped.length} مورد قدیمی‌تر حذف شد`);
+      }
+      summary.queued = (summary.queued || 0) + 1;
+      return true;
+    }
     const route = validCategoryRoutes[cat];
     const token = route?.token || CFG.token;
     const targets = route?.targets || CFG.targets;
@@ -2073,7 +2446,6 @@ async function main(): Promise<void> {
     }
   } else {
     // مسیر شکست مدل — فقط خبرهای فارسیِ روان ارسال می‌شود؛ غیرفارسی بدون ترجمه هرگز نمی‌رود
-    const aiError = aiRes.error || 'پاسخ مدل قابل تجزیه نبود';
     const fluent = ordered.filter((g) => fluentFaText(g) !== null);
     const stuck = ordered.length - fluent.length;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
@@ -2165,6 +2537,39 @@ async function main(): Promise<void> {
     }
   } else if (tweetAccounts.length === 0) {
     console.log('توییت‌ها: فهرست حساب‌ها خالی است (bot/tweets.json) — این چرخه توییت نمی‌رود');
+  }
+
+  // ── اطلاعیه‌های فروش/پیش‌فروش خودرو — فوراً اعلام می‌شود (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ──
+  if (bundleMode) await runSaleAlerts(state, summary);
+
+  // ── بست نیم‌ساعتهٔ خبر و توییت — «کل اخبارها و توییتهای اون نیم ساعت داخل بست» ──
+  if (bundleMode) {
+    const flushDue = shouldFlushBundle(state.lastBundleAt, Date.now(), CFG.bundleMinMinutes);
+    if (flushDue && queue.length > 0) {
+      const chunks = buildBundleChunks(queue.map((q) => q.text), { fromIso: queue[0].queuedAt, toIso: queue[queue.length - 1].queuedAt, maxLen: 3300 });
+      let ok = false;
+      for (const c of chunks) {
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, c);
+          if (s.ok) ok = true;
+          else console.error(`❌ ارسال بست به ${t} ناموفق: ${s.error}`);
+        }
+        await sleep(600);
+      }
+      if (ok) {
+        summary.bundleSent = true;
+        summary.bundleItems = queue.length;
+        console.log(`🗞 بست نیم‌ساعته ارسال شد — ${queue.length} مورد در ${chunks.length} پیام`);
+        queue.length = 0;
+        state.lastBundleAt = new Date().toISOString();
+      } else {
+        console.warn('⚠️ ارسال بست ناموفق — صف برای چرخهٔ بعد می‌ماند');
+      }
+    } else if (flushDue) {
+      state.lastBundleAt = new Date().toISOString(); // ریتم نیم‌ساعت — بست خالی ارسال نمی‌شود
+    }
+    // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند
+    await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
 
   // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد

@@ -535,3 +535,80 @@ model PostReference {
   @@index([postId])
   @@index([verdict])
 }
+
+// ---------- پیام‌های روزانه (صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰) — خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶ ----------
+// تنظیمات کانال: ساعت ارسال، منطقه زمانی، شهر و مختصات اوقات شرعی، روش محاسبه
+// دفتر کل واقعی ربات = bot/daily-settings.json + bot/state.json (در ریپو کامیت می‌شود)؛ این جدول آینهٔ پنل است
+model DailySettings {
+  id             String   @id @default("singleton")
+  morningEnabled Boolean  @default(true)
+  eveningEnabled Boolean  @default(true)
+  morningHour    String   @default("05:00")
+  eveningHour    String   @default("20:00")
+  timezone       String   @default("Asia/Tehran")
+  city           String   @default("تهران")
+  lat            Float    @default(35.6892)
+  lon            Float    @default(51.389)
+  // روش اوقات شرعی: tehran (زاویه‌های ژئوفیزیک تهران) | mwl | isna | custom
+  prayerMethod   String   @default("tehran")
+  fajrAngle      Float    @default(17.7)
+  ishaAngle      Float    @default(14)
+  maghribMinutes Int      @default(15)
+  // مبنای تقویم قمری: umalqura | civil — با برچسب روش در پیام
+  qamariBasis    String   @default("umalqura")
+  updatedAt      DateTime @updatedAt
+}
+
+// سوابق انتشار پیام‌های روزانه (صبحگاهی/شبانگاهی) — وضعیت موفقیت/شکست و خطا
+model DailyRunLog {
+  id       String   @id @default(cuid())
+  dateKey  String // «2026-11-10» به منطقه زمانی کانال
+  kind     String // morning | evening
+  slotKey  String // «<dateKey>T05:00» — کلید ضدتکرار
+  // sent | failed | skipped | preview
+  status   String
+  isTest   Boolean  @default(false) // پیش‌نمایش/آزمایش — مصرف حدیث و ثبت نوبت ندارد
+  hadithId String?
+  imageUrl String?
+  error    String?
+  at       DateTime @default(now())
+
+  @@unique([dateKey, kind, slotKey, status, isTest])
+  @@index([at])
+}
+
+// احادیث استفاده‌شده — ذخیرهٔ دائمی ضدتکرار (حتی پس از ری‌استارت؛ آینهٔ state ربات)
+model HadithUsage {
+  id        String   @id @default(cuid())
+  hadithId  String @unique // شناسه در بانک bot/hadiths-data.ts
+  kind      String // morning | evening
+  dateKey   String
+  at        DateTime @default(now())
+}
+
+// تصاویر طبیعت استفاده‌شده — منبع/عکاس/مجوز ثبت می‌شود
+model DailyImageUsage {
+  id       String   @id @default(cuid())
+  imageKey String @unique // آدرس فایل ویکی‌مدیا (بدون سایز) — ضدتکرار
+  title    String
+  pageUrl  String
+  artist   String?
+  license  String?
+  kind     String // morning | evening
+  dateKey  String
+  at       DateTime @default(now())
+}
+
+// تاریخچه اوقات شرعی محاسبه‌شده — برای سابقه و اعتبارسنجی
+model PrayerTimesLog {
+  id        String   @id @default(cuid())
+  dateKey   String
+  city      String
+  lat       Float
+  lon       Float
+  method    String
+  timesJson String // JSON { fajr, sunrise, dhuhr, maghrib, isha, midnight }
+  at        DateTime @default(now())
+
+  @@unique([dateKey, city, method])
+}

@@ -208,7 +208,8 @@ export function buildWeatherMessage(input: { city: string; tomorrow: TripleDate;
   const s = summarizeHours(input.hours);
   const L: string[] = [
     `🌦️ <b>پیش‌بینی ساعتی فردا — ${esc(city)}</b>`,
-    `📅 ${esc(tomorrow.weekdayFa)} — شمسی: ${esc(tomorrow.shamsi)} | میلادی: ${esc(tomorrow.miladi)}`,
+    // بدون برچسب (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) — ماه‌ها خودْ گویا هستند
+    `📅 ${esc(tomorrow.weekdayFa)} — ${esc(tomorrow.shamsi)} • ${esc(tomorrow.miladi)}`,
     '',
     `🌡️ دما: کمینه ${faDigits(String(s.minT))}° / بیشینه ${faDigits(String(s.maxT))}°`,
   ];

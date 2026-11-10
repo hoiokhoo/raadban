@@ -29,17 +29,19 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(chain[0].kind).toBe('openai-compatible');
     expect(chain[0].baseUrl).toBe('https://generativelanguage.googleapis.com/v1beta/openai');
     expect(chain[0].model).toBe('gemini-3.5-flash');
-    expect(chain[1].id).toBe('zai');
-    expect(chain[1].enabled).toBe(true);
-    expect(chain[1].kind).toBe('zai');
+    // GLM آخرین پشتیبان است (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) — فقط اگر همهٔ بقیه شکست خوردند
+    expect(chain[chain.length - 1].id).toBe('zai');
+    expect(chain[chain.length - 1].enabled).toBe(true);
+    expect(chain[chain.length - 1].kind).toBe('zai');
   });
 
-  test('بدون کلید جمینی، GLM اولین فعال است و جمینی غیرفعال اما حاضر در زنجیره', () => {
+  test('بدون کلید جمینی، اولین فعال Pollinations است و GLM آخرین پشتیبان', () => {
     const chain = buildDefaultChain({}, undefined);
     expect(chain[0].id).toBe('gemini');
     expect(chain[0].enabled).toBe(false);
-    expect(chain[1].id).toBe('zai');
+    expect(chain[1].id).toBe('pollinations');
     expect(chain[1].enabled).toBe(true);
+    expect(chain[chain.length - 1].id).toBe('zai');
     const gem = chain.find((p) => p.id === 'gemini')!;
     expect(gem.note).toContain('GEMINI_API_KEY');
   });
@@ -94,17 +96,18 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(or.enabled).toBe(true);
     expect(or.maxAttempts).toBe(1); // در ۴۲۹ بی‌درنگ به مدل بعدی — سهمیهٔ رایگان روزانه تمام‌شدنی است
     const ids = chain.map((p) => p.id);
-    expect(ids.indexOf('zai')).toBeLessThan(ids.indexOf('openrouter'));
+    expect(ids.indexOf('zai')).toBeGreaterThan(ids.indexOf('openrouter')); // GLM آخر از همه — آخرین پشتیبان
   });
 
-  test('استخر چندکلید جمینی — هر کلید یک ورودی مستقل به ترتیب و بعد از همه GLM', () => {
+  test('استخر چندکلید جمینی — هر کلید یک ورودی مستقل به ترتیب و GLM در انتهای زنجیره', () => {
     const chain = buildDefaultChain({ GEMINI_API_KEY: 'env-key' }, undefined, {}, ['pool-key-1', 'pool-key-2']);
     const gem = chain.filter((p) => p.id.startsWith('gemini'));
     expect(gem.map((p) => p.apiKey)).toEqual(['pool-key-1', 'pool-key-2', 'env-key']);
     expect(gem[0].id).toBe('gemini');
     expect(gem[1].id).toBe('gemini-2');
     expect(gem[2].id).toBe('gemini-3');
-    expect(chain[gem.length].id).toBe('zai');
+    expect(chain[chain.length - 1].id).toBe('zai'); // GLM آخرین پشتیبان
+    expect(chain[gem.length].id).toBe('pollinations'); // پس از استخر جمینی، پشتیبان بی‌کلید
   });
 
   test('ذکر gemini در تعریف سفارشی، کل استخر جمینی را جابه‌جا می‌کند', () => {
@@ -115,21 +118,21 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(out[2].id).toBe('gemini-2');
   });
 
-  test('بدون کلید OpenRouter — ترتیب سابق حفظ می‌شود (gemini، zai، pollinations)', () => {
+  test('بدون کلید OpenRouter — ترتیب تازه: gemini، pollinations، … و GLM آخر', () => {
     const chain = buildDefaultChain({ GEMINI_API_KEY: 'gem-key-123' }, undefined);
     const ids = chain.map((p) => p.id);
     expect(ids.indexOf('gemini')).toBe(0);
-    expect(ids.indexOf('zai')).toBe(1);
-    expect(ids.indexOf('pollinations')).toBe(2);
-    expect(ids.indexOf('openrouter')).toBeGreaterThan(2); // غیرفعال، در انتهای زنجیرهٔ رایگان
+    expect(ids.indexOf('pollinations')).toBe(1);
+    expect(ids.indexOf('openrouter')).toBeGreaterThan(1); // غیرفعال، در جایگاه خودش
+    expect(ids.indexOf('zai')).toBe(ids.length - 1); // آخرین پشتیبان
   });
 
-  test('Pollinations بدون کلید همیشه فعال است — بعد از GLM', () => {
+  test('Pollinations بدون کلید همیشه فعال است — پیش از همهٔ پشتیبان‌های بعدی، GLM آخر', () => {
     const chain = buildDefaultChain({}, undefined);
     const ids = chain.map((p) => p.id);
     expect(ids.indexOf('gemini')).toBe(0); // غیرفعال اما حاضر
-    expect(ids.indexOf('zai')).toBe(1);
-    expect(ids.indexOf('pollinations')).toBe(2);
+    expect(ids.indexOf('pollinations')).toBe(1);
+    expect(ids.indexOf('zai')).toBe(ids.length - 1);
     const pol = chain.find((p) => p.id === 'pollinations')!;
     expect(pol.enabled).toBe(true);
     expect(pol.apiKey).toBeUndefined(); // بدون کلید
@@ -137,17 +140,19 @@ describe('buildDefaultChain — ساخت زنجیره پیش‌فرض', () => {
     expect(pol.minIntervalMs).toBeGreaterThanOrEqual(30000); // محدودیت سخت رایگان
   });
 
-  test('ترتیب کامل با کلید جمینی: gemini ← zai ← pollinations', () => {
+  test('ترتیب کامل با کلید جمینی: gemini ← pollinations ← … ← zai (آخرین پشتیبان)', () => {
     const ids = buildDefaultChain({ GEMINI_API_KEY: 'AQ.full-order-key' }, undefined).map((p) => p.id);
-    expect(ids.slice(0, 3)).toEqual(['gemini', 'zai', 'pollinations']);
+    expect(ids[0]).toBe('gemini');
+    expect(ids[1]).toBe('pollinations');
+    expect(ids[ids.length - 1]).toBe('zai');
   });
 
-  test('تعریف سفارشی، پشتیبان رایگان همیشه‌فعال را از زنجیره حذف نمی‌کند', () => {
+  test('تعریف سفارشی، پشتیبان رایگان همیشه‌فعال را از زنجیره حذف نمی‌کند و GLM آخر می‌ماند', () => {
     const defaults = buildDefaultChain({}, undefined);
     const out = applyCustomProviders(defaults, JSON.stringify([{ id: 'groq', enabled: true, apiKey: 'k' }]));
-    expect(out.find((p) => p.id === 'pollinations')).toBeDefined(); // به انتهای زنجیره اضافه می‌شود
+    expect(out.find((p) => p.id === 'pollinations')).toBeDefined(); // به زنجیره برمی‌گردد
     expect(out.find((p) => p.id === 'pollinations')!.enabled).toBe(true);
-    expect(out[out.length - 1].id).toBe('pollinations');
+    expect(out[out.length - 1].id).toBe('zai'); // آخرین پشتیبان همیشه آخر
   });
 
   test('مدل پیش‌فرض هر تأمین‌کننده با متغیر MODEL قابل بازنویسی است', () => {
@@ -166,14 +171,15 @@ describe('applyCustomProviders — تعریف سفارشی زنجیره', () => 
     expect(applyCustomProviders(defaults, '{"id":1}')).toEqual(defaults); // آرایه نیست
   });
 
-  test('zai همیشه در دسترس می‌ماند مگر صریحاً غیرفعال شود', () => {
+  test('zai همیشه در دسترس می‌ماند مگر صریحاً غیرفعال شود — و آخرین پشتیبان است', () => {
     const defaults = buildDefaultChain({}, undefined);
     const kept = applyCustomProviders(defaults, JSON.stringify([{ id: 'groq', enabled: true, apiKey: 'k' }]));
-    expect(kept[0].id).toBe('zai');
+    expect(kept[0].id).toBe('pollinations'); // پیشرو = اولین فعالِ غیر GLM
     expect(kept.map((p) => p.id)).toContain('groq');
+    expect(kept[kept.length - 1].id).toBe('zai'); // GLM آخر — خودسرانه به صدر نمی‌رود
 
     const disabled = applyCustomProviders(defaults, JSON.stringify([{ id: 'zai', enabled: false }, { id: 'groq', enabled: true }]));
-    expect(disabled[0].id).toBe('groq');
+    expect(disabled[0].id).toBe('pollinations');
     expect(disabled.find((p) => p.id === 'zai')!.enabled).toBe(false);
   });
 

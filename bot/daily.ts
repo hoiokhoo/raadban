@@ -108,14 +108,6 @@ export function bankStatus(usedHadithIds: Record<string, HadithUsage>): { total:
 
 // ---------- مناسبت‌ها ----------
 
-const CAT_LABEL: Record<OccasionCategory, string> = {
-  official: 'مناسبت‌های رسمی و ملی ایران',
-  religious: 'مناسبت‌های مذهبی (تقویم قمری)',
-  'history-ir': 'وقایع تاریخی ایران',
-  world: 'روزهای جهانی',
-  'history-world': 'وقایع تاریخی جهان',
-};
-
 const ORDER: OccasionCategory[] = ['official', 'religious', 'history-ir', 'world', 'history-world'];
 
 function faYear(n: number | undefined): string {
@@ -139,19 +131,16 @@ export function matchOccasions(td: TripleDate): OccasionHit[] {
   return hits;
 }
 
-/** بلوک مناسبت‌ها — گروه‌بندی با برچسب تقویم؛ خالی → پیام صادقانه */
+/** بلوک مناسبت‌ها — فهرست ساده و بی‌برچسب (خواستهٔ کاربر: «برچسب‌ها رو حذف کن»)
+ *  خالی → پیام صادقانه؛ ترتیب: رسمی/ملی، مذهبی، تاریخی ایران، جهانی */
 export function formatOccasionsBlock(hits: OccasionHit[], dayLabel: 'امروز' | 'فردا', compact = false): string {
   if (hits.length === 0) {
     return `<b>🎉 مناسبت‌های ${dayLabel}</b>\n• مناسبت رسمی یا واقعهٔ تاریخی ثبت‌شده‌ای برای ${dayLabel} در بانک نیست.`;
   }
   const L: string[] = [`<b>🎉 مناسبت‌های ${dayLabel}</b>`];
-  for (const cat of ORDER) {
-    const group = hits.filter((h) => h.cat === cat);
-    if (group.length === 0) continue;
-    L.push('', `<b>${CAT_LABEL[cat]}:</b>`);
-    for (const h of group.slice(0, compact ? 4 : 8)) {
-      L.push(`• [${h.calLabel}] ${xmlEsc(h.title)}${faYear(h.year)}`);
-    }
+  const ordered = [...hits].sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
+  for (const h of ordered.slice(0, compact ? 6 : 10)) {
+    L.push(`• ${xmlEsc(h.title)}${faYear(h.year)}`);
   }
   return L.join('\n');
 }
@@ -340,27 +329,27 @@ export interface DailyMessage {
   photoCaption?: string;
 }
 
+/** بلوک تاریخ — بدون برچسب (خواستهٔ صریح کاربر ۱۰ نوامبر ۲۰۲۶: «ننویس شمسی: یا میلادی: —
+ *  این بخش‌ها رو حذف کن»). ماه‌ها خودْ گویا هستند: آبان = خورشیدی، رجب = قمری، نوامبر = میلادی.
+ *  تنها یادداشت کوچک، مبنای تقویم قمری است (الزام شفافیت روش محاسبه). */
 function datesBlock(td: TripleDate, dayLabel: string): string {
-  const basis = td.qamariBasis === 'umalqura' ? 'مبنای ام‌القری' : 'مبنای تقویم مدنی قمری';
+  const basis = td.qamariBasis === 'umalqura' ? 'ام‌القری' : 'تقویم مدنی قمری';
   return [
     `📅 <b>${dayLabel}: ${xmlEsc(td.weekdayFa)}</b>`,
-    `☀️ شمسی: ${xmlEsc(td.shamsi)} (تقویم رسمی ایران)`,
-    `🌙 قمری: ${xmlEsc(td.qamari)} (${basis})`,
-    `🌍 میلادی: ${xmlEsc(td.miladi)}`,
+    `${xmlEsc(td.shamsi)} • ${xmlEsc(td.qamari)} • ${xmlEsc(td.miladi)}`,
+    `<i>(تقویم قمری بر مبنای ${basis})</i>`,
   ].join('\n');
 }
 
+/** بلوک حدیث — بدون برچسب (خواستهٔ صریح کاربر: «فقط بنویس پیامبر اکرم(ص): متن حدیث»)
+ *  گویندهٔ مستقیم + متن عربی + ترجمهٔ روان + منبع مستند — بدون هیچ سربرگ جداکننده */
 function hadithBlock(h: HadithEntry): string {
   return [
-    `<b>📖 حدیث — از ${xmlEsc(h.narrator)}</b>`,
+    `<b>${xmlEsc(h.narrator)}:</b>`,
+    `«${xmlEsc(h.arabic)}»`,
     '',
-    `<b>متن عربی:</b>`,
-    xmlEsc(h.arabic),
-    '',
-    `<b>ترجمهٔ فارسی:</b>`,
-    xmlEsc(h.persian),
-    '',
-    `📚 منبع: ${xmlEsc(h.source)}`,
+    `«${xmlEsc(h.persian)}»`,
+    `📚 ${xmlEsc(h.source)}`,
   ].join('\n');
 }
 

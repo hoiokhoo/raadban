@@ -1,16 +1,16 @@
 /**
- * بست خبری نیم‌ساعتهٔ رصدبان — خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶):
- * «انتشار اخبار هم بکن هر نیم ساعت — می‌خوام کل اخبارها و توییتهای اون نیم ساعت رو داخل
- * بستت بزاری با همون خلاصه و تحلیل که الان هست.»
- *
- * معماری: هر چرخهٔ ~۱۰ دقیقه‌ای، پیام‌های آماده (خبر + توییت) در صف state انبار می‌شوند و
- * هر زمان که فاصله از آخرین بست ≥ ~۲۸ دقیقه شد، همه با هم به‌صورت یک «بست» چندپیامی
- * ارسال می‌شوند. توابع خالص و تست‌پذیر — منطق ارسال در bot.ts.
+ * بستهٔ خبری ساعتی — خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶):
+ * «انتشار اخبار هر یه ساعت — هر چی خبر در اون ساعت اومده تجمیع بشه».
+ * مسیر اصلی: تحلیل هوشمند ساعتی (bot/hourly.ts — تجمیع مشابه‌ها + تیک اعتبارسنجی + تحلیل).
+ * این ماژول فقط تقسیم چندپیامی مسیر پشتیبان (شکست مدل) است — با سربرگ خنثی زمانی،
+ * بدون هیچ برندی («بست رصدبان» حذف شد — خواستهٔ صریح کاربر).
  */
 
 export interface BundleItem {
   kind: 'news' | 'tweet';
   text: string;
+  /** نام منبع برای پیکرهٔ تحلیل ساعتی («ایسنا» یا «𝕏 @handle») — خواستهٔ کاربر: تیک اعتبارسنجی بر پایهٔ شمار منابع */
+  source?: string;
   /** برای علامت‌زدن ضدتکرار پس از ارسال موفق */
   ids: string[];
   titleKeys: string[];
@@ -20,8 +20,8 @@ export interface BundleItem {
   queuedAt: string; // ISO
 }
 
-/** آیا زمان ارسال بست رسیده؟ — lastBundleAt نامشخص → true (اولین بست بلافاصله) */
-export function shouldFlushBundle(lastBundleAt: string | undefined, now: number, minMinutes = 28): boolean {
+/** آیا زمان ارسال بستهٔ ساعتی رسیده؟ — lastBundleAt نامشخص → true (اولین بسته بلافاصله) */
+export function shouldFlushBundle(lastBundleAt: string | undefined, now: number, minMinutes = 60): boolean {
   if (!lastBundleAt) return true;
   const t = Date.parse(lastBundleAt);
   if (!Number.isFinite(t)) return true;
@@ -54,9 +54,10 @@ export function buildBundleChunks(items: string[], opts: BundleChunkOpts = {}): 
   if (items.length === 0) return [];
   const totalText = items.join(`\n\n${DIVIDER}\n\n`);
   const n = Math.max(1, Math.ceil(totalText.length / maxLen));
+  // سربرگ خنثی — فقط بازهٔ زمانی؛ هیچ برندی از خودش نمی‌گوید (خواستهٔ کاربر)
   const header = opts.fromIso && opts.toIso
-    ? `🗞 <b>بست خبری رصدبان</b> — کل اخبار و توییت‌های ${hhmmOf(opts.fromIso)} تا ${hhmmOf(opts.toIso)} (به وقت تهران)`
-    : '🗞 <b>بست خبری رصدبان</b>';
+    ? `🕒 اخبار ${hhmmOf(opts.fromIso)} تا ${hhmmOf(opts.toIso)}`
+    : '🕒 اخبار این ساعت';
   const chunks: string[] = [];
   let current: string[] = [];
   let curLen = 0;
@@ -88,7 +89,7 @@ export function buildBundleChunks(items: string[], opts: BundleChunkOpts = {}): 
   return chunks.map((c, i) => {
     if (n <= 1) return `${header}\n${DIVIDER}\n\n${c}`;
     if (i === 0) return `${header} — بخش ۱ از ${faNum(n)}\n${DIVIDER}\n\n${c}`;
-    return `🗞 <b>بست رصدبان</b> — ادامهٔ بخش ${faNum(i + 1)} از ${faNum(n)}\n${DIVIDER}\n\n${c}`;
+    return `${header} — ادامهٔ بخش ${faNum(i + 1)} از ${faNum(n)}\n${DIVIDER}\n\n${c}`;
   });
 }
 

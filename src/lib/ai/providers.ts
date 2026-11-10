@@ -86,7 +86,7 @@ const POLLINATIONS_SPEC = {
  *  نقطهٔ پایانی سازگار با OpenAI گوگل؛ کلید از GEMINI_API_KEY یا تنظیمات بانک اطلاعاتی.
  *  صراحت: گوگل درخواست از برخی زیرساخت‌های ابری را تحریم جغرافیایی می‌کند
  *  (400 FAILED_PRECONDITION «User location is not supported»)؛ در آن حالت زنجیره
- *  بی‌درنگ به مدل بعدی (GLM) منتقل می‌شود و خطا شفاف ثبت می‌گردد. */
+ *  بی‌درنگ به مدل بعدی منتقل می‌شود و خطا شفاف ثبت می‌گردد. */
 const GEMINI_SPEC = {
   id: 'gemini',
   label: 'Gemini — پیش‌فرض',
@@ -98,6 +98,9 @@ const GEMINI_SPEC = {
 
 const FREE_PROVIDERS: FreeProviderSpec[] = [
   { id: 'groq', label: 'Groq', keyEnv: 'GROQ_API_KEY', modelEnv: 'GROQ_MODEL', base: 'https://api.groq.com/openai/v1', defModel: 'llama-3.3-70b-versatile' },
+  { id: 'cerebras', label: 'Cerebras', keyEnv: 'CEREBRAS_API_KEY', modelEnv: 'CEREBRAS_MODEL', base: 'https://api.cerebras.ai/v1', defModel: 'llama-3.3-70b' },
+  { id: 'mistral', label: 'Mistral', keyEnv: 'MISTRAL_API_KEY', modelEnv: 'MISTRAL_MODEL', base: 'https://api.mistral.ai/v1', defModel: 'mistral-small-latest' },
+  { id: 'cohere', label: 'Cohere', keyEnv: 'COHERE_API_KEY', modelEnv: 'COHERE_MODEL', base: 'https://api.cohere.ai/compatibility/v1', defModel: 'command-r7b-12-2024' },
   { id: 'openrouter', label: 'OpenRouter — مدل‌های رایگان', keyEnv: 'OPENROUTER_API_KEY', modelEnv: 'OPENROUTER_MODEL', base: 'https://openrouter.ai/api/v1', defModel: 'nvidia/nemotron-3-ultra-550b-a55b:free' },
   { id: 'nvidia', label: 'NVIDIA NIM', keyEnv: 'NVIDIA_API_KEY', modelEnv: 'NVIDIA_MODEL', base: 'https://integrate.api.nvidia.com/v1', defModel: 'meta/llama-3.3-70b-instruct' },
   { id: 'github-models', label: 'GitHub Models', keyEnv: 'GITHUB_TOKEN', modelEnv: 'GITHUB_MODEL', base: 'https://models.github.ai/inference', defModel: 'openai/gpt-4o-mini' },
@@ -107,7 +110,9 @@ const FREE_PROVIDERS: FreeProviderSpec[] = [
 /**
  * زنجیره پیش‌فرض — تابع خالص (برای تست):
  * سرِ زنجیره همیشه «جمینی» است (اولویت اول کاربر — ۴ نوامبر ۲۰۲۶) با استخر چندکلید؛
- * پس از آن GLM (پشتیبان اول)، Pollinations رایگان، FCC و تأمین‌کنندگان کلیددار (OpenRouter و...).
+ * سپس Pollinations رایگان، FCC و تأمین‌کنندگان کلیددار (Groq/Cerebras/Mistral/Cohere/OpenRouter و…).
+ * GLM (zai) «آخرین پشتیبان» است — خواستهٔ صریح کاربر (۱۰ نوامبر ۲۰۲۶):
+ * «اگر هیچ‌کدوم جواب ندادن یا ظرفیتشون پر شد از GLM خودت استفاده کن».
  * providerKeys: کلیدهای افزوده‌شده از رابط کاربری (رمزگشایی‌شده) — بر محیط اولویت دارند.
  * geminiPool: کلیدهای بخش «کلیدهای جمینی» (رمزگشایی‌شده، به ترتیب افزوده‌شدن).
  */
@@ -133,7 +138,7 @@ export function buildDefaultChain(
       model: env[GEMINI_SPEC.modelEnv]?.trim() || GEMINI_SPEC.defModel,
       enabled: true,
       note: i === 0
-        ? 'تأمین‌کنندهٔ پیش‌فرض کاربر — اولویت اول؛ در خطا (۴۲۹/سهمیهٔ روزانه/تحریم جغرافیایی) خودکار کلید بعدی استخر و سپس GLM'
+        ? 'تأمین‌کنندهٔ پیش‌فرض کاربر — اولویت اول؛ در خطا (۴۲۹/سهمیهٔ روزانه/تحریم جغرافیایی) خودکار کلید بعدی استخر و سپس بقیهٔ زنجیره'
         : `کلید ${i + 1} استخر جمینی — در سهمیه/خطای کلید قبل چرخش خودکار`,
     }))
     : [{
@@ -145,15 +150,6 @@ export function buildDefaultChain(
       enabled: false,
       note: `غیرفعال تا ${GEMINI_SPEC.keyEnv} تنظیم شود یا کلیدی در بخش «کلیدهای جمینی» افزوده شود`,
     }];
-
-  chain.push({
-    id: 'zai',
-    label: 'سرویس داخلی GLM (z-ai)',
-    kind: 'zai',
-    enabled: true,
-    maxAttempts: 3,
-    note: 'پشتیبان اول — همیشه فعال؛ در ۴۲۹ با فاصله تدریجی تا ۳ تلاش می‌کند',
-  });
 
   // Pollinations — همیشه فعال، بدون کلید؛ خطای ۴۲۹ مدل اول را خودکار جبران می‌کند
   chain.push({
@@ -200,8 +196,19 @@ export function buildDefaultChain(
     });
   }
 
+  // GLM داخلی — آخرین پشتیبان (خواستهٔ صریح کاربر ۱۰ نوامبر ۲۰۲۶):
+  // تأمین‌کنندگان خارجی یکی‌یکی امتحان می‌شوند؛ فقط اگر همه شکست خوردند یا ظرفیتشان پر شد، GLM استفاده می‌شود.
+  chain.push({
+    id: 'zai',
+    label: 'سرویس داخلی GLM (z-ai) — آخرین پشتیبان',
+    kind: 'zai',
+    enabled: true,
+    maxAttempts: 3,
+    note: 'آخرین پشتیبان — همیشه فعال؛ در ۴۲۹ با فاصله تدریجی تا ۳ تلاش می‌کند',
+  });
+
   // اولویت اول جمینی (خواستهٔ صریح کاربر ۴ نوامبر ۲۰۲۶ — بر تصمیم ۳۱ اکتبر مقدم است):
-  // OpenRouter سرِ زنجیره نیست؛ فقط در جایگاه خودش (پس از GLM/Pollinations/FCC) با کلیدش فعال می‌شود.
+  // OpenRouter سرِ زنجیره نیست؛ فقط در جایگاه خودش با کلیدش فعال می‌شود.
   // برای حفظ تاب‌آوری سهمیهٔ رایگان روزانه، در ۴۲۹ بی‌درنگ به مدل بعدی منتقل می‌شود.
   const or = chain.find((p) => p.id === 'openrouter' && p.enabled);
   if (or) or.maxAttempts = 1;
@@ -292,8 +299,10 @@ export function applyCustomProviders(
     }
   }
 
-  // تأمین‌کنندهٔ پیشرو (gemini فعال، وگرنه zai، وگرنه openrouter) اگر ذکر نشده باشد به صدر زنجیره بازمی‌گردد
-  const lead = defaults.find((p) => (p.id === 'gemini' || p.id === 'zai' || p.id === 'openrouter') && p.enabled);
+  // تأمین‌کنندهٔ پیشرو — اولین تأمین‌کنندهٔ فعالِ زنجیرهٔ پیش‌فرض (جمینی فعال، وگرنه Pollinations،
+  // وگرنه اولین فعال) اگر ذکر نشده باشد به صدر بازمی‌گردد. GLM هرگز خودسرانه به صدر نمی‌رود —
+  // آخرین پشتیبان است (خواستهٔ صریح کاربر ۱۰ نوامبر ۲۰۲۶).
+  const lead = defaults.find((p) => p.enabled && p.id !== 'zai');
   if (lead && !mentioned.has(lead.id)) out.unshift(byId.get(lead.id)!);
 
   if (zaiDisabled) out.push(zaiDisabled);

@@ -228,17 +228,24 @@ describe('پیام صبحگاهی و شبانگاهی', () => {
   const img = { url: 'https://upload.wikimedia.org/x1600.jpg', imageKey: 'https://upload.wikimedia.org/x.jpg', title: 'Sunrise.jpg', pageUrl: 'https://commons.wikimedia.org/wiki/File:Sunrise.jpg', artist: 'Ali', license: 'CC BY-SA 4.0', sourceLabel: 'Wikimedia Commons' };
   const base = { dateKey: '2026-11-10', tz: 'Asia/Tehran', qamariBasis: 'umalqura' as const, city: 'تهران', image: img };
 
-  test('پیام صبحگاهی — بسم‌الله در آغاز + حدیث + تاریخ سه‌گانه + مناسبت‌ها', async () => {
+  test('پیام صبحگاهی — بسم‌الله + حدیثِ بی‌برچسب (گوینده: متن) + تاریخ بی‌برچسب + مناسبت‌ها', async () => {
     const msg = await buildDailyMessage({ ...base, kind: 'morning', prayer: { lat: 35.6892, lon: 51.389, method: 'tehran', fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, tz: 'Asia/Tehran' }, hadith: bank.morning });
     expect(msg.text.startsWith(`<b>${BISMILLAH}</b>`)).toBe(true);
     expect(msg.text).toContain('پیام صبحگاهی رصدبان');
-    expect(msg.text).toContain('حدیث');
-    expect(msg.text).toContain('سه‌شنبه');
-    expect(msg.text).toContain('شمسی');
-    expect(msg.text).toContain('قمری');
-    expect(msg.text).toContain('میلادی');
-    expect(msg.text).toContain('منبع:');
+    // فرمت تازه (خواستهٔ کاربر): «پیامبر اکرم(ص): متن حدیث» — بدون هیچ سربرگ جداکننده
+    expect(msg.text).toContain(`<b>${bank.morning.narrator}:</b>`);
+    expect(msg.text).toContain(`«${bank.morning.arabic}»`);
     expect(msg.text).toContain(bank.morning.source);
+    // برچسب‌های کهنه حذف شده‌اند
+    expect(msg.text).not.toContain('متن عربی:');
+    expect(msg.text).not.toContain('ترجمهٔ فارسی:');
+    expect(msg.text).not.toContain('منبع:');
+    expect(msg.text).not.toContain('شمسی:');
+    expect(msg.text).not.toContain('میلادی:');
+    // تاریخ سه‌گانه بدون برچسب — ماه‌ها خودْ گویا + یادداشت مبنای قمری
+    expect(msg.text).toContain('سه‌شنبه');
+    expect(msg.text).toContain('•');
+    expect(msg.text).toContain('تقویم قمری بر مبنای ام‌القری');
     expect(msg.photoUrl).toBeTruthy();
     expect(msg.photoCaption).toContain('Wikimedia Commons');
     expect(msg.photoCaption!.length).toBeLessThanOrEqual(1024);
@@ -264,24 +271,25 @@ describe('پیام صبحگاهی و شبانگاهی', () => {
   });
 });
 
-// ---------- بست نیم‌ساعته ----------
+// ---------- بستهٔ ساعتی ----------
 
-describe('بست نیم‌ساعتهٔ خبر و توییت', () => {
-  test('shouldFlushBundle — ریتم ~۳۰ دقیقه', () => {
+describe('بستهٔ ساعتی خبر و توییت', () => {
+  test('shouldFlushBundle — ریتم ساعتی (خواستهٔ کاربر: هر یه ساعت)', () => {
     const now = Date.parse('2026-11-10T08:00:00Z');
     expect(shouldFlushBundle(undefined, now)).toBe(true);
-    expect(shouldFlushBundle('2026-11-10T07:30:00Z', now, 28)).toBe(true); // ۳۰ دقیقه گذشته
-    expect(shouldFlushBundle('2026-11-10T07:45:00Z', now, 28)).toBe(false); // ۱۵ دقیقه — هنوز نه
-    expect(shouldFlushBundle('غیرمتع', now, 28)).toBe(true);
+    expect(shouldFlushBundle('2026-11-10T07:00:00Z', now, 60)).toBe(true); // ۶۰ دقیقه گذشته
+    expect(shouldFlushBundle('2026-11-10T07:45:00Z', now, 60)).toBe(false); // ۱۵ دقیقه — هنوز نه
+    expect(shouldFlushBundle('غیرمتع', now, 60)).toBe(true);
   });
-  test('buildBundleChunks — گروه‌بندی با سربرگ و شمارهٔ بخش', () => {
+  test('buildBundleChunks — گروه‌بندی با سربرگ خنثی (بدون برند) و شمارهٔ بخش', () => {
     const items = Array.from({ length: 8 }, (_, i) => `منبع خبرگزاری ${i}: ${'متن خبر تازه '.repeat(30)}`);
     const chunks = buildBundleChunks(items, { fromIso: '2026-11-10T05:00:00Z', toIso: '2026-11-10T05:30:00Z', maxLen: 2000 });
     expect(chunks.length).toBeGreaterThan(1);
-    expect(chunks[0]).toContain('بست خبری رصدبان');
+    expect(chunks[0]).toContain('🕒 اخبار');
     expect(chunks[0]).toContain('بخش ۱ از');
     expect(chunks[1]).toContain('ادامهٔ بخش ۲ از');
-    for (const c of chunks) expect(c.length).toBeLessThan(2600);
+    // «بست رصدبان» حذف شده — خواستهٔ صریح کاربر
+    for (const c of chunks) { expect(c).not.toContain('بست'); expect(c).not.toContain('رصدبان'); expect(c.length).toBeLessThan(2600); }
   });
   test('یک موردِ بزرگ درون همان بخش شکسته می‌شود', () => {
     const big = `خبر بزرگ: ${'م'.repeat(5000)}`;

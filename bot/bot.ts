@@ -14,6 +14,8 @@
  * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ به وقت کانال
  * با بسم‌الله، حدیث چهارده معصوم (بانک مستند + ضدتکرار دائمی)، تصویر طبیعت ویکی‌مدیا،
  * تاریخ سه‌گانه (شمسی/قمری/میلادی)، مناسبت‌ها و اوقات شرعی فردا (کتابخانه adhan).
+ * + پیام پیش‌بینی ساعتی فردا (bot/weather.ts — Open-Meteo) ساعت ۲۱:۰۰ به وقت کانال
+ * (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶: «شب ساعت ۹ پیش‌بینی ساعتی فردای تهران از ۱۲ شب تا فردا»).
  *
  * صراحت: هیچ خبر/حکم/عکس/حدیث/مناسبت/زمان شرعی ساختگی؛ خطای هر منبع و هر مدل شفاف در لاگ؛ کلیدها هرگز در خروجی.
  */
@@ -34,7 +36,8 @@ import {
 } from './digest';
 import { fetchMarketData, formatMarketMessage, snapshotOf, type CarStore } from './market';
 import { shouldFlushBundle, buildBundleChunks, type BundleItem } from './bundle';
-import { dateKeyOf, type QamariBasis } from './calendar';
+import { dateKeyOf, shiftDateKey, tripleDateOf, type QamariBasis } from './calendar';
+import { fetchHourlyForecast, buildWeatherMessage } from './weather';
 import {
   pickHadith,
   bankStatus,
@@ -557,7 +560,7 @@ export interface BotState {
 
 export interface DailyRunEntry {
   dateKey: string;
-  kind: 'morning' | 'evening';
+  kind: 'morning' | 'evening' | 'weather';
   slotKey: string;
   /** sent | failed | skipped | preview */
   status: string;
@@ -572,6 +575,8 @@ export interface DailyRunEntry {
 export interface DailyBotState {
   lastMorningKey?: string;
   lastEveningKey?: string;
+  /** کلید آخرین ارسال پیش‌بینی ساعتی («2026-11-10T21:00») — ضدتکرار روزانه */
+  lastWeatherKey?: string;
   /** احادیث استفاده‌شده — هرگز هرس نمی‌شود؛ ضدتکرار مطلق حتی پس از ری‌استارت (کامیت ریپو) */
   usedHadiths: Record<string, HadithUsage>;
   /** نشانگر چرخش چهارده معصوم ۰..۱۳ — انتخاب متعادل */
@@ -587,6 +592,9 @@ export interface DailySettingsFile {
   eveningEnabled: boolean;
   morningHour: string;
   eveningHour: string;
+  /** پیام پیش‌بینی ساعتی فردا (خواستهٔ کاربر: شب ساعت ۹ — از ۰۰:۰۰ تا ۲۳:۰۰ روز بعد) */
+  weatherEnabled: boolean;
+  weatherHour: string;
   timezone: string;
   city: string;
   lat: number;
@@ -603,6 +611,8 @@ export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
   eveningEnabled: true,
   morningHour: '05:00',
   eveningHour: '20:00',
+  weatherEnabled: true,
+  weatherHour: '21:00',
   timezone: 'Asia/Tehran',
   city: 'تهران',
   lat: 35.6892,
@@ -624,6 +634,7 @@ export function loadDailySettings(file: string): DailySettingsFile {
     const out = { ...DAILY_SETTINGS_DEFAULTS, ...raw };
     if (!HHMM_RE.test(out.morningHour)) out.morningHour = DAILY_SETTINGS_DEFAULTS.morningHour;
     if (!HHMM_RE.test(out.eveningHour)) out.eveningHour = DAILY_SETTINGS_DEFAULTS.eveningHour;
+    if (!HHMM_RE.test(out.weatherHour)) out.weatherHour = DAILY_SETTINGS_DEFAULTS.weatherHour;
     if (out.timezone && !/^[\w\-+/]+$/.test(out.timezone)) out.timezone = DAILY_SETTINGS_DEFAULTS.timezone;
     if (!Number.isFinite(out.lat) || Math.abs(out.lat) > 90) out.lat = DAILY_SETTINGS_DEFAULTS.lat;
     if (!Number.isFinite(out.lon) || Math.abs(out.lon) > 180) out.lon = DAILY_SETTINGS_DEFAULTS.lon;
@@ -1932,6 +1943,48 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     }
     trimDailyState(daily);
     await sleep(500);
+  }
+
+  // ---------- پیام پیش‌بینی ساعتی فردا — ساعت ۲۱:۰۰ به وقت کانال (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
+  // «شب ساعت ۹ پیش‌بینی ساعتی فردای تهران را بگذار، از ساعت ۱۲ نصف شب تا [پایان] فردا»
+  // بدون حدیث و تصویر — پیام کاربردی مستقل. دادهٔ معتبر نبود → هیچ عدد ساختگی، ثبت خطا و تلاش چرخهٔ بعد.
+  if (dSettings.weatherEnabled) {
+    const wKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastWeatherKey, pNow);
+    if (wKey) {
+      const tomorrowKey = shiftDateKey(pNow.dateKey, 1);
+      const hours = await fetchHourlyForecast(dSettings.lat, dSettings.lon, dSettings.timezone, tomorrowKey).catch(() => null);
+      const tomorrow = tripleDateOf(tomorrowKey, dSettings.timezone, dSettings.qamariBasis);
+      const msg = buildWeatherMessage({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours });
+      if (!msg) {
+        console.error(`❌ پیش‌بینی ساعتی: دادهٔ معتبر برای ${tomorrowKey} دریافت نشد — پیام ساختگی منتشر نمی‌شود (چرخهٔ بعد تلاش می‌کند)`);
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'failed', isTest: false, error: 'دادهٔ پیش‌بینی معتبر دریافت نشد', at: new Date().toISOString() });
+        trimDailyState(daily);
+      } else if (CFG.dryRun) {
+        console.log(`=== DRY_RUN — پیش‌نمایش پیش‌بینی ساعتی فردا (اسلات ${wKey}) ===`);
+        console.log(msg.text.replace(/<[^>]+>/g, ''));
+        console.log('=== پایان پیش‌نمایش ===');
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'preview', isTest: true, at: new Date().toISOString() });
+        trimDailyState(daily);
+      } else {
+        let ok = false;
+        let lastErr = '';
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, msg.text);
+          if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیش‌بینی ساعتی به ${t}: ${lastErr}`); continue; }
+          ok = true;
+        }
+        if (ok) {
+          daily.lastWeatherKey = wKey;
+          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'sent', isTest: false, at: new Date().toISOString() });
+          summary.dailySent = 'weather';
+          console.log(`✅ پیش‌بینی ساعتی فردا (${tomorrowKey}) ارسال شد — ${hours?.length ?? 0} ساعت معتبر`);
+        } else {
+          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'failed', isTest: false, error: lastErr || 'هیچ مقصدی موفق نشد', at: new Date().toISOString() });
+          console.error('❌ پیش‌بینی ساعتی ارسال نشد — چرخهٔ بعد تلاش می‌کند');
+        }
+        trimDailyState(daily);
+      }
+    }
   }
 }
 

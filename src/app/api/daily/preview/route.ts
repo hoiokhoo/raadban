@@ -3,9 +3,9 @@
  * «ارسال آزمایشی پیام صبحگاهی/شبانگاهی… اجرای دستی و آزمایشی نباید باعث ثبت اشتباه یک
  * پیام به‌عنوان پیام روزانهٔ واقعی یا مصرف ناخواستهٔ حدیث روز بعد شود.»
  *
- * POST { kind: 'morning'|'evening', send?: boolean }
- *   - همیشه: ساخت واقعی پیام (حدیثِ بعدی، تاریخ سه‌گانه، مناسبت‌ها، اوقات شرعی، تصویر ویکی‌مدیا)
- *     بدون هیچ تغییری در state و بدون مصرف حدیث.
+ * POST { kind: 'morning'|'evening'|'weather', send?: boolean }
+ *   - همیشه: ساخت واقعی پیام (حدیثِ بعدی، تاریخ سه‌گانه، مناسبت‌ها، اوقات شرعی، تصویر ویکی‌مدیا
+ *     یا پیش‌بینی ساعتی فردا از Open-Meteo) بدون هیچ تغییری در state و بدون مصرف حدیث.
  *   - send=true: ارسال آزمایشی به چت مدیر بله (نه کانال) با توکن اپلیکیشن — فقط پیش‌نمایش.
  *   - send=true و کلید محیط: ارسال «دستور اجرای واقعی» به workflow (dispatch) — برای اجرای
  *     دستی واقعی مدیر؛ slotKey همان نوبت روزانه را مصرف می‌کند (عمداً — اجرای واقعی).
@@ -18,14 +18,15 @@ import { readRepoFileWithFallback } from '@/lib/gh-sync';
 import { getBaleToken, ensureBaleChatId, sendBaleMessage, sendBalePhoto } from '@/lib/bale-bot';
 import { DAILY_SETTINGS_DEFAULTS, type DailySettingsFile } from '../../../../../bot/bot';
 import { pickHadith, fetchNatureImage, buildDailyMessage, type HadithUsage } from '../../../../../bot/daily';
-import { dateKeyOf } from '../../../../../bot/calendar';
+import { dateKeyOf, shiftDateKey, tripleDateOf } from '../../../../../bot/calendar';
+import { fetchHourlyForecast, buildWeatherMessage } from '../../../../../bot/weather';
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json().catch(() => ({}))) as { kind?: string; send?: boolean };
-    const kind = body.kind === 'evening' ? 'evening' : body.kind === 'morning' ? 'morning' : null;
-    if (!kind) return fail("kind باید 'morning' یا 'evening' باشد", 400);
+    const kind = body.kind === 'evening' ? 'evening' : body.kind === 'morning' ? 'morning' : body.kind === 'weather' ? 'weather' : null;
+    if (!kind) return fail("kind باید 'morning'، 'evening' یا 'weather' باشد", 400);
 
     const settingsRaw = await readRepoFileWithFallback('bot/daily-settings.json');
     let settings: DailySettingsFile = { ...DAILY_SETTINGS_DEFAULTS };
@@ -36,6 +37,48 @@ export async function POST(req: NextRequest) {
     const tz = settings.timezone || DAILY_SETTINGS_DEFAULTS.timezone;
     const todayKey = dateKeyOf(Date.now(), tz);
 
+    // ---------- پیش‌بینی ساعتی فردا (بدون حدیث/تصویر — هیچ تغییری در state) ----------
+    if (kind === 'weather') {
+      const tomorrowKey = shiftDateKey(todayKey, 1);
+      const hours = await fetchHourlyForecast(settings.lat ?? 35.6892, settings.lon ?? 51.389, tz, tomorrowKey).catch(() => null);
+      let sent: { ok: boolean; error?: string; to?: string } = { ok: false, error: 'ارسال درخواست نشد' };
+      if (!hours) {
+        return ok({ kind, dateKey: todayKey, hadith: null, consumed: false, preview: null, sent, note: 'دادهٔ پیش‌بینی معتبر دریافت نشد — پیام ساختگی ساخته نمی‌شود (صادقانه)' });
+      }
+      const tomorrow = tripleDateOf(tomorrowKey, tz, settings.qamariBasis || 'umalqura');
+      const msg = buildWeatherMessage({ city: settings.city || 'تهران', tomorrow, weatherHour: settings.weatherHour || '21:00', hours });
+      if (!msg) {
+        return ok({ kind, dateKey: todayKey, hadith: null, consumed: false, preview: null, sent, note: 'پارس پیش‌بینی ناقص بود — پیام منتشر نمی‌شود (صادقانه)' });
+      }
+      if (body.send) {
+        const token = await getBaleToken();
+        if (!token) {
+          sent = { ok: false, error: 'توکن بات بله در اپلیکیشن تنظیم نشده — پیش‌نمایش متن بالا واقعی است' };
+        } else {
+          const chat = await ensureBaleChatId();
+          if (!chat.ok || !chat.chatId) {
+            sent = { ok: false, error: chat.error || 'شناسهٔ چت مدیر یافت نشد — در بله به بات Start بدهید' };
+          } else {
+            const s = await sendBaleMessage(chat.chatId, msg.text);
+            sent = { ok: s.ok, error: s.ok ? undefined : s.error, to: chat.chatId };
+            await db.dailyRunLog.create({
+              data: { dateKey: todayKey, kind: 'weather', slotKey: `${todayKey}Tpreview`, status: s.ok ? 'preview' : 'failed', isTest: true, error: s.ok ? null : (s.error || null) },
+            }).catch(() => {});
+          }
+        }
+      }
+      return ok({
+        kind,
+        dateKey: todayKey,
+        preview: { text: msg.text, photoUrl: null, photoCaption: null },
+        hadith: null,
+        consumed: false,
+        hoursCount: hours.length,
+        sent,
+      });
+    }
+
+    // ---------- صبحگاهی/شبانگاهی ----------
     // state واقعی — فقط خواندنی؛ حدیثِ بعدی بدون مصرف
     const stateRaw = await readRepoFileWithFallback('bot/state.json');
     let usedHadiths: Record<string, HadithUsage> = {};

@@ -23,6 +23,7 @@ import { dateKeyOf } from '../../../../../bot/calendar';
 interface StateDailyShape {
   lastMorningKey?: string;
   lastEveningKey?: string;
+  lastWeatherKey?: string;
   usedHadiths?: Record<string, HadithUsage>;
   infallibleCursor?: number;
   usedImages?: Record<string, { dateKey: string; kind: string }>;
@@ -68,6 +69,8 @@ export async function GET() {
           eveningEnabled: settings.eveningEnabled ?? true,
           morningHour: settings.morningHour || '05:00',
           eveningHour: settings.eveningHour || '20:00',
+          weatherEnabled: settings.weatherEnabled ?? true,
+          weatherHour: settings.weatherHour || '21:00',
           timezone: tz,
           city: settings.city || 'تهران',
           lat: settings.lat ?? 35.6892,
@@ -113,6 +116,7 @@ export async function GET() {
       errors,
       lastMorningKey: daily.lastMorningKey || null,
       lastEveningKey: daily.lastEveningKey || null,
+      lastWeatherKey: daily.lastWeatherKey || null,
       lastBundleAt: state?.lastBundleAt || null,
       bundleQueueSize: Array.isArray(state?.bundleQueue) ? state.bundleQueue.length : 0,
       carStoreSize: state?.carStore ? Object.keys(state.carStore).length : 0,

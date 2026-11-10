@@ -17,11 +17,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { api, faNum, faDateTime } from '@/lib/client';
 import { LoadingCard } from '@/components/panels/dashboard';
-import { Sun, Moon, Save, Eye, BookOpen, ImageIcon, History, AlertTriangle, CalendarDays } from 'lucide-react';
+import { Sun, Moon, Save, Eye, BookOpen, ImageIcon, History, AlertTriangle, CalendarDays, CloudSun } from 'lucide-react';
 
 interface DailySettings {
   morningEnabled: boolean; eveningEnabled: boolean;
   morningHour: string; eveningHour: string;
+  weatherEnabled: boolean; weatherHour: string;
   timezone: string; city: string; lat: number; lon: number;
   prayerMethod: 'tehran' | 'mwl' | 'custom';
   fajrAngle: number; ishaAngle: number; maghribMinutes: number;
@@ -41,6 +42,7 @@ interface DailyStatus {
   errors: RunEntry[];
   lastMorningKey: string | null;
   lastEveningKey: string | null;
+  lastWeatherKey: string | null;
   lastBundleAt: string | null;
   bundleQueueSize: number;
   carStoreSize: number;
@@ -87,12 +89,13 @@ export function DailyMessagesPanel() {
     if (r.ok) setData((d) => (d ? { ...d, settings: r.settings } : d));
   };
 
-  const doPreview = async (kind: 'morning' | 'evening', send: boolean) => {
+  const doPreview = async (kind: 'morning' | 'evening' | 'weather', send: boolean) => {
     setBusy(send ? `${kind}-send` : `${kind}-preview`);
     const r = await api<PreviewResponse>('/api/daily/preview', { method: 'POST', body: { kind, send } });
     setBusy(null);
     if (!r.ok) { toast({ title: 'خطا در ساخت پیام', description: r.error, variant: 'destructive' }); return; }
     if (r.hadithExhausted) { toast({ title: 'بانک احادیث تمام شده است', description: r.note, variant: 'destructive' }); return; }
+    if (!r.preview) { toast({ title: 'پیام ساخته نشد', description: r.note || 'دادهٔ کافی نبود — هیچ محتوای ساختگی ساخته نمی‌شود', variant: 'destructive' }); return; }
     if (r.preview) setPreview({ kind, text: stripHtml(r.preview.text), photoUrl: r.preview.photoUrl, caption: r.preview.photoCaption || null });
     if (send) {
       toast({
@@ -114,7 +117,7 @@ export function DailyMessagesPanel() {
       <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><CalendarDays className="h-5 w-5" /> تنظیمات پیام‌های روزانه</CardTitle></CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="rounded-lg border p-3 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-medium"><Sun className="h-4 w-4 text-amber-500" /> پیام صبحگاهی</div>
@@ -147,6 +150,24 @@ export function DailyMessagesPanel() {
               </Button>
               <Button size="sm" variant="secondary" className="w-full" disabled={busy === 'e-send'} onClick={() => doPreview('evening', true)}>
                 <Moon className="h-4 w-4" /> ارسال آزمایشی به چت مدیر
+              </Button>
+            </div>
+            <div className="rounded-lg border p-3 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 font-medium"><CloudSun className="h-4 w-4 text-sky-500" /> پیش‌بینی ساعتی فردا</div>
+                <Switch checked={s.weatherEnabled} onCheckedChange={(v) => save(upd({ weatherEnabled: v }), 'w-en')} disabled={busy === 'w-en'} />
+              </div>
+              <div className="flex items-center gap-2">
+                <Label className="whitespace-nowrap text-sm">ساعت ارسال</Label>
+                <Input value={s.weatherHour} onChange={(e) => setData((d) => d ? { ...d, settings: { ...d.settings, weatherHour: e.target.value } } : d)} className="w-24 text-center" dir="ltr" />
+                <Button size="sm" variant="outline" disabled={busy === 'w-h'} onClick={() => save(upd({ weatherHour: s.weatherHour }), 'w-h')}><Save className="h-4 w-4" /> ذخیرهٔ ساعت</Button>
+              </div>
+              <p className="text-xs text-muted-foreground">۲۴ ساعت روز بعد (۰۰:۰۰ تا ۲۳:۰۰) از Open-Meteo — دما، وضعیت، احتمال بارش و باد برای موقعیت کانال.</p>
+              <Button size="sm" variant="outline" className="w-full" disabled={busy === 'w-preview'} onClick={() => doPreview('weather', false)}>
+                <Eye className="h-4 w-4" /> پیش‌نمایش پیش‌بینی (بدون ارسال)
+              </Button>
+              <Button size="sm" variant="secondary" className="w-full" disabled={busy === 'w-send'} onClick={() => doPreview('weather', true)}>
+                <CloudSun className="h-4 w-4" /> ارسال آزمایشی به چت مدیر
               </Button>
             </div>
           </div>
@@ -216,13 +237,12 @@ export function DailyMessagesPanel() {
       {/* پیش‌نمایش */}
       {preview && (
         <Card>
-          <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Eye className="h-5 w-5" /> پیش‌نمایش پیام {preview.kind === 'morning' ? 'صبحگاهی' : 'شبانگاهی'}</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Eye className="h-5 w-5" /> پیش‌نمایش پیام {preview.kind === 'morning' ? 'صبحگاهی' : preview.kind === 'weather' ? 'پیش‌بینی ساعتی' : 'شبانگاهی'}</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <pre className="max-h-96 overflow-auto whitespace-pre-wrap rounded-lg bg-muted p-3 text-sm leading-6">{preview.text}</pre>
             {preview.photoUrl && (
               <div className="space-y-2">
                 <p className="text-xs text-muted-foreground">تصویر واقعی ویکی‌مدیا:</p>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={preview.photoUrl} alt="تصویر روز" className="max-h-64 rounded-lg" />
                 <p className="text-xs text-muted-foreground">{preview.caption}</p>
               </div>
@@ -278,7 +298,7 @@ export function DailyMessagesPanel() {
             <div className="space-y-1 text-sm">
               {data.runs.slice(0, 15).map((r, i) => (
                 <div key={`${r.slotKey}-${r.status}-${i}`} className="flex items-center justify-between rounded border px-2 py-1">
-                  <span>{r.kind === 'morning' ? '🌅 صبحگاهی' : '🌙 شبانگاهی'} — {faDateTime(r.at)}</span>
+                  <span>{r.kind === 'morning' ? '🌅 صبحگاهی' : r.kind === 'weather' ? '🌦️ پیش‌بینی' : '🌙 شبانگاهی'} — {faDateTime(r.at)}</span>
                   <Badge variant={r.status === 'sent' ? 'default' : r.status === 'failed' ? 'destructive' : 'secondary'}>{r.status === 'sent' ? 'ارسال شد' : r.status === 'failed' ? 'ناموفق' : r.status === 'preview' ? 'آزمایشی' : r.status}</Badge>
                 </div>
               ))}
@@ -293,7 +313,7 @@ export function DailyMessagesPanel() {
             <div className="space-y-1 text-sm">
               {data.errors.map((e, i) => (
                 <div key={`${e.slotKey}-${i}`} className="rounded border border-destructive/30 px-2 py-1">
-                  <span className="font-medium">{e.kind === 'morning' ? 'صبحگاهی' : 'شبانگاهی'} {e.dateKey}:</span> <span className="text-destructive">{e.error}</span>
+                  <span className="font-medium">{e.kind === 'morning' ? 'صبحگاهی' : e.kind === 'weather' ? 'پیش‌بینی ساعتی' : 'شبانگاهی'} {e.dateKey}:</span> <span className="text-destructive">{e.error}</span>
                 </div>
               ))}
             </div>

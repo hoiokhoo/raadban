@@ -37,6 +37,8 @@ const settingsSchema = z.object({
   eveningEnabled: z.boolean().optional(),
   morningHour: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'ساعت باید HH:mm باشد').optional(),
   eveningHour: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'ساعت باید HH:mm باشد').optional(),
+  weatherEnabled: z.boolean().optional(),
+  weatherHour: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'ساعت باید HH:mm باشد').optional(),
   timezone: z.string().regex(/^[A-Za-z_]+\/[A-Za-z_+0-9\-]+$/, 'منطقهٔ زمانی معتبر نیست (نمونه: Asia/Tehran)').optional(),
   city: z.string().min(2).max(60).optional(),
   lat: z.number().min(-90).max(90).optional(),

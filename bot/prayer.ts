@@ -28,6 +28,8 @@ export interface PrayerTimesDay {
   fajr: string;
   sunrise: string;
   dhuhr: string;
+  /** اذان عصر — بر پایهٔ سایهٔ شاخصِ روش منتخب */
+  asr: string;
   /** غروب آفتاب (طلوع نیست — مغرب پیش از اذان) */
   sunset: string;
   maghrib: string;
@@ -95,12 +97,13 @@ export function computePrayerTimes(dateKey: string, s: PrayerSettings): PrayerTi
     const maghrib = sunset + Math.max(0, Math.min(60, s.maghribMinutes)) * 60_000;
     const midnight = Math.round((maghrib + fajrNext) / 2);
     // اوقات نجومی باید همهٔ آن‌ها متناهی باشند (مدار قطبی/مختصات نامعتبر → null صادقانه)
-    const times = [pt.fajr.getTime(), pt.sunrise.getTime(), pt.dhuhr.getTime(), pt.sunset.getTime(), pt.isha.getTime(), fajrNext, maghrib, midnight];
+    const times = [pt.fajr.getTime(), pt.sunrise.getTime(), pt.dhuhr.getTime(), pt.asr.getTime(), pt.sunset.getTime(), pt.isha.getTime(), fajrNext, maghrib, midnight];
     if (!times.every(Number.isFinite)) return null;
     const out: PrayerTimesDay = {
       fajr: clockIn(pt.fajr.getTime(), s.tz),
       sunrise: clockIn(pt.sunrise.getTime(), s.tz),
       dhuhr: clockIn(pt.dhuhr.getTime(), s.tz),
+      asr: clockIn(pt.asr.getTime(), s.tz),
       sunset: clockIn(sunset, s.tz),
       maghrib: clockIn(maghrib, s.tz),
       isha: clockIn(pt.isha.getTime(), s.tz),
@@ -116,15 +119,16 @@ export function computePrayerTimes(dateKey: string, s: PrayerSettings): PrayerTi
 /** اعتبارسنجی ترتیب و بازهٔ اوقات — هر حالت نامعتبر → false (ارسال نمی‌شود) */
 export function validatePrayerTimes(p: PrayerTimesDay): boolean {
   if (!/^\d{2}:\d{2}$/.test(p.fajr) || !/^\d{2}:\d{2}$/.test(p.sunrise) || !/^\d{2}:\d{2}$/.test(p.dhuhr) ||
+      !/^\d{2}:\d{2}$/.test(p.asr) ||
       !/^\d{2}:\d{2}$/.test(p.sunset) || !/^\d{2}:\d{2}$/.test(p.maghrib) || !/^\d{2}:\d{2}$/.test(p.isha) ||
       !/^\d{2}:\d{2}$/.test(p.midnight)) return false;
   const toMin = (t: string): number | null => {
     const m = /^(\d{2}):(\d{2})$/.exec(t);
     return m ? Number(m[1]) * 60 + Number(m[2]) : null;
   };
-  const f = toMin(p.fajr), sr = toMin(p.sunrise), dh = toMin(p.dhuhr), ss = toMin(p.sunset), mg = toMin(p.maghrib), is = toMin(p.isha), md = toMin(p.midnight);
-  if (f === null || sr === null || dh === null || ss === null || mg === null || is === null || md === null) return false;
-  if (!(f < sr && sr < dh && dh < ss && ss < mg && mg < is)) return false;
+  const f = toMin(p.fajr), sr = toMin(p.sunrise), dh = toMin(p.dhuhr), as = toMin(p.asr), ss = toMin(p.sunset), mg = toMin(p.maghrib), is = toMin(p.isha), md = toMin(p.midnight);
+  if (f === null || sr === null || dh === null || as === null || ss === null || mg === null || is === null || md === null) return false;
+  if (!(f < sr && sr < dh && dh < as && as < ss && ss < mg && mg < is)) return false;
   if (!(f >= 0 && f <= 12 * 60)) return false; // اذان صبح منطقاً تا ظهر
   // نیمه‌شب شرعی = میانهٔ مغرب تا فجرِ روز بعد — می‌تواند پس از نیمه‌شب ساعتِ بیفتد؛
   // فقط بازهٔ عقلایی کنترل می‌شود (حدوداً بین مغرب و فجرِ پس‌فردا)
@@ -142,8 +146,10 @@ export function formatPrayerBlock(p: PrayerTimesDay, city: string, dateFa: strin
     `🌅 اذان صبح: ${faClock(p.fajr)}`,
     `☀️ طلوع آفتاب: ${faClock(p.sunrise)}`,
     `🕛 اذان ظهر: ${faClock(p.dhuhr)}`,
+    `🕓 اذان عصر: ${faClock(p.asr)}`,
     `🌇 غروب آفتاب: ${faClock(p.sunset)}`,
     `🌙 اذان مغرب: ${faClock(p.maghrib)}`,
+    `🌌 اذان عشاء: ${faClock(p.isha)}`,
     `✨ نیمه‌شب شرعی: ${faClock(p.midnight)}`,
     '',
     `روش محاسبه: ${p.methodLabel} — زمان‌ها به وقت ${city}`,

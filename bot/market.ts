@@ -367,7 +367,8 @@ async function get(url: string, timeoutMs = 12_000): Promise<{ ok: boolean; text
     if (!text) return { ok: false, error: 'پاسخ خالی' };
     return { ok: true, text };
   } catch (e) {
-    return { ok: false, error: e instanceof Error ? (e.name === 'AbortError' ? `timeout ${timeoutMs}ms` : e.message) : 'خطای ناشناخته' };
+    // پیام خطا فارسی و کوتاه — متن خام انگلیسی موتور fetch هرگز در پیام کانال نمی‌آید
+    return { ok: false, error: e instanceof Error ? (e.name === 'AbortError' ? `timeout ${timeoutMs}ms` : 'در دسترس نبود') : 'در دسترس نبود' };
   } finally {
     clearTimeout(timer);
   }

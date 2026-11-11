@@ -1894,8 +1894,15 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     const corpus = poolCorpus(pool, 60, 480);
     const userMsg = `تاریخ تهران: ${p.dateFa} — ساعت ${p.hhmm}\n\nرویدادهای تازه (هر سطر: شماره — منبع | دسته — متن):\n\n${corpus}`;
     const t0 = Date.now();
-    const r = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000 });
-    const text = r.ok ? validateDigestText(r.content) : null;
+    let r = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000 });
+    let text = r.ok ? validateDigestText(r.content) : null;
+    // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
+    if (r.ok && !text && r.providerId) {
+      console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+      const r2 = await chainCall(getDigestPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
+      const t2 = r2.ok ? validateDigestText(r2.content) : null;
+      if (t2) { r = r2; text = t2; }
+    }
     summary.digestProvider = r.providerId;
     console.log(`تحلیل جامع: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
     if (text) {
@@ -1937,7 +1944,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
   if (pKey) {
     const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
     const pNow = tehranParts(Date.now());
-    const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: pNow.hhmm };
+    const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: enToFaDigits(pNow.hhmm) };
     if (ctx.dryRun) {
       console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
       console.log(formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts));
@@ -2638,6 +2645,14 @@ async function main(): Promise<void> {
       sentTitleTexts.push(normalizeTitle(m.content).slice(0, 160));
     }
   };
+  // حالت بست — فقط «مصرف» منبع ثبت می‌شود (شناسه + کلید عنوان)؛ متنِ معنایی نه:
+  // آیتم هنوز ارسال نشده و ثبت متن آن، ضدتکرارِ زمان جمع‌بندی را به حذف خودِ صف می‌کشاند
+  const markConsume = (g: ItemGroup) => {
+    for (const m of g.members) {
+      sentIds.push(m.id);
+      sentTitles.push(m.titleKey);
+    }
+  };
   const markMsg = (text: string) => {
     const k = normalizeTitle(text).slice(0, 160);
     if (k) sentMsgTexts.push(k);
@@ -2665,8 +2680,10 @@ async function main(): Promise<void> {
       const cat = s.cat || s.g.primary.category || 'general';
       if (await sendForCategory(cat, msg, img, aggregateSourceLabel(s.g.members.map((m) => m.sourceName)))) {
         summary.sent++;
-        markMsg(text);
-        for (const n of s.refs) mark(ordered[n - 1]);
+        // در حالت بست متن هنوز «ارسال‌نشده» است — علامت پیام فقط پس از ارسال واقعی بسته
+        // (خلاف آن، ضدتکرارِ زمان جمع‌بندی خودِ آیتم‌های صف را حذف می‌کرد — اشکال ۱۲ نوامبر)
+        if (!bundleMode) markMsg(text);
+        for (const n of s.refs) (bundleMode ? markConsume : mark)(ordered[n - 1]);
       }
       await sleep(700);
     }
@@ -2689,7 +2706,7 @@ async function main(): Promise<void> {
       // تجمیع منابع اعمال می‌شود — خبر کامل، بدون خلاصه‌نویسی (خواستهٔ کاربر)
       const msg = composeGroupMessage(g, fluentFaText(g) || '', undefined, 3400);
       const cat = g.primary.category || 'general';
-      if (await sendForCategory(cat, msg, g.primary.imageUrl, aggregateSourceLabel(g.members.map((m) => m.sourceName)))) { summary.sent++; mark(g); }
+      if (await sendForCategory(cat, msg, g.primary.imageUrl, aggregateSourceLabel(g.members.map((m) => m.sourceName)))) { summary.sent++; (bundleMode ? markConsume : mark)(g); }
       await sleep(700);
     }
     if (bundleMode) console.log(`حالت بست: ${fluent.length} رویداد به صف بستهٔ خبری رفت${stuck ? ` — ${stuck} غیرفارسی بی‌ترجمه برای چرخهٔ بعد ماند` : ''}`);
@@ -2777,8 +2794,8 @@ async function main(): Promise<void> {
             console.warn(`⚠️ سرریز صف توییت — ${dropped.length} مورد قدیمی‌تر حذف شد`);
           }
           sentIds.push(idKey);
-          sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
-          markMsg(fa);
+          // علامت پیام/عنوان فقط پس از ارسال واقعی بستهٔ توییت — در غیر این صورت
+          // ضدتکرارِ زمان جمع‌بندی، خودِ توییت‌های صف را «تکراری» می‌پنداشت (اشکال ۱۲ نوامبر)
           summary.tweetsQueued = (summary.tweetsQueued || 0) + 1;
         } else {
           const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 3400);
@@ -2837,8 +2854,16 @@ async function main(): Promise<void> {
         buildHourlyCorpus(mergedItems),
       ].join('\n');
       const t0 = Date.now();
-      const r = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000 });
-      const aiText = r.ok ? validateHourlyText(r.content) : null;
+      let r = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000 });
+      let aiText = r.ok ? validateHourlyText(r.content) : null;
+      // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره؛
+      // پیش‌تر چنین پاسخی «موفق» شمرده می‌شد و بسته بدون تحلیل هوشمند به مسیر خام می‌افتاد
+      if (r.ok && !aiText && r.providerId) {
+        console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+        const r2 = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
+        const ai2 = r2.ok ? validateHourlyText(r2.content) : null;
+        if (ai2) { r = r2; aiText = ai2; }
+      }
       summary.hourlyProvider = r.providerId;
       console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}`);
       // سربرگ خنثی — «بست رصدبان» حذف شد (خواستهٔ صریح کاربر)
@@ -2869,6 +2894,10 @@ async function main(): Promise<void> {
             items: mergedItems.length,
           });
         }
+        // علامت متن‌های واقعاً ارسال‌شده — ضدتکرار معناییِ چرخه‌های بعد فقط با «ارسال‌شده‌های
+        // واقعی» بسنجد نه با آیتم‌های صف (اشکال خودحذفی ۱۲ نوامبر)
+        if (aiText) markMsg(aiText);
+        for (const m of mergedItems) markMsg(m.text);
         queue.length = 0;
         state.lastNewsSlotKey = newsSlotKey;
       } else {
@@ -2907,6 +2936,8 @@ async function main(): Promise<void> {
       if (twOk) {
         summary.tweetsSent = (summary.tweetsSent || 0) + twBundle.merged.length;
         console.log(`🕒 بستهٔ توییت ارسال شد (اسلات ${tweetSlotKey}) — ${tweetQueue.length} توییت صف (پس از تجمیع: ${twBundle.merged.length}) در ${twBundle.chunks.length} پیام`);
+        // علامت متن‌های واقعاً ارسال‌شده پس از موفقیت — نه هنگام صف‌گذاری
+        for (const m of twBundle.merged) { sentTitleTexts.push(normalizeTitle(m.text).slice(0, 160)); markMsg(m.text); }
         tweetQueue.length = 0;
         state.lastTweetSlotKey = tweetSlotKey;
       } else {

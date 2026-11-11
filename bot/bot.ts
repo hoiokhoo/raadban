@@ -53,7 +53,6 @@ import {
   buildHourlyCorpus,
   buildHistoryBlock,
   validateHourlyText,
-  hourlyHeader,
   chunkHourlyMessage,
   appendAnalysis,
   type HourlyAnalysis,
@@ -1943,14 +1942,12 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
   if (pKey) {
     const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
-    const pNow = tehranParts(Date.now());
-    const mOpts = { slotLabel: pKey.startsWith('force') ? 'فوری' : slotLabel(pKey.split('T')[1] || '12:30'), dateFa: pNow.dateFa, timeFa: enToFaDigits(pNow.hhmm) };
     if (ctx.dryRun) {
       console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
-      console.log(formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts));
+      console.log(formatMarketMessage(md.quotes, state.priceSnap));
       console.log('=== پایان پیش‌نمایش ===');
     } else if (md.quotes.length >= 3) {
-      const msg = formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts);
+      const msg = formatMarketMessage(md.quotes, state.priceSnap);
       let ok = false;
       for (const t of CFG.targets) {
         const s = await sendBaleMessage(CFG.token, t, msg);
@@ -2831,8 +2828,6 @@ async function main(): Promise<void> {
     //  ضدتکرار معناییِ زمان جمع‌بندی، خبرِ هم‌مضمونِ ارسال‌شده‌های قبلی را از صف حذف می‌کند ──
     const newsSlotKey = dueBundleSlotKey(Date.now(), 0, periodMin, state.lastNewsSlotKey, pSlot);
     if (newsSlotKey && queue.length > 0) {
-      const fromIso = queue[0].queuedAt;
-      const toIso = queue[queue.length - 1].queuedAt;
       // رویدادهای بازه — ضدتکرار معنایی با تاریخچهٔ ارسال‌شده‌ها (خواستهٔ ۱۲ نوامبر) +
       // تجمیع مشابه‌ها + شمار منابع مستقل (تیک اعتبارسنجی قطعی از دادهٔ سامانه، نه حدس مدل)
       const items: HourlyItem[] = queue.map((q) => ({
@@ -2866,11 +2861,10 @@ async function main(): Promise<void> {
       }
       summary.hourlyProvider = r.providerId;
       console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}`);
-      // سربرگ خنثی — «بست رصدبان» حذف شد (خواستهٔ صریح کاربر)
-      const header = hourlyHeader(fromIso, toIso);
+      // سربرگ حذف شد — خواستهٔ صریح کاربر ۱۲ نوامبر: «متن 🕒 اخبار 20:30 تا 20:41 رو حذف کن»
       const chunks = aiText
-        ? chunkHourlyMessage(header, aiText, 3300)
-        : buildBundleChunks(dedup.kept.map((q) => q.text), { fromIso, toIso, maxLen: 3300 });
+        ? chunkHourlyMessage(aiText, 3300)
+        : buildBundleChunks(dedup.kept.map((q) => q.text), { maxLen: 3300 });
       let ok = false;
       for (const c of chunks) {
         for (const t of CFG.targets) {

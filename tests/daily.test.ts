@@ -137,10 +137,9 @@ describe('مناسبت‌ها و وقایع تاریخی', () => {
     const hit = OCCASIONS.find((o) => o.cal === 'qamari' && o.m === 1 && o.d === 10);
     expect(hit?.title).toContain('عاشورا');
   });
-  test('بلوک مناسبت خالی صادقانه است — ساختگی نمی‌سازد', () => {
+  test('بلوک مناسبت خالی → کل بخش حذف می‌شود (خواستهٔ کاربر: «اگر مناسبتی نیست اینو نزار»)', () => {
     const block = formatOccasionsBlock([], 'امروز');
-    expect(block).toContain('ثبت‌شده‌ای');
-    expect(block).not.toContain('undefined');
+    expect(block).toBe('');
   });
   test('بانک مناسبت خالی نمانده (پوشش رسمی/مذهبی/تاریخی)', () => {
     expect(OCCASIONS.filter((o) => o.cat === 'official').length).toBeGreaterThanOrEqual(15);
@@ -232,7 +231,10 @@ describe('پیام صبحگاهی و شبانگاهی', () => {
   test('پیام صبحگاهی — بسم‌الله + حدیثِ بی‌برچسب (گوینده: متن) + تاریخ بی‌برچسب + مناسبت‌ها', async () => {
     const msg = await buildDailyMessage({ ...base, kind: 'morning', prayer: { lat: 35.6892, lon: 51.389, method: 'tehran', fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, tz: 'Asia/Tehran' }, hadith: bank.morning });
     expect(msg.text.startsWith(`<b>${BISMILLAH}</b>`)).toBe(true);
-    expect(msg.text).toContain('پیام صبحگاهی رصدبان');
+    // سربرگ/خط پایانی برند/خط منبع تصویر حذف شدند — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶
+    expect(msg.text).not.toContain('پیام صبحگاهی رصدبان');
+    expect(msg.text).not.toContain('رصدبان | پیام');
+    expect(msg.text).not.toContain('📷');
     // فرمت تازه (خواستهٔ کاربر): «پیامبر اکرم(ص): متن حدیث» — بدون هیچ سربرگ جداکننده
     expect(msg.text).toContain(`<b>${bank.morning.narrator}:</b>`);
     expect(msg.text).toContain(`«${bank.morning.arabic}»`);
@@ -243,23 +245,27 @@ describe('پیام صبحگاهی و شبانگاهی', () => {
     expect(msg.text).not.toContain('منبع:');
     expect(msg.text).not.toContain('شمسی:');
     expect(msg.text).not.toContain('میلادی:');
-    // تاریخ سه‌گانه بدون برچسب — ماه‌ها خودْ گویا + یادداشت مبنای قمری
+    // یادداشت مبنای قمری هم حذف شد — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶
+    expect(msg.text).not.toContain('تقویم قمری بر مبنای');
+    expect(msg.text).not.toContain('ام‌القری');
+    // تاریخ سه‌گانه بدون برچسب — ماه‌ها خودْ گویا
     expect(msg.text).toContain('سه‌شنبه');
     expect(msg.text).toContain('•');
-    expect(msg.text).toContain('تقویم قمری بر مبنای ام‌القری');
     expect(msg.photoUrl).toBeTruthy();
-    expect(msg.photoCaption).toContain('Wikimedia Commons');
-    expect(msg.photoCaption!.length).toBeLessThanOrEqual(1024);
+    // عکس با کپشنِ خودِ پیام می‌چسبد — نه پیام جداگانه، بدون هیچ خط اضافه
+    expect(msg.photoCaption).toBe(msg.text);
   });
   test('پیام شبانگاهی — تاریخِ «فردا» + اوقات شرعی فردا', async () => {
     const msg = await buildDailyMessage({ ...base, kind: 'evening', prayer: { lat: 35.6892, lon: 51.389, method: 'tehran', fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, tz: 'Asia/Tehran' }, hadith: bank.evening });
-    expect(msg.text).toContain('پیام شبانگاهی رصدبان');
+    expect(msg.text).not.toContain('پیام شبانگاهی رصدبان');
+    expect(msg.text).not.toContain('رصدبان | پیام');
     expect(msg.text).toContain('فردا: چهارشنبه');
     expect(msg.text).toContain('اوقات شرعی فردا');
     expect(msg.text).toContain('اذان صبح');
     expect(msg.text).toContain('نیمه‌شب شرعی');
-    expect(msg.text).toContain('۱۹ آبان ۱۴۰۵'.replace('۱۹', '۲۰')); // فردا = ۲۰ آبان
-    expect(msg.text).toContain('روش محاسبه');
+    expect(msg.text).toContain('۲۰ آبان ۱۴۰۵'); // فردا = ۲۰ آبان
+    // خط «روش محاسبه…» حذف شد — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶
+    expect(msg.text).not.toContain('روش محاسبه');
   });
   test('شکست اوقات شرعی → پیام صادقانه بدون زمان ساختگی', async () => {
     const msg = await buildDailyMessage({ ...base, kind: 'evening', prayer: { lat: 999, lon: 999, method: 'tehran', fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, tz: 'Asia/Tehran' }, hadith: bank.evening });
@@ -282,13 +288,13 @@ describe('بستهٔ ساعتی خبر و توییت', () => {
     expect(shouldFlushBundle('2026-11-10T07:45:00Z', now, 60)).toBe(false); // ۱۵ دقیقه — هنوز نه
     expect(shouldFlushBundle('غیرمتع', now, 60)).toBe(true);
   });
-  test('buildBundleChunks — گروه‌بندی با سربرگ خنثی (بدون برند) و شمارهٔ بخش', () => {
+  test('buildBundleChunks — بدون سربرگ (خواستهٔ کاربر: «🕒 اخبار … رو حذف کن»)؛ ادامه با نشانگر', () => {
     const items = Array.from({ length: 8 }, (_, i) => `منبع خبرگزاری ${i}: ${'متن خبر تازه '.repeat(30)}`);
-    const chunks = buildBundleChunks(items, { fromIso: '2026-11-10T05:00:00Z', toIso: '2026-11-10T05:30:00Z', maxLen: 2000 });
+    const chunks = buildBundleChunks(items, { maxLen: 2000 });
     expect(chunks.length).toBeGreaterThan(1);
-    expect(chunks[0]).toContain('🕒 اخبار');
-    expect(chunks[0]).toContain('بخش ۱ از');
-    expect(chunks[1]).toContain('ادامهٔ بخش ۲ از');
+    expect(chunks[0]).not.toContain('🕒');
+    expect(chunks[0]).toContain('منبع خبرگزاری 0:');
+    expect(chunks[1]).toContain('— ادامه');
     // «بست رصدبان» حذف شده — خواستهٔ صریح کاربر
     for (const c of chunks) { expect(c).not.toContain('بست'); expect(c).not.toContain('رصدبان'); expect(c.length).toBeLessThan(2600); }
   });

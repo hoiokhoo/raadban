@@ -43,7 +43,7 @@ export const DEFAULT_SYSTEM_HOURLY = `
 - پیامد محتمل کوتاه‌مدت چیست؟ چه چیزی را در ساعات آینده باید رصد کرد؟
 استنتاج منطقی از همین رویدادها و تحلیل‌های پیشین مجاز است؛ خبرسازی، عدد و رویداد از حافظهٔ خودتان ممنوع.
 
-ساختار الزامی خروجی (عیناً — بدون هیچ سربرگ اضافه از سوی شما؛ خط زمان را سامانه می‌گذارد):
+ساختار الزامی خروجی (عیناً — بدون هیچ سربرگ اضافه از سوی شما):
 
 ۱. ✅ <رویداد چندمنبعی — یک تا دو جملهٔ ساده>
 ۲. <رویداد تک‌منبعی — یک تا دو جملهٔ ساده>
@@ -216,42 +216,26 @@ export function validateHourlyText(raw: string | undefined | null, maxLen = 6200
   return t;
 }
 
-// ---------- سربرگ خنثی (بدون «بست رصدبان» — خواستهٔ صریح کاربر) ----------
+// ---------- تقسیم چندپیامی (بدون سربرگ — خواستهٔ صریح کاربر ۱۲ نوامبر ۲۰۲۶:
+//  «متن 🕒 اخبار 20:30 تا 20:41 رو حذف کن») ----------
 
-function hhmmTehran(iso: string): string {
-  const t = Date.parse(iso);
-  if (!Number.isFinite(t)) return '';
-  try {
-    return new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tehran', hour12: false, hour: '2-digit', minute: '2-digit' }).format(t);
-  } catch { return ''; }
-}
-
-/** سربرگ خنثی پیام بازه‌ای — فقط بازهٔ زمانی؛ هیچ برندی از خودش نمی‌گوید */
-export function hourlyHeader(fromIso: string, toIso: string): string {
-  const from = hhmmTehran(fromIso);
-  const to = hhmmTehran(toIso);
-  if (from && to && from !== to) return `🕒 اخبار ${from} تا ${to}`;
-  if (from) return `🕒 اخبار تا ساعت ${from}`;
-  return '🕒 اخبار این ساعت';
-}
-
-/** تقسیم پیام ساعتی بلند به چند پیام بله — بخش‌های ادامه با سربرگ خنثی */
-export function chunkHourlyMessage(header: string, text: string, maxLen = 3300): string[] {
-  const body = `${header}\n\n${text}`;
+/** تقسیم پیام ساعتی بلند به چند پیام بله — پیام اول خودِ متن؛ بخش‌های ادامه فقط با نشانگر
+ *  «— ادامه» تا مخاطب بداند پیام بعدی ادامهٔ همان بسته است (بدون هیچ سربرگ زمانی). */
+export function chunkHourlyMessage(text: string, maxLen = 3300): string[] {
+  const body = (text || '').trim();
   if (body.length <= maxLen) return [body];
   const parts: string[] = [];
-  let rest = text;
+  let rest = body;
   let first = true;
   while (rest.length > 0) {
-    const budget = maxLen - header.length - 2;
-    if (rest.length <= budget) {
-      parts.push(first ? `${header}\n\n${rest}` : `${header} — ادامه\n${rest}`);
+    if (rest.length <= maxLen) {
+      parts.push(first ? rest : `— ادامه\n${rest}`);
       break;
     }
-    let cut = rest.lastIndexOf('\n\n', budget);
-    if (cut < budget * 0.4) cut = rest.lastIndexOf('\n', budget);
-    if (cut < budget * 0.4) cut = budget;
-    parts.push(first ? `${header}\n\n${rest.slice(0, cut)}` : `${header} — ادامه\n${rest.slice(0, cut)}`);
+    let cut = rest.lastIndexOf('\n\n', maxLen);
+    if (cut < maxLen * 0.4) cut = rest.lastIndexOf('\n', maxLen);
+    if (cut < maxLen * 0.4) cut = maxLen;
+    parts.push(first ? rest.slice(0, cut) : `— ادامه\n${rest.slice(0, cut)}`);
     first = false;
     rest = rest.slice(cut).trimStart();
   }

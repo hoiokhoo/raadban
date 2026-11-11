@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { chainCall, getHourlyPrompt, splitPhotoCaption, enToFaDigits } from '../bot/bot';
-import { DEFAULT_SYSTEM_HOURLY, buildHourlyCorpus, buildHistoryBlock, dropAlreadySent, mergeSimilarItems, validateHourlyText, hourlyHeader, type HourlyItem } from '../bot/hourly';
+import { DEFAULT_SYSTEM_HOURLY, buildHourlyCorpus, buildHistoryBlock, dropAlreadySent, mergeSimilarItems, validateHourlyText, type HourlyItem } from '../bot/hourly';
 import { pickHadith, fetchNatureImage, buildDailyMessage, type HadithUsage } from '../bot/daily';
 import { dateKeyOf, shiftDateKey, tripleDateOf, type QamariBasis } from '../bot/calendar';
 import { computePrayerTimes } from '../bot/prayer';
@@ -112,18 +112,16 @@ async function previewNews(): Promise<void> {
     const ai2 = r2.ok ? validateHourlyText(r2.content) : null;
     if (ai2) { aiText = ai2; providerId = r2.providerId; }
   }
-  const fromIso = queue[0].queuedAt;
-  const toIso = queue[queue.length - 1].queuedAt;
-  const header = hourlyHeader(fromIso, toIso);
   const notes: string[] = [];
   let text: string;
   if (aiText) {
-    text = `${header}\n\n${aiText}`;
+    // سربرگ حذف شد — خواستهٔ صریح کاربر ۱۲ نوامبر: «متن 🕒 اخبار 20:30 تا 20:41 رو حذف کن»
+    text = aiText;
     notes.push(`مدل: ${providerId || 'نامشخص'}`);
   } else {
-    // مسیر پشتیبان واقعی ربات — بست خام با سربرگ خنثی (متن کامل هر رویداد — همان buildBundleChunks)
+    // مسیر پشتیبان واقعی ربات — بست خام بدون سربرگ (متن کامل هر رویداد — همان buildBundleChunks)
     const DIVIDER = '➖➖➖➖➖';
-    text = `${header}\n${DIVIDER}\n\n${dedup.kept.map((q) => `• ${q.text.replace(/\s+/g, ' ').trim()}`).join(`\n\n${DIVIDER}\n\n`)}`;
+    text = `${dedup.kept.map((q) => `• ${q.text.replace(/\s+/g, ' ').trim()}`).join(`\n\n${DIVIDER}\n\n`)}`;
     notes.push(`مسیر پشتیبان (بدون مدل) — ${r.ok ? 'متن مدل اعتبارسنجی نشد' : `شکست مدل: ${r.error || 'نامشخص'}`}`);
   }
   notes.push(`صف: ${queue.length} مورد | پس از ضدتکرار: ${dedup.kept.length} (حذف‌شدهٔ تکراری: ${dedup.dropped}) | پس از تجمیع: ${mergedItems.length}`);
@@ -183,8 +181,7 @@ async function previewWeather(): Promise<void> {
 // ---------- ۵) گزارش بازار — همان مسیر واقعی (نوبیتکس/tgju/tsetmc/stooq/کانال خودرو) ----------
 async function previewMarket(): Promise<void> {
   const md = await fetchMarketData({ carChannels: ['akhbar_khodroei'], carStore: state.carStore });
-  const mOpts = { slotLabel: slotLabel(`${pNow.hhmm.slice(0, 5)}:00`.slice(0, 5)), dateFa: pNow.dateFa, timeFa: enToFaDigits(pNow.hhmm) };
-  const text = formatMarketMessage(md.quotes, md.failures, state.priceSnap, mOpts);
+  const text = formatMarketMessage(md.quotes, state.priceSnap);
   const okItems = md.quotes.length;
   out.push({
     label: 'market', title: `گزارش بازار (${slotLabel(pNow.hhmm)})`, text,

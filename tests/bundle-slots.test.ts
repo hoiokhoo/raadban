@@ -183,15 +183,13 @@ describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ه
 
 // ---------- سازگاری بستهٔ خام خبر ----------
 
-describe('buildBundleChunks — مسیر پشتیبان خبر (سربرگ خنثی)', () => {
-  test('چند خبر در قطعه‌های معتبر با شمارهٔ بخش', () => {
+describe('buildBundleChunks — مسیر پشتیبان خبر (بدون سربرگ)', () => {
+  test('چند خبر در قطعه‌های معتبر — پیام با خودِ خبرها آغاز می‌شود', () => {
     const chunks = buildBundleChunks(['خبر اول نمونه برای تست', 'خبر دوم نمونه برای تست'], {
-      fromIso: '2026-11-12T08:00:00Z',
-      toIso: '2026-11-12T10:00:00Z',
       maxLen: 3300,
     });
     expect(chunks.length).toBe(1);
-    expect(chunks[0]).toContain('🕒 اخبار');
     expect(chunks[0]).toContain('خبر اول');
+    expect(chunks[0]).not.toContain('🕒');
   });
 });

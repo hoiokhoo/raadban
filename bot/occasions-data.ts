@@ -108,6 +108,19 @@ export const OCCASIONS: Occasion[] = [
   { cal: 'miladi', m: 6, d: 28, title: 'آغاز جنگ جهانی اول — ترور ولیعهد اتریش', year: 1914, cat: 'history-world' },
   { cal: 'miladi', m: 8, d: 6, title: 'بمباران هسته‌ای هیروشیما', year: 1945, cat: 'history-world' },
   { cal: 'miladi', m: 5, d: 14, title: 'ارتباط سراسری اولین شبکهٔ تلگراف اروپا؟ — حذف شود', cat: 'history-world' },
+
+  // ---------- روزهای جهانی پرطرفدار (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «مناسبت‌های بین‌المللی
+  //  مثه روز جهانی زن و ... یا هالووین یا کریسمس و ... رو هم بزاری اگر روزشون هست») ----------
+  { cal: 'miladi', m: 3, d: 22, title: 'روز جهانی آب', cat: 'world' },
+  { cal: 'miladi', m: 4, d: 23, title: 'روز جهانی کتاب و حق مؤلف', cat: 'world' },
+  { cal: 'miladi', m: 10, d: 1, title: 'روز جهانی سالمندان', cat: 'world' },
+  { cal: 'miladi', m: 10, d: 31, title: 'هالووین (شب کدو)', cat: 'world' },
+  { cal: 'miladi', m: 11, d: 12, title: 'روز جهانی پنومونی (ذات‌الریه)', cat: 'world' },
+  { cal: 'miladi', m: 11, d: 16, title: 'روز جهانی رواداری', cat: 'world' },
+  { cal: 'miladi', m: 11, d: 20, title: 'روز جهانی کودک', cat: 'world' },
+  { cal: 'miladi', m: 11, d: 25, title: 'روز جهانی حذف خشونت علیه زنان', cat: 'world' },
+  { cal: 'miladi', m: 12, d: 1, title: 'روز جهانی مبارزه با ایدز', cat: 'world' },
+  { cal: 'miladi', m: 12, d: 25, title: 'کریسمس — میلاد حضرت مسیح (ع)', cat: 'world' },
 ];
 
 /** مدخل ناقص/نامطمئن در زمان ساخت — بانک نهایی حذف می‌کند (صادقانه) */

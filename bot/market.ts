@@ -256,13 +256,44 @@ export const CAR_FEATURED: Array<{ match: string; label: string }> = [
   { match: 'ری را', label: 'ری‌را' },
   { match: 'ریرا', label: 'ری‌را' },
   { match: 'پیکان', label: 'پیکان' },
-  { match: 'هایما', label: 'هایما' },
-  { match: 'تیگو', label: 'تیگو' },
-  { match: 'اریزو', label: 'آریزو' },
+
+  // ---------- خانوادهٔ کرمان موتور / KMC — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶:
+  //  «قیمت ماشینهای کرمان موتور خصوصا j4 و sr3 رو اضافه کن و قیمتشون رو از کانال
+  //  اخبار خودرو دربیار اگر نبود از نت دربیار» — SR3 غایب در کانال از باما (نت) می‌آید ----------
+  { match: 'sr3', label: 'کی ام سی SR3' },
+  { match: 'j4', label: 'جک J4' },
+  { match: 'j7', label: 'جک J7' },
+  { match: 't9', label: 'جک T9' },
+  { match: 'الیت', label: 'الیت ۷' },
   { match: 'فید', label: 'فیدلیتی' },
   { match: 'لاماری', label: 'لاماری' },
   { match: 'اتلس', label: 'اتلس اس' },
+  { match: 'هایما', label: 'هایما' },
+  { match: 'تیگو', label: 'تیگو' },
+  { match: 'اریزو', label: 'آریزو' },
 ];
+
+// ---------- پشتیبان «از نت» برای مدل‌های غایب در کانال — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶ ----------
+
+/** منبع وب قیمت بازار آزاد — باما (مرجع قیمت روز خودرو). فقط وقتی مدل در کانال/انبار نبود
+ *  واکشی می‌شود؛ شکست وب → صادقانه غایب (هیچ عدد ساختگی). انبار ماندگار آلوده نمی‌شود. */
+export interface CarWebSource { match: string; label: string; url: string; hostLabel: string }
+
+export const CAR_WEB_SOURCES: CarWebSource[] = [
+  { match: 'sr3', label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter', hostLabel: 'باما' },
+];
+
+/** نخستین «قیمت بازار X,X…X تومان» صفحهٔ قیمت باما — تیپ مدل‌سال جدیدتر اول می‌آید.
+ *  تابع خالص تست‌پذیر؛ نامعتبر → null. */
+export function parseBamaMarketPrice(html: string): number | null {
+  try {
+    const t = (html || '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const m = t.match(/قیمت بازار\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
+    return m ? num(m[1]) : null;
+  } catch {
+    return null;
+  }
+}
 
 // ---------- انبار ماندگار قیمت خودرو — همیشه پرتیراژها در فهرست ----------
 
@@ -556,10 +587,14 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   const cars = parseCarPriceLists(carMsgs);
   // انبار ماندگار — پرتیراژها همیشه در فهرست می‌مانند حتی اگر امروز در کانال نبودند (خواستهٔ کاربر)
   const carStore = mergeCarStore(opts.carStore, cars, new Date().toISOString());
-  const featured = featuredCarsFromStore(carStore, new Date().toISOString(), 12);
+  const featured = featuredCarsFromStore(carStore, new Date().toISOString(), 18);
+  const carQuotes: Quote[] = [];
+  const usedCarKeys = new Set<string>();
   for (const c of featured) {
-    quotes.push({
-      key: `car:${normalizeCarModel(c.model)}`,
+    const k = `car:${normalizeCarModel(c.model)}`;
+    usedCarKeys.add(k);
+    carQuotes.push({
+      key: k,
       title: c.model,
       value: c.valueToman,
       unit: 'toman',
@@ -568,6 +603,37 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
       emoji: '🚗',
     });
   }
+  // پشتیبان «از نت» — فقط مدل‌های غایب در کانال/انبار (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶);
+  // شکست وب → صادقانه غایب. انبار ماندگار آلوده نمی‌شود (منبع قیمت = وب، نه کانال).
+  const storeKeys = Object.keys(carStore);
+  for (const w of CAR_WEB_SOURCES) {
+    const norm = normalizeCarModel(w.match);
+    if (usedCarKeys.has(`car:${norm}`) || storeKeys.some((k) => k.includes(norm))) continue;
+    const r = await get(w.url, timeoutMs);
+    if (!r.ok || !r.text) continue;
+    const price = parseBamaMarketPrice(r.text);
+    if (price && price >= 1e9 && price <= 3e10) {
+      carQuotes.push({
+        key: `car:${norm}`,
+        title: w.label,
+        value: price,
+        unit: 'toman',
+        srcLabel: `${w.hostLabel} (نت)`,
+        emoji: '🚗',
+      });
+    }
+  }
+  // ترتیب نمایش بر پایهٔ فهرست پرتقاضا — SR3 «از نت» هم کنار خانوادهٔ کرمان می‌نشیند
+  const orderedCarQuotes: Quote[] = [];
+  const pending = new Map(carQuotes.map((q) => [q.key, q] as const));
+  for (const f of CAR_FEATURED) {
+    const fm = normalizeCarModel(f.match);
+    for (const [k, q] of pending) {
+      if (k.slice(4).includes(fm)) { orderedCarQuotes.push(q); pending.delete(k); break; }
+    }
+  }
+  orderedCarQuotes.push(...pending.values());
+  quotes.push(...orderedCarQuotes);
 
   return { quotes: applyDeltas(quotes, undefined), failures, sources: [...sources], carStore };
 }
@@ -580,24 +646,18 @@ export function xmlEsc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-export interface MarketMessageOpts {
-  /** «ظهر» | «شب» */
-  slotLabel: string;
-  dateFa: string; // «۱۸ آبان ۱۴۰۵»
-  timeFa: string; // «۱۲:۳۰»
-}
+export interface MarketMessageOptsDeprecated { /** حذف شد — امضای تازه: (quotes, prev) */ note?: string }
 
-/** پیام گزارش بازار — خواستهٔ کاربر: همهٔ اقلام + درصد تغییر نسبت به گزارش قبلی */
-export function formatMarketMessage(quotes: Quote[], failures: string[], prev: PriceSnapshot | undefined, opts: MarketMessageOpts): string {
+/** پیام گزارش بازار — خواستهٔ ۱۲ نوامبر ۲۰۲۶: بدون سربرگ «گزارش بازار رصدبان»، بدون بلوک
+ *  «⚠️ دریافت نشد» (منبع غایب فقط حذف می‌شود — هیچ سطر شکست در پیام نمی‌آید)، بدون خط راهنمای
+ *  «٪ تغییر…» و بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو» (نه کف بازار).
+ *  درصد تغییر نسبت به گزارش قبلی حفظ شده است. */
+export function formatMarketMessage(quotes: Quote[], prev: PriceSnapshot | undefined): string {
   const withDelta = applyDeltas(quotes, prev);
-  const L: string[] = [
-    `📊 <b>گزارش بازار رصدبان — ${xmlEsc(opts.slotLabel)} ${xmlEsc(opts.dateFa)}</b>`,
-    `🕘 ساعت ${xmlEsc(opts.timeFa)}`,
-    '',
-  ];
+  const L: string[] = [];
   const cars = withDelta.filter((q) => q.key.startsWith('car:'));
   if (cars.length) {
-    L.push('<b>🚗 خودرو (کف بازار):</b>');
+    L.push('<b>🚗 آخرین قیمت بازار آزاد خودرو:</b>');
     for (const c of cars) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
     L.push('');
   }
@@ -611,12 +671,6 @@ export function formatMarketMessage(quotes: Quote[], failures: string[], prev: P
     const q = withDelta.find((x) => x.key === key);
     if (q) L.push(`${q.emoji} <b>${xmlEsc(q.title)}</b>: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)})`);
   }
-  const failed = failures.filter(Boolean);
-  if (failed.length) {
-    L.push('', '⚠️ دریافت نشد:');
-    for (const f of failed.slice(0, 5)) L.push(`• ${xmlEsc(f)}`);
-  }
-  L.push('', '٪ تغییر نسبت به گزارش قبلی رصدبان؛ اقلام بدون سابقه = تغییر روز منبع.', `منابع: ${[...new Set(withDelta.map((q) => q.srcLabel))].join('، ')}`);
   return L.join('\n');
 }
 

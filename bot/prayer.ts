@@ -136,7 +136,9 @@ export function validatePrayerTimes(p: PrayerTimesDay): boolean {
   return true;
 }
 
-/** قالب بلوک اوقات شرعی پیام شبانگاهی — ارقام فارسی */
+/** قالب بلوک اوقات شرعی پیام شبانگاهی — ارقام فارسی.
+ *  خط «روش محاسبه…» حذف شد (خواستهٔ صریح کاربر ۱۲ نوامبر ۲۰۲۶) — روش و زاویه‌ها در تنظیمات
+ *  کانال و لاگ‌ها ثبت می‌شوند، نه در پیام. */
 export function formatPrayerBlock(p: PrayerTimesDay, city: string, dateFa: string): string {
   return [
     '🕌 <b>اوقات شرعی فردا</b>',
@@ -151,7 +153,5 @@ export function formatPrayerBlock(p: PrayerTimesDay, city: string, dateFa: strin
     `🌙 اذان مغرب: ${faClock(p.maghrib)}`,
     `🌌 اذان عشاء: ${faClock(p.isha)}`,
     `✨ نیمه‌شب شرعی: ${faClock(p.midnight)}`,
-    '',
-    `روش محاسبه: ${p.methodLabel} — زمان‌ها به وقت ${city}`,
   ].join('\n');
 }

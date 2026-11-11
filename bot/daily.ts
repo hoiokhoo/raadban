@@ -139,11 +139,11 @@ export function matchOccasions(td: TripleDate): OccasionHit[] {
 }
 
 /** بلوک مناسبت‌ها — فهرست ساده و بی‌برچسب (خواستهٔ کاربر: «برچسب‌ها رو حذف کن»)
- *  خالی → پیام صادقانه؛ ترتیب: رسمی/ملی، مذهبی، تاریخی ایران، جهانی */
+ *  خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «اگر مناسبتی نیست اینو نزار» — خالی → رشتهٔ خالی؛
+ *  کل بخش از پیام حذف می‌شود (نه خط «در بانک نیست»). ترتیب: رسمی/ملی، مذهبی، تاریخی ایران، جهانی.
+ *  روزهای بین‌المللی (هالووین، کریسمس، روز جهانی زن و…) هم در بانک هستند و در روز خودشان می‌آیند. */
 export function formatOccasionsBlock(hits: OccasionHit[], dayLabel: 'امروز' | 'فردا', compact = false): string {
-  if (hits.length === 0) {
-    return `<b>🎉 مناسبت‌های ${dayLabel}</b>\n• مناسبت رسمی یا واقعهٔ تاریخی ثبت‌شده‌ای برای ${dayLabel} در بانک نیست.`;
-  }
+  if (hits.length === 0) return '';
   const L: string[] = [`<b>🎉 مناسبت‌های ${dayLabel}</b>`];
   const ordered = [...hits].sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
   for (const h of ordered.slice(0, compact ? 6 : 10)) {
@@ -341,13 +341,12 @@ export interface DailyMessage {
 
 /** بلوک تاریخ — بدون برچسب (خواستهٔ صریح کاربر ۱۰ نوامبر ۲۰۲۶: «ننویس شمسی: یا میلادی: —
  *  این بخش‌ها رو حذف کن»). ماه‌ها خودْ گویا هستند: آبان = خورشیدی، رجب = قمری، نوامبر = میلادی.
- *  تنها یادداشت کوچک، مبنای تقویم قمری است (الزام شفافیت روش محاسبه). */
+ *  یادداشت مبنای تقویم قمری هم حذف شد (خواستهٔ صریح کاربر ۱۲ نوامبر ۲۰۲۶: «تقویم قمری بر
+ *  مبنای ام‌القری رو حذف کن») — مبدأ محاسبه در تنظیمات و لاگ‌ها ثبت می‌شود، نه در پیام. */
 function datesBlock(td: TripleDate, dayLabel: string): string {
-  const basis = td.qamariBasis === 'umalqura' ? 'ام‌القری' : 'تقویم مدنی قمری';
   return [
     `📅 <b>${dayLabel}: ${xmlEsc(td.weekdayFa)}</b>`,
     `${xmlEsc(td.shamsi)} • ${xmlEsc(td.qamari)} • ${xmlEsc(td.miladi)}`,
-    `<i>(تقویم قمری بر مبنای ${basis})</i>`,
   ].join('\n');
 }
 
@@ -365,24 +364,20 @@ function hadithBlock(h: HadithEntry): string {
 
 /** پیام صبحگاهی — متن کامل؛ عکس به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه
  *  (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «عکس صبحگاهی بدون توضیحات اضافه فقط به همون متن صبحگاهی
- *  اضافه بشه نه خبر جداگانه»). تنها افزودنِ متن، یک خط کوتاه اعتبار منبع تصویر است
- *  (الزام مجوز CC). هیچ بخش ساختگی: حدیث ندارد → پیام صادر نمی‌شود (در caller). */
+ *  اضافه بشه نه خبر جداگانه»). خواستهٔ ۱۲ نوامبر: سربرگ «پیام صبحگاهی رصدبان»، خط پایانی برند
+ *  و خط منبع تصویر از پیام حذف شد — پیام مستقیم با بسم‌الله آغاز می‌شود و ثبت منبع/مجوز
+ *  تصویر فقط در لاگ و state انجام می‌شود. مناسبت نبود → بخش مناسبت‌ها کلًا نمی‌آید. */
 export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occasions: OccasionHit[] }): DailyMessage {
   const { today, occasions, hadith, image } = ctx;
   const L: string[] = [
     `<b>${BISMILLAH}</b>`,
     '',
-    `🌅 <b>پیام صبحگاهی رصدبان</b>`,
-    '',
     hadithBlock(hadith),
     '',
     datesBlock(today, 'امروز'),
-    '',
-    formatOccasionsBlock(occasions, 'امروز'),
-    '',
-    `— رصدبان | پیام صبحگاهی هر روز ساعت ${faHhmm(ctx.morningHour || '05:00')}`,
   ];
-  if (image) L.push(`📷 ${xmlEsc(image.sourceLabel)}`);
+  const occ = formatOccasionsBlock(occasions, 'امروز');
+  if (occ) L.push('', occ);
   const text = L.join('\n');
   const msg: DailyMessage = { text };
   if (image) {
@@ -399,24 +394,17 @@ export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; 
   const L: string[] = [
     `<b>${BISMILLAH}</b>`,
     '',
-    `🌙 <b>پیام شبانگاهی رصدبان</b>`,
-    '',
     hadithBlock(hadith),
     '',
     datesBlock(tomorrow, 'فردا'),
-    '',
-    formatOccasionsBlock(tomorrowOccasions, 'فردا', true),
-    '',
   ];
+  const occ = formatOccasionsBlock(tomorrowOccasions, 'فردا', true);
+  if (occ) L.push('', occ);
   if (prayerTimes) {
-    L.push(formatPrayerBlock(prayerTimes, city, tomorrow.shamsi));
-    L.push('');
+    L.push('', formatPrayerBlock(prayerTimes, city, tomorrow.shamsi));
   } else {
-    L.push('🕌 اوقات شرعی فردا: محاسبهٔ نجومی در دسترس نبود — زمان اشتباه یا حدسی منتشر نمی‌شود.');
-    L.push('');
+    L.push('', '🕌 اوقات شرعی فردا: محاسبهٔ نجومی در دسترس نبود — زمان اشتباه یا حدسی منتشر نمی‌شود.');
   }
-  L.push(`— رصدبان | پیام شبانگاهی هر روز ساعت ${faHhmm(ctx.eveningHour || '21:00')}`);
-  if (image) L.push(`📷 ${xmlEsc(image.sourceLabel)}`);
   const text = L.join('\n');
   const msg: DailyMessage = { text };
   if (image) {

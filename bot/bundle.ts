@@ -79,22 +79,16 @@ function hhmmOf(iso: string): string {
 }
 
 export interface BundleChunkOpts {
-  /** بازهٔ زمانی برای سربرگ — ISO آغاز و پایان صف */
-  fromIso?: string;
-  toIso?: string;
   maxLen?: number;
 }
 
-/** ساخت پیام‌های بست — گروه‌بندی موارد در قطعه‌های ≤ maxLen با سربرگ و شمارهٔ بخش.
- *  هر مورد هرگز نصف نمی‌شود مگر آنکه تنها و بزرگ‌تر از سقف باشد (آن‌گاه درون همان بخش شکسته می‌شود).
- *  شماره‌گذاری پس از ساخت قطعه‌ها انجام می‌شود تا شمار واقعی بخش‌ها درست باشد. */
+/** ساخت پیام‌های بست — گروه‌بندی موارد در قطعه‌های ≤ maxLen.
+ *  خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: سربرگ «🕒 اخبار …» حذف شد — پیام با خودِ خبرها آغاز می‌شود و
+ *  بخش‌های ادامه فقط نشانگر «— ادامه» دارند. هر مورد هرگز نصف نمی‌شود مگر آنکه تنها و
+ *  بزرگ‌تر از سقف باشد (آنگاه درون همان بخش شکسته می‌شود). */
 export function buildBundleChunks(items: string[], opts: BundleChunkOpts = {}): string[] {
   const maxLen = Math.max(1200, opts.maxLen ?? 3300);
   if (items.length === 0) return [];
-  // سربرگ خنثی — فقط بازهٔ زمانی؛ هیچ برندی از خودش نمی‌گوید (خواستهٔ کاربر)
-  const header = opts.fromIso && opts.toIso
-    ? `🕒 اخبار ${hhmmOf(opts.fromIso)} تا ${hhmmOf(opts.toIso)}`
-    : '🕒 اخبار این ساعت';
   const pieces: string[] = []; // قطعه‌های بدون سربرگ — شماره‌گذاری در پایان
   let current: string[] = [];
   let curLen = 0;
@@ -125,9 +119,9 @@ export function buildBundleChunks(items: string[], opts: BundleChunkOpts = {}): 
   flushCurrent();
   const n = pieces.length;
   return pieces.map((c, i) => {
-    if (n <= 1) return `${header}\n${DIVIDER}\n\n${c}`;
-    if (i === 0) return `${header} — بخش ۱ از ${faNum(n)}\n${DIVIDER}\n\n${c}`;
-    return `${header} — ادامهٔ بخش ${faNum(i + 1)} از ${faNum(n)}\n${DIVIDER}\n\n${c}`;
+    if (n <= 1) return c;
+    if (i === 0) return `${c}\n\n${DIVIDER}\n\n— ادامه`;
+    return `— ادامه\n\n${c}`;
   });
 }
 

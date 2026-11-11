@@ -5,8 +5,9 @@
 import { describe, expect, test } from 'bun:test';
 import {
   applyDeltas, deltaPct, faGroup, faToEnDigits, formatMarketMessage, formatMoney, formatPct,
-  normalizeCarModel, num, parseCarLine, parseCarPriceLists, parseNobitexStats, parseTgjuCurrent,
+  normalizeCarModel, num, parseBamaMarketPrice, parseCarLine, parseCarPriceLists, parseNobitexStats, parseTgjuCurrent,
   parseTsetmcMarketTotal, pickFeaturedCars, rialToToman, snapshotOf, xmlEsc,
+  CAR_FEATURED,
   type Quote,
 } from '../bot/market';
 
@@ -225,33 +226,50 @@ describe('deltaPct و applyDeltas', () => {
 // ---------- قالب پیام ----------
 
 describe('formatMarketMessage', () => {
-  test('پیام کامل — همهٔ بخش‌ها + درصد + منابع + دریافت‌نشده‌ها', () => {
+  test('پیام کامل — بدون سربرگ، بدون سطر شکست/راهنما/منابع؛ خودرو با عنوان تازه (خواستهٔ ۱۲ نوامبر)', () => {
     const quotes: Quote[] = [
       { key: 'car:پراید', title: 'پراید', value: 485e6, unit: 'toman', srcLabel: 'کانال اخبار خودرو', emoji: '🚗' },
+      { key: 'car:sr3', title: 'کی ام سی SR3', value: 5.55e9, unit: 'toman', srcLabel: 'باما (نت)', emoji: '🚗' },
       { key: 'geram18', title: 'طلای ۱۸ عیار', value: 25417100, unit: 'toman', srcLabel: 'tgju', emoji: '🥇' },
       { key: 'usd', title: 'دلار (تتر نوبیتکس)', value: 2649000, unit: 'toman', srcLabel: 'نوبیتکس', emoji: '💵', changePct: -0.3 },
       { key: 'tedpix', title: 'شاخص کل بورس', value: 8089993, unit: 'index', srcLabel: 'tgju', emoji: '📈' },
       { key: 'btc', title: 'بیت‌کوین', value: 76100, unit: 'usd', srcLabel: 'tgju', emoji: '₿' },
       { key: 'oil_brent', title: 'نفت برنت', value: 98.32, unit: 'usd', srcLabel: 'tgju', emoji: '🛢' },
     ];
-    const msg = formatMarketMessage(quotes, ['نوبیتکس: timeout'], { 'car:پراید': 480e6, geram18: 25417100 }, { slotLabel: 'ظهر', dateFa: '۱۸ آبان', timeFa: '12:30' });
-    expect(msg).toContain('گزارش بازار رصدبان');
-    expect(msg).toContain('ظهر ۱۸ آبان');
-    expect(msg).toContain('🚗 خودرو');
+    const msg = formatMarketMessage(quotes, { 'car:پراید': 480e6, geram18: 25417100 });
+    expect(msg).not.toContain('گزارش بازار رصدبان');
+    expect(msg).not.toContain('دریافت نشد');
+    expect(msg).not.toContain('منابع:');
+    expect(msg).not.toContain('٪ تغییر نسبت به');
+    expect(msg).not.toContain('کف بازار');
+    expect(msg).toContain('🚗 آخرین قیمت بازار آزاد خودرو:');
     expect(msg).toContain('پراید: ۴۸۵٬۰۰۰٬۰۰۰ تومان');
+    expect(msg).toContain('کی ام سی SR3: ۵٫۵۵۰ میلیارد تومان');
     expect(msg).toContain('طلای ۱۸ عیار: ۲۵٬۴۱۷٬۱۰۰ تومان (بدون تغییر)');
     expect(msg).toContain('شاخص کل بورس');
     expect(msg).toContain('بیت‌کوین');
     expect(msg).toContain('۹۸٫۳۲ دلار');
-    expect(msg).toContain('دریافت نشد');
-    expect(msg).toContain('منابع:');
     // مقایسه با گزارش قبل: پراید ۴۸۵ → ۴۸۵ میلیون
     expect(msg).toContain('▲۱٫۰٪');
   });
 
   test('پیام بدون قلم خودرو — بخش خودرو نمی‌آید', () => {
-    const msg = formatMarketMessage([{ key: 'usd', title: 'دلار', value: 2650000, unit: 'toman', srcLabel: 'tgju', emoji: '💵' }], [], undefined, { slotLabel: 'شب', dateFa: '۱۸ آبان', timeFa: '21:00' });
+    const msg = formatMarketMessage([{ key: 'usd', title: 'دلار', value: 2650000, unit: 'toman', srcLabel: 'tgju', emoji: '💵' }], undefined);
     expect(msg).not.toContain('خودرو');
     expect(msg).toContain('دلار');
+  });
+
+  test('parseBamaMarketPrice — نخستین قیمت بازار صفحهٔ باما (تیپ جدیدتر)', () => {
+    const html = '<div>1405 قیمت بازار 5,550,000,000 تومان</div><div>1404 قیمت بازار 5,350,000,000 تومان</div>';
+    expect(parseBamaMarketPrice(html)).toBe(5550000000);
+    expect(parseBamaMarketPrice('<p>قیمت یافت نشد</p>')).toBeNull();
+    expect(parseBamaMarketPrice('')).toBeNull();
+  });
+
+  test('خانوادهٔ کرمان موتور در فهرست پرتقاضا — خواستهٔ کاربر: j4 و sr3 حتماً', () => {
+    const m = CAR_FEATURED.map((f) => f.match);
+    expect(m).toContain('sr3');
+    expect(m).toContain('j4');
+    expect(m).toContain('j7');
   });
 });

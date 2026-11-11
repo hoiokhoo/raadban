@@ -13,7 +13,6 @@ import {
   buildHourlyCorpus,
   buildHistoryBlock,
   validateHourlyText,
-  hourlyHeader,
   chunkHourlyMessage,
   appendAnalysis,
   HOURLY_HISTORY_CAP,
@@ -149,25 +148,20 @@ describe('validateHourlyText — هیچ متن نامعتبری ارسال نم�
   });
 });
 
-// ---------- سربرگ خنثی ----------
+// ---------- تقسیم چندپیامی — بدون سربرگ (خواستهٔ کاربر ۱۲ نوامبر: «🕒 اخبار … رو حذف کن») ----------
 
-describe('hourlyHeader و chunkHourlyMessage — بدون برند «بست رصدبان»', () => {
-  test('سربرگ فقط بازهٔ زمانی است', () => {
-    // 10:30Z = 14:00 تهران (UTC+3:30)
-    const h = hourlyHeader('2026-11-10T10:30:00Z', '2026-11-10T11:30:00Z');
-    expect(h).toBe('🕒 اخبار 14:00 تا 15:00');
-    expect(h).not.toContain('بست');
-    expect(h).not.toContain('رصدبان');
+describe('chunkHourlyMessage — بدون سربرگ زمانی، ادامه با نشانگر', () => {
+  test('پیام کوتاه تک‌پیام می‌ماند — عین متن، بدون هیچ سربرگ', () => {
+    const parts = chunkHourlyMessage('متن کوتاه خبر و تحلیل امروز.');
+    expect(parts).toHaveLength(1);
+    expect(parts[0]).toBe('متن کوتاه خبر و تحلیل امروز.');
+    expect(parts[0]).not.toContain('🕒');
   });
-  test('پارامتر خراب → سربرگ پیش‌فرض بی‌برند', () => {
-    expect(hourlyHeader('x', 'y')).toBe('🕒 اخبار این ساعت');
-  });
-  test('پیام کوتاه تک‌پیام می‌ماند؛ بلند به چند پیام می‌شکند', () => {
-    const h = hourlyHeader('2026-11-10T10:30:00Z', '2026-11-10T11:30:00Z');
-    expect(chunkHourlyMessage(h, 'متن کوتاه خبر و تحلیل امروز.')).toHaveLength(1);
-    const parts = chunkHourlyMessage(h, 'بند خبری فارسی برای آزمون شکستن پیام. '.repeat(200), 3300);
+  test('بلند به چند پیام می‌شکند — پیام اول خودِ متن؛ ادامه با «— ادامه»', () => {
+    const parts = chunkHourlyMessage('بند خبری فارسی برای آزمون شکستن پیام. '.repeat(200), 3300);
     expect(parts.length).toBeGreaterThan(1);
-    expect(parts[0]).toContain(h);
+    expect(parts[0]).not.toContain('🕒');
+    expect(parts[1].startsWith('— ادامه')).toBe(true);
     for (const p of parts) expect(p.length).toBeLessThanOrEqual(3400);
   });
 });

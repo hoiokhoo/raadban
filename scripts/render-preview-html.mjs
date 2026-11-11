@@ -27,7 +27,7 @@ function baleToHtml(s) {
   t = t.replace(/<a href="([^"]*)">/g, (_, h) => `\u0001a href="${h}"\u0002`).replace(/<\/a>/gi, '\u0001/a\u0002');
   t = t.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   t = t.replace(/\u0001(\/?)(b|strong|i|em|u|s|strike|del|code|pre|a(?: href="[^"]*"))\u0002/g, '<$1$2>');
-  return t;
+  return t.replace(/\n/g, '<br>'); // خط جدید متن پیام = خط واقعی در پیش‌نمایش
 }
 
 const ORDER = { news: '۱', morning: '۲', evening: '۳', weather: '۴', market: '۵' };

@@ -1,5 +1,5 @@
 /**
- * پیام‌های روزانهٔ رصدبان — صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ (به وقت کانال)
+ * پیام‌های روزانهٔ رصدبان — صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۱:۰۰ (به وقت کانال — ساعت‌ها تنظیمی است)
  * خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶): بسم‌الله + حدیث چهارده معصوم + تصویر طبیعت + تاریخ
  * سه‌گانه + مناسبت‌ها (+ اوقات شرعی فردا در پیام شبانگاهی). «صحت و اعتبار محتوا بر سرعت
  * انتشار اولویت دارد» — هیچ حدیث/مناسبت/زمان ساختگی تولید نمی‌شود.
@@ -23,6 +23,13 @@ export function faDigits(s: string): string {
 
 function xmlEsc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/** «05:00» → «۵:۰۰» — رقم فارسی و حذف صفر ابتدای ساعت */
+export function faHhmm(hhmm: string): string {
+  const m = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec((hhmm || '').trim());
+  if (!m) return '—';
+  return faDigits(`${Number(m[1])}:${m[2]}`);
 }
 
 export const BISMILLAH = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
@@ -321,6 +328,9 @@ export interface DailyContext {
   prayer?: PrayerSettings;
   hadith: HadithEntry;
   image: NatureImage | null;
+  /** ساعت تنظیمی پیام — فقط برای خط پایانی (پیش‌فرض ۰۵:۰۰ / ۲۱:۰۰) */
+  morningHour?: string;
+  eveningHour?: string;
 }
 
 export interface DailyMessage {
@@ -353,7 +363,10 @@ function hadithBlock(h: HadithEntry): string {
   ].join('\n');
 }
 
-/** پیام صبحگاهی — متن + عکس. هیچ بخش ساختگی: حدیث ندارد → پیام صادر نمی‌شود (در caller). */
+/** پیام صبحگاهی — متن کامل؛ عکس به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه
+ *  (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «عکس صبحگاهی بدون توضیحات اضافه فقط به همون متن صبحگاهی
+ *  اضافه بشه نه خبر جداگانه»). تنها افزودنِ متن، یک خط کوتاه اعتبار منبع تصویر است
+ *  (الزام مجوز CC). هیچ بخش ساختگی: حدیث ندارد → پیام صادر نمی‌شود (در caller). */
 export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occasions: OccasionHit[] }): DailyMessage {
   const { today, occasions, hadith, image } = ctx;
   const L: string[] = [
@@ -367,24 +380,20 @@ export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occ
     '',
     formatOccasionsBlock(occasions, 'امروز'),
     '',
-    '— رصدبان | پیام صبحگاهی هر روز ساعت ۵:۰۰',
+    `— رصدبان | پیام صبحگاهی هر روز ساعت ${faHhmm(ctx.morningHour || '05:00')}`,
   ];
-  const msg: DailyMessage = { text: L.join('\n') };
+  if (image) L.push(`📷 ${xmlEsc(image.sourceLabel)}`);
+  const text = L.join('\n');
+  const msg: DailyMessage = { text };
   if (image) {
     msg.photoUrl = image.url;
-    msg.photoCaption = [
-      '🌄 تصویر صبحگاهی طبیعت',
-      `📌 منبع: ${xmlEsc(image.sourceLabel)}`,
-      `👤 عکاس: ${xmlEsc(image.artist)}`,
-      `📜 مجوز: ${xmlEsc(image.license)}`,
-      '',
-      'صبحتان بخیر 🌅',
-    ].join('\n');
+    msg.photoCaption = text; // عکس با کپشنِ خودِ پیام صبحگاهی — نه پیام جداگانه
   }
   return msg;
 }
 
-/** پیام شبانگاهی — تاریخِ «فردا» + مناسبت‌های فردا + اوقات شرعی فردا */
+/** پیام شبانگاهی — تاریخِ «فردا» + مناسبت‌های فردا + اوقات شرعی فردا؛
+ *  عکس شبانه به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶) */
 export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; tomorrowOccasions: OccasionHit[]; prayerTimes: PrayerTimesDay | null }): DailyMessage {
   const { tomorrow, tomorrowOccasions, hadith, image, prayerTimes, city } = ctx;
   const L: string[] = [
@@ -406,18 +415,13 @@ export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; 
     L.push('🕌 اوقات شرعی فردا: محاسبهٔ نجومی در دسترس نبود — زمان اشتباه یا حدسی منتشر نمی‌شود.');
     L.push('');
   }
-  L.push('— رصدبان | پیام شبانگاهی هر روز ساعت ۲۰:۰۰');
-  const msg: DailyMessage = { text: L.join('\n') };
+  L.push(`— رصدبان | پیام شبانگاهی هر روز ساعت ${faHhmm(ctx.eveningHour || '21:00')}`);
+  if (image) L.push(`📷 ${xmlEsc(image.sourceLabel)}`);
+  const text = L.join('\n');
+  const msg: DailyMessage = { text };
   if (image) {
     msg.photoUrl = image.url;
-    msg.photoCaption = [
-      '🌌 تصویر شبانهٔ طبیعت',
-      `📌 منبع: ${xmlEsc(image.sourceLabel)}`,
-      `👤 عکاس: ${xmlEsc(image.artist)}`,
-      `📜 مجوز: ${xmlEsc(image.license)}`,
-      '',
-      'شبتان بخیر 🌙',
-    ].join('\n');
+    msg.photoCaption = text; // عکس با کپشنِ خودِ پیام شبانگاهی — نه پیام جداگانه
   }
   return msg;
 }
@@ -432,6 +436,9 @@ export async function buildDailyMessage(input: {
   prayer: PrayerSettings;
   hadith: HadithEntry;
   image: NatureImage | null;
+  /** ساعت تنظیمی پیام — فقط برای خط پایانی */
+  morningHour?: string;
+  eveningHour?: string;
 }): Promise<DailyMessage> {
   const td = tripleDateOf(input.dateKey, input.tz, input.qamariBasis);
   if (input.kind === 'morning') {

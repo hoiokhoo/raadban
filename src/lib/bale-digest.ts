@@ -60,7 +60,10 @@ export interface BaleDigestConfig {
 }
 
 const DEFAULT_CFG: BaleDigestConfig = {
-  enabled: true, intervalMin: 30, maxPosts: 15, sendOnEmpty: false,
+  // ۱۲۰ دقیقه — هم‌ریتم با بستهٔ خبری ۲ساعتهٔ ربات مستقل (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶)؛
+  // از پنل مدیریت قابل تغییر است. توصیه: هنگام فعال‌بودن ربات مستقل، این گزارش خاموش بماند
+  // تا هیچ خبر تکراری از دو مسیر مختلف ارسال نشود.
+  enabled: true, intervalMin: 120, maxPosts: 15, sendOnEmpty: false,
   dailyEnabled: true, dailyTime: '23:00',
 };
 

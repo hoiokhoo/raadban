@@ -370,9 +370,9 @@ describe('اطلاعیهٔ فروش خودرو (Akharin_khodro)', () => {
 // ---------- تنظیمات روزانه ----------
 
 describe('تنظیمات پیام‌های روزانه', () => {
-  test('پیش‌فرض‌ها — ۰۵:۰۰ و ۲۰:۰۰ تهران', () => {
+  test('پیش‌فرض‌ها — ۰۵:۰۰ صبح و ۲۱:۰۰ شب تهران (خواستهٔ کاربر: شب ساعت ۹)', () => {
     expect(DAILY_SETTINGS_DEFAULTS.morningHour).toBe('05:00');
-    expect(DAILY_SETTINGS_DEFAULTS.eveningHour).toBe('20:00');
+    expect(DAILY_SETTINGS_DEFAULTS.eveningHour).toBe('21:00');
     expect(DAILY_SETTINGS_DEFAULTS.timezone).toBe('Asia/Tehran');
     expect(DAILY_SETTINGS_DEFAULTS.prayerMethod).toBe('tehran');
   });

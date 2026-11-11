@@ -1,13 +1,17 @@
 /**
  * رصدبان‌بات — ربات مستقل خبررسان بله برای اجرای رایگان روی GitHub Actions
- * (نسخهٔ ۳ — ۱۰ نوامبر ۲۰۲۶ — خواستهٔ کاربر: «انتشار اخبار هم بکن هر نیم ساعت — کل اخبارها
- *  و توییتهای اون نیم ساعت رو داخل بستت بزاری با همون خلاصه و تحلیل» + پیام صبحگاهی ۰۵:۰۰ و
- *  شبانگاهی ۲۰:۰۰ با حدیث/طبیعت/تاریخ سه‌گانه/مناسبت‌ها/اوقات شرعی + اطلاعیهٔ فروش خودرو)
+ * (نسخهٔ ۴ — ۱۲ نوامبر ۲۰۲۶ — خواستهٔ کاربر:
+ *  «چرخهٔ ارسال خبر بشه هر ۲ ساعت اما خبری از قلم نیفته؛ آخرین توییت‌های افراد تأثیرگذار هم هر ۲ ساعت
+ *  اما یک ساعت بعد از دستهٔ اخبار در دستهٔ جداگانه — اگر جدید نبود هیچ متنی نفرست؛ به هیچ عنوان خبر
+ *  تکراری ارسال نشه — موقع جمع‌بندی اخبار قبلی چک بشه؛ عکس صبحگاهی و شب بدون توضیحات اضافه فقط
+ *  به همون متن صبحگاهی و شبگاهی اضافه بشه نه خبر جداگانه»)
  *
  * سه حالت کانال (CHANNEL_MODE):
- *  - bundle: هر چرخه خبر/توییت‌های تازه در صف انبار و هر ساعت یک «بستهٔ ساعتی هوشمند» (خواستهٔ
- *    ۱۰ نوامبر ۲۰۲۶: تجمیع + یکی‌کردن مشابه‌ها + تیک اعتبارسنجی + بیان ساده یکی‌یکی + تحلیل پایانی،
- *    با خواندن تحلیل‌های پیشین — bot/hourly.ts) + تحلیل جامع اسلات‌ها + گزارش بازار + اطلاعیهٔ فروش
+ *  - bundle: هر چرخه همهٔ خبرهای تازه به صف می‌روند و در اسلات‌های زوج تهران (۰۰، ۰۲، …)
+ *    یک «بستهٔ بازه‌ای هوشمند» ارسال می‌شود (تجمیع + یکی‌کردن مشابه‌ها + تیک اعتبارسنجی + بیان ساده
+ *    یکی‌یکی + تحلیل پایانی با خواندن تحلیل‌های پیشین — bot/hourly.ts)؛ توییت‌های افراد تأثیرگذار
+ *    در صف جداگانه و در اسلات‌های فرد (۰۱، ۰۳، …) در یک دستهٔ مستقل ارسال می‌شوند — صف توییت خالی
+ *    یعنی هیچ پیامی. + تحلیل جامع اسلات‌ها + گزارش بازار + اطلاعیهٔ فروش
  *  - analysis: خبر/توییت مستقیم ارسال نمی‌شود؛ رویدادها در استخر انبار و در اسلات‌های تهران
  *    (DIGEST_HOURS) «تحلیل جامع» و در اسلات‌های بازار (PRICE_HOURS) «گزارش بازار» ارسال می‌شود
  *  - news: رفتار قدیمی — هر رویداد جداگانه در هر چرخه
@@ -16,9 +20,10 @@
  * GitHub Models، Groq، Cerebras، Mistral، Cohere، Together، NVIDIA، Pollinations (بی‌کلید) و
  * GLM داخلی (z-ai) به‌عنوان آخرین پشتیبان؛ اگر همه شکست خوردند یا ظرفیتشان پر شد.
  *
- * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ به وقت کانال
- * با بسم‌الله، حدیث چهارده معصوم (بانک مستند + ضدتکرار دائمی)، تصویر طبیعت ویکی‌مدیا،
- * تاریخ سه‌گانه (شمسی/قمری/میلادی)، مناسبت‌ها و اوقات شرعی فردا (کتابخانه adhan).
+ * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۱:۰۰ به وقت کانال
+ * با بسم‌الله، حدیث چهارده معصوم (بانک مستند + ضدتکرار دائمی)، تصویر طبیعت ویکی‌مدیا که عیناً
+ * با کپشن خودِ پیام می‌چسبد (نه پیام جداگانه)، تاریخ سه‌گانه (شمسی/قمری/میلادی)، مناسبت‌ها و
+ * اوقات شرعی فردا (کتابخانه adhan).
  * + پیام پیش‌بینی ساعتی فردا (bot/weather.ts — Open-Meteo) ساعت ۲۱:۰۰ به وقت کانال
  * (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶: «شب ساعت ۹ پیش‌بینی ساعتی فردای تهران از ۱۲ شب تا فردا»).
  *
@@ -40,10 +45,11 @@ import {
   type PoolItem,
 } from './digest';
 import { fetchMarketData, formatMarketMessage, snapshotOf, type CarStore } from './market';
-import { shouldFlushBundle, buildBundleChunks, type BundleItem } from './bundle';
+import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, type BundleItem } from './bundle';
 import {
   DEFAULT_SYSTEM_HOURLY,
   mergeSimilarItems,
+  dropAlreadySent,
   buildHourlyCorpus,
   buildHistoryBlock,
   validateHourlyText,
@@ -171,13 +177,15 @@ const CFG = {
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
   promptsFile: process.env.BOT_PROMPTS_FILE || 'bot/prompts.json',
-  // ── حالت کانال: bundle = بستهٔ ساعتی هوشمند خبر+توییت | analysis = فقط تحلیل جامع+بازار | news = خبر پیاپی ──
+  // ── حالت کانال: bundle = بستهٔ ۲ساعتهٔ خبر + بستهٔ جداگانهٔ توییت | analysis = فقط تحلیل جامع+بازار | news = خبر پیاپی ──
   channelMode: (['bundle', 'analysis', 'news'].includes((process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase())
     ? (process.env.CHANNEL_MODE || 'analysis').trim().toLowerCase()
     : 'analysis') as 'bundle' | 'analysis' | 'news',
-  // فاصلهٔ حداقلی ارسال بستهٔ ساعتی (دقیقه) — چرخه ~۱۰ دقیقه‌ای است؛ ۶۰ دقیقه = هر ساعت
-  // (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶: «اخبار رو بکن هر یه ساعت»)
-  bundleMinMinutes: Math.max(30, Math.min(180, Number(process.env.BUNDLE_MINUTES || 60) || 60)),
+  // فاصلهٔ دورهٔ بستهٔ خبری به ساعت — اسلات‌های قطعی ساعت‌های زوج تهران برای دورهٔ ۲
+  // (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «چرخهٔ ارسال خبر بشه هر ۲ ساعت اما خبری از قلم نیفته»)
+  bundlePeriodHours: Math.max(1, Math.min(12, Number(process.env.BUNDLE_PERIOD_HOURS || 2) || 2)),
+  // فاصلهٔ بستهٔ توییت از بستهٔ خبر به ساعت — «یک ساعت بعد از دستهٔ اخبار» (اسلات‌های فرد)
+  tweetOffsetHours: Math.max(0, Math.min(6, Number(process.env.TWEET_OFFSET_HOURS || 1) || 0)),
   // کانال‌های اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — خواستهٔ کاربر: کانال آخرین خودرو
   saleChannels: (process.env.SALE_CHANNELS || 'Akharin_khodro').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
   // تنظیمات پیام‌های روزانه (صبحگاهی/شبانگاهی) — فایل مدیریت‌شدهٔ اپلیکیشن، در ریپو کامیت می‌شود
@@ -560,9 +568,15 @@ export interface BotState {
   lastPriceKey?: string;
   /** قیمت‌های آخرین گزارش بازار — پایهٔ «درصد تغییر از خبر قبلی» (خواستهٔ کاربر) */
   priceSnap?: Record<string, number>;
-  /** صف بستهٔ ساعتی — حالت bundle (خواستهٔ ۱۰ نوامبر ۲۰۲۶) */
+  /** صف بستهٔ خبری — حالت bundle (خواستهٔ ۱۰ نوامبر ۲۰۲۶؛ فقط خبر — توییت‌ها صف جدا دارند) */
   bundleQueue?: BundleItem[];
-  /** آخرین ارسال بسته (ISO) — ریتم ساعتی */
+  /** صف توییت‌های افراد تأثیرگذار — بستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر (خواستهٔ ۱۲ نوامبر ۲۰۲۶) */
+  tweetQueue?: BundleItem[];
+  /** کلید آخرین اسلات بستهٔ خبری («2026-11-12T10:00» ساعت‌های زوج تهران) — ریتم قطعی ۲ساعته */
+  lastNewsSlotKey?: string;
+  /** کلید آخرین اسلات بستهٔ توییت («2026-11-12T11:00» ساعت‌های فرد تهران) — دقیقاً یک ساعت بعد */
+  lastTweetSlotKey?: string;
+  /** آخرین ارسال بسته (ISO) — میراث نسخهٔ قبلی؛ نگه‌داری برای سازگاری state قدیمی */
   lastBundleAt?: string;
   /** حافظهٔ تحلیل‌های ساعتی — هر تحلیل تازه، خلاصهٔ تحلیل‌های پیشین را می‌خواند (خواستهٔ کاربر:
    *  «تحلیل‌ها رو ذخیره کن و هر بار تحلیل مختصرها رو هم بخونه تا تاریخچه فراموش نشه») */
@@ -633,7 +647,7 @@ export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
   morningEnabled: true,
   eveningEnabled: true,
   morningHour: '05:00',
-  eveningHour: '20:00',
+  eveningHour: '21:00',
   weatherEnabled: true,
   weatherHour: '21:00',
   timezone: 'Asia/Tehran',
@@ -730,6 +744,9 @@ export function loadState(path: string): BotState {
       lastPriceKey: typeof raw.lastPriceKey === 'string' ? raw.lastPriceKey : undefined,
       priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
       bundleQueue: Array.isArray(raw.bundleQueue) ? (raw.bundleQueue as BundleItem[]) : [],
+      tweetQueue: Array.isArray(raw.tweetQueue) ? (raw.tweetQueue as BundleItem[]) : [],
+      lastNewsSlotKey: typeof raw.lastNewsSlotKey === 'string' ? raw.lastNewsSlotKey : undefined,
+      lastTweetSlotKey: typeof raw.lastTweetSlotKey === 'string' ? raw.lastTweetSlotKey : undefined,
       lastBundleAt: typeof raw.lastBundleAt === 'string' ? raw.lastBundleAt : undefined,
       hourlyAnalyses: Array.isArray(raw.hourlyAnalyses) ? (raw.hourlyAnalyses as HourlyAnalysis[]) : [],
       aiCursor: typeof raw.aiCursor === 'number' ? raw.aiCursor : undefined,
@@ -786,8 +803,11 @@ export function mergeSentState(
     lastDigestKey: st.lastDigestKey,
     lastPriceKey: st.lastPriceKey,
     priceSnap: st.priceSnap,
-    // فیلدهای بست/خودرو/اطلاعیه/روزانه — دست‌نخورده
+    // فیلدهای بست/توییت/خودرو/اطلاعیه/روزانه — دست‌نخورده
     bundleQueue: st.bundleQueue,
+    tweetQueue: st.tweetQueue,
+    lastNewsSlotKey: st.lastNewsSlotKey,
+    lastTweetSlotKey: st.lastTweetSlotKey,
     lastBundleAt: st.lastBundleAt,
     hourlyAnalyses: st.hourlyAnalyses,
     aiCursor: st.aiCursor,
@@ -1777,10 +1797,12 @@ export interface RunSummary {
   // توییت‌ها
   tweetsFetched?: number;
   tweetsSent?: number;
+  /** توییت‌های صف‌شده برای بستهٔ جداگانهٔ توییت (حالت بست) */
+  tweetsQueued?: number;
   tweetAccountsTried?: number;
   tweetRateLimited?: boolean;
   tweetCursor?: number;
-  // حالت بستهٔ ساعتی هوشمند (خواستهٔ ۱۰ نوامبر ۲۰۲۶)
+  // حالت بستهٔ بازه‌ای هوشمند (خواستهٔ ۱۰ و ۱۲ نوامبر ۲۰۲۶)
   poolSize?: number;
   digestSent?: boolean;
   digestProvider?: string;
@@ -2023,6 +2045,8 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       kind, dateKey: pNow.dateKey, tz: dSettings.timezone, qamariBasis: dSettings.qamariBasis, city: dSettings.city,
       prayer: { lat: dSettings.lat, lon: dSettings.lon, method: dSettings.prayerMethod, fajrAngle: dSettings.fajrAngle, ishaAngle: dSettings.ishaAngle, maghribMinutes: dSettings.maghribMinutes, tz: dSettings.timezone },
       hadith: pick.hadith, image: img,
+      morningHour: dSettings.morningHour,
+      eveningHour: dSettings.eveningHour,
     });
     if (CFG.dryRun) {
       console.log(`=== DRY_RUN — پیش‌نمایش پیام ${label} (اسلات ${dKey}) ===`);
@@ -2036,13 +2060,24 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     let ok = false;
     let lastErr = '';
     for (const t of CFG.targets) {
+      // عکس به خودِ پیام روزانه می‌چسبد (کپشنِ متن پیام — نه خبر/پیام جداگانه؛ خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶):
+      // کپشن سقف ۱۰۲۴ نویسه دارد → ادامهٔ متن پیام جداگانه ارسال می‌شود؛ شکست عکس → کل متن بدون عکس
+      if (msg.photoUrl) {
+        const cap = splitPhotoCaption(msg.text, 1024);
+        const ph = await sendBalePhotoLadder(CFG.token, t, msg.photoUrl, cap.caption);
+        if (ph.ok) {
+          ok = true;
+          if (cap.rest) {
+            const s2 = await sendBaleMessage(CFG.token, t, cap.rest);
+            if (!s2.ok) { lastErr = s2.error || 'نامشخص'; console.error(`❌ ارسال ادامهٔ پیام ${label} به ${t}: ${lastErr}`); }
+          }
+          continue;
+        }
+        console.warn(`⚠️ ارسال عکس ${label} ناموفق (${ph.error}) — کل متن پیام بدون عکس ارسال می‌شود`);
+      }
       const s = await sendBaleMessage(CFG.token, t, msg.text);
       if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیام ${label} به ${t}: ${lastErr}`); continue; }
       ok = true;
-      if (msg.photoUrl) {
-        const ph = await sendBalePhotoLadder(CFG.token, t, msg.photoUrl, msg.photoCaption);
-        if (!ph.ok) console.warn(`⚠️ ارسال عکس ${label} ناموفق (${ph.error}) — متن پیام ارسال شده است`);
-      }
     }
     if (ok) {
       if (kind === 'morning') daily.lastMorningKey = dKey;
@@ -2248,11 +2283,14 @@ async function main(): Promise<void> {
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
 
-  // ── حالت بستهٔ ساعتی هوشمند (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶): «اخبار هر یه ساعت — تجمیع + تحلیل»
-  //  پیام‌های آماده به صف می‌روند و هر ساعت یک بستهٔ هوشمند ارسال می‌شود (منطق در انتهای چرخه)
+  // ── حالت بستهٔ دوره‌ای هوشمند (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶): «هر ۲ ساعت — تجمیع + تحلیل؛
+  //  توییت‌ها دستهٔ جداگانه، یک ساعت بعد» — همهٔ رویدادهای تازه به صف خبر می‌روند (هیچ خبری
+  //  با انتخاب مدل از قلم نمی‌افتد) و توییت‌ها به صف جداگانه؛ ارسال در اسلات‌های قطعی انتهای چرخه
   const bundleMode = CFG.channelMode === 'bundle';
   const queue = Array.isArray(state.bundleQueue) ? state.bundleQueue : [];
   state.bundleQueue = queue;
+  const tweetQueue = Array.isArray(state.tweetQueue) ? state.tweetQueue : [];
+  state.tweetQueue = tweetQueue;
   if (bundleMode && groups.length > 0) {
     // رویدادها برای اسلات‌های تحلیل جامع هم در استخر می‌مانند (بست و تحلیل مستقل‌اند)
     const poolRes = addToPool(Array.isArray(state.pool) ? state.pool : [], groups.map((g) => ({
@@ -2389,10 +2427,14 @@ async function main(): Promise<void> {
     return;
   }
 
-  // ۵) گزینش با سهمیهٔ الزامی داخلی — خارجی‌ها پر می‌کنند ولی هرگز اخبار ایران را بیرون نمی‌اندازند
-  const ordered = selectWithDomesticQuota(groups, (g) => isForeignItem(g.primary), CFG.maxItems, CFG.minDomestic);
+  // ۵) گزینش — در حالت بست «همهٔ» رویدادهای تازه به صف می‌روند (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶:
+  //  «خبری از قلم نیفته» — انتخاب مدل اینجا حذف شد تا رویدادی حذف‌شده در صف نبازگشت بماند)؛
+  //  در حالت news گزینش با سهمیهٔ الزامی داخلی: خارجی‌ها پر می‌کنند ولی هرگز اخبار ایران بیرون نمی‌افتد
+  const ordered = bundleMode
+    ? groups
+    : selectWithDomesticQuota(groups, (g) => isForeignItem(g.primary), CFG.maxItems, CFG.minDomestic);
   const domCount = ordered.filter((g) => !isForeignItem(g.primary)).length;
-  console.log(`گزینش نهایی: ${ordered.length} رویداد (داخلی ایران: ${domCount} — سهمیهٔ الزامی ${CFG.minDomestic})`);
+  console.log(`گزینش نهایی: ${ordered.length} رویداد (داخلی ایران: ${domCount} — سهمیهٔ الزامی ${CFG.minDomestic})${bundleMode ? ' — حالت بست: همه به صف می‌روند' : ''}`);
 
   if (ordered.length === 0) {
     if (!bundleMode) {
@@ -2407,10 +2449,16 @@ async function main(): Promise<void> {
 
   // ۶) ترجمهٔ دسته‌جمعی تیترهای غیرفارسی (یک فراخوانی سبک — بدون OpenRouter)
   //  ورودی هر مورد تا ۱۲۰۰ نویسه (قبلاً ۳۰۰ بود — عامل ترجمهٔ ناقص) و سقف خروجی ۶۰۰۰ توکن
-  const needTr = ordered
+  const needTrAll = ordered
     .map((g, i) => ({ g, i }))
     .filter(({ g }) => !(g.primary.translationFa || '').trim() &&
       (g.primary.language !== 'fa' || isLikelyForeign(g.primary.content)));
+  // سقف دستهٔ ترجمه در هر چرخه — در حالت بست «همهٔ» رویدادها صف می‌شوند و دستهٔ ترجمه می‌تواند
+  // بزرگ شود؛ مازاد بدون علامت‌گذاری می‌ماند و در چرخه‌های بعدی ترجمه می‌شود (خبری از قلم نمی‌افتد)
+  const needTr = needTrAll.slice(0, 24);
+  if (needTrAll.length > needTr.length) {
+    console.log(`ترجمه: ${needTrAll.length} مورد در انتظار بود — ${needTr.length} مورد این چرخه، بقیه برای چرخهٔ بعد`);
+  }
   if (needTr.length > 0) {
     const corpus = needTr.map(({ g }, j) =>
       `[${j + 1}] ${g.primary.content.slice(0, 1200).replace(/\n+/g, ' ')}`).join('\n');
@@ -2430,8 +2478,9 @@ async function main(): Promise<void> {
   }
 
   // ۷) جست‌وجوی رایگان وب برای حداکثر ۲ خبر تازهٔ بالای فهرست (بدون مصرف سهمیهٔ مدل)
+  //  فقط در مسیر مستقیم news — در حالت بست، تحلیل و تیک‌ها در اسلات ارسال با سوپرپرامپت بازه‌ای انجام می‌شود
   const webLines: string[] = [];
-  if (CFG.maxSearch > 0) {
+  if (!bundleMode && CFG.maxSearch > 0) {
     for (const g of ordered.slice(0, CFG.maxSearch)) {
       const q = trimFa(g.primary.translationFa || g.primary.content, 90); // فقط پرسش جست‌وجو کوتاه می‌ماند — نه خود خبر
       const found = await searchWeb(q).catch(() => [] as WebEvidence[]);
@@ -2466,7 +2515,9 @@ async function main(): Promise<void> {
   let aiProvider: string | undefined;
   let aiError = 'بدون خبر تازه';
   const aiStart = Date.now();
-  if (ordered.length > 0) {
+  // در حالت بست فراخوانی مدل در هر چرخه حذف شد — تحلیل هوشمند یک‌جا در اسلات ارسال انجام می‌شود
+  // (صرفه‌جویی سهمیهٔ مدل + بیان سادهٔ همهٔ رویدادهای بازه در یک پاسخ واحد)
+  if (!bundleMode && ordered.length > 0) {
     // سقف خروجی ۸۰۰۰ توکن — مدل باید «متن کامل» همهٔ رویدادها را بنویسد، نه چکیده
     const aiRes = await chainCall(getOneshotPrompt(), oneShotUser, { maxTokens: 8000 });
     if (aiRes.ok && aiRes.content) {
@@ -2478,8 +2529,8 @@ async function main(): Promise<void> {
     aiError = aiRes.error || 'پاسخ مدل قابل تجزیه نبود';
   }
   summary.aiProvider = aiProvider;
-  summary.aiFailed = !one && ordered.length > 0;
-  console.log(`فراخوانی مدل: ${one ? `موفق (${aiProvider})` : 'ناموفق'} — ${((Date.now() - aiStart) / 1000).toFixed(1)}s`);
+  summary.aiFailed = !bundleMode && !one && ordered.length > 0;
+  console.log(`فراخوانی مدل: ${bundleMode ? 'حالت بست — در اسلات ارسال انجام می‌شود' : one ? `موفق (${aiProvider})` : 'ناموفق'} — ${((Date.now() - aiStart) / 1000).toFixed(1)}s`);
 
   // ۹) ارسال — مسیریابی چنددسته‌ای: هر بخش خبری به بات/کانال خودش (خواستهٔ کاربر)
   const priorMsgTexts = Object.keys(state.sentMsgTexts);
@@ -2513,7 +2564,7 @@ async function main(): Promise<void> {
       }
     }
     if (bundleMode) {
-      console.log(`=== پیش‌نمایش بستهٔ ساعتی: ${enToFaDigits(String(previewItems.length))} مورد ===`);
+      console.log(`=== پیش‌نمایش بستهٔ بازه‌ای: ${enToFaDigits(String(previewItems.length))} مورد ===`);
       const chunks = buildBundleChunks(previewItems, { maxLen: 3300 });
       for (const c of chunks) {
         console.log('···');
@@ -2555,9 +2606,9 @@ async function main(): Promise<void> {
         ids: [], titleKeys: [], titleTexts: [], cat,
         queuedAt: new Date().toISOString(),
       });
-      if (queue.length > 40) {
-        const dropped = queue.splice(0, queue.length - 40);
-        console.warn(`⚠️ سرریز صف بستهٔ ساعتی — ${dropped.length} مورد قدیمی‌تر حذف شد`);
+      if (queue.length > 300) {
+        const dropped = queue.splice(0, queue.length - 300);
+        console.warn(`⚠️ سرریز صف بستهٔ خبری — ${dropped.length} مورد قدیمی‌تر حذف شد`);
       }
       summary.queued = (summary.queued || 0) + 1;
       return true;
@@ -2620,27 +2671,33 @@ async function main(): Promise<void> {
       await sleep(700);
     }
   } else {
-    // مسیر شکست مدل — فقط خبرهای فارسیِ روان ارسال می‌شود؛ غیرفارسی بدون ترجمه هرگز نمی‌رود
+    // مسیر شکست مدل (در حالت بست: مسیر صف‌گذاری مستقیم همهٔ رویدادها) —
+    // فقط خبرهای فارسیِ روان می‌روند؛ غیرفارسی بدون ترجمه هرگز نمی‌رود (چرخهٔ بعد دوباره تلاش می‌کند)
     const fluent = ordered.filter((g) => fluentFaText(g) !== null);
     const stuck = ordered.length - fluent.length;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
-    for (const t of CFG.targets) {
-      const h = await sendBaleMessage(CFG.token, t, [
-        '📡 اخبار چند ساعت گذشته',
-        `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(fluent.length))} خبر فارسی، پیاپی${stuck ? `؛ ${enToFaDigits(String(stuck))} خبر غیرفارسی برای چرخهٔ بعد ماند (ترجمه نشد)` : ''}:`,
-      ].join('\n'));
-      if (!h.ok) console.error(`❌ پیام سربرگ به ${t} ناموفق: ${h.error}`);
+    if (!bundleMode) {
+      for (const t of CFG.targets) {
+        const h = await sendBaleMessage(CFG.token, t, [
+          '📡 اخبار چند ساعت گذشته',
+          `⚠️ خلاصه‌سازی هوشمند ناموفق بود (${esc(trimFa(aiError, 120))}) — ${enToFaDigits(String(fluent.length))} خبر فارسی، پیاپی${stuck ? `؛ ${enToFaDigits(String(stuck))} خبر غیرفارسی برای چرخهٔ بعد ماند (ترجمه نشد)` : ''}:`,
+        ].join('\n'));
+        if (!h.ok) console.error(`❌ پیام سربرگ به ${t} ناموفق: ${h.error}`);
+      }
     }
     for (const g of fluent) {
-      // تجمیع منابع در مسیر شکست مدل هم اعمال می‌شود — خبر کامل، بدون خلاصه‌نویسی (خواستهٔ کاربر)
+      // تجمیع منابع اعمال می‌شود — خبر کامل، بدون خلاصه‌نویسی (خواستهٔ کاربر)
       const msg = composeGroupMessage(g, fluentFaText(g) || '', undefined, 3400);
       const cat = g.primary.category || 'general';
       if (await sendForCategory(cat, msg, g.primary.imageUrl, aggregateSourceLabel(g.members.map((m) => m.sourceName)))) { summary.sent++; mark(g); }
       await sleep(700);
     }
+    if (bundleMode) console.log(`حالت بست: ${fluent.length} رویداد به صف بستهٔ خبری رفت${stuck ? ` — ${stuck} غیرفارسی بی‌ترجمه برای چرخهٔ بعد ماند` : ''}`);
   }
 
-  // ── توییت‌ها: دریافت از ایکس، ترجمهٔ روان کامل، ارسال بلافاصله پس از توییت (خواستهٔ کاربر) ──
+  // ── توییت‌های افراد تأثیرگذار: دریافت از ایکس، ترجمهٔ روان کامل —
+  //  حالت بست: به صف جداگانه می‌روند و در اسلات فرد (یک ساعت بعد از بستهٔ خبر) در یک دستهٔ مستقل ارسال می‌شوند
+  //  (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶)؛ حالت news: ارسال بلافاصله ──
   let tweetNextCursor: number | null = null;
   const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
   if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
@@ -2699,13 +2756,38 @@ async function main(): Promise<void> {
           continue;
         }
         if (fa !== c.tweet.text) c.tweet.text = fa;
-        const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 3400);
         // قانون عکس: توییت بدون عکسِ خودش، بدون تصویر ارسال می‌شود (بدون آواتار — خواستهٔ کاربر)
-        if (await sendForCategory('general', msg, undefined, `𝕏 ${c.label}`)) {
-          summary.tweetsSent = (summary.tweetsSent || 0) + 1;
-          sentIds.push(`tw-${c.handle.toLowerCase()}-${c.tweet.id}`);
-          sentTitleTexts.push(normalizeTitle(c.tweet.text).slice(0, 160));
+        if (bundleMode) {
+          // صف جداگانهٔ توییت — بستهٔ مستقل در اسلات فرد (یک ساعت بعد از بستهٔ خبر)؛
+          // متن صف فقط خودِ توییت ترجمه‌شده است (نام حساب در source نگه‌داری می‌شود)؛
+          // علامت‌زنی فوری: توییتِ صف‌شده دوباره واکشی/صف نمی‌شود؛ صف تا ارسال موفق می‌ماند
+          const idKey = `tw-${c.handle.toLowerCase()}-${c.tweet.id}`;
+          tweetQueue.push({
+            kind: 'tweet',
+            text: fa,
+            source: c.label,
+            ids: [idKey],
+            titleKeys: [],
+            titleTexts: [normalizeTitle(fa).slice(0, 160)],
+            cat: 'general',
+            queuedAt: new Date().toISOString(),
+          });
+          if (tweetQueue.length > 120) {
+            const dropped = tweetQueue.splice(0, tweetQueue.length - 120);
+            console.warn(`⚠️ سرریز صف توییت — ${dropped.length} مورد قدیمی‌تر حذف شد`);
+          }
+          sentIds.push(idKey);
+          sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
           markMsg(fa);
+          summary.tweetsQueued = (summary.tweetsQueued || 0) + 1;
+        } else {
+          const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 3400);
+          if (await sendForCategory('general', msg, undefined, `𝕏 ${c.label}`)) {
+            summary.tweetsSent = (summary.tweetsSent || 0) + 1;
+            sentIds.push(`tw-${c.handle.toLowerCase()}-${c.tweet.id}`);
+            sentTitleTexts.push(normalizeTitle(c.tweet.text).slice(0, 160));
+            markMsg(fa);
+          }
         }
         await sleep(700);
       }
@@ -2717,60 +2799,70 @@ async function main(): Promise<void> {
   // ── اطلاعیه‌های فروش/پیش‌فروش خودرو — فوراً اعلام می‌شود (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ──
   if (bundleMode) await runSaleAlerts(state, summary);
 
-  // ── بستهٔ ساعتی هوشمند خبر و توییت — خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶):
-  // «اخبار رو بکن هر یه ساعت، هر چی خبر در اون ساعت اومده تجمیع کن، مشابه‌ها رو یکی کن،
-  //  تیک اعتبارسنجی جلوشون بزن، با هوش مصنوعی همه رو به زبان ساده یکی یکی بیان و درنهایت تحلیل کن»
-  // مسیر اصلی: تحلیل هوشمند با سوپرپرامپت ساعتی + خواندن تحلیل‌های پیشین (حافظهٔ تاریخچه).
+  // ── بستهٔ خبری ۲ساعته + بستهٔ جداگانهٔ توییت — خواستهٔ کاربر (۱۲ نوامبر ۲۰۲۶):
+  // «چرخهٔ خبر هر ۲ ساعت اما خبری از قلم نیفته؛ توییت‌های افراد تأثیرگذار هر ۲ ساعت اما یک ساعت
+  //  بعد از دستهٔ اخبار در دستهٔ جداگانه — اگر جدید نبود هیچ متنی نفرست؛ به هیچ عنوان خبر تکراری
+  //  ارسال نشه — موقع جمع‌بندی اخبار قبلی چک بشه».
+  // زمان‌بندی اسلات‌محور و قطعی: بستهٔ خبری ساعت‌های زوج تهران، بستهٔ توییت ساعت‌های فرد.
+  // مسیر اصلی خبر: تحلیل هوشمند با سوپرپرامپت بازه‌ای + خواندن تحلیل‌های پیشین (حافظهٔ تاریخچه).
   // مسیر پشتیبان (شکست مدل/اعتبارسنجی): بست خام با سربرگ خنثی — هیچ برندی در پیام نیست.
   if (bundleMode) {
-    const flushDue = shouldFlushBundle(state.lastBundleAt, Date.now(), CFG.bundleMinMinutes);
-    if (flushDue && queue.length > 0) {
+    const pSlot = tehranParts(Date.now());
+    const periodMin = CFG.bundlePeriodHours * 60;
+
+    // ── بستهٔ خبری — اسلات‌های زوج؛ «خبری از قلم نیفته»: صف تا ارسال موفق می‌ماند و
+    //  ضدتکرار معناییِ زمان جمع‌بندی، خبرِ هم‌مضمونِ ارسال‌شده‌های قبلی را از صف حذف می‌کند ──
+    const newsSlotKey = dueBundleSlotKey(Date.now(), 0, periodMin, state.lastNewsSlotKey, pSlot);
+    if (newsSlotKey && queue.length > 0) {
       const fromIso = queue[0].queuedAt;
       const toIso = queue[queue.length - 1].queuedAt;
-      // رویدادهای ساعت — تجمیع مشابه‌ها + شمار منابع مستقل (تیک اعتبارسنجی قطعی از دادهٔ سامانه، نه حدس مدل)
+      // رویدادهای بازه — ضدتکرار معنایی با تاریخچهٔ ارسال‌شده‌ها (خواستهٔ ۱۲ نوامبر) +
+      // تجمیع مشابه‌ها + شمار منابع مستقل (تیک اعتبارسنجی قطعی از دادهٔ سامانه، نه حدس مدل)
       const items: HourlyItem[] = queue.map((q) => ({
         id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
         source: (q.source || '').trim(),
         text: q.text.replace(/\n?🖼 عکس خود خبر: \S+/g, '').replace(/^✅$|^⚠️$/gm, '').trim(),
         at: q.queuedAt,
       }));
-      const mergedItems = mergeSimilarItems(items);
+      const sentMsgSets = Object.keys(state.sentMsgTexts).map((t) => tokensOf(t));
+      const dedup = dropAlreadySent(items, [...titleSets, ...sentMsgSets]);
+      if (dedup.dropped > 0) console.log(`ضدتکرار زمان جمع‌بندی: ${dedup.dropped} مورد با مضمون تکراریِ ارسال‌شده‌های قبل حذف شد`);
+      const mergedItems = mergeSimilarItems(dedup.kept);
       const history = Array.isArray(state.hourlyAnalyses) ? state.hourlyAnalyses : [];
       const userMsg = [
         'تحلیل‌های ساعات پیشین (تازه‌ترین اول — برای پیوستگی روایت بخوانید):',
         buildHistoryBlock(history),
         '',
-        `رویدادهای این ساعت (${enToFaDigits(String(mergedItems.length))} مورد پس از تجمیع اولیهٔ سامانه):`,
+        `رویدادهای این بازه (${enToFaDigits(String(mergedItems.length))} مورد پس از ضدتکرار و تجمیع اولیهٔ سامانه):`,
         buildHourlyCorpus(mergedItems),
       ].join('\n');
       const t0 = Date.now();
       const r = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000 });
       const aiText = r.ok ? validateHourlyText(r.content) : null;
       summary.hourlyProvider = r.providerId;
-      console.log(`بستهٔ ساعتی هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}`);
+      console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}`);
       // سربرگ خنثی — «بست رصدبان» حذف شد (خواستهٔ صریح کاربر)
       const header = hourlyHeader(fromIso, toIso);
       const chunks = aiText
         ? chunkHourlyMessage(header, aiText, 3300)
-        : buildBundleChunks(queue.map((q) => q.text), { fromIso, toIso, maxLen: 3300 });
+        : buildBundleChunks(dedup.kept.map((q) => q.text), { fromIso, toIso, maxLen: 3300 });
       let ok = false;
       for (const c of chunks) {
         for (const t of CFG.targets) {
           const s = await sendBaleMessage(CFG.token, t, c);
           if (s.ok) ok = true;
-          else console.error(`❌ ارسال بستهٔ ساعتی به ${t} ناموفق: ${s.error}`);
+          else console.error(`❌ ارسال بستهٔ خبری به ${t} ناموفق: ${s.error}`);
         }
         await sleep(600);
       }
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ ساعتی ارسال شد — ${queue.length} مورد (پس از تجمیع: ${mergedItems.length}) در ${chunks.length} پیام${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}`);
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length}) در ${chunks.length} پیام${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}`);
         // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
-          const tp = tehranParts(Date.now());
           state.hourlyAnalyses = appendAnalysis(history, {
-            hourKey: `${tp.dateKey}T${tp.hhmm.slice(0, 2)}:00`,
+            hourKey: newsSlotKey,
             at: new Date().toISOString(),
             text: aiText,
             provider: r.providerId,
@@ -2778,12 +2870,51 @@ async function main(): Promise<void> {
           });
         }
         queue.length = 0;
-        state.lastBundleAt = new Date().toISOString();
+        state.lastNewsSlotKey = newsSlotKey;
       } else {
-        console.warn('⚠️ ارسال بستهٔ ساعتی ناموفق — صف برای چرخهٔ بعد می‌ماند');
+        console.warn('⚠️ ارسال بستهٔ خبری ناموفق — اسلات علامت نمی‌خورد تا چرخهٔ بعدِ همین اسلات دوباره تلاش کند (خبری از قلم نمی‌افتد)');
       }
-    } else if (flushDue) {
-      state.lastBundleAt = new Date().toISOString(); // ریتم ساعتی — بستهٔ خالی ارسال نمی‌شود
+    } else if (newsSlotKey) {
+      state.lastNewsSlotKey = newsSlotKey; // صف خالی — سکوت؛ خبرهای تازه در اسلات بعدی می‌آیند
+      console.log(`اسلات بستهٔ خبری ${newsSlotKey} — صف خالی بود، پیامی فرستاده نمی‌شود`);
+    }
+
+    // ── بستهٔ جداگانهٔ توییت — اسلات‌های فرد (دقیقاً یک ساعت بعد از بستهٔ خبر)؛
+    //  «اگر جدید نبود هیچ متنی نفرست»: صف خالی = سکوت مطلق ──
+    const tweetSlotKey = dueBundleSlotKey(Date.now(), CFG.tweetOffsetHours * 60, periodMin, state.lastTweetSlotKey, pSlot);
+    if (tweetSlotKey && tweetQueue.length > 0) {
+      const fromT = tweetQueue[0].queuedAt;
+      const toT = tweetQueue[tweetQueue.length - 1].queuedAt;
+      const twItems: HourlyItem[] = tweetQueue.map((q) => ({
+        id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
+        source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
+        text: q.text.trim(),
+        at: q.queuedAt,
+      }));
+      const twSentSets = [...titleSets, ...Object.keys(state.sentMsgTexts).map((t) => tokensOf(t))];
+      const twDedup = dropAlreadySent(twItems, twSentSets);
+      if (twDedup.dropped > 0) console.log(`ضدتکرار بستهٔ توییت: ${twDedup.dropped} توییت با مضمون تکراری حذف شد`);
+      const twBundle = buildTweetBundleChunks(twDedup.kept, { fromIso: fromT, toIso: toT, maxLen: 3300 });
+      let twOk = false;
+      for (const c of twBundle.chunks) {
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, c);
+          if (s.ok) twOk = true;
+          else console.error(`❌ ارسال بستهٔ توییت به ${t} ناموفق: ${s.error}`);
+        }
+        await sleep(600);
+      }
+      if (twOk) {
+        summary.tweetsSent = (summary.tweetsSent || 0) + twBundle.merged.length;
+        console.log(`🕒 بستهٔ توییت ارسال شد (اسلات ${tweetSlotKey}) — ${tweetQueue.length} توییت صف (پس از تجمیع: ${twBundle.merged.length}) در ${twBundle.chunks.length} پیام`);
+        tweetQueue.length = 0;
+        state.lastTweetSlotKey = tweetSlotKey;
+      } else {
+        console.warn('⚠️ ارسال بستهٔ توییت ناموفق — صف برای چرخهٔ بعد می‌ماند');
+      }
+    } else if (tweetSlotKey) {
+      state.lastTweetSlotKey = tweetSlotKey;
+      console.log(`اسلات بستهٔ توییت ${tweetSlotKey} — توییت تازه‌ای نبود، طبق خواستهٔ کاربر هیچ متنی فرستاده نمی‌شود`);
     }
     // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });

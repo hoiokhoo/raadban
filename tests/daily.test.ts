@@ -157,10 +157,11 @@ describe('اوقات شرعی فردا', () => {
     const p = computePrayerTimes('2026-11-11', settings);
     expect(p).not.toBeNull();
     const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
-    const f = toMin(p!.fajr), sr = toMin(p!.sunrise), dh = toMin(p!.dhuhr), ss = toMin(p!.sunset), mg = toMin(p!.maghrib), is = toMin(p!.isha);
+    const f = toMin(p!.fajr), sr = toMin(p!.sunrise), dh = toMin(p!.dhuhr), as = toMin(p!.asr), ss = toMin(p!.sunset), mg = toMin(p!.maghrib), is = toMin(p!.isha);
     expect(f).toBeLessThan(sr);
     expect(sr).toBeLessThan(dh);
-    expect(dh).toBeLessThan(ss);
+    expect(dh).toBeLessThan(as); // اذان عصر میان ظهر و غروب
+    expect(as).toBeLessThan(ss);
     expect(ss).toBeLessThan(mg); // مغرب = غروب + ۱۵ دقیقه
     expect(mg).toBeLessThan(is);
     // مقادیر معقول تهران
@@ -179,9 +180,9 @@ describe('اوقات شرعی فردا', () => {
     expect(md > mg || md < toMin(p.fajr)).toBe(true);
   });
   test('نامعتبر → null (هیچ زمان ساختگی)', () => {
-    const bad: PrayerTimesDay = { fajr: '06:00', sunrise: '05:00', dhuhr: '12:00', sunset: '17:00', maghrib: '17:15', isha: '18:30', midnight: '23:00', methodLabel: 'x' };
+    const bad: PrayerTimesDay = { fajr: '06:00', sunrise: '05:00', dhuhr: '12:00', asr: '15:30', sunset: '17:00', maghrib: '17:15', isha: '18:30', midnight: '23:00', methodLabel: 'x' };
     expect(validatePrayerTimes(bad)).toBe(false);
-    const bad2: PrayerTimesDay = { fajr: 'abc', sunrise: '05:00', dhuhr: '12:00', sunset: '17:00', maghrib: '17:15', isha: '18:30', midnight: '23:00', methodLabel: 'x' };
+    const bad2: PrayerTimesDay = { fajr: 'abc', sunrise: '05:00', dhuhr: '12:00', asr: '15:30', sunset: '17:00', maghrib: '17:15', isha: '18:30', midnight: '23:00', methodLabel: 'x' };
     expect(validatePrayerTimes(bad2)).toBe(false);
   });
 });

@@ -1,5 +1,13 @@
 {
  "sentIds": {
+  "8b9d4a6c9be3b4b1d89f44637220805f47dd26a1": 1794518099264,
+  "982dc279e03bf9ed261ec90aaed6168eca184e43": 1794518099264,
+  "e63964a491afee5becc1bcfae713bb95d8518bc1": 1794518099264,
+  "9ed745754b46a5cdf82e685f6e01cea7f2e5a449": 1794518099264,
+  "033a0a179b3ffc45560e1d4371fd4ea51a1adf2d": 1794518099264,
+  "a4975a6caa99f6b120c183e48138105041aeec9d": 1794518099264,
+  "1e203047227981552da5d71026664be2f3bccbd1": 1794518099264,
+  "301e60765b5861a085343fcaab084231fdbdc308": 1794518099264,
   "b04c961e4db9f0c5b935aadae0b9f72633258d15": 1794517520244,
   "7e47feaf1a08b07d78bea9e35b775250ffb3a8ee": 1794517520244,
   "c77935d89ae46bce1fba7ec7ac1e60f4e4945738": 1794517520244,
@@ -1191,17 +1199,17 @@
   "4a07fd88f415d5e12dadffc148097040ecbfb9e1": 1794489427033,
   "8f518945c6b879f7c9ef0f6b04310117ce505fac": 1794489427033,
   "f13126e70fcebb33f7d51c49f4dcc5580aed0d3b": 1794489427033,
-  "b3f4aa2cba52030c85828c40a90a3646f318f361": 1794489427033,
-  "6fd100a8e31174be3571e1d5b7febf10e851a05c": 1794489427033,
-  "0046c76adb3912978b61366ef1a98d66be5715e2": 1794489427033,
-  "9782900404f9199fa98abed9a03e354ab26fe358": 1794489427033,
-  "bfddc21845a59f9d80937c9ba1ff298aa4fe88ce": 1794489427033,
-  "c060aa8931402939a3893b41a7919b4eea458186": 1794489427033,
-  "a2c5df2166f9f759a71b12e9f6b36a362e4fab76": 1794489427033,
-  "57518494d20005f13381f209e6cc080790e0b9d6": 1794489427033,
-  "d7b86477ff8e029223ebf226b156eaf7bf354f54": 1794489427033
+  "b3f4aa2cba52030c85828c40a90a3646f318f361": 1794489427033
  },
  "sentTitles": {
+  "61ffe1535dc1d1acdf2b91dd0496cabe81539dfe": 1794518099264,
+  "582e698fee0d000a492c687edf1995eaef2b58df": 1794518099264,
+  "6dcf7f1f81a41615c985fbfaf75bbcfca5e791e5": 1794518099264,
+  "fa998bf3564be0a3c6f5e4cadb8ebc7167e45e18": 1794518099264,
+  "464de57f71cb80474ff8d302a82db6cca5cc6db5": 1794518099264,
+  "bc3fbee19475b79f2e91c0e40ae1c30dea331c78": 1794518099264,
+  "7d1836827827994a3f3b80c03b2c16f247320eb1": 1794518099264,
+  "5bd621c5cee2ad345167bbe7926803472633a322": 1794518099264,
   "0bde68dc119d1b2adccc8b296bc4abcafc288334": 1794517520244,
   "6c2760cfaf5f06963d725d17b6840ae3b4b61ad1": 1794517520244,
   "ae9212d4326a15a29ec2a5022c92c0e79bc3f014": 1794517520244,
@@ -1793,15 +1801,7 @@
   "a29e0f83a1dc8aba9262b0621f800d141c407660": 1794501772731,
   "1ef7b9ae8b89e14422c32681d65b639b522bece7": 1794501772731,
   "138e504861aee2a08abec53be9c3da43dd952d33": 1794501772731,
-  "d15d1882a429383d6d03d843930ea0d1d9020ef5": 1794501772731,
-  "882ffe71d8bb7b220802b831a6f75579e871cb32": 1794501772731,
-  "fcf64ee442c5a3b2b63d1f7504d6bcf974ec80e0": 1794501772731,
-  "7db63d9b7fc3ce04c82c8ece5bd26853ffd46e32": 1794501772731,
-  "e7df2d5bd8310f79a0b8f4698727098a2e58096c": 1794501772731,
-  "152571c700dec097de033064a584fa136045a127": 1794501772731,
-  "b7b7ef82ad0daf0bd57ee7a032a5f4f0d4a21c74": 1794501772731,
-  "8aa94a207f6abc9abcce10f1e995712e436ef3dd": 1794501772731,
-  "3ef1cffdf166f556849a1432759a1bbfc6759d33": 1794501772731
+  "d15d1882a429383d6d03d843930ea0d1d9020ef5": 1794501772731
  },
  "sentTitleTexts": {
   "امروز در دوبلین یک جلسه چندجانبه دوستان اوکراین بزرگترین شرکای ما برگزار شد از اندی برنهام به خاطر سازماندهی تشکر می کنم از امانویل ماکرون فریدریش مر츠 دونالد تو": 1794512452328,
@@ -3008,6 +3008,365 @@
   "همشهری انلاین هشدار درباره نقشه نتانیاهو برای جنگ با ایران لیبرمن از رهبران اپوزیسیون بار دیگر به نتانیاهو هشدار داد که او احتمالا می خواهد رژیم صهیونیستی را به": 1794501772731
  },
  "pool": [
+  {
+   "id": "834fa04ab5adcc68b37c800e39d5b928f29f8d00",
+   "titleKey": "f096f32c5c10963af901911be8ee5c1e1bb778e4",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 Four killed in military helicopter crash in Turkey 🔺 Turkey’s Defense Ministry said four service members were killed when a military helicopter crashed in the country’s south. @PressTV",
+   "at": "2026-11-12T18:25:17.000Z",
+   "url": "https://t.me/presstv/214474"
+  },
+  {
+   "id": "03fb99e89430357363137c1143ca06c298a7c49f",
+   "titleKey": "a5eab533176bc27ec323fbb65cf38b369100d8a1",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "A Speaker for the whole House Following the 2026 midterms, the incoming Democratic majority faces the challenge of electing a Speaker who can build a broad national consensus by engaging moderate Republicans on key issues.",
+   "at": "2026-11-12T18:30:00.000Z",
+   "url": "https://thehill.com/opinion/congress-blog/6215212-house-speaker-build-consensus/"
+  },
+  {
+   "id": "d561d2d0df0a9bc6051470c8d0c794a4096f29f2",
+   "titleKey": "7b62f39b34953fe1825b176c167a38577a66a8f1",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Indian nationals among 14 killed in deadly multi-vehicle crash in UAE's Fujairah",
+   "at": "2026-11-12T18:30:54.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/middle-east/indian-nationals-among-14-killed-in-deadly-multi-vehicle-crash-in-uaes-fujairah/articleshow/135780631.cms"
+  },
+  {
+   "id": "f87bfca07f4ef28e649365fdecfdcb3aeb739ca8",
+   "titleKey": "244e9cd39c07437e17fbfb5352694ba64dd0bee0",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Kalshi ends Donald Trump Jr's advisory contract due to Polymarket conflict - Reuters EXCLUSIVE: Kalshi ends Donald Trump Jr's advisory contract due to Polymarket conflict Reuters",
+   "at": "2026-11-12T18:35:56.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPYlQ3N0FyWHE3WUp4cHZOWWJRVUFVWFJuT1Jic05nVVBBWFNsYkFzbk1zeWRTbDA5c2k1Wk55UGFVdDBYeF9CY1U2YjhNV1pKd1h3aThoSm1jVEpmcEZtRDE5RldpeHhZaEphT1VfREFGd2Y1NG5BWVBiWFdQREFHeHQ4UjEtT2w4ZksyVldLNkpTRGpfYkdTZXpTblZFdEpNbGUta25VM2RpbDYzb0NWSkdCV3h2ZUhPamJBXy1iYzA?oc=5"
+  },
+  {
+   "id": "a31d217dbb38b4451d5510b31e329a58915a9890",
+   "titleKey": "d8c130b9f08a490d2e2b59048e8ec941579fa653",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "\"سنتكوم\" للعربية: خروج 22 مليون برميل نفط من مضيق هرمز الاثنين الماضي - العربية \"سنتكوم\" للعربية: خروج 22 مليون برميل نفط من مضيق هرمز الاثنين الماضي العربية",
+   "at": "2026-11-12T18:41:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinwRBVV95cUxNQzB2bE5GR1RSLXVSd3Z6OW16dmttaFNFdUZXWERYalM4eDVDNkJ4RXdkek1zc1gyVFNOUWVuZ285VU5RZDRXdVJXam1aX3NNbTRKcWx1Uk12QzVSdXJleFVyV0FkUGIzNXN3WFNRMm1oeDVrcTZxSHZPRW9PRk9Fdm42bmR2eXh6X2pMYkp2T0p6d0RUWDhxMDZlTGhTb29GS0VzWTg4bEhydlZ0bWxzTDF0d3VNSVlwQVkxN0xURGcteVdaejUxWmhLR1h3RUh0dmZIQ1k3bnVfWkNDY092elhCVTJoNHktYkVxMUp2bld6dUtKWUF6ZXN3Q01NTlNEMU41ek43QzdfZjB1VXU4TzRSWE5GdUhtOEEzRV82SVVHUm9tM2dMSmU0SEhIM19VLXUwSHlIOE8tU25VbUtYU0NiUDJ4VU83TG90djBUXy1kNVlteTllczZ5Q1R4bHhPdTJBakY2Y3pRekZwU2NHSFBrNnc3M0YwVmVNbWV6YVR4cC1aLXJ1Y2Zud2h2Y3Q2U0FETHR4Z05QblRZNnFkbG55aGx5dXVyclJWR1J6M3hDbWdlSG9henRxNUFTdEUxLWYzS0tTLVdzcW94T0I0Y2VhR2pqVThNYjV1LWFiRzJRd2JfTTdFcXRxWTJxOEgyOUlpbTNlOHk2UGk0VXdoeE9HdkpVWlZDeFpZbU1KaTNsRHNqUTdHcXZZTUxsNzDSAaQEQVVfeXFMTkViY2RHcldMWGJEMXNXRUtDZ0dWQWpKYkZFNXFGN1ZLREF5UmpYMjJZUHg2dWlLY21fbExsM29tUEJMeVBNTlRlN0pGQVhpUW5qSGpVODhmcHh1VEZocC0wSlIyVnJ5Qjk5X1hIdldfc1FTT3h2TUZBSEo3aXg5NEJtNmFGUlBlTzhudndaTXEtcXNxVTM2SnFlbHROUnJMbG1scndDN3l3azhFSHhjdjVmSEFWZGdranVrX2RZdzlFZnZacW1oN0JTX2FtTmJMOTE2TDFmQjdkcGxmNGl0RHJWczRGalpRT1A1UkMza0ttX0lWOGRQMUVoS2xxQ3JzcGplUnNUd2NqSE1HblNsMk11SGo0YzBSZlZqT2dfTWQ5V2x6MDNUTjF6eFpPNzh5Z0Y2VE1EWjdIanJGMzJXTVk5aU9Vb2xuelZrdFZ3M0xhbi1TS0tXVzZCZy1Wc1JwSmhlU3ZmcGdPd3BwVWVWS25MY1dKY2RlOEJ4VV9sX3NHY1hkWmZMcTd2RzRVQnFrd1YtRkNyWUVNQTRLVmRLel9Jd1BmakNUc2R6aDJEWXhEXzVSU0d0bFg1T1kwYnFHejB4a2k3cklLQ3p3NHprQlZSOUJBV2U5b0s1YzZDaW9TRW55cld6ekVEZTgwOVRxanJyU1BONGtJUGI3NUR1MVFLZWhSeGY4V1JXX09hRl9WdUlIQ1pqalpkZGRETURDbElTU2U?oc=5"
+  },
+  {
+   "id": "ffd904bdd55efe9c2e8c45044472222407feae05",
+   "titleKey": "1eb4ddbeb04d8814418334b371fbd0e1b789cc48",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Putin vows to keep pursuing Russia's interests in world sports The head of state said that countries which oppose Russia’s involvement in world sports are disregarding the principles of the Olympic Charter",
+   "at": "2026-11-12T18:47:10.000Z",
+   "url": "https://tass.com/sports/2217429"
+  },
+  {
+   "id": "b2a849cb17105da8e06ee2e02f3e9c4ef57a9305",
+   "titleKey": "ebefa050340aee6a75ec35ca7b447e2d3901cced",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Hegseth awards medal to war memorial guard who reprimanded him and group Specialist Thomas Iglesias was given a Joint Service Commendation Medal for the execution of his duties after Wednesday's incident.",
+   "at": "2026-11-12T18:47:35.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/cmvg2r3dq7xno?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "12bd2af4da823698de03a1a861c0538f474521f6",
+   "titleKey": "d64ab9d0e6e7e2dd8ac18d49ef4673ed7ab864bf",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Houthis claim responsibility for strikes on Saudi Aramco, airbase in Saudi Arabia The Houthis also struck \"a military transport aircraft at Sharurah Airport with a drone\"",
+   "at": "2026-11-12T18:49:55.000Z",
+   "url": "https://tass.com/world/2217431"
+  },
+  {
+   "id": "a1d88e034a46b7feb9135cd02b6882c5d302dab7",
+   "titleKey": "f38ff19b9316499639b602b606feb5aec9d2c2bc",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Who is interim Nvidia CEO Colette Kress? Colette Kress is taking on the role after the resignation of CEO Jensen Huang.",
+   "at": "2026-11-12T18:52:18.000Z",
+   "url": "https://thehill.com/policy/technology/6216664-nvidia-interim-ceo-colette-kress-jensen-huang-resignation-affairs/"
+  },
+  {
+   "id": "c474ca6bac2ce4e9886af74a98cdce95aca5a63f",
+   "titleKey": "5d20ead8083b7b12d4005fa085ab5dc5f6c87a94",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Paxton finalizes divorce after ex-wife filed on ‘biblical grounds’: Report Former GOP Senate candidate and Texas Attorney General Ken Paxton has reportedly finalized his divorce from his ex-wife, state Sen. Angela Paxton (R), after being married for more than 40 years. Ken Paxton’s attorney confirmed to The New York Times, which first reported on the conclusion Thursday, that the Paxtons agreed upon the terms of…",
+   "at": "2026-11-12T19:22:27.000Z",
+   "url": "https://thehill.com/homenews/state-watch/6216932-ken-angela-paxton-divorce-finalized/"
+  },
+  {
+   "id": "aed0a86d4b101d1bf1bd7de6b31433e556a583b4",
+   "titleKey": "f98b474277a1b40d0239b61bb720bc37fc458473",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "NYC Sees Nearly $1 Billion Tax-Revenue Jump on Wall Street Gains - Bloomberg.com NYC Sees Nearly $1 Billion Tax-Revenue Jump on Wall Street Gains Bloomberg.com",
+   "at": "2026-11-12T19:24:31.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeHFRV0JIZjM3ODRic2lpQlB2UGlOWHZxTnNvOEVOeUhwWFZYRkw4S0xWOXd0TnN2NUNuRk9GSjNYZ1VRV1N6VzdYczc2eHBZWFlCblktWDNEWnRGZUZ0RXY0OHhrTjlNUmtkTlVTcDlQZ1FwOENkNUJweXB4c0NVVm5McjcwWDNYSElFazByVVJKZG5ibk1NcTR5XzZ6Um5uSVdxSXdpcmFGdjB4cV9idF9sNEQ?oc=5"
+  },
+  {
+   "id": "cf72bc68d8f151d1cdbf0578deaf65ab7481e552",
+   "titleKey": "0280e912b607bd700889a789ad6de5788e2c4b8c",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Texas granddaughter wins appeal over 500-foot ban amid family trust dispute A Texas appeals court has dissolved an order barring a granddaughter from coming within 500 feet of family trust property. The court found that the lower court had failed to set a trial date and specify the required security amount. However, the wider dispute over control of the Barbara Tolbert Revocable Trust and the family's inheritance claims remains unresolved.",
+   "at": "2026-11-12T19:29:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-texas-granddaughter-was-barred-from-coming-within-500-feet-of-family-trust-property-as-relatives-fought-over-control-a-november-10-appeals-court-dissolved-the-restriction-but-left-the-inheritance-dispute-unresolved/articleshow/135760717.cms"
+  },
+  {
+   "id": "5370ee849198d29be1233a39a6a90dce8449f0d7",
+   "titleKey": "35edfa39561df87f17df8a24492f35cabf636ba8",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "US Probing If Alice Huang Helped Smuggle Super Micro Products - Bloomberg.com US Probing If Alice Huang Helped Smuggle Super Micro Products Bloomberg.com",
+   "at": "2026-11-12T19:29:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQNEowTHp0WTdmd1NaRUlGMWNnQXVSY181MkZkR3JHY3ZOVWg1Skh1WlB6S2NWaENmQTh6d1NtX29jYVNpdG92bHAxU2hBT0xBMjhTQXdwd2l0YUxzemM3QnpVYnhpcXpkeDFfRjB3TGo2V3ZoVXU2bm1uUWJTTEQ4R1lVNXFZTTM0T3RIam9wbHRwN0hrLVM0THhkQVoyNERnX1RjRTlORVpuQ2N3d3pJMTJR?oc=5"
+  },
+  {
+   "id": "61186ca336bf14aec1a0460e96815d0836a9b4e7",
+   "titleKey": "8580f56890256cdd12ed0522202ff3c831e05676",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Messi up for record 3rd MLS MVP award; Sullivan, 17, gets historic nomination - ESPN Messi up for record 3rd MLS MVP award; Sullivan, 17, gets historic nomination ESPN",
+   "at": "2026-11-12T19:33:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQVI5cGw5elJwR1VxNnBjRHp4NFNIU01reHhRRWwtYUs1SFQ5eTA1VGFSZ0tlbHRoMUxoMEd2RzhyZjh1azVjWGRWdGNhUU1lY041V29qZS1XeHlwQVBrT1hXVWh0MTZfcHdrWl9EdmJIalQ3WEFoRkRoaDk0WkQtMGQtNHQ2d1pIQlhHRkd5b0lYVEJ6LXltNXoxQlZBemVaYW1xWHNxWQ?oc=5"
+  },
+  {
+   "id": "1d20a99fced46ca57c0cb31e3ac594b2be5f0e48",
+   "titleKey": "3ff591ad6a63b721160a30687418a2bc0550ea66",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "تتناول الكالسيوم ولا تستفيد منه؟.. عنصران أساسيان قد ينقصانك - العربية تتناول الكالسيوم ولا تستفيد منه؟.. عنصران أساسيان قد ينقصانك العربية",
+   "at": "2026-11-12T19:34:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi-wNBVV95cUxQUmplTDljclhEaHlsYlF4NUVEZDZYRi1KZFZKTTZhQWR4RmMxQU1rcmxmc2tBLUVxd2FKVEJLUk1uXzRicGdBRnA2WDVzYW8yRVkteEZsU2xQMjM2NHdSRWVNeURHaWc1T3dfLXpYb0Y2VUUtcUNELWlLZWhiQVBRVzFpN3p5d1RFV2dSNGpjRUdDRmFzTV8yTHJxT3hCSTdSMi1WTGxZWTlZOVJUaVRIb3p6Z1B3elhnc3JJTG9nb3Y5dlJpQmd5WHFxMWk2NUhQTE5IQUNCUFlQLTlnWkZfTG9mUEhyNnQxVzFNVnAyemFnaksySnZDN3NSUFhQd1lvZ292RmsxU2JJWTRidTkxN0hKTXpvWlJOSThtM3dVU29oYlVoc2Y2LVlBbkljbjQtMlpGQjFGT25BamFiSUg3NDRaLTNScVFrUkpIMWg4X2RVTmpBZmc4S2ZvU2prTzQyVk80SGhjVVZ5RmRZajQzRHlIZVVPUTUyTXdRYVRkeG1sQUdXODN6ZFpJVlNhQk5lU0lKS2x5a1ZRdTgtQ0o4dWRPLXZPVy1YazhBTDZyLVJFcXY2cXBrZzhEbm4zTmFPVjlDdFFrQVFzYzhyUlU3TU5NelpIa0JwekMtTzRZMHZfbjRxdlZyVlVqS3daa29Cazg2QnBEc09BSm_SAYAEQVVfeXFMTndfNW1jdUh1Zk9xdmpyeGNaa1RyS2lDU0VrUlJueTZYWmluU3VpczRSMWFYOElwYnlFY0hYdkNEeGhEa1R1LXdXSDljV1NvdElFdlRoZ21UQjlGVFFmZzE5Rkd6MmJBamNxUkVUS21JaUFlM3ZZdVZ2NVR5QnhsRGxyRFZYVUVCN3p5cFU0a1N6bFBETmVjNU5hWGNGcVdQTXYyeVY4NGpuLXc2M1JEank0TVI1OEFMX3lhVW1UdkwyTEcyYjRhTDh6MnlpTjNPNjNjajdYYXh1ZFNpeXNnbDR5c1dKLW44cDB2b05MazQ3TlJUZHcyUHhmdEZuTWhuQjY4dnVvcWtuSmI3czM1ZDEzQW9tM05tUXVmeG1fcFpJNDZ6VklvSUZxdzlObVFnUWNYdUhKNnF3VkpKTWdwekxYdkViYl9KbWVEVmNxekszYnlLWEdobUVuTy12aTAwbmsycm1fVjRxMVVvY1pCekFDREdFZGZFUVN2OENjNGw0c09UV0dOWnhMQndjanR0VGczTnNwelo1bmo1VkdNRE5aaV8yM0prVU9HS1ByTGYxUDlzSlVrOWpweFF3a083WWQzUk1EV3g4OUVna0RmVGUxRzZVN0x2M0hPSUlVUXZUSWNyWFRTdFY4LVRvRS12OHZmd1hlampHMUplS1hpS0c?oc=5"
+  },
+  {
+   "id": "5e58c4bfc0056e7de5759d12b3820088ba4aa709",
+   "titleKey": "38b2587803d6e11161984a8d9fe24db64b8f05d6",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "DC police identify accused Logan Circle gunman, signal potential motive Washington police identified the suspected gunman accused of shooting five people, including one fatally, in D.C.’s Logan Circle neighborhood Thursday, according to The Associated Press. Three sources, including two law enforcement officials, told the AP a man named Matt Lambert is the preliminary suspect. Law enforcement has not publicly announced the suspect’s identity. The gunman…",
+   "at": "2026-11-12T19:45:04.000Z",
+   "url": "https://thehill.com/homenews/state-watch/6217017-dc-logan-circle-shooting-suspect/"
+  },
+  {
+   "id": "6479e698a3c1add6cf19ff645dceeaaa98937098",
+   "titleKey": "91f6124b2398163f5cd7b76cde4f64ee45bc5e39",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Palestinian baby dies from cold in Gaza amid Israeli restrictions on aid The baby's father said he died of hypothermia overnight in their family's tent in southern Gaza.",
+   "at": "2026-11-12T19:56:26.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/12/palestinian-baby-dies-from-cold-in-gaza-amid-israeli-restrictions-on-aid?traffic_source=rss"
+  },
+  {
+   "id": "31217bf131dbad7c24e36b725447e7c22e9dc6de",
+   "titleKey": "9a7ddde464cc7782a439532a004ccd4292682796",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Government confident of holding polls in violence-hit Manipur on time",
+   "at": "2026-11-12T19:58:46.000Z",
+   "url": "https://timesofindia.indiatimes.com/india/government-confident-of-holding-polls-in-violence-hit-manipur-on-time/articleshow/135781853.cms"
+  },
+  {
+   "id": "223d2422a5b3d62baa15be38804064c1466ee73c",
+   "titleKey": "52e41ea5bd1879dd8b21d64cd4ebf4ce12f56987",
+   "source": "RT",
+   "lang": "en",
+   "text": "US no longer needs Iran deal – Trump Trump says the US no longer needs an Iran deal and directs J.D. Vance to tackle corruption and crime after Republicans’ midterm defeat Read Full Article at RT.com",
+   "at": "2026-11-12T20:21:42.000Z",
+   "url": "https://rt-english.com/news/648761-trump-no-iran-deal-needed/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "84f63c23bbed6b263faf6bf4175fb9863ae1c601",
+   "titleKey": "51a5cea27d16052644e1799a75894b7deaa756f9",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Witkoff, Kushner to meet with Zelensky as Ukraine reports Starshield restrictions for second time U.S. special envoys Steve Witkoff and Jared Kushner are set to meet with Ukrainian President Volodymyr Zelensky this week amid reports the eastern European country’s access to Starshield satellite communications has been restricted for a second time. “I think progress was made. I think it was made earlier today,” Witkoff told CNN after meeting with…",
+   "at": "2026-11-12T20:24:47.000Z",
+   "url": "https://thehill.com/policy/international/6217022-witkoff-kushner-zelensky-meeting-starshield-update/"
+  },
+  {
+   "id": "ac0417b06ab89bb73860b1ae52311c024951aeb8",
+   "titleKey": "b711ac38617a6e68dc5ed489f1dd1b36510989a5",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump urges Senate leadership to move $350B reconciliation bill President Trump on Thursday renewed calls for the $350 billion military funding package to be passed through the Senate as time runs out for Republicans to hold a majority in Congress. “I rebuilt our Military in my First Term, and we’re doing it AGAIN, bigger and better than ever before! The Radical Democrat Majority in…",
+   "at": "2026-11-12T20:25:31.000Z",
+   "url": "https://thehill.com/homenews/senate/6217053-donald-trump-senate-leadership-350b-reconciliation-bill/"
+  },
+  {
+   "id": "6a20df73ed5630207ebc4a066997b77ba4654948",
+   "titleKey": "f76aaaed44ff05cb00e1b32a17d91c60726641fa",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Former Nvidia CEO Huang had a relationship with a second employee, sources say - Reuters EXCLUSIVE: Former Nvidia CEO Huang had a relationship with a second employee, sources say Reuters",
+   "at": "2026-11-12T20:49:17.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOS3otVnY4ZXphd1g5Q0REOVlqY3c1WXBMSmMtNThTbGlaRGVkVkZXZml1RHlEN3djZXRMT0pSTnJ6c3JiZ0tOdVRRekpJUlBfRV92ZEFEUU9GVU5XZHBYVmotRjFpcExuaER3S1BUaF90UWFaRnVBcFlHazgzOXBSWXJfN1RMSFNrcWY2TVRkQmVTYkNHUUhMeHAyM1huRXItSVhKZU95Q2wyTmg1MnlZcGduR01vdzFBcmpiVA?oc=5"
+  },
+  {
+   "id": "f5055e4f554c0da09938886c8de1b974e6ee500c",
+   "titleKey": "da540c61b74f098db3c37d9e59bb68283fef1770",
+   "source": "Guardian Environment",
+   "lang": "en",
+   "text": "Be sea-ing you: humpback whale spotted in New York’s Hudson River Sightings of the species are becoming increasingly common as experts worry about danger posed by busy waterways A humpback whale was spotted on Thursday swimming in New York’s Hudson River, sparking a social media frenzy. Brad Hoylman-Sigal, president of Manhattan borough, was among those to share a photograph of the whale on Facebook , an image taken on Thursday morning and provided by Gotham Whale, a citizen science and education group that tracks marine mammals in New York’s waterways. Continue reading...",
+   "at": "2026-11-12T20:53:49.000Z",
+   "url": "https://www.theguardian.com/us-news/2026/nov/12/humpback-whale-new-york-city-hudson-river"
+  },
+  {
+   "id": "10a605cadd1676df4fa16a0b3e8d73772566aad2",
+   "titleKey": "ea1fd67397e951f6c1cfce6b3d88c01cee8d8b1b",
+   "source": "Asharq Al-Awsat",
+   "lang": "ar",
+   "text": "عضو في «بنك اليابان» يُحذّر من التسرع في رفع الفائدة - الشرق الأوسط عضو في «بنك اليابان» يُحذّر من التسرع في رفع الفائدة الشرق الأوسط",
+   "at": "2026-11-12T21:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi1gNBVV95cUxOYmhFX0VWLXh0U2l1ZjJyRDdyV3g0YThTY0NfVWZzdlAxTmFUbV95UXd1RnNHRzBfdUNXeDZwcktIVnZIdDhMd0dQSjFtczdmVkE3c3NhZk5yNUt6NmpMaDhJQkN4YXdiUG53QWJpU3FmOEFiejVWT09EZk1RM3JaQW9SYm5qVmFMcnllQ0tYZU9zS1VzZTFLSEVwNzQ3MkJXNnVYelp1WWNscmJqY0JfM1ZaX2dCR1N6WFFPU21LN0xSMDVwY0dhLWVoclhXOGNZaE11d3VrdzB5MEt1RDdEaFlMSzR2bnBHUmI3ZkliRzNZbFpBeWJkUm1zcVFhSk9wSEZZM1YyMHo5UkRmdmxTQVFYZUNSU2NlVDhMNlExeVZqUDlRZWFYUjN1andjMk1VZHlsVDlmWC1uVkdvd05KNTk4UmN6c3VGQ0t5U01wbkJTTkIyUkdQRzV2am9wNkdheHZ0TDJiOEZoMTkxRjZQTWlNZTlGRDlxUmtEZ1czTTlxZE5HTHRhY2dYdUNGOTcyLTYwY1kyckhtV2c5amo0WmdRYU9nTlFjV3U4VjNNaVdscEF3SHdJVlRVbVl0WmEtSVNXY3g1VE5Id05nM2RTbGEzWnpWZw?oc=5"
+  },
+  {
+   "id": "8b9d4a6c9be3b4b1d89f44637220805f47dd26a1",
+   "titleKey": "61ffe1535dc1d1acdf2b91dd0496cabe81539dfe",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هواشناسی ایران امروز جمعه ۲۲ آبان ۱۴۰۵ / سردترین ایستگاه کشور مشخص شد بررسی داده‌های ایستگاه‌های هواشناسی نشان می‌دهد توچال، الوارس، شهرستانک، تخت سلیمان و فیروزکوه پنج ایستگاه سرد کشور بوده‌اند.",
+   "at": "2026-11-12T21:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175226/هواشناسی-ایران-امروز-جمعه-22-آبان-1405-سردترین-ایستگاه-کشور-مشخص-شد"
+  },
+  {
+   "id": "982dc279e03bf9ed261ec90aaed6168eca184e43",
+   "titleKey": "582e698fee0d000a492c687edf1995eaef2b58df",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "گشایش گره ترافیکی در شمال کشور / یک پروژه کلیدی وارد فاز جدیدی شد ورود مدیریت شهری به یکی از شریان‌های حیاتی شمال کشور، ورق تازه‌ای در روند اجرای پروژه‌های عمرانی منطقه رقم زد.",
+   "at": "2026-11-12T21:00:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175281/گشایش-گره-ترافیکی-در-شمال-کشور-یک-پروژه-کلیدی-وارد-فاز-جدیدی-شد"
+  },
+  {
+   "id": "4d29e43e7f3374ad0a6b38a656fd3c6674331b8e",
+   "titleKey": "1dc974c0b64ba9986206572fd25fbc4a3a6e22ee",
+   "source": "NYT World",
+   "lang": "en",
+   "text": "Army Officer Accused of Trying to Spy for Russia Is Afghan War Veteran The officer, who served at a NATO base in Britain, is expected to be charged in the coming days, two officials said.",
+   "at": "2026-11-12T21:00:52.000Z",
+   "url": "https://www.nytimes.com/2026/11/12/world/europe/army-britain-arrest-spy-russia.html"
+  },
+  {
+   "id": "171c506a95fcf2014ed05a06d4b771864be33d7b",
+   "titleKey": "610c02bfd9e0ff1d44cc2c27a913ec0e6159dc3f",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses - AP News Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses AP News",
+   "at": "2026-11-12T21:02:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPVFFiZmRWVmxZNDlVRnR1NHVQNkprRUhWMnNLMHFLWC1qdGljTm9ON2Z3U2FuXzNUcjRwRmNqMFZVemE4TVA1RVhRdl9paUtyMXJoYWhHbVl5d1FfNWZIZTVVU0IwcDQ0eHlnWGxxWEFhZjdkVko1a1hwY25XWE9uc3Q0MkIyaHpCWkNuZk05SGs1ck5DTFV4ZktQNWo?oc=5"
+  },
+  {
+   "id": "758f9cb88a091b2b0bc7ba64c026ca495422ccb8",
+   "titleKey": "bae38d7d90b1eb212670c4ac969e2768c2031f5e",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jim Banks calls for Lutnick to testify on Nvidia CEO controversy, alleging ‘loophole’ use Sen. Jim Banks (R-Ind.) called on Commerce Secretary Howard Lutnick to testify regarding his involvement with former Nvidia CEO Jensen Huang’s relationship with an alleged Chinese spy, accusing Lutnick of using a “loophole.” “This news is as concerning as it gets,” Banks said during an appearance on Fox News. “When you’re in a war with…",
+   "at": "2026-11-12T21:02:59.000Z",
+   "url": "https://thehill.com/homenews/senate/6217212-jim-banks-howard-lutnick-testimony-nvidia-jensen-huang/"
+  },
+  {
+   "id": "e63964a491afee5becc1bcfae713bb95d8518bc1",
+   "titleKey": "6dcf7f1f81a41615c985fbfaf75bbcfca5e791e5",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مردم ایلام از حضور شهدای گمنام در تجمعات شبانه مردمی می گویند ایلام - فیلمی از گفتگوی خبرنگار مهر با مردم ایلام درباره حضور شهدای گمنام در تجمعات شبانه را مشاهده می‌کنید.",
+   "at": "2026-11-12T21:04:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009124/%D9%85%D8%B1%D8%AF%D9%85-%D8%A7%DB%8C%D9%84%D8%A7%D9%85-%D8%A7%D8%B2-%D8%AD%D8%B6%D9%88%D8%B1-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85%DB%8C-%D9%85%DB%8C-%DA%AF%D9%88%DB%8C%D9%86%D8%AF"
+  },
+  {
+   "id": "7152b0a816c2a5645e0d2882f3933ce854c0d579",
+   "titleKey": "dda4f3cc51fb725b95e55325272e69fbf8880321",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Live updates: Huang exits Nvidia; Democrat locks down Kansas governor’s mansion Nvidia CEO Jensen Huang resigned on Thursday from the company he co-founded after revelations of extramarital affairs, including one with a woman alleged to be a spy for China. Kansas state Sen. Cindy Holscher was projected to win the governor’s mansion on Thursday, over a week after Election Day. Holscher defeated Republican Kansas Senate President…",
+   "at": "2026-11-12T21:04:46.000Z",
+   "url": "https://thehill.com/homenews/administration/6214786-live-updates-trump-midterms-alaska-congress/"
+  },
+  {
+   "id": "9ed745754b46a5cdf82e685f6e01cea7f2e5a449",
+   "titleKey": "fa998bf3564be0a3c6f5e4cadb8ebc7167e45e18",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "فیلم| یک هفته با شهدای گمنام در لرستان خرم‌آباد - ایرنا - پیکر مطهر ۲ شهید گمنام دوران دفاع مقدس همزمان با ایام فاطمیه با حضور پرشور مردم شهیدپرور، خانواده‌های معظم شهدا و مسوولان در شهرهای مختلف استان لرستان تشییع شد.",
+   "at": "2026-11-12T21:05:10.000Z",
+   "url": "https://www.irna.ir/news/86320262/%D9%81%DB%8C%D9%84%D9%85-%DB%8C%DA%A9-%D9%87%D9%81%D8%AA%D9%87-%D8%A8%D8%A7-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D9%84%D8%B1%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "033a0a179b3ffc45560e1d4371fd4ea51a1adf2d",
+   "titleKey": "464de57f71cb80474ff8d302a82db6cca5cc6db5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "گفت و گوی امیر قطر و نخست وزیر انگلیس درباره تلاش‌ها برای کاهش تنش‌ در منطقه تهران - ایرنا - امیر قطر و نخست وزیر انگلیس روز پنجشنبه درباره آخرین تحولات خاورمیانه و راه‌های تقویت هماهنگی برای حمایت از تلاش‌ها با هدف دستیابی به توافق جامع بین طرف‌های ذی‌نفع گفت و گو کردند.",
+   "at": "2026-11-12T21:05:21.000Z",
+   "url": "https://www.irna.ir/news/86320249/%DA%AF%D9%81%D8%AA-%D9%88-%DA%AF%D9%88%DB%8C-%D8%A7%D9%85%DB%8C%D8%B1-%D9%82%D8%B7%D8%B1-%D9%88-%D9%86%D8%AE%D8%B3%D8%AA-%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AA%D9%84%D8%A7%D8%B4-%D9%87%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%DA%A9%D8%A7%D9%87%D8%B4"
+  },
+  {
+   "id": "7a16812db8848c8ac42cf5e1110fe6d0fafaeb05",
+   "titleKey": "a874a1582077a90aff831bbb3a8e5849de15d832",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iran warns foreign governments against involvement in US aggression, economic terrorism Iran's Foreign Ministry spokesman has rejected the G7 statement, warning that any foreign military or logistical support for US aggression would constitute participation in unlawful acts under international law. @PressTV",
+   "at": "2026-11-12T21:08:01.000Z",
+   "url": "https://t.me/presstv/214487"
+  },
+  {
+   "id": "a4975a6caa99f6b120c183e48138105041aeec9d",
+   "titleKey": "bc3fbee19475b79f2e91c0e40ae1c30dea331c78",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حضرت زهرا (س) الگوی جاودانه ایمان، استقامت و دفاع از حق است ارومیه - مسئول نمایندگی ولی‌فقیه در سپاه شهدا آذربایجان ‌غربی، با تأکید بر جایگاه والای حضرت فاطمه زهرا (س)، شهادت را ثمره ایمان، اخلاص و حرکت در مسیر رضای الهی دانست.",
+   "at": "2026-11-12T21:08:42.000Z",
+   "url": "https://www.mehrnews.com/news/7009133/%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C-%D8%AC%D8%A7%D9%88%D8%AF%D8%A7%D9%86%D9%87-%D8%A7%DB%8C%D9%85%D8%A7%D9%86-%D8%A7%D8%B3%D8%AA%D9%82%D8%A7%D9%85%D8%AA-%D9%88-%D8%AF%D9%81%D8%A7%D8%B9-%D8%A7%D8%B2-%D8%AD%D9%82-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "156375297e7d3e6e906f9aeccc172df52ca74d72",
+   "titleKey": "94a565d505f584cf630411d7dda2c61c23087a59",
+   "source": "Israel Channel 12",
+   "lang": "he",
+   "text": "ניסיון החיסול החריג בבית החולים בעזה - mako ניסיון החיסול החריג בבית החולים בעזה mako",
+   "at": "2026-11-12T21:08:44.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQNHRjTDF6ZzdGdEw2RExNOGhnN1lGc18yTldPYW9jdHNIc1lNWkRUdFZFMTRBeXN3Mm9YN05YQzVZUmJpTzNnVHZ4THM2Y0Yzb29LRlJ5dG1EcThOZXFGdW5UcTBLSGowWUJrUjlVdGJTRDJXN19DQzJscXlxQXJ5eTJIcUJQZWZKVHFPNkxuRm9VTEktQURpZDIxN0p5LV9tOEhEb2ZqRzJSd0dtdUpBRWdlV212VlRIdTQwbWlvU2JBUWowMVI2LTY0VXAyQlRJbE4wOQ?oc=5"
+  },
+  {
+   "id": "5607b1cfa57f6bc707521ef0875f8054b401357c",
+   "titleKey": "dda4844500fc469e71321ad98230c4abd7482bc0",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Nvidia’s hunt for Jensen Huang’s successor: insiders, rivals and a Trump pick Nvidia is searching for its first new leader in 33 years after Jensen Huang quit on Thursday, with interim chief Colette Kress, veteran engineers, members of Huang’s own family and the bosses of rival chipmakers all touted as possible successors. The AI chip giant was left without the only leader it has ever had when Huang, 63, stepped down as president, chief executive and board member. The move was announced with immediate effect, according to a company filing with the US Securities and...",
+   "at": "2026-11-12T21:08:47.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374268/nvidias-hunt-jensen-huangs-successor-insiders-rivals-and-trump-pick"
+  },
+  {
+   "id": "1e203047227981552da5d71026664be2f3bccbd1",
+   "titleKey": "7d1836827827994a3f3b80c03b2c16f247320eb1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "افزایش قیمت انرژی در بازارهای جهانی تهران - ایرنا - پس از آنکه رئیس‌جمهور جنگ طلب آمریکا اعلام کرد واشنگتن دیگر نیازی به توافق با ایران ندارد، قیمت‌های جهانی انرژی در روز پنجشنبه افزایش یافت.",
+   "at": "2026-11-12T21:10:27.000Z",
+   "url": "https://www.irna.ir/news/86320268/%D8%A7%D9%81%D8%B2%D8%A7%DB%8C%D8%B4-%D9%82%DB%8C%D9%85%D8%AA-%D8%A7%D9%86%D8%B1%DA%98%DB%8C-%D8%AF%D8%B1-%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%D9%87%D8%A7%DB%8C-%D8%AC%D9%87%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "301e60765b5861a085343fcaab084231fdbdc308",
+   "titleKey": "5bd621c5cee2ad345167bbe7926803472633a322",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سلطانی: یاد شهدا سد محکمی در برابر جنگ شناختی دشمن است کرمان- دبیر یادواره شهدا و شهید گمنام منطقه کیسکان شهرستان بافت گفت: آیین‌های بزرگداشت شهدا فرصتی ارزشمند برای مقابله با جنگ روانی و شناختی دشمنان و تقویت روحیه مقاومت در جامعه است.",
+   "at": "2026-11-12T21:11:27.000Z",
+   "url": "https://www.mehrnews.com/news/7009135/%D8%B3%D9%84%D8%B7%D8%A7%D9%86%DB%8C-%DB%8C%D8%A7%D8%AF-%D8%B4%D9%87%D8%AF%D8%A7-%D8%B3%D8%AF-%D9%85%D8%AD%DA%A9%D9%85%DB%8C-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%A7%D8%A8%D8%B1-%D8%AC%D9%86%DA%AF-%D8%B4%D9%86%D8%A7%D8%AE%D8%AA%DB%8C-%D8%AF%D8%B4%D9%85%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
   {
    "id": "8ecc117e40f2d67ae62dc2527202e2fa339ebfcb",
    "titleKey": "445e2f0de8fab1fdf0ff1d4034c019e64ea5939b",
@@ -5342,6 +5701,86 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-12T21:05:05.703Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: هواشناسی ایران امروز جمعه ۲۲ آبان ۱۴۰۵ / سردترین ایستگاه کشور مشخص شد بررسی داده‌های ایستگاه‌های هواشناسی نشان می‌دهد توچال، الوارس، شهرستانک، تخت سلیمان و فیروزکوه پنج ایستگاه سرد کشور بوده‌اند.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-12T21:14:39.822Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: گشایش گره ترافیکی در شمال کشور / یک پروژه کلیدی وارد فاز جدیدی شد ورود مدیریت شهری به یکی از شریان‌های حیاتی شمال کشور، ورق تازه‌ای در روند اجرای پروژه‌های عمرانی منطقه رقم زد.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-12T21:14:40.523Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: مردم ایلام از حضور شهدای گمنام در تجمعات شبانه مردمی می گویند ایلام - فیلمی از گفتگوی خبرنگار مهر با مردم ایلام درباره حضور شهدای گمنام در تجمعات شبانه را مشاهده می‌کنید.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/11/4/6257953.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:14:41.223Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): فیلم| یک هفته با شهدای گمنام در لرستان خرم‌آباد - ایرنا - پیکر مطهر ۲ شهید گمنام دوران دفاع مقدس همزمان با ایام فاطمیه با حضور پرشور مردم شهیدپرور، خانواده‌های معظم شهدا و مسوولان در شهرهای مختلف استان لرستان تشییع شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r1/2026/11/12/4/173236340.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T21:14:41.924Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): گفت و گوی امیر قطر و نخست وزیر انگلیس درباره تلاش‌ها برای کاهش تنش‌ در منطقه تهران - ایرنا - امیر قطر و نخست وزیر انگلیس روز پنجشنبه درباره آخرین تحولات خاورمیانه و راه‌های تقویت هماهنگی برای حمایت از تلاش‌ها با هدف دستیابی به توافق جامع بین طرف‌های ذی‌نفع گفت و گو کردند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236453.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T21:14:42.625Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: حضرت زهرا (س) الگوی جاودانه ایمان، استقامت و دفاع از حق است ارومیه - مسئول نمایندگی ولی‌فقیه در سپاه شهدا آذربایجان ‌غربی، با تأکید بر جایگاه والای حضرت فاطمه زهرا (س)، شهادت را ثمره ایمان، اخلاص و حرکت در مسیر رضای الهی دانست.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259643.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:14:43.326Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): افزایش قیمت انرژی در بازارهای جهانی تهران - ایرنا - پس از آنکه رئیس‌جمهور جنگ طلب آمریکا اعلام کرد واشنگتن دیگر نیازی به توافق با ایران ندارد، قیمت‌های جهانی انرژی در روز پنجشنبه افزایش یافت.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2025/10/22/4/172195770.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T21:14:44.027Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: سلطانی: یاد شهدا سد محکمی در برابر جنگ شناختی دشمن است کرمان- دبیر یادواره شهدا و شهید گمنام منطقه کیسکان شهرستان بافت گفت: آیین‌های بزرگداشت شهدا فرصتی ارزشمند برای مقابله با جنگ روانی و شناختی دشمنان و تقویت روحیه مقاومت در جامعه است.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/08/4/6253399.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:14:44.728Z"
   }
  ],
  "tweetQueue": [
@@ -5700,6 +6139,175 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "aed0a86d4b101d1bf1bd7de6b31433e556a583b4",
+   "titleKey": "f98b474277a1b40d0239b61bb720bc37fc458473",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "NYC Sees Nearly $1 Billion Tax-Revenue Jump on Wall Street Gains - Bloomberg.com NYC Sees Nearly $1 Billion Tax-Revenue Jump on Wall Street Gains Bloomberg.com",
+   "at": "2026-11-12T19:24:31.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeHFRV0JIZjM3ODRic2lpQlB2UGlOWHZxTnNvOEVOeUhwWFZYRkw4S0xWOXd0TnN2NUNuRk9GSjNYZ1VRV1N6VzdYczc2eHBZWFlCblktWDNEWnRGZUZ0RXY0OHhrTjlNUmtkTlVTcDlQZ1FwOENkNUJweXB4c0NVVm5McjcwWDNYSElFazByVVJKZG5ibk1NcTR5XzZ6Um5uSVdxSXdpcmFGdjB4cV9idF9sNEQ?oc=5"
+  },
+  {
+   "id": "61186ca336bf14aec1a0460e96815d0836a9b4e7",
+   "titleKey": "8580f56890256cdd12ed0522202ff3c831e05676",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Messi up for record 3rd MLS MVP award; Sullivan, 17, gets historic nomination - ESPN Messi up for record 3rd MLS MVP award; Sullivan, 17, gets historic nomination ESPN",
+   "at": "2026-11-12T19:33:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQVI5cGw5elJwR1VxNnBjRHp4NFNIU01reHhRRWwtYUs1SFQ5eTA1VGFSZ0tlbHRoMUxoMEd2RzhyZjh1azVjWGRWdGNhUU1lY041V29qZS1XeHlwQVBrT1hXVWh0MTZfcHdrWl9EdmJIalQ3WEFoRkRoaDk0WkQtMGQtNHQ2d1pIQlhHRkd5b0lYVEJ6LXltNXoxQlZBemVaYW1xWHNxWQ?oc=5"
+  },
+  {
+   "id": "f5055e4f554c0da09938886c8de1b974e6ee500c",
+   "titleKey": "da540c61b74f098db3c37d9e59bb68283fef1770",
+   "source": "Guardian Environment",
+   "lang": "en",
+   "text": "Be sea-ing you: humpback whale spotted in New York’s Hudson River Sightings of the species are becoming increasingly common as experts worry about danger posed by busy waterways A humpback whale was spotted on Thursday swimming in New York’s Hudson River, sparking a social media frenzy. Brad Hoylman-Sigal, president of Manhattan borough, was among those to share a photograph of the whale on Facebook , an image taken on Thursday morning and provided by Gotham Whale, a citizen science and education group that tracks marine mammals in New York’s waterways. Continue reading...",
+   "at": "2026-11-12T20:53:49.000Z",
+   "url": "https://www.theguardian.com/us-news/2026/nov/12/humpback-whale-new-york-city-hudson-river"
+  },
+  {
+   "id": "10a605cadd1676df4fa16a0b3e8d73772566aad2",
+   "titleKey": "ea1fd67397e951f6c1cfce6b3d88c01cee8d8b1b",
+   "source": "Asharq Al-Awsat",
+   "lang": "ar",
+   "text": "عضو في «بنك اليابان» يُحذّر من التسرع في رفع الفائدة - الشرق الأوسط عضو في «بنك اليابان» يُحذّر من التسرع في رفع الفائدة الشرق الأوسط",
+   "at": "2026-11-12T21:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi1gNBVV95cUxOYmhFX0VWLXh0U2l1ZjJyRDdyV3g0YThTY0NfVWZzdlAxTmFUbV95UXd1RnNHRzBfdUNXeDZwcktIVnZIdDhMd0dQSjFtczdmVkE3c3NhZk5yNUt6NmpMaDhJQkN4YXdiUG53QWJpU3FmOEFiejVWT09EZk1RM3JaQW9SYm5qVmFMcnllQ0tYZU9zS1VzZTFLSEVwNzQ3MkJXNnVYelp1WWNscmJqY0JfM1ZaX2dCR1N6WFFPU21LN0xSMDVwY0dhLWVoclhXOGNZaE11d3VrdzB5MEt1RDdEaFlMSzR2bnBHUmI3ZkliRzNZbFpBeWJkUm1zcVFhSk9wSEZZM1YyMHo5UkRmdmxTQVFYZUNSU2NlVDhMNlExeVZqUDlRZWFYUjN1andjMk1VZHlsVDlmWC1uVkdvd05KNTk4UmN6c3VGQ0t5U01wbkJTTkIyUkdQRzV2am9wNkdheHZ0TDJiOEZoMTkxRjZQTWlNZTlGRDlxUmtEZ1czTTlxZE5HTHRhY2dYdUNGOTcyLTYwY1kyckhtV2c5amo0WmdRYU9nTlFjV3U4VjNNaVdscEF3SHdJVlRVbVl0WmEtSVNXY3g1VE5Id05nM2RTbGEzWnpWZw?oc=5"
+  },
+  {
+   "id": "8b9d4a6c9be3b4b1d89f44637220805f47dd26a1",
+   "titleKey": "61ffe1535dc1d1acdf2b91dd0496cabe81539dfe",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هواشناسی ایران امروز جمعه ۲۲ آبان ۱۴۰۵ / سردترین ایستگاه کشور مشخص شد بررسی داده‌های ایستگاه‌های هواشناسی نشان می‌دهد توچال، الوارس، شهرستانک، تخت سلیمان و فیروزکوه پنج ایستگاه سرد کشور بوده‌اند.",
+   "at": "2026-11-12T21:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175226/هواشناسی-ایران-امروز-جمعه-22-آبان-1405-سردترین-ایستگاه-کشور-مشخص-شد"
+  },
+  {
+   "id": "982dc279e03bf9ed261ec90aaed6168eca184e43",
+   "titleKey": "582e698fee0d000a492c687edf1995eaef2b58df",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "گشایش گره ترافیکی در شمال کشور / یک پروژه کلیدی وارد فاز جدیدی شد ورود مدیریت شهری به یکی از شریان‌های حیاتی شمال کشور، ورق تازه‌ای در روند اجرای پروژه‌های عمرانی منطقه رقم زد.",
+   "at": "2026-11-12T21:00:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175281/گشایش-گره-ترافیکی-در-شمال-کشور-یک-پروژه-کلیدی-وارد-فاز-جدیدی-شد"
+  },
+  {
+   "id": "4d29e43e7f3374ad0a6b38a656fd3c6674331b8e",
+   "titleKey": "1dc974c0b64ba9986206572fd25fbc4a3a6e22ee",
+   "source": "NYT World",
+   "lang": "en",
+   "text": "Army Officer Accused of Trying to Spy for Russia Is Afghan War Veteran The officer, who served at a NATO base in Britain, is expected to be charged in the coming days, two officials said.",
+   "at": "2026-11-12T21:00:52.000Z",
+   "url": "https://www.nytimes.com/2026/11/12/world/europe/army-britain-arrest-spy-russia.html"
+  },
+  {
+   "id": "758f9cb88a091b2b0bc7ba64c026ca495422ccb8",
+   "titleKey": "bae38d7d90b1eb212670c4ac969e2768c2031f5e",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jim Banks calls for Lutnick to testify on Nvidia CEO controversy, alleging ‘loophole’ use Sen. Jim Banks (R-Ind.) called on Commerce Secretary Howard Lutnick to testify regarding his involvement with former Nvidia CEO Jensen Huang’s relationship with an alleged Chinese spy, accusing Lutnick of using a “loophole.” “This news is as concerning as it gets,” Banks said during an appearance on Fox News. “When you’re in a war with…",
+   "at": "2026-11-12T21:02:59.000Z",
+   "url": "https://thehill.com/homenews/senate/6217212-jim-banks-howard-lutnick-testimony-nvidia-jensen-huang/"
+  },
+  {
+   "id": "e63964a491afee5becc1bcfae713bb95d8518bc1",
+   "titleKey": "6dcf7f1f81a41615c985fbfaf75bbcfca5e791e5",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مردم ایلام از حضور شهدای گمنام در تجمعات شبانه مردمی می گویند ایلام - فیلمی از گفتگوی خبرنگار مهر با مردم ایلام درباره حضور شهدای گمنام در تجمعات شبانه را مشاهده می‌کنید.",
+   "at": "2026-11-12T21:04:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009124/%D9%85%D8%B1%D8%AF%D9%85-%D8%A7%DB%8C%D9%84%D8%A7%D9%85-%D8%A7%D8%B2-%D8%AD%D8%B6%D9%88%D8%B1-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85%DB%8C-%D9%85%DB%8C-%DA%AF%D9%88%DB%8C%D9%86%D8%AF"
+  },
+  {
+   "id": "7152b0a816c2a5645e0d2882f3933ce854c0d579",
+   "titleKey": "dda4f3cc51fb725b95e55325272e69fbf8880321",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Live updates: Huang exits Nvidia; Democrat locks down Kansas governor’s mansion Nvidia CEO Jensen Huang resigned on Thursday from the company he co-founded after revelations of extramarital affairs, including one with a woman alleged to be a spy for China. Kansas state Sen. Cindy Holscher was projected to win the governor’s mansion on Thursday, over a week after Election Day. Holscher defeated Republican Kansas Senate President…",
+   "at": "2026-11-12T21:04:46.000Z",
+   "url": "https://thehill.com/homenews/administration/6214786-live-updates-trump-midterms-alaska-congress/"
+  },
+  {
+   "id": "9ed745754b46a5cdf82e685f6e01cea7f2e5a449",
+   "titleKey": "fa998bf3564be0a3c6f5e4cadb8ebc7167e45e18",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "فیلم| یک هفته با شهدای گمنام در لرستان خرم‌آباد - ایرنا - پیکر مطهر ۲ شهید گمنام دوران دفاع مقدس همزمان با ایام فاطمیه با حضور پرشور مردم شهیدپرور، خانواده‌های معظم شهدا و مسوولان در شهرهای مختلف استان لرستان تشییع شد.",
+   "at": "2026-11-12T21:05:10.000Z",
+   "url": "https://www.irna.ir/news/86320262/%D9%81%DB%8C%D9%84%D9%85-%DB%8C%DA%A9-%D9%87%D9%81%D8%AA%D9%87-%D8%A8%D8%A7-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D9%84%D8%B1%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "033a0a179b3ffc45560e1d4371fd4ea51a1adf2d",
+   "titleKey": "464de57f71cb80474ff8d302a82db6cca5cc6db5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "گفت و گوی امیر قطر و نخست وزیر انگلیس درباره تلاش‌ها برای کاهش تنش‌ در منطقه تهران - ایرنا - امیر قطر و نخست وزیر انگلیس روز پنجشنبه درباره آخرین تحولات خاورمیانه و راه‌های تقویت هماهنگی برای حمایت از تلاش‌ها با هدف دستیابی به توافق جامع بین طرف‌های ذی‌نفع گفت و گو کردند.",
+   "at": "2026-11-12T21:05:21.000Z",
+   "url": "https://www.irna.ir/news/86320249/%DA%AF%D9%81%D8%AA-%D9%88-%DA%AF%D9%88%DB%8C-%D8%A7%D9%85%DB%8C%D8%B1-%D9%82%D8%B7%D8%B1-%D9%88-%D9%86%D8%AE%D8%B3%D8%AA-%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AA%D9%84%D8%A7%D8%B4-%D9%87%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%DA%A9%D8%A7%D9%87%D8%B4"
+  },
+  {
+   "id": "7a16812db8848c8ac42cf5e1110fe6d0fafaeb05",
+   "titleKey": "a874a1582077a90aff831bbb3a8e5849de15d832",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iran warns foreign governments against involvement in US aggression, economic terrorism Iran's Foreign Ministry spokesman has rejected the G7 statement, warning that any foreign military or logistical support for US aggression would constitute participation in unlawful acts under international law. @PressTV",
+   "at": "2026-11-12T21:08:01.000Z",
+   "url": "https://t.me/presstv/214487"
+  },
+  {
+   "id": "a4975a6caa99f6b120c183e48138105041aeec9d",
+   "titleKey": "bc3fbee19475b79f2e91c0e40ae1c30dea331c78",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حضرت زهرا (س) الگوی جاودانه ایمان، استقامت و دفاع از حق است ارومیه - مسئول نمایندگی ولی‌فقیه در سپاه شهدا آذربایجان ‌غربی، با تأکید بر جایگاه والای حضرت فاطمه زهرا (س)، شهادت را ثمره ایمان، اخلاص و حرکت در مسیر رضای الهی دانست.",
+   "at": "2026-11-12T21:08:42.000Z",
+   "url": "https://www.mehrnews.com/news/7009133/%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C-%D8%AC%D8%A7%D9%88%D8%AF%D8%A7%D9%86%D9%87-%D8%A7%DB%8C%D9%85%D8%A7%D9%86-%D8%A7%D8%B3%D8%AA%D9%82%D8%A7%D9%85%D8%AA-%D9%88-%D8%AF%D9%81%D8%A7%D8%B9-%D8%A7%D8%B2-%D8%AD%D9%82-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "156375297e7d3e6e906f9aeccc172df52ca74d72",
+   "titleKey": "94a565d505f584cf630411d7dda2c61c23087a59",
+   "source": "Israel Channel 12",
+   "lang": "he",
+   "text": "ניסיון החיסול החריג בבית החולים בעזה - mako ניסיון החיסול החריג בבית החולים בעזה mako",
+   "at": "2026-11-12T21:08:44.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQNHRjTDF6ZzdGdEw2RExNOGhnN1lGc18yTldPYW9jdHNIc1lNWkRUdFZFMTRBeXN3Mm9YN05YQzVZUmJpTzNnVHZ4THM2Y0Yzb29LRlJ5dG1EcThOZXFGdW5UcTBLSGowWUJrUjlVdGJTRDJXN19DQzJscXlxQXJ5eTJIcUJQZWZKVHFPNkxuRm9VTEktQURpZDIxN0p5LV9tOEhEb2ZqRzJSd0dtdUpBRWdlV212VlRIdTQwbWlvU2JBUWowMVI2LTY0VXAyQlRJbE4wOQ?oc=5"
+  },
+  {
+   "id": "5607b1cfa57f6bc707521ef0875f8054b401357c",
+   "titleKey": "dda4844500fc469e71321ad98230c4abd7482bc0",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Nvidia’s hunt for Jensen Huang’s successor: insiders, rivals and a Trump pick Nvidia is searching for its first new leader in 33 years after Jensen Huang quit on Thursday, with interim chief Colette Kress, veteran engineers, members of Huang’s own family and the bosses of rival chipmakers all touted as possible successors. The AI chip giant was left without the only leader it has ever had when Huang, 63, stepped down as president, chief executive and board member. The move was announced with immediate effect, according to a company filing with the US Securities and...",
+   "at": "2026-11-12T21:08:47.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374268/nvidias-hunt-jensen-huangs-successor-insiders-rivals-and-trump-pick"
+  },
+  {
+   "id": "1e203047227981552da5d71026664be2f3bccbd1",
+   "titleKey": "7d1836827827994a3f3b80c03b2c16f247320eb1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "افزایش قیمت انرژی در بازارهای جهانی تهران - ایرنا - پس از آنکه رئیس‌جمهور جنگ طلب آمریکا اعلام کرد واشنگتن دیگر نیازی به توافق با ایران ندارد، قیمت‌های جهانی انرژی در روز پنجشنبه افزایش یافت.",
+   "at": "2026-11-12T21:10:27.000Z",
+   "url": "https://www.irna.ir/news/86320268/%D8%A7%D9%81%D8%B2%D8%A7%DB%8C%D8%B4-%D9%82%DB%8C%D9%85%D8%AA-%D8%A7%D9%86%D8%B1%DA%98%DB%8C-%D8%AF%D8%B1-%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1%D9%87%D8%A7%DB%8C-%D8%AC%D9%87%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "301e60765b5861a085343fcaab084231fdbdc308",
+   "titleKey": "5bd621c5cee2ad345167bbe7926803472633a322",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سلطانی: یاد شهدا سد محکمی در برابر جنگ شناختی دشمن است کرمان- دبیر یادواره شهدا و شهید گمنام منطقه کیسکان شهرستان بافت گفت: آیین‌های بزرگداشت شهدا فرصتی ارزشمند برای مقابله با جنگ روانی و شناختی دشمنان و تقویت روحیه مقاومت در جامعه است.",
+   "at": "2026-11-12T21:11:27.000Z",
+   "url": "https://www.mehrnews.com/news/7009135/%D8%B3%D9%84%D8%B7%D8%A7%D9%86%DB%8C-%DB%8C%D8%A7%D8%AF-%D8%B4%D9%87%D8%AF%D8%A7-%D8%B3%D8%AF-%D9%85%D8%AD%DA%A9%D9%85%DB%8C-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%A7%D8%A8%D8%B1-%D8%AC%D9%86%DA%AF-%D8%B4%D9%86%D8%A7%D8%AE%D8%AA%DB%8C-%D8%AF%D8%B4%D9%85%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
   {
    "id": "8ecc117e40f2d67ae62dc2527202e2fa339ebfcb",
    "titleKey": "445e2f0de8fab1fdf0ff1d4034c019e64ea5939b",
@@ -9729,21 +10337,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794517520239,
-  "Akharin_khodro/8913": 1794517520239,
-  "Akharin_khodro/8914": 1794517520239,
-  "Akharin_khodro/8915": 1794517520239,
-  "Akharin_khodro/8916": 1794517520239,
-  "Akharin_khodro/8919": 1794517520239,
-  "Akharin_khodro/8920": 1794517520239,
-  "Akharin_khodro/8921": 1794517520239,
-  "Akharin_khodro/8922": 1794517520239,
-  "Akharin_khodro/8923": 1794517520239,
-  "Akharin_khodro/8924": 1794517520239,
-  "Akharin_khodro/8925": 1794517520239,
-  "Akharin_khodro/8926": 1794517520239,
-  "Akharin_khodro/8927": 1794517520239,
-  "Akharin_khodro/8928": 1794517520239,
+  "Akharin_khodro/8908": 1794518099260,
+  "Akharin_khodro/8913": 1794518099260,
+  "Akharin_khodro/8914": 1794518099260,
+  "Akharin_khodro/8915": 1794518099260,
+  "Akharin_khodro/8916": 1794518099260,
+  "Akharin_khodro/8919": 1794518099260,
+  "Akharin_khodro/8920": 1794518099260,
+  "Akharin_khodro/8921": 1794518099260,
+  "Akharin_khodro/8922": 1794518099260,
+  "Akharin_khodro/8923": 1794518099260,
+  "Akharin_khodro/8924": 1794518099260,
+  "Akharin_khodro/8925": 1794518099260,
+  "Akharin_khodro/8926": 1794518099260,
+  "Akharin_khodro/8927": 1794518099260,
+  "Akharin_khodro/8928": 1794518099260,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10050,27 +10658,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-12T21:05:20.246Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-12T21:14:59.266Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1083,
-  "inWindow": 253,
-  "fresh": 125,
-  "sent": 11,
+  "inWindow": 255,
+  "fresh": 126,
+  "sent": 8,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 110,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 114,
-  "queued": 11,
+  "skippedUntranslated": 118,
+  "queued": 8,
   "tweetRateLimited": false
  }
 }

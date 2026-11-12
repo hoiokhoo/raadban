@@ -124,46 +124,70 @@ function tokensLike(texts: string[]): Set<string>[] {
 // ---------- بستهٔ جداگانهٔ توییت ----------
 
 describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ها', () => {
-  const tw = (id: string, source: string, text: string): HourlyItem => ({ id, source, text, at: '2026-11-12T09:00:00Z' });
+  const tw = (id: string, source: string, text: string, orig?: string): HourlyItem => ({ id, source, text, orig, at: '2026-11-12T09:00:00Z' });
 
-  test('هر توییت «نام حساب: متن» با سربرگ خنثی — بدون برند', () => {
+  test('هر توییت «نام حساب: متن» — بدون هیچ سربرگ زمانی (خواستهٔ ۱۳ نوامبر)', () => {
     const res = buildTweetBundleChunks([
-      tw('1', 'Reuters', 'بازار نفت امروز نوسان داشت'),
-      tw('2', 'BBC Breaking', 'نشست شورای امنیت آغاز شد'),
-    ], { fromIso: '2026-11-12T07:00:00Z', toIso: '2026-11-12T09:00:00Z' });
+      tw('1', 'Donald Trump', 'وزارت دفاع امروز جلسه اضطراری برگزار کرد'),
+      tw('2', 'Elon Musk', 'نشست شورای امنیت آغاز شد'),
+    ]);
     expect(res.chunks.length).toBe(1);
-    expect(res.chunks[0]).toContain('🕒 آخرین توییت‌ها 10:30 تا 12:30');
-    expect(res.chunks[0]).toContain('𝕏 Reuters: بازار نفت امروز نوسان داشت');
-    expect(res.chunks[0]).toContain('𝕏 BBC Breaking: نشست شورای امنیت آغاز شد');
+    // بدون سربرگ — پیام با خودِ توییت‌ها آغاز می‌شود
+    expect(res.chunks[0]).not.toContain('🕒');
+    expect(res.chunks[0]).not.toContain('تا ۱۲:۳۰');
+    expect(res.chunks[0]).not.toContain('آخرین توییت');
+    expect(res.chunks[0].startsWith('𝕏 Donald Trump:')).toBe(true);
+    expect(res.chunks[0]).toContain('𝕏 Elon Musk: نشست شورای امنیت آغاز شد');
     expect(res.chunks[0]).not.toContain('رصدبان');
     expect(res.merged.length).toBe(2);
   });
 
+  test('توییت انگلیسی — متن اصلی + ترجمهٔ فارسی زیرش (خواستهٔ ۱۳ نوامبر)', () => {
+    const res = buildTweetBundleChunks([
+      tw('1', 'Donald Trump', 'دولت آمریکا تازه مجوزهای جدید صادر کرد', 'We have just authorized the deployment'),
+    ]);
+    expect(res.chunks[0]).toContain('𝕏 Donald Trump: We have just authorized the deployment');
+    expect(res.chunks[0]).toContain('🗣 ترجمه فارسی: دولت آمریکا تازه مجوزهای جدید صادر کرد');
+    // ترجمه زیر متن اصلی است، نه بالای آن
+    const body = res.chunks[0];
+    expect(body.indexOf('We have just authorized')).toBeLessThan(body.indexOf('🗣 ترجمه فارسی:'));
+  });
+
+  test('توییت فارسی — فقط خود متن، بدون برچسب ترجمه', () => {
+    const res = buildTweetBundleChunks([
+      tw('1', 'Elon Musk', 'این تصمیم اشتباه است'),
+    ]);
+    expect(res.chunks[0]).toContain('𝕏 Elon Musk: این تصمیم اشتباه است');
+    expect(res.chunks[0]).not.toContain('ترجمه');
+  });
+
   test('توییت‌های هم‌مضمون یکی می‌شوند و شمار مشابه‌ها می‌آید', () => {
     const res = buildTweetBundleChunks([
-      tw('1', 'Reuters', 'وزیر خارجه آمریکا امروز تحریم‌های تازه‌ای علیه ایران اعلام کرد'),
-      tw('2', 'AP', 'امروز وزیر خارجه آمریکا تحریم‌های تازه علیه ایران را اعلام کرد'),
+      tw('1', 'Marco Rubio', 'وزیر خارجه آمریکا امروز تحریم‌های تازه‌ای علیه ایران اعلام کرد'),
+      tw('2', 'Lindsey Graham', 'امروز وزیر خارجه آمریکا تحریم‌های تازه علیه ایران را اعلام کرد'),
     ]);
     expect(res.merged.length).toBe(1);
     expect(res.chunks[0]).toContain('(+۱ توییت مشابه)');
-    expect(res.chunks[0]).toContain('𝕏 Reuters (+۱ توییت مشابه):');
+    expect(res.chunks[0]).toContain('𝕏 Marco Rubio (+۱ توییت مشابه):');
   });
 
-  test('متن بلندتر از سقف پیام → چند پیام با شمارهٔ بخش', () => {
+  test('متن بلندتر از سقف پیام → چند پیام با نشانگر «— ادامه»', () => {
     const long = 'متن توییت بسیار بلند. '.repeat(120);
-    const res = buildTweetBundleChunks([tw('1', 'Reuters', long)], { maxLen: 1500 });
+    const res = buildTweetBundleChunks([tw('1', 'Donald Trump', long)], { maxLen: 1500 });
     expect(res.chunks.length).toBeGreaterThan(1);
-    expect(res.chunks[0]).toContain('بخش ۱ از');
-    expect(res.chunks[1]).toContain('ادامهٔ بخش');
+    expect(res.chunks[0]).toContain('— ادامه');
+    expect(res.chunks[0]).not.toContain('بخش ۱ از');
+    expect(res.chunks[1]).toContain('— ادامه');
   });
 
   test('صف خام BundleItem توییت → آیتم ساعتی با نام حساب درست (بدون پیشوند تکراری)', () => {
-    // قرارداد صف: text = خودِ توییت ترجمه‌شده، source = نام حساب — بسته «𝕏 نام: متن» می‌سازد
+    // قرارداد صف: text = ترجمهٔ فارسی، orig = متن اصلی انگلیسی، source = نام حساب
     const q: BundleItem = {
       kind: 'tweet',
       text: 'بازار نفت امروز نوسان داشت',
-      source: 'Reuters',
-      ids: ['tw-reuters-123'],
+      orig: 'Oil market fluctuated today',
+      source: 'Donald Trump',
+      ids: ['tw-trump-123'],
       titleKeys: [],
       titleTexts: [],
       queuedAt: '2026-11-12T09:00:00Z',
@@ -172,12 +196,14 @@ describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ه
       id: q.ids?.[0] || '',
       source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
       text: q.text.trim(),
+      orig: q.orig?.trim(),
       at: q.queuedAt,
     };
     const res = buildTweetBundleChunks([mapped]);
-    expect(res.chunks[0]).toContain('𝕏 Reuters: بازار نفت امروز نوسان داشت');
+    expect(res.chunks[0]).toContain('Oil market fluctuated today');
+    expect(res.chunks[0]).toContain('🗣 ترجمه فارسی: بازار نفت امروز نوسان داشت');
     expect(res.chunks[0]).not.toContain('𝕏 𝕏');
-    expect(res.chunks[0]).not.toContain('Reuters: Reuters');
+    expect(res.chunks[0]).not.toContain('Donald Trump: Donald Trump');
   });
 });
 

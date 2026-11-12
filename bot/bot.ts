@@ -5,11 +5,14 @@
  *  اما یک ساعت بعد از دستهٔ اخبار در دستهٔ جداگانه — اگر جدید نبود هیچ متنی نفرست؛ به هیچ عنوان خبر
  *  تکراری ارسال نشه — موقع جمع‌بندی اخبار قبلی چک بشه؛ عکس صبحگاهی و شب بدون توضیحات اضافه فقط
  *  به همون متن صبحگاهی و شبگاهی اضافه بشه نه خبر جداگانه»)
+ * (به‌روزرسانی ۱۳ نوامبر ۲۰۲۶ — توییت‌ها: فقط افراد مشهور و تأثیرگذار نه خبرگزاری‌ها
+ *  (bot/tweets.json)؛ هر توییت «متن اصلی + ترجمهٔ فارسی زیرش»؛ عنوان زمانی
+ *  «آخرین توییت‌ها از ساعت فلان تا فلان» حذف شد — بستهٔ توییت هم مثل بستهٔ خبری بدون سربرگ است)
  *
  * سه حالت کانال (CHANNEL_MODE):
  *  - bundle: هر چرخه همهٔ خبرهای تازه به صف می‌روند و در اسلات‌های زوج تهران (۰۰، ۰۲، …)
  *    یک «بستهٔ بازه‌ای هوشمند» ارسال می‌شود (تجمیع + یکی‌کردن مشابه‌ها + تیک اعتبارسنجی + بیان ساده
- *    یکی‌یکی + تحلیل پایانی با خواندن تحلیل‌های پیشین — bot/hourly.ts)؛ توییت‌های افراد تأثیرگذار
+ *    یکی‌یکی + تحلیل پایانی با خواندن تحلیل‌های پیشین — bot/hourly.ts)؛ توییت‌های افراد مشهور/تأثیرگذار
  *    در صف جداگانه و در اسلات‌های فرد (۰۱، ۰۳، …) در یک دستهٔ مستقل ارسال می‌شوند — صف توییت خالی
  *    یعنی هیچ پیامی. + تحلیل جامع اسلات‌ها + گزارش بازار + اطلاعیهٔ فروش
  *  - analysis: خبر/توییت مستقیم ارسال نمی‌شود؛ رویدادها در استخر انبار و در اسلات‌های تهران
@@ -45,7 +48,7 @@ import {
   type PoolItem,
 } from './digest';
 import { fetchMarketData, formatMarketMessage, snapshotOf, type CarStore } from './market';
-import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, type BundleItem } from './bundle';
+import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, tweetDisplayBody, type BundleItem } from './bundle';
 import {
   DEFAULT_SYSTEM_HOURLY,
   mergeSimilarItems,
@@ -2709,9 +2712,11 @@ async function main(): Promise<void> {
     if (bundleMode) console.log(`حالت بست: ${fluent.length} رویداد به صف بستهٔ خبری رفت${stuck ? ` — ${stuck} غیرفارسی بی‌ترجمه برای چرخهٔ بعد ماند` : ''}`);
   }
 
-  // ── توییت‌های افراد تأثیرگذار: دریافت از ایکس، ترجمهٔ روان کامل —
-  //  حالت بست: به صف جداگانه می‌روند و در اسلات فرد (یک ساعت بعد از بستهٔ خبر) در یک دستهٔ مستقل ارسال می‌شوند
-  //  (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶)؛ حالت news: ارسال بلافاصله ──
+  // ── توییت‌های افراد مشهور و تأثیرگذار: دریافت از ایکس، ترجمهٔ روان کامل —
+  //  خواستهٔ کاربر ۱۳ نوامبر: فقط افراد مشهور/تأثیرگذار (نه خبرگزاری‌ها — bot/tweets.json)؛
+  //  نمایش «متن اصلی + ترجمهٔ فارسی زیرش»؛ اگر توییت تازه نبود بستهٔ توییت کلاً ارسال نمی‌شود.
+  //  حالت بست: به صف جداگانه می‌روند و در اسلات فرد (یک ساعت بعد از بستهٔ خبر) در یک دستهٔ مستقل ارسال می‌شوند؛
+  //  حالت news: ارسال بلافاصله ──
   let tweetNextCursor: number | null = null;
   const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
   if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
@@ -2720,7 +2725,7 @@ async function main(): Promise<void> {
     tweetNextCursor = nextCursor;
     summary.tweetAccountsTried = picked.length;
     console.log(`توییت‌ها: ${picked.length} حساب از ${tweetAccounts.length} (چرخش از ایندکس ${cursor})`);
-    const candidates: Array<{ tweet: ParsedTweet; handle: string; label: string }> = [];
+    const candidates: Array<{ tweet: ParsedTweet; handle: string; label: string; orig: string }> = [];
     let rateLimited = false;
     for (const acc of picked) {
       const r = await fetchTweetTimeline(acc.handle);
@@ -2734,7 +2739,8 @@ async function main(): Promise<void> {
         console.warn(`⚠️ توییت @${acc.handle}: ${r.error} (صادقانه — در چرخهٔ بعدی دوباره)`);
       } else {
         const ft = freshTweets(state, r.tweets, acc.handle, titleSets, { windowHours: CFG.windowHours, nowMs: Date.now(), limit: CFG.maxTweets });
-        for (const tw of ft.fresh) candidates.push({ tweet: tw, handle: acc.handle, label: acc.name || `@${acc.handle}` });
+        // متن اصلی پیش از ترجمه نگه داشته می‌شود — نمایش «متن اصلی + ترجمهٔ فارسی زیرش» (خواستهٔ ۱۳ نوامبر)
+        for (const tw of ft.fresh) candidates.push({ tweet: tw, handle: acc.handle, label: acc.name || `@${acc.handle}`, orig: tw.text });
         console.log(`  @${acc.handle}: ${ft.fresh.length} توییت تازه (${ft.blocked} قدیمی/تکراری رد شد)`);
       }
       await sleep(CFG.tweetFetchGapMs);
@@ -2770,15 +2776,18 @@ async function main(): Promise<void> {
           continue;
         }
         if (fa !== c.tweet.text) c.tweet.text = fa;
+        // متن اصلی فقط وقتی با ترجمه فرق دارد نگه داشته می‌شود (توییت فارسی = تک‌متن)
+        const orig = c.orig && c.orig !== fa ? c.orig : undefined;
         // قانون عکس: توییت بدون عکسِ خودش، بدون تصویر ارسال می‌شود (بدون آواتار — خواستهٔ کاربر)
         if (bundleMode) {
           // صف جداگانهٔ توییت — بستهٔ مستقل در اسلات فرد (یک ساعت بعد از بستهٔ خبر)؛
-          // متن صف فقط خودِ توییت ترجمه‌شده است (نام حساب در source نگه‌داری می‌شود)؛
-          // علامت‌زنی فوری: توییتِ صف‌شده دوباره واکشی/صف نمی‌شود؛ صف تا ارسال موفق می‌ماند
+          // متن صف = ترجمهٔ فارسی (ضدتکرار/علامت بر همان)؛ متن اصلی در orig — بسته «متن اصلی +
+          // ترجمهٔ فارسی زیرش» را می‌سازد (خواستهٔ ۱۳ نوامبر)؛ صف تا ارسال موفق می‌ماند
           const idKey = `tw-${c.handle.toLowerCase()}-${c.tweet.id}`;
           tweetQueue.push({
             kind: 'tweet',
             text: fa,
+            orig,
             source: c.label,
             ids: [idKey],
             titleKeys: [],
@@ -2795,7 +2804,9 @@ async function main(): Promise<void> {
           // ضدتکرارِ زمان جمع‌بندی، خودِ توییت‌های صف را «تکراری» می‌پنداشت (اشکال ۱۲ نوامبر)
           summary.tweetsQueued = (summary.tweetsQueued || 0) + 1;
         } else {
-          const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: fa, verdict: '' }, 3400);
+          // حالت news — همان قالب «متن اصلی + ترجمهٔ فارسی زیرش» (خواستهٔ ۱۳ نوامبر)
+          const body = tweetDisplayBody(orig, fa);
+          const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: body, verdict: '' }, 3400);
           if (await sendForCategory('general', msg, undefined, `𝕏 ${c.label}`)) {
             summary.tweetsSent = (summary.tweetsSent || 0) + 1;
             sentIds.push(`tw-${c.handle.toLowerCase()}-${c.tweet.id}`);
@@ -2903,21 +2914,21 @@ async function main(): Promise<void> {
     }
 
     // ── بستهٔ جداگانهٔ توییت — اسلات‌های فرد (دقیقاً یک ساعت بعد از بستهٔ خبر)؛
-    //  «اگر جدید نبود هیچ متنی نفرست»: صف خالی = سکوت مطلق ──
+    //  «اگر جدید نبود هیچ متنی نفرست»: صف خالی = سکوت مطلق (خواستهٔ ۱۳ نوامبر) ──
     const tweetSlotKey = dueBundleSlotKey(Date.now(), CFG.tweetOffsetHours * 60, periodMin, state.lastTweetSlotKey, pSlot);
     if (tweetSlotKey && tweetQueue.length > 0) {
-      const fromT = tweetQueue[0].queuedAt;
-      const toT = tweetQueue[tweetQueue.length - 1].queuedAt;
       const twItems: HourlyItem[] = tweetQueue.map((q) => ({
         id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
         source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
         text: q.text.trim(),
+        orig: q.orig?.trim(),
         at: q.queuedAt,
       }));
       const twSentSets = [...titleSets, ...Object.keys(state.sentMsgTexts).map((t) => tokensOf(t))];
       const twDedup = dropAlreadySent(twItems, twSentSets);
       if (twDedup.dropped > 0) console.log(`ضدتکرار بستهٔ توییت: ${twDedup.dropped} توییت با مضمون تکراری حذف شد`);
-      const twBundle = buildTweetBundleChunks(twDedup.kept, { fromIso: fromT, toIso: toT, maxLen: 3300 });
+      // بدون سربرگ زمانی — خواستهٔ صریح کاربر ۱۳ نوامبر
+      const twBundle = buildTweetBundleChunks(twDedup.kept, { maxLen: 3300 });
       let twOk = false;
       for (const c of twBundle.chunks) {
         for (const t of CFG.targets) {

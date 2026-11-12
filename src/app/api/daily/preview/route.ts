@@ -18,6 +18,7 @@ import { readRepoFileWithFallback } from '@/lib/gh-sync';
 import { getBaleToken, ensureBaleChatId, sendBaleMessage, sendBalePhoto } from '@/lib/bale-bot';
 import { DAILY_SETTINGS_DEFAULTS, type DailySettingsFile } from '../../../../../bot/bot';
 import { pickHadith, fetchNatureImage, buildDailyMessage, type HadithUsage } from '../../../../../bot/daily';
+import { fetchDayHistory, dayHistoryFromCache, type DayHistoryCacheEntry } from '../../../../../bot/day-history';
 import { dateKeyOf, shiftDateKey, tripleDateOf } from '../../../../../bot/calendar';
 import { fetchHourlyForecast, buildWeatherMessage } from '../../../../../bot/weather';
 import { NextRequest } from 'next/server';
@@ -83,10 +84,12 @@ export async function POST(req: NextRequest) {
     const stateRaw = await readRepoFileWithFallback('bot/state.json');
     let usedHadiths: Record<string, HadithUsage> = {};
     let cursor = 0;
+    let histCache: Record<string, DayHistoryCacheEntry> = {};
     try {
-      const st = JSON.parse(stateRaw?.content || '{}') as { daily?: { usedHadiths?: Record<string, HadithUsage>; infallibleCursor?: number } };
+      const st = JSON.parse(stateRaw?.content || '{}') as { daily?: { usedHadiths?: Record<string, HadithUsage>; infallibleCursor?: number; dayHistoryCache?: Record<string, DayHistoryCacheEntry> } };
       usedHadiths = st.daily?.usedHadiths || {};
       cursor = Number(st.daily?.infallibleCursor) || 0;
+      histCache = st.daily?.dayHistoryCache || {};
     } catch { /* state نبود → بانک کامل */ }
 
     const pick = pickHadith({ kind, dateKey: todayKey, usedHadithIds: usedHadiths, infallibleCursor: cursor });
@@ -94,6 +97,10 @@ export async function POST(req: NextRequest) {
       return ok({ hadithExhausted: true, note: 'بانک احادیث به پایان رسیده — پیام ساخته نمی‌شود (هیچ ساختگی)' });
     }
     const image = await fetchNatureImage(kind, todayKey, {}).catch(() => null);
+    // وقایع روز در تاریخ (ویکی‌پدیا) — صبح: امروز، شب: فردا؛ اول حافظهٔ همان روز، نبود → واکشی؛
+    // شکست → بخش حذف می‌شود (صادقانه). پیش‌نمایش هیچ چیزی در state نمی‌نویسد.
+    const histDayKey = kind === 'morning' ? todayKey : shiftDateKey(todayKey, 1);
+    const hist = dayHistoryFromCache(histCache, histDayKey) ?? (await fetchDayHistory(tripleDateOf(histDayKey, tz, settings.qamariBasis || 'umalqura').keys.j).catch(() => null));
     const msg = await buildDailyMessage({
       kind,
       dateKey: todayKey,
@@ -111,6 +118,7 @@ export async function POST(req: NextRequest) {
       },
       hadith: pick.hadith,
       image,
+      dayHistory: hist?.entries ?? null,
     });
 
     let sent: { ok: boolean; error?: string; to?: string } = { ok: false, error: 'ارسال درخواست نشد' };

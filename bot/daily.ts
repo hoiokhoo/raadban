@@ -12,6 +12,7 @@ import { HADITH_BANK, INFALLIBLES, type HadithEntry, type InfallibleKey } from '
 import { OCCASIONS, type Occasion, type OccasionCategory, type OccasionCalendar } from './occasions-data';
 import { tripleDateOf, shiftDateKey, type QamariBasis, type TripleDate } from './calendar';
 import { formatPrayerBlock, computePrayerTimes, type PrayerSettings, type PrayerTimesDay } from './prayer';
+import { formatDayHistoryBlock, type DayHistoryEntry } from './day-history';
 
 // ---------- قالب‌بندی متن ----------
 
@@ -367,8 +368,8 @@ function hadithBlock(h: HadithEntry): string {
  *  اضافه بشه نه خبر جداگانه»). خواستهٔ ۱۲ نوامبر: سربرگ «پیام صبحگاهی رصدبان»، خط پایانی برند
  *  و خط منبع تصویر از پیام حذف شد — پیام مستقیم با بسم‌الله آغاز می‌شود و ثبت منبع/مجوز
  *  تصویر فقط در لاگ و state انجام می‌شود. مناسبت نبود → بخش مناسبت‌ها کلًا نمی‌آید. */
-export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occasions: OccasionHit[] }): DailyMessage {
-  const { today, occasions, hadith, image } = ctx;
+export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occasions: OccasionHit[]; dayHistory?: DayHistoryEntry[] | null }): DailyMessage {
+  const { today, occasions, hadith, image, dayHistory } = ctx;
   const L: string[] = [
     `<b>${BISMILLAH}</b>`,
     '',
@@ -378,6 +379,10 @@ export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occ
   ];
   const occ = formatOccasionsBlock(occasions, 'امروز');
   if (occ) L.push('', occ);
+  // وقایع روز در تاریخ (ویکی‌پدیا) — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: جامع‌سازی بخش وقایع روز؛
+  // خالی (شکست واکشی یا بی‌ثبت‌وقعه) → کل بخش حذف می‌شود، هیچ ساختگی
+  const hist = formatDayHistoryBlock(dayHistory || [], 'امروز');
+  if (hist) L.push('', hist);
   const text = L.join('\n');
   const msg: DailyMessage = { text };
   if (image) {
@@ -389,8 +394,8 @@ export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occ
 
 /** پیام شبانگاهی — تاریخِ «فردا» + مناسبت‌های فردا + اوقات شرعی فردا؛
  *  عکس شبانه به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶) */
-export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; tomorrowOccasions: OccasionHit[]; prayerTimes: PrayerTimesDay | null }): DailyMessage {
-  const { tomorrow, tomorrowOccasions, hadith, image, prayerTimes, city } = ctx;
+export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; tomorrowOccasions: OccasionHit[]; dayHistory?: DayHistoryEntry[] | null; prayerTimes: PrayerTimesDay | null }): DailyMessage {
+  const { tomorrow, tomorrowOccasions, hadith, image, prayerTimes, city, dayHistory } = ctx;
   const L: string[] = [
     `<b>${BISMILLAH}</b>`,
     '',
@@ -400,6 +405,9 @@ export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; 
   ];
   const occ = formatOccasionsBlock(tomorrowOccasions, 'فردا', true);
   if (occ) L.push('', occ);
+  // وقایع فردا در تاریخ — هم‌تراز با مناسبت‌های فردا؛ خالی → حذف کل بخش (صادقانه)
+  const hist = formatDayHistoryBlock(dayHistory || [], 'فردا');
+  if (hist) L.push('', hist);
   if (prayerTimes) {
     L.push('', formatPrayerBlock(prayerTimes, city, tomorrow.shamsi));
   } else {
@@ -424,6 +432,8 @@ export async function buildDailyMessage(input: {
   prayer: PrayerSettings;
   hadith: HadithEntry;
   image: NatureImage | null;
+  /** وقایع روز در تاریخ — صبح: امروز، شب: فردا (caller واکشی می‌کند)؛ خالی/ناموفق → بخش حذف */
+  dayHistory?: DayHistoryEntry[] | null;
   /** ساعت تنظیمی پیام — فقط برای خط پایانی */
   morningHour?: string;
   eveningHour?: string;

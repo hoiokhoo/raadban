@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "d15b2f5b2f5998f57e62151e56ca735110606233": 1794524819346,
+  "6f034b550267502aa50a261345ab3f7a35509fbb": 1794524819346,
+  "6baed5741941cac7d5c5dfe4af540070970369f9": 1794524819346,
+  "a0fe30e102c18116f1c3bdd04cca98a96787e465": 1794524819346,
   "ff4d6b159865131ffc61128732411aefd04c703c": 1794524241113,
   "4ea2a5579cd32efedd83d7ca7625ca06346ffcf8": 1794524241113,
   "5d628dafcebc548325050e2cff9ad0abda027d87": 1794524241113,
@@ -1195,13 +1199,13 @@
   "52d67c36cded8880aaefbe2b34fdc403a47654de": 1794491275142,
   "2d952bbd64116b082243e536fdec555aacc42b39": 1794491275142,
   "f685fe7c286ae4e3b6006a757db60f14098c1dd6": 1794490677588,
-  "5c9881af8792ce95c9c341e340b20da3c0bd1fc6": 1794490677588,
-  "1b1e80d22ac89eb155827e32fad51ae34415b1ac": 1794490677588,
-  "116346583c25eb657444a681264af61d41c62c99": 1794490677588,
-  "2d8bc55d6d9ab08152b3c1a02da486ca949a7acd": 1794490677588,
-  "f254ce761cdcb3f3002e138f7d27771e3903b9d9": 1794490677588
+  "5c9881af8792ce95c9c341e340b20da3c0bd1fc6": 1794490677588
  },
  "sentTitles": {
+  "b2ad2342cf8a4aef9acdf8e7964979459ff66e63": 1794524819346,
+  "cb9fd640dace0c0c6507270814d398964aa594d6": 1794524819346,
+  "7ce965d0f4f20b41adf4e52ce976a39e879b7fff": 1794524819346,
+  "110ddf684dc67513e8f849b798107a3b62e91d0e": 1794524819346,
   "c2535189148015061d38e73208aae10c1cbf6d30": 1794524241113,
   "b847d5a7cfef2ff1953591059d72fa4fd7bda1f1": 1794524241113,
   "dcbcce43a3b4a503595bba7101b8e2a4dd26f9ea": 1794524241113,
@@ -1797,11 +1801,7 @@
   "34e748d5790ca8a3bbfdb3f567a0e66173976ed1": 1794501772731,
   "e23b213ed0337bb6e3f194a9295edecf6c161a90": 1794501772731,
   "daa63021d479cbccfb356c14a950352c9c9516d8": 1794501772731,
-  "55feadad6b60e464e074f4c5599a65600cdbdccb": 1794501772731,
-  "f9e2b7b3ae7bcae6a70c2a8509bcf7d11cde505a": 1794501772731,
-  "6cf6702c289428e42aa16ba558ae829abfc54ea4": 1794501772731,
-  "7c3cea936153ccf097eb1bf104ccf7b88f1ea880": 1794501772731,
-  "b18a25b23c6192b71de1995fbb4d4bed86f6dd24": 1794501772731
+  "55feadad6b60e464e074f4c5599a65600cdbdccb": 1794501772731
  },
  "sentTitleTexts": {
   "من با رییس جمهور فرانسه emmanuelmacron ملاقات کردم ما درباره نتایج نشست چندجانبه در دبلین صحبت کردیم و موقعیت های خود را در پیش زمینه نشست هم پیمانان اراده مند ": 1794519271702,
@@ -3008,6 +3008,219 @@
   "خبرگزاری جمهوری اسلامی ایرنا ویترین اخبار سیستان و بلوچستان پنجشنبه ۲۱ ابان در یک نگاه زاهدان ایرنا مهمترین رویدادهای روز پنجشنبه ۲۱ ابان در سیستان و بلوچستان ر": 1794501772731
  },
  "pool": [
+  {
+   "id": "a794d6c3b0feb3ef13d09cca0ef3878f54ace950",
+   "titleKey": "15818beaaf0c259031a2dc2c9d5a25bc21cc5b0e",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Donald Trump Jr. ends Kalshi advisory role - Politico Donald Trump Jr. ends Kalshi advisory role Politico",
+   "at": "2026-11-12T20:31:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPYUZEdG1qdGtFWDlRR1RuOU5RbzRBWTlNVG5KTTBSUGhDT0JiT194ZXM2LU01Q3JVMlJXRFBTMjVwZlZtSXNubGhPdDdScmxJdHRFNXhYQURlNVVJUW42YzAtcnhFck1BdmFlaVlqeEp0TjYzcGxuWGZpbXgxLUdQWjhR?oc=5"
+  },
+  {
+   "id": "614e9e86695978e1e8b724bb72094e9d79cf508d",
+   "titleKey": "574e8e96de3172239dae040ddcf0fe6ec55bd497",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US Justice Department has not concluded Alice Huang was Chinese spy, Blanche says - Reuters US Justice Department has not concluded Alice Huang was Chinese spy, Blanche says Reuters",
+   "at": "2026-11-12T21:02:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPTE41X1JfT2dWa0tyWU50NGd3TzU5ZUlmM0xBUU43Vmt1Y0dDdGdCQk5aQmFHay1ILW52WlBSQkJseVhzT1JDTVF3S3NwVUVKM19rblVhU1RoTlBacEpKX1RXanBDUW9DdmdDSDAzZDJsdnpLZ3JEcjEyNXJBei1aeU4xdFpSeC1JY1pwaU9tMFkySlozazBJN1V6UzBhWmtxN0JMOXlab1VoU1FWUFZ2QTE5bDdRODdIeUFUcnlvWGxURnJoTTBJ?oc=5"
+  },
+  {
+   "id": "94d51032d01b881b9a7a25c381285dea36aed486",
+   "titleKey": "0803af367957ba7910d7797bdc3f64b766e602f1",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand - Reuters Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand Reuters",
+   "at": "2026-11-12T21:14:13.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNeVJYSC1hal9odmptblkwc25YV0pZQXBaaTd0SGFyMW5tT1ZtNzZaTlN0OGFnY2I0dnI3ZmZRaXpwUThvZW5kay1tMElieklOVVZLTDFBTmtQbkpiSWpUZzlLNnZPRmlJSkxoWVZhZGlveTdzNjVsN0ZtZUVMMnk2REQtYmRHRzQwMDhNMVBYQXVQbjBpcHNNYnFWWldTbUItYV9pT1hMYkwwZi1jS0pvZXp4eHJhbHE4OEp6RW13?oc=5"
+  },
+  {
+   "id": "b9129f7c5ef890eef060fbe252d3a4ac24de2f4a",
+   "titleKey": "3aa92f50b87695e8e04868b2066a63578955f108",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Trump Bets Shaky Iran Status Quo Will Hold After Midterm Loss - Bloomberg.com Trump Bets Shaky Iran Status Quo Will Hold After Midterm Loss Bloomberg.com",
+   "at": "2026-11-12T21:21:11.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVE8zbG1nOS1wbW9jblRMemdVSHZsbkFteVloZWxhZWJJS3pSTWc0VjlFTXd5YVRsSFJmV1JBTW8zRUVReWdzWlBjMzdyRTdvWkNmd2RWcWY5SFVMbFhKeUNpM1pOUlNUR25lZzNQX3EzWVUtZF9rajBuV0dxYkdsQS00N2xLaFJWTE5SY0dNdDV5V0dZRldUZ1NrM3JiRkYwalZFcnVraWgzU2hCWHc5NkpB?oc=5"
+  },
+  {
+   "id": "8c94da8166a81705041b7d0892e0a4d9f74f41ad",
+   "titleKey": "d813b75dd6f9130cde910dca55f276dc747706e0",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Chargers' Jim Harbaugh frustrated with Broncos after nixed Daiyan Henley trade - ESPN Chargers' Jim Harbaugh frustrated with Broncos after nixed Daiyan Henley trade ESPN",
+   "at": "2026-11-12T21:42:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOcEtVazdMZy0yb3hNVFZjZ0JlQ19Sa0VKcl8yMmg2Z0JpSlBqVUlua040QXZiMGpWblBoMkpsWk9fT1BzX2ZPTjh4alVjdHZnTU03OF9KaXBfcHR6bnhQLUFXeTZYOUpTTGpjbTNoaFFiV2VKVmIwY244UGg2TkEtV3VjeHNfcW5YZXU2S2FkT2ozRGFmQjRB?oc=5"
+  },
+  {
+   "id": "703421d73e105afe3829b9140bedfd40d178054d",
+   "titleKey": "8ea491c395dd808710eddc37059af8129acdb433",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Mauritania fishing boats falsely portrayed as migrant fleet bound for Spain Spain’s Canary Islands are facing renewed pressure from migrant arrivals, with local authorities declaring a state of emergency. Against this backdrop, a viral video claims to show thousands of boats in Mauritania amassing at the port, that users said was \"ready to set sail\" to carry migrants to the archipelago. But the satellite images are misleading: they show a traditional fishing port, not a fleet of migrant vessels. Vedika Bahl explains in Truth or Fake.",
+   "at": "2026-11-12T21:56:26.000Z",
+   "url": "https://www.france24.com/en/tv-shows/truth-or-fake/20261112-mauritania-fishing-boats-falsely-portrayed-as-migrant-fleet-bound-for-spain"
+  },
+  {
+   "id": "75dfacc1a47bc6791398fe1f983d899f6931d129",
+   "titleKey": "5967accdd3eecff23e496522e7a2dc043d64c9e0",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Italy 3-1 France (Nov 12, 2026) Game Analysis - ESPN Italy 3-1 France (Nov 12, 2026) Game Analysis ESPN",
+   "at": "2026-11-12T22:02:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1mNzNWM1lYRjdXWUNVUVpFREtZeDRtODZFWFktT2VCNVpaT0F5cDVDUlBJLXRGVHRlWTU5MVhTR2RFYnllSGN6Y0NVLVNKVFlTZ2lYMG4wcXlEZG9wN0pDVVZBVQ?oc=5"
+  },
+  {
+   "id": "023a6ef436fda2afc2e4da1fa2fd982ab66f7043",
+   "titleKey": "a310296ed577c67595f45ce26a9c0a4e145fc773",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Jensen Huang resigns as Nvidia CEO after mounting scandals Jensen Huang, long considered the face of the AI revolution, has resigned as Nvidia's President, CEO and board member as sandals over his romantic affairs wiped hundreds of billions of dollars from the company's market value in a matter of days. US lawmakers signal they'll likely push for tighter export restrictions for AI chips. Meanwhile, the rapid buildout of AI data centre is sparking anger and worries among French communities.",
+   "at": "2026-11-12T22:10:28.000Z",
+   "url": "https://www.france24.com/en/tv-shows/business/20261112-jensen-huang-resigns-as-nvidia-ceo-after-mounting-scandals"
+  },
+  {
+   "id": "fe2a8f420157619f89b692b96461f8e98e489908",
+   "titleKey": "7bf2f2ff9902d2a12887d807f90abdf567b33f15",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Cowboys' Joey Porter: My absence is because of injury, not my contract - ESPN Cowboys' Joey Porter: My absence is because of injury, not my contract ESPN",
+   "at": "2026-11-12T22:11:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZlotZGtpX280dl90RmZNQ3VKTVpObi0yaXM3Q2Z5dUZTNUxiU1RwS09IQzlVS0p1UjEyRGV4eWcydktSaGRHSE1yWGRpeTNFTFRZZTVUZ3NZZmlOY0pjdG9BdDE3MWc1Z3BjMnVZTkVFRW15ZGoyRkkxX3NfcEhQeFhBSHd1WmpQZmpkaFlMU0JLejZ3aGRMTEdLekY?oc=5"
+  },
+  {
+   "id": "1c56be217ddec964e921ab891315f1a966d6877f",
+   "titleKey": "842278840788c4534e6caffa3ef34c85e8b7c3d4",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Russia using 'illegal and unethical means, knows Europe won't use same means back', expert says There are mounting concern across Europe that recent hoax threats and cyber attacks could be part of a massive hybrid warfare campaign. FRANCE 24's Sharon Gaffney speaks with Elisabeth Braw, Senior Fellow with the Atlantic Council’s Transatlantic Security Initiative. She says that Russia's aim is to \"increase its power at the expense of European countries and the easiest way to do that is to constantly wage this dirty war against European countries, using illegal and unethical means, because Russia knows that we are not going to use the same means back\".",
+   "at": "2026-11-12T22:12:48.000Z",
+   "url": "https://www.france24.com/en/russia-using-illegal-and-unethical-means-knows-europe-won-t-use-same-means-back-expert-says"
+  },
+  {
+   "id": "2d2bfd030a1e63dc019888a8c7efc320d4f15cf4",
+   "titleKey": "b900507970757c8783fb77c652aa79230433bf82",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | The midterms won’t define Trump’s legacy. Iran will. - The Washington Post Opinion | The midterms won’t define Trump’s legacy. Iran will. The Washington Post",
+   "at": "2026-11-12T22:22:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQaWJEcWFlc0ZRYmJNaWl1WG5xSU5sNzBKVXU0NUhVUGlFNjh4MVFSOW9IeC1sOEtnS21vUjFsZkJnb01aalRwY1NsQXBPTDVsNzdFc3lXRk5hem5NamhUcDZhajVZNEdSNFNkRmhXRC1VM1Vsb1RFdjVkaHFicW5UcTcyTERFN25pVTZlTHg2RlhZUURPWWVIUHZEclJnRHlKeU9PY1VucDF6TDdGYTkw?oc=5"
+  },
+  {
+   "id": "501f3832b95fd0af03a701b59e92919019a114a0",
+   "titleKey": "1de1004f42d18816e8f6780866f9f05564980201",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Next round of talks on Ukraine already scheduled — Witkoff US special presidential envoy for peacekeeping missions Steve Witkoff did not provide the specific date",
+   "at": "2026-11-12T22:32:01.000Z",
+   "url": "https://tass.com/world/2217497"
+  },
+  {
+   "id": "08b3d7939d7f625dfa78ee711a2028741f3b98b6",
+   "titleKey": "5dc3127babe4c6cf20a4cd6af292144cfc99f306",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Top trade committee Democrats launch probe into Trump administration approving Nvidia’s chip sales to China The top Democrats on the House and Senate’s trade committees are requesting the Commerce Department preserve its records on the President Trump’s decision late last year allow Nvidia to sell its H200 chips to China. The investigation, announced Thursday by Senate Finance Committee ranking member Ron Wyden (D-Ore.) and House Ways and Means Committee ranking…",
+   "at": "2026-11-12T22:52:19.000Z",
+   "url": "https://thehill.com/policy/technology/6217470-democrats-investigate-trump-nvidia-chips-china/"
+  },
+  {
+   "id": "02f67fc8d5528515bb8f35f89b3d2ab3253b82f8",
+   "titleKey": "f69705e3764d5765a2f4a7b9e89a9f699784eaf0",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "FBI: North Korean hackers have stolen $400 million in crypto over last 18 months The FBI said Thursday that North Korean hackers have stolen more than $400 million in cryptocurrency over the past 18 ​months using a social engineering scheme called “FaceStealer.” The scheme uses imposter versions of video conference platforms and secretly recorded web camera videos along with computer intrusions to target people working in the cryptocurrency industry,…",
+   "at": "2026-11-12T22:52:52.000Z",
+   "url": "https://thehill.com/policy/technology/6217605-north-korean-hackers-stole-crypto/"
+  },
+  {
+   "id": "ec0c5b06b486a5b490b6b653a53fa74f77738465",
+   "titleKey": "4ab71455148035d0fca8189f63a7ae39e339c164",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Kalshi ends Donald Trump Jr. advisory role over Polymarket ties Kalshi has ended Donald Trump Jr.’s advisory role with the company after his firm, 1789 Capital, increased its investment in Polymarket earlier this year. “We have mutually agreed to end Don’s advisory role after his firm’s significant investment in a competitor this past summer,” Kalshi spokesperson Dani Lever said in a statement. “We are grateful…",
+   "at": "2026-11-12T22:57:35.000Z",
+   "url": "https://thehill.com/policy/technology/6217564-trump-jr-kalshi-advisory-end/"
+  },
+  {
+   "id": "710214022f7650aadad0c7640890c8d03f8bc494",
+   "titleKey": "599304088966f8bdd18b03092715ea2c68a0f8c9",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Eight killed, including two children, in New York building collapse Eight people, including two children, were killed when a residential building collapsed into an adjacent construction site in Brooklyn on Wednesday. Firefighters spent hours searching the rubble overnight before declaring the operation over on Thursday, as authorities launched an investigation into the disaster.",
+   "at": "2026-11-12T22:58:23.000Z",
+   "url": "https://www.france24.com/en/americas/20261112-eight-killed-including-two-children-in-new-york-building-collapse"
+  },
+  {
+   "id": "df04ba3fbd2b46d161690f6d5350d584648d86e4",
+   "titleKey": "b08de9536e9a6e7e23c340c6e941502a15da75b0",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Five takeaways from Nvidia’s Jensen Huang scandal Corporate America is in the midst of its most dramatic scandal in years. Jensen Huang, the CEO and co-founder of Nvidia, resigned Thursday after admitting one extramarital affair, with a woman suspected of being a Chinese agent, and amid new reporting of a second affair, this time with an Nvidia colleague. The vast company is…",
+   "at": "2026-11-12T22:59:47.000Z",
+   "url": "https://thehill.com/homenews/analysis/6217604-nvidias-jensen-huang-resigned/"
+  },
+  {
+   "id": "d15b2f5b2f5998f57e62151e56ca735110606233",
+   "titleKey": "b2ad2342cf8a4aef9acdf8e7964979459ff66e63",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "فارن پالسی: نتانیاهو در شرط‌بندی روی ترامپ باخت نشریه آمریکایی فارن پالسی با اشاره به اینکه فاجعه انتخاباتی جمهوری‌خواهان در انتخابات میان‌دوره‌ای آمریکا، رژیم صهیونیستی را به‌شدت در معرض خطر قرار داده، شرط‌بندی نخست‌وزیر این رژیم روی حمایت رئیس‌جمهور آمریکا را نافرجام خواند.",
+   "at": "2026-11-12T23:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852254/%D9%81%D8%A7%D8%B1%D9%86-%D9%BE%D8%A7%D9%84%D8%B3%DB%8C-%D9%86%D8%AA%D8%A7%D9%86%DB%8C%D8%A7%D9%87%D9%88-%D8%AF%D8%B1-%D8%B4%D8%B1%D8%B7-%D8%A8%D9%86%D8%AF%DB%8C-%D8%B1%D9%88%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D8%A7%D8%AE%D8%AA"
+  },
+  {
+   "id": "6f034b550267502aa50a261345ab3f7a35509fbb",
+   "titleKey": "cb9fd640dace0c0c6507270814d398964aa594d6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "استقبال از پیکر مطهر سه شهید گمنام در تجمعات شبانه مردم زنجان زنجان- دویست و پنجاه و هفتمین شب تجمعات مردم زنجان در میادین و خیابان‌های این شهر میزبان پیکر مطهر سه شهید گمنام بود.",
+   "at": "2026-11-12T23:00:27.000Z",
+   "url": "https://www.mehrnews.com/news/7009161/%D8%A7%D8%B3%D8%AA%D9%82%D8%A8%D8%A7%D9%84-%D8%A7%D8%B2-%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%B7%D9%87%D8%B1-%D8%B3%D9%87-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D8%B2%D9%86%D8%AC%D8%A7%D9%86"
+  },
+  {
+   "id": "5e0d2e4258723b978362726f260617f0e8f6f668",
+   "titleKey": "a75ce59be8f5a5e9692a42e55c2f86d7848a36e2",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Senate Democrats weigh Dec. funding deadline to force an end to Iran war A group of Senate Democrats are looking to use a looming government funding deadline to force the Trump administration to end the war in Iran. While party leaders have yet to decide on whether to risk a shutdown, the desire for action from a mix of progressives and moderates could throw a wrench into the…",
+   "at": "2026-11-12T23:00:58.000Z",
+   "url": "https://thehill.com/homenews/senate/6217635-senate-democrats-threaten-shutdown-iran/"
+  },
+  {
+   "id": "6baed5741941cac7d5c5dfe4af540070970369f9",
+   "titleKey": "7ce965d0f4f20b41adf4e52ce976a39e879b7fff",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیکر مطهر سه شهید گمنام در زنجان تشییع می شود زنجان- در این ویدئو صحبت های سرهنگ عباس بابایی مدیرکل حفظ آثار و نشر ارزش‌های دفاع مقدس و مقاومت استان زنجان را مشاهد می کنید.",
+   "at": "2026-11-12T23:01:58.000Z",
+   "url": "https://www.mehrnews.com/news/7009160/%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%B7%D9%87%D8%B1-%D8%B3%D9%87-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%B2%D9%86%D8%AC%D8%A7%D9%86-%D8%AA%D8%B4%DB%8C%DB%8C%D8%B9-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
+  },
+  {
+   "id": "b26f2d212469ba7850b25c6a4bf6a261899e9dfa",
+   "titleKey": "02970ebb845d23ff2ece29ebaf87d8b7a6b42387",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "The Zionist regime has banned Jean-Luc Mélenchon, a French left-wing politician and potential candidate in the 2027 presidential election, from entering the occupied Palestinian territories in response to his critical, anti-war positions. @PressTV",
+   "at": "2026-11-12T23:02:18.000Z",
+   "url": "https://t.me/presstv/214491"
+  },
+  {
+   "id": "a0fe30e102c18116f1c3bdd04cca98a96787e465",
+   "titleKey": "110ddf684dc67513e8f849b798107a3b62e91d0e",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "با پول تنها النگوی مادرم کامپیوتر خریدم | قصه مردی که ۳۰۰ جوان کم‌بضاعت را شاغل کرد + عکس خاطرات کودکی و نوجوانی رحیم فرجی با حسرت ها و کنجکاوی هایی گره خورده که امروز از او یک کارآفرین حوزه هوش مصنوعی ساخته است. او پیشنهاد کار و زندگی در اروپا را پس زده تا مهارت های حوزه هوش مصنوعی را به نوجوانان مناطق محروم آموزش دهد و آینده شغلی آنها را به دنیای پرجاذبه رایاهوش پیوند بزند.",
+   "at": "2026-11-12T23:05:00.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1084600/%D8%A8%D8%A7-%D9%BE%D9%88%D9%84-%D8%AA%D9%86%D9%87%D8%A7-%D8%A7%D9%84%D9%86%DA%AF%D9%88%DB%8C-%D9%85%D8%A7%D8%AF%D8%B1%D9%85-%DA%A9%D8%A7%D9%85%D9%BE%DB%8C%D9%88%D8%AA%D8%B1-%D8%AE%D8%B1%DB%8C%D8%AF%D9%85-%D9%82%D8%B5%D9%87-%D9%85%D8%B1%D8%AF%DB%8C-%DA%A9%D9%87-%DB%B3%DB%B0%DB%B0-%D8%AC%D9%88%D8%A7%D9%86"
+  },
   {
    "id": "d0b2265999235e26beeee64d818918a8495127e7",
    "titleKey": "bdee9769eb136e519409df65fda69f90431db1e8",
@@ -5263,6 +5476,46 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-12T22:54:03.894Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: فارن پالسی: نتانیاهو در شرط‌بندی روی ترامپ باخت نشریه آمریکایی فارن پالسی با اشاره به اینکه فاجعه انتخاباتی جمهوری‌خواهان در انتخابات میان‌دوره‌ای آمریکا، رژیم صهیونیستی را به‌شدت در معرض خطر قرار داده، شرط‌بندی نخست‌وزیر این رژیم روی حمایت رئیس‌جمهور آمریکا را نافرجام خواند.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/12/4/4749885.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T23:06:42.838Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: استقبال از پیکر مطهر سه شهید گمنام در تجمعات شبانه مردم زنجان زنجان- دویست و پنجاه و هفتمین شب تجمعات مردم زنجان در میادین و خیابان‌های این شهر میزبان پیکر مطهر سه شهید گمنام بود.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259698.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T23:06:43.539Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: پیکر مطهر سه شهید گمنام در زنجان تشییع می شود زنجان- در این ویدئو صحبت های سرهنگ عباس بابایی مدیرکل حفظ آثار و نشر ارزش‌های دفاع مقدس و مقاومت استان زنجان را مشاهد می کنید.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259758.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T23:06:44.240Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: با پول تنها النگوی مادرم کامپیوتر خریدم | قصه مردی که ۳۰۰ جوان کم‌بضاعت را شاغل کرد + عکس خاطرات کودکی و نوجوانی رحیم فرجی با حسرت ها و کنجکاوی هایی گره خورده که امروز از او یک کارآفرین حوزه هوش مصنوعی ساخته است. او پیشنهاد کار و زندگی در اروپا را پس زده تا مهارت های حوزه هوش مصنوعی را به نوجوانان مناطق محروم آموزش دهد و آینده شغلی آنها را به دنیای پرجاذبه رایاهوش پیوند بزند.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/10/4/5432682.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T23:06:44.941Z"
   }
  ],
  "tweetQueue": [
@@ -5471,6 +5724,219 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "a794d6c3b0feb3ef13d09cca0ef3878f54ace950",
+   "titleKey": "15818beaaf0c259031a2dc2c9d5a25bc21cc5b0e",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Donald Trump Jr. ends Kalshi advisory role - Politico Donald Trump Jr. ends Kalshi advisory role Politico",
+   "at": "2026-11-12T20:31:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPYUZEdG1qdGtFWDlRR1RuOU5RbzRBWTlNVG5KTTBSUGhDT0JiT194ZXM2LU01Q3JVMlJXRFBTMjVwZlZtSXNubGhPdDdScmxJdHRFNXhYQURlNVVJUW42YzAtcnhFck1BdmFlaVlqeEp0TjYzcGxuWGZpbXgxLUdQWjhR?oc=5"
+  },
+  {
+   "id": "614e9e86695978e1e8b724bb72094e9d79cf508d",
+   "titleKey": "574e8e96de3172239dae040ddcf0fe6ec55bd497",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US Justice Department has not concluded Alice Huang was Chinese spy, Blanche says - Reuters US Justice Department has not concluded Alice Huang was Chinese spy, Blanche says Reuters",
+   "at": "2026-11-12T21:02:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPTE41X1JfT2dWa0tyWU50NGd3TzU5ZUlmM0xBUU43Vmt1Y0dDdGdCQk5aQmFHay1ILW52WlBSQkJseVhzT1JDTVF3S3NwVUVKM19rblVhU1RoTlBacEpKX1RXanBDUW9DdmdDSDAzZDJsdnpLZ3JEcjEyNXJBei1aeU4xdFpSeC1JY1pwaU9tMFkySlozazBJN1V6UzBhWmtxN0JMOXlab1VoU1FWUFZ2QTE5bDdRODdIeUFUcnlvWGxURnJoTTBJ?oc=5"
+  },
+  {
+   "id": "94d51032d01b881b9a7a25c381285dea36aed486",
+   "titleKey": "0803af367957ba7910d7797bdc3f64b766e602f1",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand - Reuters Applied Materials forecasts quarterly revenue above estimates on strong AI chip demand Reuters",
+   "at": "2026-11-12T21:14:13.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNeVJYSC1hal9odmptblkwc25YV0pZQXBaaTd0SGFyMW5tT1ZtNzZaTlN0OGFnY2I0dnI3ZmZRaXpwUThvZW5kay1tMElieklOVVZLTDFBTmtQbkpiSWpUZzlLNnZPRmlJSkxoWVZhZGlveTdzNjVsN0ZtZUVMMnk2REQtYmRHRzQwMDhNMVBYQXVQbjBpcHNNYnFWWldTbUItYV9pT1hMYkwwZi1jS0pvZXp4eHJhbHE4OEp6RW13?oc=5"
+  },
+  {
+   "id": "b9129f7c5ef890eef060fbe252d3a4ac24de2f4a",
+   "titleKey": "3aa92f50b87695e8e04868b2066a63578955f108",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Trump Bets Shaky Iran Status Quo Will Hold After Midterm Loss - Bloomberg.com Trump Bets Shaky Iran Status Quo Will Hold After Midterm Loss Bloomberg.com",
+   "at": "2026-11-12T21:21:11.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVE8zbG1nOS1wbW9jblRMemdVSHZsbkFteVloZWxhZWJJS3pSTWc0VjlFTXd5YVRsSFJmV1JBTW8zRUVReWdzWlBjMzdyRTdvWkNmd2RWcWY5SFVMbFhKeUNpM1pOUlNUR25lZzNQX3EzWVUtZF9rajBuV0dxYkdsQS00N2xLaFJWTE5SY0dNdDV5V0dZRldUZ1NrM3JiRkYwalZFcnVraWgzU2hCWHc5NkpB?oc=5"
+  },
+  {
+   "id": "8c94da8166a81705041b7d0892e0a4d9f74f41ad",
+   "titleKey": "d813b75dd6f9130cde910dca55f276dc747706e0",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Chargers' Jim Harbaugh frustrated with Broncos after nixed Daiyan Henley trade - ESPN Chargers' Jim Harbaugh frustrated with Broncos after nixed Daiyan Henley trade ESPN",
+   "at": "2026-11-12T21:42:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOcEtVazdMZy0yb3hNVFZjZ0JlQ19Sa0VKcl8yMmg2Z0JpSlBqVUlua040QXZiMGpWblBoMkpsWk9fT1BzX2ZPTjh4alVjdHZnTU03OF9KaXBfcHR6bnhQLUFXeTZYOUpTTGpjbTNoaFFiV2VKVmIwY244UGg2TkEtV3VjeHNfcW5YZXU2S2FkT2ozRGFmQjRB?oc=5"
+  },
+  {
+   "id": "703421d73e105afe3829b9140bedfd40d178054d",
+   "titleKey": "8ea491c395dd808710eddc37059af8129acdb433",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Mauritania fishing boats falsely portrayed as migrant fleet bound for Spain Spain’s Canary Islands are facing renewed pressure from migrant arrivals, with local authorities declaring a state of emergency. Against this backdrop, a viral video claims to show thousands of boats in Mauritania amassing at the port, that users said was \"ready to set sail\" to carry migrants to the archipelago. But the satellite images are misleading: they show a traditional fishing port, not a fleet of migrant vessels. Vedika Bahl explains in Truth or Fake.",
+   "at": "2026-11-12T21:56:26.000Z",
+   "url": "https://www.france24.com/en/tv-shows/truth-or-fake/20261112-mauritania-fishing-boats-falsely-portrayed-as-migrant-fleet-bound-for-spain"
+  },
+  {
+   "id": "75dfacc1a47bc6791398fe1f983d899f6931d129",
+   "titleKey": "5967accdd3eecff23e496522e7a2dc043d64c9e0",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Italy 3-1 France (Nov 12, 2026) Game Analysis - ESPN Italy 3-1 France (Nov 12, 2026) Game Analysis ESPN",
+   "at": "2026-11-12T22:02:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1mNzNWM1lYRjdXWUNVUVpFREtZeDRtODZFWFktT2VCNVpaT0F5cDVDUlBJLXRGVHRlWTU5MVhTR2RFYnllSGN6Y0NVLVNKVFlTZ2lYMG4wcXlEZG9wN0pDVVZBVQ?oc=5"
+  },
+  {
+   "id": "023a6ef436fda2afc2e4da1fa2fd982ab66f7043",
+   "titleKey": "a310296ed577c67595f45ce26a9c0a4e145fc773",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Jensen Huang resigns as Nvidia CEO after mounting scandals Jensen Huang, long considered the face of the AI revolution, has resigned as Nvidia's President, CEO and board member as sandals over his romantic affairs wiped hundreds of billions of dollars from the company's market value in a matter of days. US lawmakers signal they'll likely push for tighter export restrictions for AI chips. Meanwhile, the rapid buildout of AI data centre is sparking anger and worries among French communities.",
+   "at": "2026-11-12T22:10:28.000Z",
+   "url": "https://www.france24.com/en/tv-shows/business/20261112-jensen-huang-resigns-as-nvidia-ceo-after-mounting-scandals"
+  },
+  {
+   "id": "fe2a8f420157619f89b692b96461f8e98e489908",
+   "titleKey": "7bf2f2ff9902d2a12887d807f90abdf567b33f15",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Cowboys' Joey Porter: My absence is because of injury, not my contract - ESPN Cowboys' Joey Porter: My absence is because of injury, not my contract ESPN",
+   "at": "2026-11-12T22:11:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZlotZGtpX280dl90RmZNQ3VKTVpObi0yaXM3Q2Z5dUZTNUxiU1RwS09IQzlVS0p1UjEyRGV4eWcydktSaGRHSE1yWGRpeTNFTFRZZTVUZ3NZZmlOY0pjdG9BdDE3MWc1Z3BjMnVZTkVFRW15ZGoyRkkxX3NfcEhQeFhBSHd1WmpQZmpkaFlMU0JLejZ3aGRMTEdLekY?oc=5"
+  },
+  {
+   "id": "1c56be217ddec964e921ab891315f1a966d6877f",
+   "titleKey": "842278840788c4534e6caffa3ef34c85e8b7c3d4",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Russia using 'illegal and unethical means, knows Europe won't use same means back', expert says There are mounting concern across Europe that recent hoax threats and cyber attacks could be part of a massive hybrid warfare campaign. FRANCE 24's Sharon Gaffney speaks with Elisabeth Braw, Senior Fellow with the Atlantic Council’s Transatlantic Security Initiative. She says that Russia's aim is to \"increase its power at the expense of European countries and the easiest way to do that is to constantly wage this dirty war against European countries, using illegal and unethical means, because Russia knows that we are not going to use the same means back\".",
+   "at": "2026-11-12T22:12:48.000Z",
+   "url": "https://www.france24.com/en/russia-using-illegal-and-unethical-means-knows-europe-won-t-use-same-means-back-expert-says"
+  },
+  {
+   "id": "2d2bfd030a1e63dc019888a8c7efc320d4f15cf4",
+   "titleKey": "b900507970757c8783fb77c652aa79230433bf82",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | The midterms won’t define Trump’s legacy. Iran will. - The Washington Post Opinion | The midterms won’t define Trump’s legacy. Iran will. The Washington Post",
+   "at": "2026-11-12T22:22:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQaWJEcWFlc0ZRYmJNaWl1WG5xSU5sNzBKVXU0NUhVUGlFNjh4MVFSOW9IeC1sOEtnS21vUjFsZkJnb01aalRwY1NsQXBPTDVsNzdFc3lXRk5hem5NamhUcDZhajVZNEdSNFNkRmhXRC1VM1Vsb1RFdjVkaHFicW5UcTcyTERFN25pVTZlTHg2RlhZUURPWWVIUHZEclJnRHlKeU9PY1VucDF6TDdGYTkw?oc=5"
+  },
+  {
+   "id": "501f3832b95fd0af03a701b59e92919019a114a0",
+   "titleKey": "1de1004f42d18816e8f6780866f9f05564980201",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Next round of talks on Ukraine already scheduled — Witkoff US special presidential envoy for peacekeeping missions Steve Witkoff did not provide the specific date",
+   "at": "2026-11-12T22:32:01.000Z",
+   "url": "https://tass.com/world/2217497"
+  },
+  {
+   "id": "08b3d7939d7f625dfa78ee711a2028741f3b98b6",
+   "titleKey": "5dc3127babe4c6cf20a4cd6af292144cfc99f306",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Top trade committee Democrats launch probe into Trump administration approving Nvidia’s chip sales to China The top Democrats on the House and Senate’s trade committees are requesting the Commerce Department preserve its records on the President Trump’s decision late last year allow Nvidia to sell its H200 chips to China. The investigation, announced Thursday by Senate Finance Committee ranking member Ron Wyden (D-Ore.) and House Ways and Means Committee ranking…",
+   "at": "2026-11-12T22:52:19.000Z",
+   "url": "https://thehill.com/policy/technology/6217470-democrats-investigate-trump-nvidia-chips-china/"
+  },
+  {
+   "id": "02f67fc8d5528515bb8f35f89b3d2ab3253b82f8",
+   "titleKey": "f69705e3764d5765a2f4a7b9e89a9f699784eaf0",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "FBI: North Korean hackers have stolen $400 million in crypto over last 18 months The FBI said Thursday that North Korean hackers have stolen more than $400 million in cryptocurrency over the past 18 ​months using a social engineering scheme called “FaceStealer.” The scheme uses imposter versions of video conference platforms and secretly recorded web camera videos along with computer intrusions to target people working in the cryptocurrency industry,…",
+   "at": "2026-11-12T22:52:52.000Z",
+   "url": "https://thehill.com/policy/technology/6217605-north-korean-hackers-stole-crypto/"
+  },
+  {
+   "id": "ec0c5b06b486a5b490b6b653a53fa74f77738465",
+   "titleKey": "4ab71455148035d0fca8189f63a7ae39e339c164",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Kalshi ends Donald Trump Jr. advisory role over Polymarket ties Kalshi has ended Donald Trump Jr.’s advisory role with the company after his firm, 1789 Capital, increased its investment in Polymarket earlier this year. “We have mutually agreed to end Don’s advisory role after his firm’s significant investment in a competitor this past summer,” Kalshi spokesperson Dani Lever said in a statement. “We are grateful…",
+   "at": "2026-11-12T22:57:35.000Z",
+   "url": "https://thehill.com/policy/technology/6217564-trump-jr-kalshi-advisory-end/"
+  },
+  {
+   "id": "710214022f7650aadad0c7640890c8d03f8bc494",
+   "titleKey": "599304088966f8bdd18b03092715ea2c68a0f8c9",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Eight killed, including two children, in New York building collapse Eight people, including two children, were killed when a residential building collapsed into an adjacent construction site in Brooklyn on Wednesday. Firefighters spent hours searching the rubble overnight before declaring the operation over on Thursday, as authorities launched an investigation into the disaster.",
+   "at": "2026-11-12T22:58:23.000Z",
+   "url": "https://www.france24.com/en/americas/20261112-eight-killed-including-two-children-in-new-york-building-collapse"
+  },
+  {
+   "id": "df04ba3fbd2b46d161690f6d5350d584648d86e4",
+   "titleKey": "b08de9536e9a6e7e23c340c6e941502a15da75b0",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Five takeaways from Nvidia’s Jensen Huang scandal Corporate America is in the midst of its most dramatic scandal in years. Jensen Huang, the CEO and co-founder of Nvidia, resigned Thursday after admitting one extramarital affair, with a woman suspected of being a Chinese agent, and amid new reporting of a second affair, this time with an Nvidia colleague. The vast company is…",
+   "at": "2026-11-12T22:59:47.000Z",
+   "url": "https://thehill.com/homenews/analysis/6217604-nvidias-jensen-huang-resigned/"
+  },
+  {
+   "id": "d15b2f5b2f5998f57e62151e56ca735110606233",
+   "titleKey": "b2ad2342cf8a4aef9acdf8e7964979459ff66e63",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "فارن پالسی: نتانیاهو در شرط‌بندی روی ترامپ باخت نشریه آمریکایی فارن پالسی با اشاره به اینکه فاجعه انتخاباتی جمهوری‌خواهان در انتخابات میان‌دوره‌ای آمریکا، رژیم صهیونیستی را به‌شدت در معرض خطر قرار داده، شرط‌بندی نخست‌وزیر این رژیم روی حمایت رئیس‌جمهور آمریکا را نافرجام خواند.",
+   "at": "2026-11-12T23:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852254/%D9%81%D8%A7%D8%B1%D9%86-%D9%BE%D8%A7%D9%84%D8%B3%DB%8C-%D9%86%D8%AA%D8%A7%D9%86%DB%8C%D8%A7%D9%87%D9%88-%D8%AF%D8%B1-%D8%B4%D8%B1%D8%B7-%D8%A8%D9%86%D8%AF%DB%8C-%D8%B1%D9%88%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D8%A7%D8%AE%D8%AA"
+  },
+  {
+   "id": "6f034b550267502aa50a261345ab3f7a35509fbb",
+   "titleKey": "cb9fd640dace0c0c6507270814d398964aa594d6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "استقبال از پیکر مطهر سه شهید گمنام در تجمعات شبانه مردم زنجان زنجان- دویست و پنجاه و هفتمین شب تجمعات مردم زنجان در میادین و خیابان‌های این شهر میزبان پیکر مطهر سه شهید گمنام بود.",
+   "at": "2026-11-12T23:00:27.000Z",
+   "url": "https://www.mehrnews.com/news/7009161/%D8%A7%D8%B3%D8%AA%D9%82%D8%A8%D8%A7%D9%84-%D8%A7%D8%B2-%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%B7%D9%87%D8%B1-%D8%B3%D9%87-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D8%B2%D9%86%D8%AC%D8%A7%D9%86"
+  },
+  {
+   "id": "5e0d2e4258723b978362726f260617f0e8f6f668",
+   "titleKey": "a75ce59be8f5a5e9692a42e55c2f86d7848a36e2",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Senate Democrats weigh Dec. funding deadline to force an end to Iran war A group of Senate Democrats are looking to use a looming government funding deadline to force the Trump administration to end the war in Iran. While party leaders have yet to decide on whether to risk a shutdown, the desire for action from a mix of progressives and moderates could throw a wrench into the…",
+   "at": "2026-11-12T23:00:58.000Z",
+   "url": "https://thehill.com/homenews/senate/6217635-senate-democrats-threaten-shutdown-iran/"
+  },
+  {
+   "id": "6baed5741941cac7d5c5dfe4af540070970369f9",
+   "titleKey": "7ce965d0f4f20b41adf4e52ce976a39e879b7fff",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیکر مطهر سه شهید گمنام در زنجان تشییع می شود زنجان- در این ویدئو صحبت های سرهنگ عباس بابایی مدیرکل حفظ آثار و نشر ارزش‌های دفاع مقدس و مقاومت استان زنجان را مشاهد می کنید.",
+   "at": "2026-11-12T23:01:58.000Z",
+   "url": "https://www.mehrnews.com/news/7009160/%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%B7%D9%87%D8%B1-%D8%B3%D9%87-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%B2%D9%86%D8%AC%D8%A7%D9%86-%D8%AA%D8%B4%DB%8C%DB%8C%D8%B9-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
+  },
+  {
+   "id": "b26f2d212469ba7850b25c6a4bf6a261899e9dfa",
+   "titleKey": "02970ebb845d23ff2ece29ebaf87d8b7a6b42387",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "The Zionist regime has banned Jean-Luc Mélenchon, a French left-wing politician and potential candidate in the 2027 presidential election, from entering the occupied Palestinian territories in response to his critical, anti-war positions. @PressTV",
+   "at": "2026-11-12T23:02:18.000Z",
+   "url": "https://t.me/presstv/214491"
+  },
+  {
+   "id": "a0fe30e102c18116f1c3bdd04cca98a96787e465",
+   "titleKey": "110ddf684dc67513e8f849b798107a3b62e91d0e",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "با پول تنها النگوی مادرم کامپیوتر خریدم | قصه مردی که ۳۰۰ جوان کم‌بضاعت را شاغل کرد + عکس خاطرات کودکی و نوجوانی رحیم فرجی با حسرت ها و کنجکاوی هایی گره خورده که امروز از او یک کارآفرین حوزه هوش مصنوعی ساخته است. او پیشنهاد کار و زندگی در اروپا را پس زده تا مهارت های حوزه هوش مصنوعی را به نوجوانان مناطق محروم آموزش دهد و آینده شغلی آنها را به دنیای پرجاذبه رایاهوش پیوند بزند.",
+   "at": "2026-11-12T23:05:00.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1084600/%D8%A8%D8%A7-%D9%BE%D9%88%D9%84-%D8%AA%D9%86%D9%87%D8%A7-%D8%A7%D9%84%D9%86%DA%AF%D9%88%DB%8C-%D9%85%D8%A7%D8%AF%D8%B1%D9%85-%DA%A9%D8%A7%D9%85%D9%BE%DB%8C%D9%88%D8%AA%D8%B1-%D8%AE%D8%B1%DB%8C%D8%AF%D9%85-%D9%82%D8%B5%D9%87-%D9%85%D8%B1%D8%AF%DB%8C-%DA%A9%D9%87-%DB%B3%DB%B0%DB%B0-%D8%AC%D9%88%D8%A7%D9%86"
+  },
   {
    "id": "tw-zelenskyyua-2121013273403220214",
    "titleKey": "5fc8cccfb477f47d685a68c063d75262ec10bfd7",
@@ -9988,21 +10454,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794524241110,
-  "Akharin_khodro/8913": 1794524241110,
-  "Akharin_khodro/8914": 1794524241110,
-  "Akharin_khodro/8915": 1794524241110,
-  "Akharin_khodro/8916": 1794524241110,
-  "Akharin_khodro/8919": 1794524241110,
-  "Akharin_khodro/8920": 1794524241110,
-  "Akharin_khodro/8921": 1794524241110,
-  "Akharin_khodro/8922": 1794524241110,
-  "Akharin_khodro/8923": 1794524241110,
-  "Akharin_khodro/8924": 1794524241110,
-  "Akharin_khodro/8925": 1794524241110,
-  "Akharin_khodro/8926": 1794524241110,
-  "Akharin_khodro/8927": 1794524241110,
-  "Akharin_khodro/8928": 1794524241110,
+  "Akharin_khodro/8908": 1794524819343,
+  "Akharin_khodro/8913": 1794524819343,
+  "Akharin_khodro/8914": 1794524819343,
+  "Akharin_khodro/8915": 1794524819343,
+  "Akharin_khodro/8916": 1794524819343,
+  "Akharin_khodro/8919": 1794524819343,
+  "Akharin_khodro/8920": 1794524819343,
+  "Akharin_khodro/8921": 1794524819343,
+  "Akharin_khodro/8922": 1794524819343,
+  "Akharin_khodro/8923": 1794524819343,
+  "Akharin_khodro/8924": 1794524819343,
+  "Akharin_khodro/8925": 1794524819343,
+  "Akharin_khodro/8926": 1794524819343,
+  "Akharin_khodro/8927": 1794524819343,
+  "Akharin_khodro/8928": 1794524819343,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10309,28 +10775,27 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-12T22:57:21.115Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-12T23:06:59.349Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1079,
-  "inWindow": 211,
-  "fresh": 117,
-  "sent": 3,
+  "inWindow": 216,
+  "fresh": 122,
+  "sent": 4,
   "images": 0,
-  "translated": 2,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 114,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 114,
-  "queued": 3,
-  "tweetRateLimited": false,
-  "tweetsQueued": 2
+  "skippedUntranslated": 117,
+  "queued": 4,
+  "tweetRateLimited": false
  }
 }

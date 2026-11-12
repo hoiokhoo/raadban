@@ -12,6 +12,10 @@
  *  گزارش جامع تحلیل و نتیجه‌گیری می‌شود؛ سوختش «آرشیو روزانهٔ رویدادها» است (state.dailyPool —
  *  خبر + توییت، در همهٔ حالت‌ها) و هر تحلیل با خلاصهٔ تاریخ‌دار روزهای قبل ذخیره می‌شود
  *  (state.nightlyAnalyses — حافظهٔ پایدار ۶۰ روز که با state در ریپو کامیت می‌شود تا هرگز ریست نشود))
+ * (به‌روزرسانی ۱۳ نوامبر ۲۰۲۶ — بخش مجزای رصد کانال‌های چپ و راست (bot/geo.ts + bot/geo-channels.json):
+ *  کانال‌های ایتا/تلگرام هر ۴ ساعت واکشی و تجمیع و اعتبارسنجی چندمنبعی می‌شوند و یک «تحلیل ۴ساعتهٔ
+ *  ژئوپلیتیک» با مقایسهٔ روایت دو طیف ارسال و در state.geoAnalyses ذخیره می‌شود؛ همین تحلیل‌ها و
+ *  رویدادهایش به منابع تحلیل جامع شبانهٔ ۲۲:۳۰ هم اضافه می‌شوند تا گزارش شبانه جامع‌تر باشد)
  *
  * سه حالت کانال (CHANNEL_MODE):
  *  - bundle: هر چرخه همهٔ خبرهای تازه به صف می‌روند و در اسلات‌های زوج تهران (۰۰، ۰۲، …)
@@ -75,6 +79,24 @@ import {
   validateNightlyText,
   type NightlyAnalysis,
 } from './nightly';
+import {
+  DEFAULT_SYSTEM_GEO,
+  GEO_WINDOW_HOURS,
+  appendGeoAnalysis,
+  buildGeoCorpus,
+  buildGeoMemoryBlock,
+  buildNightlyGeoBlock,
+  fetchAllGeoChannels,
+  filterGeoPosts,
+  geoItemsForMerge,
+  geoSummaryOf,
+  loadGeoChannels,
+  splitGeoFooter,
+  todayGeoSlice,
+  validateGeoText,
+  windowGeoPosts,
+  type GeoAnalysis,
+} from './geo';
 import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
 import { fetchHourlyForecast, buildWeatherMessage } from './weather';
 import {
@@ -212,6 +234,9 @@ const CFG = {
   priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
   // تحلیل جامع شبانه — هر شب ۲۲:۳۰ تهران (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با NIGHTLY_HOURS
   nightlySlots: parseSlots(process.env.NIGHTLY_HOURS, '22:30'),
+  // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با GEO_HOURS
+  geoSlots: parseSlots(process.env.GEO_HOURS, '0,4,8,12,16,20'),
+  geoChannelsFile: process.env.BOT_GEO_CHANNELS_FILE || 'bot/geo-channels.json',
   // سقف آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانه (پس از ارسال موفق خالی می‌شود)
   dailyPoolCap: Math.max(100, Math.min(800, Number(process.env.BOT_DAILY_POOL_CAP || 500) || 500)),
   // کانال‌های خبری خودرو (t.me/s/<id>) — منبع قیمت خودرو با فرمت «مدل⬅️قیمت»
@@ -610,6 +635,12 @@ export interface BotState {
   /** حافظهٔ پایدار تحلیل‌های شبانه — هر شب خلاصهٔ تاریخ‌دار روزهای قبل خوانده می‌شود (سقف ۶۰ روز؛
    *  با state در ریپو کامیت می‌شود تا حافظهٔ مدل پس از ری‌استارت هرگز ریست نشود) */
   nightlyAnalyses?: NightlyAnalysis[];
+  /** بخش مجزای چپ و راست — پیام‌های دیده‌شدهٔ کانال‌ها (ضدتکرار ۷ روزه؛ هرس در windowGeoPosts) */
+  geoSeenIds?: Record<string, number>;
+  /** حافظهٔ تحلیل‌های ۴ساعتهٔ ژئوپلیتیک — سقف ۴۲ تحلیل ≈ ۷ روز (خواستهٔ کاربر: ذخیرهٔ تحلیل‌ها) */
+  geoAnalyses?: GeoAnalysis[];
+  /** کلید آخرین اسلات تحلیل ژئوپلیتیک («2026-11-13T04:00») — ضدتکرار ۴ساعته */
+  lastGeoKey?: string;
   /** نشانگر چرخش تأمین‌کنندگان مدل — یکی‌یکی (آینهٔ aiRotateCursor برای بقای پس از ری‌استارت) */
   aiCursor?: number;
   /** انبار ماندگار قیمت خودرو — پرتیراژها همیشه در گزارش بازار (خواستهٔ کاربر) */
@@ -788,6 +819,9 @@ export function loadState(path: string): BotState {
       dailyPool: Array.isArray(raw.dailyPool) ? (raw.dailyPool as PoolItem[]) : [],
       lastNightlyKey: typeof raw.lastNightlyKey === 'string' ? raw.lastNightlyKey : undefined,
       nightlyAnalyses: Array.isArray(raw.nightlyAnalyses) ? (raw.nightlyAnalyses as NightlyAnalysis[]) : [],
+      geoSeenIds: raw.geoSeenIds && typeof raw.geoSeenIds === 'object' ? (raw.geoSeenIds as Record<string, number>) : {},
+      geoAnalyses: Array.isArray(raw.geoAnalyses) ? (raw.geoAnalyses as GeoAnalysis[]) : [],
+      lastGeoKey: typeof raw.lastGeoKey === 'string' ? raw.lastGeoKey : undefined,
       aiCursor: typeof raw.aiCursor === 'number' ? raw.aiCursor : undefined,
       carStore: raw.carStore && typeof raw.carStore === 'object' ? (raw.carStore as CarStore) : undefined,
       saleAlertIds: raw.saleAlertIds && typeof raw.saleAlertIds === 'object' ? (raw.saleAlertIds as Record<string, number>) : undefined,
@@ -852,6 +886,9 @@ export function mergeSentState(
     dailyPool: st.dailyPool,
     lastNightlyKey: st.lastNightlyKey,
     nightlyAnalyses: st.nightlyAnalyses,
+    geoSeenIds: st.geoSeenIds,
+    geoAnalyses: st.geoAnalyses,
+    lastGeoKey: st.lastGeoKey,
     aiCursor: st.aiCursor,
     carStore: st.carStore,
     saleAlertIds: st.saleAlertIds,
@@ -1541,25 +1578,28 @@ let activeTranslate = DEFAULT_SYSTEM_BOT_TRANSLATE;
 let activeDigest = DEFAULT_SYSTEM_BOT_DIGEST;
 let activeHourly = DEFAULT_SYSTEM_HOURLY;
 let activeNightly = DEFAULT_SYSTEM_NIGHTLY;
+let activeGeo = DEFAULT_SYSTEM_GEO;
 
 export function getOneshotPrompt(): string { return activeOneshot; }
 export function getTranslatePrompt(): string { return activeTranslate; }
 export function getDigestPrompt(): string { return activeDigest; }
 export function getHourlyPrompt(): string { return activeHourly; }
 export function getNightlyPrompt(): string { return activeNightly; }
+export function getGeoPrompt(): string { return activeGeo; }
 
 /** اعمال پرامپت‌های ویرایش‌شده — فقط متن بلند و معتبر پذیرفته می‌شود (محافظت از رفتار ربات) */
-export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean; nightly: boolean } {
-  const r = { oneshot: false, translate: false, digest: false, hourly: false, nightly: false };
+export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean; nightly: boolean; geo: boolean } {
+  const r = { oneshot: false, translate: false, digest: false, hourly: false, nightly: false, geo: false };
   if (typeof p.oneshot === 'string' && p.oneshot.trim().length >= 400) { activeOneshot = p.oneshot.trim(); r.oneshot = true; }
   if (typeof p.translate === 'string' && p.translate.trim().length >= 200) { activeTranslate = p.translate.trim(); r.translate = true; }
   if (typeof p.digest === 'string' && p.digest.trim().length >= 400) { activeDigest = p.digest.trim(); r.digest = true; }
   if (typeof p.hourly === 'string' && p.hourly.trim().length >= 400) { activeHourly = p.hourly.trim(); r.hourly = true; }
   if (typeof p.nightly === 'string' && p.nightly.trim().length >= 400) { activeNightly = p.nightly.trim(); r.nightly = true; }
+  if (typeof p.geo === 'string' && p.geo.trim().length >= 400) { activeGeo = p.geo.trim(); r.geo = true; }
   return r;
 }
 
-export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; updatedAt?: string }
+export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string; updatedAt?: string }
 
 /** پارس فایل پرامپت‌های ویرایش‌شده — تابع خالص تست‌پذیر */
 export function parsePromptFile(raw: string): PromptFile {
@@ -1571,6 +1611,7 @@ export function parsePromptFile(raw: string): PromptFile {
       digest: typeof o.digest === 'string' ? o.digest : undefined,
       hourly: typeof o.hourly === 'string' ? o.hourly : undefined,
       nightly: typeof o.nightly === 'string' ? o.nightly : undefined,
+      geo: typeof o.geo === 'string' ? o.geo : undefined,
       updatedAt: typeof o.updatedAt === 'string' ? o.updatedAt : undefined,
     };
   } catch { return {}; }
@@ -1582,7 +1623,7 @@ export function loadPromptOverrides(file = CFG.promptsFile): void {
     if (!existsSync(file)) return;
     const pf = parsePromptFile(readFileSync(file, 'utf8'));
     const r = applyPromptOverrides(pf);
-    if (r.oneshot || r.translate || r.hourly || r.nightly) console.log(`پرامپت‌های ویرایش‌شده از ${file} بارگذاری شد${r.oneshot ? ' (اصلی)' : ''}${r.translate ? ' (ترجمه)' : ''}${r.hourly ? ' (ساعتی)' : ''}${r.nightly ? ' (شبانه)' : ''}`);
+    if (r.oneshot || r.translate || r.hourly || r.nightly || r.geo) console.log(`پرامپت‌های ویرایش‌شده از ${file} بارگذاری شد${r.oneshot ? ' (اصلی)' : ''}${r.translate ? ' (ترجمه)' : ''}${r.hourly ? ' (ساعتی)' : ''}${r.nightly ? ' (شبانه)' : ''}${r.geo ? ' (چپ‌وراست)' : ''}`);
   } catch (e) {
     console.warn(`⚠️ خواندن ${file} ناموفق بود — پرامپت پیش‌فرض استفاده می‌شود:`, e instanceof Error ? e.message : e);
   }
@@ -1857,6 +1898,11 @@ export interface RunSummary {
   nightlySent?: boolean;
   nightlyProvider?: string;
   nightlyItems?: number;
+  // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+  geoSent?: boolean;
+  geoProvider?: string;
+  geoItems?: number;
+  geoChannels?: number;
   priceSent?: boolean;
   dryRun?: boolean;
   error?: string;
@@ -2055,6 +2101,10 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   const corpus = buildHourlyCorpus(merged, 60, 380);
   const history = Array.isArray(state.nightlyAnalyses) ? state.nightlyAnalyses : [];
   const memory = buildNightlyMemoryBlock(history);
+  // منبع تکمیلی — تحلیل‌های ۴ساعتهٔ امروز بخش چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶:
+  // «برای تحلیل‌های هوش مصنوعی ساعت ۲۲:۳۰ و جامع‌تر شدنش به منابعش اضافه بشه»)
+  const geoToday = todayGeoSlice(Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [], todayKey);
+  const geoBlock = buildNightlyGeoBlock(geoToday);
   const weekday = weekdayFaOf(todayKey, 'Asia/Tehran');
 
   if (ctx.dryRun) {
@@ -2072,6 +2122,9 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
     '',
     'حافظهٔ روزهای پیشین (به ترتیب زمانی — برای پیوستگی روایت بخوانید):',
     memory,
+    '',
+    'تحلیل‌های ۴ساعتهٔ امروز — بخش رصد کانال‌های چپ و راست (منبع تکمیلی برای جامع‌تر شدن گزارش):',
+    geoBlock,
     '',
     `رویدادهای امروز (${enToFaDigits(String(merged.length))} رویداد پس از تجمیع اولیهٔ سامانه — هر سطر: شماره — منبع (+n منبع دیگر) — متن):`,
     corpus,
@@ -2129,6 +2182,141 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   // آرشیو روز مصرف شد — رویدادهای امروز (و مانده‌های قدیمی) پاک می‌شوند؛ دورهٔ بعد آرشیو تازه
   state.dailyPool = [];
   console.log(`🌙 تحلیل جامع شبانه ارسال و ذخیره شد (${todayKey}) — ${merged.length} رویداد، حافظه: ${state.nightlyAnalyses.length} روز، ${chunks.length} پیام`);
+}
+
+// ---------- تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶) ----------
+// «کانال‌های چپ و راست ایتا و تلگرام در بخش مجزا؛ اخبارشان تجمیع و اعتبارسنجی شود و هر ۴ ساعت
+//  یک تحلیل به رصدبان اضافه شود؛ تحلیل ذخیره شود و برای تحلیل جامع ۲۲:۳۰ هم منبع باشد».
+// واکشی صفحهٔ عمومی کانال‌ها (bot/geo-channels.json) → فیلتر تبلیغ/نوفه → پنجرهٔ ۴ساعته با
+// ضدتکرار شناسه (state.geoSeenIds) → تجمیع چندکاناله (تیک قطعی ≥۲ منبع مستقل) → سوپرپرامپت
+// (مقایسهٔ روایت دو طیف) → ارسال + ذخیره در state.geoAnalyses (حافظهٔ ۴۲ تحلیل ≈ ۷ روز)؛
+// رویدادهای این بخش به آرشیو شبانه (state.dailyPool) هم می‌رود تا تحلیل ۲۲:۳۰ از همین منابع تغذیه شود.
+
+export interface GeoCtx { state: BotState; summary: RunSummary; dryRun: boolean }
+
+export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
+  const { state, summary } = ctx;
+  const forceGeo = process.argv.includes('--force-geo') || process.env.FORCE_GEO === '1';
+  const dKey = forceGeo
+    ? `force-${new Date().toISOString().slice(0, 16)}`
+    : dueSlotKey(Date.now(), CFG.geoSlots, state.lastGeoKey);
+  if (!dKey) return;
+  const channels = loadGeoChannels(CFG.geoChannelsFile);
+  if (channels.length === 0) {
+    console.warn(`⚠️ تحلیل ژئوپلیتیک: فهرست کانال‌ها در ${CFG.geoChannelsFile} خالی/نامعتبر است — بخش غیرفعال`);
+    return;
+  }
+  const p = tehranParts(Date.now());
+  const { posts, failed } = await fetchAllGeoChannels(channels, CFG.fetchTimeoutMs);
+  if (failed.length > 0) console.warn(`⚠️ کانال‌های بی‌خروجی: ${failed.join('، ')} (صادقانه)`);
+  if (failed.length === channels.length) {
+    console.error('❌ تحلیل ژئوپلیتیک: هیچ کانالی خروجی نداد — اسلات علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
+    summary.aiFailed = true;
+    return;
+  }
+  summary.geoChannels = channels.length;
+  // پنجرهٔ ۴ساعته + حاشیهٔ ۳۰ دقیقه — ضدتکرار شناسه با state.geoSeenIds (هرس ۷ روزه در خود تابع)
+  const since = Date.now() - (GEO_WINDOW_HOURS * 3600_000 + 30 * 60_000);
+  const win = windowGeoPosts(posts, since, state.geoSeenIds || {});
+  const filtered = filterGeoPosts(win.picked);
+  const merged = mergeSimilarItems(geoItemsForMerge(filtered));
+  console.log(`بخش چپ و راست: ${posts.length} پیام خام → پنجره/ضدتکرار: ${win.picked.length} → پس از فیلتر تبلیغ: ${filtered.length} → تجمیع: ${merged.length} رویداد`);
+  const history = Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [];
+  if (ctx.dryRun) {
+    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل ۴ساعتهٔ ژئوپلیتیک (اسلات ${dKey}) ===`);
+    console.log(`کانال‌ها: ${channels.length} — پیام تازه: ${filtered.length} — پس از تجمیع: ${merged.length} — حافظه: ${history.length} بازه`);
+    console.log('···');
+    console.log(buildGeoMemoryBlock(history).slice(0, 800));
+    console.log('···');
+    console.log(buildGeoCorpus(merged).slice(0, 2200));
+    console.log('=== پایان پیش‌نمایش ===');
+    return;
+  }
+  if (merged.length < 2 && !forceGeo) {
+    state.lastGeoKey = dKey; // رویداد تازه نبود — سکوت (عین الگوی بستهٔ توییت)؛ اسلات می‌خورد تا پنجرهٔ بعد تازه باشد
+    console.log(`اسلات تحلیل ژئوپلیتیک ${dKey} — رویداد تازهٔ کافی نبود؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
+    return;
+  }
+  // رویدادهای این بخش به آرشیو روزانهٔ تحلیل شبانه هم می‌روند — «جامع‌تر شدن به منابعش» (خواستهٔ صریح)
+  if (merged.length > 0) {
+    const geoPool: PoolItem[] = merged.map((m) => ({
+      id: m.id,
+      titleKey: `geo-${m.id}`,
+      source: m.sources[0] || 'بخش چپ و راست',
+      cat: 'geo',
+      lang: 'fa',
+      text: m.text,
+      at: m.at,
+    }));
+    const dp = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], geoPool, CFG.dailyPoolCap);
+    state.dailyPool = dp.pool;
+    if (dp.added > 0) console.log(`آرشیو شبانهٔ ۲۲:۳۰ از بخش چپ و راست: +${dp.added} — کل ${dp.pool.length}`);
+  }
+  const memory = buildGeoMemoryBlock(history);
+  const corpus = buildGeoCorpus(merged);
+  const weekday = weekdayFaOf(p.dateKey, 'Asia/Tehran');
+  const userMsg = [
+    `تاریخ: ${weekday} ${p.dateFa} (${p.dateKey}) — ساعت ${p.hhmm}`,
+    '',
+    'حافظهٔ تحلیل‌های پیشین این بخش (تازه‌ترین اول — برای پیوستگی روایت بخوانید):',
+    memory,
+    '',
+    `پیام‌های این بازه (${enToFaDigits(String(merged.length))} رویداد پس از تجمیع اولیهٔ سامانه — هر سطر: شماره — کانال (+n منبع دیگر) — متن):`,
+    corpus,
+  ].join('\n');
+
+  const t0 = Date.now();
+  let r = await chainCall(getGeoPrompt(), userMsg, { maxTokens: 8000 });
+  let text = r.ok ? validateGeoText(r.content) : null;
+  // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
+  if (r.ok && !text && r.providerId) {
+    console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+    const r2 = await chainCall(getGeoPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
+    const t2 = r2.ok ? validateGeoText(r2.content) : null;
+    if (t2) { r = r2; text = t2; }
+  }
+  summary.geoProvider = r.providerId;
+  console.log(`تحلیل ۴ساعتهٔ ژئوپلیتیک: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+  if (!text) {
+    summary.aiFailed = true;
+    if (r.error) console.error(`❌ زنجیرهٔ تحلیل ژئوپلیتیک ناموفق: ${r.error}`);
+    return;
+  }
+  // پانوشت «🧷» جدا می‌شود: بدنه = پیام کانال؛ خلاصه = حافظهٔ بازه‌های بعد (هرگز در پیام نمی‌آید)
+  const split = splitGeoFooter(text);
+  const finalBody = split.body.length >= 300 ? split.body : text.trim();
+  const memSummary = split.body.length >= 300 ? split.summary : '';
+  const header = `🌐 <b>تحلیل ۴ساعتهٔ ژئوپلیتیک رصدبان</b> — بخش چپ و راست — ${esc(weekday)} ${esc(p.dateFa)}`;
+  const chunks = chunkHourlyMessage(`${header}\n\n${finalBody}`, 3300);
+  let ok = false;
+  for (const c of chunks) {
+    for (const t of CFG.targets) {
+      const s = await sendBaleMessage(CFG.token, t, c);
+      if (s.ok) ok = true;
+      else console.error(`❌ ارسال تحلیل ژئوپلیتیک به ${t} ناموفق: ${s.error}`);
+    }
+    await sleep(600);
+  }
+  if (!ok) {
+    console.warn('⚠️ ارسال تحلیل ژئوپلیتیک ناموفق — اسلات و دفتر علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
+    return;
+  }
+  summary.geoSent = true;
+  summary.geoItems = merged.length;
+  state.lastGeoKey = dKey;
+  state.geoSeenIds = win.seen; // فقط پس از ارسال موفق — شکست → بازهٔ بعد همان پیام‌ها را می‌بیند
+  // ذخیرهٔ تحلیل بازه در حافظهٔ پایدار — بازهٔ بعد خلاصهٔ تاریخ‌دار همین متن به مدل می‌رود؛
+  // پانوشت 🧷 نبود → خلاصهٔ قطعی از عنوان/نتیجه‌گیریِ خودِ تحلیل
+  state.geoAnalyses = appendGeoAnalysis(history, {
+    slotKey: dKey,
+    at: new Date().toISOString(),
+    text: finalBody,
+    summary: memSummary || geoSummaryOf(finalBody),
+    provider: r.providerId,
+    items: merged.length,
+    channels: channels.length,
+  });
+  console.log(`🌐 تحلیل ۴ساعتهٔ ژئوپلیتیک ارسال و ذخیره شد (${dKey}) — ${merged.length} رویداد از ${channels.length} کانال، حافظه: ${state.geoAnalyses.length} بازه، ${chunks.length} پیام`);
 }
 
 // ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
@@ -2624,6 +2812,9 @@ async function main(): Promise<void> {
     // اطلاعیه‌های فروش/پیش‌فروش خودرو — حالت تحلیل هم فعال است (خواسته‌ی کاربر)
     await runSaleAlerts(state, summary);
 
+    // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+    await runGeoAnalysis({ state, summary, dryRun: CFG.dryRun });
+
     // تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت تحلیل هم فعال است (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
     await runNightlyAnalysis({ state, summary, dryRun: CFG.dryRun });
 
@@ -2783,6 +2974,7 @@ async function main(): Promise<void> {
         console.log(c.replace(/<[^>]+>/g, ''));
       }
       await runDigestAndMarketSlots({ state, summary, sentIds: [], sentTitles: [], sentTitleTexts: [], dryRun: true });
+      await runGeoAnalysis({ state, summary, dryRun: true });
       await runNightlyAnalysis({ state, summary, dryRun: true });
     }
     console.log('=== پایان پیش‌نمایش ===');
@@ -3177,6 +3369,9 @@ async function main(): Promise<void> {
     // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
+
+  // ── تحلیل ۴ساعتهٔ ژئوپلیتیک — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
+  await runGeoAnalysis({ state, summary, dryRun: false });
 
   // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
   await runNightlyAnalysis({ state, summary, dryRun: false });

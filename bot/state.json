@@ -1,5 +1,12 @@
 {
  "sentIds": {
+  "7acd7ff6fb52b5352d8ead343f0c42f0afb24d65": 1794522201794,
+  "e54d10694ef64b8e545dcb049f37585cc1a056f8": 1794522201794,
+  "543c4ba207e52017914a25e8f5d2e9745fce4d96": 1794522201794,
+  "148b861c58d2503dcc51344ae1bb2eb0ebb6c85a": 1794522201794,
+  "94f9b32285a8e065af6008cf3e7c0dc2bc435d4c": 1794522201794,
+  "ac879e3257786209284739da6f87eee32823b53e": 1794522201794,
+  "0cf79c70f61d6fdf28344a29f5a6e9a17446c85e": 1794522201794,
   "2ac922fc2d4b96b2e31c3cddae187a5073793798": 1794521635799,
   "f78163925cdd0d9850081c320cd51bfa3562cf75": 1794521635799,
   "09eec10c29ac444b75a667c89578ffdd7a1d67c7": 1794521635799,
@@ -1192,16 +1199,16 @@
   "5ea91e27977d8f1dab8ea80480050581b75d7cc3": 1794490677588,
   "b2d26844ddb6d92f9da4d8bb372713d6e54b11d2": 1794490677588,
   "ff9b8dbcda391aca02ad55448d52d8d3d1b2b80d": 1794490677588,
-  "4bb722d51df88682356e665fbe1259a2b8b0867b": 1794490677588,
-  "7eb116b034cbf1834da74ab0b853f04cc9781473": 1794490677588,
-  "d71dfaf231ebff829e0624b21248ad1fd2a3d231": 1794490677588,
-  "b6898125deafe2c8be042e30da869119e3697e90": 1794490677588,
-  "b378cb4b06c003b01902083371d69b90e44ff8d7": 1794490677588,
-  "cc1dd57f6a58b6bcf3e23b530604fcf6f8b69a19": 1794490677588,
-  "4abaf67898a35d062412268449ca0c4802bca8f6": 1794490677588,
-  "ab8d377eb6a80c7f51ad887222976936566112a4": 1794490677588
+  "4bb722d51df88682356e665fbe1259a2b8b0867b": 1794490677588
  },
  "sentTitles": {
+  "18ee82360569e9c669eec869ede0bfdd3f6b1572": 1794522201794,
+  "0ef2e89b46a548578927905576bbdd2656483fe7": 1794522201794,
+  "ca83a26494ad8ef87a1e316238bbb7d7da237d6c": 1794522201794,
+  "961d77ebd1d05776342a6552f3b7a7fb764f72b5": 1794522201794,
+  "b8ed8c74ea660fabb9f3afe5655bcaec1baf76f5": 1794522201794,
+  "29b582636844552b32d09b9466015a95e038a567": 1794522201794,
+  "89c5577eb7fe3e3fc8f6829b802a274ce399814c": 1794522201794,
   "f21cc1739125936a7efd17aba4bc34d83f5ec474": 1794521635799,
   "29b73af731c110ff00ce1b7ce84e8ab66cf4c7b4": 1794521635799,
   "816413f110422893bc6e6193dfe061af10f8605a": 1794521635799,
@@ -1794,14 +1801,7 @@
   "8d109fafe3e8e09d15c1b0705dc242f50b653a11": 1794501772731,
   "02ff5594f8406c4c4798120bcb5f43db125c2342": 1794501772731,
   "4e219c6f067439a842e0d31a248a7ec6be2bc5b8": 1794501772731,
-  "da3b6c83dea804f287a462c83fb19b78d46444cd": 1794501772731,
-  "9d7521d40a394962672fae73a8bf770039bf968c": 1794501772731,
-  "28b6b97e0a27f6b253cded0ff6d35262e3d4dc0e": 1794501772731,
-  "b8be1772fde642c6c348cb8b9fe26c2b316ea7c9": 1794501772731,
-  "37e46052d6c6307bac1171c25541ea16a92afc6e": 1794501772731,
-  "8afbd7ac3b8a6cc21abdd0c9d36283da63f8d886": 1794501772731,
-  "125dbbe1dc2f50a1baafcbcc735e57cd80e24acf": 1794501772731,
-  "b0c609a24d92069a22a89fb2fbc9a8b6a8c8d9ac": 1794501772731
+  "da3b6c83dea804f287a462c83fb19b78d46444cd": 1794501772731
  },
  "sentTitleTexts": {
   "من با رییس جمهور فرانسه emmanuelmacron ملاقات کردم ما درباره نتایج نشست چندجانبه در دبلین صحبت کردیم و موقعیت های خود را در پیش زمینه نشست هم پیمانان اراده مند ": 1794519271702,
@@ -3008,6 +3008,133 @@
   "دنیای اقتصاد صدابردار پیشکسوت سینما درگذشت فتحعلی روشن صدابردار پیشکسوت سینما پنجشنبه ۲۱ ابان ماه ۱۴۰۵ درگذشت": 1794501772731
  },
  "pool": [
+  {
+   "id": "f0f91b0de4147c269cba4f155f78eb17704cef17",
+   "titleKey": "aabad3e4f2b8f39f3bf4347c7735d3e460650a1c",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "ICE Deported Record 483,000 People in Past Year Under Trump - Bloomberg.com ICE Deported Record 483,000 People in Past Year Under Trump Bloomberg.com",
+   "at": "2026-11-12T19:48:18.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNaEhsU2d4TUh2TWl6bEpRSEJRaWJIMG5fVFlMQnkwQjFFY2FHeG5uSXlpZWpBOGtDZ0Rzek9UWHhrejRBOVdCLXRFZmZvNmpuYml5ZE9pU0xKZF9BOHd0SGNvaHhCd3hqZFhDbTVfMDByS2lfWEM0Q1QwY0dsSmYySXNKbnBCUUxtMWxCSmhYNUhUVUk5d1FWRVBIMEk4THhiNmZYZnFBQ285YjNMT280?oc=5"
+  },
+  {
+   "id": "d9c5d8dfab61d39f43e7f9e529945f72b9f190fe",
+   "titleKey": "69df0caf6adbc46ff6917870b11d59f76deffb2a",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks - Bloomberg.com BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks Bloomberg.com",
+   "at": "2026-11-12T20:00:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOeTZGNVZXQzFBaXhNWlM1TkpUdGo2V256TzBUR1pxUGs1VzRkRlFNYnZwQkltX0FkTkJTLXJvTmVDNF96eU5uUDJ3Tkt2X3VXLVU3clBZS3NRNEx4Yi1WWGNWYU5ObmJOTVBfRmNiWkdLVlY3Mlg3cWlQYUUwSXRhaGk4bExyYUhYbWVwXzR6b19zZGVMSWhDVG1MTHJzU3lKLUE3NmFpSlVtX1lRSTJaY01tSQ?oc=5"
+  },
+  {
+   "id": "4e34037a1bd9d3026e5a1f4cf9be26e3e3eb5faf",
+   "titleKey": "68037eeaf68d72d2591593db12238385a0761920",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Kalshi in Talks For New Funding Round at $65 Billion Valuation - Bloomberg.com Kalshi in Talks For New Funding Round at $65 Billion Valuation Bloomberg.com",
+   "at": "2026-11-12T20:28:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQZ1k4NXV6N0ZtQmlYbDNWbW42QmZFb3RST2J2TGFFeEp3U3Z5bmtpU09vb0dDcHBnOTNLZkhzRHRyUUFVbE0wTVhrVTE1bnktWkV0bmxZWXViUTd1N0JqTTRHM2xfYVgzUG81ZjlQNlpPak5NWFd6QmlnQU1nQmtSZ0s1elpwWVBLUGJoZlZ6WE9mMm1LR2Z2aFhMQ05GSnhEemNzYXVFR0tldzdtLU1MTFdB?oc=5"
+  },
+  {
+   "id": "1b02f96ace1df333dc746dd110399759ed52f775",
+   "titleKey": "b5c9d0dca2ca9cd7b627d3a1756979d422e7c932",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Where does Kane rank among all-time England greats? Harry Kane is England's all-time top scorer and record appearance maker, but where does he rank among the Three Lions' greatest players?",
+   "at": "2026-11-12T22:09:59.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cxj0lvqpn94qo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "f59b5c2ed0f0b9486f7f1de6a53af46313598c0d",
+   "titleKey": "daf994065d4bc03ae3433e07ebf96ccbb2558337",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Grealish apologises for absence after breach of discipline Jack Grealish issues an apology to Everton fans for his recent absence due to a disciplinary issue.",
+   "at": "2026-11-12T22:10:13.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cr3wgp8e2ljxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "eb3564eebffd0ff810dcebad2a705e32f761ebf2",
+   "titleKey": "b9a293f227e9ebe5730664cde176e2e116ef46bf",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Italy fight back to beat France 3-1 and move top of Nations League group Michael Olise gives France the lead, but double from Pio Esposito and one from Davide Frattesi secures win for Italy.",
+   "at": "2026-11-12T22:12:32.000Z",
+   "url": "https://www.aljazeera.com/sports/2026/11/12/italy-fight-back-to-beat-france-3-1-and-move-top-of-nations-league-group?traffic_source=rss"
+  },
+  {
+   "id": "7acd7ff6fb52b5352d8ead343f0c42f0afb24d65",
+   "titleKey": "18ee82360569e9c669eec869ede0bfdd3f6b1572",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اجتماع ۲۵۷ مردم دیّر در شب شهادت حضرت زهرا(س) بوشهر- دویست و پنجاه و هفتمین اجتماع خونخواهی امام شهید همزمان با شب‌ شهادت حضرت زهرا(س) و یادواره ۴۹ شهید بندر دیّر در چهارراه امام حسین(ع) این شهر برگزار شد.",
+   "at": "2026-11-12T22:14:56.000Z",
+   "url": "https://www.mehrnews.com/news/7009155/%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9-%DB%B2%DB%B5%DB%B7-%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%DB%8C%D8%B1-%D8%AF%D8%B1-%D8%B4%D8%A8-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3"
+  },
+  {
+   "id": "e54d10694ef64b8e545dcb049f37585cc1a056f8",
+   "titleKey": "0ef2e89b46a548578927905576bbdd2656483fe7",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حمله پهپادی مجدد یمن به خط لوله نفت راهبردی عربستان تهران - ایرنا - نیروهای مسلح یمن بار دیگر ایستگاه پمپاژ «شماره ۷» در خط لوله شرق به غرب در عمق خاک عربستان سعودی را هدف حمله پهپادی قرار داد.",
+   "at": "2026-11-12T22:15:14.000Z",
+   "url": "https://www.irna.ir/news/86320254/%D8%AD%D9%85%D9%84%D9%87-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%DB%8C-%D9%85%D8%AC%D8%AF%D8%AF-%DB%8C%D9%85%D9%86-%D8%A8%D9%87-%D8%AE%D8%B7-%D9%84%D9%88%D9%84%D9%87-%D9%86%D9%81%D8%AA-%D8%B1%D8%A7%D9%87%D8%A8%D8%B1%D8%AF%DB%8C-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "543c4ba207e52017914a25e8f5d2e9745fce4d96",
+   "titleKey": "ca83a26494ad8ef87a1e316238bbb7d7da237d6c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مراسم وداع با پیکر شهدای گمنام در بیرجند",
+   "at": "2026-11-12T22:15:28.000Z",
+   "url": "https://www.mehrnews.com/photo/7009143/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%D8%A8%D8%A7-%D9%BE%DB%8C%DA%A9%D8%B1-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%A8%DB%8C%D8%B1%D8%AC%D9%86%D8%AF"
+  },
+  {
+   "id": "148b861c58d2503dcc51344ae1bb2eb0ebb6c85a",
+   "titleKey": "961d77ebd1d05776342a6552f3b7a7fb764f72b5",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "عزاداری شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری در آبدان بوشهر- دویست و پنجاه و هفتمین اجتماع شبانه مردم انقلابی آبدان در حمایت از انقلاب اسلامی همراه با مراسم شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری برگزار شد.",
+   "at": "2026-11-12T22:15:38.000Z",
+   "url": "https://www.mehrnews.com/news/7009094/%D8%B9%D8%B2%D8%A7%D8%AF%D8%A7%D8%B1%DB%8C-%D8%B4%D8%A8-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%D9%87-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D9%88-%D9%86%D9%88%D8%AD%D9%87-%D8%B3%D9%86%D8%AA%DB%8C-%D9%BE%D8%A7%D9%85%D9%86%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1"
+  },
+  {
+   "id": "94f9b32285a8e065af6008cf3e7c0dc2bc435d4c",
+   "titleKey": "b8ed8c74ea660fabb9f3afe5655bcaec1baf76f5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "چهار سناتور دموکرات آمریکا متعهد به ممانعت از تامین مالی جنگ علیه ایران شدند نیویورک - ایرنا - چهار سناتور آمریکایی حزب دموکرات اعلام کردند که با هیچ توافق بودجه‌ای در پایان سال موافقت نخواهند کرد، مگر آنکه این توافق، توانایی دونالد ترامپ رئیس‌جمهوری آمریکا برای ادامه جنگ علیه ایران را محدود کند.",
+   "at": "2026-11-12T22:16:44.000Z",
+   "url": "https://www.irna.ir/news/86320282/%DA%86%D9%87%D8%A7%D8%B1-%D8%B3%D9%86%D8%A7%D8%AA%D9%88%D8%B1-%D8%AF%D9%85%D9%88%DA%A9%D8%B1%D8%A7%D8%AA-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%AA%D8%B9%D9%87%D8%AF-%D8%A8%D9%87-%D9%85%D9%85%D8%A7%D9%86%D8%B9%D8%AA-%D8%A7%D8%B2-%D8%AA%D8%A7%D9%85%DB%8C%D9%86-%D9%85%D8%A7%D9%84%DB%8C-%D8%AC%D9%86%DA%AF"
+  },
+  {
+   "id": "ac879e3257786209284739da6f87eee32823b53e",
+   "titleKey": "29b582636844552b32d09b9466015a95e038a567",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "فرمانده کل ارتش: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده است/ دشمن برخلاف تصویری که با جنگ روانی ساخته، آسیب‌پذیر است امیر حاتمی فرمانده کل ارتش گفت: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده و هر متجاوزی که بار دیگر به کشورمان تعرض کند، با آسیب‌های سنگین‌تری مواجه خواهد شد.",
+   "at": "2026-11-12T22:19:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301170/%D9%81%D8%B1%D9%85%D8%A7%D9%86%D8%AF%D9%87-%DA%A9%D9%84-%D8%A7%D8%B1%D8%AA%D8%B4-%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D9%BE%D8%AF%D8%A7%D9%81%D9%86%D8%AF-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B1%D8%AA%D8%B4-%D8%A2%D9%85%D8%A7%D8%AF%DA%AF%DB%8C-%D9%87%D8%A7%DB%8C-%D8%AC%D8%AF%DB%8C%D8%AF%DB%8C-%DA%A9%D8%B3%D8%A8"
+  },
+  {
+   "id": "0cf79c70f61d6fdf28344a29f5a6e9a17446c85e",
+   "titleKey": "89c5577eb7fe3e3fc8f6829b802a274ce399814c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک نویسنده و منتقد ادبی: ادبیات فاطمی نیازمند روایت‌هایی فراتر از سوگواری است یک نویسنده و منتقد ادبی با تأکید بر ضرورت بازنگری در شیوه بازنمایی شخصیت حضرت فاطمه زهرا(س) در آثار ادبی، گفت: ادبیات فاطمی برای برقراری ارتباط عمیق‌تر با مخاطب امروز، به‌ویژه نسل جوان، باید از سوگواری صرف فاصله بگیرد و ابعاد انسانی، اجتماعی و فکری شخصیت ایشان را نیز به تصویر بکشد.",
+   "at": "2026-11-12T22:21:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114693/%DB%8C%DA%A9-%D9%86%D9%88%DB%8C%D8%B3%D9%86%D8%AF%D9%87-%D9%88-%D9%85%D9%86%D8%AA%D9%82%D8%AF-%D8%A7%D8%AF%D8%A8%DB%8C-%D8%A7%D8%AF%D8%A8%DB%8C%D8%A7%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%D9%86%DB%8C%D8%A7%D8%B2%D9%85%D9%86%D8%AF-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D9%87%D8%A7%DB%8C%DB%8C-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1"
+  },
   {
    "id": "0b28816f30a411a3ac3d14a6f18e33212ca97c0a",
    "titleKey": "60a4415a8603af6dfcc7346f84b6d22a7f6a6fef",
@@ -6321,6 +6448,76 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-12T22:13:39.784Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: اجتماع ۲۵۷ مردم دیّر در شب شهادت حضرت زهرا(س) بوشهر- دویست و پنجاه و هفتمین اجتماع خونخواهی امام شهید همزمان با شب‌ شهادت حضرت زهرا(س) و یادواره ۴۹ شهید بندر دیّر در چهارراه امام حسین(ع) این شهر برگزار شد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259755.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:23:03.049Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): حمله پهپادی مجدد یمن به خط لوله نفت راهبردی عربستان تهران - ایرنا - نیروهای مسلح یمن بار دیگر ایستگاه پمپاژ «شماره ۷» در خط لوله شرق به غرب در عمق خاک عربستان سعودی را هدف حمله پهپادی قرار داد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/09/13/4/173102983.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T22:23:03.750Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: مراسم وداع با پیکر شهدای گمنام در بیرجند\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259679.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:23:04.450Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: عزاداری شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری در آبدان بوشهر- دویست و پنجاه و هفتمین اجتماع شبانه مردم انقلابی آبدان در حمایت از انقلاب اسلامی همراه با مراسم شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری برگزار شد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/12/4/6259471.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:23:05.151Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): چهار سناتور دموکرات آمریکا متعهد به ممانعت از تامین مالی جنگ علیه ایران شدند نیویورک - ایرنا - چهار سناتور آمریکایی حزب دموکرات اعلام کردند که با هیچ توافق بودجه‌ای در پایان سال موافقت نخواهند کرد، مگر آنکه این توافق، توانایی دونالد ترامپ رئیس‌جمهوری آمریکا برای ادامه جنگ علیه ایران را محدود کند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/02/4/173213440.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T22:23:05.852Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: فرمانده کل ارتش: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده است/ دشمن برخلاف تصویری که با جنگ روانی ساخته، آسیب‌پذیر است امیر حاتمی فرمانده کل ارتش گفت: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده و هر متجاوزی که بار دیگر به کشورمان تعرض کند، با آسیب‌های سنگین‌تری مواجه خواهد شد.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/08/29/4/6465660.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:23:06.553Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: یک نویسنده و منتقد ادبی: ادبیات فاطمی نیازمند روایت‌هایی فراتر از سوگواری است یک نویسنده و منتقد ادبی با تأکید بر ضرورت بازنگری در شیوه بازنمایی شخصیت حضرت فاطمه زهرا(س) در آثار ادبی، گفت: ادبیات فاطمی برای برقراری ارتباط عمیق‌تر با مخاطب امروز، به‌ویژه نسل جوان، باید از سوگواری صرف فاصله بگیرد و ابعاد انسانی، اجتماعی و فکری شخصیت ایشان را نیز به تصویر بکشد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/11/12/4/64051451.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:23:07.254Z"
   }
  ],
  "tweetQueue": [],
@@ -6498,6 +6695,133 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "f0f91b0de4147c269cba4f155f78eb17704cef17",
+   "titleKey": "aabad3e4f2b8f39f3bf4347c7735d3e460650a1c",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "ICE Deported Record 483,000 People in Past Year Under Trump - Bloomberg.com ICE Deported Record 483,000 People in Past Year Under Trump Bloomberg.com",
+   "at": "2026-11-12T19:48:18.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNaEhsU2d4TUh2TWl6bEpRSEJRaWJIMG5fVFlMQnkwQjFFY2FHeG5uSXlpZWpBOGtDZ0Rzek9UWHhrejRBOVdCLXRFZmZvNmpuYml5ZE9pU0xKZF9BOHd0SGNvaHhCd3hqZFhDbTVfMDByS2lfWEM0Q1QwY0dsSmYySXNKbnBCUUxtMWxCSmhYNUhUVUk5d1FWRVBIMEk4THhiNmZYZnFBQ285YjNMT280?oc=5"
+  },
+  {
+   "id": "d9c5d8dfab61d39f43e7f9e529945f72b9f190fe",
+   "titleKey": "69df0caf6adbc46ff6917870b11d59f76deffb2a",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks - Bloomberg.com BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks Bloomberg.com",
+   "at": "2026-11-12T20:00:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOeTZGNVZXQzFBaXhNWlM1TkpUdGo2V256TzBUR1pxUGs1VzRkRlFNYnZwQkltX0FkTkJTLXJvTmVDNF96eU5uUDJ3Tkt2X3VXLVU3clBZS3NRNEx4Yi1WWGNWYU5ObmJOTVBfRmNiWkdLVlY3Mlg3cWlQYUUwSXRhaGk4bExyYUhYbWVwXzR6b19zZGVMSWhDVG1MTHJzU3lKLUE3NmFpSlVtX1lRSTJaY01tSQ?oc=5"
+  },
+  {
+   "id": "4e34037a1bd9d3026e5a1f4cf9be26e3e3eb5faf",
+   "titleKey": "68037eeaf68d72d2591593db12238385a0761920",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Kalshi in Talks For New Funding Round at $65 Billion Valuation - Bloomberg.com Kalshi in Talks For New Funding Round at $65 Billion Valuation Bloomberg.com",
+   "at": "2026-11-12T20:28:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQZ1k4NXV6N0ZtQmlYbDNWbW42QmZFb3RST2J2TGFFeEp3U3Z5bmtpU09vb0dDcHBnOTNLZkhzRHRyUUFVbE0wTVhrVTE1bnktWkV0bmxZWXViUTd1N0JqTTRHM2xfYVgzUG81ZjlQNlpPak5NWFd6QmlnQU1nQmtSZ0s1elpwWVBLUGJoZlZ6WE9mMm1LR2Z2aFhMQ05GSnhEemNzYXVFR0tldzdtLU1MTFdB?oc=5"
+  },
+  {
+   "id": "1b02f96ace1df333dc746dd110399759ed52f775",
+   "titleKey": "b5c9d0dca2ca9cd7b627d3a1756979d422e7c932",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Where does Kane rank among all-time England greats? Harry Kane is England's all-time top scorer and record appearance maker, but where does he rank among the Three Lions' greatest players?",
+   "at": "2026-11-12T22:09:59.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cxj0lvqpn94qo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "f59b5c2ed0f0b9486f7f1de6a53af46313598c0d",
+   "titleKey": "daf994065d4bc03ae3433e07ebf96ccbb2558337",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Grealish apologises for absence after breach of discipline Jack Grealish issues an apology to Everton fans for his recent absence due to a disciplinary issue.",
+   "at": "2026-11-12T22:10:13.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cr3wgp8e2ljxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "eb3564eebffd0ff810dcebad2a705e32f761ebf2",
+   "titleKey": "b9a293f227e9ebe5730664cde176e2e116ef46bf",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Italy fight back to beat France 3-1 and move top of Nations League group Michael Olise gives France the lead, but double from Pio Esposito and one from Davide Frattesi secures win for Italy.",
+   "at": "2026-11-12T22:12:32.000Z",
+   "url": "https://www.aljazeera.com/sports/2026/11/12/italy-fight-back-to-beat-france-3-1-and-move-top-of-nations-league-group?traffic_source=rss"
+  },
+  {
+   "id": "7acd7ff6fb52b5352d8ead343f0c42f0afb24d65",
+   "titleKey": "18ee82360569e9c669eec869ede0bfdd3f6b1572",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اجتماع ۲۵۷ مردم دیّر در شب شهادت حضرت زهرا(س) بوشهر- دویست و پنجاه و هفتمین اجتماع خونخواهی امام شهید همزمان با شب‌ شهادت حضرت زهرا(س) و یادواره ۴۹ شهید بندر دیّر در چهارراه امام حسین(ع) این شهر برگزار شد.",
+   "at": "2026-11-12T22:14:56.000Z",
+   "url": "https://www.mehrnews.com/news/7009155/%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9-%DB%B2%DB%B5%DB%B7-%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%DB%8C%D8%B1-%D8%AF%D8%B1-%D8%B4%D8%A8-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3"
+  },
+  {
+   "id": "e54d10694ef64b8e545dcb049f37585cc1a056f8",
+   "titleKey": "0ef2e89b46a548578927905576bbdd2656483fe7",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حمله پهپادی مجدد یمن به خط لوله نفت راهبردی عربستان تهران - ایرنا - نیروهای مسلح یمن بار دیگر ایستگاه پمپاژ «شماره ۷» در خط لوله شرق به غرب در عمق خاک عربستان سعودی را هدف حمله پهپادی قرار داد.",
+   "at": "2026-11-12T22:15:14.000Z",
+   "url": "https://www.irna.ir/news/86320254/%D8%AD%D9%85%D9%84%D9%87-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%DB%8C-%D9%85%D8%AC%D8%AF%D8%AF-%DB%8C%D9%85%D9%86-%D8%A8%D9%87-%D8%AE%D8%B7-%D9%84%D9%88%D9%84%D9%87-%D9%86%D9%81%D8%AA-%D8%B1%D8%A7%D9%87%D8%A8%D8%B1%D8%AF%DB%8C-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "543c4ba207e52017914a25e8f5d2e9745fce4d96",
+   "titleKey": "ca83a26494ad8ef87a1e316238bbb7d7da237d6c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مراسم وداع با پیکر شهدای گمنام در بیرجند",
+   "at": "2026-11-12T22:15:28.000Z",
+   "url": "https://www.mehrnews.com/photo/7009143/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%D8%A8%D8%A7-%D9%BE%DB%8C%DA%A9%D8%B1-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D8%A8%DB%8C%D8%B1%D8%AC%D9%86%D8%AF"
+  },
+  {
+   "id": "148b861c58d2503dcc51344ae1bb2eb0ebb6c85a",
+   "titleKey": "961d77ebd1d05776342a6552f3b7a7fb764f72b5",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "عزاداری شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری در آبدان بوشهر- دویست و پنجاه و هفتمین اجتماع شبانه مردم انقلابی آبدان در حمایت از انقلاب اسلامی همراه با مراسم شب شهادت حضرت فاطمه زهرا (س) و نوحه سنتی پامنبری برگزار شد.",
+   "at": "2026-11-12T22:15:38.000Z",
+   "url": "https://www.mehrnews.com/news/7009094/%D8%B9%D8%B2%D8%A7%D8%AF%D8%A7%D8%B1%DB%8C-%D8%B4%D8%A8-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%D9%87-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D9%88-%D9%86%D9%88%D8%AD%D9%87-%D8%B3%D9%86%D8%AA%DB%8C-%D9%BE%D8%A7%D9%85%D9%86%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1"
+  },
+  {
+   "id": "94f9b32285a8e065af6008cf3e7c0dc2bc435d4c",
+   "titleKey": "b8ed8c74ea660fabb9f3afe5655bcaec1baf76f5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "چهار سناتور دموکرات آمریکا متعهد به ممانعت از تامین مالی جنگ علیه ایران شدند نیویورک - ایرنا - چهار سناتور آمریکایی حزب دموکرات اعلام کردند که با هیچ توافق بودجه‌ای در پایان سال موافقت نخواهند کرد، مگر آنکه این توافق، توانایی دونالد ترامپ رئیس‌جمهوری آمریکا برای ادامه جنگ علیه ایران را محدود کند.",
+   "at": "2026-11-12T22:16:44.000Z",
+   "url": "https://www.irna.ir/news/86320282/%DA%86%D9%87%D8%A7%D8%B1-%D8%B3%D9%86%D8%A7%D8%AA%D9%88%D8%B1-%D8%AF%D9%85%D9%88%DA%A9%D8%B1%D8%A7%D8%AA-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%AA%D8%B9%D9%87%D8%AF-%D8%A8%D9%87-%D9%85%D9%85%D8%A7%D9%86%D8%B9%D8%AA-%D8%A7%D8%B2-%D8%AA%D8%A7%D9%85%DB%8C%D9%86-%D9%85%D8%A7%D9%84%DB%8C-%D8%AC%D9%86%DA%AF"
+  },
+  {
+   "id": "ac879e3257786209284739da6f87eee32823b53e",
+   "titleKey": "29b582636844552b32d09b9466015a95e038a567",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "فرمانده کل ارتش: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده است/ دشمن برخلاف تصویری که با جنگ روانی ساخته، آسیب‌پذیر است امیر حاتمی فرمانده کل ارتش گفت: نیروی پدافند هوایی ارتش آمادگی‌های جدیدی کسب کرده و هر متجاوزی که بار دیگر به کشورمان تعرض کند، با آسیب‌های سنگین‌تری مواجه خواهد شد.",
+   "at": "2026-11-12T22:19:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301170/%D9%81%D8%B1%D9%85%D8%A7%D9%86%D8%AF%D9%87-%DA%A9%D9%84-%D8%A7%D8%B1%D8%AA%D8%B4-%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D9%BE%D8%AF%D8%A7%D9%81%D9%86%D8%AF-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B1%D8%AA%D8%B4-%D8%A2%D9%85%D8%A7%D8%AF%DA%AF%DB%8C-%D9%87%D8%A7%DB%8C-%D8%AC%D8%AF%DB%8C%D8%AF%DB%8C-%DA%A9%D8%B3%D8%A8"
+  },
+  {
+   "id": "0cf79c70f61d6fdf28344a29f5a6e9a17446c85e",
+   "titleKey": "89c5577eb7fe3e3fc8f6829b802a274ce399814c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک نویسنده و منتقد ادبی: ادبیات فاطمی نیازمند روایت‌هایی فراتر از سوگواری است یک نویسنده و منتقد ادبی با تأکید بر ضرورت بازنگری در شیوه بازنمایی شخصیت حضرت فاطمه زهرا(س) در آثار ادبی، گفت: ادبیات فاطمی برای برقراری ارتباط عمیق‌تر با مخاطب امروز، به‌ویژه نسل جوان، باید از سوگواری صرف فاصله بگیرد و ابعاد انسانی، اجتماعی و فکری شخصیت ایشان را نیز به تصویر بکشد.",
+   "at": "2026-11-12T22:21:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114693/%DB%8C%DA%A9-%D9%86%D9%88%DB%8C%D8%B3%D9%86%D8%AF%D9%87-%D9%88-%D9%85%D9%86%D8%AA%D9%82%D8%AF-%D8%A7%D8%AF%D8%A8%DB%8C-%D8%A7%D8%AF%D8%A8%DB%8C%D8%A7%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%D9%86%DB%8C%D8%A7%D8%B2%D9%85%D9%86%D8%AF-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D9%87%D8%A7%DB%8C%DB%8C-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1"
+  },
   {
    "id": "09b6dfa99c2b315979be004e0d49f727f3a15741",
    "titleKey": "a8be9eeb1c8865b377f7c7796c0f772cb6afab5d",
@@ -11656,21 +11980,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794521635796,
-  "Akharin_khodro/8913": 1794521635796,
-  "Akharin_khodro/8914": 1794521635796,
-  "Akharin_khodro/8915": 1794521635796,
-  "Akharin_khodro/8916": 1794521635796,
-  "Akharin_khodro/8919": 1794521635796,
-  "Akharin_khodro/8920": 1794521635796,
-  "Akharin_khodro/8921": 1794521635796,
-  "Akharin_khodro/8922": 1794521635796,
-  "Akharin_khodro/8923": 1794521635796,
-  "Akharin_khodro/8924": 1794521635796,
-  "Akharin_khodro/8925": 1794521635796,
-  "Akharin_khodro/8926": 1794521635796,
-  "Akharin_khodro/8927": 1794521635796,
-  "Akharin_khodro/8928": 1794521635796,
+  "Akharin_khodro/8908": 1794522201791,
+  "Akharin_khodro/8913": 1794522201791,
+  "Akharin_khodro/8914": 1794522201791,
+  "Akharin_khodro/8915": 1794522201791,
+  "Akharin_khodro/8916": 1794522201791,
+  "Akharin_khodro/8919": 1794522201791,
+  "Akharin_khodro/8920": 1794522201791,
+  "Akharin_khodro/8921": 1794522201791,
+  "Akharin_khodro/8922": 1794522201791,
+  "Akharin_khodro/8923": 1794522201791,
+  "Akharin_khodro/8924": 1794522201791,
+  "Akharin_khodro/8925": 1794522201791,
+  "Akharin_khodro/8926": 1794522201791,
+  "Akharin_khodro/8927": 1794522201791,
+  "Akharin_khodro/8928": 1794522201791,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11977,27 +12301,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-12T22:13:55.801Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-12T22:23:21.796Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1078,
-  "inWindow": 234,
-  "fresh": 129,
-  "sent": 12,
+  "fetched": 1080,
+  "inWindow": 233,
+  "fresh": 122,
+  "sent": 7,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
+  "tweetsFetched": 117,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 115,
-  "queued": 12,
+  "skippedUntranslated": 114,
+  "queued": 7,
   "tweetRateLimited": false
  }
 }

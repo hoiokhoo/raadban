@@ -1,5 +1,10 @@
 {
  "sentIds": {
+  "45fbede644c299d61ed739a5057d64e6e7cda62e": 1794520407933,
+  "1eac307b0ff68504c535c3fbce8bbd3692404827": 1794520407933,
+  "eb90a49a96f7a7fc7b1dc5a18036e61426553aa5": 1794520407933,
+  "c23a8f4afb2bce7ba18283b37a99dc9ae225d523": 1794520407933,
+  "6b33d1bfd538d748d5107015fce0a3dc952f9907": 1794520407933,
   "f09cacd0642eae5187802514672ca2e332909e15": 1794519830005,
   "9fe381c335c46b9aedca129d59710af5d8122a2b": 1794519830005,
   "079dd6c8d0738fc475504e3b1ac47fc5de63ba28": 1794519830005,
@@ -1194,14 +1199,14 @@
   "11920ac24e89471f9519d0c85ad7d76f7484f5c5": 1794490677588,
   "a92adc266a273b44e94c42a06e94feb3c1507876": 1794490677588,
   "a0151826177417001c5fec260e12e0348f4cf817": 1794490677588,
-  "12de2e2eb987e90129d58872402ad9dc990d2aa5": 1794490677588,
-  "00092049558c17ff8b59309c3a42636d42b4a876": 1794490677588,
-  "0488c706a5d460fc7386e42ed3a0a75e5ca9565f": 1794490677588,
-  "a79efb0f69210a8c12bd95fc7f820a871d944e13": 1794490069959,
-  "31b21d0f0d314c81ea2b497a54140bb284dd0d48": 1794490069959,
-  "62be4b40d36f94415e94b03b26740f74e504da47": 1794490069959
+  "12de2e2eb987e90129d58872402ad9dc990d2aa5": 1794490677588
  },
  "sentTitles": {
+  "15f1a1c30a07c56939086f2e7b3a4dd5f565bb57": 1794520407933,
+  "1b7e0035f94aab15a284390e8638fec3a7309a3c": 1794520407933,
+  "19f3bb7c2a21423f4f6e5ece428e7d675f462897": 1794520407933,
+  "2050587f343d127065244272d253c18b5f6432be": 1794520407933,
+  "b4a74b705c7a5c0b27559fbbeafa0ef42ec2231c": 1794520407933,
   "5d9975a2d79ef66804ce56310c3b0fca4d97ff27": 1794519830005,
   "bcff86505b11c3ffcfb23e8375d1b418f83fd62b": 1794519830005,
   "c1497ae307514abfa9143f9dc6835ed8f2b791f0": 1794519830005,
@@ -1796,12 +1801,7 @@
   "ecc2c71852a93edb8c633d92aa117bf9a712b4ac": 1794501772731,
   "fb6f9f89d9764e51da934fc9e98ea10a8b6ba669": 1794501772731,
   "18dc3b72bfb399b51154222074124006995d2aa9": 1794501772731,
-  "805b2770f74a3f22abb72391b0bfc2e9f0535992": 1794501772731,
-  "b1b6c3d60dca630cd5d9a471bfd164f3d42bcc74": 1794501772731,
-  "f80c9dd0dad12174095989d7d5b06374b867debe": 1794501772731,
-  "5a4ce2acd8c6dcdfb50ab1ab35028fd4ff16f94f": 1794501772731,
-  "90b9923294c0df746a3c33cd379979c344de29c3": 1794501772731,
-  "873a53b428cdf9b93ad22345ef81d6737a50a023": 1794501772731
+  "805b2770f74a3f22abb72391b0bfc2e9f0535992": 1794501772731
  },
  "sentTitleTexts": {
   "من با رییس جمهور فرانسه emmanuelmacron ملاقات کردم ما درباره نتایج نشست چندجانبه در دبلین صحبت کردیم و موقعیت های خود را در پیش زمینه نشست هم پیمانان اراده مند ": 1794519271702,
@@ -3008,6 +3008,103 @@
   "دنیای اقتصاد صدابردار پیشکسوت سینما درگذشت فتحعلی روشن صدابردار پیشکسوت سینما پنجشنبه ۲۱ ابان ماه ۱۴۰۵ درگذشت": 1794501772731
  },
  "pool": [
+  {
+   "id": "7d30b1da5fe430e8b068beb2f53f758d90888705",
+   "titleKey": "1092564158caaaa228d447162bc4d08d3fdfd931",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Silicon Valley Stunned by Swift Action on Huang by Nvidia Board - Bloomberg.com Silicon Valley Stunned by Swift Action on Huang by Nvidia Board Bloomberg.com",
+   "at": "2026-11-12T19:07:18.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOQjYyMy01YjhPZTZzWXBBMTM2cHFmUUJOajJzM29JYWRQOVhaaS12UHdPeWt6ZmtSYXUzeDhnT0tLS1pUQVM0enV2X1YwbkxYV052MVpGTjlvekVGUUxqUWVMWGdRazRzTWlSUG1fbFFTSjJrOG5kRmhtS0xnalVxQm9LaGF4N0dNRXhyZWhURU1MOGsxMHRWUHFsSmRzU2dveDZCMWlMbDRKOUZHQWtZRHZ3?oc=5"
+  },
+  {
+   "id": "5da2b077838a8bbfede99e3a8fe8b18c526205c0",
+   "titleKey": "d133fd267f420c61812dea3d63f06042f1948fdd",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Hegseth awards soldier who scolded him and his aides at Tomb of the Unknown Soldier - AP News Hegseth awards soldier who scolded him and his aides at Tomb of the Unknown Soldier AP News",
+   "at": "2026-11-12T19:47:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNN3JEOXVsV1JxdWZmM3o1c3RrN2ZaOU5fRmtRekFSRVFWb0ZGdXpYb2ZKQUFNaTNwcy1zOUgzUHF4QmtOY1pudFBhQnF1R3I2dTZmUlpwVTU4cEVGVm9SR1JGMUY1TXRvbnIxQ0NvdnluOXYwU1pvZ1hUSlk5dDRWS1A0UF82aUJaV3doX1Y2NXFJX2pLVUo0b1Z6X0pVRHdpM01rVXNqV0dDeVk?oc=5"
+  },
+  {
+   "id": "e0729ab9a6048a7a2f5d94480e2c1f0e684f2f98",
+   "titleKey": "ca6777a564d7527c386ca55998d21fc517f4f2ca",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Braves, reliever Evan Phillips agree to 3-year, $35M deal - ESPN Braves, reliever Evan Phillips agree to 3-year, $35M deal ESPN",
+   "at": "2026-11-12T20:41:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNQTFpOS1uQ3lYZUhLNVpPRUU0ajFVbWdmQmlzejhoM0V3Ri1ya2ktaEtxdEExdVg4US1yaE1RTmNVSFVTdDJzZ0NIekJZS0JuQ3FxX0dhOFl4czEzX1lYdEs3R0NJSUtXSEZqNDdPWXdLelo2X1ZEN0FIWEpZYkcyZngtMVcxSmVja0NVcWRMQ01kZl9GVjctVmN5Ykc?oc=5"
+  },
+  {
+   "id": "63a93d0f63d6f859d052bd5c28671b00ae25149b",
+   "titleKey": "5e55dac8bc5a51937166f80ce94eca68a8b9b49c",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump says he wants to ‘get Cuba done’ before leaving office President Trump on Thursday said he wants to “get Cuba done” before he leaves office, and that the administration is “watching it very closely.” “I want to get Cuba done before I leave,” he told conservative radio host Hugh Hewitt. “We are watching it very closely, it’s doing very poorly,” he said. “It’s essentially a…",
+   "at": "2026-11-12T21:40:40.000Z",
+   "url": "https://thehill.com/homenews/administration/6217391-trump-wants-cuba-change/"
+  },
+  {
+   "id": "45fbede644c299d61ed739a5057d64e6e7cda62e",
+   "titleKey": "15f1a1c30a07c56939086f2e7b3a4dd5f565bb57",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سردار کوثری: شهید تهرانی مقدم هنگام آزمایش موشک قاره‌پیما به شهادت رسید/ در نهایت مشخص نشد شهادت تهرانی مقدم ناشی از خرابکاری بود یا حادثه کوثری، عضو کمیسیون امنیت ملی و سیاست خارجی مجلس شورای اسلامی، با اشاره به خاطرات خود از شهید حسن تهرانی‌مقدم گفت: ایشان آزمایش‌ها را از محدوده کویر آغاز کرد و به‌تدریج برد موشک‌ها را افزایش داد تا به حدود دو هزار کیلومتر رسید. سپس در حال آزمایش موشک قاره‌پیما بود که به شهادت رسید.",
+   "at": "2026-11-12T21:41:01.000Z",
+   "url": "https://www.khabaronline.ir/news/2301317/%D8%B3%D8%B1%D8%AF%D8%A7%D8%B1-%DA%A9%D9%88%D8%AB%D8%B1%DB%8C-%D8%B4%D9%87%DB%8C%D8%AF-%D8%AA%D9%87%D8%B1%D8%A7%D9%86%DB%8C-%D9%85%D9%82%D8%AF%D9%85-%D9%87%D9%86%DA%AF%D8%A7%D9%85-%D8%B3%D8%A7%D8%AE%D8%AA-%D9%85%D9%88%D8%B4%DA%A9-%D9%82%D8%A7%D8%B1%D9%87-%D9%BE%DB%8C%D9%85%D8%A7-%D8%A8%D9%87-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA"
+  },
+  {
+   "id": "1eac307b0ff68504c535c3fbce8bbd3692404827",
+   "titleKey": "1b7e0035f94aab15a284390e8638fec3a7309a3c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "۲۵۷ شب ایستادگی در رشت؛ مردم با شهدای گمنام وداع کردند رشت- همزمان با دویست‌ و پنجاه‌ و هفتمین شب حضور مردم در میدان شهدای ذهاب رشت، آیین وداع با پیکرهای مطهر شهدای گمنام با حضور اقشار مختلف مردم برگزار شد.",
+   "at": "2026-11-12T21:41:05.000Z",
+   "url": "https://www.mehrnews.com/news/7009150/%DB%B2%DB%B5%DB%B7-%D8%B4%D8%A8-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%DA%AF%DB%8C-%D8%AF%D8%B1-%D8%B1%D8%B4%D8%AA-%D9%85%D8%B1%D8%AF%D9%85-%D8%A8%D8%A7-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "2f33a0476fcd80830a31f4c25572a9555d2a2557",
+   "titleKey": "39eb8ceed03950979bb8b6619509240d53afac38",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Kane scores winner but who else made an impression? England player ratings How did England's players fare in the Nations League match against Croatia? Senior football correspondent Sami Mokbel gives his verdict.",
+   "at": "2026-11-12T21:47:36.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c64gnd7vd912o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "eb90a49a96f7a7fc7b1dc5a18036e61426553aa5",
+   "titleKey": "19f3bb7c2a21423f4f6e5ece428e7d675f462897",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "نبض خبر با ایرنا سمنان؛ نان کامل فراتر از هدف ملی و حمایت از مناطق محروم سمنان - ایرنا - «نبض خبر با ایرنا سمنان» نگاهی کوتاه دارد به برخی رویدادهای متنوع خبری که ممکن است در قالب محتوای مجزا، کمتر فرصت دیده‌شدن پیدا کنند؛ اخباری از حوزه‌های مختلف و جای‌جای استان سمنان که در این بسته کوتاه رسانه‌ای، برای اطلاع مخاطبان گرد هم آمده است.",
+   "at": "2026-11-12T21:47:58.000Z",
+   "url": "https://www.irna.ir/news/86320250/%D9%86%D8%A8%D8%B6-%D8%AE%D8%A8%D8%B1-%D8%A8%D8%A7-%D8%A7%DB%8C%D8%B1%D9%86%D8%A7-%D8%B3%D9%85%D9%86%D8%A7%D9%86-%D9%86%D8%A7%D9%86-%DA%A9%D8%A7%D9%85%D9%84-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1-%D8%A7%D8%B2-%D9%87%D8%AF%D9%81-%D9%85%D9%84%DB%8C-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2"
+  },
+  {
+   "id": "c23a8f4afb2bce7ba18283b37a99dc9ae225d523",
+   "titleKey": "2050587f343d127065244272d253c18b5f6432be",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "انصارالله: هنوز نبرد واقعی را آغاز نکرده‌ایم/تشدید تنش ممکن است به سقوط نظام سعودی بینجامد عضو دفتر سیاسی جنبش انصارالله یمن با تأکید بر اینکه نیروهای مسلح یمن هنوز وارد نبرد واقعی نشده‌اند، هشدار داد که تشدید فراگیر درگیری‌ها ممکن است به سقوط نظام سعودی منجر شود. وی همچنین گفت تعیین تکلیف نبردهای ساحل غربی و استان تعز، فشار سنگینی بر ریاض و واشنگتن وارد کرده است.",
+   "at": "2026-11-12T21:48:45.000Z",
+   "url": "https://www.isna.ir/news/1405082214843/%D8%A7%D9%86%D8%B5%D8%A7%D8%B1%D8%A7%D9%84%D9%84%D9%87-%D9%87%D9%86%D9%88%D8%B2-%D9%86%D8%A8%D8%B1%D8%AF-%D9%88%D8%A7%D9%82%D8%B9%DB%8C-%D8%B1%D8%A7-%D8%A2%D8%BA%D8%A7%D8%B2-%D9%86%DA%A9%D8%B1%D8%AF%D9%87-%D8%A7%DB%8C%D9%85-%D8%AA%D8%B4%D8%AF%DB%8C%D8%AF-%D8%AA%D9%86%D8%B4-%D9%85%D9%85%DA%A9%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "6b33d1bfd538d748d5107015fce0a3dc952f9907",
+   "titleKey": "b4a74b705c7a5c0b27559fbbeafa0ef42ec2231c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مراسم وداع با پیکرهای ۱۱۰ شهید گمنام در میدان‌های اصلی تهران",
+   "at": "2026-11-12T21:49:54.000Z",
+   "url": "https://www.isna.ir/photo/1405082214844/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%D8%A8%D8%A7-%D9%BE%DB%8C%DA%A9%D8%B1%D9%87%D8%A7%DB%8C-%DB%B1%DB%B1%DB%B0-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D9%87%D8%A7%DB%8C-%D8%A7%D8%B5%D9%84%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86"
+  },
   {
    "id": "fcdf35d5d83d7cad563df9fb0c3627f6a1a0d9cc",
    "titleKey": "8f76c5d469d00c93ace5a1fe2b0de3bfdff7cdd5",
@@ -6044,6 +6141,56 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-12T21:43:34.693Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: سردار کوثری: شهید تهرانی مقدم هنگام آزمایش موشک قاره‌پیما به شهادت رسید/ در نهایت مشخص نشد شهادت تهرانی مقدم ناشی از خرابکاری بود یا حادثه کوثری، عضو کمیسیون امنیت ملی و سیاست خارجی مجلس شورای اسلامی، با اشاره به خاطرات خود از شهید حسن تهرانی‌مقدم گفت: ایشان آزمایش‌ها را از محدوده کویر آغاز کرد و به‌تدریج برد موشک‌ها را افزایش داد تا به حدود دو هزار کیلومتر رسید. سپس در حال آزمایش موشک قاره‌پیما بود که به شهادت رسید.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/03/25/4/6388894.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:53:10.554Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: ۲۵۷ شب ایستادگی در رشت؛ مردم با شهدای گمنام وداع کردند رشت- همزمان با دویست‌ و پنجاه‌ و هفتمین شب حضور مردم در میدان شهدای ذهاب رشت، آیین وداع با پیکرهای مطهر شهدای گمنام با حضور اقشار مختلف مردم برگزار شد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6259721.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:53:11.255Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): نبض خبر با ایرنا سمنان؛ نان کامل فراتر از هدف ملی و حمایت از مناطق محروم سمنان - ایرنا - «نبض خبر با ایرنا سمنان» نگاهی کوتاه دارد به برخی رویدادهای متنوع خبری که ممکن است در قالب محتوای مجزا، کمتر فرصت دیده‌شدن پیدا کنند؛ اخباری از حوزه‌های مختلف و جای‌جای استان سمنان که در این بسته کوتاه رسانه‌ای، برای اطلاع مخاطبان گرد هم آمده است.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/09/06/4/173088245.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T21:53:11.956Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: انصارالله: هنوز نبرد واقعی را آغاز نکرده‌ایم/تشدید تنش ممکن است به سقوط نظام سعودی بینجامد عضو دفتر سیاسی جنبش انصارالله یمن با تأکید بر اینکه نیروهای مسلح یمن هنوز وارد نبرد واقعی نشده‌اند، هشدار داد که تشدید فراگیر درگیری‌ها ممکن است به سقوط نظام سعودی منجر شود. وی همچنین گفت تعیین تکلیف نبردهای ساحل غربی و استان تعز، فشار سنگینی بر ریاض و واشنگتن وارد کرده است.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/13/4/64052295.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:53:12.657Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: مراسم وداع با پیکرهای ۱۱۰ شهید گمنام در میدان‌های اصلی تهران\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/13/4/64052292.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T21:53:13.358Z"
   }
  ],
  "tweetQueue": [],
@@ -6221,6 +6368,94 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "7d30b1da5fe430e8b068beb2f53f758d90888705",
+   "titleKey": "1092564158caaaa228d447162bc4d08d3fdfd931",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Silicon Valley Stunned by Swift Action on Huang by Nvidia Board - Bloomberg.com Silicon Valley Stunned by Swift Action on Huang by Nvidia Board Bloomberg.com",
+   "at": "2026-11-12T19:07:18.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOQjYyMy01YjhPZTZzWXBBMTM2cHFmUUJOajJzM29JYWRQOVhaaS12UHdPeWt6ZmtSYXUzeDhnT0tLS1pUQVM0enV2X1YwbkxYV052MVpGTjlvekVGUUxqUWVMWGdRazRzTWlSUG1fbFFTSjJrOG5kRmhtS0xnalVxQm9LaGF4N0dNRXhyZWhURU1MOGsxMHRWUHFsSmRzU2dveDZCMWlMbDRKOUZHQWtZRHZ3?oc=5"
+  },
+  {
+   "id": "e0729ab9a6048a7a2f5d94480e2c1f0e684f2f98",
+   "titleKey": "ca6777a564d7527c386ca55998d21fc517f4f2ca",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Braves, reliever Evan Phillips agree to 3-year, $35M deal - ESPN Braves, reliever Evan Phillips agree to 3-year, $35M deal ESPN",
+   "at": "2026-11-12T20:41:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNQTFpOS1uQ3lYZUhLNVpPRUU0ajFVbWdmQmlzejhoM0V3Ri1ya2ktaEtxdEExdVg4US1yaE1RTmNVSFVTdDJzZ0NIekJZS0JuQ3FxX0dhOFl4czEzX1lYdEs3R0NJSUtXSEZqNDdPWXdLelo2X1ZEN0FIWEpZYkcyZngtMVcxSmVja0NVcWRMQ01kZl9GVjctVmN5Ykc?oc=5"
+  },
+  {
+   "id": "63a93d0f63d6f859d052bd5c28671b00ae25149b",
+   "titleKey": "5e55dac8bc5a51937166f80ce94eca68a8b9b49c",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump says he wants to ‘get Cuba done’ before leaving office President Trump on Thursday said he wants to “get Cuba done” before he leaves office, and that the administration is “watching it very closely.” “I want to get Cuba done before I leave,” he told conservative radio host Hugh Hewitt. “We are watching it very closely, it’s doing very poorly,” he said. “It’s essentially a…",
+   "at": "2026-11-12T21:40:40.000Z",
+   "url": "https://thehill.com/homenews/administration/6217391-trump-wants-cuba-change/"
+  },
+  {
+   "id": "45fbede644c299d61ed739a5057d64e6e7cda62e",
+   "titleKey": "15f1a1c30a07c56939086f2e7b3a4dd5f565bb57",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سردار کوثری: شهید تهرانی مقدم هنگام آزمایش موشک قاره‌پیما به شهادت رسید/ در نهایت مشخص نشد شهادت تهرانی مقدم ناشی از خرابکاری بود یا حادثه کوثری، عضو کمیسیون امنیت ملی و سیاست خارجی مجلس شورای اسلامی، با اشاره به خاطرات خود از شهید حسن تهرانی‌مقدم گفت: ایشان آزمایش‌ها را از محدوده کویر آغاز کرد و به‌تدریج برد موشک‌ها را افزایش داد تا به حدود دو هزار کیلومتر رسید. سپس در حال آزمایش موشک قاره‌پیما بود که به شهادت رسید.",
+   "at": "2026-11-12T21:41:01.000Z",
+   "url": "https://www.khabaronline.ir/news/2301317/%D8%B3%D8%B1%D8%AF%D8%A7%D8%B1-%DA%A9%D9%88%D8%AB%D8%B1%DB%8C-%D8%B4%D9%87%DB%8C%D8%AF-%D8%AA%D9%87%D8%B1%D8%A7%D9%86%DB%8C-%D9%85%D9%82%D8%AF%D9%85-%D9%87%D9%86%DA%AF%D8%A7%D9%85-%D8%B3%D8%A7%D8%AE%D8%AA-%D9%85%D9%88%D8%B4%DA%A9-%D9%82%D8%A7%D8%B1%D9%87-%D9%BE%DB%8C%D9%85%D8%A7-%D8%A8%D9%87-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA"
+  },
+  {
+   "id": "1eac307b0ff68504c535c3fbce8bbd3692404827",
+   "titleKey": "1b7e0035f94aab15a284390e8638fec3a7309a3c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "۲۵۷ شب ایستادگی در رشت؛ مردم با شهدای گمنام وداع کردند رشت- همزمان با دویست‌ و پنجاه‌ و هفتمین شب حضور مردم در میدان شهدای ذهاب رشت، آیین وداع با پیکرهای مطهر شهدای گمنام با حضور اقشار مختلف مردم برگزار شد.",
+   "at": "2026-11-12T21:41:05.000Z",
+   "url": "https://www.mehrnews.com/news/7009150/%DB%B2%DB%B5%DB%B7-%D8%B4%D8%A8-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%DA%AF%DB%8C-%D8%AF%D8%B1-%D8%B1%D8%B4%D8%AA-%D9%85%D8%B1%D8%AF%D9%85-%D8%A8%D8%A7-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "2f33a0476fcd80830a31f4c25572a9555d2a2557",
+   "titleKey": "39eb8ceed03950979bb8b6619509240d53afac38",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Kane scores winner but who else made an impression? England player ratings How did England's players fare in the Nations League match against Croatia? Senior football correspondent Sami Mokbel gives his verdict.",
+   "at": "2026-11-12T21:47:36.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c64gnd7vd912o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "eb90a49a96f7a7fc7b1dc5a18036e61426553aa5",
+   "titleKey": "19f3bb7c2a21423f4f6e5ece428e7d675f462897",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "نبض خبر با ایرنا سمنان؛ نان کامل فراتر از هدف ملی و حمایت از مناطق محروم سمنان - ایرنا - «نبض خبر با ایرنا سمنان» نگاهی کوتاه دارد به برخی رویدادهای متنوع خبری که ممکن است در قالب محتوای مجزا، کمتر فرصت دیده‌شدن پیدا کنند؛ اخباری از حوزه‌های مختلف و جای‌جای استان سمنان که در این بسته کوتاه رسانه‌ای، برای اطلاع مخاطبان گرد هم آمده است.",
+   "at": "2026-11-12T21:47:58.000Z",
+   "url": "https://www.irna.ir/news/86320250/%D9%86%D8%A8%D8%B6-%D8%AE%D8%A8%D8%B1-%D8%A8%D8%A7-%D8%A7%DB%8C%D8%B1%D9%86%D8%A7-%D8%B3%D9%85%D9%86%D8%A7%D9%86-%D9%86%D8%A7%D9%86-%DA%A9%D8%A7%D9%85%D9%84-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1-%D8%A7%D8%B2-%D9%87%D8%AF%D9%81-%D9%85%D9%84%DB%8C-%D9%88-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%A7%D8%B2"
+  },
+  {
+   "id": "c23a8f4afb2bce7ba18283b37a99dc9ae225d523",
+   "titleKey": "2050587f343d127065244272d253c18b5f6432be",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "انصارالله: هنوز نبرد واقعی را آغاز نکرده‌ایم/تشدید تنش ممکن است به سقوط نظام سعودی بینجامد عضو دفتر سیاسی جنبش انصارالله یمن با تأکید بر اینکه نیروهای مسلح یمن هنوز وارد نبرد واقعی نشده‌اند، هشدار داد که تشدید فراگیر درگیری‌ها ممکن است به سقوط نظام سعودی منجر شود. وی همچنین گفت تعیین تکلیف نبردهای ساحل غربی و استان تعز، فشار سنگینی بر ریاض و واشنگتن وارد کرده است.",
+   "at": "2026-11-12T21:48:45.000Z",
+   "url": "https://www.isna.ir/news/1405082214843/%D8%A7%D9%86%D8%B5%D8%A7%D8%B1%D8%A7%D9%84%D9%84%D9%87-%D9%87%D9%86%D9%88%D8%B2-%D9%86%D8%A8%D8%B1%D8%AF-%D9%88%D8%A7%D9%82%D8%B9%DB%8C-%D8%B1%D8%A7-%D8%A2%D8%BA%D8%A7%D8%B2-%D9%86%DA%A9%D8%B1%D8%AF%D9%87-%D8%A7%DB%8C%D9%85-%D8%AA%D8%B4%D8%AF%DB%8C%D8%AF-%D8%AA%D9%86%D8%B4-%D9%85%D9%85%DA%A9%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "6b33d1bfd538d748d5107015fce0a3dc952f9907",
+   "titleKey": "b4a74b705c7a5c0b27559fbbeafa0ef42ec2231c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مراسم وداع با پیکرهای ۱۱۰ شهید گمنام در میدان‌های اصلی تهران",
+   "at": "2026-11-12T21:49:54.000Z",
+   "url": "https://www.isna.ir/photo/1405082214844/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D9%88%D8%AF%D8%A7%D8%B9-%D8%A8%D8%A7-%D9%BE%DB%8C%DA%A9%D8%B1%D9%87%D8%A7%DB%8C-%DB%B1%DB%B1%DB%B0-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D9%87%D8%A7%DB%8C-%D8%A7%D8%B5%D9%84%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86"
+  },
   {
    "id": "a68ffb8ee5f06c7b8b9677730284d6f2484b4fdb",
    "titleKey": "bce0024804cf8ef3f5fb4155d00c6fbee78b78b1",
@@ -10955,21 +11190,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794519830002,
-  "Akharin_khodro/8913": 1794519830002,
-  "Akharin_khodro/8914": 1794519830002,
-  "Akharin_khodro/8915": 1794519830002,
-  "Akharin_khodro/8916": 1794519830002,
-  "Akharin_khodro/8919": 1794519830002,
-  "Akharin_khodro/8920": 1794519830002,
-  "Akharin_khodro/8921": 1794519830002,
-  "Akharin_khodro/8922": 1794519830002,
-  "Akharin_khodro/8923": 1794519830002,
-  "Akharin_khodro/8924": 1794519830002,
-  "Akharin_khodro/8925": 1794519830002,
-  "Akharin_khodro/8926": 1794519830002,
-  "Akharin_khodro/8927": 1794519830002,
-  "Akharin_khodro/8928": 1794519830002,
+  "Akharin_khodro/8908": 1794520407929,
+  "Akharin_khodro/8913": 1794520407929,
+  "Akharin_khodro/8914": 1794520407929,
+  "Akharin_khodro/8915": 1794520407929,
+  "Akharin_khodro/8916": 1794520407929,
+  "Akharin_khodro/8919": 1794520407929,
+  "Akharin_khodro/8920": 1794520407929,
+  "Akharin_khodro/8921": 1794520407929,
+  "Akharin_khodro/8922": 1794520407929,
+  "Akharin_khodro/8923": 1794520407929,
+  "Akharin_khodro/8924": 1794520407929,
+  "Akharin_khodro/8925": 1794520407929,
+  "Akharin_khodro/8926": 1794520407929,
+  "Akharin_khodro/8927": 1794520407929,
+  "Akharin_khodro/8928": 1794520407929,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11276,27 +11511,27 @@
    }
   }
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-12T21:43:50.007Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-12T21:53:27.936Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1078,
-  "inWindow": 247,
-  "fresh": 122,
-  "sent": 3,
+  "inWindow": 240,
+  "fresh": 121,
+  "sent": 5,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 114,
+  "tweetsFetched": 117,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 118,
-  "queued": 3,
+  "skippedUntranslated": 115,
+  "queued": 5,
   "tweetRateLimited": false
  }
 }

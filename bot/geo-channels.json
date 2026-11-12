@@ -1,0 +1,15 @@
+{
+ "note": "بخش مجزای رصد کانال‌های چپ و راست (ایتا + تلگرام) — خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶: «یه سری کانال‌های خبری مثل @yapressagency و غرب آسیا و وستانیوز و سایر کانال‌های چپ و راست از اینا و تلگرام رو در بخش مجزا قرار بده، اخبارشان را تجمیع و اعتبارسنجی کن و هر ۴ ساعت تحلیل بده». نام‌ها عیناً از کاربر: «غرب آسیا» و «وستانیوز»؛ بقیه با دستهٔ خود کانال. کانال تازه → platform: eitaa یا telegram + id + name.",
+ "updatedAt": "2026-11-13T00:00:00.000Z",
+ "channels": [
+  { "platform": "eitaa", "id": "yapressagency", "name": "@yapressagency" },
+  { "platform": "eitaa", "id": "SEPAHCYBERY", "name": "غرب آسیا" },
+  { "platform": "eitaa", "id": "westanews", "name": "وستانیوز" },
+  { "platform": "eitaa", "id": "aboghasem", "name": "@aboghasem" },
+  { "platform": "eitaa", "id": "eshg313", "name": "@eshg313" },
+  { "platform": "eitaa", "id": "sarbaz_Enghelab313", "name": "@sarbaz_Enghelab313" },
+  { "platform": "eitaa", "id": "Majalle_siasy", "name": "@Majalle_siasy" },
+  { "platform": "eitaa", "id": "syriankhabar", "name": "@syriankhabar" },
+  { "platform": "eitaa", "id": "Bisimchimedia", "name": "@Bisimchimedia" }
+ ]
+}

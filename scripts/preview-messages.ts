@@ -13,6 +13,7 @@ import { resolve } from 'node:path';
 import { chainCall, getHourlyPrompt, splitPhotoCaption, enToFaDigits } from '../bot/bot';
 import { DEFAULT_SYSTEM_HOURLY, buildHourlyCorpus, buildHistoryBlock, dropAlreadySent, mergeSimilarItems, validateHourlyText, type HourlyItem } from '../bot/hourly';
 import { pickHadith, fetchNatureImage, buildDailyMessage, type HadithUsage } from '../bot/daily';
+import { fetchDayHistory, dayHistoryFromCache, type DayHistoryCacheEntry } from '../bot/day-history';
 import { dateKeyOf, shiftDateKey, tripleDateOf, type QamariBasis } from '../bot/calendar';
 import { computePrayerTimes } from '../bot/prayer';
 import { fetchHourlyForecast, buildWeatherMessage } from '../bot/weather';
@@ -33,6 +34,7 @@ interface BotStateLike {
     usedHadiths?: Record<string, HadithUsage>;
     infallibleCursor?: number;
     usedImages?: Record<string, { dateKey: string; kind: string }>;
+    dayHistoryCache?: Record<string, DayHistoryCacheEntry>;
   };
   priceSnap?: Record<string, number>;
   carStore?: CarStore;
@@ -146,12 +148,18 @@ async function previewDaily(): Promise<void> {
       continue;
     }
     const img = await fetchNatureImage(k.kind, todayKey, daily.usedImages || {}).catch(() => null);
+    // وقایع روز در تاریخ (ویکی‌پدیا) — صبح: امروز، شب: فردا؛ اول حافظهٔ همان روز، نبود → واکشی؛
+    // شکست → بخش حذف می‌شود (صادقانه). پیش‌نمایش هیچ چیزی در state نمی‌نویسد.
+    const histDayKey = k.kind === 'morning' ? todayKey : tomorrowKey;
+    const hist = dayHistoryFromCache((daily.dayHistoryCache || {}) as Record<string, DayHistoryCacheEntry>, histDayKey) ?? (await fetchDayHistory(tripleDateOf(histDayKey, ds.timezone, ds.qamariBasis).keys.j).catch(() => null));
     const msg = await buildDailyMessage({
       kind: k.kind, dateKey: todayKey, tz: ds.timezone, qamariBasis: ds.qamariBasis, city: ds.city,
-      prayer, hadith: pick.hadith, image: img,
+      prayer, hadith: pick.hadith, image: img, dayHistory: hist?.entries ?? null,
       morningHour: ds.morningHour, eveningHour: ds.eveningHour,
     });
     const notes: string[] = [`حدیث: ${pick.hadith.id} — ${pick.hadith.narrator} | بانک: ${Object.keys(usedMorning).length + 1} استفاده‌شده`];
+    if (hist && hist.entries.length > 0) notes.push(`وقایع ${hist.title}: ${hist.entries.length} مدخل از ویکی‌پدیای فارسی`);
+    else notes.push('وقایع روز: دریافت نشد/خالی — بخش وقایع در پیام نمی‌آید (صادقانه)');
     if (img) notes.push(`عکس: ${img.sourceLabel} — ${img.title.slice(0, 70)}`);
     else notes.push('بدون عکس (هیچ منبع تصویری پاسخ نداد — پیام بی‌عکس ارسال می‌شود)');
     const po: PreviewOut = { label: k.kind, title: k.label, text: msg.text, notes, photoUrl: msg.photoUrl };

@@ -70,6 +70,7 @@ import {
   buildDailyMessage,
   type HadithUsage,
 } from './daily';
+import { fetchDayHistory, dayHistoryFromCache, pruneDayHistoryCache, type DayHistoryCacheEntry } from './day-history';
 import type { PrayerMethod, PrayerTimesDay } from './prayer';
 
 // ---------- پیکربندی از محیط ----------
@@ -622,6 +623,8 @@ export interface DailyBotState {
   infallibleCursor: number;
   /** تصاویر استفاده‌شده — ضدتکرار تصویر روزها */
   usedImages: Record<string, { dateKey: string; kind: string }>;
+  /** وقایع روز از ویکی‌پدیا — یک واکشی موفق برای کل همان روز (سقف ۸ روز) */
+  dayHistoryCache?: Record<string, DayHistoryCacheEntry>;
   /** سوابق انتشار — آخرین ۱۵۰ نوبت */
   runs: DailyRunEntry[];
 }
@@ -692,12 +695,14 @@ export function ensureDaily(st: BotState): DailyBotState {
   if (!d.usedHadiths || typeof d.usedHadiths !== 'object') d.usedHadiths = {};
   if (typeof d.infallibleCursor !== 'number') d.infallibleCursor = 0;
   if (!d.usedImages || typeof d.usedImages !== 'object') d.usedImages = {};
+  if (!d.dayHistoryCache || typeof d.dayHistoryCache !== 'object') d.dayHistoryCache = {};
   if (!Array.isArray(d.runs)) d.runs = [];
   return d;
 }
 
 const DAILY_RUNS_CAP = 150;
 const DAILY_IMAGES_CAP = 400;
+const DAILY_HISTORY_CACHE_DAYS = 8;
 
 /** هرس state روزانه — سوابق به سقف؛ احادیث هرگز هرس نمی‌شوند (بانک محدود است) */
 export function trimDailyState(d: DailyBotState): void {
@@ -706,6 +711,9 @@ export function trimDailyState(d: DailyBotState): void {
   if (keys.length > DAILY_IMAGES_CAP) {
     const sorted = keys.sort((a, b) => (d.usedImages[a]?.dateKey || '').localeCompare(d.usedImages[b]?.dateKey || ''));
     for (const k of sorted.slice(0, keys.length - DAILY_IMAGES_CAP)) delete d.usedImages[k];
+  }
+  if (d.dayHistoryCache && Object.keys(d.dayHistoryCache).length > DAILY_HISTORY_CACHE_DAYS) {
+    d.dayHistoryCache = pruneDayHistoryCache(d.dayHistoryCache, DAILY_HISTORY_CACHE_DAYS);
   }
 }
 
@@ -2048,10 +2056,27 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     console.log(`پیام ${label}: اسلات ${dKey} — حدیث ${pick.hadith.id} از ${pick.hadith.narrator}`);
     const img = await fetchNatureImage(kind, pNow.dateKey, daily.usedImages).catch(() => null);
     if (!img) console.warn(`⚠️ تصویر طبیعت دریافت نشد — پیام ${label} بدون عکس ارسال می‌شود (صادقانه)`);
+    // وقایع روز در تاریخ (ویکی‌پدیای فارسی) — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: جامع‌سازی بخش وقایع؛
+    // صبح: امروز، شب: فردا. اول حافظهٔ همان روز (یک واکشی برای کل روز)، نبود → واکشی و ذخیره؛
+    // شکست واکشی و حافظه هم خالی → بخش وقایع کلًا از پیام حذف می‌شود (هیچ واقعهٔ ساختگی)
+    const histDayKey = kind === 'morning' ? pNow.dateKey : shiftDateKey(pNow.dateKey, 1);
+    let hist = dayHistoryFromCache(daily.dayHistoryCache, histDayKey);
+    if (!hist) {
+      hist = await fetchDayHistory(tripleDateOf(histDayKey, dSettings.timezone, dSettings.qamariBasis).keys.j).catch(() => null);
+      if (hist && hist.entries.length > 0) {
+        daily.dayHistoryCache = pruneDayHistoryCache({ ...(daily.dayHistoryCache || {}), [histDayKey]: { title: hist.title, entries: hist.entries, at: new Date().toISOString() } });
+      }
+    }
+    if (!hist || hist.entries.length === 0) {
+      console.warn(`⚠️ وقایع ${kind === 'morning' ? 'امروز' : 'فردا'} از ویکی‌پدیا دریافت نشد/خالی بود — بخش وقایع در پیام ${label} نمی‌آید (صادقانه)`);
+    } else {
+      console.log(`وقایع ${hist.title}: ${hist.entries.length} مدخل از ویکی‌پدیای فارسی`);
+    }
     const msg = await buildDailyMessage({
       kind, dateKey: pNow.dateKey, tz: dSettings.timezone, qamariBasis: dSettings.qamariBasis, city: dSettings.city,
       prayer: { lat: dSettings.lat, lon: dSettings.lon, method: dSettings.prayerMethod, fajrAngle: dSettings.fajrAngle, ishaAngle: dSettings.ishaAngle, maghribMinutes: dSettings.maghribMinutes, tz: dSettings.timezone },
       hadith: pick.hadith, image: img,
+      dayHistory: hist?.entries ?? null,
       morningHour: dSettings.morningHour,
       eveningHour: dSettings.eveningHour,
     });

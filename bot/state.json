@@ -1,5 +1,10 @@
 {
  "sentIds": {
+  "ff4d6b159865131ffc61128732411aefd04c703c": 1794524241113,
+  "4ea2a5579cd32efedd83d7ca7625ca06346ffcf8": 1794524241113,
+  "5d628dafcebc548325050e2cff9ad0abda027d87": 1794524241113,
+  "tw-zelenskyyua-2121013273403220214": 1794524241113,
+  "tw-zelenskyyua-2121013268110033316": 1794524241113,
   "afcb8030ef15851cb53f746e7cebfb626c6433ff": 1794523477708,
   "1d7e81644722c6432f9f06c7926ef6a3a1ba8c6b": 1794522882180,
   "d38296d1eff3b42f03e4c51428349e8c6b0eb61b": 1794522882180,
@@ -1194,14 +1199,12 @@
   "1b1e80d22ac89eb155827e32fad51ae34415b1ac": 1794490677588,
   "116346583c25eb657444a681264af61d41c62c99": 1794490677588,
   "2d8bc55d6d9ab08152b3c1a02da486ca949a7acd": 1794490677588,
-  "f254ce761cdcb3f3002e138f7d27771e3903b9d9": 1794490677588,
-  "f45408cb4b648d3dabf8c466b9b783709698adf0": 1794490677588,
-  "53d1b8eea2c8731f43862c44778475894f10fee0": 1794490677588,
-  "ce2ec592d75ed17fc2bf64db02e924aac1efd4e3": 1794490677588,
-  "2fa39e941356a1f3542519150b62d4eea1acd9ec": 1794490677588,
-  "5ea91e27977d8f1dab8ea80480050581b75d7cc3": 1794490677588
+  "f254ce761cdcb3f3002e138f7d27771e3903b9d9": 1794490677588
  },
  "sentTitles": {
+  "c2535189148015061d38e73208aae10c1cbf6d30": 1794524241113,
+  "b847d5a7cfef2ff1953591059d72fa4fd7bda1f1": 1794524241113,
+  "dcbcce43a3b4a503595bba7101b8e2a4dd26f9ea": 1794524241113,
   "96c3701b0ec31bfe54e87e5d95080d4b156fecd2": 1794523477708,
   "2c376b7f5e08bf4c1ea61bbf0a724b3238baa518": 1794522882180,
   "b5960a210f3baf7f0f45c166cfdb39c53d25ecf8": 1794522882180,
@@ -1798,10 +1801,7 @@
   "f9e2b7b3ae7bcae6a70c2a8509bcf7d11cde505a": 1794501772731,
   "6cf6702c289428e42aa16ba558ae829abfc54ea4": 1794501772731,
   "7c3cea936153ccf097eb1bf104ccf7b88f1ea880": 1794501772731,
-  "b18a25b23c6192b71de1995fbb4d4bed86f6dd24": 1794501772731,
-  "25c802736b13e46908de1387928ae790e5d7ef6c": 1794501772731,
-  "7348d885e1b26cee26d76a17c925bca37eccc7c0": 1794501772731,
-  "8d109fafe3e8e09d15c1b0705dc242f50b653a11": 1794501772731
+  "b18a25b23c6192b71de1995fbb4d4bed86f6dd24": 1794501772731
  },
  "sentTitleTexts": {
   "من با رییس جمهور فرانسه emmanuelmacron ملاقات کردم ما درباره نتایج نشست چندجانبه در دبلین صحبت کردیم و موقعیت های خود را در پیش زمینه نشست هم پیمانان اراده مند ": 1794519271702,
@@ -3008,6 +3008,288 @@
   "خبرگزاری جمهوری اسلامی ایرنا ویترین اخبار سیستان و بلوچستان پنجشنبه ۲۱ ابان در یک نگاه زاهدان ایرنا مهمترین رویدادهای روز پنجشنبه ۲۱ ابان در سیستان و بلوچستان ر": 1794501772731
  },
  "pool": [
+  {
+   "id": "d0b2265999235e26beeee64d818918a8495127e7",
+   "titleKey": "bdee9769eb136e519409df65fda69f90431db1e8",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "White House discussing Howard Lutnick's future as Commerce secretary, people familiar say - Reuters White House discussing Howard Lutnick's future as Commerce secretary, people familiar say Reuters",
+   "at": "2026-11-12T19:53:22.000Z",
+   "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQbWtqakZ4LUVIb2dkYnZNS0ZXM3M3ZEpyZGQ1eDc0UWxOR2I4cWNLeXk5VW5HM0hjbGxvYktjN2s3ZThPNWswVFBpQmZ6a3FYUDVRVVdRWk9XRXB0VFNIejJObkRnWm0wZTNpUjM4TmgxVkMtY2RFbEp3UUZRakpMWmZMeHJlZXlQMHB3OXBaSE1KY24xS3EzUjNlNE1HblplZkpyWmFBbVprTGV5TVVrbWNPUjl6UnZOU3hMZlFtdEIyZ21jQ3dZ?oc=5"
+  },
+  {
+   "id": "6479e698a3c1add6cf19ff645dceeaaa98937098",
+   "titleKey": "91f6124b2398163f5cd7b76cde4f64ee45bc5e39",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Palestinian baby dies from cold in Gaza amid Israeli restrictions on aid The baby's father said he died of hypothermia overnight in their family's tent in southern Gaza.",
+   "at": "2026-11-12T19:56:26.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/12/palestinian-baby-dies-from-cold-in-gaza-amid-israeli-restrictions-on-aid?traffic_source=rss"
+  },
+  {
+   "id": "8ee4c50c17e609fd1cf3aab4ac4877699e9fbf97",
+   "titleKey": "9101da9e4e939341a7ce43042358ef3cfb9064b0",
+   "source": "Al Mayadeen",
+   "lang": "ar",
+   "text": "نتنياهو يطلع آيزنكوت على التحديات الأمنية والدبلوماسية التي تواجه \"إسرائيل\" - الميادين نتنياهو يطلع آيزنكوت على التحديات الأمنية والدبلوماسية التي تواجه \"إسرائيل\" الميادين",
+   "at": "2026-11-12T19:59:50.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_ANBVV95cUxPLVlUUXEwd1NGNzlFdkJvbEd3dXpDMjU1UTU0REE0MTJTeHFlZHY0b0xFS3N1cElpZmVyRTJSa2NCVWE3Ukh5Q1NIcm1WUHBhQmlTNGROVU5wemg0MzctejV5NW9tWGlmamJqaHRCY0JRUFRxSkhPdkhOV29vZ3BydUduTzJHNGcyRUxVUWpzaGMtUEFmZktqUkczRWFJNlN2Wk1HaHhuYWNNLUZhMlpmUWU3SEVyLWhfbXEyYUsyWlJaQzAwTGNzY3hMVXJVZktIU3ktSHZxaFJnM2FaUWxOSkFzSEloMFFwaXphUG1qU2lZblduYk1ueGxIek85VGdRaFczTndYcV9TaGx4bDhBckJIeDFpOGVDT2tiWl9Fc0JmeWlwQjBPSmJpZFBvVGVzblphWlhRbkZYUllZUVVjN1ZEaWs1Q1J1eEFJWGRSWmFEcTlxa1VlTFktRUVqLWJ4S2ZTZ0JlLVZhdUVVcWtaQ1VEV21HOUVqTzdrX2RVLWNONHdIcDJZRFR0NWhZRlNXYThaSk9GakJqUk1JV0FkQVljZFhPRnF2eHhVbVFVY3BJSV9QQnZkRTZUNVZuZ2QxOEljT0Vjd2lYVmVUZjRfcVhZR3BkU21Rbzl5RkM0czJqUllrWnZSaXVZa0FybjZMc3ljYWVJSjN3UHZC0gGABEFVX3lxTE9FY2lvY3h6YkJyNER5RGRnYnRXWXYwVnNFWDdkNjU0cnFaRFRydTJ4Skd3cUo0VmxyMWtLOGNDR2x5LTlwWUxZZkdiTlNrLWRHbzRrcTBnN0lRWmItNERkd2puRlZDTGs1U1BIVGE0OWZqQ2JDUTYtazZfR1hieUZHSzVaQ2VENUwtbU02R2tvVC1lY1N3dm1VdWdyZUk3QTdHWEtWaWUyeDlZTVBYemh5eVlCcENBUG1rYk1LNGpDZVk4UlNLdEJoNVpVQm9lbG1rdmlOTnNMT01NaFVqc1IyYi04bDRkejlONFBldTJwS0JSZTN1UUVOdkREeEFCM0t4VmZxbUVQUmlsaTdiYTBsWTdnbkdSVVVjeEoyVHhSdV9UZjNVVGhiZnU4ZVlqdkUyN18xNFdVVEUzaXd6Q2o0YXZZWXVQcEdSVFdtaW5yREs5c0FxOWZobHpab21SUkdFdkRzaUhyOU9wZW1rYmNLSk9iVEVISTRLU1dtZjZXSXVLRDRFdUUzUUROeXpkeW1TakNXclFuMk1SeFIzbDZvUVp0QnZDTEJmTnRzcUhIbWZmSWpJYXdtTTFrZkZVcVNMaG82dnNLdDhpMDJCcklLSFlYNVRvOTczZVhlRlJvS0VmWUg0S1pSY2d1RjZiUlR2LWhTdWRMTEpTcUNrcTVE?oc=5"
+  },
+  {
+   "id": "02217fcbc95fe4711313356c87eaaf6f2d676b12",
+   "titleKey": "17ebea8fa5c4f4b082cac538fd01992c99da8b4a",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Russian national football team secures hard-fought victory over Uzbekistan The match result will be factored into the FIFA rankings",
+   "at": "2026-11-12T20:02:00.000Z",
+   "url": "https://tass.com/sports/2217433"
+  },
+  {
+   "id": "b237a76bb98c91961788533ef1cf399b47dd0b7a",
+   "titleKey": "69c0ea7ec56db7c75c127ce9edf29f681f417639",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Putin aide comments on Europe’s security, humanitarian task, Kiev's peace allergy Yury Ushakov emphasized that the conversation between Russian President Vladimir Putin and US negotiators Steve Witkoff and Jared Kushner was substantive",
+   "at": "2026-11-12T20:07:00.000Z",
+   "url": "https://tass.com/politics/2217455"
+  },
+  {
+   "id": "778da6f9497ba8272f70e6d9baa21f225cea1407",
+   "titleKey": "937a1e39de2364d9ab23146e459e273986b61eb3",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Retail buyers limit Nvidia stock rout - Reuters Retail buyers limit Nvidia stock rout Reuters",
+   "at": "2026-11-12T20:10:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPVHdDV1ltYXhSMVY3dUtMMGxkZHdxRld0cThBSlQzUmt2NE9fTENSM2NZWHowSk9wZS1ObXpTVFZqNlZ2dUQxam5NVC0yYXNBcW41amRsbXFMbEFfblNLWXNkSUhnOGcwOWFocUlyQllReDBwSjdzakJMZTNkYUpDN3FMY0QxaWVSeGRtNVEyOEJFNlRjb1ZXMFJmTXIxeUU?oc=5"
+  },
+  {
+   "id": "f72cea0519e94bd8eac96fecdee9e35350ed2e74",
+   "titleKey": "2a12081155763366d4d618d3fbe2b4ae3953538d",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "White House discussing Howard Lutnick’s future as commerce secretary, sources say Senior White House officials are discussing whether Commerce Secretary Howard Lutnick should be pushed out amid a spy scandal surrounding Nvidia’s now-former CEO Jensen Huang, two people familiar with the situation said on Thursday. A growing number of lawmakers criticised Lutnick for the administration’s refusal to add dozens of Chinese companies to a key US trade blacklist, and over whether the government was properly overseeing Nvidia’s exports to China. Criticism ‌of Lutnick’s actions...",
+   "at": "2026-11-12T20:19:33.000Z",
+   "url": "https://www.scmp.com/news/world/united-states-canada/article/3374266/white-house-discussing-howard-lutnicks-future-commerce-secretary-sources-say"
+  },
+  {
+   "id": "223d2422a5b3d62baa15be38804064c1466ee73c",
+   "titleKey": "52e41ea5bd1879dd8b21d64cd4ebf4ce12f56987",
+   "source": "RT",
+   "lang": "en",
+   "text": "US no longer needs Iran deal – Trump Trump says the US no longer needs an Iran deal and directs J.D. Vance to tackle corruption and crime after Republicans’ midterm defeat Read Full Article at RT.com",
+   "at": "2026-11-12T20:21:42.000Z",
+   "url": "https://rt-english.com/news/648761-trump-no-iran-deal-needed/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "37c449396d1a18c97fb2447982d34322b371ba2b",
+   "titleKey": "0bdc247fa30a749dec58c681c3ac31b3d88e3708",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "What’s at stake in the renewed tensions over the Falkland Islands? Argentina and the UK are in a legal battle over an offshore oil-drilling project.",
+   "at": "2026-11-12T20:25:21.000Z",
+   "url": "https://www.aljazeera.com/video/inside-story/2026/11/12/whats-at-stake-in-the-renewed-tensions-over-the-falkland-islands?traffic_source=rss"
+  },
+  {
+   "id": "759c0a8ce88f1dc8c4f70d229304be7fcf4c7b2e",
+   "titleKey": "3ecabae963380acc0b363b36c5612aeb635216f5",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Microsoft 365, Outlook down for thousands of US users, Downdetector shows - Reuters Microsoft 365, Outlook down for thousands of US users, Downdetector shows Reuters",
+   "at": "2026-11-12T20:39:49.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWpWeUZnbllhcFk4WktZS0s3T1N6T3k3Vnhhd3pfSE9SWF9iRmRIQUljdHZXN0UtWS1uZS1rbUNZSlVPd1NXLXRtVUVtc3NQNTgxMVFMWjVnT3pPb09EX1g1YUx3WkF2VHk0bUMwWlhkRHdpT0JFRE5SQ3pQRkdmSnpUOHNXLUo1dXNSY3lFdkpSdU5laDdwSlhWRDVnNjBFcUh2Y0FwMXNldE8tSFpPaw?oc=5"
+  },
+  {
+   "id": "f689f854a9408c30469f7af2d33fbb1e4f09b6ea",
+   "titleKey": "309a73891aee4ef5635e1cd5f2b33bd3e4bb0d58",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "US invests in Peru’s Callao as port battle with China’s Chancay megaport continues The United States has paid to design a port infrastructure programme at Callao, the US State Department said on Thursday, as Peru moves its main naval base to expand the country’s busiest port, which rivals a Chinese-controlled megaport less than 80km up the coast at Chancay. The US$4.5 million payment was disclosed in a note on a trip to Peru and Colombia earlier this month by Thomas DiNanno, State Department undersecretary for arms control and international security, whose remit includes...",
+   "at": "2026-11-12T20:42:27.000Z",
+   "url": "https://www.scmp.com/news/us/diplomacy/article/3374267/us-invests-perus-callao-port-battle-chinas-chancay-megaport-continues"
+  },
+  {
+   "id": "17baf5c9bc858a1d0a5069a9e298cd3b79d500f9",
+   "titleKey": "40d54c79417245ee0af2fc19ba29a028a08026c2",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Europeans still undetermined who can represent them on Ukraine — Kremlin Russian Presidential Spokesman Dmitry Peskov said that Europeans’ actions must stop being contradictory so that Russia believes in their desire to achieve peace",
+   "at": "2026-11-12T20:53:00.000Z",
+   "url": "https://tass.com/politics/2217475"
+  },
+  {
+   "id": "f5055e4f554c0da09938886c8de1b974e6ee500c",
+   "titleKey": "da540c61b74f098db3c37d9e59bb68283fef1770",
+   "source": "Guardian Environment",
+   "lang": "en",
+   "text": "Be sea-ing you: humpback whale spotted in New York’s Hudson River Sightings of the species are becoming increasingly common as experts worry about danger posed by busy waterways A humpback whale was spotted on Thursday swimming in New York’s Hudson River, sparking a social media frenzy. Brad Hoylman-Sigal, president of Manhattan borough, was among those to share a photograph of the whale on Facebook , an image taken on Thursday morning and provided by Gotham Whale, a citizen science and education group that tracks marine mammals in New York’s waterways. Continue reading...",
+   "at": "2026-11-12T20:53:49.000Z",
+   "url": "https://www.theguardian.com/us-news/2026/nov/12/humpback-whale-new-york-city-hudson-river"
+  },
+  {
+   "id": "81693dacebfa63acac58c0a6a4a606ebd359e319",
+   "titleKey": "d6077c7b182dc842b77d9bbd2243f5af8fdcb2fa",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Pope Leo calls for Church to make ‘amends’ to sex abuse victims Pope Leo XIV says the Catholic Church must confront sexual abuse committed by clergy with truth and justice.",
+   "at": "2026-11-12T20:59:53.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/12/pope-leo-calls-for-church-to-make-amends-to-sex-abuse-victims?traffic_source=rss"
+  },
+  {
+   "id": "758f9cb88a091b2b0bc7ba64c026ca495422ccb8",
+   "titleKey": "bae38d7d90b1eb212670c4ac969e2768c2031f5e",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jim Banks calls for Lutnick to testify on Nvidia CEO controversy, alleging ‘loophole’ use Sen. Jim Banks (R-Ind.) called on Commerce Secretary Howard Lutnick to testify regarding his involvement with former Nvidia CEO Jensen Huang’s relationship with an alleged Chinese spy, accusing Lutnick of using a “loophole.” “This news is as concerning as it gets,” Banks said Thursday during an appearance on Fox News. “When you’re in a war…",
+   "at": "2026-11-12T21:02:59.000Z",
+   "url": "https://thehill.com/homenews/senate/6217212-jim-banks-howard-lutnick-testimony-nvidia-jensen-huang/"
+  },
+  {
+   "id": "5607b1cfa57f6bc707521ef0875f8054b401357c",
+   "titleKey": "dda4844500fc469e71321ad98230c4abd7482bc0",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Nvidia’s hunt for Jensen Huang’s successor: insiders, rivals and a Trump pick Nvidia is searching for its first new leader in 33 years after Jensen Huang quit on Thursday, with interim chief Colette Kress, veteran engineers, members of Huang’s own family and the bosses of rival chipmakers all touted as possible successors. The AI chip giant was left without the only leader it has ever had when Huang, 63, stepped down as president, chief executive and board member. The move was announced with immediate effect, according to a company filing with the US Securities and...",
+   "at": "2026-11-12T21:08:47.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374268/nvidias-hunt-jensen-huangs-successor-insiders-rivals-and-trump-pick"
+  },
+  {
+   "id": "63cf3339d4477892d8011cf2327a74e27d571f5b",
+   "titleKey": "490dd8dc4cde656b88367e8b01f960c5a436bff9",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "'There's no such thing as safe' in contact sports, brain injury expert says Discussing the issue of contact sports and the threat to sports men and women of all ages, particularly in the light of the recent death, just last month, of a 17-year-old French woman after a head collision on the rugby field, FRANCE 24's Mark Owen speaks with Dr Daniel H Daneshvar, Associate Professor at Harvard Medical School. He says that \"there's not such thing as safe\" in contact sports, explaining that \"if you get a lot of repeated hits to the head, then you're at risk for problems later in life, both in the near term and the long term\".",
+   "at": "2026-11-12T21:09:43.000Z",
+   "url": "https://www.france24.com/en/there-s-no-such-thing-as-safe-in-contact-sports-brain-injury-expert-says"
+  },
+  {
+   "id": "5d16339da858e85220e13bb1590b8bc62eb24a1c",
+   "titleKey": "94b967af80cb5fe141396a38641131d633c3c294",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Most Americans favor stricter gun laws: Gallup Most U.S. adults support more restrictive gun laws, a new Gallup poll shows, including nearly all Democrats and a majority of independents. In the survey, 56 percent think firearm laws should be stricter, 27 percent think they should be held the same and just 15 percent say they should be made less strict. The share…",
+   "at": "2026-11-12T21:13:08.000Z",
+   "url": "https://thehill.com/policy/6217246-gallup-poll-gun-laws/"
+  },
+  {
+   "id": "9ddce2c87e30fbd23c62f43dd80bc0c574da8f6c",
+   "titleKey": "871a406eeac433db9a7c84ac37d9a136e62df4de",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Ngo criticizes UN's response to massacre in South Sudan In tonight's edition, Amnesty International accuses both the government and UN peacekeepers of failing to protect civilians during a massacre in South Sudan that killed over 200 people. Also, more than a thousand people are prosecuted for illegal mining in Guinea. And a century after French colonial troops killed him, a Malagasy king has finally come home.",
+   "at": "2026-11-12T21:20:52.000Z",
+   "url": "https://www.france24.com/en/ngo-criticizes-un-s-response-to-massacre-in-south-sudan"
+  },
+  {
+   "id": "c3852ecb5f8ee6d8c2045dccfdee719721a668d5",
+   "titleKey": "0bb82d68ab14fc5947e69f29df65149cfa1e85c0",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Yemen’s Houthis say they targeted Saudi East-West pipeline, port city of Yanbu The East-West pipeline, which ends at Yanbu, has become increasingly important to Saudi Arabia, allowing it to get its oil to market after Iran blockaded the Strait of Hormuz on the other side of the Arabian Peninsula",
+   "at": "2026-11-12T21:26:22.000Z",
+   "url": "https://www.thehindu.com/news/international/yemens-houthis-say-they-targeted-saudi-east-west-pipeline-port-city-of-yanbu/article71695404.ece"
+  },
+  {
+   "id": "70ba362018ce0770050b25b5145a348adeb36cfa",
+   "titleKey": "44e4bfd43aa64420015f4e7f97111fc4e0cc2b61",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Merkley to seek chairmanship of Environment and Public Works Committee Sen. Jeff Merkley (D-Ore.), a leading Senate progressive and strong advocate for the environment, says he will seek the chairmanship of the Senate Environment and Public Works Committee. Merkley, is the ranking member of the Senate Budget Committee and would be in line to chair that committee in the next Congress, when Democrats will control…",
+   "at": "2026-11-12T21:34:04.000Z",
+   "url": "https://thehill.com/homenews/senate/6217381-senate-democrats-control-majority/"
+  },
+  {
+   "id": "3fa5f2e4eb8f2acc0ae6b9692e6b8d001a106316",
+   "titleKey": "84b040cd74e14556e52578b78b9fb92a9d9abe11",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "OpenAI Joins Groundswell of Support for AI Chip Control Measures - Bloomberg.com OpenAI Joins Groundswell of Support for AI Chip Control Measures Bloomberg.com",
+   "at": "2026-11-12T21:35:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMmJ4OENGS1F1RWpJNzlmVHhSZjVvYlZVWnh0YmRKQ2oxSUlicjdzcmMwZ1pBZFJZaG1lX0FXUXl3S01CSTdROHhTdTZ0NjNvei1lLVVqaUpTcEstQlYxRE84alZ6azFYMkR4QU5XakE2VFphTjQzXzVBRjRIM19pWGtad2p6aFNzRFNpb1N4VFBTamxQRmxxMGV5bE5maFQ0Q0JHakJzNGI2bXNBN0dQRFhGcGRHZw?oc=5"
+  },
+  {
+   "id": "5cba27671e2e7f19d23a60a85af09fe887010643",
+   "titleKey": "a279a35ba3142b26d59e4bd2f64e9a7c46d6451e",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "U.S. did little to help Singapore investigate alleged Chinese spy, officials say - The Washington Post U.S. did little to help Singapore investigate alleged Chinese spy, officials say The Washington Post",
+   "at": "2026-11-12T21:54:20.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPX3JMcWFsdHdHTTFFZnRSV09sUUxWQnlnTG9YYUNQSXNIUllrR0hVQTE1cnhJRlBOdUdLLW9PRHpsNDU2SmYyb1o4VVZtQUJxR0hKbWRndV85ZjJVNlpQeVk2V2x4OWcyWnVULTY1MjhZa3hpUWVTTFgxNlpaZ0tRUmZVV0pqSmowNGM0VGRBeTdNVUNEekIzLWJGS09XNDFWajJPdUE4U1RkUmgyMktOVnQ0OGtSOUg1RTMxQ0dQcw?oc=5"
+  },
+  {
+   "id": "bcdb63f7bee239e15eeee00cd1d679de69c09df6",
+   "titleKey": "08f0bda46397fcec066e48590fbea58d9c2b20c0",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "At least 34 drones downed en route to Moscow First responders are working at crash sites, Moscow Mayor Sergey Sobyanin said",
+   "at": "2026-11-12T22:17:00.000Z",
+   "url": "https://tass.com/politics/2217495"
+  },
+  {
+   "id": "96881afc3b5f9e6a6ba012c6529c129d9e217d58",
+   "titleKey": "3a92e42229ef54097996089c70810930adaffeed",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Sheikh's wife loses £8.3m London mansion battle over husband's business debts",
+   "at": "2026-11-12T22:20:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/uk/billionaire-sheikhs-wife-loses-8-3-million-london-mansion-battle-after-claiming-her-husband-gifted-her-the-property-under-islamic-custom-leaving-the-home-exposed-to-his-80-million-business-debt/articleshow/135759740.cms"
+  },
+  {
+   "id": "404544b663c71e22ce2ffd8fa36a043365337c48",
+   "titleKey": "c1ee7e18cb9b67c236cd60b011ea75a0a0e3297d",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Endangered leatherback turtle Bella achieves 91.8% hatching success in Ecuador Bella, a resilient leatherback turtle, made a remarkable nesting attempt in Ecuador, overcoming an array of challenges posed by artificial lighting. Her successful hatchling rates reveal a promising trend, indicating that leatherbacks are beginning to adapt to their new coastal environments. Conservation efforts are increasingly vital as these turtles face persistent threats, highlighting the urgent need to establish safe habitats for their upcoming nesting seasons.",
+   "at": "2026-11-12T22:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/science/nature/critically-endangered-leatherback-turtle-bella-makes-remarkable-nesting-attempts-in-ecuador-achieving-918-hatch-success-rate/articleshow/135716561.cms"
+  },
+  {
+   "id": "fd9c58c72b4bd9d90308fc2e8228b66efd05f456",
+   "titleKey": "84d0926d6876ed030d7f3679c55eeb740837bd02",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Oklahoma man's 141 short-term guests lead to rental ban and $8,528 fines A recent ruling by the Supreme Court has imposed a hefty fine of over $8,000 on an Oklahoma homeowner, Adewale Eniola Tawose. This decision reinstates the community's ban on short-term rentals after a legal tussle. Tawose's attempts to host guests led the homeowners association to act against him, reversing an earlier judgment that allowed his rental business, thus affirming the penalties and restrictions on such properties.",
+   "at": "2026-11-12T22:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/an-oklahoma-homeowner-hosted-141-guests-during-36-short-term-stays-despite-neighbourhood-rules-after-a-lower-appeals-court-lifted-restrictions-the-state-supreme-court-restored-the-ban-and-upheld-8528-in-fines/articleshow/135746069.cms"
+  },
+  {
+   "id": "ff4d6b159865131ffc61128732411aefd04c703c",
+   "titleKey": "c2535189148015061d38e73208aae10c1cbf6d30",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "غافلگیری ستاره رئال مادرید برای پسر سودانی که جنگ پاهایش را گرفت ظاهر، پسری که هر دو پایش قطع شده، سال گذشته به بخش جهانی بی‌بی‌سی از فوتبالیست محبوبش و رویای دوباره راه رفتن گفته بود.",
+   "at": "2026-11-12T22:40:53.000Z",
+   "url": "https://www.bbc.com/persian/articles/c6wy430n1nkno?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "698aaf9392046826c8af820cbce3d951edaef27f",
+   "titleKey": "0521664ef95d0080fe08646fcd5d330c63b7741d",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "GOP lawmaker says party is focusing on ‘political power’ rather than people Texas Rep. Chip Roy (R) issued a scathing rebuke of the Republican Party on Thursday, after his party lost control of both chambers of Congress in the midterm elections. Roy, who will depart his role on Jan. 3 after launching an unsuccessful bid for Texas attorney general, spoke for nearly half an hour on the…",
+   "at": "2026-11-12T22:45:59.000Z",
+   "url": "https://thehill.com/homenews/house/6217576-gop-lawmaker-says-party-is-focusing-on-political-power-rather-than-people/"
+  },
+  {
+   "id": "4ea2a5579cd32efedd83d7ca7625ca06346ffcf8",
+   "titleKey": "b847d5a7cfef2ff1953591059d72fa4fd7bda1f1",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "شریف طرح آموزش سفیران انرژی را برای کاهش مصرف گاز در تهران اجرا می‌کند مجری طرح آموزش سفیران انرژی از اجرای طرح آموزش سفیران انرژی با مشارکت دانشجویان و استادان این دانشگاه خبر داد و گفت: با توجه به پیش‌بینی کمبود روزانه ۳۰۰ تا ۴۰۰ میلیون مترمکعب گاز در اوج فصل سرما، این طرح با هدف افزایش آگاهی عمومی و کاهش مصرف گاز، در گام نخست در تهران اجرا می‌شود.",
+   "at": "2026-11-12T22:50:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114734/%D8%B4%D8%B1%DB%8C%D9%81-%D8%B7%D8%B1%D8%AD-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%B3%D9%81%DB%8C%D8%B1%D8%A7%D9%86-%D8%A7%D9%86%D8%B1%DA%98%DB%8C-%D8%B1%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%DA%A9%D8%A7%D9%87%D8%B4-%D9%85%D8%B5%D8%B1%D9%81-%DA%AF%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%A7%D8%AC%D8%B1%D8%A7"
+  },
+  {
+   "id": "5d628dafcebc548325050e2cff9ad0abda027d87",
+   "titleKey": "dcbcce43a3b4a503595bba7101b8e2a4dd26f9ea",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "برتری اسپانیا و انگلیس در لیگ ملت‌های اروپا/کامبک ایتالیا مقابل فرانسه رقابت‌های فوتبال لیگ ملت‌های اروپا با پیروزی تیم‌های اسپانیا، انگلیس، ایتالیا و بلژیک و شکست فرانسه پیگیری شد.",
+   "at": "2026-11-12T22:51:28.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865324"
+  },
   {
    "id": "01d249e66ce15f479cc420d5dd7e37859d5fe684",
    "titleKey": "291b55d50e48cf3749662eb0b03a2cdfbf9d4d1a",
@@ -4951,9 +5233,70 @@
    "titleTexts": [],
    "cat": "economy",
    "queuedAt": "2026-11-12T22:44:22.628Z"
+  },
+  {
+   "kind": "news",
+   "text": "BBC Persian: غافلگیری ستاره رئال مادرید برای پسر سودانی که جنگ پاهایش را گرفت ظاهر، پسری که هر دو پایش قطع شده، سال گذشته به بخش جهانی بی‌بی‌سی از فوتبالیست محبوبش و رویای دوباره راه رفتن گفته بود.\n\n🖼 عکس خود خبر: https://ichef.bbci.co.uk/ace/ws/240/cpsprodpb/3eec/live/34923590-d870-11f1-a701-fddedf244c16.jpg",
+   "source": "BBC Persian",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:54:02.493Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: شریف طرح آموزش سفیران انرژی را برای کاهش مصرف گاز در تهران اجرا می‌کند مجری طرح آموزش سفیران انرژی از اجرای طرح آموزش سفیران انرژی با مشارکت دانشجویان و استادان این دانشگاه خبر داد و گفت: با توجه به پیش‌بینی کمبود روزانه ۳۰۰ تا ۴۰۰ میلیون مترمکعب گاز در اوج فصل سرما، این طرح با هدف افزایش آگاهی عمومی و کاهش مصرف گاز، در گام نخست در تهران اجرا می‌شود.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/02/4/64037019.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T22:54:03.193Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: برتری اسپانیا و انگلیس در لیگ ملت‌های اروپا/کامبک ایتالیا مقابل فرانسه رقابت‌های فوتبال لیگ ملت‌های اروپا با پیروزی تیم‌های اسپانیا، انگلیس، ایتالیا و بلژیک و شکست فرانسه پیگیری شد.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/yonmJ0c5txYG/48gCdObaq_-HXZF3gQy4DuSh7khTSyeB9Ld2Oofkx36kjj5HX4Ux3j-iFEAGGAq4t9IVaR4Ai80fbQIVbQXVIHrEnFpDr7DvYJkcU64TPJ3sYkLvkxDmIjEJBzQYiHsLkLQARN85Iy4qEpjnqU84DTrA7ljXbwCx8CubQbm_q4BSiex7Bl_Yeuh-1X5t3dg_/1.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-12T22:54:03.894Z"
   }
  ],
- "tweetQueue": [],
+ "tweetQueue": [
+  {
+   "kind": "tweet",
+   "text": "در ایرلند با استیو ویتوکوف و جارد کوشنر برای بررسی نتایج تمام مذاکرات هفته ملاقات کردیم. اول: نتیجه انسانی – آزادی گروگان‌ها، و ما بر بزرگترین تبادل گروگان‌ها در طول این جنگ حساب می‌کنیم. دومین نتیجه: ما نمایندگان اروپایی را حتی فعال‌تر درگیر می‌کنیم.",
+   "orig": "Зустрілись в Ірландії зі Стівом Віткоффом і Джаредом Кушнером за підсумками всіх перемовин тижня. \n\nПерше: гуманітарний результат – буде звільнення полонених, і розраховуємо на найбільший обмін за час цієї війни. Другий результат: ще активніше залучаємо європейських представників",
+   "source": "Volodymyr Zelenskyy",
+   "ids": [
+    "tw-zelenskyyua-2121013273403220214"
+   ],
+   "titleKeys": [],
+   "titleTexts": [
+    "در ایرلند با استیو ویتوکوف و جارد کوشنر برای بررسی نتایج تمام مذاکرات هفته ملاقات کردیم اول نتیجه انسانی ازادی گروگان ها و ما بر بزرگترین تبادل گروگان ها در طول"
+   ],
+   "cat": "general",
+   "queuedAt": "2026-11-12T22:57:18.958Z"
+  },
+  {
+   "kind": "tweet",
+   "text": ".@SEPeaceMissions، @jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم. اول، نتیجه انسانی – گروگان‌ها آزاد خواهند شد، و ما بر بزرگترین تبادل گروگان‌ها از آغاز این جنگ حساب می‌کنیم. دومین نتیجه – ما",
+   "orig": ".@SEPeaceMissions, @jaredkushner, and I met in Ireland following all the negotiations held this week. \n\nFirst, a humanitarian outcome – prisoners will be released, and we are counting on the largest prisoner exchange since the start of this war. The second outcome – we are",
+   "source": "Volodymyr Zelenskyy",
+   "ids": [
+    "tw-zelenskyyua-2121013268110033316"
+   ],
+   "titleKeys": [],
+   "titleTexts": [
+    "sepeacemissions jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم اول نتیجه انسانی گروگان ها ازاد خواهند شد و ما بر بزرگترین تبادل گروگان ها "
+   ],
+   "cat": "general",
+   "queuedAt": "2026-11-12T22:57:19.658Z"
+  }
+ ],
  "lastNewsSlotKey": "2026-11-13T02:00",
  "lastTweetSlotKey": "2026-11-13T01:00",
  "lastBundleAt": "2026-11-11T17:29:35.225Z",
@@ -5128,6 +5471,117 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "tw-zelenskyyua-2121013273403220214",
+   "titleKey": "5fc8cccfb477f47d685a68c063d75262ec10bfd7",
+   "source": "𝕏 Volodymyr Zelenskyy",
+   "cat": "general",
+   "lang": "en",
+   "text": "در ایرلند با استیو ویتوکوف و جارد کوشنر برای بررسی نتایج تمام مذاکرات هفته ملاقات کردیم. اول: نتیجه انسانی – آزادی گروگان‌ها، و ما بر بزرگترین تبادل گروگان‌ها در طول این جنگ حساب می‌کنیم. دومین نتیجه: ما نمایندگان اروپایی را حتی فعال‌تر درگیر می‌کنیم.",
+   "at": "2026-11-12T22:52:25.000Z"
+  },
+  {
+   "id": "tw-zelenskyyua-2121013268110033316",
+   "titleKey": "3fdf96244ad5833f453c69c0360624063d36ace3",
+   "source": "𝕏 Volodymyr Zelenskyy",
+   "cat": "general",
+   "lang": "en",
+   "text": ".@SEPeaceMissions، @jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم. اول، نتیجه انسانی – گروگان‌ها آزاد خواهند شد، و ما بر بزرگترین تبادل گروگان‌ها از آغاز این جنگ حساب می‌کنیم. دومین نتیجه – ما",
+   "at": "2026-11-12T22:52:24.000Z"
+  },
+  {
+   "id": "8ee4c50c17e609fd1cf3aab4ac4877699e9fbf97",
+   "titleKey": "9101da9e4e939341a7ce43042358ef3cfb9064b0",
+   "source": "Al Mayadeen",
+   "lang": "ar",
+   "text": "نتنياهو يطلع آيزنكوت على التحديات الأمنية والدبلوماسية التي تواجه \"إسرائيل\" - الميادين نتنياهو يطلع آيزنكوت على التحديات الأمنية والدبلوماسية التي تواجه \"إسرائيل\" الميادين",
+   "at": "2026-11-12T19:59:50.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_ANBVV95cUxPLVlUUXEwd1NGNzlFdkJvbEd3dXpDMjU1UTU0REE0MTJTeHFlZHY0b0xFS3N1cElpZmVyRTJSa2NCVWE3Ukh5Q1NIcm1WUHBhQmlTNGROVU5wemg0MzctejV5NW9tWGlmamJqaHRCY0JRUFRxSkhPdkhOV29vZ3BydUduTzJHNGcyRUxVUWpzaGMtUEFmZktqUkczRWFJNlN2Wk1HaHhuYWNNLUZhMlpmUWU3SEVyLWhfbXEyYUsyWlJaQzAwTGNzY3hMVXJVZktIU3ktSHZxaFJnM2FaUWxOSkFzSEloMFFwaXphUG1qU2lZblduYk1ueGxIek85VGdRaFczTndYcV9TaGx4bDhBckJIeDFpOGVDT2tiWl9Fc0JmeWlwQjBPSmJpZFBvVGVzblphWlhRbkZYUllZUVVjN1ZEaWs1Q1J1eEFJWGRSWmFEcTlxa1VlTFktRUVqLWJ4S2ZTZ0JlLVZhdUVVcWtaQ1VEV21HOUVqTzdrX2RVLWNONHdIcDJZRFR0NWhZRlNXYThaSk9GakJqUk1JV0FkQVljZFhPRnF2eHhVbVFVY3BJSV9QQnZkRTZUNVZuZ2QxOEljT0Vjd2lYVmVUZjRfcVhZR3BkU21Rbzl5RkM0czJqUllrWnZSaXVZa0FybjZMc3ljYWVJSjN3UHZC0gGABEFVX3lxTE9FY2lvY3h6YkJyNER5RGRnYnRXWXYwVnNFWDdkNjU0cnFaRFRydTJ4Skd3cUo0VmxyMWtLOGNDR2x5LTlwWUxZZkdiTlNrLWRHbzRrcTBnN0lRWmItNERkd2puRlZDTGs1U1BIVGE0OWZqQ2JDUTYtazZfR1hieUZHSzVaQ2VENUwtbU02R2tvVC1lY1N3dm1VdWdyZUk3QTdHWEtWaWUyeDlZTVBYemh5eVlCcENBUG1rYk1LNGpDZVk4UlNLdEJoNVpVQm9lbG1rdmlOTnNMT01NaFVqc1IyYi04bDRkejlONFBldTJwS0JSZTN1UUVOdkREeEFCM0t4VmZxbUVQUmlsaTdiYTBsWTdnbkdSVVVjeEoyVHhSdV9UZjNVVGhiZnU4ZVlqdkUyN18xNFdVVEUzaXd6Q2o0YXZZWXVQcEdSVFdtaW5yREs5c0FxOWZobHpab21SUkdFdkRzaUhyOU9wZW1rYmNLSk9iVEVISTRLU1dtZjZXSXVLRDRFdUUzUUROeXpkeW1TakNXclFuMk1SeFIzbDZvUVp0QnZDTEJmTnRzcUhIbWZmSWpJYXdtTTFrZkZVcVNMaG82dnNLdDhpMDJCcklLSFlYNVRvOTczZVhlRlJvS0VmWUg0S1pSY2d1RjZiUlR2LWhTdWRMTEpTcUNrcTVE?oc=5"
+  },
+  {
+   "id": "3fa5f2e4eb8f2acc0ae6b9692e6b8d001a106316",
+   "titleKey": "84b040cd74e14556e52578b78b9fb92a9d9abe11",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "OpenAI Joins Groundswell of Support for AI Chip Control Measures - Bloomberg.com OpenAI Joins Groundswell of Support for AI Chip Control Measures Bloomberg.com",
+   "at": "2026-11-12T21:35:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMmJ4OENGS1F1RWpJNzlmVHhSZjVvYlZVWnh0YmRKQ2oxSUlicjdzcmMwZ1pBZFJZaG1lX0FXUXl3S01CSTdROHhTdTZ0NjNvei1lLVVqaUpTcEstQlYxRE84alZ6azFYMkR4QU5XakE2VFphTjQzXzVBRjRIM19pWGtad2p6aFNzRFNpb1N4VFBTamxQRmxxMGV5bE5maFQ0Q0JHakJzNGI2bXNBN0dQRFhGcGRHZw?oc=5"
+  },
+  {
+   "id": "bcdb63f7bee239e15eeee00cd1d679de69c09df6",
+   "titleKey": "08f0bda46397fcec066e48590fbea58d9c2b20c0",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "At least 34 drones downed en route to Moscow First responders are working at crash sites, Moscow Mayor Sergey Sobyanin said",
+   "at": "2026-11-12T22:17:00.000Z",
+   "url": "https://tass.com/politics/2217495"
+  },
+  {
+   "id": "96881afc3b5f9e6a6ba012c6529c129d9e217d58",
+   "titleKey": "3a92e42229ef54097996089c70810930adaffeed",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Sheikh's wife loses £8.3m London mansion battle over husband's business debts",
+   "at": "2026-11-12T22:20:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/uk/billionaire-sheikhs-wife-loses-8-3-million-london-mansion-battle-after-claiming-her-husband-gifted-her-the-property-under-islamic-custom-leaving-the-home-exposed-to-his-80-million-business-debt/articleshow/135759740.cms"
+  },
+  {
+   "id": "404544b663c71e22ce2ffd8fa36a043365337c48",
+   "titleKey": "c1ee7e18cb9b67c236cd60b011ea75a0a0e3297d",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Endangered leatherback turtle Bella achieves 91.8% hatching success in Ecuador Bella, a resilient leatherback turtle, made a remarkable nesting attempt in Ecuador, overcoming an array of challenges posed by artificial lighting. Her successful hatchling rates reveal a promising trend, indicating that leatherbacks are beginning to adapt to their new coastal environments. Conservation efforts are increasingly vital as these turtles face persistent threats, highlighting the urgent need to establish safe habitats for their upcoming nesting seasons.",
+   "at": "2026-11-12T22:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/science/nature/critically-endangered-leatherback-turtle-bella-makes-remarkable-nesting-attempts-in-ecuador-achieving-918-hatch-success-rate/articleshow/135716561.cms"
+  },
+  {
+   "id": "fd9c58c72b4bd9d90308fc2e8228b66efd05f456",
+   "titleKey": "84d0926d6876ed030d7f3679c55eeb740837bd02",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Oklahoma man's 141 short-term guests lead to rental ban and $8,528 fines A recent ruling by the Supreme Court has imposed a hefty fine of over $8,000 on an Oklahoma homeowner, Adewale Eniola Tawose. This decision reinstates the community's ban on short-term rentals after a legal tussle. Tawose's attempts to host guests led the homeowners association to act against him, reversing an earlier judgment that allowed his rental business, thus affirming the penalties and restrictions on such properties.",
+   "at": "2026-11-12T22:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/an-oklahoma-homeowner-hosted-141-guests-during-36-short-term-stays-despite-neighbourhood-rules-after-a-lower-appeals-court-lifted-restrictions-the-state-supreme-court-restored-the-ban-and-upheld-8528-in-fines/articleshow/135746069.cms"
+  },
+  {
+   "id": "ff4d6b159865131ffc61128732411aefd04c703c",
+   "titleKey": "c2535189148015061d38e73208aae10c1cbf6d30",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "غافلگیری ستاره رئال مادرید برای پسر سودانی که جنگ پاهایش را گرفت ظاهر، پسری که هر دو پایش قطع شده، سال گذشته به بخش جهانی بی‌بی‌سی از فوتبالیست محبوبش و رویای دوباره راه رفتن گفته بود.",
+   "at": "2026-11-12T22:40:53.000Z",
+   "url": "https://www.bbc.com/persian/articles/c6wy430n1nkno?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "698aaf9392046826c8af820cbce3d951edaef27f",
+   "titleKey": "0521664ef95d0080fe08646fcd5d330c63b7741d",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "GOP lawmaker says party is focusing on ‘political power’ rather than people Texas Rep. Chip Roy (R) issued a scathing rebuke of the Republican Party on Thursday, after his party lost control of both chambers of Congress in the midterm elections. Roy, who will depart his role on Jan. 3 after launching an unsuccessful bid for Texas attorney general, spoke for nearly half an hour on the…",
+   "at": "2026-11-12T22:45:59.000Z",
+   "url": "https://thehill.com/homenews/house/6217576-gop-lawmaker-says-party-is-focusing-on-political-power-rather-than-people/"
+  },
+  {
+   "id": "4ea2a5579cd32efedd83d7ca7625ca06346ffcf8",
+   "titleKey": "b847d5a7cfef2ff1953591059d72fa4fd7bda1f1",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "شریف طرح آموزش سفیران انرژی را برای کاهش مصرف گاز در تهران اجرا می‌کند مجری طرح آموزش سفیران انرژی از اجرای طرح آموزش سفیران انرژی با مشارکت دانشجویان و استادان این دانشگاه خبر داد و گفت: با توجه به پیش‌بینی کمبود روزانه ۳۰۰ تا ۴۰۰ میلیون مترمکعب گاز در اوج فصل سرما، این طرح با هدف افزایش آگاهی عمومی و کاهش مصرف گاز، در گام نخست در تهران اجرا می‌شود.",
+   "at": "2026-11-12T22:50:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114734/%D8%B4%D8%B1%DB%8C%D9%81-%D8%B7%D8%B1%D8%AD-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%B3%D9%81%DB%8C%D8%B1%D8%A7%D9%86-%D8%A7%D9%86%D8%B1%DA%98%DB%8C-%D8%B1%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%DA%A9%D8%A7%D9%87%D8%B4-%D9%85%D8%B5%D8%B1%D9%81-%DA%AF%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%A7%D8%AC%D8%B1%D8%A7"
+  },
+  {
+   "id": "5d628dafcebc548325050e2cff9ad0abda027d87",
+   "titleKey": "dcbcce43a3b4a503595bba7101b8e2a4dd26f9ea",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "برتری اسپانیا و انگلیس در لیگ ملت‌های اروپا/کامبک ایتالیا مقابل فرانسه رقابت‌های فوتبال لیگ ملت‌های اروپا با پیروزی تیم‌های اسپانیا، انگلیس، ایتالیا و بلژیک و شکست فرانسه پیگیری شد.",
+   "at": "2026-11-12T22:51:28.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865324"
+  },
   {
    "id": "4196a760789629044a0590fed353a138eeb1f53e",
    "titleKey": "b48f3aca29ddfd232d1c11811c9a6b9cac1d026d",
@@ -8960,7 +9414,7 @@
    "items": 451
   }
  ],
- "aiCursor": 4,
+ "aiCursor": 5,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9534,21 +9988,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794523477705,
-  "Akharin_khodro/8913": 1794523477705,
-  "Akharin_khodro/8914": 1794523477705,
-  "Akharin_khodro/8915": 1794523477705,
-  "Akharin_khodro/8916": 1794523477705,
-  "Akharin_khodro/8919": 1794523477705,
-  "Akharin_khodro/8920": 1794523477705,
-  "Akharin_khodro/8921": 1794523477705,
-  "Akharin_khodro/8922": 1794523477705,
-  "Akharin_khodro/8923": 1794523477705,
-  "Akharin_khodro/8924": 1794523477705,
-  "Akharin_khodro/8925": 1794523477705,
-  "Akharin_khodro/8926": 1794523477705,
-  "Akharin_khodro/8927": 1794523477705,
-  "Akharin_khodro/8928": 1794523477705,
+  "Akharin_khodro/8908": 1794524241110,
+  "Akharin_khodro/8913": 1794524241110,
+  "Akharin_khodro/8914": 1794524241110,
+  "Akharin_khodro/8915": 1794524241110,
+  "Akharin_khodro/8916": 1794524241110,
+  "Akharin_khodro/8919": 1794524241110,
+  "Akharin_khodro/8920": 1794524241110,
+  "Akharin_khodro/8921": 1794524241110,
+  "Akharin_khodro/8922": 1794524241110,
+  "Akharin_khodro/8923": 1794524241110,
+  "Akharin_khodro/8924": 1794524241110,
+  "Akharin_khodro/8925": 1794524241110,
+  "Akharin_khodro/8926": 1794524241110,
+  "Akharin_khodro/8927": 1794524241110,
+  "Akharin_khodro/8928": 1794524241110,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -9855,27 +10309,28 @@
    }
   }
  },
- "tweetCursor": 2,
- "lastRunAt": "2026-11-12T22:44:37.711Z",
+ "tweetCursor": 8,
+ "lastRunAt": "2026-11-12T22:57:21.115Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1078,
-  "inWindow": 216,
-  "fresh": 116,
-  "sent": 1,
+  "fetched": 1079,
+  "inWindow": 211,
+  "fresh": 117,
+  "sent": 3,
   "images": 0,
-  "translated": 0,
+  "translated": 2,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 118,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 115,
-  "queued": 1,
-  "tweetRateLimited": false
+  "skippedUntranslated": 114,
+  "queued": 3,
+  "tweetRateLimited": false,
+  "tweetsQueued": 2
  }
 }

@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "9866e22e394d99679622fcd09794ab15180f9def": 1794525953964,
+  "8a11cb15a87618251d46a523431b6b645b0ace33": 1794525953964,
   "93b204f543ee3c963eadb912238e69c331962657": 1794525390903,
   "edfeb703c424427622c0ea735d0efe85809025c1": 1794525390903,
   "608e5fc1c279de773470dd1b3d18eb1c5749e2fd": 1794525390903,
@@ -1197,11 +1199,11 @@
   "9ba15d771e2f248b94bbbebefda7fd7f6ac3ff5f": 1794491275142,
   "d611d2d9342be6a5ea9c1685793817c35c18d544": 1794491275142,
   "abdd89462d2eb6d41e07dbd65838dd5910490713": 1794491275142,
-  "50c1473e498201cab5f8cd03fa8c9dfeccd95a55": 1794491275142,
-  "bcb30d3ce7f22d8bf7adc8a9a8115907565c7923": 1794491275142,
-  "52d67c36cded8880aaefbe2b34fdc403a47654de": 1794491275142
+  "50c1473e498201cab5f8cd03fa8c9dfeccd95a55": 1794491275142
  },
  "sentTitles": {
+  "aa3ba25b9933116e298736b9bb002a4ca310074d": 1794525953964,
+  "1ee4e525e30e04604790befee33d7e5110a88979": 1794525953964,
   "a4b0b8dfdceceb2c18c43e2b2b3e8297a35d8f7e": 1794525390903,
   "097c3eca856dac6ed06f088a95e622b2a60fcb73": 1794525390903,
   "a967357379e0d48119f8179a106b00d45fe43efa": 1794525390903,
@@ -1799,9 +1801,7 @@
   "db4f57bbb70f4c71b0a317bbbd5d97991689b520": 1794502386303,
   "b0de6f92ab39c04c33cb1740e4f17c8ad8ecc385": 1794502386303,
   "2dc65f4a8ac7818394978da40c4ccb6e3f080884": 1794501772731,
-  "b8385ea9317d2fa9e6cb727936cf541d632e8300": 1794501772731,
-  "cb8dfd194740b01bdffb44aeebf3c00773c843ab": 1794501772731,
-  "34e748d5790ca8a3bbfdb3f567a0e66173976ed1": 1794501772731
+  "b8385ea9317d2fa9e6cb727936cf541d632e8300": 1794501772731
  },
  "sentTitleTexts": {
   "من با رییس جمهور فرانسه emmanuelmacron ملاقات کردم ما درباره نتایج نشست چندجانبه در دبلین صحبت کردیم و موقعیت های خود را در پیش زمینه نشست هم پیمانان اراده مند ": 1794519271702,
@@ -3008,6 +3008,164 @@
   "خبرگزاری جمهوری اسلامی ایرنا ویترین اخبار سیستان و بلوچستان پنجشنبه ۲۱ ابان در یک نگاه زاهدان ایرنا مهمترین رویدادهای روز پنجشنبه ۲۱ ابان در سیستان و بلوچستان ر": 1794501772731
  },
  "pool": [
+  {
+   "id": "c9296df9da81e07eee30cf74b72fd91ac3552402",
+   "titleKey": "d485651cd0986a5a2ea0fa58e4cdc5b98697abeb",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "▶️ Armed Israeli soldiers block a Palestinian-American citizen from entering his home in Turmus Ayya, Occupied West Bank. @PressTV",
+   "at": "2026-11-12T20:40:14.000Z",
+   "url": "https://t.me/presstv/214486"
+  },
+  {
+   "id": "6a20df73ed5630207ebc4a066997b77ba4654948",
+   "titleKey": "f76aaaed44ff05cb00e1b32a17d91c60726641fa",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Former Nvidia CEO Huang had a relationship with a second employee, sources say - Reuters EXCLUSIVE: Former Nvidia CEO Huang had a relationship with a second employee, sources say Reuters",
+   "at": "2026-11-12T20:49:17.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOS3otVnY4ZXphd1g5Q0REOVlqY3c1WXBMSmMtNThTbGlaRGVkVkZXZml1RHlEN3djZXRMT0pSTnJ6c3JiZ0tOdVRRekpJUlBfRV92ZEFEUU9GVU5XZHBYVmotRjFpcExuaER3S1BUaF90UWFaRnVBcFlHazgzOXBSWXJfN1RMSFNrcWY2TVRkQmVTYkNHUUhMeHAyM1huRXItSVhKZU95Q2wyTmg1MnlZcGduR01vdzFBcmpiVA?oc=5"
+  },
+  {
+   "id": "692df73aa84131b58b2d8de560fdc41960c92280",
+   "titleKey": "7aab4ed5769906480b5c48287e5092c4c1e348be",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "US releases report on $12bn from Venezuelan oil, mineral resources The report seeks to address concerns about the Trump administration's handling of revenue held in trust for Venezuela.",
+   "at": "2026-11-12T20:49:36.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/12/us-releases-report-on-12bn-from-venezuelan-oil-mineral-resources?traffic_source=rss"
+  },
+  {
+   "id": "58a1330c24949f6c6747ffb739dcd9c9a18f5aff",
+   "titleKey": "15c1d58ffc32b10e709e562da1b78e2bd43ff9a0",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Microsoft outage hits tens of thousands of users Microsoft says servers unexpectedly went offline, disrupting Outlook email, Teams, Copilot and other services.",
+   "at": "2026-11-12T21:03:09.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/12/microsoft-outage-hits-tens-of-thousands-of-users?traffic_source=rss"
+  },
+  {
+   "id": "2e439b2a35ed5a93064178cd4f5697d9336391dd",
+   "titleKey": "ab06d8cd927a8238a928c0fca15a22e3d4804a08",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "US markets end lower as Nvidia slump overshadows energy rally",
+   "at": "2026-11-12T21:13:07.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/international-business/us-markets-end-lower-as-nvidia-slump-overshadows-energy-rally/articleshow/135782541.cms"
+  },
+  {
+   "id": "a91f41adfffff6e7347e6ac0b02f335603667d17",
+   "titleKey": "a1345e4e14686cdbf35a1d96f9eb2ae054f46000",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Man Utd & Man City in Gusto battle - Friday's gossip Manchester United and Manchester City are going head-to-head for Chelsea defender Malo Gusto and Leeds United pursue Will Lankshear, plus more.",
+   "at": "2026-11-12T21:13:59.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cmp86enlly13o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "4fdcef949d9c783c8749bea625389e09a58ed336",
+   "titleKey": "e00bb86e4bde703f4f6cfc14a30220549b09dba8",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Across Africa: Tunisians drawn into Russia's war with Ukraine This week: A new report says more than 1,400 Africans have been recruited to fight for Russia in Ukraine since 2023. Also, as South Africa races to become Africa's digital gateway, a growing backlash is emerging in Cape Town. And music, dance and theatre lit up Abéché as the city's arts festival in Chad drew crowds of young spectators.",
+   "at": "2026-11-12T21:26:17.000Z",
+   "url": "https://www.france24.com/en/across-africa-tunisians-drawn-into-russia-s-war-with-ukraine"
+  },
+  {
+   "id": "9503961e5a5107c28ed5824d889661cb5484b3b1",
+   "titleKey": "1c8b640075eb103b905a19fe8182382140d48f2d",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "اليابان تعرض للمرة الأولى أنظمة طاقة شمسية كهروضوئية رقيقة - العربي الجديد اليابان تعرض للمرة الأولى أنظمة طاقة شمسية كهروضوئية رقيقة العربي الجديد",
+   "at": "2026-11-12T21:28:24.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi1ARBVV95cUxQS3I4OUhlYmVXemdDYldESmxHMWRTVXk0V3pQZDZTS21HY2x2MVJJb1JNX3FjQU9DVzNKOVZqMnBfUWs0b3hGRzRoZk1iVlhaUVJqdVd3Y0IwZUhQdlpxV3BLTUhWekFBei1SNkpjbmFLVHBuOXgtb3pIRXlyQ0luOURNdV9ObE8wMDczZ2thdHNMMnJzTEloNjJSNUdFOGpPV0dxRGRuSnZYdDdNb2gwM0pmZWNTVUJPUXQ3MTNNYnU3NjJ2ZUdFYVVBOGRZYzNVQVE1SU5tVHljWmx5SkFHNkFadFlnSzFEaFZzYWkwdjBjbFVPaFFmbURPNEg1bnpfZlBBUVRna0kyUjh6bGh5Q1JlME52QlpSUEVLN2ktTFRDYXIyTUlwcXQxRkxJVjJUR2V1QkRCcllHa0g3LUx0SG83V3k1QW5NSW1vX0lqdFpYM0xYU29xUkR2OVRpUUNnbklsMXg1Y0J1czUtY0pSckdQdTdMam16bDlTZDM0cXRKa1pkNW9mV0Yxd3hIdmRKclJycVRxV0FvdzY3S194Z1I5ZXZ6bUF3d2tDTGp3X1BBZ21HTHVQQ21ob3lSN1g2ajdvWHVXdkNsU3JrMTdSdWFKczlWdUROeVNrbmFDQksxbjhYOFdCdmRQeHluUFAxY0p5M0dWZ3hBbEpKUXVzeXRyVjdkWm5rS1N3M2M1eHlINGppMDNEeDJYVzFkY1dpWWJpUjhnYlpzMklRU1c4dE4xSjBjLUFYR0FjVVdoMmF0ZXRrMHVuMFpCd2VpeGRKdXdlSQ?oc=5"
+  },
+  {
+   "id": "929ae25afa292260d5f9d725f40c92fd0a01b771",
+   "titleKey": "8720f912b3a1d3f878d1f86ed9aa51ca6868221b",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade - Bloomberg.com Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade Bloomberg.com",
+   "at": "2026-11-12T21:37:51.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNY1NTVmFaaGxYUlRucGtIRzJRYlJrMGN6Y3E0TVF0bmhuOFRKTE0wSGc3alFkUnpCQkZDaUhPVFR2NnJ0T0tUVHdTazlYRHVfVFhHU0xxaFJwYV94X003QjZaQmNwdFRadmJEeDNrdmpwZ3gwWWRMdGNiOFFJR0gxOXVIMUVPQmljOWpJRlFfSGM1cnFRLTFwSjNfRkxYeDJqYllKOTl5Qzg0MGFFUzlvMU50RVE?oc=5"
+  },
+  {
+   "id": "63a93d0f63d6f859d052bd5c28671b00ae25149b",
+   "titleKey": "5e55dac8bc5a51937166f80ce94eca68a8b9b49c",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump says he wants to ‘get Cuba done’ before leaving office President Trump on Thursday said he wants to “get Cuba done” before he leaves office and that the administration is “watching it very closely.” “I want to get Cuba done before I leave,” he told conservative radio host Hugh Hewitt. “We are watching it very closely, it’s doing very poorly,” the president said. “It’s essentially…",
+   "at": "2026-11-12T21:40:40.000Z",
+   "url": "https://thehill.com/homenews/administration/6217391-trump-wants-cuba-change/"
+  },
+  {
+   "id": "60e5fdad2b0d8d29ec1697147c645663e6cb9cf5",
+   "titleKey": "47c133e51b0296ff308c10efcb4eb74968f2ed07",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Gritty Arsenal show different side in Barcelona draw Could a resilient draw against European champions Barcelona be a turning point in Arsenal's season?",
+   "at": "2026-11-12T21:50:59.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cqe85vym242jo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "4e1babf004c466ef1432b2637aac6e5e64641cc1",
+   "titleKey": "671aacf8287593a10ac534f21d6491d59cc2252b",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Rajasthan SSR draft counts 1 1 L more voters than SIR list",
+   "at": "2026-11-12T21:51:28.000Z",
+   "url": "https://timesofindia.indiatimes.com/india/rajasthan-ssr-draft-counts-11l-more-voters-than-sir-list/articleshow/135782652.cms"
+  },
+  {
+   "id": "3fd6adce9727d9fab35dce4e839357f1728001f5",
+   "titleKey": "5269027db4dd76d2a3aaee70388b3c0ba43ad643",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Senators probe RFK Jr.'s Samoa trip testimony after AP and Guardian showed documents that refute it - AP News Senators probe RFK Jr.'s Samoa trip testimony after AP and Guardian showed documents that refute it AP News",
+   "at": "2026-11-12T22:13:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNc1lEekgxMHlib0FkWW1YaWRoV0hKd1dQTzFuQ002eUNjZi1yWHc1a0U1MFd5VkFScUg1VDh3YmRqVXoxSGFHUlF6NWYtZXgydzFqOUktTjJELUJCS2J4azljdVZRZ3ZUUWdpMjdub1JGWmNHT3hVc28wTFJFMVpnUmt2aHpOb3dvVV9VcVV3OERjeEU4SUVRVncwNzBPNnRJREZpMWJMeXBHTlBveUIw?oc=5"
+  },
+  {
+   "id": "6192337f9aa60df8998645479550a0157a6d120e",
+   "titleKey": "3d767cff67f7d78e9c06733302cb780bd943e094",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | The Nvidia scandal is about more than sex and spies - The Washington Post Opinion | The Nvidia scandal is about more than sex and spies The Washington Post",
+   "at": "2026-11-12T22:44:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOZ2FzMFV5TVRoTWZfLXZjdW5DU1BnUFQxcTc4R19MWW1wT294SjR1VWlEdFI0dzFlTkJJRWw4S2Nwc3dpR3VtYi01Uy00MFNMUmJqWnZGYkpEUnhKQXFEdTJGejJscWlRb1pYOU5uQ0Z6aGtDX1Rxenp1Q3ZUZ1NCbHgxeXhGZGI3LVpuZ1RTOHA4dDBibzdlX1JQV2ktYkFMdFd4anQwN3lZMGsyd3BNM3RCN2FZUQ?oc=5"
+  },
+  {
+   "id": "9866e22e394d99679622fcd09794ab15180f9def",
+   "titleKey": "aa3ba25b9933116e298736b9bb002a4ca310074d",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سیره حضرت زهرا(س) الگویی برای پیوند معنویت، مسئولیت خانوادگی و تعهد اجتماعی یک کارشناس دینی گفت: زندگی حضرت زهرا(س) نشان می‌دهد که انسان مؤمن می‌تواند در کنار توجه به رشد معنوی خود، نسبت به خانواده و جامعه نیز مسئولیت‌پذیر باشد.",
+   "at": "2026-11-12T23:16:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114815/%D8%B3%DB%8C%D8%B1%D9%87-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%BE%DB%8C%D9%88%D9%86%D8%AF-%D9%85%D8%B9%D9%86%D9%88%DB%8C%D8%AA-%D9%85%D8%B3%D8%A6%D9%88%D9%84%DB%8C%D8%AA-%D8%AE%D8%A7%D9%86%D9%88%D8%A7%D8%AF%DA%AF%DB%8C"
+  },
+  {
+   "id": "8a11cb15a87618251d46a523431b6b645b0ace33",
+   "titleKey": "1ee4e525e30e04604790befee33d7e5110a88979",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "آغاز سال مالی ۲۰۲۷ آمریکا با کسری بودجه ۴۰۴ میلیارد دلاری دولت آمریکا سال مالی ۲۰۲۷ را با ثبت ۴۰۴ میلیارد دلار کسری بودجه آغاز کرد؛ رقمی که از افزایش شکاف میان درآمدها و هزینه‌های دولت در شروع این سال مالی حکایت دارد.",
+   "at": "2026-11-12T23:19:57.000Z",
+   "url": "https://www.mehrnews.com/news/7009165/%D8%A2%D8%BA%D8%A7%D8%B2-%D8%B3%D8%A7%D9%84-%D9%85%D8%A7%D9%84%DB%8C-%DB%B2%DB%B0%DB%B2%DB%B7-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D8%A7-%DA%A9%D8%B3%D8%B1%DB%8C-%D8%A8%D9%88%D8%AF%D8%AC%D9%87-%DB%B4%DB%B0%DB%B4-%D9%85%DB%8C%D9%84%DB%8C%D8%A7%D8%B1%D8%AF-%D8%AF%D9%84%D8%A7%D8%B1%DB%8C"
+  },
+  {
+   "id": "c536a485242f2266108648ecca8fc4248a3f7d1e",
+   "titleKey": "2da6f4386fd32ee0e3db9eee1b6d40b51026796e",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "News Review: Israel deadly attack on Gaza hospital - PressTV News Review: Israel deadly attack on Gaza hospital PressTV",
+   "at": "2026-11-12T23:20:02.000Z",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQWDkyT2d4X3lQTWlBOURraGRVV2s2Z3p3My13RmVJZGVma01VaUxncm93QzFjcFNQRHEwVjdFVmxtWnh2ZXdMdG4zQ1BxdHQ0T1dUZFNMdm1mN3FYQlBNaTVUR0lRUmxfempmRzBrbUZNYVB4LTBRQkdGZjJLdVdDcmM1SExma1V2QnlQUlJhR0RiYVFjdGJMSHFUT0Zkdw?oc=5"
+  },
   {
    "id": "8f49ea30679579217fb25c29f380bcb84809074c",
    "titleKey": "3962c05565eeb417364d64f3a1fc5d18e0bfb990",
@@ -4993,6 +5151,26 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-12T23:16:15.925Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: سیره حضرت زهرا(س) الگویی برای پیوند معنویت، مسئولیت خانوادگی و تعهد اجتماعی یک کارشناس دینی گفت: زندگی حضرت زهرا(س) نشان می‌دهد که انسان مؤمن می‌تواند در کنار توجه به رشد معنوی خود، نسبت به خانواده و جامعه نیز مسئولیت‌پذیر باشد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/11/12/4/64052099.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T23:25:39.047Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: آغاز سال مالی ۲۰۲۷ آمریکا با کسری بودجه ۴۰۴ میلیارد دلاری دولت آمریکا سال مالی ۲۰۲۷ را با ثبت ۴۰۴ میلیارد دلار کسری بودجه آغاز کرد؛ رقمی که از افزایش شکاف میان درآمدها و هزینه‌های دولت در شروع این سال مالی حکایت دارد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/10/09/4/6211221.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-12T23:25:39.748Z"
   }
  ],
  "tweetQueue": [
@@ -5201,6 +5379,45 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "929ae25afa292260d5f9d725f40c92fd0a01b771",
+   "titleKey": "8720f912b3a1d3f878d1f86ed9aa51ca6868221b",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade - Bloomberg.com Wall Street Whistles Past Nvidia Risk to Bet on Wobbly AI Trade Bloomberg.com",
+   "at": "2026-11-12T21:37:51.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNY1NTVmFaaGxYUlRucGtIRzJRYlJrMGN6Y3E0TVF0bmhuOFRKTE0wSGc3alFkUnpCQkZDaUhPVFR2NnJ0T0tUVHdTazlYRHVfVFhHU0xxaFJwYV94X003QjZaQmNwdFRadmJEeDNrdmpwZ3gwWWRMdGNiOFFJR0gxOXVIMUVPQmljOWpJRlFfSGM1cnFRLTFwSjNfRkxYeDJqYllKOTl5Qzg0MGFFUzlvMU50RVE?oc=5"
+  },
+  {
+   "id": "9866e22e394d99679622fcd09794ab15180f9def",
+   "titleKey": "aa3ba25b9933116e298736b9bb002a4ca310074d",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "سیره حضرت زهرا(س) الگویی برای پیوند معنویت، مسئولیت خانوادگی و تعهد اجتماعی یک کارشناس دینی گفت: زندگی حضرت زهرا(س) نشان می‌دهد که انسان مؤمن می‌تواند در کنار توجه به رشد معنوی خود، نسبت به خانواده و جامعه نیز مسئولیت‌پذیر باشد.",
+   "at": "2026-11-12T23:16:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114815/%D8%B3%DB%8C%D8%B1%D9%87-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%BE%DB%8C%D9%88%D9%86%D8%AF-%D9%85%D8%B9%D9%86%D9%88%DB%8C%D8%AA-%D9%85%D8%B3%D8%A6%D9%88%D9%84%DB%8C%D8%AA-%D8%AE%D8%A7%D9%86%D9%88%D8%A7%D8%AF%DA%AF%DB%8C"
+  },
+  {
+   "id": "8a11cb15a87618251d46a523431b6b645b0ace33",
+   "titleKey": "1ee4e525e30e04604790befee33d7e5110a88979",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "آغاز سال مالی ۲۰۲۷ آمریکا با کسری بودجه ۴۰۴ میلیارد دلاری دولت آمریکا سال مالی ۲۰۲۷ را با ثبت ۴۰۴ میلیارد دلار کسری بودجه آغاز کرد؛ رقمی که از افزایش شکاف میان درآمدها و هزینه‌های دولت در شروع این سال مالی حکایت دارد.",
+   "at": "2026-11-12T23:19:57.000Z",
+   "url": "https://www.mehrnews.com/news/7009165/%D8%A2%D8%BA%D8%A7%D8%B2-%D8%B3%D8%A7%D9%84-%D9%85%D8%A7%D9%84%DB%8C-%DB%B2%DB%B0%DB%B2%DB%B7-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D8%A7-%DA%A9%D8%B3%D8%B1%DB%8C-%D8%A8%D9%88%D8%AF%D8%AC%D9%87-%DB%B4%DB%B0%DB%B4-%D9%85%DB%8C%D9%84%DB%8C%D8%A7%D8%B1%D8%AF-%D8%AF%D9%84%D8%A7%D8%B1%DB%8C"
+  },
+  {
+   "id": "c536a485242f2266108648ecca8fc4248a3f7d1e",
+   "titleKey": "2da6f4386fd32ee0e3db9eee1b6d40b51026796e",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "News Review: Israel deadly attack on Gaza hospital - PressTV News Review: Israel deadly attack on Gaza hospital PressTV",
+   "at": "2026-11-12T23:20:02.000Z",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQWDkyT2d4X3lQTWlBOURraGRVV2s2Z3p3My13RmVJZGVma01VaUxncm93QzFjcFNQRHEwVjdFVmxtWnh2ZXdMdG4zQ1BxdHQ0T1dUZFNMdm1mN3FYQlBNaTVUR0lRUmxfempmRzBrbUZNYVB4LTBRQkdGZjJLdVdDcmM1SExma1V2QnlQUlJhR0RiYVFjdGJMSHFUT0Zkdw?oc=5"
+  },
   {
    "id": "8f49ea30679579217fb25c29f380bcb84809074c",
    "titleKey": "3962c05565eeb417364d64f3a1fc5d18e0bfb990",
@@ -10018,21 +10235,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794525390899,
-  "Akharin_khodro/8913": 1794525390899,
-  "Akharin_khodro/8914": 1794525390899,
-  "Akharin_khodro/8915": 1794525390899,
-  "Akharin_khodro/8916": 1794525390899,
-  "Akharin_khodro/8919": 1794525390899,
-  "Akharin_khodro/8920": 1794525390899,
-  "Akharin_khodro/8921": 1794525390899,
-  "Akharin_khodro/8922": 1794525390899,
-  "Akharin_khodro/8923": 1794525390899,
-  "Akharin_khodro/8924": 1794525390899,
-  "Akharin_khodro/8925": 1794525390899,
-  "Akharin_khodro/8926": 1794525390899,
-  "Akharin_khodro/8927": 1794525390899,
-  "Akharin_khodro/8928": 1794525390899,
+  "Akharin_khodro/8908": 1794525953960,
+  "Akharin_khodro/8913": 1794525953960,
+  "Akharin_khodro/8914": 1794525953960,
+  "Akharin_khodro/8915": 1794525953960,
+  "Akharin_khodro/8916": 1794525953960,
+  "Akharin_khodro/8919": 1794525953960,
+  "Akharin_khodro/8920": 1794525953960,
+  "Akharin_khodro/8921": 1794525953960,
+  "Akharin_khodro/8922": 1794525953960,
+  "Akharin_khodro/8923": 1794525953960,
+  "Akharin_khodro/8924": 1794525953960,
+  "Akharin_khodro/8925": 1794525953960,
+  "Akharin_khodro/8926": 1794525953960,
+  "Akharin_khodro/8927": 1794525953960,
+  "Akharin_khodro/8928": 1794525953960,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10339,27 +10556,27 @@
    }
   }
  },
- "tweetCursor": 4,
- "lastRunAt": "2026-11-12T23:16:30.905Z",
+ "tweetCursor": 10,
+ "lastRunAt": "2026-11-12T23:25:53.966Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1079,
-  "inWindow": 209,
-  "fresh": 116,
-  "sent": 3,
+  "inWindow": 199,
+  "fresh": 111,
+  "sent": 2,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 113,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 112,
-  "queued": 3,
+  "skippedUntranslated": 108,
+  "queued": 2,
   "tweetRateLimited": false
  }
 }

@@ -8,6 +8,10 @@
  * (به‌روزرسانی ۱۳ نوامبر ۲۰۲۶ — توییت‌ها: فقط افراد مشهور و تأثیرگذار نه خبرگزاری‌ها
  *  (bot/tweets.json)؛ هر توییت «متن اصلی + ترجمهٔ فارسی زیرش»؛ عنوان زمانی
  *  «آخرین توییت‌ها از ساعت فلان تا فلان» حذف شد — بستهٔ توییت هم مثل بستهٔ خبری بدون سربرگ است)
+ * (به‌روزرسانی ۱۳ نوامبر ۲۰۲۶ — تحلیل جامع شبانهٔ ۲۲:۳۰ (bot/nightly.ts): هر شب کلِ روز در یک
+ *  گزارش جامع تحلیل و نتیجه‌گیری می‌شود؛ سوختش «آرشیو روزانهٔ رویدادها» است (state.dailyPool —
+ *  خبر + توییت، در همهٔ حالت‌ها) و هر تحلیل با خلاصهٔ تاریخ‌دار روزهای قبل ذخیره می‌شود
+ *  (state.nightlyAnalyses — حافظهٔ پایدار ۶۰ روز که با state در ریپو کامیت می‌شود تا هرگز ریست نشود))
  *
  * سه حالت کانال (CHANNEL_MODE):
  *  - bundle: هر چرخه همهٔ خبرهای تازه به صف می‌روند و در اسلات‌های زوج تهران (۰۰، ۰۲، …)
@@ -61,7 +65,17 @@ import {
   type HourlyAnalysis,
   type HourlyItem,
 } from './hourly';
-import { dateKeyOf, shiftDateKey, tripleDateOf, type QamariBasis } from './calendar';
+import {
+  DEFAULT_SYSTEM_NIGHTLY,
+  appendNightlyAnalysis,
+  buildNightlyMemoryBlock,
+  memorySummaryOf,
+  splitMemoryFooter,
+  todayPoolSlice,
+  validateNightlyText,
+  type NightlyAnalysis,
+} from './nightly';
+import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
 import { fetchHourlyForecast, buildWeatherMessage } from './weather';
 import {
   pickHadith,
@@ -196,6 +210,10 @@ const CFG = {
   // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار (پیش‌فرض ظهر ۱۲:۳۰ و شب ۲۱)
   digestSlots: parseSlots(process.env.DIGEST_HOURS, '8,14,20'),
   priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
+  // تحلیل جامع شبانه — هر شب ۲۲:۳۰ تهران (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با NIGHTLY_HOURS
+  nightlySlots: parseSlots(process.env.NIGHTLY_HOURS, '22:30'),
+  // سقف آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانه (پس از ارسال موفق خالی می‌شود)
+  dailyPoolCap: Math.max(100, Math.min(800, Number(process.env.BOT_DAILY_POOL_CAP || 500) || 500)),
   // کانال‌های خبری خودرو (t.me/s/<id>) — منبع قیمت خودرو با فرمت «مدل⬅️قیمت»
   carChannels: (process.env.CAR_CHANNELS || 'akhbar_khodroei').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
   // سقف استخر رویدادها — هنگام پرشدن، نیمهٔ قدیمی هر بار نصف می‌شود (پوشش زمانی حفظ می‌شود)
@@ -584,6 +602,14 @@ export interface BotState {
   /** حافظهٔ تحلیل‌های ساعتی — هر تحلیل تازه، خلاصهٔ تحلیل‌های پیشین را می‌خواند (خواستهٔ کاربر:
    *  «تحلیل‌ها رو ذخیره کن و هر بار تحلیل مختصرها رو هم بخونه تا تاریخچه فراموش نشه») */
   hourlyAnalyses?: HourlyAnalysis[];
+  /** آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانهٔ ۲۲:۳۰ (خواستهٔ ۱۳ نوامبر ۲۰۲۶):
+   *  همهٔ رویدادهای تازهٔ امروز (خبر + توییت)؛ پس از ارسال موفق تحلیل شبانه خالی می‌شود */
+  dailyPool?: PoolItem[];
+  /** کلید آخرین اسلات تحلیل شبانه («2026-11-12T22:30») — ضدتکرار روزانه */
+  lastNightlyKey?: string;
+  /** حافظهٔ پایدار تحلیل‌های شبانه — هر شب خلاصهٔ تاریخ‌دار روزهای قبل خوانده می‌شود (سقف ۶۰ روز؛
+   *  با state در ریپو کامیت می‌شود تا حافظهٔ مدل پس از ری‌استارت هرگز ریست نشود) */
+  nightlyAnalyses?: NightlyAnalysis[];
   /** نشانگر چرخش تأمین‌کنندگان مدل — یکی‌یکی (آینهٔ aiRotateCursor برای بقای پس از ری‌استارت) */
   aiCursor?: number;
   /** انبار ماندگار قیمت خودرو — پرتیراژها همیشه در گزارش بازار (خواستهٔ کاربر) */
@@ -759,6 +785,9 @@ export function loadState(path: string): BotState {
       lastTweetSlotKey: typeof raw.lastTweetSlotKey === 'string' ? raw.lastTweetSlotKey : undefined,
       lastBundleAt: typeof raw.lastBundleAt === 'string' ? raw.lastBundleAt : undefined,
       hourlyAnalyses: Array.isArray(raw.hourlyAnalyses) ? (raw.hourlyAnalyses as HourlyAnalysis[]) : [],
+      dailyPool: Array.isArray(raw.dailyPool) ? (raw.dailyPool as PoolItem[]) : [],
+      lastNightlyKey: typeof raw.lastNightlyKey === 'string' ? raw.lastNightlyKey : undefined,
+      nightlyAnalyses: Array.isArray(raw.nightlyAnalyses) ? (raw.nightlyAnalyses as NightlyAnalysis[]) : [],
       aiCursor: typeof raw.aiCursor === 'number' ? raw.aiCursor : undefined,
       carStore: raw.carStore && typeof raw.carStore === 'object' ? (raw.carStore as CarStore) : undefined,
       saleAlertIds: raw.saleAlertIds && typeof raw.saleAlertIds === 'object' ? (raw.saleAlertIds as Record<string, number>) : undefined,
@@ -820,6 +849,9 @@ export function mergeSentState(
     lastTweetSlotKey: st.lastTweetSlotKey,
     lastBundleAt: st.lastBundleAt,
     hourlyAnalyses: st.hourlyAnalyses,
+    dailyPool: st.dailyPool,
+    lastNightlyKey: st.lastNightlyKey,
+    nightlyAnalyses: st.nightlyAnalyses,
     aiCursor: st.aiCursor,
     carStore: st.carStore,
     saleAlertIds: st.saleAlertIds,
@@ -1508,23 +1540,26 @@ let activeOneshot = DEFAULT_SYSTEM_BOT_ONESHOT;
 let activeTranslate = DEFAULT_SYSTEM_BOT_TRANSLATE;
 let activeDigest = DEFAULT_SYSTEM_BOT_DIGEST;
 let activeHourly = DEFAULT_SYSTEM_HOURLY;
+let activeNightly = DEFAULT_SYSTEM_NIGHTLY;
 
 export function getOneshotPrompt(): string { return activeOneshot; }
 export function getTranslatePrompt(): string { return activeTranslate; }
 export function getDigestPrompt(): string { return activeDigest; }
 export function getHourlyPrompt(): string { return activeHourly; }
+export function getNightlyPrompt(): string { return activeNightly; }
 
 /** اعمال پرامپت‌های ویرایش‌شده — فقط متن بلند و معتبر پذیرفته می‌شود (محافظت از رفتار ربات) */
-export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean } {
-  const r = { oneshot: false, translate: false, digest: false, hourly: false };
+export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean; nightly: boolean } {
+  const r = { oneshot: false, translate: false, digest: false, hourly: false, nightly: false };
   if (typeof p.oneshot === 'string' && p.oneshot.trim().length >= 400) { activeOneshot = p.oneshot.trim(); r.oneshot = true; }
   if (typeof p.translate === 'string' && p.translate.trim().length >= 200) { activeTranslate = p.translate.trim(); r.translate = true; }
   if (typeof p.digest === 'string' && p.digest.trim().length >= 400) { activeDigest = p.digest.trim(); r.digest = true; }
   if (typeof p.hourly === 'string' && p.hourly.trim().length >= 400) { activeHourly = p.hourly.trim(); r.hourly = true; }
+  if (typeof p.nightly === 'string' && p.nightly.trim().length >= 400) { activeNightly = p.nightly.trim(); r.nightly = true; }
   return r;
 }
 
-export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; updatedAt?: string }
+export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; updatedAt?: string }
 
 /** پارس فایل پرامپت‌های ویرایش‌شده — تابع خالص تست‌پذیر */
 export function parsePromptFile(raw: string): PromptFile {
@@ -1535,6 +1570,7 @@ export function parsePromptFile(raw: string): PromptFile {
       translate: typeof o.translate === 'string' ? o.translate : undefined,
       digest: typeof o.digest === 'string' ? o.digest : undefined,
       hourly: typeof o.hourly === 'string' ? o.hourly : undefined,
+      nightly: typeof o.nightly === 'string' ? o.nightly : undefined,
       updatedAt: typeof o.updatedAt === 'string' ? o.updatedAt : undefined,
     };
   } catch { return {}; }
@@ -1546,7 +1582,7 @@ export function loadPromptOverrides(file = CFG.promptsFile): void {
     if (!existsSync(file)) return;
     const pf = parsePromptFile(readFileSync(file, 'utf8'));
     const r = applyPromptOverrides(pf);
-    if (r.oneshot || r.translate || r.hourly) console.log(`پرامپت‌های ویرایش‌شده از ${file} بارگذاری شد${r.oneshot ? ' (اصلی)' : ''}${r.translate ? ' (ترجمه)' : ''}${r.hourly ? ' (ساعتی)' : ''}`);
+    if (r.oneshot || r.translate || r.hourly || r.nightly) console.log(`پرامپت‌های ویرایش‌شده از ${file} بارگذاری شد${r.oneshot ? ' (اصلی)' : ''}${r.translate ? ' (ترجمه)' : ''}${r.hourly ? ' (ساعتی)' : ''}${r.nightly ? ' (شبانه)' : ''}`);
   } catch (e) {
     console.warn(`⚠️ خواندن ${file} ناموفق بود — پرامپت پیش‌فرض استفاده می‌شود:`, e instanceof Error ? e.message : e);
   }
@@ -1817,6 +1853,10 @@ export interface RunSummary {
   digestSent?: boolean;
   digestProvider?: string;
   hourlyProvider?: string;
+  // تحلیل جامع شبانهٔ ۲۲:۳۰ (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+  nightlySent?: boolean;
+  nightlyProvider?: string;
+  nightlyItems?: number;
   priceSent?: boolean;
   dryRun?: boolean;
   error?: string;
@@ -1976,6 +2016,119 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
       console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
     }
   }
+}
+
+// ---------- تحلیل جامع شبانهٔ ۲۲:۳۰ — خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶ ----------
+// «در ساعت ۲۲ و ۳۰ دقیقه هر شب تمامی اخبار و وقایع اون روز یه تحلیل بسیار دقیق و جامع بشه توسط
+//  هوش مصنوعی و نتیجه‌گیری بشه؛ تحلیل‌ها هر روز ذخیره بشن و در روزهای آتی خلاصهٔ روزهای قبل هم
+//  با تاریخشون خونده بشه تا حافظه ریست نشه و از وقایع گذشته آگاه باشه».
+// سوخت: آرشیو روزانهٔ رویدادها (state.dailyPool — خبر + توییت)؛ خروجی: یک گزارش جامع (در چند پیام
+// بله اگر بلند شد) + ذخیرهٔ تحلیل با خلاصهٔ تاریخ‌دار در state.nightlyAnalyses (حافظهٔ پایدار ۶۰ روز).
+
+export interface NightlyCtx { state: BotState; summary: RunSummary; dryRun: boolean }
+
+export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
+  const { state, summary } = ctx;
+  const forceNightly = process.argv.includes('--force-nightly') || process.env.FORCE_NIGHTLY === '1';
+  const dKey = forceNightly
+    ? `force-${new Date().toISOString().slice(0, 16)}`
+    : dueSlotKey(Date.now(), CFG.nightlySlots, state.lastNightlyKey);
+  if (!dKey) return;
+  const p = tehranParts(Date.now());
+  const todayKey = p.dateKey;
+  const archive = Array.isArray(state.dailyPool) ? state.dailyPool : [];
+  const todayItems = todayPoolSlice(archive, todayKey);
+  if (!forceNightly && todayItems.length < 5) {
+    console.log(`اسلات تحلیل شبانه رسید ولی آرشیو امروز کوچک است (${todayItems.length}) — چرخهٔ بعد تلاش می‌کند`);
+    return;
+  }
+  // تجمیع مشابه‌ها + پیکرهٔ شماره‌دار با شمار منابع مستقل — همان زنجیرهٔ اثبات‌شدهٔ بستهٔ ساعتی
+  const hourlyItems: HourlyItem[] = todayItems.map((it) => ({
+    id: it.id,
+    source: it.source,
+    text: (it.fa || '').trim() || it.text,
+    at: it.at,
+  }));
+  const merged = mergeSimilarItems(hourlyItems);
+  // سقف ۶۰ رویداد × ۳۸۰ نویسه — کل روز را پوشش می‌دهد ولی بودجهٔ خروجی مدل برای بخش‌های
+  // تحلیل/نتیجه‌گیری/پانوشت حافظه حفظ می‌شود (خواستهٔ ۱۳ نوامبر: تحلیل جامع + نتیجه‌گیری)
+  const corpus = buildHourlyCorpus(merged, 60, 380);
+  const history = Array.isArray(state.nightlyAnalyses) ? state.nightlyAnalyses : [];
+  const memory = buildNightlyMemoryBlock(history);
+  const weekday = weekdayFaOf(todayKey, 'Asia/Tehran');
+
+  if (ctx.dryRun) {
+    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل جامع شبانه (اسلات ${dKey}) ===`);
+    console.log(`آرشیو امروز: ${todayItems.length} رویداد — پس از تجمیع: ${merged.length} — حافظه: ${history.length} روز`);
+    console.log(memory.slice(0, 1200));
+    console.log('···');
+    console.log(corpus.slice(0, 2400));
+    console.log('=== پایان پیش‌نمایش ===');
+    return;
+  }
+
+  const userMsg = [
+    `تاریخ: ${weekday} ${p.dateFa} (${todayKey}) — ساعت ${p.hhmm}`,
+    '',
+    'حافظهٔ روزهای پیشین (به ترتیب زمانی — برای پیوستگی روایت بخوانید):',
+    memory,
+    '',
+    `رویدادهای امروز (${enToFaDigits(String(merged.length))} رویداد پس از تجمیع اولیهٔ سامانه — هر سطر: شماره — منبع (+n منبع دیگر) — متن):`,
+    corpus,
+  ].join('\n');
+
+  const t0 = Date.now();
+  let r = await chainCall(getNightlyPrompt(), userMsg, { maxTokens: 8000 });
+  let text = r.ok ? validateNightlyText(r.content) : null;
+  // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
+  if (r.ok && !text && r.providerId) {
+    console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+    const r2 = await chainCall(getNightlyPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
+    const t2 = r2.ok ? validateNightlyText(r2.content) : null;
+    if (t2) { r = r2; text = t2; }
+  }
+  summary.nightlyProvider = r.providerId;
+  console.log(`تحلیل جامع شبانه: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+  if (!text) {
+    summary.aiFailed = true;
+    if (r.error) console.error(`❌ زنجیرهٔ تحلیل شبانه ناموفق: ${r.error}`);
+    return;
+  }
+  // پانوشت «🧷» جدا می‌شود: بدنه = پیام کانال؛ خلاصه = حافظهٔ شب‌های بعد (هرگز در پیام نمی‌آید)
+  const split = splitMemoryFooter(text);
+  const finalBody = split.body.length >= 400 ? split.body : text.trim();
+  const memSummary = split.body.length >= 400 ? split.summary : '';
+  const header = `🌙 <b>تحلیل جامع شبانهٔ رصدبان</b> — ${esc(weekday)} ${esc(p.dateFa)}`;
+  const chunks = chunkHourlyMessage(`${header}\n\n${finalBody}`, 3300);
+  let ok = false;
+  for (const c of chunks) {
+    for (const t of CFG.targets) {
+      const s = await sendBaleMessage(CFG.token, t, c);
+      if (s.ok) ok = true;
+      else console.error(`❌ ارسال تحلیل شبانه به ${t} ناموفق: ${s.error}`);
+    }
+    await sleep(600);
+  }
+  if (!ok) {
+    console.warn('⚠️ ارسال تحلیل شبانه ناموفق — اسلات علامت نمی‌خورد تا چرخهٔ بعد تلاش کند (آرشیو روز می‌ماند)');
+    return;
+  }
+  summary.nightlySent = true;
+  summary.nightlyItems = merged.length;
+  state.lastNightlyKey = dKey;
+  // ذخیرهٔ تحلیل روز در حافظهٔ پایدار — شب بعد خلاصهٔ تاریخ‌دار همین متن به مدل می‌رود؛
+  // پانوشت 🧷 نبود (برخی تأمین‌کننده‌ها) → خلاصهٔ قطعی از عنوان/پانوراما/نتیجه‌گیریِ خودِ تحلیل
+  state.nightlyAnalyses = appendNightlyAnalysis(history, {
+    dateKey: todayKey,
+    at: new Date().toISOString(),
+    text: finalBody,
+    summary: memSummary || memorySummaryOf(finalBody),
+    provider: r.providerId,
+    items: merged.length,
+  });
+  // آرشیو روز مصرف شد — رویدادهای امروز (و مانده‌های قدیمی) پاک می‌شوند؛ دورهٔ بعد آرشیو تازه
+  state.dailyPool = [];
+  console.log(`🌙 تحلیل جامع شبانه ارسال و ذخیره شد (${todayKey}) — ${merged.length} رویداد، حافظه: ${state.nightlyAnalyses.length} روز، ${chunks.length} پیام`);
 }
 
 // ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
@@ -2315,6 +2468,25 @@ async function main(): Promise<void> {
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
 
+  // ── آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانهٔ ۲۲:۳۰ (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶):
+  //  «تمامی اخبار و وقایع اون روز تحلیل بشه و تحلیل‌ها ذخیره بشن تا روزهای آتی حافظه ریست نشه» —
+  //  در همهٔ حالت‌ها هر رویداد تازهٔ امروز به آرشیو می‌رود؛ شب در اسلات ۲۲:۳۰ مصرف و خالی می‌شود ──
+  if (groups.length > 0) {
+    const dpRes = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], groups.map((g) => ({
+      id: g.primary.id,
+      titleKey: g.primary.titleKey,
+      source: g.primary.sourceName,
+      cat: g.primary.category,
+      lang: g.primary.language,
+      text: g.primary.content,
+      fa: g.primary.translationFa,
+      at: (g.primary.publishedAt || new Date()).toISOString(),
+      url: g.primary.url,
+    })), CFG.dailyPoolCap);
+    state.dailyPool = dpRes.pool;
+    if (dpRes.added > 0) console.log(`آرشیو روزانهٔ تحلیل شبانه: +${dpRes.added} — کل ${enToFaDigits(String(dpRes.pool.length))}`);
+  }
+
   // ── حالت بستهٔ دوره‌ای هوشمند (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶): «هر ۲ ساعت — تجمیع + تحلیل؛
   //  توییت‌ها دستهٔ جداگانه، یک ساعت بعد» — همهٔ رویدادهای تازه به صف خبر می‌روند (هیچ خبری
   //  با انتخاب مدل از قلم نمی‌افتد) و توییت‌ها به صف جداگانه؛ ارسال در اسلات‌های قطعی انتهای چرخه
@@ -2440,12 +2612,20 @@ async function main(): Promise<void> {
       const twRes = addToPool(state.pool, twItems, CFG.poolCap);
       state.pool = twRes.pool;
       if (twRes.added > 0) console.log(`توییت‌ها به استخر تحلیل اضافه شد: +${twRes.added}`);
+      // توییت‌ها به آرشیو روزانهٔ تحلیل شبانه هم می‌روند (خواستهٔ ۱۳ نوامبر: «تمامی اخبار و وقایع اون روز»)
+      if (twItems.length > 0) {
+        const twDaily = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], twItems, CFG.dailyPoolCap);
+        state.dailyPool = twDaily.pool;
+      }
     }
 
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: CFG.dryRun });
 
     // اطلاعیه‌های فروش/پیش‌فروش خودرو — حالت تحلیل هم فعال است (خواسته‌ی کاربر)
     await runSaleAlerts(state, summary);
+
+    // تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت تحلیل هم فعال است (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+    await runNightlyAnalysis({ state, summary, dryRun: CFG.dryRun });
 
     // ۶) ثبت state و خلاصه
     const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts });
@@ -2603,6 +2783,7 @@ async function main(): Promise<void> {
         console.log(c.replace(/<[^>]+>/g, ''));
       }
       await runDigestAndMarketSlots({ state, summary, sentIds: [], sentTitles: [], sentTitleTexts: [], dryRun: true });
+      await runNightlyAnalysis({ state, summary, dryRun: true });
     }
     console.log('=== پایان پیش‌نمایش ===');
     state.lastRunAt = new Date().toISOString();
@@ -2792,6 +2973,22 @@ async function main(): Promise<void> {
           } else console.warn('⚠️ پاسخ ترجمهٔ توییت قابل تجزیه نبود — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند');
         } else console.warn(`⚠️ ترجمهٔ توییت ناموفق: ${r.error} — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند (هیچ ساختگی)`);
       }
+      // توییت‌ها به آرشیو روزانهٔ تحلیل شبانه هم می‌روند — پس از ترجمه تا فارسی‌شان در پیکرهٔ شب بیاید
+      // (خواستهٔ ۱۳ نوامبر: «تمامی اخبار و وقایع اون روز تحلیل بشه»)
+      if (candidates.length > 0) {
+        const candPool: PoolItem[] = candidates.map((c) => ({
+          id: `tw-${c.handle.toLowerCase()}-${c.tweet.id}`,
+          titleKey: sha1(`tw-title:${c.handle}:${c.tweet.id}`),
+          source: `𝕏 ${c.label}`,
+          cat: 'general',
+          lang: 'en',
+          text: c.tweet.text,
+          at: (c.tweet.createdAt || new Date()).toISOString(),
+        }));
+        const twDaily = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], candPool, CFG.dailyPoolCap);
+        state.dailyPool = twDaily.pool;
+        if (twDaily.added > 0) console.log(`توییت‌ها به آرشیو روزانهٔ تحلیل شبانه اضافه شد: +${twDaily.added}`);
+      }
       for (const c of toSend) {
         // گیت بازرسی نهایی — هیچ توییت غیرفارسی ارسال نمی‌شود؛ نشد → چرخهٔ بعد تلاش می‌کند
         const fa = await gateFa(c.tweet.text);
@@ -2980,6 +3177,9 @@ async function main(): Promise<void> {
     // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
+
+  // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
+  await runNightlyAnalysis({ state, summary, dryRun: false });
 
   // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد
   const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });

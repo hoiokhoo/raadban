@@ -6,7 +6,8 @@
  * (۰۰، ۰۲، …، ۲۲) و بستهٔ توییت در ساعت‌های فرد (۰۱، ۰۳، …، ۲۳) — یعنی دقیقاً یک ساعت بعد.
  * مسیر اصلی خبر: تحلیل هوشمند بازه (bot/hourly.ts — تجمیع مشابه‌ها + تیک اعتبارسنجی + تحلیل).
  * این ماژول تقسیم چندپیامی مسیر پشتیبان (شکست مدل) + بستهٔ توییت + توابع اسلات خالص است —
- * با سربرگ خنثی زمانی، بدون هیچ برندی («بست رصدبان» حذف شده — خواستهٔ صریح کاربر).
+ * بدون هیچ برندی («بست رصدبان» حذف شده) و «بدون سربرگ زمانی» در همهٔ بسته‌ها
+ * (خواستهٔ صریح کاربر ۱۲ و ۱۳ نوامبر ۲۰۲۶).
  */
 import { shiftDateKey } from './calendar';
 import { mergeSimilarItems, type HourlyItem, type MergedItem } from './hourly';
@@ -14,6 +15,9 @@ import { mergeSimilarItems, type HourlyItem, type MergedItem } from './hourly';
 export interface BundleItem {
   kind: 'news' | 'tweet';
   text: string;
+  /** متن اصلی توییت (انگلیسی/هر زبان) — توییت‌ها «متن اصلی + ترجمهٔ فارسی زیرش» نشان داده می‌شوند
+   *  (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ خبر فارسی و توییت فارسی این فیلد را ندارند */
+  orig?: string;
   /** نام منبع برای پیکرهٔ تحلیل ساعتی («ایسنا» یا «𝕏 @handle») — خواستهٔ کاربر: تیک اعتبارسنجی بر پایهٔ شمار منابع */
   source?: string;
   /** برای علامت‌زدن ضدتکرار پس از ارسال موفق */
@@ -67,16 +71,6 @@ export function dueBundleSlotKey(
 }
 
 const DIVIDER = '➖➖➖➖➖';
-
-function hhmmOf(iso: string): string {
-  const d = new Date(iso);
-  if (!Number.isFinite(d.getTime())) return '';
-  try {
-    return new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tehran', hour12: false, hour: '2-digit', minute: '2-digit' }).format(d.getTime());
-  } catch {
-    return '';
-  }
-}
 
 export interface BundleChunkOpts {
   maxLen?: number;
@@ -139,21 +133,30 @@ export interface TweetBundleResult {
   merged: MergedItem[];
 }
 
-/** بستهٔ توییت‌های افراد تأثیرگذار — دستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر.
- *  توییت‌های هم‌مضمون یکی می‌شوند؛ هر توییت «نام حساب: متنِ کامل ترجمه‌شده» می‌ماند.
+/** متن نمایشی یک توییت — خواستهٔ کاربر (۱۳ نوامبر ۲۰۲۶):
+ *  «هم زبان انگلیسی و هم ترجمه فارسی زیرش» — متن اصلی (انگلیسی/هر زبان) در خط اول،
+ *  ترجمهٔ فارسی روان زیر آن با برچسب «🗣 ترجمه فارسی:».
+ *  توییت فارسی یا بدون ترجمهٔ جدایانه → فقط خود متن (بدون برچسب). تابع خالص تست‌پذیر. */
+export function tweetDisplayBody(orig: string | undefined, fa: string): string {
+  const one = (s: string) => (s || '').replace(/\s+/g, ' ').trim();
+  const t = one(fa);
+  const o = one(orig || '');
+  if (!o || o === t) return t;
+  return `${o}\n🗣 ترجمه فارسی: ${t}`;
+}
+
+/** بستهٔ توییت‌های افراد مشهور و تأثیرگذار — دستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر.
+ *  خواستهٔ کاربر (۱۳ نوامبر ۲۰۲۶): فقط افراد مشهور/تأثیرگذار (نه خبرگزاری‌ها — فهرست bot/tweets.json)،
+ *  هر توییت «نام حساب: متن اصلی + ترجمهٔ فارسی زیرش» و «بدون هیچ سربرگ زمانی» — پیام با خودِ توییت‌ها
+ *  آغاز می‌شود مثل بستهٔ خبری؛ ادامهٔ چندپیامی فقط نشانگر «— ادامه» دارد.
  *  صف خالی را caller با «هیچ پیامی» پاسخ می‌دهد (خواستهٔ صریح کاربر). تابع خالص تست‌پذیر. */
-export function buildTweetBundleChunks(items: HourlyItem[], opts: { fromIso?: string; toIso?: string; maxLen?: number } = {}): TweetBundleResult {
+export function buildTweetBundleChunks(items: HourlyItem[], opts: { maxLen?: number } = {}): TweetBundleResult {
   const merged = mergeSimilarItems(items);
   const lines = merged.map((m) => {
     const extra = m.sources.length > 1 ? ` (+${faNum(m.sources.length - 1)} توییت مشابه)` : '';
-    return `𝕏 ${m.sources[0] || 'حساب ناشناس'}${extra}: ${m.text.replace(/\s+/g, ' ').trim()}`;
+    return `𝕏 ${m.sources[0] || 'حساب ناشناس'}${extra}: ${tweetDisplayBody(m.orig, m.text)}`;
   });
   const maxLen = Math.max(1200, opts.maxLen ?? 3300);
-  const body = lines.join(`\n\n${DIVIDER}\n\n`);
-  const total = Math.max(1, Math.ceil(body.length / maxLen));
-  const header = opts.fromIso && opts.toIso
-    ? `🕒 آخرین توییت‌ها ${hhmmOf(opts.fromIso)} تا ${hhmmOf(opts.toIso)}`
-    : '🕒 آخرین توییت‌های افراد تأثیرگذار';
   const chunks: string[] = [];
   let current: string[] = [];
   let curLen = 0;
@@ -180,12 +183,14 @@ export function buildTweetBundleChunks(items: HourlyItem[], opts: { fromIso?: st
     curLen += (current.length > 1 ? DIVIDER.length + 4 : 0) + line.length;
   }
   flushCurrent();
+  // بدون سربرگ — خواستهٔ صریح کاربر ۱۳ نوامبر: عنوان «آخرین توییت‌ها از ساعت فلان تا فلان» حذف شد
+  const n = chunks.length;
   return {
     merged,
     chunks: chunks.map((c, i) => {
-      if (total <= 1) return `${header}\n${DIVIDER}\n\n${c}`;
-      if (i === 0) return `${header} — بخش ۱ از ${faNum(total)}\n${DIVIDER}\n\n${c}`;
-      return `${header} — ادامهٔ بخش ${faNum(i + 1)} از ${faNum(total)}\n${DIVIDER}\n\n${c}`;
+      if (n <= 1) return c;
+      if (i === 0) return `${c}\n\n${DIVIDER}\n\n— ادامه`;
+      return `— ادامه\n\n${c}`;
     }),
   };
 }

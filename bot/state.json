@@ -1,5 +1,12 @@
 {
  "sentIds": {
+  "4ad7dc756d57190893b6a647fc7c82f8451f426c": 1794603658889,
+  "08bce8603f491dedb37b0b93b2f1eca25c1c816e": 1794603658889,
+  "37aea544d4461aa56b087b0c8d8a9c10960af3fa": 1794603658889,
+  "888cf39f056e19ff5aa960ceba3f5c20ead6c2ba": 1794603658889,
+  "683bcb8f8e231c5bc93237ab59e6e6f0ec76cf9e": 1794603658889,
+  "8770e5e900d9edfd4dc6baaa67b9da449a34ea63": 1794603658889,
+  "e5230daf39980b91cc73efe4018dc3134728fddf": 1794603658889,
   "57992d1c3a77aa517ae7c3c75e0075c5843084d8": 1794603136187,
   "f82418a970511a047f86ea3c36e28f611bcc8318": 1794603136187,
   "77d50b6afc6821e1aadf4c161c5f8678097da399": 1794603136187,
@@ -1192,16 +1199,16 @@
   "701c051e0364149ce3af529e138ade273b8d6836": 1794573485810,
   "002c9b120082eb0840d89f42336249d4804f5079": 1794573485810,
   "9cf976147f691a1170109bba062bcb4c3f978672": 1794573485810,
-  "a96b58ee2058efdf0925110276554c331e766430": 1794573485810,
-  "c2b4019f9dc0907370eedcfe8477567ed00dd1fb": 1794573485810,
-  "66c8c53aa6d3789d85dd5dd78d42a2cb6aabe7c5": 1794573485810,
-  "a38f286bebe4149a86692ad0585cead03c6c0cbc": 1794573485810,
-  "62750a92409f565ccfca0c56df3675ae81ee92d7": 1794573485810,
-  "7caf50a3f36a7bdd3ae6e2d48f65dc9d81f9fc8a": 1794573485810,
-  "b735059376d0fb8c49165774024e891f18b31fbb": 1794573485810,
-  "8414d4b234df048ef2ee50ced3a1c09edf1c472c": 1794573485810
+  "a96b58ee2058efdf0925110276554c331e766430": 1794573485810
  },
  "sentTitles": {
+  "a924342cbe2882003778a2fe8ffea2da1dbd1e70": 1794603658889,
+  "00e0b058f6bb8aa6a33f8a0ff5023a8fb2e210c1": 1794603658889,
+  "5478c473d18d10edc0262c4b7c5617b7790f7a92": 1794603658889,
+  "bbb786d64fe7ffcd25a1949a35afc6c1a34f5cb5": 1794603658889,
+  "578d8b90e7e59c840e179fac78e4957e287f9e20": 1794603658889,
+  "63b5c01b92542c97069b7aedcec0209affcb333d": 1794603658889,
+  "1e0c546f9f81620a517e2c9e0e83012a103d8ee1": 1794603658889,
   "14914f6b9acd9df29113240f171ddd7c495ed7a0": 1794603136187,
   "3a85905b82be6385533137882216911eaa8e9a5f": 1794603136187,
   "86d358a7d5e0235225d558330e7001e356e78b0d": 1794603136187,
@@ -1794,14 +1801,7 @@
   "a5e4e711f978300e5d43c4390f6a2a569846b5cf": 1794588453604,
   "24009ef2dbf1f79ac57014cf9d15d5dc72da5845": 1794588453604,
   "38518d970eed67545910e301114209c9ef695fc4": 1794588453604,
-  "ba6732227ec078561684263c0371eb5b8d5a1819": 1794588453604,
-  "db2ad9c2b0348d42b614a91f1c414aea6d97aa8b": 1794588453604,
-  "569b20d49b048de6526059ccae394d1eefcd2780": 1794588453604,
-  "ec9e52348d482f2c8095a4a00722ad7b2c2b6d56": 1794588453604,
-  "407c2f5e91f07a67ab2f9065c2516bf35185fe67": 1794588453604,
-  "7f7edc34b717ca9d2b160bac8754b3b191835031": 1794588453604,
-  "1afb97d0bfe01439cde43c2ea0d1fa749acb6777": 1794588453604,
-  "b7fee3a50efce1980ab841d44bf2ae55471a39a5": 1794588453604
+  "ba6732227ec078561684263c0371eb5b8d5a1819": 1794588453604
  },
  "sentTitleTexts": {
   "بازنشر mschlapp از شما speakerjohnson بابت رهبری دوستی و صداقت تان سپاسگزارم": 1794598628423,
@@ -3008,6 +3008,174 @@
   "همشهری انلاین سخنگوی تجارت خانه صمت فشارهای امریکا تجارت خارجی ایران را متوقف نکرد سید روح الله لطیفی با تاکید بر اینکه فشارهای امریکا نتوانسته تجارت خارجی ایرا": 1794588453604
  },
  "pool": [
+  {
+   "id": "5716aebfc1ef22b21224ab933b9241ec8721871b",
+   "titleKey": "4975a769d751f769941b1506901c1cb2b8ac26ea",
+   "source": "Sky News World",
+   "lang": "en",
+   "text": "EU leaders choose team for Ukraine peace talks after months of wavering British representatives will be part of a team representing Europe in Ukraine peace talks.",
+   "at": "2026-11-13T18:04:00.000Z",
+   "url": "https://news.sky.com/story/eu-leaders-choose-team-for-ukraine-peace-talks-after-months-of-wavering-13612008"
+  },
+  {
+   "id": "7394d24150eb3d4b102553fd0aee8a16b3b91332",
+   "titleKey": "305c51603f32ebbd32111961749b772ff93b7d96",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Barclays to Cut About 200 Jobs in Its Investment Bank - Bloomberg.com Barclays to Cut About 200 Jobs in Its Investment Bank Bloomberg.com",
+   "at": "2026-11-13T18:13:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOV2ROdUZfTkZQYjhudll3Zmpnb2dDenJfRlJ1UU9yakNfZVBNVmxwem5UWkxjRXNFRlZuUk83blZWWnYwVDNGaHFYUVZob296QXE1aVFTdXowY01FRkpJU2xrNXVScDYyRE94NVZ1OWZ4UmRrMzFnUWhZdmkwRWtfZ3VpbXZWVkQ1bHcyZnNIVEhXZ0VlZ2JiZ1dieC16R2FoTk41M0s1YWlxR181?oc=5"
+  },
+  {
+   "id": "66bdd564be4ef06947e8e901fafda8ebfeedd895",
+   "titleKey": "cdb67db875771c73ce88ba3c6615169d95e2a3d0",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Supreme Court will weigh Trump's asylum restrictions at US-Mexico border - Reuters Supreme Court will weigh Trump's asylum restrictions at US-Mexico border Reuters",
+   "at": "2026-11-13T19:05:46.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNaHNWeFYxTlNOZElZQ1BSdDNZSXhJM3RtVWNhRXJ4SkcxVU5MU3ZIdW1Oc1gxa2Y3eXJ4NFc3b21Bb3lKT2pwZVNxMUtSa2NDS3JYSTI5ZzJzRkU4Z3ptRDlhVlBvWXNHdjh3MGNBLVg1bjRRV2poamg2eHo0Sl84ZGFPaS02RjhJMVo5RWtWMC1rc1pFNkE3UkUwS3VuUjJnejl2NHZIWGdrM3psTUZR?oc=5"
+  },
+  {
+   "id": "6e4e23374bd25603949d9e1dfcbe23df316bf163",
+   "titleKey": "e3215b5b57cfa831bf0b7f016a14b8528e174f8d",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Migrants risk deadly route to Spain’s Canary Islands More than 7,400 migrants arrived in Spain’s Canary Islands during the first 10 days of November.",
+   "at": "2026-11-13T19:23:40.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/migrants-risk-deadly-route-to-spains-canary-islands?traffic_source=rss"
+  },
+  {
+   "id": "78f014b6791fc8cba2f39acca1567f6348b50a01",
+   "titleKey": "e3a8dbe8d5c8c0b000efa75f03f0d7c6ceacce1f",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Rome taps PM Meloni’s diplomatic adviser for talks on Ukraine — source European Council President Antonio Costa said earlier that the EU summit had agreed on a delegation to the expert talks on Ukraine that will include representatives of EU institutions and the so-called coalition of the willing",
+   "at": "2026-11-13T19:45:59.000Z",
+   "url": "https://tass.com/world/2218035"
+  },
+  {
+   "id": "de06bec5ec8071c844f837b38a963960d05a26fe",
+   "titleKey": "1d72174e9f9da6d519d23480e61661b9f6a0b462",
+   "source": "Guardian World",
+   "lang": "en",
+   "text": "Nvidia scandal: US treasury chief blames Lutnick’s commerce department over alleged lack of action US commerce secretary faces sack as questions emerge over senior Trump officials’ knowledge of alleged Chinese spy’s ties to Jensen Huang US politics – live updates The US commerce secretary, Howard Lutnick, is facing growing pressure over his apparent lack of action over the Nvidia spying scandal as other Trump administration officials publicly raise questions over his decisions. Scott Bessent, the US treasury secretary, blamed Lutnick’s commerce department for the fact the US had not imposed export restrictions on certain Nvidia chips to China. Continue reading...",
+   "at": "2026-11-13T19:51:28.000Z",
+   "url": "https://www.theguardian.com/technology/2026/nov/13/nvidia-scandal-sparks-us-national-security-concerns-china"
+  },
+  {
+   "id": "67655517fa3f123ec23525a6a52a700003440a4d",
+   "titleKey": "5636f6ff8d79ede3d2b67fd86b0f66371807fa14",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iranian students win six gold medals at 2026 Open World Astronomy Olympiad Iran’s national astronomy team has achieved an outstanding result at the fifth edition of the Open World Astronomy Olympiad (OWAO 2026), winning six gold medals. @PressTV",
+   "at": "2026-11-13T19:58:53.000Z",
+   "url": "https://t.me/presstv/214610"
+  },
+  {
+   "id": "64ad528c263d471481f7d4eb245dc446d22a28ce",
+   "titleKey": "0c3d476b0e2af8506df88516d3ef07e36a2828ed",
+   "source": "NYT World",
+   "lang": "en",
+   "text": "‘Get Focused on London’: How Iran’s Agents Attacked European Targets A wave of assaults in Britain and elsewhere in the spring sowed fear across Europe. Prosecutors shed new light on how Iran took aim at U.S. allies.",
+   "at": "2026-11-13T20:10:37.000Z",
+   "url": "https://www.nytimes.com/2026/11/13/world/europe/iran-attacks-europe-britain.html"
+  },
+  {
+   "id": "92458d38663d76715c6a29511dd751e9a552618e",
+   "titleKey": "9c06c8a44028164beac2e51418bc85ff33c078aa",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Footage reportedly shows sirens blaring at RAF Lakenheath in Suffolk, UK. @PressTV",
+   "at": "2026-11-13T20:11:38.000Z",
+   "url": "https://t.me/presstv/214611"
+  },
+  {
+   "id": "00376a232e9b6bfeace93bb281e83e1700b83ade",
+   "titleKey": "5111024d6e00c76704495e250b592d1fc8a8c819",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Qatar and Turkiye send message of deterrence with new defence pact Qatar and Turkiye have signed a mutual defence pact, deepening their partnership amid growing regional instability.",
+   "at": "2026-11-13T20:48:02.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/qatar-and-turkiye-send-message-of-deterrence-with-new-defence-pact?traffic_source=rss"
+  },
+  {
+   "id": "4ad7dc756d57190893b6a647fc7c82f8451f426c",
+   "titleKey": "a924342cbe2882003778a2fe8ffea2da1dbd1e70",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "دو نفتکش متخلف بر اثر برخورد با مین دریایی منفجر شدند روابط عمومی نیروی دریایی سپاه اعلام کرد دو نفتکش، مخفیانه و با خاموش‌کردن سامانه موقعیت‌یاب قصد عبور از مسیر غیرمجاز تنگه هرمز را داشتند، بر اثر برخورد با مین دریایی منفجر و دچار آتش‌سوزی شدند.",
+   "at": "2026-11-13T20:50:38.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085750/%D8%AF%D9%88-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D9%85%D8%AA%D8%AE%D9%84%D9%81-%D8%A8%D8%B1-%D8%A7%D8%AB%D8%B1-%D8%A8%D8%B1%D8%AE%D9%88%D8%B1%D8%AF-%D8%A8%D8%A7-%D9%85%DB%8C%D9%86-%D8%AF%D8%B1%DB%8C%D8%A7%DB%8C%DB%8C-%D9%85%D9%86%D9%81%D8%AC%D8%B1-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "08bce8603f491dedb37b0b93b2f1eca25c1c816e",
+   "titleKey": "00e0b058f6bb8aa6a33f8a0ff5023a8fb2e210c1",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دویست و پنجاه‌وهشتمین شب تجمعات مردمی در بیعت با ولایت فردیس _ مردم در شبی سرد و آمیخته با عطر عزای فاطمی، بار دیگر گرد هم آمدند؛ حضوری که در دویست و پنجاه و هشتمین شب با پیام بیعت با رهبر انقلاب همراه بود.",
+   "at": "2026-11-13T20:51:05.000Z",
+   "url": "https://www.mehrnews.com/news/7009907/%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88%D9%87%D8%B4%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D9%85%D8%B1%D8%AF%D9%85%DB%8C-%D8%AF%D8%B1-%D8%A8%DB%8C%D8%B9%D8%AA-%D8%A8%D8%A7-%D9%88%D9%84%D8%A7%DB%8C%D8%AA"
+  },
+  {
+   "id": "37aea544d4461aa56b087b0c8d8a9c10960af3fa",
+   "titleKey": "5478c473d18d10edc0262c4b7c5617b7790f7a92",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "راهپیمایی‌های شبانه مردم لاهیجان به ایستگاه ۲۵۸ رسید لاهیجان- در این فیلم دویست و پنجاه و هشتمین راهپیمایی پرشور شبانه مردم لاهیجان در دفاع از جمهوری اسلامی ایران را مشاهده می کنید.",
+   "at": "2026-11-13T20:51:46.000Z",
+   "url": "https://www.mehrnews.com/news/7009911/%D8%B1%D8%A7%D9%87%D9%BE%DB%8C%D9%85%D8%A7%DB%8C%DB%8C-%D9%87%D8%A7%DB%8C-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D9%84%D8%A7%D9%87%DB%8C%D8%AC%D8%A7%D9%86-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%DB%B2%DB%B5%DB%B8-%D8%B1%D8%B3%DB%8C%D8%AF"
+  },
+  {
+   "id": "888cf39f056e19ff5aa960ceba3f5c20ead6c2ba",
+   "titleKey": "bbb786d64fe7ffcd25a1949a35afc6c1a34f5cb5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "یمن، فرودگاه و ایستگاه پمپاژ نفت در شرق ریاض را هدف قرار داد تهران- ایرنا- نیروهای مسلح یمن بامداد شنبه از دو عملیات نظامی ویژه و حمله به فرودگاه بین‌المللی «ملک خالد» و یکی از ایستگاه‌های پمپاژ خطوط انتقال نفت عربستان در شرق ریاض پایتخت عربستان خبر دادند.",
+   "at": "2026-11-13T20:53:18.000Z",
+   "url": "https://www.irna.ir/news/86320828/%DB%8C%D9%85%D9%86-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%88-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%D9%BE%D9%85%D9%BE%D8%A7%DA%98-%D9%86%D9%81%D8%AA-%D8%AF%D8%B1-%D8%B4%D8%B1%D9%82-%D8%B1%DB%8C%D8%A7%D8%B6-%D8%B1%D8%A7-%D9%87%D8%AF%D9%81-%D9%82%D8%B1%D8%A7%D8%B1-%D8%AF%D8%A7%D8%AF"
+  },
+  {
+   "id": "e3af3fe2af1812552c934ce67711eb08105f5298",
+   "titleKey": "e2ca50fd80b76899c9da193d217032e3b229127c",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Over 100 people aboard cruise ship hit by tanker in New Orleans, injuries unknown as rescues continue, officials say",
+   "at": "2026-11-13T20:53:57.000Z",
+   "url": "https://www.thehindu.com/news/international/new-orleans-usa-tanker-ship-river-cruise-crash-updates/article71699607.ece"
+  },
+  {
+   "id": "683bcb8f8e231c5bc93237ab59e6e6f0ec76cf9e",
+   "titleKey": "578d8b90e7e59c840e179fac78e4957e287f9e20",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "خیبرشکن؛ موشکی که پدافند را دنبال خود می‌کِشد/ کم وزن، سر جنگی مانورپذیر و آماده شدن سریع؛ سلاحی برای جواب ۲۰ دقیقه‌ای بر اساس اطلاعاتی که هنگام رونمایی منتشر شد، وزن خیبرشکن در مقایسه با نمونه‌های مشابه حدود یک‌سوم کاهش یافته است. این موضوع از آن جهت اهمیت دارد که کاهش وزن در موشک‌های بالستیک تنها به جابه‌جایی آسان‌تر محدود نمی‌شود و می‌تواند در نحوه استقرار و آماده‌سازی سامانه نیز اثرگذار باشد. در همان مراسم، حاجی‌زاده اعلام کرد که زمان آماده‌سازی و شلیک خیبرشکن در موضع عملیاتی به یک‌ششم نمونه‌های قبلی کاهش پیدا کرده است.",
+   "at": "2026-11-13T20:58:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301638/%D8%AE%DB%8C%D8%A8%D8%B1%D8%B4%DA%A9%D9%86-%D9%85%D9%88%D8%B4%DA%A9%DB%8C-%DA%A9%D9%87-%D9%BE%D8%AF%D8%A7%D9%81%D9%86%D8%AF-%D8%B1%D8%A7-%D8%AF%D9%86%D8%A8%D8%A7%D9%84-%D8%AE%D9%88%D8%AF-%D9%85%DB%8C-%DA%A9%D8%B4%D8%AF-%DA%A9%D9%85-%D9%88%D8%B2%D9%86-%D8%B3%D8%B1-%D8%AC%D9%86%DA%AF%DB%8C"
+  },
+  {
+   "id": "8770e5e900d9edfd4dc6baaa67b9da449a34ea63",
+   "titleKey": "63b5c01b92542c97069b7aedcec0209affcb333d",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حمله یمن به فرودگاه بین‌المللی ریاض و ایستگاه پمپاژ نفت در عربستان نیروهای مسلح یمن از انجام عملیات پهپادی به اهدافی در ریاض، پایتخت عربستان سعودی خبر دادند و افزودند که هر دو عملیات با موفقیت به اهداف خود اصابت کرده است.",
+   "at": "2026-11-13T20:58:44.000Z",
+   "url": "https://www.mehrnews.com/news/7009912/%D8%AD%D9%85%D9%84%D9%87-%DB%8C%D9%85%D9%86-%D8%A8%D9%87-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D8%A8%DB%8C%D9%86-%D8%A7%D9%84%D9%85%D9%84%D9%84%DB%8C-%D8%B1%DB%8C%D8%A7%D8%B6-%D9%88-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%D9%BE%D9%85%D9%BE%D8%A7%DA%98-%D9%86%D9%81%D8%AA-%D8%AF%D8%B1-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "e5230daf39980b91cc73efe4018dc3134728fddf",
+   "titleKey": "1e0c546f9f81620a517e2c9e0e83012a103d8ee1",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیشنهاد جنجالی کولینا؛ احتمال حذف ریباند در ضربات پنالتی پیرلوئیجی کولینا، رئیس کمیته داوران فیفا، در حال بررسی پیشنهادی برای تغییر قوانین ضربات پنالتی است.",
+   "at": "2026-11-13T21:00:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301589/%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF-%D8%AC%D9%86%D8%AC%D8%A7%D9%84%DB%8C-%DA%A9%D9%88%D9%84%DB%8C%D9%86%D8%A7-%D8%A7%D8%AD%D8%AA%D9%85%D8%A7%D9%84-%D8%AD%D8%B0%D9%81-%D8%B1%DB%8C%D8%A8%D8%A7%D9%86%D8%AF-%D8%AF%D8%B1-%D8%B6%D8%B1%D8%A8%D8%A7%D8%AA-%D9%BE%D9%86%D8%A7%D9%84%D8%AA%DB%8C"
+  },
   {
    "id": "57992d1c3a77aa517ae7c3c75e0075c5843084d8",
    "titleKey": "14914f6b9acd9df29113240f171ddd7c495ed7a0",
@@ -5647,6 +5815,76 @@
    "titleTexts": [],
    "cat": "economy",
    "queuedAt": "2026-11-13T20:52:01.895Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: دو نفتکش متخلف بر اثر برخورد با مین دریایی منفجر شدند روابط عمومی نیروی دریایی سپاه اعلام کرد دو نفتکش، مخفیانه و با خاموش‌کردن سامانه موقعیت‌یاب قصد عبور از مسیر غیرمجاز تنگه هرمز را داشتند، بر اثر برخورد با مین دریایی منفجر و دچار آتش‌سوزی شدند.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/11/4/5433217.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:00:38.977Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: دویست و پنجاه‌وهشتمین شب تجمعات مردمی در بیعت با ولایت فردیس _ مردم در شبی سرد و آمیخته با عطر عزای فاطمی، بار دیگر گرد هم آمدند؛ حضوری که در دویست و پنجاه و هشتمین شب با پیام بیعت با رهبر انقلاب همراه بود.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6261539.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:00:39.678Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: راهپیمایی‌های شبانه مردم لاهیجان به ایستگاه ۲۵۸ رسید لاهیجان- در این فیلم دویست و پنجاه و هشتمین راهپیمایی پرشور شبانه مردم لاهیجان در دفاع از جمهوری اسلامی ایران را مشاهده می کنید.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/14/4/6261623.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:00:40.379Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): یمن، فرودگاه و ایستگاه پمپاژ نفت در شرق ریاض را هدف قرار داد تهران- ایرنا- نیروهای مسلح یمن بامداد شنبه از دو عملیات نظامی ویژه و حمله به فرودگاه بین‌المللی «ملک خالد» و یکی از ایستگاه‌های پمپاژ خطوط انتقال نفت عربستان در شرق ریاض پایتخت عربستان خبر دادند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2025/08/03/4/172017159.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:00:41.080Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: خیبرشکن؛ موشکی که پدافند را دنبال خود می‌کِشد/ کم وزن، سر جنگی مانورپذیر و آماده شدن سریع؛ سلاحی برای جواب ۲۰ دقیقه‌ای بر اساس اطلاعاتی که هنگام رونمایی منتشر شد، وزن خیبرشکن در مقایسه با نمونه‌های مشابه حدود یک‌سوم کاهش یافته است. این موضوع از آن جهت اهمیت دارد که کاهش وزن در موشک‌های بالستیک تنها به جابه‌جایی آسان‌تر محدود نمی‌شود و می‌تواند در نحوه استقرار و آماده‌سازی سامانه نیز اثرگذار باشد. در همان مراسم، حاجی‌زاده اعلام کرد که زمان آماده‌سازی و شلیک خیبرشکن در موضع عملیاتی به یک‌ششم نمونه‌های قبلی کاهش پیدا کرده است.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2022/02/13/4/5662364.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:00:41.781Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: حمله یمن به فرودگاه بین‌المللی ریاض و ایستگاه پمپاژ نفت در عربستان نیروهای مسلح یمن از انجام عملیات پهپادی به اهدافی در ریاض، پایتخت عربستان سعودی خبر دادند و افزودند که هر دو عملیات با موفقیت به اهداف خود اصابت کرده است.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2021/04/01/4/3731808.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:00:42.482Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: پیشنهاد جنجالی کولینا؛ احتمال حذف ریباند در ضربات پنالتی پیرلوئیجی کولینا، رئیس کمیته داوران فیفا، در حال بررسی پیشنهادی برای تغییر قوانین ضربات پنالتی است.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2022/08/23/4/5733981.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:00:43.183Z"
   }
  ],
  "tweetQueue": [
@@ -5885,6 +6123,120 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "5716aebfc1ef22b21224ab933b9241ec8721871b",
+   "titleKey": "4975a769d751f769941b1506901c1cb2b8ac26ea",
+   "source": "Sky News World",
+   "lang": "en",
+   "text": "EU leaders choose team for Ukraine peace talks after months of wavering British representatives will be part of a team representing Europe in Ukraine peace talks.",
+   "at": "2026-11-13T18:04:00.000Z",
+   "url": "https://news.sky.com/story/eu-leaders-choose-team-for-ukraine-peace-talks-after-months-of-wavering-13612008"
+  },
+  {
+   "id": "7394d24150eb3d4b102553fd0aee8a16b3b91332",
+   "titleKey": "305c51603f32ebbd32111961749b772ff93b7d96",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Barclays to Cut About 200 Jobs in Its Investment Bank - Bloomberg.com Barclays to Cut About 200 Jobs in Its Investment Bank Bloomberg.com",
+   "at": "2026-11-13T18:13:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOV2ROdUZfTkZQYjhudll3Zmpnb2dDenJfRlJ1UU9yakNfZVBNVmxwem5UWkxjRXNFRlZuUk83blZWWnYwVDNGaHFYUVZob296QXE1aVFTdXowY01FRkpJU2xrNXVScDYyRE94NVZ1OWZ4UmRrMzFnUWhZdmkwRWtfZ3VpbXZWVkQ1bHcyZnNIVEhXZ0VlZ2JiZ1dieC16R2FoTk41M0s1YWlxR181?oc=5"
+  },
+  {
+   "id": "66bdd564be4ef06947e8e901fafda8ebfeedd895",
+   "titleKey": "cdb67db875771c73ce88ba3c6615169d95e2a3d0",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Supreme Court will weigh Trump's asylum restrictions at US-Mexico border - Reuters Supreme Court will weigh Trump's asylum restrictions at US-Mexico border Reuters",
+   "at": "2026-11-13T19:05:46.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNaHNWeFYxTlNOZElZQ1BSdDNZSXhJM3RtVWNhRXJ4SkcxVU5MU3ZIdW1Oc1gxa2Y3eXJ4NFc3b21Bb3lKT2pwZVNxMUtSa2NDS3JYSTI5ZzJzRkU4Z3ptRDlhVlBvWXNHdjh3MGNBLVg1bjRRV2poamg2eHo0Sl84ZGFPaS02RjhJMVo5RWtWMC1rc1pFNkE3UkUwS3VuUjJnejl2NHZIWGdrM3psTUZR?oc=5"
+  },
+  {
+   "id": "00376a232e9b6bfeace93bb281e83e1700b83ade",
+   "titleKey": "5111024d6e00c76704495e250b592d1fc8a8c819",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Qatar and Turkiye send message of deterrence with new defence pact Qatar and Turkiye have signed a mutual defence pact, deepening their partnership amid growing regional instability.",
+   "at": "2026-11-13T20:48:02.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/qatar-and-turkiye-send-message-of-deterrence-with-new-defence-pact?traffic_source=rss"
+  },
+  {
+   "id": "4ad7dc756d57190893b6a647fc7c82f8451f426c",
+   "titleKey": "a924342cbe2882003778a2fe8ffea2da1dbd1e70",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "دو نفتکش متخلف بر اثر برخورد با مین دریایی منفجر شدند روابط عمومی نیروی دریایی سپاه اعلام کرد دو نفتکش، مخفیانه و با خاموش‌کردن سامانه موقعیت‌یاب قصد عبور از مسیر غیرمجاز تنگه هرمز را داشتند، بر اثر برخورد با مین دریایی منفجر و دچار آتش‌سوزی شدند.",
+   "at": "2026-11-13T20:50:38.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085750/%D8%AF%D9%88-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D9%85%D8%AA%D8%AE%D9%84%D9%81-%D8%A8%D8%B1-%D8%A7%D8%AB%D8%B1-%D8%A8%D8%B1%D8%AE%D9%88%D8%B1%D8%AF-%D8%A8%D8%A7-%D9%85%DB%8C%D9%86-%D8%AF%D8%B1%DB%8C%D8%A7%DB%8C%DB%8C-%D9%85%D9%86%D9%81%D8%AC%D8%B1-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "08bce8603f491dedb37b0b93b2f1eca25c1c816e",
+   "titleKey": "00e0b058f6bb8aa6a33f8a0ff5023a8fb2e210c1",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دویست و پنجاه‌وهشتمین شب تجمعات مردمی در بیعت با ولایت فردیس _ مردم در شبی سرد و آمیخته با عطر عزای فاطمی، بار دیگر گرد هم آمدند؛ حضوری که در دویست و پنجاه و هشتمین شب با پیام بیعت با رهبر انقلاب همراه بود.",
+   "at": "2026-11-13T20:51:05.000Z",
+   "url": "https://www.mehrnews.com/news/7009907/%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88%D9%87%D8%B4%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D9%85%D8%B1%D8%AF%D9%85%DB%8C-%D8%AF%D8%B1-%D8%A8%DB%8C%D8%B9%D8%AA-%D8%A8%D8%A7-%D9%88%D9%84%D8%A7%DB%8C%D8%AA"
+  },
+  {
+   "id": "37aea544d4461aa56b087b0c8d8a9c10960af3fa",
+   "titleKey": "5478c473d18d10edc0262c4b7c5617b7790f7a92",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "راهپیمایی‌های شبانه مردم لاهیجان به ایستگاه ۲۵۸ رسید لاهیجان- در این فیلم دویست و پنجاه و هشتمین راهپیمایی پرشور شبانه مردم لاهیجان در دفاع از جمهوری اسلامی ایران را مشاهده می کنید.",
+   "at": "2026-11-13T20:51:46.000Z",
+   "url": "https://www.mehrnews.com/news/7009911/%D8%B1%D8%A7%D9%87%D9%BE%DB%8C%D9%85%D8%A7%DB%8C%DB%8C-%D9%87%D8%A7%DB%8C-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D9%84%D8%A7%D9%87%DB%8C%D8%AC%D8%A7%D9%86-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%DB%B2%DB%B5%DB%B8-%D8%B1%D8%B3%DB%8C%D8%AF"
+  },
+  {
+   "id": "888cf39f056e19ff5aa960ceba3f5c20ead6c2ba",
+   "titleKey": "bbb786d64fe7ffcd25a1949a35afc6c1a34f5cb5",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "یمن، فرودگاه و ایستگاه پمپاژ نفت در شرق ریاض را هدف قرار داد تهران- ایرنا- نیروهای مسلح یمن بامداد شنبه از دو عملیات نظامی ویژه و حمله به فرودگاه بین‌المللی «ملک خالد» و یکی از ایستگاه‌های پمپاژ خطوط انتقال نفت عربستان در شرق ریاض پایتخت عربستان خبر دادند.",
+   "at": "2026-11-13T20:53:18.000Z",
+   "url": "https://www.irna.ir/news/86320828/%DB%8C%D9%85%D9%86-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%88-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%D9%BE%D9%85%D9%BE%D8%A7%DA%98-%D9%86%D9%81%D8%AA-%D8%AF%D8%B1-%D8%B4%D8%B1%D9%82-%D8%B1%DB%8C%D8%A7%D8%B6-%D8%B1%D8%A7-%D9%87%D8%AF%D9%81-%D9%82%D8%B1%D8%A7%D8%B1-%D8%AF%D8%A7%D8%AF"
+  },
+  {
+   "id": "e3af3fe2af1812552c934ce67711eb08105f5298",
+   "titleKey": "e2ca50fd80b76899c9da193d217032e3b229127c",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Over 100 people aboard cruise ship hit by tanker in New Orleans, injuries unknown as rescues continue, officials say",
+   "at": "2026-11-13T20:53:57.000Z",
+   "url": "https://www.thehindu.com/news/international/new-orleans-usa-tanker-ship-river-cruise-crash-updates/article71699607.ece"
+  },
+  {
+   "id": "683bcb8f8e231c5bc93237ab59e6e6f0ec76cf9e",
+   "titleKey": "578d8b90e7e59c840e179fac78e4957e287f9e20",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "خیبرشکن؛ موشکی که پدافند را دنبال خود می‌کِشد/ کم وزن، سر جنگی مانورپذیر و آماده شدن سریع؛ سلاحی برای جواب ۲۰ دقیقه‌ای بر اساس اطلاعاتی که هنگام رونمایی منتشر شد، وزن خیبرشکن در مقایسه با نمونه‌های مشابه حدود یک‌سوم کاهش یافته است. این موضوع از آن جهت اهمیت دارد که کاهش وزن در موشک‌های بالستیک تنها به جابه‌جایی آسان‌تر محدود نمی‌شود و می‌تواند در نحوه استقرار و آماده‌سازی سامانه نیز اثرگذار باشد. در همان مراسم، حاجی‌زاده اعلام کرد که زمان آماده‌سازی و شلیک خیبرشکن در موضع عملیاتی به یک‌ششم نمونه‌های قبلی کاهش پیدا کرده است.",
+   "at": "2026-11-13T20:58:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301638/%D8%AE%DB%8C%D8%A8%D8%B1%D8%B4%DA%A9%D9%86-%D9%85%D9%88%D8%B4%DA%A9%DB%8C-%DA%A9%D9%87-%D9%BE%D8%AF%D8%A7%D9%81%D9%86%D8%AF-%D8%B1%D8%A7-%D8%AF%D9%86%D8%A8%D8%A7%D9%84-%D8%AE%D9%88%D8%AF-%D9%85%DB%8C-%DA%A9%D8%B4%D8%AF-%DA%A9%D9%85-%D9%88%D8%B2%D9%86-%D8%B3%D8%B1-%D8%AC%D9%86%DA%AF%DB%8C"
+  },
+  {
+   "id": "8770e5e900d9edfd4dc6baaa67b9da449a34ea63",
+   "titleKey": "63b5c01b92542c97069b7aedcec0209affcb333d",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حمله یمن به فرودگاه بین‌المللی ریاض و ایستگاه پمپاژ نفت در عربستان نیروهای مسلح یمن از انجام عملیات پهپادی به اهدافی در ریاض، پایتخت عربستان سعودی خبر دادند و افزودند که هر دو عملیات با موفقیت به اهداف خود اصابت کرده است.",
+   "at": "2026-11-13T20:58:44.000Z",
+   "url": "https://www.mehrnews.com/news/7009912/%D8%AD%D9%85%D9%84%D9%87-%DB%8C%D9%85%D9%86-%D8%A8%D9%87-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D8%A8%DB%8C%D9%86-%D8%A7%D9%84%D9%85%D9%84%D9%84%DB%8C-%D8%B1%DB%8C%D8%A7%D8%B6-%D9%88-%D8%A7%DB%8C%D8%B3%D8%AA%DA%AF%D8%A7%D9%87-%D9%BE%D9%85%D9%BE%D8%A7%DA%98-%D9%86%D9%81%D8%AA-%D8%AF%D8%B1-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "e5230daf39980b91cc73efe4018dc3134728fddf",
+   "titleKey": "1e0c546f9f81620a517e2c9e0e83012a103d8ee1",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیشنهاد جنجالی کولینا؛ احتمال حذف ریباند در ضربات پنالتی پیرلوئیجی کولینا، رئیس کمیته داوران فیفا، در حال بررسی پیشنهادی برای تغییر قوانین ضربات پنالتی است.",
+   "at": "2026-11-13T21:00:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301589/%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF-%D8%AC%D9%86%D8%AC%D8%A7%D9%84%DB%8C-%DA%A9%D9%88%D9%84%DB%8C%D9%86%D8%A7-%D8%A7%D8%AD%D8%AA%D9%85%D8%A7%D9%84-%D8%AD%D8%B0%D9%81-%D8%B1%DB%8C%D8%A8%D8%A7%D9%86%D8%AF-%D8%AF%D8%B1-%D8%B6%D8%B1%D8%A8%D8%A7%D8%AA-%D9%BE%D9%86%D8%A7%D9%84%D8%AA%DB%8C"
+  },
   {
    "id": "57992d1c3a77aa517ae7c3c75e0075c5843084d8",
    "titleKey": "14914f6b9acd9df29113240f171ddd7c495ed7a0",
@@ -8660,7 +9012,7 @@
    "items": 365
   }
  ],
- "aiCursor": 1,
+ "aiCursor": 2,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9234,22 +9586,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794603136183,
-  "Akharin_khodro/8913": 1794603136183,
-  "Akharin_khodro/8914": 1794603136183,
-  "Akharin_khodro/8915": 1794603136183,
-  "Akharin_khodro/8916": 1794603136183,
-  "Akharin_khodro/8919": 1794603136183,
-  "Akharin_khodro/8920": 1794603136183,
-  "Akharin_khodro/8921": 1794603136183,
-  "Akharin_khodro/8922": 1794603136183,
-  "Akharin_khodro/8923": 1794603136183,
-  "Akharin_khodro/8924": 1794603136183,
-  "Akharin_khodro/8925": 1794603136183,
-  "Akharin_khodro/8926": 1794603136183,
-  "Akharin_khodro/8927": 1794603136183,
-  "Akharin_khodro/8928": 1794603136183,
-  "Akharin_khodro/8929": 1794603136183,
+  "Akharin_khodro/8908": 1794603658884,
+  "Akharin_khodro/8913": 1794603658884,
+  "Akharin_khodro/8914": 1794603658884,
+  "Akharin_khodro/8915": 1794603658884,
+  "Akharin_khodro/8916": 1794603658884,
+  "Akharin_khodro/8919": 1794603658884,
+  "Akharin_khodro/8920": 1794603658884,
+  "Akharin_khodro/8921": 1794603658884,
+  "Akharin_khodro/8922": 1794603658884,
+  "Akharin_khodro/8923": 1794603658884,
+  "Akharin_khodro/8924": 1794603658884,
+  "Akharin_khodro/8925": 1794603658884,
+  "Akharin_khodro/8926": 1794603658884,
+  "Akharin_khodro/8927": 1794603658884,
+  "Akharin_khodro/8928": 1794603658884,
+  "Akharin_khodro/8929": 1794603658884,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -9678,27 +10030,27 @@
    }
   }
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-13T20:52:16.189Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-13T21:00:58.892Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1070,
+  "fetched": 1069,
   "inWindow": 253,
-  "fresh": 89,
-  "sent": 29,
+  "fresh": 71,
+  "sent": 7,
   "images": 0,
-  "translated": 24,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 114,
+  "tweetsFetched": 117,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 59,
-  "queued": 29,
+  "skippedUntranslated": 64,
+  "queued": 7,
   "tweetRateLimited": false
  }
 }

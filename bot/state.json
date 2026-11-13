@@ -1,5 +1,10 @@
 {
  "sentIds": {
+  "4299454edd3cc4117b67abba65f6e67dfd89eb40": 1794536970854,
+  "a122db0815248290a2b37132fa374deb899eff95": 1794536970854,
+  "87480a3a3f906b22e8504d8e0fb1df1dcb297852": 1794536970854,
+  "0ca45e6f571a9016e3dbea121580b9f9076c2e74": 1794536970854,
+  "88868b85ec3858b9c40d0e57ee453ba6e33a204a": 1794536970854,
   "0a1163a0478aad91ecffc8053a830a743e4c3583": 1794536398294,
   "5645a82d4f10a46bd5204139b3c5b1ee790b7fc2": 1794536398294,
   "feb0d38d792ea786ae7222379269638dd45a6465": 1794536398294,
@@ -1194,14 +1199,14 @@
   "4049dd19277355da62f0341ac310dbb7305ebaf6": 1794493583551,
   "f99e8b6d33eaaf394bb0c1366e6b831e8cb4ade4": 1794493583551,
   "0140156e0b84ff5037455160164e381254fb6ca1": 1794493583551,
-  "10df5f04df3275f88e772c9c17732a9bad77c28e": 1794493583551,
-  "05a196046ae8b2f3a89d562ba90aca97ed7c8ac6": 1794493583551,
-  "4be7c994bd5e48bd6e0773955242a29dbccf8dbd": 1794493583551,
-  "9d7849ab1eb41d3da72257f34d53074c9455b456": 1794493583551,
-  "9834ca409b2dcd6c7c4c6bab70a0108b4dd4af6f": 1794493583551,
-  "61a68026eaa2a18abe0baeab791f208670ee05a2": 1794493583551
+  "10df5f04df3275f88e772c9c17732a9bad77c28e": 1794493583551
  },
  "sentTitles": {
+  "477288c67cab886472df8dd42c6091ef00c624c9": 1794536970854,
+  "b8ef13564948d300c28f5e956ae7adbf737828ce": 1794536970854,
+  "807fc765a225397a053cb9564826c9626eb9e2dd": 1794536970854,
+  "35bb708c671b030f67a2040416bdbbb81d16f9f6": 1794536970854,
+  "513d7e64bf6c71652a045ec843e8a4c3e032d272": 1794536970854,
   "9f390a6b7f86f9005a3ebf9684b5f9072e5a4e0a": 1794536398294,
   "6e01d63e6f34649d56cef78cad5396023f1eeec4": 1794536398294,
   "c7924e591f37470ad4af6dc3e596bc570a02128c": 1794536398294,
@@ -1796,12 +1801,7 @@
   "0f6b0370d457b12ceae7b06f1373be4a66f301d2": 1794505572659,
   "d7a38d05bf3d90d76dd1ce26e8be536cda95a6fe": 1794505572659,
   "71908fbb21d7b8f48234081fbe70d15047ecd020": 1794505572659,
-  "0bd2ca179ec5d383d4b01cdaa193d70cc37653b0": 1794505572659,
-  "6a755648458752b9b09cd63967c4534fed8f29c0": 1794505572659,
-  "2c93355c71a0611bf0b005ad1e4b98a6290bf036": 1794504921692,
-  "b4ea19f360179466eb744e72b2d6565e7b4244a8": 1794504921692,
-  "daf426712e79c49f04e89ad27aed3db2923540ae": 1794504921692,
-  "923cddf39ce239a93395764c804289a789a101a9": 1794504921692
+  "0bd2ca179ec5d383d4b01cdaa193d70cc37653b0": 1794505572659
  },
  "sentTitleTexts": {
   "قوی تر بودن و به طور موثرتری در مقیاس قاره اروپا عمل کردن این همان دلیل وجود جامعه سیاسی اروپا است که فرانسه در سال ۲۰۲۲ ان را اغاز کرده است امروز در دبلین چهل ": 1794533711248,
@@ -3008,6 +3008,162 @@
   "press tv تلگرام دانیل مک ادامز می گوید در نهایت وقتی اوضاع در منطقه ارام گیرد و همه چیز مشخص شود ایران در موقعیتی به مراتب بهتر از هر زمان دیگری قرار خواهد گرفت": 1794508430262
  },
  "pool": [
+  {
+   "id": "1bcfa320c813474efc65858ba9f2a467f4496093",
+   "titleKey": "6552c2e307cafd0a36da4e555a34e84c5f9d66d7",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "إنفيديا بعد الزلزال...الكونغرس والسوق يرسمان مستقبل الشركة - العربي الجديد إنفيديا بعد الزلزال...الكونغرس والسوق يرسمان مستقبل الشركة العربي الجديد",
+   "at": "2026-11-12T23:40:17.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi2gNBVV95cUxNbnNvUzJDeVU3QW1kd3RhWEk4S29nem9pYmpjNU1JcHMyT29ZbzFfMmcxcmdreURSczUwZThrcHNHajhjNGlJZTdzczUxd3lrVDhWZEVJQWh6blNORnVtWHhPU2FzNVZ1cGZZNmcxR0wwOE9xT25zbV9IeVgwWnR4SmZHbG1lR05hNXFDZUhxVFM0X2xzUlZCSXJjTWxJT0JNT1dQajUtWWk1YWE5WWV6SWN5ekp4SXBQSjlmNGVyNkFwd29SX3ItWjZfTWFJZ0FUSTdwRGpWTm9jaVRfYWQydXIzUmJVVjVYVmdFQnZNeUdEbDROci03R2ttN1RrazlaSU1tRExRZmJ3Z1VQQmhkTUN4SEJMejJzVFB1OHdjaTBUTG9aSk5jalhYdXJXclZKVVFWLXJCbEpqaXRTQlFjVDBESWgtRC1XWEl5MDMtUGd6UC1tUHY3N25aMmV5OF80Zjlac29jdmZ1d2o3WmV3WWt2MzN6ak9uQkRlcDRRR1BKVTBqVFE0eGdzdGJHeFZ5aDgtVzBDZldYMWwtMlVBcVFvbHR6bnQ0enkwNkI2elB0NThRa3RSdGVlUVRlRDdUYThwRkhrdjE3c0JjOG0yWXc2YlJXTkkxVWfSAd8DQVVfeXFMUGVZQWhFalRfLVdJWnk5Y0Z2TDNhVGprU3ZuWS1ZSFpoRDdJb0hZN0pCQl9OT0x6LWl6WEtEZ1lpdXM3ZllvWHJHSHVDRzZwaER5OTV2NEMzQUIyTG5yTVhZQkJtZWRzUFR4S0otd0JfZ1p6enBZRjVqV1lFMzc1U01MY2RvQlY4eXF1Rk1qemNVTlhzSHdhUVk2RTA0Smtfb2szQ3dmb1N1d3BXZUZQMjZ3YnlaX2gwLTRpVWNTZ09DVm1RV2Z1bTZWdTVnUDZvbklPNE1EMzRNQXZDb2JCUms1aTlGbVhJUFd2S3BlTTVFaHlNN0ZsY2VPRTliNDc3RVVxajJ2Nkd3QkRPWVVBTjBpQk1MNy1QRXN5WEFEUDdjQlJCOXoySWdnU1VWdWJBNlFTNTE0UFBMRWFQamRWTmc0TmJHYlBhRXRwNnJUR1EyNFlGazNpWlJkQTFRWVZtak5ZWEEybVRFT0V1V0NkNG83U0ZHUEpucmEtVHI1UnM4U1ZJaTFoNFFORl9qN1RoalBaS1VOR1pEaUN4b0JCekhheTFjYm1wNTN3bzJpd1hUN3BWMFdMRl9QS1N1SXdSclRpMzRXN0dhR2tNOXYxRWNTQ2ZkWWVYRENHc0g5T28?oc=5"
+  },
+  {
+   "id": "d42474fad8965da52a4541e18c465d7db1592c65",
+   "titleKey": "79a4ef0ae3d0f4f39238c6f1957c59d289e9820a",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Witkoff, Kushner’s plane takes off from Dublin — air traffic control The US president’s special envoys held talks with Vladimir Zelenskyy",
+   "at": "2026-11-12T23:50:01.000Z",
+   "url": "https://tass.com/world/2217511"
+  },
+  {
+   "id": "5d21b1e6d150b5af5570e18afeb8276ca0c20b6c",
+   "titleKey": "a3bf6fd0b99509dfd5564fd8c773d95d051efd60",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Iran war live: Trump says Gulf allies urged pause in Iran strikes Speaking at the White House, Trump says Gulf countries asked him to hold off on further attacks against Iran.",
+   "at": "2026-11-13T00:00:26.000Z",
+   "url": "https://www.aljazeera.com/news/liveblog/2026/11/13/iran-war-live-riyadh-china-discuss-houthis-as-group-claims-aramco-attacks?traffic_source=rss"
+  },
+  {
+   "id": "043c3fcc4f8c1a7a2fbcdfdf1a1560350a819659",
+   "titleKey": "059b1d96694b9e1cda05c1fbca19b82c05b723ab",
+   "source": "دونالد ترامپ — تروث سوشال (بایگانی عمومی)",
+   "lang": "en",
+   "text": "Lilly breaks ground in Pennsylvania's Lehigh Valley on a $3.5 billion site to make next-generation obesity medicines, the latest of 10 new U.S. sites since 2020: Lilly breaks ground in Pennsylvania's Lehigh Valley on a $3.5 billion site to make next-generation obesity medicines, the latest of 10 new U.S. sites since 2020: https://investor.lilly.com/news-releases/news-release-details/lilly-breaks-ground-pennsylvanias-lehigh-valley-35-billion-site",
+   "at": "2026-11-13T00:18:24.000Z",
+   "url": "https://www.trumpstruth.org/statuses/43565"
+  },
+  {
+   "id": "a9057b2addeaef6943950d103c706b9ece354706",
+   "titleKey": "760ac0493a87057f4ca15b78536aa68c313685f5",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Vikings 'hyped' to welcome back 'leader' Cousins on 1st day of practice - ESPN Vikings 'hyped' to welcome back 'leader' Cousins on 1st day of practice ESPN",
+   "at": "2026-11-13T00:54:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQa01nUmUtNDczMGhYZ0RqdFVBZTJ5U3hGRDRqdjJtcVYxcHVuSERjS0VFZFY4TDRESktmRG11RW5JMnZWRm0tYWdKV1N1VVdmWU9pUlZ6OXhxLXZ2SktQY2xoVm9SX3RTYm5BcGJWbl9KNXlYT1l2ZU51M0I5Vkp1aXhvMmVVc1JpZVZzbFI3eGJ5eEF4ME40VmhFWlJxTjdjczlyVlhFNWZOdlhz?oc=5"
+  },
+  {
+   "id": "d085aaa72f677d76892c17305ba4f6e6ccf8e9fa",
+   "titleKey": "9c09dbb935c4ba1df0a19210e673aec78e4cdbe5",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "'Wrong' and 'nonsense' - Cummins on Khawaja sandpaper claims Australia captain Pat Cummins hits back at former team-mate Usman Khawaja’s claims over the sandpaper scandal, calling them “100% wrong” and “utter nonsense”.",
+   "at": "2026-11-13T00:58:00.000Z",
+   "url": "https://www.bbc.co.uk/sport/cricket/articles/cwq6e4y9525mo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "eeac6cae6395a3b067e5016690b5ee089253c332",
+   "titleKey": "63e80ad6c6776ea8b5e1e1266b8728c6b06ad997",
+   "source": "Politico",
+   "lang": "en",
+   "text": "White House staffers can no longer meet with lobbyists without prior approval, new memo says - Politico White House staffers can no longer meet with lobbyists without prior approval, new memo says Politico",
+   "at": "2026-11-13T01:35:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPQ25CVWpEdklrY0xXc2hRNGlEWDlzdk1XaVlsLXN5MkQzdldYZWw5NXJERVJRVzVOUHJhQWQ5U2tzbzlyMTF1QzIwNkpPckVIcDFVLUtOUFVfUE5EaGF6UWhVUy1rUTZZcFJway03bFNSSUpQbWZNNGd1cHNDRFBoVjcyekJwLUgxcnFLNTJCLW41dw?oc=5"
+  },
+  {
+   "id": "3a97bcb0395f393aaa1fbbd4b6f4fb4dda9b71ed",
+   "titleKey": "0aede21c3f26070c0c147139696e0e74d346dc55",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "CENTCOM denies reports of instructions to Israel to prepare for war with Iran — TV The CENTCOM spokesperson in the Persian Gulf zone said the reports were \"mere speculation\"",
+   "at": "2026-11-13T01:47:01.000Z",
+   "url": "https://tass.com/world/2217533"
+  },
+  {
+   "id": "4299454edd3cc4117b67abba65f6e67dfd89eb40",
+   "titleKey": "477288c67cab886472df8dd42c6091ef00c624c9",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "فوری؛ ترامپ: درباره حمله دوباره به ایران هیچ تردیدی ندارم رئیس جمهوری آمریکا در پی شکست سنگین حزب خود در انتخابات کنگره و به رغم عقب نشینی از تهدیداتش در روزهای اخیر، بار دیگر لفاظی‌ها درباره ماجراجویی احتمالی در قبال ایران را تکرار کرد.",
+   "at": "2026-11-13T01:57:02.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085584/%D9%81%D9%88%D8%B1%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AD%D9%85%D9%84%D9%87-%D8%AF%D9%88%D8%A8%D8%A7%D8%B1%D9%87-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%87%DB%8C%DA%86-%D8%AA%D8%B1%D8%AF%DB%8C%D8%AF%DB%8C-%D9%86%D8%AF%D8%A7%D8%B1%D9%85"
+  },
+  {
+   "id": "96fcd30e9669c9d7a552be0c319b6d55d45b0a4d",
+   "titleKey": "3cd486471be0b2ad10168d4b800fe252e73b7829",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Ambassador Darchiev paid every effort to bridge differences between Russia, US — activist Honorary Chairman of the Board of Governors of the US branch of the International Sister Cities Association Bill Boerum also added that Russian Ambassador to Washington will be hard to replace",
+   "at": "2026-11-13T02:03:00.000Z",
+   "url": "https://tass.com/world/2217535"
+  },
+  {
+   "id": "d690dbf2bae9b1ddd5850ef8ab7498e2cad6356a",
+   "titleKey": "a8fa0cbdad60570271853ddf424aa359f174f038",
+   "source": "Xinhua English",
+   "lang": "en",
+   "text": "Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen - Xinhua Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen Xinhua",
+   "at": "2026-11-13T02:16:16.000Z",
+   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8zQ1ZtRGhCQmNYU2o0R05wWERYekVmNFVyMnFyRWNvazM1R0c4UlZIckludng4akIzc2ZxcVZSX2xHcjlWbWpkb2xtRFgxbzJoTG44ZnlzektUeUhxLVJBenlMQWZZMVJXNHoxSmpKOFVZY3lKNXFyNFBKQUc?oc=5"
+  },
+  {
+   "id": "a122db0815248290a2b37132fa374deb899eff95",
+   "titleKey": "b8ef13564948d300c28f5e956ae7adbf737828ce",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "اگر بن‌سلمان و بن‌زاید هم‌زمان زنگ بزنند، تلفن کدام‌یک را جواب می دهید؟ ؛‌پاسخ ترامپ در پاسخ به یک پرسش شیطنت‌آمیز درباره انتخاب میان دو متحد کلیدی واشنگتن در خلیج فارس، دونالد ترامپ ترجیح داد دست به عصا حرکت کند",
+   "at": "2026-11-13T02:19:10.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085594/%D8%A7%DA%AF%D8%B1-%D8%A8%D9%86-%D8%B3%D9%84%D9%85%D8%A7%D9%86-%D9%88-%D8%A8%D9%86-%D8%B2%D8%A7%DB%8C%D8%AF-%D9%87%D9%85-%D8%B2%D9%85%D8%A7%D9%86-%D8%B2%D9%86%DA%AF-%D8%A8%D8%B2%D9%86%D9%86%D8%AF-%D8%AA%D9%84%D9%81%D9%86-%DA%A9%D8%AF%D8%A7%D9%85-%DB%8C%DA%A9-%D8%B1%D8%A7-%D8%AC%D9%88%D8%A7%D8%A8"
+  },
+  {
+   "id": "87480a3a3f906b22e8504d8e0fb1df1dcb297852",
+   "titleKey": "807fc765a225397a053cb9564826c9626eb9e2dd",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شد تهران - ایرنا - روابط عمومی سپاه پاسداران انقلاب اسلامی در اطلاعیه شماره ۲۲ اعلام کرد، رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شده است.",
+   "at": "2026-11-13T02:19:20.000Z",
+   "url": "https://www.irna.ir/news/86320304/%D8%B1%D8%A7%D8%AF%D8%A7%D8%B1-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%A7%D9%88%D9%84%DB%8C%D9%87-%D8%A7%D8%B1%D8%AA%D8%B4-%D9%85%D8%AA%D8%AC%D8%A7%D9%88%D8%B2-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%AC%D8%B2%DB%8C%D8%B1%D9%87-%D8%A8%D8%AD%D8%B1%DB%8C%D9%86-%D9%87%D8%AF%D9%81-%D9%82%D8%B1%D8%A7%D8%B1"
+  },
+  {
+   "id": "0ca45e6f571a9016e3dbea121580b9f9076c2e74",
+   "titleKey": "35bb708c671b030f67a2040416bdbbb81d16f9f6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیگیری‌های ویژه برای عبور از موانع اجرایی در سازمان غذا و دارو مشاور رئیس سازمان غذا و دارو، با تأکید بر ضرورت دنبال کردن تصمیمات مدیریتی تا مرحله اجرا، گفت: اثربخشی تصمیمات زمانی محقق می‌شود که موانع اجرایی، شناسایی و برطرف شده باشد.",
+   "at": "2026-11-13T02:19:47.000Z",
+   "url": "https://www.mehrnews.com/news/7009175/%D9%BE%DB%8C%DA%AF%DB%8C%D8%B1%DB%8C-%D9%87%D8%A7%DB%8C-%D9%88%DB%8C%DA%98%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B9%D8%A8%D9%88%D8%B1-%D8%A7%D8%B2-%D9%85%D9%88%D8%A7%D9%86%D8%B9-%D8%A7%D8%AC%D8%B1%D8%A7%DB%8C%DB%8C-%D8%AF%D8%B1-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D8%BA%D8%B0%D8%A7-%D9%88-%D8%AF%D8%A7%D8%B1%D9%88"
+  },
+  {
+   "id": "ab88c56c8686ec42444ca7a1f8cc0511e40e59d8",
+   "titleKey": "72f36f7dd196bfb7d47e8e3397d9d2845c6791d2",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US refrains from tougher measures against Iran on request from regional countries — Trump US President Donald Trump stressed that if not for that request, he could go further",
+   "at": "2026-11-13T02:20:38.000Z",
+   "url": "https://tass.com/world/2217537"
+  },
+  {
+   "id": "88868b85ec3858b9c40d0e57ee453ba6e33a204a",
+   "titleKey": "513d7e64bf6c71652a045ec843e8a4c3e032d272",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "برای جنگ طولانی با عربستان آماده ایم عضو دفتر سیاسی جنبش انصارالله یمن گفت که دشمنان این کشور نباید هیج حسابی بر روی اتمام ذخایر موشکی یا تجهیزات نظامی صنعا باز کنند.",
+   "at": "2026-11-13T02:24:09.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085595/%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AC%D9%86%DA%AF-%D8%B7%D9%88%D9%84%D8%A7%D9%86%DB%8C-%D8%A8%D8%A7-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86-%D8%A2%D9%85%D8%A7%D8%AF%D9%87-%D8%A7%DB%8C%D9%85"
+  },
+  {
+   "id": "5cba27671e2e7f19d23a60a85af09fe887010643",
+   "titleKey": "a279a35ba3142b26d59e4bd2f64e9a7c46d6451e",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "U.S. did little to help Singapore investigate alleged Chinese spy, officials say - The Washington Post U.S. did little to help Singapore investigate alleged Chinese spy, officials say The Washington Post",
+   "at": "2026-11-13T02:24:20.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPX3JMcWFsdHdHTTFFZnRSV09sUUxWQnlnTG9YYUNQSXNIUllrR0hVQTE1cnhJRlBOdUdLLW9PRHpsNDU2SmYyb1o4VVZtQUJxR0hKbWRndV85ZjJVNlpQeVk2V2x4OWcyWnVULTY1MjhZa3hpUWVTTFgxNlpaZ0tRUmZVV0pqSmowNGM0VGRBeTdNVUNEekIzLWJGS09XNDFWajJPdUE4U1RkUmgyMktOVnQ0OGtSOUg1RTMxQ0dQcw?oc=5"
+  },
   {
    "id": "8424998122f15804665e22004d5675ea7688188b",
    "titleKey": "992efaa658878f6331e281ad6cd10e01a13d7668",
@@ -5556,6 +5712,56 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T02:19:43.847Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: فوری؛ ترامپ: درباره حمله دوباره به ایران هیچ تردیدی ندارم رئیس جمهوری آمریکا در پی شکست سنگین حزب خود در انتخابات کنگره و به رغم عقب نشینی از تهدیداتش در روزهای اخیر، بار دیگر لفاظی‌ها درباره ماجراجویی احتمالی در قبال ایران را تکرار کرد.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/09/4/5431884.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T02:29:13.276Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: اگر بن‌سلمان و بن‌زاید هم‌زمان زنگ بزنند، تلفن کدام‌یک را جواب می دهید؟ ؛‌پاسخ ترامپ در پاسخ به یک پرسش شیطنت‌آمیز درباره انتخاب میان دو متحد کلیدی واشنگتن در خلیج فارس، دونالد ترامپ ترجیح داد دست به عصا حرکت کند\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/09/4/5431726.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T02:29:13.977Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شد تهران - ایرنا - روابط عمومی سپاه پاسداران انقلاب اسلامی در اطلاعیه شماره ۲۲ اعلام کرد، رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شده است.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236562.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T02:29:14.678Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: پیگیری‌های ویژه برای عبور از موانع اجرایی در سازمان غذا و دارو مشاور رئیس سازمان غذا و دارو، با تأکید بر ضرورت دنبال کردن تصمیمات مدیریتی تا مرحله اجرا، گفت: اثربخشی تصمیمات زمانی محقق می‌شود که موانع اجرایی، شناسایی و برطرف شده باشد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2024/09/26/4/5177743.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T02:29:15.379Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: برای جنگ طولانی با عربستان آماده ایم عضو دفتر سیاسی جنبش انصارالله یمن گفت که دشمنان این کشور نباید هیج حسابی بر روی اتمام ذخایر موشکی یا تجهیزات نظامی صنعا باز کنند.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/08/4/5430698.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T02:29:16.080Z"
   }
  ],
  "tweetQueue": [],
@@ -5733,6 +5939,107 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "a9057b2addeaef6943950d103c706b9ece354706",
+   "titleKey": "760ac0493a87057f4ca15b78536aa68c313685f5",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Vikings 'hyped' to welcome back 'leader' Cousins on 1st day of practice - ESPN Vikings 'hyped' to welcome back 'leader' Cousins on 1st day of practice ESPN",
+   "at": "2026-11-13T00:54:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQa01nUmUtNDczMGhYZ0RqdFVBZTJ5U3hGRDRqdjJtcVYxcHVuSERjS0VFZFY4TDRESktmRG11RW5JMnZWRm0tYWdKV1N1VVdmWU9pUlZ6OXhxLXZ2SktQY2xoVm9SX3RTYm5BcGJWbl9KNXlYT1l2ZU51M0I5Vkp1aXhvMmVVc1JpZVZzbFI3eGJ5eEF4ME40VmhFWlJxTjdjczlyVlhFNWZOdlhz?oc=5"
+  },
+  {
+   "id": "eeac6cae6395a3b067e5016690b5ee089253c332",
+   "titleKey": "63e80ad6c6776ea8b5e1e1266b8728c6b06ad997",
+   "source": "Politico",
+   "lang": "en",
+   "text": "White House staffers can no longer meet with lobbyists without prior approval, new memo says - Politico White House staffers can no longer meet with lobbyists without prior approval, new memo says Politico",
+   "at": "2026-11-13T01:35:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPQ25CVWpEdklrY0xXc2hRNGlEWDlzdk1XaVlsLXN5MkQzdldYZWw5NXJERVJRVzVOUHJhQWQ5U2tzbzlyMTF1QzIwNkpPckVIcDFVLUtOUFVfUE5EaGF6UWhVUy1rUTZZcFJway03bFNSSUpQbWZNNGd1cHNDRFBoVjcyekJwLUgxcnFLNTJCLW41dw?oc=5"
+  },
+  {
+   "id": "3a97bcb0395f393aaa1fbbd4b6f4fb4dda9b71ed",
+   "titleKey": "0aede21c3f26070c0c147139696e0e74d346dc55",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "CENTCOM denies reports of instructions to Israel to prepare for war with Iran — TV The CENTCOM spokesperson in the Persian Gulf zone said the reports were \"mere speculation\"",
+   "at": "2026-11-13T01:47:01.000Z",
+   "url": "https://tass.com/world/2217533"
+  },
+  {
+   "id": "4299454edd3cc4117b67abba65f6e67dfd89eb40",
+   "titleKey": "477288c67cab886472df8dd42c6091ef00c624c9",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "فوری؛ ترامپ: درباره حمله دوباره به ایران هیچ تردیدی ندارم رئیس جمهوری آمریکا در پی شکست سنگین حزب خود در انتخابات کنگره و به رغم عقب نشینی از تهدیداتش در روزهای اخیر، بار دیگر لفاظی‌ها درباره ماجراجویی احتمالی در قبال ایران را تکرار کرد.",
+   "at": "2026-11-13T01:57:02.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085584/%D9%81%D9%88%D8%B1%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AD%D9%85%D9%84%D9%87-%D8%AF%D9%88%D8%A8%D8%A7%D8%B1%D9%87-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%87%DB%8C%DA%86-%D8%AA%D8%B1%D8%AF%DB%8C%D8%AF%DB%8C-%D9%86%D8%AF%D8%A7%D8%B1%D9%85"
+  },
+  {
+   "id": "96fcd30e9669c9d7a552be0c319b6d55d45b0a4d",
+   "titleKey": "3cd486471be0b2ad10168d4b800fe252e73b7829",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Ambassador Darchiev paid every effort to bridge differences between Russia, US — activist Honorary Chairman of the Board of Governors of the US branch of the International Sister Cities Association Bill Boerum also added that Russian Ambassador to Washington will be hard to replace",
+   "at": "2026-11-13T02:03:00.000Z",
+   "url": "https://tass.com/world/2217535"
+  },
+  {
+   "id": "d690dbf2bae9b1ddd5850ef8ab7498e2cad6356a",
+   "titleKey": "a8fa0cbdad60570271853ddf424aa359f174f038",
+   "source": "Xinhua English",
+   "lang": "en",
+   "text": "Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen - Xinhua Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen Xinhua",
+   "at": "2026-11-13T02:16:16.000Z",
+   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8zQ1ZtRGhCQmNYU2o0R05wWERYekVmNFVyMnFyRWNvazM1R0c4UlZIckludng4akIzc2ZxcVZSX2xHcjlWbWpkb2xtRFgxbzJoTG44ZnlzektUeUhxLVJBenlMQWZZMVJXNHoxSmpKOFVZY3lKNXFyNFBKQUc?oc=5"
+  },
+  {
+   "id": "a122db0815248290a2b37132fa374deb899eff95",
+   "titleKey": "b8ef13564948d300c28f5e956ae7adbf737828ce",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "اگر بن‌سلمان و بن‌زاید هم‌زمان زنگ بزنند، تلفن کدام‌یک را جواب می دهید؟ ؛‌پاسخ ترامپ در پاسخ به یک پرسش شیطنت‌آمیز درباره انتخاب میان دو متحد کلیدی واشنگتن در خلیج فارس، دونالد ترامپ ترجیح داد دست به عصا حرکت کند",
+   "at": "2026-11-13T02:19:10.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085594/%D8%A7%DA%AF%D8%B1-%D8%A8%D9%86-%D8%B3%D9%84%D9%85%D8%A7%D9%86-%D9%88-%D8%A8%D9%86-%D8%B2%D8%A7%DB%8C%D8%AF-%D9%87%D9%85-%D8%B2%D9%85%D8%A7%D9%86-%D8%B2%D9%86%DA%AF-%D8%A8%D8%B2%D9%86%D9%86%D8%AF-%D8%AA%D9%84%D9%81%D9%86-%DA%A9%D8%AF%D8%A7%D9%85-%DB%8C%DA%A9-%D8%B1%D8%A7-%D8%AC%D9%88%D8%A7%D8%A8"
+  },
+  {
+   "id": "87480a3a3f906b22e8504d8e0fb1df1dcb297852",
+   "titleKey": "807fc765a225397a053cb9564826c9626eb9e2dd",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شد تهران - ایرنا - روابط عمومی سپاه پاسداران انقلاب اسلامی در اطلاعیه شماره ۲۲ اعلام کرد، رادار هشدار اولیه ارتش متجاوز آمریکا در جزیره بحرین هدف قرار گرفته و منهدم شده است.",
+   "at": "2026-11-13T02:19:20.000Z",
+   "url": "https://www.irna.ir/news/86320304/%D8%B1%D8%A7%D8%AF%D8%A7%D8%B1-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%A7%D9%88%D9%84%DB%8C%D9%87-%D8%A7%D8%B1%D8%AA%D8%B4-%D9%85%D8%AA%D8%AC%D8%A7%D9%88%D8%B2-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%AC%D8%B2%DB%8C%D8%B1%D9%87-%D8%A8%D8%AD%D8%B1%DB%8C%D9%86-%D9%87%D8%AF%D9%81-%D9%82%D8%B1%D8%A7%D8%B1"
+  },
+  {
+   "id": "0ca45e6f571a9016e3dbea121580b9f9076c2e74",
+   "titleKey": "35bb708c671b030f67a2040416bdbbb81d16f9f6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیگیری‌های ویژه برای عبور از موانع اجرایی در سازمان غذا و دارو مشاور رئیس سازمان غذا و دارو، با تأکید بر ضرورت دنبال کردن تصمیمات مدیریتی تا مرحله اجرا، گفت: اثربخشی تصمیمات زمانی محقق می‌شود که موانع اجرایی، شناسایی و برطرف شده باشد.",
+   "at": "2026-11-13T02:19:47.000Z",
+   "url": "https://www.mehrnews.com/news/7009175/%D9%BE%DB%8C%DA%AF%DB%8C%D8%B1%DB%8C-%D9%87%D8%A7%DB%8C-%D9%88%DB%8C%DA%98%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B9%D8%A8%D9%88%D8%B1-%D8%A7%D8%B2-%D9%85%D9%88%D8%A7%D9%86%D8%B9-%D8%A7%D8%AC%D8%B1%D8%A7%DB%8C%DB%8C-%D8%AF%D8%B1-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D8%BA%D8%B0%D8%A7-%D9%88-%D8%AF%D8%A7%D8%B1%D9%88"
+  },
+  {
+   "id": "ab88c56c8686ec42444ca7a1f8cc0511e40e59d8",
+   "titleKey": "72f36f7dd196bfb7d47e8e3397d9d2845c6791d2",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US refrains from tougher measures against Iran on request from regional countries — Trump US President Donald Trump stressed that if not for that request, he could go further",
+   "at": "2026-11-13T02:20:38.000Z",
+   "url": "https://tass.com/world/2217537"
+  },
+  {
+   "id": "88868b85ec3858b9c40d0e57ee453ba6e33a204a",
+   "titleKey": "513d7e64bf6c71652a045ec843e8a4c3e032d272",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "برای جنگ طولانی با عربستان آماده ایم عضو دفتر سیاسی جنبش انصارالله یمن گفت که دشمنان این کشور نباید هیج حسابی بر روی اتمام ذخایر موشکی یا تجهیزات نظامی صنعا باز کنند.",
+   "at": "2026-11-13T02:24:09.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085595/%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AC%D9%86%DA%AF-%D8%B7%D9%88%D9%84%D8%A7%D9%86%DB%8C-%D8%A8%D8%A7-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86-%D8%A2%D9%85%D8%A7%D8%AF%D9%87-%D8%A7%DB%8C%D9%85"
+  },
   {
    "id": "8424998122f15804665e22004d5675ea7688188b",
    "titleKey": "992efaa658878f6331e281ad6cd10e01a13d7668",
@@ -10903,21 +11210,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794536398290,
-  "Akharin_khodro/8913": 1794536398290,
-  "Akharin_khodro/8914": 1794536398290,
-  "Akharin_khodro/8915": 1794536398290,
-  "Akharin_khodro/8916": 1794536398290,
-  "Akharin_khodro/8919": 1794536398290,
-  "Akharin_khodro/8920": 1794536398290,
-  "Akharin_khodro/8921": 1794536398290,
-  "Akharin_khodro/8922": 1794536398290,
-  "Akharin_khodro/8923": 1794536398290,
-  "Akharin_khodro/8924": 1794536398290,
-  "Akharin_khodro/8925": 1794536398290,
-  "Akharin_khodro/8926": 1794536398290,
-  "Akharin_khodro/8927": 1794536398290,
-  "Akharin_khodro/8928": 1794536398290,
+  "Akharin_khodro/8908": 1794536970851,
+  "Akharin_khodro/8913": 1794536970851,
+  "Akharin_khodro/8914": 1794536970851,
+  "Akharin_khodro/8915": 1794536970851,
+  "Akharin_khodro/8916": 1794536970851,
+  "Akharin_khodro/8919": 1794536970851,
+  "Akharin_khodro/8920": 1794536970851,
+  "Akharin_khodro/8921": 1794536970851,
+  "Akharin_khodro/8922": 1794536970851,
+  "Akharin_khodro/8923": 1794536970851,
+  "Akharin_khodro/8924": 1794536970851,
+  "Akharin_khodro/8925": 1794536970851,
+  "Akharin_khodro/8926": 1794536970851,
+  "Akharin_khodro/8927": 1794536970851,
+  "Akharin_khodro/8928": 1794536970851,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11243,27 +11550,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-13T02:19:58.297Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-13T02:29:30.856Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1078,
-  "inWindow": 149,
-  "fresh": 79,
-  "sent": 8,
+  "inWindow": 148,
+  "fresh": 78,
+  "sent": 5,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 110,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 70,
-  "queued": 8,
+  "skippedUntranslated": 73,
+  "queued": 5,
   "tweetRateLimited": false
  }
 }

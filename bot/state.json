@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "b3b32785b6e6c6bca9ea0ff41375a6ffd28e6d5d": 1794614121294,
   "38287c5ff678e26885e70942ec0cf19ff30eb08e": 1794613618702,
   "114fff4c9a71d4912791a4960758a1bff4d24bcc": 1794613618702,
   "9d68a0d24dd95036d4fc0de27ab50f5f9ea9201e": 1794613618702,
@@ -1198,10 +1199,10 @@
   "17391a6b1383967229a43f9454d0e3d0f043fe2f": 1794576865870,
   "fe1c7bd9b6590994a3682651584e570a41676a03": 1794576865870,
   "f53c63cb0027d7a216e72d61476779a9ffa47244": 1794576865870,
-  "b545f4485225d60b86adda857ea08cfe73a1794a": 1794576865870,
-  "c3fd919ca1b237f1acf28217719a53615b6a03e3": 1794576865870
+  "b545f4485225d60b86adda857ea08cfe73a1794a": 1794576865870
  },
  "sentTitles": {
+  "9947bda3324121edf3e2feb0d263597de831333f": 1794614121294,
   "f5ee58f87ed80eaa0341ba122f5ec31fb8a00220": 1794613618702,
   "054aa72124ef8ab524e04bfb048114a3600b6ea8": 1794613618702,
   "9658395cd6e579659c08f25e6dced5ee06b32bc8": 1794613618702,
@@ -1800,8 +1801,7 @@
   "13b4d1ba6d9485eebb63cc8108ff9912dae6f9bc": 1794589136864,
   "f5e42ab2e6bcf9a3e5e77b8b77f0c9e49117ca32": 1794589136864,
   "5abb3ebca57f4cda5fa455cacf0869b85e3f419b": 1794589136864,
-  "693e9c5ebec0a72373b08f3c41c028a37d2f3dea": 1794589136864,
-  "8bb8811e14581dd35037a5a080c25ec843b7a494": 1794589136864
+  "693e9c5ebec0a72373b08f3c41c028a37d2f3dea": 1794589136864
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,35 @@
   "خبرانلاین جفری ساکس جنگ ایران ترامپ را زمین زد فیلم اقتصاددان امریکایی گفت ترامپ با زیر پا گذاشتن وعده پایان جنگ ها هزینه سیاسی سنگینی پرداخت کرده است منبع اخری": 1794588453604
  },
  "pool": [
+  {
+   "id": "813698cd0765e2806e5342ee61f2a35d7dd6cb3c",
+   "titleKey": "0a0d0fd52a4399b4a4aab9757b0a9edb800c4db5",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "FAA ground stop disrupting air travel for college football teams - ESPN FAA ground stop disrupting air travel for college football teams ESPN",
+   "at": "2026-11-13T22:59:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxORTJiVVozNTJCanBhOWpPd1MtbEViOFlHT2RTd0daMmlFTy1raGlkYjRyeTVEZjNVX05tMnRuQkdOVnVyblRfMjNuMVIwbElZeUU1UGUxRGpHemdzLXRsQk91VHlSZTVrSHpYMkJGMGtTUjdTd2hWaTJBdFRZWm1fYk94T1RWeUQ1ZHFUZjNRbmphZ0ZiaF90MmllSVdjV2diaE5JZ3piRDVGZUhMdzZGNVgySi0?oc=5"
+  },
+  {
+   "id": "b3b32785b6e6c6bca9ea0ff41375a6ffd28e6d5d",
+   "titleKey": "9947bda3324121edf3e2feb0d263597de831333f",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "یک هشدار جدی درباره ارتباط تعداد دندان‌ها با ابتلا به زوال عقل! سلامت ضعیف دهان و دندان می‌تواند نقش بسیار بیشتری در زوال عقل داشته باشد.",
+   "at": "2026-11-13T23:30:50.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308226-%DB%8C%DA%A9-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AC%D8%AF%DB%8C-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%AA%D8%B9%D8%AF%D8%A7%D8%AF-%D8%AF%D9%86%D8%AF%D8%A7%D9%86-%D9%87%D8%A7-%D8%A8%D8%A7-%D8%A7%D8%A8%D8%AA%D9%84%D8%A7-%D8%A8%D9%87-%D8%B2%D9%88%D8%A7%D9%84-%D8%B9%D9%82%D9%84"
+  },
+  {
+   "id": "18cbd11c783fd99ad258ba63087fce8978333adc",
+   "titleKey": "bae0a868a77fec7ce1e58bbbd5ed09bbba54066c",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "FAA grounds all fights across the US over ‘telecommunication outage’ The FAA has issued a ground stop for departing flights in the US after a communications failure disrupted air traffic.",
+   "at": "2026-11-13T23:45:22.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/faa-grounds-all-fights-across-the-us-over-telecommunication?traffic_source=rss"
+  },
   {
    "id": "65ba4b76392b6805b6490ee371eb5c0b805c6e3d",
    "titleKey": "a69adfb123050c2d70c7da68177461c540f511b9",
@@ -5702,6 +5731,16 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-13T23:46:44.603Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: یک هشدار جدی درباره ارتباط تعداد دندان‌ها با ابتلا به زوال عقل! سلامت ضعیف دهان و دندان می‌تواند نقش بسیار بیشتری در زوال عقل داشته باشد.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/y1nWlQpzFiip/jsd6JDttnoPCA1OygoPd4jm1Om0xQgXawGGaVeX7fUWDBKZFPwLRlpiw2hYYL0PEKdWKHVmffEP3lVV0cLgFQSatbsHi3sMFQIR-NoqQvzR2CVmlA9Jde-dwSoqGd2VyqL2RLQTAVAlpsgZ0QpYG8YmFMNVVfknUlT90yONgjv1Wq-UlTzToEeUAXLyyL1Ou/ATEiVXreMjEX.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T23:55:06.217Z"
   }
  ],
  "tweetQueue": [],
@@ -5879,6 +5918,44 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "b823d0954050e60e9d0d8e0a4c12b84c69e0a12b",
+   "titleKey": "1768055fb244a077fdf7ea819eb1203808679c4f",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Trump falsely claims ‘nobody’s been killed’ in Iran war ‘in the last five months’ - The Washington Post Trump falsely claims ‘nobody’s been killed’ in Iran war ‘in the last five months’ The Washington Post",
+   "at": "2026-11-13T22:31:53.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQQS1tR2VKQnFreElVRlU3T2piQUNEQmRZTER3ZV9yZlFNc2VpUlphUDNRdVJGemtZaWwtdlp5WWRLeFNyaVZsSEppQVVvM09hcTBCMXFtOWlmU0VFeUpfc0hBbGpzTmo5dGJwWmZKLXBIaUVMRmo3M0ZDNnhRUENnREVZUXpFRjJMZ09DRUc4dmplU0lUWGd0dUplUTk1YWZpVEZHXzdrMFVSNW1CMmR3X2pCQV9pRGhyNkE?oc=5"
+  },
+  {
+   "id": "813698cd0765e2806e5342ee61f2a35d7dd6cb3c",
+   "titleKey": "0a0d0fd52a4399b4a4aab9757b0a9edb800c4db5",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "FAA ground stop disrupting air travel for college football teams - ESPN FAA ground stop disrupting air travel for college football teams ESPN",
+   "at": "2026-11-13T22:59:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxORTJiVVozNTJCanBhOWpPd1MtbEViOFlHT2RTd0daMmlFTy1raGlkYjRyeTVEZjNVX05tMnRuQkdOVnVyblRfMjNuMVIwbElZeUU1UGUxRGpHemdzLXRsQk91VHlSZTVrSHpYMkJGMGtTUjdTd2hWaTJBdFRZWm1fYk94T1RWeUQ1ZHFUZjNRbmphZ0ZiaF90MmllSVdjV2diaE5JZ3piRDVGZUhMdzZGNVgySi0?oc=5"
+  },
+  {
+   "id": "b3b32785b6e6c6bca9ea0ff41375a6ffd28e6d5d",
+   "titleKey": "9947bda3324121edf3e2feb0d263597de831333f",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "یک هشدار جدی درباره ارتباط تعداد دندان‌ها با ابتلا به زوال عقل! سلامت ضعیف دهان و دندان می‌تواند نقش بسیار بیشتری در زوال عقل داشته باشد.",
+   "at": "2026-11-13T23:30:50.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308226-%DB%8C%DA%A9-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AC%D8%AF%DB%8C-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D8%AA%D8%B9%D8%AF%D8%A7%D8%AF-%D8%AF%D9%86%D8%AF%D8%A7%D9%86-%D9%87%D8%A7-%D8%A8%D8%A7-%D8%A7%D8%A8%D8%AA%D9%84%D8%A7-%D8%A8%D9%87-%D8%B2%D9%88%D8%A7%D9%84-%D8%B9%D9%82%D9%84"
+  },
+  {
+   "id": "18cbd11c783fd99ad258ba63087fce8978333adc",
+   "titleKey": "bae0a868a77fec7ce1e58bbbd5ed09bbba54066c",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "FAA grounds all fights across the US over ‘telecommunication outage’ The FAA has issued a ground stop for departing flights in the US after a communications failure disrupted air traffic.",
+   "at": "2026-11-13T23:45:22.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/faa-grounds-all-fights-across-the-us-over-telecommunication?traffic_source=rss"
+  },
   {
    "id": "65ba4b76392b6805b6490ee371eb5c0b805c6e3d",
    "titleKey": "a69adfb123050c2d70c7da68177461c540f511b9",
@@ -9423,7 +9500,7 @@
    "items": 365
   }
  ],
- "aiCursor": 5,
+ "aiCursor": 6,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9997,22 +10074,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794613618698,
-  "Akharin_khodro/8913": 1794613618698,
-  "Akharin_khodro/8914": 1794613618698,
-  "Akharin_khodro/8915": 1794613618698,
-  "Akharin_khodro/8916": 1794613618698,
-  "Akharin_khodro/8919": 1794613618698,
-  "Akharin_khodro/8920": 1794613618698,
-  "Akharin_khodro/8921": 1794613618698,
-  "Akharin_khodro/8922": 1794613618698,
-  "Akharin_khodro/8923": 1794613618698,
-  "Akharin_khodro/8924": 1794613618698,
-  "Akharin_khodro/8925": 1794613618698,
-  "Akharin_khodro/8926": 1794613618698,
-  "Akharin_khodro/8927": 1794613618698,
-  "Akharin_khodro/8928": 1794613618698,
-  "Akharin_khodro/8929": 1794613618698,
+  "Akharin_khodro/8908": 1794614121290,
+  "Akharin_khodro/8913": 1794614121290,
+  "Akharin_khodro/8914": 1794614121290,
+  "Akharin_khodro/8915": 1794614121290,
+  "Akharin_khodro/8916": 1794614121290,
+  "Akharin_khodro/8919": 1794614121290,
+  "Akharin_khodro/8920": 1794614121290,
+  "Akharin_khodro/8921": 1794614121290,
+  "Akharin_khodro/8922": 1794614121290,
+  "Akharin_khodro/8923": 1794614121290,
+  "Akharin_khodro/8924": 1794614121290,
+  "Akharin_khodro/8925": 1794614121290,
+  "Akharin_khodro/8926": 1794614121290,
+  "Akharin_khodro/8927": 1794614121290,
+  "Akharin_khodro/8928": 1794614121290,
+  "Akharin_khodro/8929": 1794614121290,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10441,27 +10518,27 @@
    }
   }
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-13T23:46:58.704Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-13T23:55:21.298Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1068,
-  "inWindow": 186,
+  "inWindow": 179,
   "fresh": 84,
-  "sent": 3,
+  "sent": 1,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 113,
+  "tweetsFetched": 115,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 81,
-  "queued": 3,
+  "skippedUntranslated": 83,
+  "queued": 1,
   "tweetRateLimited": false
  }
 }

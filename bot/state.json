@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "be8bf3e5441133b2993bc56b5fa9acff6ee230b0": 1794543743294,
+  "39d2d6e507cb445f23ab06ce1f6e4431990245ff": 1794543743294,
+  "a729da1ff1e4459cc3435d284fc5b9a79fc897af": 1794543743294,
+  "7f78e20d29afbd5230c033c276b22b57aa2d0181": 1794543743294,
   "86e5e2608efb52b059204b35fb74d010185e0802": 1794542955425,
   "76068530aac22e3e8ac4aeff180e3f36a43577cc": 1794542955425,
   "980e0634ecd4639bdc08f16e7defa7f359edc139": 1794542955425,
@@ -1195,13 +1199,13 @@
   "6b810ca102b1f407f0d739907f200d099ce6c701": 1794497624564,
   "762f2ba77eed0a348f741deacc8f1dd902984440": 1794497624564,
   "939fa1244d0d6ce471cd50dc3189bc7fbfe65fde": 1794497624564,
-  "e4f89702d5f0afaa3e35a9d7a8148f7a361ab334": 1794497624564,
-  "94123ab6dfc55d6f8ea67160a2fc0d8282b4fba3": 1794497624564,
-  "f7a25095e2f52cbb9b8f84f87d792206723d4ace": 1794497624564,
-  "caac76e3f4e819ecf562a934915b7b5d01a95eb4": 1794497624564,
-  "347fd313b8e64228fc5eefe1e1eec2140038624d": 1794497624564
+  "e4f89702d5f0afaa3e35a9d7a8148f7a361ab334": 1794497624564
  },
  "sentTitles": {
+  "d36a7e6413625f8e2efb890502f343fb7daeebbc": 1794543743294,
+  "6b1a7c5d33520f93685dc68aec38977c4363f91f": 1794543743294,
+  "8d5601da09ddd6f9db4d6cc31196861dc4e7306e": 1794543743294,
+  "4c10b5df1344c649d51f2b85bd10389f0752f0d9": 1794543743294,
   "24dde63c553e7964465966efbfaf5b35060afb72": 1794542955425,
   "6071e7749568b8ebe1d7267b3e27c0f846be7adf": 1794542955425,
   "ac01c1a832ca5216324af3389a6e985800449bbb": 1794542955425,
@@ -1797,11 +1801,7 @@
   "ae74a56434ed507a1bd8350a4732408872025590": 1794510781339,
   "b6df452fc0a31e9c3b29be77498c27343fa7fa46": 1794510781339,
   "865a1c7ddb8ac2ee3f7b621de81db57bd5992c18": 1794510781339,
-  "72ef2c951663f98915d9af1506c4ebeb2fd0ad12": 1794510781339,
-  "0fd44a55cd9867267c3df212913fa7aadcbbc62e": 1794510781339,
-  "b8daff976256e5f741ce284e08ed7ca69e711688": 1794510781339,
-  "50fa4430b86a64258191da864be4eb18f7d46c39": 1794510781339,
-  "55aaef4e9799cb67aa7cb38ae8fd5a0bcbd0a11a": 1794510781339
+  "72ef2c951663f98915d9af1506c4ebeb2fd0ad12": 1794510781339
  },
  "sentTitleTexts": {
   "قوی تر بودن و به طور موثرتری در مقیاس قاره اروپا عمل کردن این همان دلیل وجود جامعه سیاسی اروپا است که فرانسه در سال ۲۰۲۲ ان را اغاز کرده است امروز در دبلین چهل ": 1794533711248,
@@ -3008,6 +3008,100 @@
   "اقتصادانلاین حقوق نیرو های مسلح پای لانچر موشک چه قدر است یکی از فرماندهان پرتاب موشک گفت در مجموعه هوافضای سپاه با نخبگانی کار می کنیم که اگر می خواستند بیرون ": 1794508430262
  },
  "pool": [
+  {
+   "id": "e1fc22bd4bad58d3fbb34bf6fc495a7bef0413c3",
+   "titleKey": "4556a3cfbc82233edf76abef0ca46825dde02b9a",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Cade Cunningham, Ausar Thompson star as Pistons outlast Wizards in 2OT - ESPN Cade Cunningham, Ausar Thompson star as Pistons outlast Wizards in 2OT ESPN",
+   "at": "2026-11-13T03:42:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPLU40STBIc3NfUGRUNzlkSTBkdHkwM3hDSGo3anlBLUtQTUZudGVCYm1XRG51WEVEVk14bS1wM2NwWjdWLXdSOU1RZGdrblp6THNFak1OTHdodVFyQ2dQRXUzcmU4WkVGdVRfdWhHSUJaV0VrYm1hWWdzZU5sR0Q3dVQ2ZkZOWmkzTzZvRUgwZVVzZ2V6cXdtcWk5eHppZw?oc=5"
+  },
+  {
+   "id": "fd090422a81ad6e19d4cca4cc8775c2f739d9c3f",
+   "titleKey": "a735e701a8bdb0b56eb9cb9fb5dd9c4162970c25",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "‘I don’t care’: How Jensen Huang’s last hours as Nvidia CEO unfolded",
+   "at": "2026-11-13T04:02:44.000Z",
+   "url": "https://timesofindia.indiatimes.com/technology/tech-news/i-dont-care-how-jensen-huangs-last-hours-as-nvidia-ceo-unfolded/articleshow/135788716.cms"
+  },
+  {
+   "id": "be8bf3e5441133b2993bc56b5fa9acff6ee230b0",
+   "titleKey": "d36a7e6413625f8e2efb890502f343fb7daeebbc",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "قیمت محصولات ایران‌خودرو و سایپا امروز ۲۲ آبان‌ماه ۱۴۰۵/ نوسان قیمت خودرو شدت گرفت + جدول قیمت خودرو امروز در غیاب تقاضای مؤثر و همسو با تداوم رکود معاملاتی، نوسانات دوگانه و متناقضی را به ثبت رسانده‌اند.",
+   "at": "2026-11-13T04:05:24.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175296/قیمت-محصولات-ایران-خودرو-و-سایپا-امروز-22-آبان-ماه-1405-نوسان-قیمت-خودرو-شدت-گرفت-جدول"
+  },
+  {
+   "id": "8cc8535f9204cad91ee9e83553ff4fc1b4c2df60",
+   "titleKey": "e43ba23435cbca0106e3e7cf2dbc079a40864ba5",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump told Huang to fight for his job after affair scandals: Report President Trump called outgoing Nvidia CEO Jensen Huang and told him to fight for his job ahead of his resignation, The New York Times reported on Thursday, citing two people briefed on the conversation. Huang resigned as CEO of one of the world’s most valuable companies after reports emerged of multiple extramarital affairs, including one…",
+   "at": "2026-11-13T04:05:58.000Z",
+   "url": "https://thehill.com/homenews/administration/6217994-trump-nvidia-ceo-huang-resignation/"
+  },
+  {
+   "id": "771d3083a7c02d74451db18dc18932efc7b2a187",
+   "titleKey": "c839db8b2db07cd1a753b33dd236a4d897ab8aab",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iranians continue attending nightly rallies across the country to support the Islamic establishment. @PressTV",
+   "at": "2026-11-13T04:08:27.000Z",
+   "url": "https://t.me/presstv/214506"
+  },
+  {
+   "id": "574e0c08ce63e36d386c7dbbe11c43cfeb25ef72",
+   "titleKey": "d24788ae7a51301ef2720478b80f7dbe1471f567",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'Threw Khawaja under the bus': Warner hits out at Cummins over sandpaper row David Warner has expressed his continued support for Usman Khawaja's explosive claims regarding the 2018 ball-tampering scandal. Warner accused current captain Pat Cummins of undermining Khawaja's statements made in his autobiography. Cummins has firmly denied knowing about the sandpaper plot during the Cape Town Test and criticized Khawaja's allegations. The ball-tampering scandal involved significant penalties for three players following a Cricket Australia investigation.",
+   "at": "2026-11-13T04:09:47.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/threw-usman-khawaja-under-the-bus-david-warner-hits-out-at-pat-cummins-over-sandpaper-row/articleshow/135788857.cms"
+  },
+  {
+   "id": "39d2d6e507cb445f23ab06ce1f6e4431990245ff",
+   "titleKey": "6b1a7c5d33520f93685dc68aec38977c4363f91f",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رشیدی‌کوچی: از مجلس برآمده از رأی اقلیت، نمی‌توان انتظار هماهنگی با مطالبات مردم را داشت/ ناراحتی و عصبانیت مردم برای بسیاری از نمایندگان اهمیت ندارد جلال رشیدی کوچی با انتقاد از طرح نظام‌بخشی فضای مجازی، آن را ادامه طرح صیانت دانست و گفت: به نظر می‌رسد طراحان این طرح همان افرادی هستند که پیش‌تر طرح صیانت را دنبال می‌کردند و اکنون با عنوانی دیگر، همان اهداف را پیگیری می‌کنند.",
+   "at": "2026-11-13T04:10:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301342/%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C-%DA%A9%D9%88%DA%86%DB%8C-%D8%A7%D8%B2-%D9%85%D8%AC%D9%84%D8%B3-%D8%A8%D8%B1%D8%A2%D9%85%D8%AF%D9%87-%D8%A7%D8%B2-%D8%B1%D8%A3%DB%8C-%D8%A7%D9%82%D9%84%DB%8C%D8%AA-%D9%86%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86-%D8%A7%D9%86%D8%AA%D8%B8%D8%A7%D8%B1-%D9%87%D9%85%D8%A7%D9%87%D9%86%DA%AF%DB%8C"
+  },
+  {
+   "id": "a729da1ff1e4459cc3435d284fc5b9a79fc897af",
+   "titleKey": "8d5601da09ddd6f9db4d6cc31196861dc4e7306e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "پیشگیری از قطعی گاز در زمستان اردبیل با مصرف مسئولانه اردبیل - ایرنا - تامین پایدار و مدیریت مصرف گاز با نزدیک شدن به روزهای سرد سال و کاهش محسوس دمای هوا به یکی از مهم‌ترین اولویت‌های اقتصادی، اجتماعی و خدماتی در استان اردبیل تبدیل شده و احساس مسئولیت عمومی برای رفع قطعی یا افت فشار انرژی در زمستان ضروری است.",
+   "at": "2026-11-13T04:15:00.000Z",
+   "url": "https://www.irna.ir/news/86320182/%D9%BE%DB%8C%D8%B4%DA%AF%DB%8C%D8%B1%DB%8C-%D8%A7%D8%B2-%D9%82%D8%B7%D8%B9%DB%8C-%DA%AF%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86-%D8%A7%D8%B1%D8%AF%D8%A8%DB%8C%D9%84-%D8%A8%D8%A7-%D9%85%D8%B5%D8%B1%D9%81-%D9%85%D8%B3%D8%A6%D9%88%D9%84%D8%A7%D9%86%D9%87"
+  },
+  {
+   "id": "1fe894cfb23cf0af3730480438f6caeb39563ad3",
+   "titleKey": "151385e512e6a959325962ee51fab112136198e4",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Jensen Huang quits Nvidia; non-invasive treatment for kidney tumours: SCMP’s 7 highlights We have selected seven stories from this week’s news across Hong Kong, mainland China, the wider Asia region and beyond that resonated with our readers and shed light on topical issues. If you would like to see more of our reporting, please consider subscribing. 1. Jensen Huang resigns as Nvidia CEO amid affairs scandal Jensen Huang has resigned as president, chief executive officer and board member of the AI chip giant Nvidia with immediate effect, the firm announced on Thursday, amid media...",
+   "at": "2026-11-13T04:15:04.000Z",
+   "url": "https://www.scmp.com/news/china/article/3374278/jensen-huang-quits-nvidia-non-invasive-treatment-kidney-tumours-scmps-7-highlights"
+  },
+  {
+   "id": "7f78e20d29afbd5230c033c276b22b57aa2d0181",
+   "titleKey": "4c10b5df1344c649d51f2b85bd10389f0752f0d9",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حضرت زهرا(س) موضوع فدک را به سطح «حق مسلمانان و مشروعیت حکومت» بردند قائم مقام بنیاد هدایت گفت: حضرت زهرا(س) مسئله را از سطح «من و میراث پدرم» به سطح «حق عمومی مسلمانان و مشروعیت حکومت» بردند. همین جابه‌جایی سطح جوهر کنشگری است.",
+   "at": "2026-11-13T04:16:00.000Z",
+   "url": "https://www.mehrnews.com/news/7005021/%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D9%85%D9%88%D8%B6%D9%88%D8%B9-%D9%81%D8%AF%DA%A9-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%B3%D8%B7%D8%AD-%D8%AD%D9%82-%D9%85%D8%B3%D9%84%D9%85%D8%A7%D9%86%D8%A7%D9%86-%D9%88-%D9%85%D8%B4%D8%B1%D9%88%D8%B9%DB%8C%D8%AA-%D8%AD%DA%A9%D9%88%D9%85%D8%AA"
+  },
   {
    "id": "81f11b87cfb4022d586f69724c96f872471a0aed",
    "titleKey": "e19caa82d4a5081bc74e2b69b7cda2843f00c063",
@@ -6564,6 +6658,46 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-13T04:09:00.816Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: قیمت محصولات ایران‌خودرو و سایپا امروز ۲۲ آبان‌ماه ۱۴۰۵/ نوسان قیمت خودرو شدت گرفت + جدول قیمت خودرو امروز در غیاب تقاضای مؤثر و همسو با تداوم رکود معاملاتی، نوسانات دوگانه و متناقضی را به ثبت رسانده‌اند.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T04:22:06.298Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: رشیدی‌کوچی: از مجلس برآمده از رأی اقلیت، نمی‌توان انتظار هماهنگی با مطالبات مردم را داشت/ ناراحتی و عصبانیت مردم برای بسیاری از نمایندگان اهمیت ندارد جلال رشیدی کوچی با انتقاد از طرح نظام‌بخشی فضای مجازی، آن را ادامه طرح صیانت دانست و گفت: به نظر می‌رسد طراحان این طرح همان افرادی هستند که پیش‌تر طرح صیانت را دنبال می‌کردند و اکنون با عنوانی دیگر، همان اهداف را پیگیری می‌کنند.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/05/05/4/6406732.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:22:06.999Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): پیشگیری از قطعی گاز در زمستان اردبیل با مصرف مسئولانه اردبیل - ایرنا - تامین پایدار و مدیریت مصرف گاز با نزدیک شدن به روزهای سرد سال و کاهش محسوس دمای هوا به یکی از مهم‌ترین اولویت‌های اقتصادی، اجتماعی و خدماتی در استان اردبیل تبدیل شده و احساس مسئولیت عمومی برای رفع قطعی یا افت فشار انرژی در زمستان ضروری است.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/12/4/173236308.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T04:22:07.700Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: حضرت زهرا(س) موضوع فدک را به سطح «حق مسلمانان و مشروعیت حکومت» بردند قائم مقام بنیاد هدایت گفت: حضرت زهرا(س) مسئله را از سطح «من و میراث پدرم» به سطح «حق عمومی مسلمانان و مشروعیت حکومت» بردند. همین جابه‌جایی سطح جوهر کنشگری است.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/08/4/6253021.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:22:08.401Z"
   }
  ],
  "tweetQueue": [],
@@ -6741,6 +6875,100 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "e1fc22bd4bad58d3fbb34bf6fc495a7bef0413c3",
+   "titleKey": "4556a3cfbc82233edf76abef0ca46825dde02b9a",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Cade Cunningham, Ausar Thompson star as Pistons outlast Wizards in 2OT - ESPN Cade Cunningham, Ausar Thompson star as Pistons outlast Wizards in 2OT ESPN",
+   "at": "2026-11-13T03:42:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPLU40STBIc3NfUGRUNzlkSTBkdHkwM3hDSGo3anlBLUtQTUZudGVCYm1XRG51WEVEVk14bS1wM2NwWjdWLXdSOU1RZGdrblp6THNFak1OTHdodVFyQ2dQRXUzcmU4WkVGdVRfdWhHSUJaV0VrYm1hWWdzZU5sR0Q3dVQ2ZkZOWmkzTzZvRUgwZVVzZ2V6cXdtcWk5eHppZw?oc=5"
+  },
+  {
+   "id": "fd090422a81ad6e19d4cca4cc8775c2f739d9c3f",
+   "titleKey": "a735e701a8bdb0b56eb9cb9fb5dd9c4162970c25",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "‘I don’t care’: How Jensen Huang’s last hours as Nvidia CEO unfolded",
+   "at": "2026-11-13T04:02:44.000Z",
+   "url": "https://timesofindia.indiatimes.com/technology/tech-news/i-dont-care-how-jensen-huangs-last-hours-as-nvidia-ceo-unfolded/articleshow/135788716.cms"
+  },
+  {
+   "id": "be8bf3e5441133b2993bc56b5fa9acff6ee230b0",
+   "titleKey": "d36a7e6413625f8e2efb890502f343fb7daeebbc",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "قیمت محصولات ایران‌خودرو و سایپا امروز ۲۲ آبان‌ماه ۱۴۰۵/ نوسان قیمت خودرو شدت گرفت + جدول قیمت خودرو امروز در غیاب تقاضای مؤثر و همسو با تداوم رکود معاملاتی، نوسانات دوگانه و متناقضی را به ثبت رسانده‌اند.",
+   "at": "2026-11-13T04:05:24.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175296/قیمت-محصولات-ایران-خودرو-و-سایپا-امروز-22-آبان-ماه-1405-نوسان-قیمت-خودرو-شدت-گرفت-جدول"
+  },
+  {
+   "id": "8cc8535f9204cad91ee9e83553ff4fc1b4c2df60",
+   "titleKey": "e43ba23435cbca0106e3e7cf2dbc079a40864ba5",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Trump told Huang to fight for his job after affair scandals: Report President Trump called outgoing Nvidia CEO Jensen Huang and told him to fight for his job ahead of his resignation, The New York Times reported on Thursday, citing two people briefed on the conversation. Huang resigned as CEO of one of the world’s most valuable companies after reports emerged of multiple extramarital affairs, including one…",
+   "at": "2026-11-13T04:05:58.000Z",
+   "url": "https://thehill.com/homenews/administration/6217994-trump-nvidia-ceo-huang-resignation/"
+  },
+  {
+   "id": "771d3083a7c02d74451db18dc18932efc7b2a187",
+   "titleKey": "c839db8b2db07cd1a753b33dd236a4d897ab8aab",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iranians continue attending nightly rallies across the country to support the Islamic establishment. @PressTV",
+   "at": "2026-11-13T04:08:27.000Z",
+   "url": "https://t.me/presstv/214506"
+  },
+  {
+   "id": "574e0c08ce63e36d386c7dbbe11c43cfeb25ef72",
+   "titleKey": "d24788ae7a51301ef2720478b80f7dbe1471f567",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'Threw Khawaja under the bus': Warner hits out at Cummins over sandpaper row David Warner has expressed his continued support for Usman Khawaja's explosive claims regarding the 2018 ball-tampering scandal. Warner accused current captain Pat Cummins of undermining Khawaja's statements made in his autobiography. Cummins has firmly denied knowing about the sandpaper plot during the Cape Town Test and criticized Khawaja's allegations. The ball-tampering scandal involved significant penalties for three players following a Cricket Australia investigation.",
+   "at": "2026-11-13T04:09:47.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/threw-usman-khawaja-under-the-bus-david-warner-hits-out-at-pat-cummins-over-sandpaper-row/articleshow/135788857.cms"
+  },
+  {
+   "id": "39d2d6e507cb445f23ab06ce1f6e4431990245ff",
+   "titleKey": "6b1a7c5d33520f93685dc68aec38977c4363f91f",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رشیدی‌کوچی: از مجلس برآمده از رأی اقلیت، نمی‌توان انتظار هماهنگی با مطالبات مردم را داشت/ ناراحتی و عصبانیت مردم برای بسیاری از نمایندگان اهمیت ندارد جلال رشیدی کوچی با انتقاد از طرح نظام‌بخشی فضای مجازی، آن را ادامه طرح صیانت دانست و گفت: به نظر می‌رسد طراحان این طرح همان افرادی هستند که پیش‌تر طرح صیانت را دنبال می‌کردند و اکنون با عنوانی دیگر، همان اهداف را پیگیری می‌کنند.",
+   "at": "2026-11-13T04:10:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301342/%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C-%DA%A9%D9%88%DA%86%DB%8C-%D8%A7%D8%B2-%D9%85%D8%AC%D9%84%D8%B3-%D8%A8%D8%B1%D8%A2%D9%85%D8%AF%D9%87-%D8%A7%D8%B2-%D8%B1%D8%A3%DB%8C-%D8%A7%D9%82%D9%84%DB%8C%D8%AA-%D9%86%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86-%D8%A7%D9%86%D8%AA%D8%B8%D8%A7%D8%B1-%D9%87%D9%85%D8%A7%D9%87%D9%86%DA%AF%DB%8C"
+  },
+  {
+   "id": "a729da1ff1e4459cc3435d284fc5b9a79fc897af",
+   "titleKey": "8d5601da09ddd6f9db4d6cc31196861dc4e7306e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "پیشگیری از قطعی گاز در زمستان اردبیل با مصرف مسئولانه اردبیل - ایرنا - تامین پایدار و مدیریت مصرف گاز با نزدیک شدن به روزهای سرد سال و کاهش محسوس دمای هوا به یکی از مهم‌ترین اولویت‌های اقتصادی، اجتماعی و خدماتی در استان اردبیل تبدیل شده و احساس مسئولیت عمومی برای رفع قطعی یا افت فشار انرژی در زمستان ضروری است.",
+   "at": "2026-11-13T04:15:00.000Z",
+   "url": "https://www.irna.ir/news/86320182/%D9%BE%DB%8C%D8%B4%DA%AF%DB%8C%D8%B1%DB%8C-%D8%A7%D8%B2-%D9%82%D8%B7%D8%B9%DB%8C-%DA%AF%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86-%D8%A7%D8%B1%D8%AF%D8%A8%DB%8C%D9%84-%D8%A8%D8%A7-%D9%85%D8%B5%D8%B1%D9%81-%D9%85%D8%B3%D8%A6%D9%88%D9%84%D8%A7%D9%86%D9%87"
+  },
+  {
+   "id": "1fe894cfb23cf0af3730480438f6caeb39563ad3",
+   "titleKey": "151385e512e6a959325962ee51fab112136198e4",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Jensen Huang quits Nvidia; non-invasive treatment for kidney tumours: SCMP’s 7 highlights We have selected seven stories from this week’s news across Hong Kong, mainland China, the wider Asia region and beyond that resonated with our readers and shed light on topical issues. If you would like to see more of our reporting, please consider subscribing. 1. Jensen Huang resigns as Nvidia CEO amid affairs scandal Jensen Huang has resigned as president, chief executive officer and board member of the AI chip giant Nvidia with immediate effect, the firm announced on Thursday, amid media...",
+   "at": "2026-11-13T04:15:04.000Z",
+   "url": "https://www.scmp.com/news/china/article/3374278/jensen-huang-quits-nvidia-non-invasive-treatment-kidney-tumours-scmps-7-highlights"
+  },
+  {
+   "id": "7f78e20d29afbd5230c033c276b22b57aa2d0181",
+   "titleKey": "4c10b5df1344c649d51f2b85bd10389f0752f0d9",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "حضرت زهرا(س) موضوع فدک را به سطح «حق مسلمانان و مشروعیت حکومت» بردند قائم مقام بنیاد هدایت گفت: حضرت زهرا(س) مسئله را از سطح «من و میراث پدرم» به سطح «حق عمومی مسلمانان و مشروعیت حکومت» بردند. همین جابه‌جایی سطح جوهر کنشگری است.",
+   "at": "2026-11-13T04:16:00.000Z",
+   "url": "https://www.mehrnews.com/news/7005021/%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D9%85%D9%88%D8%B6%D9%88%D8%B9-%D9%81%D8%AF%DA%A9-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%B3%D8%B7%D8%AD-%D8%AD%D9%82-%D9%85%D8%B3%D9%84%D9%85%D8%A7%D9%86%D8%A7%D9%86-%D9%88-%D9%85%D8%B4%D8%B1%D9%88%D8%B9%DB%8C%D8%AA-%D8%AD%DA%A9%D9%88%D9%85%D8%AA"
+  },
   {
    "id": "4e9d610c21620de407fc4b01d708b84d8a861c2e",
    "titleKey": "b2111adfdab10d152ba12131b2fd817c424ebf11",
@@ -10995,21 +11223,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794542955421,
-  "Akharin_khodro/8913": 1794542955421,
-  "Akharin_khodro/8914": 1794542955421,
-  "Akharin_khodro/8915": 1794542955421,
-  "Akharin_khodro/8916": 1794542955421,
-  "Akharin_khodro/8919": 1794542955421,
-  "Akharin_khodro/8920": 1794542955421,
-  "Akharin_khodro/8921": 1794542955421,
-  "Akharin_khodro/8922": 1794542955421,
-  "Akharin_khodro/8923": 1794542955421,
-  "Akharin_khodro/8924": 1794542955421,
-  "Akharin_khodro/8925": 1794542955421,
-  "Akharin_khodro/8926": 1794542955421,
-  "Akharin_khodro/8927": 1794542955421,
-  "Akharin_khodro/8928": 1794542955421,
+  "Akharin_khodro/8908": 1794543743290,
+  "Akharin_khodro/8913": 1794543743290,
+  "Akharin_khodro/8914": 1794543743290,
+  "Akharin_khodro/8915": 1794543743290,
+  "Akharin_khodro/8916": 1794543743290,
+  "Akharin_khodro/8919": 1794543743290,
+  "Akharin_khodro/8920": 1794543743290,
+  "Akharin_khodro/8921": 1794543743290,
+  "Akharin_khodro/8922": 1794543743290,
+  "Akharin_khodro/8923": 1794543743290,
+  "Akharin_khodro/8924": 1794543743290,
+  "Akharin_khodro/8925": 1794543743290,
+  "Akharin_khodro/8926": 1794543743290,
+  "Akharin_khodro/8927": 1794543743290,
+  "Akharin_khodro/8928": 1794543743290,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11335,27 +11563,27 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-13T04:09:15.428Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-13T04:22:23.296Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1077,
-  "inWindow": 187,
+  "inWindow": 188,
   "fresh": 64,
-  "sent": 8,
+  "sent": 4,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 114,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 56,
-  "queued": 8,
+  "skippedUntranslated": 60,
+  "queued": 4,
   "tweetRateLimited": false
  }
 }

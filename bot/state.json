@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "d4cabe648c201505854addfc930755959e6a510b": 1794531745067,
+  "e923ddc3d610a25907a6ac8c1c3a2452fc638dee": 1794531745067,
+  "770f7fa976c25c3a3735ebc8fba25d6a7d742341": 1794531745067,
+  "d04e790f06dbb25de0722d6764537180208607fb": 1794531745067,
   "0f40c7e484492c7d0692e31372a934c981da73e1": 1794530612117,
   "a5e67482b8248ca015a23342779fc667dbfb0b54": 1794530612117,
   "fec2574f81a63885fa4902abb84eb10fbd7c58c9": 1794530612117,
@@ -1195,13 +1199,13 @@
   "1edb93c4102ca70c8ad009c7a6789423d30eb919": 1794492479827,
   "3dbdb5db32e62383a50459b73ace7fa4441afd6d": 1794492479827,
   "1ff34dd107be061eb22ad35405d0440a6d01ed6b": 1794492479827,
-  "bd96511b9d962c6df8d1e6297029eed6c35bd270": 1794492479827,
-  "fa9e9490801cfbe1994c2ce575834b08afd3e225": 1794492479827,
-  "2549e9c7562275efb3c7b73d5a455d6a211637b2": 1794492479827,
-  "75cba461fbb0914e92ab11c0cab142934da13b9f": 1794492479827,
-  "4a94c27f35f135061c307766d407952386c284d3": 1794492479827
+  "bd96511b9d962c6df8d1e6297029eed6c35bd270": 1794492479827
  },
  "sentTitles": {
+  "4b8f8757594d74a8fb6c7b44ed329df1f88aeea1": 1794531745067,
+  "fc45323e495580d160cf1a49daad7420845cc2ec": 1794531745067,
+  "46dcd66fa23440c21680c9d1ba61eb787e46ab70": 1794531745067,
+  "80ad56ee27629b7bf88f56a0dfce41bfd61e2727": 1794531745067,
   "2ad85100abfd213fae0ddc1b400d05e30582ddac": 1794530612117,
   "4e6ee67aa4926b31d0f2e71d9710dd76624e946f": 1794530612117,
   "de2ae1e14e2785bf285ad15562e445366e2f2d73": 1794530612117,
@@ -1797,11 +1801,7 @@
   "2b74c97123cc204248812a8c4f11f217c8252815": 1794503129975,
   "06e8bd97cf1ae1231b91786a9b4c4c62573350b2": 1794503129975,
   "4411fc6fdb8d74220b7a3633a29c8ee107dec2b4": 1794503129975,
-  "2cb218568c7b7960837108c140f057a0a0830e4e": 1794503129975,
-  "965997c2d41881e79a4f2b54ed5fabe23b5242e3": 1794503129975,
-  "d3d128efbd763d6aa212bd5d701f4fd60192244f": 1794503129975,
-  "8e736443bd3418b4c8328bb4dedc0c5414d765aa": 1794503129975,
-  "0dd0c3a8a7e5d55927de1a1925d6c48153b67ea6": 1794503129975
+  "2cb218568c7b7960837108c140f057a0a0830e4e": 1794503129975
  },
  "sentTitleTexts": {
   "sepeacemissions jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم اول نتیجه انسانی گروگان ها ازاد خواهند شد و ما بر بزرگترین تبادل گروگان ها ": 1794526562655,
@@ -3008,6 +3008,61 @@
   "euronews persian عفونت های مقاوم به انتی بیوتیک در انگلیس به ۴۰۰ مورد در هفته رسید با وجود کاهش مصرف دارو امارهای جدید نشان می دهد عفونت های خونی مقاوم به دارو ": 1794508430262
  },
  "pool": [
+  {
+   "id": "0b883c5e50e18011cea5ba32342b0306fdb9428a",
+   "titleKey": "0fb67615b5065f6337c1173996ebba037d015ed0",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Trump: 'I want to get Cuba done' before leaving office - Politico Trump: 'I want to get Cuba done' before leaving office Politico",
+   "at": "2026-11-12T23:15:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQVEZaT2FqSFhsZm1VUF9wUWFqSFhJUGlidWlQTW5SSk5oODM1V2M3WWpOV0ZXRFk3azJtV3NWZHhRT2J4SjJmSjRUVHpVdEszVmNUcHpFQTRQR0Z2OTlBSlJvWW1KMDRINXRETk5ic1gzaklVbGhNWll2ZUN6anJ1Zlc4NHRucVJfandoZTVzSzV3dw?oc=5"
+  },
+  {
+   "id": "2192710c438da3da8c9048fabd2f74056b80e5e8",
+   "titleKey": "ad274e7140f18d135860d14a1719f182ec15c287",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Photos showing White House ballroom’s size spark backlash from Clyburn, McGarvey Newly-released images showing the new White House ballroom’s size spark backlash among a pair of House Democrats — Reps. James Clyburn S.C(.) and Morgan McGarvey (Ky.) — who voiced their frustration with the project on social media this week. “I hope everyone takes a good hard look at this picture,” Clyburn wrote in a Wednesday…",
+   "at": "2026-11-13T00:43:17.000Z",
+   "url": "https://thehill.com/homenews/house/6217770-democrats-backlash-white-house-ballroom-size/"
+  },
+  {
+   "id": "d4cabe648c201505854addfc930755959e6a510b",
+   "titleKey": "4b8f8757594d74a8fb6c7b44ed329df1f88aeea1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "ترامپ با ادعای حفاظت از متحدان آمریکا، جنگ تجاوزکارانه به ایران را توجیه کرد نیویورک - ایرنا - دونالد ترامپ، ‌ رئیس جمهوری آمریکا در حمایت از حملات تجاوزکارانه به ایران مدعی حفاظت از متحدان واشنگتن شد تا این جنگ تجاوزکارانه را توجیه کند.",
+   "at": "2026-11-13T00:55:49.000Z",
+   "url": "https://www.irna.ir/news/86320299/%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D8%A7-%D8%A7%D8%AF%D8%B9%D8%A7%DB%8C-%D8%AD%D9%81%D8%A7%D8%B8%D8%AA-%D8%A7%D8%B2-%D9%85%D8%AA%D8%AD%D8%AF%D8%A7%D9%86-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AC%D9%86%DA%AF-%D8%AA%D8%AC%D8%A7%D9%88%D8%B2%DA%A9%D8%A7%D8%B1%D8%A7%D9%86%D9%87-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86"
+  },
+  {
+   "id": "e923ddc3d610a25907a6ac8c1c3a2452fc638dee",
+   "titleKey": "fc45323e495580d160cf1a49daad7420845cc2ec",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "میراث فسیلی ایران؛ گنجینه‌ای علمی در خدمت زمین‌شناسی و اکتشاف منابع طبیعی عضو هیئت علمی گروه زمین‌شناسی دانشگاه فردوسی مشهد با اشاره به غنای میراث فسیلی ایران گفت: فسیل‌ها علاوه بر ثبت تاریخ حیات و تحولات زمین‌شناختی، در تعیین سن لایه‌های رسوبی، بازسازی محیط‌های دیرینه و اکتشاف منابع طبیعی از جمله نفت و گاز کاربرد دارند و حفاظت از این گنجینه ارزشمند، نیازمند توسعه پژوهش‌های علمی و تقویت زیرساخت‌های حفاظتی است.",
+   "at": "2026-11-13T00:59:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114818/%D9%85%DB%8C%D8%B1%D8%A7%D8%AB-%D9%81%D8%B3%DB%8C%D9%84%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%DA%AF%D9%86%D8%AC%DB%8C%D9%86%D9%87-%D8%A7%DB%8C-%D8%B9%D9%84%D9%85%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%AF%D9%85%D8%AA-%D8%B2%D9%85%DB%8C%D9%86-%D8%B4%D9%86%D8%A7%D8%B3%DB%8C-%D9%88-%D8%A7%DA%A9%D8%AA%D8%B4%D8%A7%D9%81"
+  },
+  {
+   "id": "770f7fa976c25c3a3735ebc8fba25d6a7d742341",
+   "titleKey": "46dcd66fa23440c21680c9d1ba61eb787e46ab70",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "یک کلیک تا سرقت اطلاعات؛ عکس یادگاری و کارت دعوت عروسی را جدی بگیرید! رئیس پلیس فتا از سهم ۷۰ درصدی لینک‌های آلوده عکس یادگاری و کارت دعوت در جرائم سایبری دو ماه اخیر خبر داد.",
+   "at": "2026-11-13T01:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852202/%DB%8C%DA%A9-%DA%A9%D9%84%DB%8C%DA%A9-%D8%AA%D8%A7-%D8%B3%D8%B1%D9%82%D8%AA-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D8%B9%DA%A9%D8%B3-%DB%8C%D8%A7%D8%AF%DA%AF%D8%A7%D8%B1%DB%8C-%D9%88-%DA%A9%D8%A7%D8%B1%D8%AA-%D8%AF%D8%B9%D9%88%D8%AA-%D8%B9%D8%B1%D9%88%D8%B3%DB%8C-%D8%B1%D8%A7-%D8%AC%D8%AF%DB%8C"
+  },
+  {
+   "id": "d04e790f06dbb25de0722d6764537180208607fb",
+   "titleKey": "80ad56ee27629b7bf88f56a0dfce41bfd61e2727",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "کنست در بن‌بست؛ بحران سیاسی اسرائیل پایان ندارد!",
+   "at": "2026-11-13T01:01:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852179/%DA%A9%D9%86%D8%B3%D8%AA-%D8%AF%D8%B1-%D8%A8%D9%86-%D8%A8%D8%B3%D8%AA-%D8%A8%D8%AD%D8%B1%D8%A7%D9%86-%D8%B3%DB%8C%D8%A7%D8%B3%DB%8C-%D8%A7%D8%B3%D8%B1%D8%A7%D8%A6%DB%8C%D9%84-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF"
+  },
   {
    "id": "539637e4430d0f19effcaa1844ff8cd9f93c447b",
    "titleKey": "a4cb0fbe953c814650e9c0e37fe3d10be2f6b1eb",
@@ -5163,6 +5218,46 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T00:43:17.841Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): ترامپ با ادعای حفاظت از متحدان آمریکا، جنگ تجاوزکارانه به ایران را توجیه کرد نیویورک - ایرنا - دونالد ترامپ، ‌ رئیس جمهوری آمریکا در حمایت از حملات تجاوزکارانه به ایران مدعی حفاظت از متحدان واشنگتن شد تا این جنگ تجاوزکارانه را توجیه کند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236519.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T01:02:08.147Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: میراث فسیلی ایران؛ گنجینه‌ای علمی در خدمت زمین‌شناسی و اکتشاف منابع طبیعی عضو هیئت علمی گروه زمین‌شناسی دانشگاه فردوسی مشهد با اشاره به غنای میراث فسیلی ایران گفت: فسیل‌ها علاوه بر ثبت تاریخ حیات و تحولات زمین‌شناختی، در تعیین سن لایه‌های رسوبی، بازسازی محیط‌های دیرینه و اکتشاف منابع طبیعی از جمله نفت و گاز کاربرد دارند و حفاظت از این گنجینه ارزشمند، نیازمند توسعه پژوهش‌های علمی و تقویت زیرساخت‌های حفاظتی است.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2025/08/06/4/63546780.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T01:02:08.848Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: یک کلیک تا سرقت اطلاعات؛ عکس یادگاری و کارت دعوت عروسی را جدی بگیرید! رئیس پلیس فتا از سهم ۷۰ درصدی لینک‌های آلوده عکس یادگاری و کارت دعوت در جرائم سایبری دو ماه اخیر خبر داد.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/12/4/4749749.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T01:02:09.548Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: کنست در بن‌بست؛ بحران سیاسی اسرائیل پایان ندارد!\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/12/4/4749679.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T01:02:10.249Z"
   }
  ],
  "tweetQueue": [],
@@ -5340,6 +5435,61 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "0b883c5e50e18011cea5ba32342b0306fdb9428a",
+   "titleKey": "0fb67615b5065f6337c1173996ebba037d015ed0",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Trump: 'I want to get Cuba done' before leaving office - Politico Trump: 'I want to get Cuba done' before leaving office Politico",
+   "at": "2026-11-12T23:15:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQVEZaT2FqSFhsZm1VUF9wUWFqSFhJUGlidWlQTW5SSk5oODM1V2M3WWpOV0ZXRFk3azJtV3NWZHhRT2J4SjJmSjRUVHpVdEszVmNUcHpFQTRQR0Z2OTlBSlJvWW1KMDRINXRETk5ic1gzaklVbGhNWll2ZUN6anJ1Zlc4NHRucVJfandoZTVzSzV3dw?oc=5"
+  },
+  {
+   "id": "2192710c438da3da8c9048fabd2f74056b80e5e8",
+   "titleKey": "ad274e7140f18d135860d14a1719f182ec15c287",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Photos showing White House ballroom’s size spark backlash from Clyburn, McGarvey Newly-released images showing the new White House ballroom’s size spark backlash among a pair of House Democrats — Reps. James Clyburn S.C(.) and Morgan McGarvey (Ky.) — who voiced their frustration with the project on social media this week. “I hope everyone takes a good hard look at this picture,” Clyburn wrote in a Wednesday…",
+   "at": "2026-11-13T00:43:17.000Z",
+   "url": "https://thehill.com/homenews/house/6217770-democrats-backlash-white-house-ballroom-size/"
+  },
+  {
+   "id": "d4cabe648c201505854addfc930755959e6a510b",
+   "titleKey": "4b8f8757594d74a8fb6c7b44ed329df1f88aeea1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "ترامپ با ادعای حفاظت از متحدان آمریکا، جنگ تجاوزکارانه به ایران را توجیه کرد نیویورک - ایرنا - دونالد ترامپ، ‌ رئیس جمهوری آمریکا در حمایت از حملات تجاوزکارانه به ایران مدعی حفاظت از متحدان واشنگتن شد تا این جنگ تجاوزکارانه را توجیه کند.",
+   "at": "2026-11-13T00:55:49.000Z",
+   "url": "https://www.irna.ir/news/86320299/%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D8%A7-%D8%A7%D8%AF%D8%B9%D8%A7%DB%8C-%D8%AD%D9%81%D8%A7%D8%B8%D8%AA-%D8%A7%D8%B2-%D9%85%D8%AA%D8%AD%D8%AF%D8%A7%D9%86-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AC%D9%86%DA%AF-%D8%AA%D8%AC%D8%A7%D9%88%D8%B2%DA%A9%D8%A7%D8%B1%D8%A7%D9%86%D9%87-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86"
+  },
+  {
+   "id": "e923ddc3d610a25907a6ac8c1c3a2452fc638dee",
+   "titleKey": "fc45323e495580d160cf1a49daad7420845cc2ec",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "میراث فسیلی ایران؛ گنجینه‌ای علمی در خدمت زمین‌شناسی و اکتشاف منابع طبیعی عضو هیئت علمی گروه زمین‌شناسی دانشگاه فردوسی مشهد با اشاره به غنای میراث فسیلی ایران گفت: فسیل‌ها علاوه بر ثبت تاریخ حیات و تحولات زمین‌شناختی، در تعیین سن لایه‌های رسوبی، بازسازی محیط‌های دیرینه و اکتشاف منابع طبیعی از جمله نفت و گاز کاربرد دارند و حفاظت از این گنجینه ارزشمند، نیازمند توسعه پژوهش‌های علمی و تقویت زیرساخت‌های حفاظتی است.",
+   "at": "2026-11-13T00:59:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114818/%D9%85%DB%8C%D8%B1%D8%A7%D8%AB-%D9%81%D8%B3%DB%8C%D9%84%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%DA%AF%D9%86%D8%AC%DB%8C%D9%86%D9%87-%D8%A7%DB%8C-%D8%B9%D9%84%D9%85%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%AF%D9%85%D8%AA-%D8%B2%D9%85%DB%8C%D9%86-%D8%B4%D9%86%D8%A7%D8%B3%DB%8C-%D9%88-%D8%A7%DA%A9%D8%AA%D8%B4%D8%A7%D9%81"
+  },
+  {
+   "id": "770f7fa976c25c3a3735ebc8fba25d6a7d742341",
+   "titleKey": "46dcd66fa23440c21680c9d1ba61eb787e46ab70",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "یک کلیک تا سرقت اطلاعات؛ عکس یادگاری و کارت دعوت عروسی را جدی بگیرید! رئیس پلیس فتا از سهم ۷۰ درصدی لینک‌های آلوده عکس یادگاری و کارت دعوت در جرائم سایبری دو ماه اخیر خبر داد.",
+   "at": "2026-11-13T01:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852202/%DB%8C%DA%A9-%DA%A9%D9%84%DB%8C%DA%A9-%D8%AA%D8%A7-%D8%B3%D8%B1%D9%82%D8%AA-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D8%B9%DA%A9%D8%B3-%DB%8C%D8%A7%D8%AF%DA%AF%D8%A7%D8%B1%DB%8C-%D9%88-%DA%A9%D8%A7%D8%B1%D8%AA-%D8%AF%D8%B9%D9%88%D8%AA-%D8%B9%D8%B1%D9%88%D8%B3%DB%8C-%D8%B1%D8%A7-%D8%AC%D8%AF%DB%8C"
+  },
+  {
+   "id": "d04e790f06dbb25de0722d6764537180208607fb",
+   "titleKey": "80ad56ee27629b7bf88f56a0dfce41bfd61e2727",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "کنست در بن‌بست؛ بحران سیاسی اسرائیل پایان ندارد!",
+   "at": "2026-11-13T01:01:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852179/%DA%A9%D9%86%D8%B3%D8%AA-%D8%AF%D8%B1-%D8%A8%D9%86-%D8%A8%D8%B3%D8%AA-%D8%A8%D8%AD%D8%B1%D8%A7%D9%86-%D8%B3%DB%8C%D8%A7%D8%B3%DB%8C-%D8%A7%D8%B3%D8%B1%D8%A7%D8%A6%DB%8C%D9%84-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF"
+  },
   {
    "id": "539637e4430d0f19effcaa1844ff8cd9f93c447b",
    "titleKey": "a4cb0fbe953c814650e9c0e37fe3d10be2f6b1eb",
@@ -9581,21 +9731,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794531164161,
-  "Akharin_khodro/8913": 1794531164161,
-  "Akharin_khodro/8914": 1794531164161,
-  "Akharin_khodro/8915": 1794531164161,
-  "Akharin_khodro/8916": 1794531164161,
-  "Akharin_khodro/8919": 1794531164161,
-  "Akharin_khodro/8920": 1794531164161,
-  "Akharin_khodro/8921": 1794531164161,
-  "Akharin_khodro/8922": 1794531164161,
-  "Akharin_khodro/8923": 1794531164161,
-  "Akharin_khodro/8924": 1794531164161,
-  "Akharin_khodro/8925": 1794531164161,
-  "Akharin_khodro/8926": 1794531164161,
-  "Akharin_khodro/8927": 1794531164161,
-  "Akharin_khodro/8928": 1794531164161,
+  "Akharin_khodro/8908": 1794531745063,
+  "Akharin_khodro/8913": 1794531745063,
+  "Akharin_khodro/8914": 1794531745063,
+  "Akharin_khodro/8915": 1794531745063,
+  "Akharin_khodro/8916": 1794531745063,
+  "Akharin_khodro/8919": 1794531745063,
+  "Akharin_khodro/8920": 1794531745063,
+  "Akharin_khodro/8921": 1794531745063,
+  "Akharin_khodro/8922": 1794531745063,
+  "Akharin_khodro/8923": 1794531745063,
+  "Akharin_khodro/8924": 1794531745063,
+  "Akharin_khodro/8925": 1794531745063,
+  "Akharin_khodro/8926": 1794531745063,
+  "Akharin_khodro/8927": 1794531745063,
+  "Akharin_khodro/8928": 1794531745063,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -9902,26 +10052,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-13T00:52:44.168Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-13T01:02:25.070Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1079,
-  "inWindow": 145,
-  "fresh": 87,
-  "sent": 0,
+  "inWindow": 135,
+  "fresh": 83,
+  "sent": 4,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
+  "tweetsFetched": 117,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 86,
+  "skippedUntranslated": 78,
+  "queued": 4,
   "tweetRateLimited": false
  }
 }

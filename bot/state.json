@@ -1,5 +1,12 @@
 {
  "sentIds": {
+  "830e654bdfc903de88b436055d06536cccbd3b22": 1794541802672,
+  "20690e14cca9afeaaafd5ea966b971a8943890aa": 1794541802672,
+  "8a38694d5d559298a5b9b3ca643b807d76e0cd8b": 1794541802672,
+  "691f61d3e803659dd1cfef0763b16fafc12527b7": 1794541802672,
+  "63e18583447c9db431a5887d4d90392b2337c7ae": 1794541802672,
+  "7fe358e4bfbc1916a8621559fd073b53fc1d6286": 1794541802672,
+  "26182e4dd53d3675cbbfe54e015dd9abf053cf75": 1794541802672,
   "87783a5cb11a9cbf081dd60ef7faf9058e387593": 1794541235474,
   "182101b7521620e512cc59ddb861dcc744012564": 1794541235474,
   "af47adf9f3b29a74f493e60c122892e65544bf7b": 1794541235474,
@@ -1192,16 +1199,16 @@
   "c9dc4e14e1b6576a1ad7886c93c42e00a9df21ae": 1794496416608,
   "6908668b404cde1627f9b4e38589e646bb3a5502": 1794496416608,
   "e1e1bfab4c80373d261bdac4bf67261e4bd62bdc": 1794496416608,
-  "170d6ab93e8968fd94d1354519144c60e52c2850": 1794496416608,
-  "b4bb32536201d8e32f559429e3cb626a5d636314": 1794496416608,
-  "701d6e0e63a293a62801c83b14cc86f1d0f379d8": 1794496416608,
-  "e3c0429cdff9f1582101452d0db625ea51518de2": 1794496416608,
-  "6056b2ac4e9389d50ca1d5c6c522a0ec002d3904": 1794496416608,
-  "7bc19beca51ab4000d0538e99233d50da3db5bba": 1794496416608,
-  "ddecaa6916229cec478b90b3c97d27aa9d710059": 1794496416608,
-  "f11c7f3f6c25d4fb78cfbb3ee781f518d9034e0f": 1794496416608
+  "170d6ab93e8968fd94d1354519144c60e52c2850": 1794496416608
  },
  "sentTitles": {
+  "4c3256e91e0f27159510732645180f7767b27e5f": 1794541802672,
+  "cdafa4be6e61b5ed82a4b845856d3860bdc2279a": 1794541802672,
+  "0e504e45261f4fd1a0fd2667e1a3107a8f532106": 1794541802672,
+  "b081573316dcf3f2483f4763ba5a674808390914": 1794541802672,
+  "3727666c039dbe663da3099d1ce51d3c461afb3b": 1794541802672,
+  "08d06b72ac895b812bcd62c7ffd2b9183c406ea3": 1794541802672,
+  "82d8537e1f62c088c72e7276e16e1446f397c558": 1794541802672,
   "171ce0de9ddb387a0ec0c1d0a90c29a0e0622ff3": 1794541235474,
   "5b4035c05b66aace45a78d47f88d65288b37a5b1": 1794541235474,
   "08fb70c61ffb25f85ed5d9ca2ba273cd50f2594d": 1794541235474,
@@ -1794,14 +1801,7 @@
   "1c407a25a0cc56faef54e202f212e4b66051151d": 1794509095960,
   "e9f0665ccc5fb89bda4717f86413801f81ecf657": 1794509095960,
   "1fd67ce305a67e66c0e3503854209479686b35c1": 1794509095960,
-  "1eb18319bc71ad7ea4f09827ba76b1ae4953bca4": 1794509095960,
-  "065c58fa0a2b58ece8b905fc28eef150b25af267": 1794509095960,
-  "a43c0d1c656434e90e84357fbd80c89e9aeeec82": 1794509095960,
-  "e2d89cbc890aaa20023f9731728037bcfc01839f": 1794509095960,
-  "5ed1fea53509202e743c7331481c037f0a4ba3ec": 1794509095960,
-  "c1b1e899ddc488bbb8e991690c13aeb5bf704f85": 1794509095960,
-  "df5803850e75d5ae4e244b2cb272358e4c66a312": 1794509095960,
-  "e8a9f3d04cfe51956e9b49bbca56fdaad7e0ff26": 1794509095960
+  "1eb18319bc71ad7ea4f09827ba76b1ae4953bca4": 1794509095960
  },
  "sentTitleTexts": {
   "قوی تر بودن و به طور موثرتری در مقیاس قاره اروپا عمل کردن این همان دلیل وجود جامعه سیاسی اروپا است که فرانسه در سال ۲۰۲۲ ان را اغاز کرده است امروز در دبلین چهل ": 1794533711248,
@@ -3008,6 +3008,261 @@
   "اقتصادانلاین حقوق نیرو های مسلح پای لانچر موشک چه قدر است یکی از فرماندهان پرتاب موشک گفت در مجموعه هوافضای سپاه با نخبگانی کار می کنیم که اگر می خواستند بیرون ": 1794508430262
  },
  "pool": [
+  {
+   "id": "eeac6cae6395a3b067e5016690b5ee089253c332",
+   "titleKey": "63e80ad6c6776ea8b5e1e1266b8728c6b06ad997",
+   "source": "Politico",
+   "lang": "en",
+   "text": "White House staffers can no longer meet with lobbyists without prior approval, new memo says - Politico White House staffers can no longer meet with lobbyists without prior approval, new memo says Politico",
+   "at": "2026-11-13T01:35:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPQ25CVWpEdklrY0xXc2hRNGlEWDlzdk1XaVlsLXN5MkQzdldYZWw5NXJERVJRVzVOUHJhQWQ5U2tzbzlyMTF1QzIwNkpPckVIcDFVLUtOUFVfUE5EaGF6UWhVUy1rUTZZcFJway03bFNSSUpQbWZNNGd1cHNDRFBoVjcyekJwLUgxcnFLNTJCLW41dw?oc=5"
+  },
+  {
+   "id": "942303fc584432fce204653f25f7b7d47b286d45",
+   "titleKey": "48ba980f96c1aa3148672f4e147a7405a97127e0",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Live: Zelensky and Kushner confirm that Europe will join next round of Russia-Ukraine talks US President ​Donald Trump's envoy ​and son-in-law Jared Kushner said on Thursday Russia and ​Ukraine ‌agreed ⁠to expand the next ‌round of talks to include ⁠European nations and that Washington was ​working toward what ‌Kushner called the war's \"largest prisoner exchange.\" Follow our liveblog for the latest updates.",
+   "at": "2026-11-13T01:39:42.000Z",
+   "url": "https://www.france24.com/en/europe/20261113-live-zelensky-and-kushner-confirm-that-europe-will-join-next-round-of-russia-ukraine-talks"
+  },
+  {
+   "id": "7cae7c0ac06a3994d33c1089168c5295054ce0fa",
+   "titleKey": "9a6b1fb89441d8e9fa1588e484c6bb64d44b86ad",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Boebert blames policy, corruption, ‘markets’ for possible loss Incumbent Rep. Lauren Boebert (R) blamed her potential loss in Colorado’s 4th Congressional District on policy, corruption and “markets” Thursday as her race remains too close to call more than a week out from Election Day. “Yes, there are so many different variables, and I’m going to start with policy,” she told NewsNation’s Blake Burman.…",
+   "at": "2026-11-13T01:40:25.000Z",
+   "url": "https://thehill.com/homenews/house/6217833-boebert-blames-policy-market-losses/"
+  },
+  {
+   "id": "b1f9bb88b0aa7e27d03dcc1d19cb58a6f9afaee0",
+   "titleKey": "25ef95386b803b477f1103164f4550b150ef65c8",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "After Iraq ex-MP’s killing, Lebanon asks Syria to extradite suspects Longtime Sunni politician and Iran critic was reportedly strangled in Beirut, sparking investigation.",
+   "at": "2026-11-13T01:44:55.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/after-iraq-ex-mps-killing-lebanon-asks-syria-to-extradite-suspects?traffic_source=rss"
+  },
+  {
+   "id": "75daa11c3f4861541355818a02754ba5f73ea049",
+   "titleKey": "1846643d3985c08a73f3ea80070894ccb79bf030",
+   "source": "Asharq Al-Awsat",
+   "lang": "ar",
+   "text": "لا خيال ولا علم - الشرق الأوسط لا خيال ولا علم الشرق الأوسط",
+   "at": "2026-11-13T01:58:57.000Z",
+   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQQlN1QUlBSUVyaHEwNS03RWVPZjB5bEJxNGxweWJZMXJmay13Sk1pSnk0SXNJTE1VWlRuUzI0WHVLMkU3cUN4bFM4b3NVcGtjV2ZKdHBfN3hjbEhwQ0U1MzVDVS02LVI0ay1YQjgzUGlkQmxRdE9lcXc3RHFZakRXV3NiaWdEQmtUZnN2RURSRy0taEVnWURjbmtZaUVmejZpaGI0eDl6emI1cjZkMjY0alpqVTY5LWg4RXo1WnFNQUVKWjU0a21hR2VpcHhDQQ?oc=5"
+  },
+  {
+   "id": "b92a71b0b94ca519b3f6dd0a03c59bcd79a8170a",
+   "titleKey": "f88981b1a9a95bf107b1dc5a74d377d6683adb02",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "D.C. gunman attributed attack to frustrations with building maintenance - The Washington Post D.C. gunman attributed attack to frustrations with building maintenance The Washington Post",
+   "at": "2026-11-13T01:59:41.000Z",
+   "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOMFk3YjF3a3pUaGttVHBHa3hEaEcyRF9sRUpnS1A5UFBPSkJpQXpBUzF2UmJ2dDBJN3dvd3E4RFQwOENJV3E3cHY3Z0xNZ09KeWl3QzJNYkJxT0hmOXlRWnJQUm15andsbEVnb0U2TURWNlNfNFBQWUowVy1UaERibWtXTndHZFFMdlM3VlloRzV0YkNhbnZQaFFHVXlQN1pUY2I4RHotbTZTOW9pN2RLc056SlVNZ2NjM01Ob0VYN2hEb2xaMXVhTnlfdGo?oc=5"
+  },
+  {
+   "id": "5564dd6af2028257bada0c8170c39d81197080a8",
+   "titleKey": "8051b93af590ca0a78e8c91877b58a2683ab643a",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Haitian police retake national stadium from gangs after two years Haitian security forces regained control of the country's main football stadium on Thursday after two years under gang control, with Salvadoran troops taking over security at the venue. The operation comes as El Salvador deploys 2,000 soldiers to Haiti following an ambush that left four of its troops missing.",
+   "at": "2026-11-13T02:01:26.000Z",
+   "url": "https://www.france24.com/en/americas/20261113-haitian-police-retake-national-stadium-from-gangs-after-two-years"
+  },
+  {
+   "id": "db1c75777eed786f6fa09c0dab74135eeb2bd0e1",
+   "titleKey": "89ab25bb498d9107a49bc5c8dd24fbaaabec38c1",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Nvidia loses $500 billion amid 'spy' scandal; Huang slips to 13th on Forbes rich list Nvidia faced a sharp decline in stock value following CEO Jensen Huang's surprising resignation, igniting fears about its leadership stability. In just one week, the company's market value plummeted by nearly $500 billion, with shares now down around 30% from October's peak. Consequently, AI ecosystem firms suffered losses, while competitors thrived. Investors are now bracing for Nvidia’s upcoming quarterly report, eager to assess revenue and future projections.",
+   "at": "2026-11-13T02:02:14.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-loses-over-1-trillion-in-a-month-amid-spy-scandal-jensen-huang-slips-to-13th-on-forbes-rich-list/articleshow/135786177.cms"
+  },
+  {
+   "id": "d690dbf2bae9b1ddd5850ef8ab7498e2cad6356a",
+   "titleKey": "a8fa0cbdad60570271853ddf424aa359f174f038",
+   "source": "Xinhua English",
+   "lang": "en",
+   "text": "Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen - Xinhua Xinhua News | Xi to attend APEC Economic Leaders' Meeting, related events in Shenzhen Xinhua",
+   "at": "2026-11-13T02:16:16.000Z",
+   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE8zQ1ZtRGhCQmNYU2o0R05wWERYekVmNFVyMnFyRWNvazM1R0c4UlZIckludng4akIzc2ZxcVZSX2xHcjlWbWpkb2xtRFgxbzJoTG44ZnlzektUeUhxLVJBenlMQWZZMVJXNHoxSmpKOFVZY3lKNXFyNFBKQUc?oc=5"
+  },
+  {
+   "id": "ab88c56c8686ec42444ca7a1f8cc0511e40e59d8",
+   "titleKey": "72f36f7dd196bfb7d47e8e3397d9d2845c6791d2",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US refrains from tougher measures against Iran on request from regional countries — Trump US President Donald Trump stressed that if not for that request, he could go further",
+   "at": "2026-11-13T02:20:38.000Z",
+   "url": "https://tass.com/world/2217537"
+  },
+  {
+   "id": "a80fca008fb784793eace8120bbd486bced048c3",
+   "titleKey": "28c0f9f9b2be09b603bd30a1ff981f2c8a8a5e62",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Singapore Charges 5th Person Linked to Nvidia Chip Case, ST Says - Bloomberg.com Singapore Charges 5th Person Linked to Nvidia Chip Case, ST Says Bloomberg.com",
+   "at": "2026-11-13T02:24:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPZVV6VXYySmNyb1B3cXRtMU54M0ptUnZEQzNqSjNtWXMyRmFiNzgxeVNnN1FoUGo4ZUNGcEs3aXZjakY4UmFWZ1FfbGJjOGdXRFlmYlI1N21ETndoM043a3J5aW1BN3FibXJaUjdHajBsX3BKZXFFSGtOREVQQTBUOGJxb3F0Uk14dEFucFpoeDZSaXB5MmlXb2V3eVFJaUhYRTg5Ym9naThBc2VwZHBQZVdFeTM?oc=5"
+  },
+  {
+   "id": "3f77e1e7977d239c35a7f901461b59c908691e47",
+   "titleKey": "100a87e9ad34b370dbf4c0db93ef1987fb62f6b6",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Chris Van Hollen announces run for US Senate majority leader, challenging Schumer - Reuters Chris Van Hollen announces run for US Senate majority leader, challenging Schumer Reuters",
+   "at": "2026-11-13T02:28:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQVDJtNkFCOFNqX2ZmeGFLZVFhcEFtWHhqQzhKMXdYZmFYdnZOZS1XSnhiRDRONGVwTUt1TmpuS1ZNMVZqZGx4RkdiUWlZTTg1WDFUS2hrbElaNjdNcDh5c3RKeXJYOG8yN3VoNlJ2dE80RV9HdUlyb1A5Y0hpMkc1ZzdZXy1DSmNkS2tUbV9jTF8xd0JLQzAyeWpxTUZ2eDVVUkZuSm5ISFZ1amxXZVVaYTlOZGlTdGhhbC1JVS13?oc=5"
+  },
+  {
+   "id": "532c2a1c2d9452c88cc569302365330e0ff234b9",
+   "titleKey": "c55688f0e81a9fbcf38a1fd0eec0c87528ca71ba",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Iran's Guards say they targeted a US early-warning radar in Bahrain - Reuters Iran's Guards say they targeted a US early-warning radar in Bahrain Reuters",
+   "at": "2026-11-13T02:51:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcjhnZVFHWnV4RHpscnFyUjFWOEl5VndNZ0Y4MFdEVlpueUNaeHRPMVdCbjA4Mmktc0tYWnFsZWdZSkd4dFNvTmszUHFWdC15S0pja2ozaTg0R0dOdEY3aDJtenZwREh5dmRvTGVTUkxVUDNjN3huQU1TRTU1bEVBampuYzdsTjJJZ2tBUXQwal85QnRsWDU4OWNvbDVzN0VUR1R0clNkZmpkaXZMaWh5dExSNHRCUQ?oc=5"
+  },
+  {
+   "id": "8c3c3ceaa1dd6d057b5961c2b705d9cbf6860b62",
+   "titleKey": "3535579ec369a4f4d8b3634199fe4d9400e6acc0",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Delhi's air quality turns 'hazardous' with AQI at 494 Today, Delhi's air quality reached alarming levels, reporting a hazardous AQI of 494. Areas like IIT Delhi and ITO faced extreme pollution, each surpassing AQI 450. In response, the Delhi government initiated efforts like water sprinkling to alleviate the crisis. AAP leader Saurabh Bharadwaj criticized the BJP for the pollution spike post-Diwali while questioning the integrity of data from the Central Pollution Control Board.",
+   "at": "2026-11-13T03:12:03.000Z",
+   "url": "https://timesofindia.indiatimes.com/city/delhi/delhis-air-quality-turns-hazardous-with-aqi-at-494-several-areas-remain-in-severe-zone-visibility-hit-by-dense-fog/articleshow/135787233.cms"
+  },
+  {
+   "id": "2d2bfd030a1e63dc019888a8c7efc320d4f15cf4",
+   "titleKey": "b900507970757c8783fb77c652aa79230433bf82",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | The midterms won’t define Trump’s legacy. Iran will. - The Washington Post Opinion | The midterms won’t define Trump’s legacy. Iran will. The Washington Post",
+   "at": "2026-11-13T03:19:42.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQaWJEcWFlc0ZRYmJNaWl1WG5xSU5sNzBKVXU0NUhVUGlFNjh4MVFSOW9IeC1sOEtnS21vUjFsZkJnb01aalRwY1NsQXBPTDVsNzdFc3lXRk5hem5NamhUcDZhajVZNEdSNFNkRmhXRC1VM1Vsb1RFdjVkaHFicW5UcTcyTERFN25pVTZlTHg2RlhZUURPWWVIUHZEclJnRHlKeU9PY1VucDF6TDdGYTkw?oc=5"
+  },
+  {
+   "id": "946ea6b0f89404729ac637fd2bb8086692415dd1",
+   "titleKey": "c8d73ea2b7f9a4e54ea638b5ff177a69271ec103",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Colorado contractor jailed for stealing $1.4 million from homeowners",
+   "at": "2026-11-13T03:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-colorado-home-remodelling-contractor-stole-more-than-1-4-million-from-homeowners-and-abandoned-projects-after-demolition-he-has-been-sentenced-to-10-years-in-prison/articleshow/135755388.cms"
+  },
+  {
+   "id": "c00830667caca8a6160c5ce4719c6c692184a179",
+   "titleKey": "aef08dabe785b44f0eaa28f0d8f44ab31b9c7a64",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Is your child shorter than classmates? 4 growth habits parents miss Each child grows uniquely, with their height largely shaped by genetics and overall health. It's vital for parents to promote healthy habits such as regular sleep, physical play, and nutritious meals. Monitoring growth is important for assessing development. Remember, comparing height with peers can cause unnecessary worry. If concerns about growth come up, seeking advice from a pediatrician is imperative for proper guidance.",
+   "at": "2026-11-13T03:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/parenting/pregnancy/your-child-seems-shorter-than-other-kids-in-class-parenting-coach-shares-4-growth-related-habits-parents-of-612-year-olds-should-not-overlook/articleshow/135769749.cms"
+  },
+  {
+   "id": "50417e565a5511d199638c42737bf0101b50e7d8",
+   "titleKey": "b430dcf919b31ee5330b4411a1a49bc45662a8f7",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "U.S., Ukraine say Europe to join Russia talks as Putin sticks to hardline stance U.S. envoys Jared Kushner and Steve Witkoff held over four hours of talks with Vladimir Putin in the Kremlin before jetting to debrief Volodymyr Zelenskyy in Dublin",
+   "at": "2026-11-13T03:28:43.000Z",
+   "url": "https://www.thehindu.com/news/international/us-ukraine-say-europe-to-join-russia-talks-as-putin-sticks-to-hardline-stance/article71696395.ece"
+  },
+  {
+   "id": "830e654bdfc903de88b436055d06536cccbd3b22",
+   "titleKey": "4c3256e91e0f27159510732645180f7767b27e5f",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "رفع تعهد ارزی نباید به قیمت بیکاری کارگران تمام شود/ کارگران قربانیان خاموش‌اند! اجرای تک‌بعدی مقررات رفع تعهد ارزی و بی‌توجهی به موانع واقعی واحدهای تولیدی، پیش از هر چیز امنیت شغلی و سفره کارگران را هدف می‌گیرد؛ کارگرانی که هیچ نقشی در ایجاد تعهدات ارزی نداشته‌اند، اما با قفل شدن چرخ کارخانه‌ها، با تعویق دستمزد و اخراج تاوان می‌پردازند.",
+   "at": "2026-11-13T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864679"
+  },
+  {
+   "id": "20690e14cca9afeaaafd5ea966b971a8943890aa",
+   "titleKey": "cdafa4be6e61b5ed82a4b845856d3860bdc2279a",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "حذف مرغ از سفره بازنشسته‌ با حقوق ۱۳ میلیون تومان/ وعده ترمیم مستمری‌ها در نیمه دوم سال چه شد؟ ​وعدۀ افزایش حقوق در شهریورماه روی زمین مانده و بازنشستگان تأمین اجتماعی میان گرانی سرسام‌آور بلاتکلیف مانده‌اند. یک بازنشسته در شهرک طالقانی ماهشهر با اشاره به حقوق ۱۳ میلیون و ۵۰۰ هزار تومانی می‌گوید گوشت به‌کلی از سفرۀ خانواده‌اش حذف شده و مصرف مرغ به ماهی یک‌بار رسیده است.",
+   "at": "2026-11-13T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864044"
+  },
+  {
+   "id": "8a38694d5d559298a5b9b3ca643b807d76e0cd8b",
+   "titleKey": "0e504e45261f4fd1a0fd2667e1a3107a8f532106",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "قیمت سکه و طلا امروز جمعه ۲۲ آبان ۱۴۰۵ + جدول قیمت سکه و قیمت طلا امروز جمعه ۲۲ آبان ۱۴۰۵ را در جدول زیر مشاهده کنید. علاوه بر قیمت سکه امامی، بهار آزادی، گرمی، نیم سکه و ربع سکه می‌توانید قیمت مثقال و انس جهانی طلا، طلای آبشده و دست دوم را نیز مشاهده فرمایید.",
+   "at": "2026-11-13T03:35:39.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865313"
+  },
+  {
+   "id": "691f61d3e803659dd1cfef0763b16fafc12527b7",
+   "titleKey": "b081573316dcf3f2483f4763ba5a674808390914",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "بنگاه‌ها در وضعیت هشدار | آرگون: تداوم وضعیت کنونی شرایط تولید، تأمین کالا و اشتغال را پیچیده‌تر خواهد کرد اقتصادنیوز: عضو کمیسیون سرمایه‌گذاری و تأمین مالی اتاق بازرگانی ایران گفت: نرخ سود در بسیاری از فعالیت‌های اقتصادی سالم و مولد، پاسخ‌گوی نرخ‌های بالای تأمین مالی موجود در بازار نیست، چرا که نرخ حاشیه سود یک بنگاه بسیار پایین‌تر از نرخ تأمین مالی مطرح در بازار است و این مسئله به یکی از بزرگ‌ترین معضلات بنگاه‌های تولیدی تبدیل شده است.",
+   "at": "2026-11-13T03:38:00.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308045-%D8%A8%D9%86%DA%AF%D8%A7%D9%87-%D9%87%D8%A7-%D8%AF%D8%B1-%D9%88%D8%B6%D8%B9%DB%8C%D8%AA-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%A2%D8%B1%DA%AF%D9%88%D9%86-%D8%AA%D8%AF%D8%A7%D9%88%D9%85-%D9%88%D8%B6%D8%B9%DB%8C%D8%AA-%DA%A9%D9%86%D9%88%D9%86%DB%8C-%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D8%AA%D8%A3%D9%85%DB%8C%D9%86-%DA%A9%D8%A7%D9%84%D8%A7-%D8%A7%D8%B4%D8%AA%D8%BA%D8%A7%D9%84-%D8%B1%D8%A7-%D9%BE%DB%8C%DA%86%DB%8C%D8%AF%D9%87-%D8%AA%D8%B1-%D8%AE%D9%88%D8%A7%D9%87%D8%AF-%DA%A9%D8%B1%D8%AF"
+  },
+  {
+   "id": "63e18583447c9db431a5887d4d90392b2337c7ae",
+   "titleKey": "3727666c039dbe663da3099d1ce51d3c461afb3b",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "از مذاکره به بن‌بست: رئیس جمهور آمریکا معاون خود را از پروند ایران کنار گذاشت / ترامپ و روبیو از وضعیت «نه جنگ نه صلح» راضی هستند دونالد ترامپ با اعلام اینکه «آمریکا دیگر به توافق با ایران نیاز ندارد» و دستور به معاونش جی‌دی وانس برای تمرکز بر مسائل داخلی، عملاً مسیر دیپلماسی فعال برای پایان‌دادن به جنگ ایران و آمریکا را متوقف کرد. این تصمیم نه پایان جنگ، بلکه تثبیت یک بن‌بست پرهزینه است: واشینگتن فشار اقتصادی و کنترل بخشی از مسیر دریایی را حفظ می‌کند، اما از توافق و از تشدید نظامی هم فاصله می‌گیرد.",
+   "at": "2026-11-13T03:40:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301362/%D8%A7%D8%B2-%D9%85%D8%B0%D8%A7%DA%A9%D8%B1%D9%87-%D8%A8%D9%87-%D8%A8%D9%86-%D8%A8%D8%B3%D8%AA-%D8%B1%D8%A6%DB%8C%D8%B3-%D8%AC%D9%85%D9%87%D9%88%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%B9%D8%A7%D9%88%D9%86-%D8%AE%D9%88%D8%AF-%D8%B1%D8%A7-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%D9%86%D8%AF"
+  },
+  {
+   "id": "fe814a1fea972098baffb3c89c3c03ab2c1d5ebf",
+   "titleKey": "04652010bb252d8a2742dd9315704fbee485afa4",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Trump says Arab states pressed him to hold off large-scale attacks on Iran Trump said he could “end the war immediately,” but was continuing the current pressure only because regional allies asked him to. @PressTV",
+   "at": "2026-11-13T03:40:05.000Z",
+   "url": "https://t.me/presstv/214505"
+  },
+  {
+   "id": "7fe358e4bfbc1916a8621559fd073b53fc1d6286",
+   "titleKey": "08d06b72ac895b812bcd62c7ffd2b9183c406ea3",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "حکم نهایی CAS در خصوص بیرانوند | نتیجه شکایت پرسپولیس از گلر سابق امروز مشخص می‌شود جلسه آنلاین امروز در شرایطی برگزار می‌شود که تعیین تکلیف قانونی بودن فسخ قرارداد بیرانوند و سرنوشت محرومیت چهارماهه و غرامت تعیین‌شده، مهم‌ترین محورهای این پرونده به شمار می‌روند.",
+   "at": "2026-11-13T03:40:09.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085609/%D8%AD%DA%A9%D9%85-%D9%86%D9%87%D8%A7%DB%8C%DB%8C-CAS-%D8%AF%D8%B1-%D8%AE%D8%B5%D9%88%D8%B5-%D8%A8%DB%8C%D8%B1%D8%A7%D9%86%D9%88%D9%86%D8%AF-%D9%86%D8%AA%DB%8C%D8%AC%D9%87-%D8%B4%DA%A9%D8%A7%DB%8C%D8%AA-%D9%BE%D8%B1%D8%B3%D9%BE%D9%88%D9%84%DB%8C%D8%B3-%D8%A7%D8%B2-%DA%AF%D9%84%D8%B1"
+  },
+  {
+   "id": "15c4515e563c745dce7e8ec200fe13a1198503f7",
+   "titleKey": "9508f18aebac32c622b567779494b27bd50e6158",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Major Microsoft Outlook outage disrupts services in 74 countries Microsoft services including Outlook, Teams and Copilot suffered a worldwide outage on Thursday, disrupting access for tens of thousands of users across 74 countries and territories. The company blamed elevated infrastructure loads and said it was working to restore services, but recovery remained limited hours later.",
+   "at": "2026-11-13T03:44:22.000Z",
+   "url": "https://www.france24.com/en/technology/20261113-major-microsoft-outlook-outage-disrupts-services-in-74-countries"
+  },
+  {
+   "id": "5ae39f976e3e39c96ed2d60d628219a51d5642a7",
+   "titleKey": "ba2943982496cf0addf527cd78fcef45b3dc1a46",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'I'd rather die in Bangladesh': Hasina's defiant message on returning to Dhaka",
+   "at": "2026-11-13T03:45:34.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/south-asia/i-may-be-jailed-they-may-try-to-kill-me-sheikh-hasinas-defiant-message-on-returning-to-bangladesh/articleshow/135788446.cms"
+  },
+  {
+   "id": "26182e4dd53d3675cbbfe54e015dd9abf053cf75",
+   "titleKey": "82d8537e1f62c088c72e7276e16e1446f397c558",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "انگلیس و جمهوری آذربایجان توافقنامه همکاری استراتژیک امضا کردند تهران - ایرنا - انگلیس و جمهوری آذربایجان یک توافقنامه در مورد همکاری راهبردی امضا و بر تعهد خود برای تعمیق همکاری در زمینه دفاع و امنیت تأکید کردند.",
+   "at": "2026-11-13T03:46:02.000Z",
+   "url": "https://www.irna.ir/news/86320313/%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D9%88-%D8%AC%D9%85%D9%87%D9%88%D8%B1%DB%8C-%D8%A2%D8%B0%D8%B1%D8%A8%D8%A7%DB%8C%D8%AC%D8%A7%D9%86-%D8%AA%D9%88%D8%A7%D9%81%D9%82%D9%86%D8%A7%D9%85%D9%87-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C%DA%A9-%D8%A7%D9%85%D8%B6%D8%A7-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF"
+  },
   {
    "id": "b80013d972f5e9b1454dec2fb1577fe29b75616d",
    "titleKey": "113ea975aa131e1cd01d08cdd6ff8e1b60cc55e2",
@@ -5660,6 +5915,76 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-13T03:40:20.960Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: رفع تعهد ارزی نباید به قیمت بیکاری کارگران تمام شود/ کارگران قربانیان خاموش‌اند! اجرای تک‌بعدی مقررات رفع تعهد ارزی و بی‌توجهی به موانع واقعی واحدهای تولیدی، پیش از هر چیز امنیت شغلی و سفره کارگران را هدف می‌گیرد؛ کارگرانی که هیچ نقشی در ایجاد تعهدات ارزی نداشته‌اند، اما با قفل شدن چرخ کارخانه‌ها، با تعویق دستمزد و اخراج تاوان می‌پردازند.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/0KQc0B3xskOV/yfBLPJDlDEmzRvB9LRxWjh6-pFOaC45Z0MD18CtP8f5N2u_mTjFQJ5RJE6OxyAU3o0eKa_asZiqx4Jl9Wj5MZ7uZguR2aGOl07NyFVH3tpOq3JHclXN3aVReREYUGD8po8trJEqbg4Bkge--zP2kOHYkRcHiLypEt8Qk41IQ-lcnC3w-g8Ovprbmo6aVKYEG/434542.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T03:49:44.076Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: حذف مرغ از سفره بازنشسته‌ با حقوق ۱۳ میلیون تومان/ وعده ترمیم مستمری‌ها در نیمه دوم سال چه شد؟ ​وعدۀ افزایش حقوق در شهریورماه روی زمین مانده و بازنشستگان تأمین اجتماعی میان گرانی سرسام‌آور بلاتکلیف مانده‌اند. یک بازنشسته در شهرک طالقانی ماهشهر با اشاره به حقوق ۱۳ میلیون و ۵۰۰ هزار تومانی می‌گوید گوشت به‌کلی از سفرۀ خانواده‌اش حذف شده و مصرف مرغ به ماهی یک‌بار رسیده است.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/nOXDl34cJcxn/Xpu6DsfNeCw_AJZLZL8xLfM7C6NSs5p0s3iMaawYBER9A4Bi1WzFVzqXZYiMFCZNypv13_vTi5jnyB_WXOe0TnOFer_Yu5EAJIA0zr-uKdZYz4qNHbGhL06pMOVxRbvffyXVY0j-6EdI4lGx-9SWCTjJPkOSAjrirENqroE72s8ueoKyyt4RSZ1oXGbayFLK/%D9%85%D8%B9%DB%8C%D8%B4%D8%AA1.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T03:49:44.777Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: قیمت سکه و طلا امروز جمعه ۲۲ آبان ۱۴۰۵ + جدول قیمت سکه و قیمت طلا امروز جمعه ۲۲ آبان ۱۴۰۵ را در جدول زیر مشاهده کنید. علاوه بر قیمت سکه امامی، بهار آزادی، گرمی، نیم سکه و ربع سکه می‌توانید قیمت مثقال و انس جهانی طلا، طلای آبشده و دست دوم را نیز مشاهده فرمایید.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/zu9A1TcXRCnZ/Vz0c44XP-ZNHslM5HFEtBB26KTvyh79JKJ_Ht-1IXwnoEGV8BJoGZeizVZbUZeTDAfti_feVL_hGwh0eW4qiOp29WPaNvflvZuNd8l_3Xx0gkmR25A49wynTqhYJ_TtC2jB7Vj2FjCBzLhhohUldclefHo1QOMdhqAidwu01fSCW4nWRzRKsQRZSJGXNO5qR/%D9%82%DB%8C%D9%85%D8%AA+%D8%B3%DA%A9%D9%87.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T03:49:45.478Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: بنگاه‌ها در وضعیت هشدار | آرگون: تداوم وضعیت کنونی شرایط تولید، تأمین کالا و اشتغال را پیچیده‌تر خواهد کرد اقتصادنیوز: عضو کمیسیون سرمایه‌گذاری و تأمین مالی اتاق بازرگانی ایران گفت: نرخ سود در بسیاری از فعالیت‌های اقتصادی سالم و مولد، پاسخ‌گوی نرخ‌های بالای تأمین مالی موجود در بازار نیست، چرا که نرخ حاشیه سود یک بنگاه بسیار پایین‌تر از نرخ تأمین مالی مطرح در بازار است و این مسئله به یکی از بزرگ‌ترین معضلات بنگاه‌های تولیدی تبدیل شده است.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/G308JXscK8E2/dFfUgU7etZRcgWFqAOpYMvpjDioNukuTCzwfBKmjmKgnqdka0mxugQWaoEGvfXUhGqRm2XDWJXVDfRFzOFXZfoj7a5mUJ8zZ_5iVYvok0XPj1LAwxUUGZX8vCjMROuJ4uppjAmnqL4IuuOqgwuoWMZLceITYOUA48AjId8kaq2R4CC0ArinpjnriZ7NH9cMy/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF+%D8%AF%D9%88%D8%B1%D9%86%D9%85%D8%A7.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T03:49:46.179Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: از مذاکره به بن‌بست: رئیس جمهور آمریکا معاون خود را از پروند ایران کنار گذاشت / ترامپ و روبیو از وضعیت «نه جنگ نه صلح» راضی هستند دونالد ترامپ با اعلام اینکه «آمریکا دیگر به توافق با ایران نیاز ندارد» و دستور به معاونش جی‌دی وانس برای تمرکز بر مسائل داخلی، عملاً مسیر دیپلماسی فعال برای پایان‌دادن به جنگ ایران و آمریکا را متوقف کرد. این تصمیم نه پایان جنگ، بلکه تثبیت یک بن‌بست پرهزینه است: واشینگتن فشار اقتصادی و کنترل بخشی از مسیر دریایی را حفظ می‌کند، اما از توافق و از تشدید نظامی هم فاصله می‌گیرد.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/11/13/4/6502956.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T03:49:46.880Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: حکم نهایی CAS در خصوص بیرانوند | نتیجه شکایت پرسپولیس از گلر سابق امروز مشخص می‌شود جلسه آنلاین امروز در شرایطی برگزار می‌شود که تعیین تکلیف قانونی بودن فسخ قرارداد بیرانوند و سرنوشت محرومیت چهارماهه و غرامت تعیین‌شده، مهم‌ترین محورهای این پرونده به شمار می‌روند.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/08/24/4/5393191.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T03:49:47.581Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): انگلیس و جمهوری آذربایجان توافقنامه همکاری استراتژیک امضا کردند تهران - ایرنا - انگلیس و جمهوری آذربایجان یک توافقنامه در مورد همکاری راهبردی امضا و بر تعهد خود برای تعمیق همکاری در زمینه دفاع و امنیت تأکید کردند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236576.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T03:49:48.282Z"
   }
  ],
  "tweetQueue": [],
@@ -5837,6 +6162,153 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "a80fca008fb784793eace8120bbd486bced048c3",
+   "titleKey": "28c0f9f9b2be09b603bd30a1ff981f2c8a8a5e62",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Singapore Charges 5th Person Linked to Nvidia Chip Case, ST Says - Bloomberg.com Singapore Charges 5th Person Linked to Nvidia Chip Case, ST Says Bloomberg.com",
+   "at": "2026-11-13T02:24:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPZVV6VXYySmNyb1B3cXRtMU54M0ptUnZEQzNqSjNtWXMyRmFiNzgxeVNnN1FoUGo4ZUNGcEs3aXZjakY4UmFWZ1FfbGJjOGdXRFlmYlI1N21ETndoM043a3J5aW1BN3FibXJaUjdHajBsX3BKZXFFSGtOREVQQTBUOGJxb3F0Uk14dEFucFpoeDZSaXB5MmlXb2V3eVFJaUhYRTg5Ym9naThBc2VwZHBQZVdFeTM?oc=5"
+  },
+  {
+   "id": "3f77e1e7977d239c35a7f901461b59c908691e47",
+   "titleKey": "100a87e9ad34b370dbf4c0db93ef1987fb62f6b6",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Chris Van Hollen announces run for US Senate majority leader, challenging Schumer - Reuters Chris Van Hollen announces run for US Senate majority leader, challenging Schumer Reuters",
+   "at": "2026-11-13T02:28:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQVDJtNkFCOFNqX2ZmeGFLZVFhcEFtWHhqQzhKMXdYZmFYdnZOZS1XSnhiRDRONGVwTUt1TmpuS1ZNMVZqZGx4RkdiUWlZTTg1WDFUS2hrbElaNjdNcDh5c3RKeXJYOG8yN3VoNlJ2dE80RV9HdUlyb1A5Y0hpMkc1ZzdZXy1DSmNkS2tUbV9jTF8xd0JLQzAyeWpxTUZ2eDVVUkZuSm5ISFZ1amxXZVVaYTlOZGlTdGhhbC1JVS13?oc=5"
+  },
+  {
+   "id": "532c2a1c2d9452c88cc569302365330e0ff234b9",
+   "titleKey": "c55688f0e81a9fbcf38a1fd0eec0c87528ca71ba",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Iran's Guards say they targeted a US early-warning radar in Bahrain - Reuters Iran's Guards say they targeted a US early-warning radar in Bahrain Reuters",
+   "at": "2026-11-13T02:51:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcjhnZVFHWnV4RHpscnFyUjFWOEl5VndNZ0Y4MFdEVlpueUNaeHRPMVdCbjA4Mmktc0tYWnFsZWdZSkd4dFNvTmszUHFWdC15S0pja2ozaTg0R0dOdEY3aDJtenZwREh5dmRvTGVTUkxVUDNjN3huQU1TRTU1bEVBampuYzdsTjJJZ2tBUXQwal85QnRsWDU4OWNvbDVzN0VUR1R0clNkZmpkaXZMaWh5dExSNHRCUQ?oc=5"
+  },
+  {
+   "id": "8c3c3ceaa1dd6d057b5961c2b705d9cbf6860b62",
+   "titleKey": "3535579ec369a4f4d8b3634199fe4d9400e6acc0",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Delhi's air quality turns 'hazardous' with AQI at 494 Today, Delhi's air quality reached alarming levels, reporting a hazardous AQI of 494. Areas like IIT Delhi and ITO faced extreme pollution, each surpassing AQI 450. In response, the Delhi government initiated efforts like water sprinkling to alleviate the crisis. AAP leader Saurabh Bharadwaj criticized the BJP for the pollution spike post-Diwali while questioning the integrity of data from the Central Pollution Control Board.",
+   "at": "2026-11-13T03:12:03.000Z",
+   "url": "https://timesofindia.indiatimes.com/city/delhi/delhis-air-quality-turns-hazardous-with-aqi-at-494-several-areas-remain-in-severe-zone-visibility-hit-by-dense-fog/articleshow/135787233.cms"
+  },
+  {
+   "id": "946ea6b0f89404729ac637fd2bb8086692415dd1",
+   "titleKey": "c8d73ea2b7f9a4e54ea638b5ff177a69271ec103",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Colorado contractor jailed for stealing $1.4 million from homeowners",
+   "at": "2026-11-13T03:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-colorado-home-remodelling-contractor-stole-more-than-1-4-million-from-homeowners-and-abandoned-projects-after-demolition-he-has-been-sentenced-to-10-years-in-prison/articleshow/135755388.cms"
+  },
+  {
+   "id": "c00830667caca8a6160c5ce4719c6c692184a179",
+   "titleKey": "aef08dabe785b44f0eaa28f0d8f44ab31b9c7a64",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Is your child shorter than classmates? 4 growth habits parents miss Each child grows uniquely, with their height largely shaped by genetics and overall health. It's vital for parents to promote healthy habits such as regular sleep, physical play, and nutritious meals. Monitoring growth is important for assessing development. Remember, comparing height with peers can cause unnecessary worry. If concerns about growth come up, seeking advice from a pediatrician is imperative for proper guidance.",
+   "at": "2026-11-13T03:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/parenting/pregnancy/your-child-seems-shorter-than-other-kids-in-class-parenting-coach-shares-4-growth-related-habits-parents-of-612-year-olds-should-not-overlook/articleshow/135769749.cms"
+  },
+  {
+   "id": "830e654bdfc903de88b436055d06536cccbd3b22",
+   "titleKey": "4c3256e91e0f27159510732645180f7767b27e5f",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "رفع تعهد ارزی نباید به قیمت بیکاری کارگران تمام شود/ کارگران قربانیان خاموش‌اند! اجرای تک‌بعدی مقررات رفع تعهد ارزی و بی‌توجهی به موانع واقعی واحدهای تولیدی، پیش از هر چیز امنیت شغلی و سفره کارگران را هدف می‌گیرد؛ کارگرانی که هیچ نقشی در ایجاد تعهدات ارزی نداشته‌اند، اما با قفل شدن چرخ کارخانه‌ها، با تعویق دستمزد و اخراج تاوان می‌پردازند.",
+   "at": "2026-11-13T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864679"
+  },
+  {
+   "id": "20690e14cca9afeaaafd5ea966b971a8943890aa",
+   "titleKey": "cdafa4be6e61b5ed82a4b845856d3860bdc2279a",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "حذف مرغ از سفره بازنشسته‌ با حقوق ۱۳ میلیون تومان/ وعده ترمیم مستمری‌ها در نیمه دوم سال چه شد؟ ​وعدۀ افزایش حقوق در شهریورماه روی زمین مانده و بازنشستگان تأمین اجتماعی میان گرانی سرسام‌آور بلاتکلیف مانده‌اند. یک بازنشسته در شهرک طالقانی ماهشهر با اشاره به حقوق ۱۳ میلیون و ۵۰۰ هزار تومانی می‌گوید گوشت به‌کلی از سفرۀ خانواده‌اش حذف شده و مصرف مرغ به ماهی یک‌بار رسیده است.",
+   "at": "2026-11-13T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864044"
+  },
+  {
+   "id": "8a38694d5d559298a5b9b3ca643b807d76e0cd8b",
+   "titleKey": "0e504e45261f4fd1a0fd2667e1a3107a8f532106",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "قیمت سکه و طلا امروز جمعه ۲۲ آبان ۱۴۰۵ + جدول قیمت سکه و قیمت طلا امروز جمعه ۲۲ آبان ۱۴۰۵ را در جدول زیر مشاهده کنید. علاوه بر قیمت سکه امامی، بهار آزادی، گرمی، نیم سکه و ربع سکه می‌توانید قیمت مثقال و انس جهانی طلا، طلای آبشده و دست دوم را نیز مشاهده فرمایید.",
+   "at": "2026-11-13T03:35:39.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865313"
+  },
+  {
+   "id": "691f61d3e803659dd1cfef0763b16fafc12527b7",
+   "titleKey": "b081573316dcf3f2483f4763ba5a674808390914",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "بنگاه‌ها در وضعیت هشدار | آرگون: تداوم وضعیت کنونی شرایط تولید، تأمین کالا و اشتغال را پیچیده‌تر خواهد کرد اقتصادنیوز: عضو کمیسیون سرمایه‌گذاری و تأمین مالی اتاق بازرگانی ایران گفت: نرخ سود در بسیاری از فعالیت‌های اقتصادی سالم و مولد، پاسخ‌گوی نرخ‌های بالای تأمین مالی موجود در بازار نیست، چرا که نرخ حاشیه سود یک بنگاه بسیار پایین‌تر از نرخ تأمین مالی مطرح در بازار است و این مسئله به یکی از بزرگ‌ترین معضلات بنگاه‌های تولیدی تبدیل شده است.",
+   "at": "2026-11-13T03:38:00.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308045-%D8%A8%D9%86%DA%AF%D8%A7%D9%87-%D9%87%D8%A7-%D8%AF%D8%B1-%D9%88%D8%B6%D8%B9%DB%8C%D8%AA-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%A2%D8%B1%DA%AF%D9%88%D9%86-%D8%AA%D8%AF%D8%A7%D9%88%D9%85-%D9%88%D8%B6%D8%B9%DB%8C%D8%AA-%DA%A9%D9%86%D9%88%D9%86%DB%8C-%D8%B4%D8%B1%D8%A7%DB%8C%D8%B7-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D8%AA%D8%A3%D9%85%DB%8C%D9%86-%DA%A9%D8%A7%D9%84%D8%A7-%D8%A7%D8%B4%D8%AA%D8%BA%D8%A7%D9%84-%D8%B1%D8%A7-%D9%BE%DB%8C%DA%86%DB%8C%D8%AF%D9%87-%D8%AA%D8%B1-%D8%AE%D9%88%D8%A7%D9%87%D8%AF-%DA%A9%D8%B1%D8%AF"
+  },
+  {
+   "id": "63e18583447c9db431a5887d4d90392b2337c7ae",
+   "titleKey": "3727666c039dbe663da3099d1ce51d3c461afb3b",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "از مذاکره به بن‌بست: رئیس جمهور آمریکا معاون خود را از پروند ایران کنار گذاشت / ترامپ و روبیو از وضعیت «نه جنگ نه صلح» راضی هستند دونالد ترامپ با اعلام اینکه «آمریکا دیگر به توافق با ایران نیاز ندارد» و دستور به معاونش جی‌دی وانس برای تمرکز بر مسائل داخلی، عملاً مسیر دیپلماسی فعال برای پایان‌دادن به جنگ ایران و آمریکا را متوقف کرد. این تصمیم نه پایان جنگ، بلکه تثبیت یک بن‌بست پرهزینه است: واشینگتن فشار اقتصادی و کنترل بخشی از مسیر دریایی را حفظ می‌کند، اما از توافق و از تشدید نظامی هم فاصله می‌گیرد.",
+   "at": "2026-11-13T03:40:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301362/%D8%A7%D8%B2-%D9%85%D8%B0%D8%A7%DA%A9%D8%B1%D9%87-%D8%A8%D9%87-%D8%A8%D9%86-%D8%A8%D8%B3%D8%AA-%D8%B1%D8%A6%DB%8C%D8%B3-%D8%AC%D9%85%D9%87%D9%88%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%B9%D8%A7%D9%88%D9%86-%D8%AE%D9%88%D8%AF-%D8%B1%D8%A7-%D8%A7%D8%B2-%D9%BE%D8%B1%D9%88%D9%86%D8%AF"
+  },
+  {
+   "id": "fe814a1fea972098baffb3c89c3c03ab2c1d5ebf",
+   "titleKey": "04652010bb252d8a2742dd9315704fbee485afa4",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Trump says Arab states pressed him to hold off large-scale attacks on Iran Trump said he could “end the war immediately,” but was continuing the current pressure only because regional allies asked him to. @PressTV",
+   "at": "2026-11-13T03:40:05.000Z",
+   "url": "https://t.me/presstv/214505"
+  },
+  {
+   "id": "7fe358e4bfbc1916a8621559fd073b53fc1d6286",
+   "titleKey": "08d06b72ac895b812bcd62c7ffd2b9183c406ea3",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "حکم نهایی CAS در خصوص بیرانوند | نتیجه شکایت پرسپولیس از گلر سابق امروز مشخص می‌شود جلسه آنلاین امروز در شرایطی برگزار می‌شود که تعیین تکلیف قانونی بودن فسخ قرارداد بیرانوند و سرنوشت محرومیت چهارماهه و غرامت تعیین‌شده، مهم‌ترین محورهای این پرونده به شمار می‌روند.",
+   "at": "2026-11-13T03:40:09.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085609/%D8%AD%DA%A9%D9%85-%D9%86%D9%87%D8%A7%DB%8C%DB%8C-CAS-%D8%AF%D8%B1-%D8%AE%D8%B5%D9%88%D8%B5-%D8%A8%DB%8C%D8%B1%D8%A7%D9%86%D9%88%D9%86%D8%AF-%D9%86%D8%AA%DB%8C%D8%AC%D9%87-%D8%B4%DA%A9%D8%A7%DB%8C%D8%AA-%D9%BE%D8%B1%D8%B3%D9%BE%D9%88%D9%84%DB%8C%D8%B3-%D8%A7%D8%B2-%DA%AF%D9%84%D8%B1"
+  },
+  {
+   "id": "15c4515e563c745dce7e8ec200fe13a1198503f7",
+   "titleKey": "9508f18aebac32c622b567779494b27bd50e6158",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "Major Microsoft Outlook outage disrupts services in 74 countries Microsoft services including Outlook, Teams and Copilot suffered a worldwide outage on Thursday, disrupting access for tens of thousands of users across 74 countries and territories. The company blamed elevated infrastructure loads and said it was working to restore services, but recovery remained limited hours later.",
+   "at": "2026-11-13T03:44:22.000Z",
+   "url": "https://www.france24.com/en/technology/20261113-major-microsoft-outlook-outage-disrupts-services-in-74-countries"
+  },
+  {
+   "id": "5ae39f976e3e39c96ed2d60d628219a51d5642a7",
+   "titleKey": "ba2943982496cf0addf527cd78fcef45b3dc1a46",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'I'd rather die in Bangladesh': Hasina's defiant message on returning to Dhaka",
+   "at": "2026-11-13T03:45:34.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/south-asia/i-may-be-jailed-they-may-try-to-kill-me-sheikh-hasinas-defiant-message-on-returning-to-bangladesh/articleshow/135788446.cms"
+  },
+  {
+   "id": "26182e4dd53d3675cbbfe54e015dd9abf053cf75",
+   "titleKey": "82d8537e1f62c088c72e7276e16e1446f397c558",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "انگلیس و جمهوری آذربایجان توافقنامه همکاری استراتژیک امضا کردند تهران - ایرنا - انگلیس و جمهوری آذربایجان یک توافقنامه در مورد همکاری راهبردی امضا و بر تعهد خود برای تعمیق همکاری در زمینه دفاع و امنیت تأکید کردند.",
+   "at": "2026-11-13T03:46:02.000Z",
+   "url": "https://www.irna.ir/news/86320313/%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D9%88-%D8%AC%D9%85%D9%87%D9%88%D8%B1%DB%8C-%D8%A2%D8%B0%D8%B1%D8%A8%D8%A7%DB%8C%D8%AC%D8%A7%D9%86-%D8%AA%D9%88%D8%A7%D9%81%D9%82%D9%86%D8%A7%D9%85%D9%87-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C%DA%A9-%D8%A7%D9%85%D8%B6%D8%A7-%DA%A9%D8%B1%D8%AF%D9%86%D8%AF"
+  },
   {
    "id": "b80013d972f5e9b1454dec2fb1577fe29b75616d",
    "titleKey": "113ea975aa131e1cd01d08cdd6ff8e1b60cc55e2",
@@ -10945,21 +11417,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794541235470,
-  "Akharin_khodro/8913": 1794541235470,
-  "Akharin_khodro/8914": 1794541235470,
-  "Akharin_khodro/8915": 1794541235470,
-  "Akharin_khodro/8916": 1794541235470,
-  "Akharin_khodro/8919": 1794541235470,
-  "Akharin_khodro/8920": 1794541235470,
-  "Akharin_khodro/8921": 1794541235470,
-  "Akharin_khodro/8922": 1794541235470,
-  "Akharin_khodro/8923": 1794541235470,
-  "Akharin_khodro/8924": 1794541235470,
-  "Akharin_khodro/8925": 1794541235470,
-  "Akharin_khodro/8926": 1794541235470,
-  "Akharin_khodro/8927": 1794541235470,
-  "Akharin_khodro/8928": 1794541235470,
+  "Akharin_khodro/8908": 1794541802667,
+  "Akharin_khodro/8913": 1794541802667,
+  "Akharin_khodro/8914": 1794541802667,
+  "Akharin_khodro/8915": 1794541802667,
+  "Akharin_khodro/8916": 1794541802667,
+  "Akharin_khodro/8919": 1794541802667,
+  "Akharin_khodro/8920": 1794541802667,
+  "Akharin_khodro/8921": 1794541802667,
+  "Akharin_khodro/8922": 1794541802667,
+  "Akharin_khodro/8923": 1794541802667,
+  "Akharin_khodro/8924": 1794541802667,
+  "Akharin_khodro/8925": 1794541802667,
+  "Akharin_khodro/8926": 1794541802667,
+  "Akharin_khodro/8927": 1794541802667,
+  "Akharin_khodro/8928": 1794541802667,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11285,27 +11757,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-13T03:40:35.477Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-13T03:50:02.674Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1078,
-  "inWindow": 189,
-  "fresh": 79,
-  "sent": 8,
+  "inWindow": 190,
+  "fresh": 81,
+  "sent": 7,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 110,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 71,
-  "queued": 8,
+  "skippedUntranslated": 74,
+  "queued": 7,
   "tweetRateLimited": false
  }
 }

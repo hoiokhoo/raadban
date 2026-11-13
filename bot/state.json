@@ -1,5 +1,8 @@
 {
  "sentIds": {
+  "9b68e578da021da2422120f7cfa7afb4d68c8364": 1794528227320,
+  "fa4010d2e91226a18f7f6c3d152dbb5e03ce2500": 1794528227320,
+  "0b934811b63dbfdba6a128e21870d9f0150db235": 1794528227320,
   "8627c51ee1b8e29eda5cb01c1e0b36363553b6d6": 1794527730700,
   "7d1f91b1f0ef9112b3205663d31b5a808a0033fa": 1794527730700,
   "2e439b2a35ed5a93064178cd4f5697d9336391dd": 1794527170700,
@@ -1196,12 +1199,12 @@
   "4d9b5d0b62efbccd7e8b75faca2f3974f390340b": 1794492479827,
   "6afa222fe7b158163db51e96448e767a91fb12d9": 1794492479827,
   "722c7528d73cfab3bd76ba7bf5a95e06b2695fe9": 1794492479827,
-  "899a0be01cf9153f1145d73094d82b849ffe9a78": 1794492479827,
-  "3ae1494f49df3aa42d3b64d7181e26f696b95e59": 1794492479827,
-  "7627c90a04328a305953372ab8dd4d509cfbee00": 1794492479827,
-  "9a6c7b9b4d4d0aab40de8ddb86623d8c2b14f374": 1794492479827
+  "899a0be01cf9153f1145d73094d82b849ffe9a78": 1794492479827
  },
  "sentTitles": {
+  "15a905eae2025f82ba586d092225a2c4dd411ab5": 1794528227320,
+  "04bb55be46e4db05d6bf36036e8cdbf569c26241": 1794528227320,
+  "492130ee3d32ad9849396942943be2a005126407": 1794528227320,
   "e5cdeb9d6fdaae4cbbe9b3b3523d4520778dc8bb": 1794527730700,
   "48a22a204ad924e35b40ecb63ba425aefb88150c": 1794527730700,
   "ab06d8cd927a8238a928c0fca15a22e3d4804a08": 1794527170700,
@@ -1798,10 +1801,7 @@
   "6cde0eaecff63be8710a9b6f67556f963ab16bad": 1794503129975,
   "fc004aa5b611de9b41594649bf71b4c6066c8aeb": 1794503129975,
   "53870e81238f6423798357bcf9c1dc0cd4979199": 1794503129975,
-  "451cd741b862b3c926e43e8dad236aa248d8146e": 1794503129975,
-  "ec76f3520741ff3b3a6f368ce70f0911238c6f94": 1794503129975,
-  "a0a7b6d14816d8817889b5ee35f4b07dc21f904a": 1794503129975,
-  "8233406614722fc2a2dfa8cd662f8c1a8f3a32f8": 1794503129975
+  "451cd741b862b3c926e43e8dad236aa248d8146e": 1794503129975
  },
  "sentTitleTexts": {
   "sepeacemissions jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم اول نتیجه انسانی گروگان ها ازاد خواهند شد و ما بر بزرگترین تبادل گروگان ها ": 1794526562655,
@@ -3008,6 +3008,53 @@
   "خبرگزاری ایسنا قاتل زن ۴۰ ساله در قایمشهر دستگیر و روانه زندان شد رییس کل دادگستری مازندران از دستگیری قاتل زن ۴۰ ساله در قایمشهر خبر داد و گفت متهم در تحقیقات ": 1794501772731
  },
  "pool": [
+  {
+   "id": "a2b59af08d2acad1359bddc30b06d33cd32fb24b",
+   "titleKey": "275485f1898f7065016c3dc732ca2ab878db42c6",
+   "source": "Iran International",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "Trump shifts Vance away from Iran talks, says deal unnecessary - Iran International Trump shifts Vance away from Iran talks, says deal unnecessary Iran International",
+   "at": "2026-11-12T21:08:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5CdEFTa3hHRlZmejA4NjZWLUJ1QWtDanRlbU5wSzk0OWcwVG5yT04yTzJldGh4aTNTbXIwUElwNE0tcjJUaC1wbldMVzJReUt1SXc?oc=5"
+  },
+  {
+   "id": "46ae76ba785e38cb9dcd1ffd4c9eba946143aeb9",
+   "titleKey": "fd0c1b1148a58f2c7e915bd6ee7411ee37d3b232",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Cisco lifts annual revenue forecast on strong AI networking demand - Reuters Cisco lifts annual revenue forecast on strong AI networking demand Reuters",
+   "at": "2026-11-12T22:18:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcDgteG5IeXZjU1k1UDdhbFkyZlVCaHI1d0pPdGp2elFReVRRclN6dWhTM2NuSUk3cGdUSnRRU2c4aWpCcS14blFsN3hLTTNCSktQbXpTUVgxRjVJV1R1YldHdEVYMXJvVHg3TzJiOXhEM0owM08ySlI1bmNkMG5GQXhnQl9iVExNWlN1Z0ZweFk3YldGWDltNFpnekdDZWpVcTJ3QTFlUUxNWXlLX0NjLUhvTjRtNzlrYnlXdXJiTmc?oc=5"
+  },
+  {
+   "id": "9b68e578da021da2422120f7cfa7afb4d68c8364",
+   "titleKey": "15a905eae2025f82ba586d092225a2c4dd411ab5",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "جنگ ایران قبض زمستانی آمریکایی‌ها را منفجر کرد هم‌زمان با تداوم پیامدهای جنگ ایران و افزایش قیمت نفت در بازارهای جهانی، هزینه گرمایش خانه‌ها در آمریکا برای زمستان امسال به‌طور متوسط ۶۶ دلار افزایش می‌یابد.",
+   "at": "2026-11-13T00:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852301/%D8%AC%D9%86%DA%AF-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%82%D8%A8%D8%B6-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7%DB%8C%DB%8C-%D9%87%D8%A7-%D8%B1%D8%A7-%D9%85%D9%86%D9%81%D8%AC%D8%B1-%DA%A9%D8%B1%D8%AF"
+  },
+  {
+   "id": "fa4010d2e91226a18f7f6c3d152dbb5e03ce2500",
+   "titleKey": "04bb55be46e4db05d6bf36036e8cdbf569c26241",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حضور بانوان جان‌فدای فاطمی در دویست و پنجاه و هفتمین شب تجمعات شیراز شیراز-ایرنا- میدان شهدای شیراز در شب بیست‌ویکم آبان، روایتگر گمنامی بی‌نهایت حضرت زهرا (س) و حضور بانوان جان‌فدای فاطمی بود.",
+   "at": "2026-11-13T00:00:33.000Z",
+   "url": "https://www.irna.ir/news/86319981/%D8%AD%D8%B6%D9%88%D8%B1-%D8%A8%D8%A7%D9%86%D9%88%D8%A7%D9%86-%D8%AC%D8%A7%D9%86-%D9%81%D8%AF%D8%A7%DB%8C-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%D8%AF%D8%B1-%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88-%D9%87%D9%81%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA"
+  },
+  {
+   "id": "0b934811b63dbfdba6a128e21870d9f0150db235",
+   "titleKey": "492130ee3d32ad9849396942943be2a005126407",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "بیش از یک میلیون امضا برای تعلیق توافق‌نامه شراکت با رژیم صهیونیستی کمیسیون اروپا بیش از یک میلیون امضای تأییدشده را در حمایت از ابتکاری مردمی دریافت کرد که خواستار تعلیق کامل توافق‌نامه شراکت میان اتحادیه اروپا و رژیم صهیونیستی به دلیل نقض حقوق بشر از سوی این رژیم است.",
+   "at": "2026-11-13T00:03:00.000Z",
+   "url": "https://www.isna.ir/news/1405082214848/%D8%A8%DB%8C%D8%B4-%D8%A7%D8%B2-%DB%8C%DA%A9-%D9%85%DB%8C%D9%84%DB%8C%D9%88%D9%86-%D8%A7%D9%85%D8%B6%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D8%B9%D9%84%DB%8C%D9%82-%D8%AA%D9%88%D8%A7%D9%81%D9%82-%D9%86%D8%A7%D9%85%D9%87-%D8%B4%D8%B1%D8%A7%DA%A9%D8%AA-%D8%A8%D8%A7-%D8%B1%DA%98%DB%8C%D9%85-%D8%B5%D9%87%DB%8C%D9%88%D9%86%DB%8C%D8%B3%D8%AA%DB%8C"
+  },
   {
    "id": "7d698d2f4b3793ba85296654ca4076a63d6c7a96",
    "titleKey": "16ceed8fe00ebd8728edd73cee6bedf0c398c317",
@@ -5968,6 +6015,36 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-12T23:55:16.010Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: جنگ ایران قبض زمستانی آمریکایی‌ها را منفجر کرد هم‌زمان با تداوم پیامدهای جنگ ایران و افزایش قیمت نفت در بازارهای جهانی، هزینه گرمایش خانه‌ها در آمریکا برای زمستان امسال به‌طور متوسط ۶۶ دلار افزایش می‌یابد.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/12/4/4749897.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T00:03:29.705Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): حضور بانوان جان‌فدای فاطمی در دویست و پنجاه و هفتمین شب تجمعات شیراز شیراز-ایرنا- میدان شهدای شیراز در شب بیست‌ویکم آبان، روایتگر گمنامی بی‌نهایت حضرت زهرا (س) و حضور بانوان جان‌فدای فاطمی بود.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/12/4/173236374.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T00:03:30.406Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: بیش از یک میلیون امضا برای تعلیق توافق‌نامه شراکت با رژیم صهیونیستی کمیسیون اروپا بیش از یک میلیون امضای تأییدشده را در حمایت از ابتکاری مردمی دریافت کرد که خواستار تعلیق کامل توافق‌نامه شراکت میان اتحادیه اروپا و رژیم صهیونیستی به دلیل نقض حقوق بشر از سوی این رژیم است.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/13/4/64052302.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T00:03:31.108Z"
   }
  ],
  "tweetQueue": [],
@@ -6145,6 +6222,53 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "a2b59af08d2acad1359bddc30b06d33cd32fb24b",
+   "titleKey": "275485f1898f7065016c3dc732ca2ab878db42c6",
+   "source": "Iran International",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "Trump shifts Vance away from Iran talks, says deal unnecessary - Iran International Trump shifts Vance away from Iran talks, says deal unnecessary Iran International",
+   "at": "2026-11-12T21:08:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5CdEFTa3hHRlZmejA4NjZWLUJ1QWtDanRlbU5wSzk0OWcwVG5yT04yTzJldGh4aTNTbXIwUElwNE0tcjJUaC1wbldMVzJReUt1SXc?oc=5"
+  },
+  {
+   "id": "46ae76ba785e38cb9dcd1ffd4c9eba946143aeb9",
+   "titleKey": "fd0c1b1148a58f2c7e915bd6ee7411ee37d3b232",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Cisco lifts annual revenue forecast on strong AI networking demand - Reuters Cisco lifts annual revenue forecast on strong AI networking demand Reuters",
+   "at": "2026-11-12T22:18:58.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcDgteG5IeXZjU1k1UDdhbFkyZlVCaHI1d0pPdGp2elFReVRRclN6dWhTM2NuSUk3cGdUSnRRU2c4aWpCcS14blFsN3hLTTNCSktQbXpTUVgxRjVJV1R1YldHdEVYMXJvVHg3TzJiOXhEM0owM08ySlI1bmNkMG5GQXhnQl9iVExNWlN1Z0ZweFk3YldGWDltNFpnekdDZWpVcTJ3QTFlUUxNWXlLX0NjLUhvTjRtNzlrYnlXdXJiTmc?oc=5"
+  },
+  {
+   "id": "9b68e578da021da2422120f7cfa7afb4d68c8364",
+   "titleKey": "15a905eae2025f82ba586d092225a2c4dd411ab5",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "جنگ ایران قبض زمستانی آمریکایی‌ها را منفجر کرد هم‌زمان با تداوم پیامدهای جنگ ایران و افزایش قیمت نفت در بازارهای جهانی، هزینه گرمایش خانه‌ها در آمریکا برای زمستان امسال به‌طور متوسط ۶۶ دلار افزایش می‌یابد.",
+   "at": "2026-11-13T00:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852301/%D8%AC%D9%86%DA%AF-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%82%D8%A8%D8%B6-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7%DB%8C%DB%8C-%D9%87%D8%A7-%D8%B1%D8%A7-%D9%85%D9%86%D9%81%D8%AC%D8%B1-%DA%A9%D8%B1%D8%AF"
+  },
+  {
+   "id": "fa4010d2e91226a18f7f6c3d152dbb5e03ce2500",
+   "titleKey": "04bb55be46e4db05d6bf36036e8cdbf569c26241",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حضور بانوان جان‌فدای فاطمی در دویست و پنجاه و هفتمین شب تجمعات شیراز شیراز-ایرنا- میدان شهدای شیراز در شب بیست‌ویکم آبان، روایتگر گمنامی بی‌نهایت حضرت زهرا (س) و حضور بانوان جان‌فدای فاطمی بود.",
+   "at": "2026-11-13T00:00:33.000Z",
+   "url": "https://www.irna.ir/news/86319981/%D8%AD%D8%B6%D9%88%D8%B1-%D8%A8%D8%A7%D9%86%D9%88%D8%A7%D9%86-%D8%AC%D8%A7%D9%86-%D9%81%D8%AF%D8%A7%DB%8C-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%D8%AF%D8%B1-%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88-%D9%87%D9%81%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA"
+  },
+  {
+   "id": "0b934811b63dbfdba6a128e21870d9f0150db235",
+   "titleKey": "492130ee3d32ad9849396942943be2a005126407",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "بیش از یک میلیون امضا برای تعلیق توافق‌نامه شراکت با رژیم صهیونیستی کمیسیون اروپا بیش از یک میلیون امضای تأییدشده را در حمایت از ابتکاری مردمی دریافت کرد که خواستار تعلیق کامل توافق‌نامه شراکت میان اتحادیه اروپا و رژیم صهیونیستی به دلیل نقض حقوق بشر از سوی این رژیم است.",
+   "at": "2026-11-13T00:03:00.000Z",
+   "url": "https://www.isna.ir/news/1405082214848/%D8%A8%DB%8C%D8%B4-%D8%A7%D8%B2-%DB%8C%DA%A9-%D9%85%DB%8C%D9%84%DB%8C%D9%88%D9%86-%D8%A7%D9%85%D8%B6%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D8%B9%D9%84%DB%8C%D9%82-%D8%AA%D9%88%D8%A7%D9%81%D9%82-%D9%86%D8%A7%D9%85%D9%87-%D8%B4%D8%B1%D8%A7%DA%A9%D8%AA-%D8%A8%D8%A7-%D8%B1%DA%98%DB%8C%D9%85-%D8%B5%D9%87%DB%8C%D9%88%D9%86%DB%8C%D8%B3%D8%AA%DB%8C"
+  },
   {
    "id": "7d698d2f4b3793ba85296654ca4076a63d6c7a96",
    "titleKey": "16ceed8fe00ebd8728edd73cee6bedf0c398c317",
@@ -10664,7 +10788,7 @@
    "items": 451
   }
  ],
- "aiCursor": 0,
+ "aiCursor": 1,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -11238,21 +11362,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794527730696,
-  "Akharin_khodro/8913": 1794527730696,
-  "Akharin_khodro/8914": 1794527730696,
-  "Akharin_khodro/8915": 1794527730696,
-  "Akharin_khodro/8916": 1794527730696,
-  "Akharin_khodro/8919": 1794527730696,
-  "Akharin_khodro/8920": 1794527730696,
-  "Akharin_khodro/8921": 1794527730696,
-  "Akharin_khodro/8922": 1794527730696,
-  "Akharin_khodro/8923": 1794527730696,
-  "Akharin_khodro/8924": 1794527730696,
-  "Akharin_khodro/8925": 1794527730696,
-  "Akharin_khodro/8926": 1794527730696,
-  "Akharin_khodro/8927": 1794527730696,
-  "Akharin_khodro/8928": 1794527730696,
+  "Akharin_khodro/8908": 1794528227317,
+  "Akharin_khodro/8913": 1794528227317,
+  "Akharin_khodro/8914": 1794528227317,
+  "Akharin_khodro/8915": 1794528227317,
+  "Akharin_khodro/8916": 1794528227317,
+  "Akharin_khodro/8919": 1794528227317,
+  "Akharin_khodro/8920": 1794528227317,
+  "Akharin_khodro/8921": 1794528227317,
+  "Akharin_khodro/8922": 1794528227317,
+  "Akharin_khodro/8923": 1794528227317,
+  "Akharin_khodro/8924": 1794528227317,
+  "Akharin_khodro/8925": 1794528227317,
+  "Akharin_khodro/8926": 1794528227317,
+  "Akharin_khodro/8927": 1794528227317,
+  "Akharin_khodro/8928": 1794528227317,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11559,27 +11683,27 @@
    }
   }
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-12T23:55:30.702Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-13T00:03:47.322Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
-  "sourcesFailed": 2,
-  "fetched": 1064,
-  "inWindow": 188,
-  "fresh": 75,
-  "sent": 2,
+  "sourcesFailed": 1,
+  "fetched": 1079,
+  "inWindow": 177,
+  "fresh": 76,
+  "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 110,
+  "tweetsFetched": 118,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 72,
-  "queued": 2,
+  "queued": 3,
   "tweetRateLimited": false
  }
 }

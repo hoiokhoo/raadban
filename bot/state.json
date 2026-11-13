@@ -1,5 +1,11 @@
 {
  "sentIds": {
+  "b16ab14f30a5db1bbea234ca7fb867e3da81e7c4": 1794607883178,
+  "f3ec4f4c7852addca69c34eadf9c3d2ca4203b7a": 1794607883178,
+  "b19fa81642956ef6631c0846ceb71c2218f23801": 1794607883178,
+  "3858685be4b269cb2398e86c5e9e96d92cd9cd1e": 1794607883178,
+  "4a9adbc6e115429187b1d39d2b0ae36dca0e62b5": 1794607883178,
+  "9b2f61986e61340d65edea11a1994abded3b4db7": 1794607883178,
   "3165d2e406a33b10bc11f5676edbf861fed1bb0e": 1794607053260,
   "6b23a7a7cb5e7602421ac10724d3a37375325765": 1794607053260,
   "a74123a82bb87ea0e5e578779b67da5a6fb98e49": 1794607053260,
@@ -1193,15 +1199,15 @@
   "421fb9a56590816793e49354f89de412350ce86f": 1794575140410,
   "ed8f0ce6cdce0364357079662b4564af9a06181b": 1794575140410,
   "6e1532cbf727c09b3ef83ea3aee3cb2250297947": 1794575140410,
-  "39c12ab9ebb5f646df9e180829633ffc929bc6bd": 1794575140410,
-  "8a0906eb6b622c2812c5dc2c04423d6201c21b00": 1794575140410,
-  "daeb67e3c3c6ecc1da47a2d6a2318455b9d15a1f": 1794575140410,
-  "796a38e554f8c920fe7cd7c09325d4e55035e7ce": 1794575140410,
-  "35cf511be0768fc910e306d93dcf8bbf8ce851a3": 1794575140410,
-  "21b88983304ea33e8cd380694ca5f84722f2dd50": 1794575140410,
-  "2adba1deeac778c6d27c6cee385f57f627b443fb": 1794575140410
+  "39c12ab9ebb5f646df9e180829633ffc929bc6bd": 1794575140410
  },
  "sentTitles": {
+  "abe376ab8ed1b21a8c014241d800aeca761c111c": 1794607883178,
+  "7473ac690d0560d5037265f6769a1cb1f5cf8fd3": 1794607883178,
+  "46731d7a7193157317f7d33017fc0dfc25d9e585": 1794607883178,
+  "fb55d8451a405290cf4a8084111cedb4dea5558c": 1794607883178,
+  "7a8f086ad5aa741f39346b12b82ba817b6c849e0": 1794607883178,
+  "2f275c6d6c663cdd6beebcfea81423268ee3688f": 1794607883178,
   "a17868b2a2c286516a66fa5406f883d888d24109": 1794607053260,
   "c8de3a6b8f5e32b3bf43bf843ba38b633ac0ff5a": 1794607053260,
   "cd0a57f8ee128a3d00a47c701f94158b6445fc31": 1794607053260,
@@ -1795,13 +1801,7 @@
   "fdc699d4fff7154f48fc519f3bd1d56f9a345c66": 1794588453604,
   "7a9df9f5cdcfcc8a909b74797eb59beb8a7fd77a": 1794588453604,
   "824b70499d63d31253160c241b198f9fd3fab824": 1794588453604,
-  "c3c928a31ce5cff3b3f190821b749bfbdea286ae": 1794588453604,
-  "25570721c585a08d106aac8aa4a0dfecbe3ebb7e": 1794588453604,
-  "6b7b75d3e3bab37dcbd6b6902b6cc2692f5c18c9": 1794588453604,
-  "062b6e853bd02c7242c54e7c00145f638caf68e5": 1794588453604,
-  "963d29b97d261c55922d6cb84c2cb1640c71798d": 1794588453604,
-  "0f3ca67ab9fa0474cb07d3a2b81f6b1bb3b9ce1b": 1794588453604,
-  "478928fc04fbaf83250b975efb6d3235b4b5cc6b": 1794588453604
+  "c3c928a31ce5cff3b3f190821b749bfbdea286ae": 1794588453604
  },
  "sentTitleTexts": {
   "با شهرداران شهرهای مختلف اوکراین از همه بخش های اوکراین از جمله خارکیف دنیپرو اوژهورود ایوانو فرانکیفسک چرنیوتسی چرکاسی میکولاییف و وینیتسیا دیدار کردم سرپرستان": 1794605776331,
@@ -3008,6 +3008,165 @@
   "همشهری انلاین استقرار پلیس در۱۰۰نقطه از شهر برخورد جدی پلیس با خودروهای دودزا بر اساس اعلام کارگروه اضطرار الودگی هوا در استانداری تهران با توجه به شرایط موجود ": 1794588453604
  },
  "pool": [
+  {
+   "id": "5ac934db72f3830e6f4d6795b1f2b3bc50fe30a7",
+   "titleKey": "d0c09632d2387c7615ce38721f828a51ef1cb580",
+   "source": "Politico",
+   "lang": "en",
+   "text": "USDA delays grocery store rule after Mamdani appeal to Trump - Politico USDA delays grocery store rule after Mamdani appeal to Trump Politico",
+   "at": "2026-11-13T20:43:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNa3N5Nk9ib0ZkcUVINmVsUWhWcGU4TDhmakU4RkVGWmJ2VFN5SndqMmQxSHB1V0JLQzJtTTZ5NVhlaW5fTUxlRmRuT1owTnd5bEZfMnl1d3pzNkE0bnFBcHAta0JuRWVDUnU1UmtCemtrNmVzS0dicG1EYkNSQjFwcV9LMjhyYmFUSEdz?oc=5"
+  },
+  {
+   "id": "158fba1fe019c33037ace61da1f889aeb673d00b",
+   "titleKey": "330d9dc0578705d30ed583e7db283d1bc404dcd9",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Kylie Jenner faces fourth staff lawsuit in seven months over alleged abuse",
+   "at": "2026-11-13T21:20:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/kylie-jenner-faces-fourth-household-staff-lawsuit-in-seven-months-as-former-housekeeper-alleges-dog-bite-pepper-spray-injury-unpaid-overtime-and-being-trapped-in-a-closet/articleshow/135795873.cms"
+  },
+  {
+   "id": "5b53a4f06333cfa27bd4c7e2d994e129efecab08",
+   "titleKey": "2e326aa5b8e1d864a9b7a88b067051bacaa81c7e",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Strict parenting linked to antisocial beliefs in teens, US study finds Authoritarian parenting can lead to persistent antisocial thoughts among teenagers, affecting their social behavior and emotional well-being. Research indicates that strict parenting fosters beliefs that may justify rule-breaking and aggression. While not all adolescents display increased anxiety or depression, some experience heightened symptoms over time. These findings suggest that parenting styles significantly impact adolescent development and understanding of social norms.",
+   "at": "2026-11-13T21:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/teens-raised-by-strict-obey-without-question-parents-tend-to-hold-more-antisocial-beliefs-a-us-study-found-and-they-also-showed-small-rises-in-anxiety-and-depression/articleshow/135805627.cms"
+  },
+  {
+   "id": "4778ef7656afddec8212b743d13d784ba1683cb3",
+   "titleKey": "70347e7df256700713d9e458bb84a5664930410e",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Ohio inmate challenges foreclosure after home sold with $61,060 left over A foreclosure dispute surrounding Mamadou Diallo is back in court due to notification concerns. The Ohio appeals court has ruled that Diallo's subsequent actions do not establish proof of proper service for the foreclosure notice. Having been convicted for the murder of his spouse, Diallo contested the foreclosure judgment on the grounds of claimed service deficiencies.",
+   "at": "2026-11-13T21:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/an-ohio-bank-foreclosed-on-a-home-while-its-owner-was-in-prison-for-murdering-his-wife-after-the-property-sold-with-61060-left-over-a-november-10-appeals-court-revived-his-challenge-over-how-the-papers-were-served/articleshow/135773509.cms"
+  },
+  {
+   "id": "882476b23a689405eb965abc1ab5fde75e815a12",
+   "titleKey": "183172084e1d4ae9410c2f50adae75ac89c5064b",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Flights halted at airports across US due to air traffic control communications problems, FAA says - AP News Flights halted at airports across US due to air traffic control communications problems, FAA says AP News",
+   "at": "2026-11-13T21:40:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeFBta25Rakd3c0VBM0NUWjJzbmV2ajZwTWRtUFVTcTVzZ2otRGo0cXZSWWV0MzNBSXdmMXNzdm9SU1d1blBBNnktRlNqQmcwVUVxQzhCNERGel9ETDBHZjJwb29IYmhGX2VPNm8xeGwwU0VNajFzZnpIM19lejBOVTZrRVVjb2t4SDh3emhSZHI?oc=5"
+  },
+  {
+   "id": "c1940eaa090a11e63debeeae3139e4cd612ec37c",
+   "titleKey": "a38b7e121d4e413d36dffe29d6ae02d38db8c379",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'I was told I can't defeat a white American male': Lawmaker Saba Haider",
+   "at": "2026-11-13T21:42:05.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/i-was-told-i-cant-defeat-a-white-american-male-lawmaker-saba-haider/articleshow/135816559.cms"
+  },
+  {
+   "id": "6aee3f822630e5845fca6d1438a7ce607bcd7c4a",
+   "titleKey": "24673b557f74217006c03a5f2faba07174d4041e",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Nvidia denies reports of talks with CEO candidates — TV channel According to the TV channel, the board of directors of the US corporation is in the process of selecting a search firm for the NVIDIA CEO role",
+   "at": "2026-11-13T21:51:00.000Z",
+   "url": "https://tass.com/economy/2218051"
+  },
+  {
+   "id": "c0408c330e012a480b38d2f64d689b4dad434df8",
+   "titleKey": "246a7378714798226ab1f310fea9bff38b76f1c8",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "'Gloves are off' - how Australian papers reacted to Cummins on Khawaja The Australian newpapers have their say after Pat Cummins' extraordinary 68-minute news conference.",
+   "at": "2026-11-13T21:53:37.000Z",
+   "url": "https://www.bbc.co.uk/sport/cricket/articles/cq1k97y4e1rxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "3a91a62e02bc1297c71acb3f974e415709bca8b0",
+   "titleKey": "5651098a14b3b0d18309e92587d9e645c0de6a1c",
+   "source": "NYT World",
+   "lang": "en",
+   "text": "How Does a 74-Year-Old in Argentina Escape House Arrest on the Fifth Floor? The answer involves a heating pad, a bomb scare and animal fats. Police are still searching for an Italian man facing extradition on terrorism charges from the 1970s.",
+   "at": "2026-11-13T21:56:01.000Z",
+   "url": "https://www.nytimes.com/2026/11/13/world/americas/74-year-old-in-argentina-escapes-house-arrest.html"
+  },
+  {
+   "id": "b16ab14f30a5db1bbea234ca7fb867e3da81e7c4",
+   "titleKey": "abe376ab8ed1b21a8c014241d800aeca761c111c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اقامه نماز استغاثه به امام زمان(عج) در تجمعات شبانه مشهد مشهد- همزمان با دویست و پنجاه و هشتمین شب از اجتماعات مردمی و در شامگاه جمعه اقامه نماز استغاثه به امام زمان(عج) با حضور پرشور مردم متدین مشهد برگزار شد.",
+   "at": "2026-11-13T21:59:01.000Z",
+   "url": "https://www.mehrnews.com/news/7009917/%D8%A7%D9%82%D8%A7%D9%85%D9%87-%D9%86%D9%85%D8%A7%D8%B2-%D8%A7%D8%B3%D8%AA%D8%BA%D8%A7%D8%AB%D9%87-%D8%A8%D9%87-%D8%A7%D9%85%D8%A7%D9%85-%D8%B2%D9%85%D8%A7%D9%86-%D8%B9%D8%AC-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B4%D9%87%D8%AF"
+  },
+  {
+   "id": "f3ec4f4c7852addca69c34eadf9c3d2ca4203b7a",
+   "titleKey": "7473ac690d0560d5037265f6769a1cb1f5cf8fd3",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "عوامل تاثیرگذار بر انتخاب نام فرزندان در جامعه ایرانی نام یکی از ابتدایی‌ترین شناسه‌های هویتی افراد است که معمولاً خود فرد در انتخاب آن نقشی ندارد اما بخشی از فرهنگ، اعتقادات و شخصیت وی را می‌سازد. در جامعه امروز نوعی تغییر گرایش در انتخاب نام‌ها دیده می‌شود که ریشه در روند توسعه، تفاوت‌های فرهنگی و نقش پررنگ رسانه‌ها دارد و بر این اساس، گرایش به انتخاب اسامی ایرانی نسبت به اسامی اعتقادی افزایش یافته است.",
+   "at": "2026-11-13T22:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215209/%D8%B9%D9%88%D8%A7%D9%85%D9%84-%D8%AA%D8%A7%D8%AB%DB%8C%D8%B1%DA%AF%D8%B0%D8%A7%D8%B1-%D8%A8%D8%B1-%D8%A7%D9%86%D8%AA%D8%AE%D8%A7%D8%A8-%D9%86%D8%A7%D9%85-%D9%81%D8%B1%D8%B2%D9%86%D8%AF%D8%A7%D9%86-%D8%AF%D8%B1-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "b19fa81642956ef6631c0846ceb71c2218f23801",
+   "titleKey": "46731d7a7193157317f7d33017fc0dfc25d9e585",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "آیین سنتی و دیرینه حلیم پزان در دماوند دماوند- مراسم سنتی حلیم‌پزان در روستای کالدشت بالا از توابع بخش مرکزی دماوند، همزمان با شهادت حضرت فاطمه زهرا (ع) جلوه‌ای از همدلی و دین داری اهالی این روستا را به تصویر کشید.",
+   "at": "2026-11-13T22:00:04.000Z",
+   "url": "https://www.mehrnews.com/news/7009920/%D8%A2%DB%8C%DB%8C%D9%86-%D8%B3%D9%86%D8%AA%DB%8C-%D9%88-%D8%AF%DB%8C%D8%B1%DB%8C%D9%86%D9%87-%D8%AD%D9%84%DB%8C%D9%85-%D9%BE%D8%B2%D8%A7%D9%86-%D8%AF%D8%B1-%D8%AF%D9%85%D8%A7%D9%88%D9%86%D8%AF"
+  },
+  {
+   "id": "31fa79c6837d242f36680cf9f4c43156a6bfd64f",
+   "titleKey": "385d85eac50bcb445ee612ef66d81a5a891560d4",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Midterm losses could give Trump a quest to emerge from Apec summit as a winner When G7 leaders gathered at the French resort of Evian-les-Bains in June, Donald Trump arrived late but wasted no time in grabbing the spotlight. With a cheeky declaration, “I am the boss”, the US president drew a ripple of awkward laughter from around the table. Months earlier, in his September 2025 address to the UN General Assembly, he told the gathering that “your countries are going to hell”. His lengthy speech blended boasts about his own record with sharp criticism of allies’ policies,...",
+   "at": "2026-11-13T22:00:11.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374333/midterm-losses-could-give-trump-quest-emerge-apec-summit-winner"
+  },
+  {
+   "id": "3858685be4b269cb2398e86c5e9e96d92cd9cd1e",
+   "titleKey": "fb55d8451a405290cf4a8084111cedb4dea5558c",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "دستور توقف فوری پروازهای مسافربری در آمریکا/ تمامی فرودگاه‌ها بسته شد سامانه ردیابی پرواز «فلایت‌رادار» بسته شدن تمامی فرودگاه‌های آمریکا را به طور رسمی تأیید کرد.",
+   "at": "2026-11-13T22:00:12.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308221-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AA%D9%88%D9%82%D9%81-%D9%81%D9%88%D8%B1%DB%8C-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D9%85%D8%B3%D8%A7%D9%81%D8%B1%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D9%85%D8%A7%D9%85%DB%8C-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%87%D8%A7-%D8%A8%D8%B3%D8%AA%D9%87-%D8%B4%D8%AF"
+  },
+  {
+   "id": "19877b28e03f0cd9ede30c2f4dd0851afbe42561",
+   "titleKey": "5d07593a63576f554197bfb4e0f4e59e13edd959",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iraqi FM dismissed as unrealistic and impossible US demands that Baghdad close its border crossings with Iran. @PressTV",
+   "at": "2026-11-13T22:01:01.000Z",
+   "url": "https://t.me/presstv/214617"
+  },
+  {
+   "id": "4a9adbc6e115429187b1d39d2b0ae36dca0e62b5",
+   "titleKey": "7a8f086ad5aa741f39346b12b82ba817b6c849e0",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "تأخیر در جمع‌آوری درختان آلوده موجب گسترش آفت درچیتگر وسرخه‌حصار/طغیان آفت‌ها در۲ سال اخیر رئیس کمیته ایمنی شورای اسلامی شهر تهران با اشاره به قطع درختان بسیاری در بوستان‌های جنگلی چیتگر و سرخه‌حصار، تأخیر در جمع‌آوری درختان خشک و آلوده را یکی از عوامل گسترش آفت در این بوستان‌ها دانست و گفت: شهرداری تهران با وجود پیگیری‌های انجام‌شده از سازمان منابع طبیعی، در دو سال گذشته نتوانست مجوزهای لازم را برای قطع و جمع‌آوری درختان آلوده دریافت کند.",
+   "at": "2026-11-13T22:02:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215231/%D8%AA%D8%A3%D8%AE%DB%8C%D8%B1-%D8%AF%D8%B1-%D8%AC%D9%85%D8%B9-%D8%A2%D9%88%D8%B1%DB%8C-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D8%A2%D9%84%D9%88%D8%AF%D9%87-%D9%85%D9%88%D8%AC%D8%A8-%DA%AF%D8%B3%D8%AA%D8%B1%D8%B4-%D8%A2%D9%81%D8%AA-%D8%AF%D8%B1%DA%86%DB%8C%D8%AA%DA%AF%D8%B1-%D9%88%D8%B3%D8%B1%D8%AE%D9%87-%D8%AD%D8%B5%D8%A7%D8%B1-%D8%B7%D8%BA%DB%8C%D8%A7%D9%86"
+  },
+  {
+   "id": "9b2f61986e61340d65edea11a1994abded3b4db7",
+   "titleKey": "2f275c6d6c663cdd6beebcfea81423268ee3688f",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "استراتژی «کم‌هزینه» تهران که آمریکا و اروپا را به تکاپو انداخت",
+   "at": "2026-11-13T22:06:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852339/%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C-%DA%A9%D9%85-%D9%87%D8%B2%DB%8C%D9%86%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%DA%A9%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%88-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%AA%DA%A9%D8%A7%D9%BE%D9%88-%D8%A7%D9%86%D8%AF%D8%A7%D8%AE%D8%AA"
+  },
   {
    "id": "55978416f3073c133450be657611384aede89840",
    "titleKey": "6394da824e2125cf6c84b4b3b9732fadece250d2",
@@ -6888,6 +7047,66 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T21:57:18.487Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: اقامه نماز استغاثه به امام زمان(عج) در تجمعات شبانه مشهد مشهد- همزمان با دویست و پنجاه و هشتمین شب از اجتماعات مردمی و در شامگاه جمعه اقامه نماز استغاثه به امام زمان(عج) با حضور پرشور مردم متدین مشهد برگزار شد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/14/4/6261633.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:11:04.470Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: عوامل تاثیرگذار بر انتخاب نام فرزندان در جامعه ایرانی نام یکی از ابتدایی‌ترین شناسه‌های هویتی افراد است که معمولاً خود فرد در انتخاب آن نقشی ندارد اما بخشی از فرهنگ، اعتقادات و شخصیت وی را می‌سازد. در جامعه امروز نوعی تغییر گرایش در انتخاب نام‌ها دیده می‌شود که ریشه در روند توسعه، تفاوت‌های فرهنگی و نقش پررنگ رسانه‌ها دارد و بر این اساس، گرایش به انتخاب اسامی ایرانی نسبت به اسامی اعتقادی افزایش یافته است.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/11/11/4/64050249.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:11:05.171Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: آیین سنتی و دیرینه حلیم پزان در دماوند دماوند- مراسم سنتی حلیم‌پزان در روستای کالدشت بالا از توابع بخش مرکزی دماوند، همزمان با شهادت حضرت فاطمه زهرا (ع) جلوه‌ای از همدلی و دین داری اهالی این روستا را به تصویر کشید.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2019/10/04/4/3256228.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:11:05.872Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: دستور توقف فوری پروازهای مسافربری در آمریکا/ تمامی فرودگاه‌ها بسته شد سامانه ردیابی پرواز «فلایت‌رادار» بسته شدن تمامی فرودگاه‌های آمریکا را به طور رسمی تأیید کرد.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/Ni51Hm9Cx5zs/E-H4sBqn4B2-b_91YHfPapwGzSPUBaR9cnkc1JydZmZT508mdw87_bS6gfGJWDK5XPbohD-UCKr23PcPKXODQiSXMyrh6-qn4ElciNiUYOLoB7gl-rURj6aW2csF5jwlNTMh2ImErh5YF7yhiiLjJbzqhJrbZWGexcRSkaw61mmF0mSJvrgU9bmnNn00w8an/xL9rSUHS1oAw.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T22:11:06.573Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: تأخیر در جمع‌آوری درختان آلوده موجب گسترش آفت درچیتگر وسرخه‌حصار/طغیان آفت‌ها در۲ سال اخیر رئیس کمیته ایمنی شورای اسلامی شهر تهران با اشاره به قطع درختان بسیاری در بوستان‌های جنگلی چیتگر و سرخه‌حصار، تأخیر در جمع‌آوری درختان خشک و آلوده را یکی از عوامل گسترش آفت در این بوستان‌ها دانست و گفت: شهرداری تهران با وجود پیگیری‌های انجام‌شده از سازمان منابع طبیعی، در دو سال گذشته نتوانست مجوزهای لازم را برای قطع و جمع‌آوری درختان آلوده دریافت کند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/10/16/4/64016082.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:11:07.274Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: استراتژی «کم‌هزینه» تهران که آمریکا و اروپا را به تکاپو انداخت\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/02/20/4/4592702.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T22:11:07.975Z"
   }
  ],
  "tweetQueue": [],
@@ -7065,6 +7284,165 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "5ac934db72f3830e6f4d6795b1f2b3bc50fe30a7",
+   "titleKey": "d0c09632d2387c7615ce38721f828a51ef1cb580",
+   "source": "Politico",
+   "lang": "en",
+   "text": "USDA delays grocery store rule after Mamdani appeal to Trump - Politico USDA delays grocery store rule after Mamdani appeal to Trump Politico",
+   "at": "2026-11-13T20:43:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNa3N5Nk9ib0ZkcUVINmVsUWhWcGU4TDhmakU4RkVGWmJ2VFN5SndqMmQxSHB1V0JLQzJtTTZ5NVhlaW5fTUxlRmRuT1owTnd5bEZfMnl1d3pzNkE0bnFBcHAta0JuRWVDUnU1UmtCemtrNmVzS0dicG1EYkNSQjFwcV9LMjhyYmFUSEdz?oc=5"
+  },
+  {
+   "id": "158fba1fe019c33037ace61da1f889aeb673d00b",
+   "titleKey": "330d9dc0578705d30ed583e7db283d1bc404dcd9",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Kylie Jenner faces fourth staff lawsuit in seven months over alleged abuse",
+   "at": "2026-11-13T21:20:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/kylie-jenner-faces-fourth-household-staff-lawsuit-in-seven-months-as-former-housekeeper-alleges-dog-bite-pepper-spray-injury-unpaid-overtime-and-being-trapped-in-a-closet/articleshow/135795873.cms"
+  },
+  {
+   "id": "5b53a4f06333cfa27bd4c7e2d994e129efecab08",
+   "titleKey": "2e326aa5b8e1d864a9b7a88b067051bacaa81c7e",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Strict parenting linked to antisocial beliefs in teens, US study finds Authoritarian parenting can lead to persistent antisocial thoughts among teenagers, affecting their social behavior and emotional well-being. Research indicates that strict parenting fosters beliefs that may justify rule-breaking and aggression. While not all adolescents display increased anxiety or depression, some experience heightened symptoms over time. These findings suggest that parenting styles significantly impact adolescent development and understanding of social norms.",
+   "at": "2026-11-13T21:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/teens-raised-by-strict-obey-without-question-parents-tend-to-hold-more-antisocial-beliefs-a-us-study-found-and-they-also-showed-small-rises-in-anxiety-and-depression/articleshow/135805627.cms"
+  },
+  {
+   "id": "4778ef7656afddec8212b743d13d784ba1683cb3",
+   "titleKey": "70347e7df256700713d9e458bb84a5664930410e",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Ohio inmate challenges foreclosure after home sold with $61,060 left over A foreclosure dispute surrounding Mamadou Diallo is back in court due to notification concerns. The Ohio appeals court has ruled that Diallo's subsequent actions do not establish proof of proper service for the foreclosure notice. Having been convicted for the murder of his spouse, Diallo contested the foreclosure judgment on the grounds of claimed service deficiencies.",
+   "at": "2026-11-13T21:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/an-ohio-bank-foreclosed-on-a-home-while-its-owner-was-in-prison-for-murdering-his-wife-after-the-property-sold-with-61060-left-over-a-november-10-appeals-court-revived-his-challenge-over-how-the-papers-were-served/articleshow/135773509.cms"
+  },
+  {
+   "id": "882476b23a689405eb965abc1ab5fde75e815a12",
+   "titleKey": "183172084e1d4ae9410c2f50adae75ac89c5064b",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Flights halted at airports across US due to air traffic control communications problems, FAA says - AP News Flights halted at airports across US due to air traffic control communications problems, FAA says AP News",
+   "at": "2026-11-13T21:40:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeFBta25Rakd3c0VBM0NUWjJzbmV2ajZwTWRtUFVTcTVzZ2otRGo0cXZSWWV0MzNBSXdmMXNzdm9SU1d1blBBNnktRlNqQmcwVUVxQzhCNERGel9ETDBHZjJwb29IYmhGX2VPNm8xeGwwU0VNajFzZnpIM19lejBOVTZrRVVjb2t4SDh3emhSZHI?oc=5"
+  },
+  {
+   "id": "c1940eaa090a11e63debeeae3139e4cd612ec37c",
+   "titleKey": "a38b7e121d4e413d36dffe29d6ae02d38db8c379",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'I was told I can't defeat a white American male': Lawmaker Saba Haider",
+   "at": "2026-11-13T21:42:05.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/i-was-told-i-cant-defeat-a-white-american-male-lawmaker-saba-haider/articleshow/135816559.cms"
+  },
+  {
+   "id": "6aee3f822630e5845fca6d1438a7ce607bcd7c4a",
+   "titleKey": "24673b557f74217006c03a5f2faba07174d4041e",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Nvidia denies reports of talks with CEO candidates — TV channel According to the TV channel, the board of directors of the US corporation is in the process of selecting a search firm for the NVIDIA CEO role",
+   "at": "2026-11-13T21:51:00.000Z",
+   "url": "https://tass.com/economy/2218051"
+  },
+  {
+   "id": "c0408c330e012a480b38d2f64d689b4dad434df8",
+   "titleKey": "246a7378714798226ab1f310fea9bff38b76f1c8",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "'Gloves are off' - how Australian papers reacted to Cummins on Khawaja The Australian newpapers have their say after Pat Cummins' extraordinary 68-minute news conference.",
+   "at": "2026-11-13T21:53:37.000Z",
+   "url": "https://www.bbc.co.uk/sport/cricket/articles/cq1k97y4e1rxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "3a91a62e02bc1297c71acb3f974e415709bca8b0",
+   "titleKey": "5651098a14b3b0d18309e92587d9e645c0de6a1c",
+   "source": "NYT World",
+   "lang": "en",
+   "text": "How Does a 74-Year-Old in Argentina Escape House Arrest on the Fifth Floor? The answer involves a heating pad, a bomb scare and animal fats. Police are still searching for an Italian man facing extradition on terrorism charges from the 1970s.",
+   "at": "2026-11-13T21:56:01.000Z",
+   "url": "https://www.nytimes.com/2026/11/13/world/americas/74-year-old-in-argentina-escapes-house-arrest.html"
+  },
+  {
+   "id": "b16ab14f30a5db1bbea234ca7fb867e3da81e7c4",
+   "titleKey": "abe376ab8ed1b21a8c014241d800aeca761c111c",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اقامه نماز استغاثه به امام زمان(عج) در تجمعات شبانه مشهد مشهد- همزمان با دویست و پنجاه و هشتمین شب از اجتماعات مردمی و در شامگاه جمعه اقامه نماز استغاثه به امام زمان(عج) با حضور پرشور مردم متدین مشهد برگزار شد.",
+   "at": "2026-11-13T21:59:01.000Z",
+   "url": "https://www.mehrnews.com/news/7009917/%D8%A7%D9%82%D8%A7%D9%85%D9%87-%D9%86%D9%85%D8%A7%D8%B2-%D8%A7%D8%B3%D8%AA%D8%BA%D8%A7%D8%AB%D9%87-%D8%A8%D9%87-%D8%A7%D9%85%D8%A7%D9%85-%D8%B2%D9%85%D8%A7%D9%86-%D8%B9%D8%AC-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B4%D9%87%D8%AF"
+  },
+  {
+   "id": "f3ec4f4c7852addca69c34eadf9c3d2ca4203b7a",
+   "titleKey": "7473ac690d0560d5037265f6769a1cb1f5cf8fd3",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "عوامل تاثیرگذار بر انتخاب نام فرزندان در جامعه ایرانی نام یکی از ابتدایی‌ترین شناسه‌های هویتی افراد است که معمولاً خود فرد در انتخاب آن نقشی ندارد اما بخشی از فرهنگ، اعتقادات و شخصیت وی را می‌سازد. در جامعه امروز نوعی تغییر گرایش در انتخاب نام‌ها دیده می‌شود که ریشه در روند توسعه، تفاوت‌های فرهنگی و نقش پررنگ رسانه‌ها دارد و بر این اساس، گرایش به انتخاب اسامی ایرانی نسبت به اسامی اعتقادی افزایش یافته است.",
+   "at": "2026-11-13T22:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215209/%D8%B9%D9%88%D8%A7%D9%85%D9%84-%D8%AA%D8%A7%D8%AB%DB%8C%D8%B1%DA%AF%D8%B0%D8%A7%D8%B1-%D8%A8%D8%B1-%D8%A7%D9%86%D8%AA%D8%AE%D8%A7%D8%A8-%D9%86%D8%A7%D9%85-%D9%81%D8%B1%D8%B2%D9%86%D8%AF%D8%A7%D9%86-%D8%AF%D8%B1-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "b19fa81642956ef6631c0846ceb71c2218f23801",
+   "titleKey": "46731d7a7193157317f7d33017fc0dfc25d9e585",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "آیین سنتی و دیرینه حلیم پزان در دماوند دماوند- مراسم سنتی حلیم‌پزان در روستای کالدشت بالا از توابع بخش مرکزی دماوند، همزمان با شهادت حضرت فاطمه زهرا (ع) جلوه‌ای از همدلی و دین داری اهالی این روستا را به تصویر کشید.",
+   "at": "2026-11-13T22:00:04.000Z",
+   "url": "https://www.mehrnews.com/news/7009920/%D8%A2%DB%8C%DB%8C%D9%86-%D8%B3%D9%86%D8%AA%DB%8C-%D9%88-%D8%AF%DB%8C%D8%B1%DB%8C%D9%86%D9%87-%D8%AD%D9%84%DB%8C%D9%85-%D9%BE%D8%B2%D8%A7%D9%86-%D8%AF%D8%B1-%D8%AF%D9%85%D8%A7%D9%88%D9%86%D8%AF"
+  },
+  {
+   "id": "31fa79c6837d242f36680cf9f4c43156a6bfd64f",
+   "titleKey": "385d85eac50bcb445ee612ef66d81a5a891560d4",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Midterm losses could give Trump a quest to emerge from Apec summit as a winner When G7 leaders gathered at the French resort of Evian-les-Bains in June, Donald Trump arrived late but wasted no time in grabbing the spotlight. With a cheeky declaration, “I am the boss”, the US president drew a ripple of awkward laughter from around the table. Months earlier, in his September 2025 address to the UN General Assembly, he told the gathering that “your countries are going to hell”. His lengthy speech blended boasts about his own record with sharp criticism of allies’ policies,...",
+   "at": "2026-11-13T22:00:11.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374333/midterm-losses-could-give-trump-quest-emerge-apec-summit-winner"
+  },
+  {
+   "id": "3858685be4b269cb2398e86c5e9e96d92cd9cd1e",
+   "titleKey": "fb55d8451a405290cf4a8084111cedb4dea5558c",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "دستور توقف فوری پروازهای مسافربری در آمریکا/ تمامی فرودگاه‌ها بسته شد سامانه ردیابی پرواز «فلایت‌رادار» بسته شدن تمامی فرودگاه‌های آمریکا را به طور رسمی تأیید کرد.",
+   "at": "2026-11-13T22:00:12.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308221-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D8%AA%D9%88%D9%82%D9%81-%D9%81%D9%88%D8%B1%DB%8C-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D9%85%D8%B3%D8%A7%D9%81%D8%B1%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D9%85%D8%A7%D9%85%DB%8C-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%87%D8%A7-%D8%A8%D8%B3%D8%AA%D9%87-%D8%B4%D8%AF"
+  },
+  {
+   "id": "19877b28e03f0cd9ede30c2f4dd0851afbe42561",
+   "titleKey": "5d07593a63576f554197bfb4e0f4e59e13edd959",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iraqi FM dismissed as unrealistic and impossible US demands that Baghdad close its border crossings with Iran. @PressTV",
+   "at": "2026-11-13T22:01:01.000Z",
+   "url": "https://t.me/presstv/214617"
+  },
+  {
+   "id": "4a9adbc6e115429187b1d39d2b0ae36dca0e62b5",
+   "titleKey": "7a8f086ad5aa741f39346b12b82ba817b6c849e0",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "تأخیر در جمع‌آوری درختان آلوده موجب گسترش آفت درچیتگر وسرخه‌حصار/طغیان آفت‌ها در۲ سال اخیر رئیس کمیته ایمنی شورای اسلامی شهر تهران با اشاره به قطع درختان بسیاری در بوستان‌های جنگلی چیتگر و سرخه‌حصار، تأخیر در جمع‌آوری درختان خشک و آلوده را یکی از عوامل گسترش آفت در این بوستان‌ها دانست و گفت: شهرداری تهران با وجود پیگیری‌های انجام‌شده از سازمان منابع طبیعی، در دو سال گذشته نتوانست مجوزهای لازم را برای قطع و جمع‌آوری درختان آلوده دریافت کند.",
+   "at": "2026-11-13T22:02:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215231/%D8%AA%D8%A3%D8%AE%DB%8C%D8%B1-%D8%AF%D8%B1-%D8%AC%D9%85%D8%B9-%D8%A2%D9%88%D8%B1%DB%8C-%D8%AF%D8%B1%D8%AE%D8%AA%D8%A7%D9%86-%D8%A2%D9%84%D9%88%D8%AF%D9%87-%D9%85%D9%88%D8%AC%D8%A8-%DA%AF%D8%B3%D8%AA%D8%B1%D8%B4-%D8%A2%D9%81%D8%AA-%D8%AF%D8%B1%DA%86%DB%8C%D8%AA%DA%AF%D8%B1-%D9%88%D8%B3%D8%B1%D8%AE%D9%87-%D8%AD%D8%B5%D8%A7%D8%B1-%D8%B7%D8%BA%DB%8C%D8%A7%D9%86"
+  },
+  {
+   "id": "9b2f61986e61340d65edea11a1994abded3b4db7",
+   "titleKey": "2f275c6d6c663cdd6beebcfea81423268ee3688f",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "استراتژی «کم‌هزینه» تهران که آمریکا و اروپا را به تکاپو انداخت",
+   "at": "2026-11-13T22:06:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852339/%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C-%DA%A9%D9%85-%D9%87%D8%B2%DB%8C%D9%86%D9%87-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%DA%A9%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%88-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%AA%DA%A9%D8%A7%D9%BE%D9%88-%D8%A7%D9%86%D8%AF%D8%A7%D8%AE%D8%AA"
+  },
   {
    "id": "55978416f3073c133450be657611384aede89840",
    "titleKey": "6394da824e2125cf6c84b4b3b9732fadece250d2",
@@ -11266,22 +11644,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794607053256,
-  "Akharin_khodro/8913": 1794607053256,
-  "Akharin_khodro/8914": 1794607053256,
-  "Akharin_khodro/8915": 1794607053256,
-  "Akharin_khodro/8916": 1794607053256,
-  "Akharin_khodro/8919": 1794607053256,
-  "Akharin_khodro/8920": 1794607053256,
-  "Akharin_khodro/8921": 1794607053256,
-  "Akharin_khodro/8922": 1794607053256,
-  "Akharin_khodro/8923": 1794607053256,
-  "Akharin_khodro/8924": 1794607053256,
-  "Akharin_khodro/8925": 1794607053256,
-  "Akharin_khodro/8926": 1794607053256,
-  "Akharin_khodro/8927": 1794607053256,
-  "Akharin_khodro/8928": 1794607053256,
-  "Akharin_khodro/8929": 1794607053256,
+  "Akharin_khodro/8908": 1794607883174,
+  "Akharin_khodro/8913": 1794607883174,
+  "Akharin_khodro/8914": 1794607883174,
+  "Akharin_khodro/8915": 1794607883174,
+  "Akharin_khodro/8916": 1794607883174,
+  "Akharin_khodro/8919": 1794607883174,
+  "Akharin_khodro/8920": 1794607883174,
+  "Akharin_khodro/8921": 1794607883174,
+  "Akharin_khodro/8922": 1794607883174,
+  "Akharin_khodro/8923": 1794607883174,
+  "Akharin_khodro/8924": 1794607883174,
+  "Akharin_khodro/8925": 1794607883174,
+  "Akharin_khodro/8926": 1794607883174,
+  "Akharin_khodro/8927": 1794607883174,
+  "Akharin_khodro/8928": 1794607883174,
+  "Akharin_khodro/8929": 1794607883174,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11710,27 +12088,27 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-13T21:57:33.263Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-13T22:11:23.180Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1068,
-  "inWindow": 243,
-  "fresh": 84,
-  "sent": 29,
+  "inWindow": 233,
+  "fresh": 69,
+  "sent": 6,
   "images": 0,
-  "translated": 24,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 114,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 55,
-  "queued": 29,
+  "skippedUntranslated": 63,
+  "queued": 6,
   "tweetRateLimited": false
  }
 }

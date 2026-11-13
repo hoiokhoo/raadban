@@ -1,5 +1,8 @@
 {
  "sentIds": {
+  "0f40c7e484492c7d0692e31372a934c981da73e1": 1794530612117,
+  "a5e67482b8248ca015a23342779fc667dbfb0b54": 1794530612117,
+  "fec2574f81a63885fa4902abb84eb10fbd7c58c9": 1794530612117,
   "26c57a4cc816aa3b674c2c420d9aea6921a5a0d2": 1794530116536,
   "7b0c9c995ca67ae56b3dac7f2a42ddcd262f0f91": 1794528758578,
   "61a30fca0d3554ac7abfdb8fd2217fab00f9cc1c": 1794528758578,
@@ -1196,12 +1199,12 @@
   "fa9e9490801cfbe1994c2ce575834b08afd3e225": 1794492479827,
   "2549e9c7562275efb3c7b73d5a455d6a211637b2": 1794492479827,
   "75cba461fbb0914e92ab11c0cab142934da13b9f": 1794492479827,
-  "4a94c27f35f135061c307766d407952386c284d3": 1794492479827,
-  "5ad75f51d323d115f268c128423f03884b6f0271": 1794492479827,
-  "2edea1961412f2c2efa9e4a0226aca34794b9c39": 1794492479827,
-  "4d9b5d0b62efbccd7e8b75faca2f3974f390340b": 1794492479827
+  "4a94c27f35f135061c307766d407952386c284d3": 1794492479827
  },
  "sentTitles": {
+  "2ad85100abfd213fae0ddc1b400d05e30582ddac": 1794530612117,
+  "4e6ee67aa4926b31d0f2e71d9710dd76624e946f": 1794530612117,
+  "de2ae1e14e2785bf285ad15562e445366e2f2d73": 1794530612117,
   "9ee50f9a0b9d23015c10d828985d2134d2e6a54c": 1794530116536,
   "a3688e27155e86a5e4c2f3274aa4c8d30bb02764": 1794528758578,
   "a4a0d55af5da4f0565970b26a918c91add09da86": 1794528758578,
@@ -1798,10 +1801,7 @@
   "965997c2d41881e79a4f2b54ed5fabe23b5242e3": 1794503129975,
   "d3d128efbd763d6aa212bd5d701f4fd60192244f": 1794503129975,
   "8e736443bd3418b4c8328bb4dedc0c5414d765aa": 1794503129975,
-  "0dd0c3a8a7e5d55927de1a1925d6c48153b67ea6": 1794503129975,
-  "f6a6da00f17dfb0abd1f9bbc7ffc0940d077adc7": 1794503129975,
-  "99c91967155470e2280e518c2faa1fa96e0f4f55": 1794503129975,
-  "6cde0eaecff63be8710a9b6f67556f963ab16bad": 1794503129975
+  "0dd0c3a8a7e5d55927de1a1925d6c48153b67ea6": 1794503129975
  },
  "sentTitleTexts": {
   "sepeacemissions jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم اول نتیجه انسانی گروگان ها ازاد خواهند شد و ما بر بزرگترین تبادل گروگان ها ": 1794526562655,
@@ -3008,6 +3008,210 @@
   "euronews persian عفونت های مقاوم به انتی بیوتیک در انگلیس به ۴۰۰ مورد در هفته رسید با وجود کاهش مصرف دارو امارهای جدید نشان می دهد عفونت های خونی مقاوم به دارو ": 1794508430262
  },
  "pool": [
+  {
+   "id": "2f33a0476fcd80830a31f4c25572a9555d2a2557",
+   "titleKey": "39eb8ceed03950979bb8b6619509240d53afac38",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Kane scores winner but who else made an impression? England player ratings How did England's players fare in the Nations League match against Croatia? Senior football correspondent Sami Mokbel gives his verdict.",
+   "at": "2026-11-12T21:47:36.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c64gnd7vd912o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "deac9879faa9006885de5d9066b2cd51c6291f2f",
+   "titleKey": "d5f82b73b2acb653bc77c951cab87d46dec4ac6c",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Nvidia Faced Pressure to Boost Its AI Backstop Before Huang Exit - Bloomberg.com Nvidia Faced Pressure to Boost Its AI Backstop Before Huang Exit Bloomberg.com",
+   "at": "2026-11-12T21:47:59.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPR0Ywb2N6Y3pxbWtYQWZzMGFaRFBkMG1xTnRseElxWnI0UUtra3VEQ3BoNEdmb1M0cmJFR2c4cEE4UjViX3l4c29fVWx2VmlDT2VkT1dRcWxfZlo2UXAzZkhPX0VxZWk3TlRiR0dTTmluUk9SS3Q0TGlJQktTQUs0WmRpT0QwVC15TnRpbDJGNzF1bDA3NjZpbXJDeEFKNDAxQi1uV013RE5BMlpab2l3MzBfSk5TQQ?oc=5"
+  },
+  {
+   "id": "09c65b0cab976079f8d10b1db1708ea4c5c9d571",
+   "titleKey": "20a8c6153fe791082894ea9c87480a8e10abb419",
+   "source": "Xinhua English",
+   "lang": "en",
+   "text": "Xinhua Middle East news summary at 2200 GMT, Nov. 12 - Xinhua Xinhua Middle East news summary at 2200 GMT, Nov. 12 Xinhua",
+   "at": "2026-11-12T21:58:30.000Z",
+   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5VdGxETGQ3UHpmd1BhRkxHV1J0QmVWLW9JTUtja1VlYmNrZURyYXd1UFNBLVc2cUE4a2g0VzR1V3Nsa2kxT1d2NXFYZHNsQXQ3NDN4NW1WT1Y3cXZEc0NmOTNJUEVFTkpMSXJRZklUR2ZYQnVlb0xXVFRzYmU?oc=5"
+  },
+  {
+   "id": "2539c9a2db714f296860609b1328b392dbf9b806",
+   "titleKey": "84fd0784e8a3eb191374310faa880cd993f8e39c",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "As Japan looks to strengthen defences and security strategy, analysts warn of escalation Japan aims to become harder to defeat militarily and less vulnerable to economic pressure from China under plans to overhaul its three key security documents by the end of the year. Analysts said the proposed revisions could make it more difficult for China to achieve its military objectives or use financial leverage on Japan, but that their impact would depend on Tokyo’s ability to translate its plans into practical capabilities. Some also said that stronger Japanese defences could prompt...",
+   "at": "2026-11-12T22:00:09.000Z",
+   "url": "https://www.scmp.com/news/china/military/article/3374244/japan-looks-strengthen-defences-and-security-strategy-analysts-warn-escalation"
+  },
+  {
+   "id": "85616db1cfb379fab976e887a3cfc4689fc2abf5",
+   "titleKey": "ac7e6c57fb524578580c351698162f363ff0aa90",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 Yemeni Armed Forces Spokesperson Yahya Saree: 🔺 We carried out two military operations, the first targeted Pumping Station No. 7 on the East-West Pipeline using a drone and successfully achieved its objective. 🔺 The second targeted the Yanbu oil facility…",
+   "at": "2026-11-12T22:01:11.000Z",
+   "url": "https://t.me/presstv/214489"
+  },
+  {
+   "id": "54948e98b602d194a1c2785fd726f57d83254c7f",
+   "titleKey": "7ccc347996348b66764dcb30aaa6399ae2553cfe",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "US Records $404 Billion Deficit in First Month of Fiscal Year - Bloomberg.com US Records $404 Billion Deficit in First Month of Fiscal Year Bloomberg.com",
+   "at": "2026-11-12T22:02:33.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQYl9jMTlJWng5UXU3SFdweElRVkRDM2lqa3B6VFpNQWtFQThJTHQtbGIzLTMzWnZnRzlaQ2dacE1qZFgwYUtHUXFEN1VBUDBiRWRvMjBlRE1rUGQ1Y0t0T2w1cXYzcDl5MjFxTVZfNW94T0RlMVJUNi1OLV9BYlV2LVBPS1hGSkl5NFZxS1BQMXlnX2pQZjV5Q0xUS0J2WUhrTWl5M0tGOHRQUndaVTNncQ?oc=5"
+  },
+  {
+   "id": "171c506a95fcf2014ed05a06d4b771864be33d7b",
+   "titleKey": "610c02bfd9e0ff1d44cc2c27a913ec0e6159dc3f",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses - AP News Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses AP News",
+   "at": "2026-11-12T22:03:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPVFFiZmRWVmxZNDlVRnR1NHVQNkprRUhWMnNLMHFLWC1qdGljTm9ON2Z3U2FuXzNUcjRwRmNqMFZVemE4TVA1RVhRdl9paUtyMXJoYWhHbVl5d1FfNWZIZTVVU0IwcDQ0eHlnWGxxWEFhZjdkVko1a1hwY25XWE9uc3Q0MkIyaHpCWkNuZk05SGs1ck5DTFV4ZktQNWo?oc=5"
+  },
+  {
+   "id": "44155258513be05051c270da6dbf6264468ec0a1",
+   "titleKey": "7bd8993cb57f17f5bce0b8c3b6dbc4e5b9156c20",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "LGBTQ representation on TV fell during 2025-26 season, GLAAD says LGBTQ representation on TV fell during the last year, according to a new study by advocacy group GLAAD. The annual “Where We Are on TV” report found LGBTQ characters in scripted-series shows decreased by 25 percent from the previous season, dropping from 489 characters to 369. Researchers noted the difference was driven by a drop…",
+   "at": "2026-11-12T22:03:32.000Z",
+   "url": "https://thehill.com/blogs/in-the-know/6217360-lgbtq-tv-representation-dropped/"
+  },
+  {
+   "id": "f70eb5cb251620d298ac9ccdba1117530c0a973c",
+   "titleKey": "354adf438f2f2e2113ddbaa47a8ecae829141c0c",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "CDC cuts $29.2M in funds for Texas HIV prevention The Centers for Disease Control and Prevention (CDC) has cut $29.2 million from HIV prevention programs in Texas, the latest cuts to federal efforts to prevent the spread of HIV worldwide. The cuts target community organizations in the Lone Star State that cover the cost of testing, connect people to care providers and pay for…",
+   "at": "2026-11-12T22:06:23.000Z",
+   "url": "https://thehill.com/policy/healthcare/6217459-cdc-cuts-texas-hiv-funding/"
+  },
+  {
+   "id": "f59b5c2ed0f0b9486f7f1de6a53af46313598c0d",
+   "titleKey": "daf994065d4bc03ae3433e07ebf96ccbb2558337",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Grealish apologises for absence after breach of discipline Jack Grealish issues an apology to Everton fans for his recent absence due to a disciplinary issue.",
+   "at": "2026-11-12T22:10:13.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cr3wgp8e2ljxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "5ebc1d2fa73d7de45fffb9ce770e17503e505685",
+   "titleKey": "0de53e761adc7161c1a8caac419fda1ae44e41ba",
+   "source": "Guardian Environment",
+   "lang": "en",
+   "text": "Dozens of protesters arrested after staging sit-in at Chuck Schumer’s DC office Protesters with the Sunrise Movement youth climate group push for new Senate leadership and ending the filibuster Dozens of protesters with the Sunrise Movement, a youth climate organization, were arrested after staging a sit-in inside Senate minority leader Chuck Schumer’s Washington DC office Thursday According to the Sunrise Movement, 54 people were arrested, among a few hundred who joined the protest from across the country, including some from New York, which Schumer represents. On its Instagram, the group is fundraising $24,000 to cover the bail fees and any potential legal fees for those arrested. Continue reading...",
+   "at": "2026-11-12T22:12:56.000Z",
+   "url": "https://www.theguardian.com/us-news/2026/nov/12/protesters-arrested-chuck-schumer-office-dc"
+  },
+  {
+   "id": "88ac6fe38329aaf37223293980d53c0c99219128",
+   "titleKey": "5e80a754670a9027ef5c52ebfc1de9ea0ca5723f",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Musk signals support for Huang after saying hiring him would be ‘an honor’ SpaceX CEO Elon Musk is hinting toward supporting Nvidia’s ex-CEO Jensen Huang, who resigned Thursday following reports of his extramarital affairs — one of which involved an alleged Chinese spy. “That would be an honor,” Musk wrote on social platform X on Wednesday night — prior to Huang’s resignation — in response to financial news…",
+   "at": "2026-11-12T22:26:43.000Z",
+   "url": "https://thehill.com/policy/technology/6217460-elon-musk-offers-huang-job/"
+  },
+  {
+   "id": "9240c0434737273bfe4e7ab75d8ef52d2a92de3b",
+   "titleKey": "0f175f799269c1bfe075d0a18db3c167ec0dda72",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Lawmakers react as Huang leaves Nvidia Welcome to The Hill’s Business & Economy newsletter {beacon} Business & Economy Business & Economy The Big Story Lawmakers react as Huang leaves Nvidia Lawmakers on Capitol Hill reacted Thursday to the news of Jensen Huang resigning as Nvidia CEO, a move that ushers in a new era at one of the world’s most…",
+   "at": "2026-11-12T22:27:20.000Z",
+   "url": "https://thehill.com/newsletters/business-economy/6217535-lawmakers-react-as-huang-leaves-nvidia/"
+  },
+  {
+   "id": "a12bf84e56c3244110b1af1530d155f179b0ff60",
+   "titleKey": "76a81e4393e65857f00d4d92a896cdc09312d58d",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Shaheen, Tillis demand probe into Ukraine Starshield restrictions Outgoing bipartisan senators outraged over Ukrainian reports of interruptions to military-grade satellite access are calling for Congress to pursue accountability for the shutdown, focusing on Elon Musk’s company SpaceX and the Pentagon. Sens. Jeanne Shaheen (D-N.H.) and Thom Tillis (R-N.C.) issued a statement obtained exclusively by The Hill urging Congress to conduct oversight on Kyiv’s…",
+   "at": "2026-11-12T22:29:30.000Z",
+   "url": "https://thehill.com/homenews/senate/6217524-shaheen-tillis-ukraine-starshield-probe/"
+  },
+  {
+   "id": "0b945d53d917a907a76b368b3c4617be5880bcae",
+   "titleKey": "a08b502a45520253552c852d3e73627b278dea0b",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Israeli company seeks 60% stake in Venezuelan oil firm after US takeover Israeli energy firm NewMed is negotiating a 60 percent stake in a Venezuelan oil company, marking its first move into South America and expanding its reach into the region's energy resources. @PressTV",
+   "at": "2026-11-12T22:32:58.000Z",
+   "url": "https://t.me/presstv/214490"
+  },
+  {
+   "id": "e90f5d4342b45aef4b27bef5a65fe2dabc6d42c4",
+   "titleKey": "647f03698057adebd00b69c0ed3e2fb5b377e5b5",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Jensen Huang’s departure may signal tighter US controls on AI chip exports to China Nvidia chief executive Jensen Huang’s abrupt departure has raised fresh questions about the future of US-China technology ties, as observers weigh the potential fallout from Washington’s policy on advanced AI chip exports to China. The timing is particularly sensitive, with US lawmakers debating an annual defence authorisation bill amid growing calls to tighten restrictions on China’s access to advanced AI chips. Ling Chen, an associate professor of political economy at Johns Hopkins University,...",
+   "at": "2026-11-12T22:35:06.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374270/jensen-huangs-departure-may-signal-tighter-us-controls-ai-chip-exports-china"
+  },
+  {
+   "id": "f87bfca07f4ef28e649365fdecfdcb3aeb739ca8",
+   "titleKey": "d9bb32dfe5a6f39472b7570481a522382834349c",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Kalshi says it ended Donald Trump Jr's advisory contract over Polymarket conflict - Reuters EXCLUSIVE: Kalshi says it ended Donald Trump Jr's advisory contract over Polymarket conflict Reuters",
+   "at": "2026-11-12T22:56:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPYlQ3N0FyWHE3WUp4cHZOWWJRVUFVWFJuT1Jic05nVVBBWFNsYkFzbk1zeWRTbDA5c2k1Wk55UGFVdDBYeF9CY1U2YjhNV1pKd1h3aThoSm1jVEpmcEZtRDE5RldpeHhZaEphT1VfREFGd2Y1NG5BWVBiWFdQREFHeHQ4UjEtT2w4ZksyVldLNkpTRGpfYkdTZXpTblZFdEpNbGUta25VM2RpbDYzb0NWSkdCV3h2ZUhPamJBXy1iYzA?oc=5"
+  },
+  {
+   "id": "4e9d610c21620de407fc4b01d708b84d8a861c2e",
+   "titleKey": "b2111adfdab10d152ba12131b2fd817c424ebf11",
+   "source": "AP News",
+   "lang": "en",
+   "text": "5 people are shot in DC, including 1 killed at a gym, and then suspect kills himself - AP News 5 people are shot in DC, including 1 killed at a gym, and then suspect kills himself AP News",
+   "at": "2026-11-12T23:53:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQMW5zRmhTTGNjXzZqa1hiWG1oWmVLeGZzZmZiVkhjOEpqTlJiMVZudG1meElSb2d5djFtM0FSUzM0UVdtYXdRcVZReTBxUG5rMW9ZYVQ3MlFXTGhZRG5rZmZnay1ONXlEVzJWdFRKZ3VLZGRDNFVzU21oVkZHTkhCZGlDNTA2NlgzY3lhdw?oc=5"
+  },
+  {
+   "id": "0f40c7e484492c7d0692e31372a934c981da73e1",
+   "titleKey": "2ad85100abfd213fae0ddc1b400d05e30582ddac",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "ادعای شبکه ۱۳ عبری درباره حمله اسرائیل به ایران / ۳ سناریوی نتانیاهو پس از جلسه امنیتی فاش شد یک افسر ارشد ارتش اسرائیل شامگاه امروز گفت که ارتش برای چند سناریوی اصلی آماده می‌شود.",
+   "at": "2026-11-13T00:30:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175286/ادعای-شبکه-13-عبری-درباره-حمله-اسرائیل-به-ایران-3-سناریوی-نتانیاهو-پس-از-جلسه-امنیتی-فاش-شد"
+  },
+  {
+   "id": "622a368585397a926a82c8ad941b610031398e37",
+   "titleKey": "2047a3146e33ccd400e562da52ef550a96d5e123",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 According to Politico, Trump sidelines Vance from Iran negotiations. The decision was made after Vance blamed the Republican Party's heavy defeat in last week's midterm elections on the prolonged war with Iran. @PressTV",
+   "at": "2026-11-13T00:31:25.000Z",
+   "url": "https://t.me/presstv/214494"
+  },
+  {
+   "id": "a5e67482b8248ca015a23342779fc667dbfb0b54",
+   "titleKey": "4e6ee67aa4926b31d0f2e71d9710dd76624e946f",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رابطه عاطفی جای چرتکه انداختن و حساب و کتاب نیست تجربه زیسته بسیاری از زوج‌ها نشان می‌دهد سردی‌های عاطفی و تعارض‌ها لزوما با مشاجره آغاز نمی‌شوند، بلکه گاه در بستر سکوتی شکل می‌گیرند که زیر پوست آن یک حساب‌وکتاب سخت‌گیرانه در جریان است. زمانی که ابراز محبت و تلاش‌ها منوط به پاسخ متقابل و هم‌وزن باشد، امنیت روانی و حس ارزشمندی مشترک دچار فرسایش می‌شود؛ مساله‌ای که ضرورت بازگشت به رفتارهای خودانگیخته و صمیمیت بی‌چشمداشت را آشکار می‌کند.",
+   "at": "2026-11-13T00:34:00.000Z",
+   "url": "https://www.isna.ir/news/1405082013684/%D8%B1%D8%A7%D8%A8%D8%B7%D9%87-%D8%B9%D8%A7%D8%B7%D9%81%DB%8C-%D8%AC%D8%A7%DB%8C-%DA%86%D8%B1%D8%AA%DA%A9%D9%87-%D8%A7%D9%86%D8%AF%D8%A7%D8%AE%D8%AA%D9%86-%D9%88-%D8%AD%D8%B3%D8%A7%D8%A8-%D9%88-%DA%A9%D8%AA%D8%A7%D8%A8-%D9%86%DB%8C%D8%B3%D8%AA"
+  },
+  {
+   "id": "fec2574f81a63885fa4902abb84eb10fbd7c58c9",
+   "titleKey": "de2ae1e14e2785bf285ad15562e445366e2f2d73",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "ایران فراتر از بقا در جنگ، شکست راهبردی را به آمریکا تحمیل کرد",
+   "at": "2026-11-13T00:36:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852187/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1-%D8%A7%D8%B2-%D8%A8%D9%82%D8%A7-%D8%AF%D8%B1-%D8%AC%D9%86%DA%AF-%D8%B4%DA%A9%D8%B3%D8%AA-%D8%B1%D8%A7%D9%87%D8%A8%D8%B1%D8%AF%DB%8C-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D8%AD%D9%85%DB%8C%D9%84-%DA%A9%D8%B1%D8%AF"
+  },
   {
    "id": "15b8bc8987ca2a5007eb98540830fe090936ae24",
    "titleKey": "811ed6bc07e9a8ee5d517bb551e3f3b1da5665eb",
@@ -4874,7 +5078,38 @@
   "car:هایما s7": 7600000000,
   "car:تیگو8": 11800000000
  },
- "bundleQueue": [],
+ "bundleQueue": [
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: ادعای شبکه ۱۳ عبری درباره حمله اسرائیل به ایران / ۳ سناریوی نتانیاهو پس از جلسه امنیتی فاش شد یک افسر ارشد ارتش اسرائیل شامگاه امروز گفت که ارتش برای چند سناریوی اصلی آماده می‌شود.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T00:43:16.439Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: رابطه عاطفی جای چرتکه انداختن و حساب و کتاب نیست تجربه زیسته بسیاری از زوج‌ها نشان می‌دهد سردی‌های عاطفی و تعارض‌ها لزوما با مشاجره آغاز نمی‌شوند، بلکه گاه در بستر سکوتی شکل می‌گیرند که زیر پوست آن یک حساب‌وکتاب سخت‌گیرانه در جریان است. زمانی که ابراز محبت و تلاش‌ها منوط به پاسخ متقابل و هم‌وزن باشد، امنیت روانی و حس ارزشمندی مشترک دچار فرسایش می‌شود؛ مساله‌ای که ضرورت بازگشت به رفتارهای خودانگیخته و صمیمیت بی‌چشمداشت را آشکار می‌کند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/10/21/4/64023617.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T00:43:17.140Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: ایران فراتر از بقا در جنگ، شکست راهبردی را به آمریکا تحمیل کرد\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/07/20/4/4691041.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T00:43:17.841Z"
+  }
+ ],
  "tweetQueue": [],
  "lastNewsSlotKey": "2026-11-13T04:00",
  "lastTweetSlotKey": "2026-11-13T03:00",
@@ -5050,6 +5285,63 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "deac9879faa9006885de5d9066b2cd51c6291f2f",
+   "titleKey": "d5f82b73b2acb653bc77c951cab87d46dec4ac6c",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Nvidia Faced Pressure to Boost Its AI Backstop Before Huang Exit - Bloomberg.com Nvidia Faced Pressure to Boost Its AI Backstop Before Huang Exit Bloomberg.com",
+   "at": "2026-11-12T21:47:59.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPR0Ywb2N6Y3pxbWtYQWZzMGFaRFBkMG1xTnRseElxWnI0UUtra3VEQ3BoNEdmb1M0cmJFR2c4cEE4UjViX3l4c29fVWx2VmlDT2VkT1dRcWxfZlo2UXAzZkhPX0VxZWk3TlRiR0dTTmluUk9SS3Q0TGlJQktTQUs0WmRpT0QwVC15TnRpbDJGNzF1bDA3NjZpbXJDeEFKNDAxQi1uV013RE5BMlpab2l3MzBfSk5TQQ?oc=5"
+  },
+  {
+   "id": "171c506a95fcf2014ed05a06d4b771864be33d7b",
+   "titleKey": "610c02bfd9e0ff1d44cc2c27a913ec0e6159dc3f",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses - AP News Wall Street shakes with swings for Nvidia and oil prices but recovers most of its early losses AP News",
+   "at": "2026-11-12T22:03:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPVFFiZmRWVmxZNDlVRnR1NHVQNkprRUhWMnNLMHFLWC1qdGljTm9ON2Z3U2FuXzNUcjRwRmNqMFZVemE4TVA1RVhRdl9paUtyMXJoYWhHbVl5d1FfNWZIZTVVU0IwcDQ0eHlnWGxxWEFhZjdkVko1a1hwY25XWE9uc3Q0MkIyaHpCWkNuZk05SGs1ck5DTFV4ZktQNWo?oc=5"
+  },
+  {
+   "id": "0f40c7e484492c7d0692e31372a934c981da73e1",
+   "titleKey": "2ad85100abfd213fae0ddc1b400d05e30582ddac",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "ادعای شبکه ۱۳ عبری درباره حمله اسرائیل به ایران / ۳ سناریوی نتانیاهو پس از جلسه امنیتی فاش شد یک افسر ارشد ارتش اسرائیل شامگاه امروز گفت که ارتش برای چند سناریوی اصلی آماده می‌شود.",
+   "at": "2026-11-13T00:30:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175286/ادعای-شبکه-13-عبری-درباره-حمله-اسرائیل-به-ایران-3-سناریوی-نتانیاهو-پس-از-جلسه-امنیتی-فاش-شد"
+  },
+  {
+   "id": "622a368585397a926a82c8ad941b610031398e37",
+   "titleKey": "2047a3146e33ccd400e562da52ef550a96d5e123",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 According to Politico, Trump sidelines Vance from Iran negotiations. The decision was made after Vance blamed the Republican Party's heavy defeat in last week's midterm elections on the prolonged war with Iran. @PressTV",
+   "at": "2026-11-13T00:31:25.000Z",
+   "url": "https://t.me/presstv/214494"
+  },
+  {
+   "id": "a5e67482b8248ca015a23342779fc667dbfb0b54",
+   "titleKey": "4e6ee67aa4926b31d0f2e71d9710dd76624e946f",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رابطه عاطفی جای چرتکه انداختن و حساب و کتاب نیست تجربه زیسته بسیاری از زوج‌ها نشان می‌دهد سردی‌های عاطفی و تعارض‌ها لزوما با مشاجره آغاز نمی‌شوند، بلکه گاه در بستر سکوتی شکل می‌گیرند که زیر پوست آن یک حساب‌وکتاب سخت‌گیرانه در جریان است. زمانی که ابراز محبت و تلاش‌ها منوط به پاسخ متقابل و هم‌وزن باشد، امنیت روانی و حس ارزشمندی مشترک دچار فرسایش می‌شود؛ مساله‌ای که ضرورت بازگشت به رفتارهای خودانگیخته و صمیمیت بی‌چشمداشت را آشکار می‌کند.",
+   "at": "2026-11-13T00:34:00.000Z",
+   "url": "https://www.isna.ir/news/1405082013684/%D8%B1%D8%A7%D8%A8%D8%B7%D9%87-%D8%B9%D8%A7%D8%B7%D9%81%DB%8C-%D8%AC%D8%A7%DB%8C-%DA%86%D8%B1%D8%AA%DA%A9%D9%87-%D8%A7%D9%86%D8%AF%D8%A7%D8%AE%D8%AA%D9%86-%D9%88-%D8%AD%D8%B3%D8%A7%D8%A8-%D9%88-%DA%A9%D8%AA%D8%A7%D8%A8-%D9%86%DB%8C%D8%B3%D8%AA"
+  },
+  {
+   "id": "fec2574f81a63885fa4902abb84eb10fbd7c58c9",
+   "titleKey": "de2ae1e14e2785bf285ad15562e445366e2f2d73",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "ایران فراتر از بقا در جنگ، شکست راهبردی را به آمریکا تحمیل کرد",
+   "at": "2026-11-13T00:36:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852187/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%81%D8%B1%D8%A7%D8%AA%D8%B1-%D8%A7%D8%B2-%D8%A8%D9%82%D8%A7-%D8%AF%D8%B1-%D8%AC%D9%86%DA%AF-%D8%B4%DA%A9%D8%B3%D8%AA-%D8%B1%D8%A7%D9%87%D8%A8%D8%B1%D8%AF%DB%8C-%D8%B1%D8%A7-%D8%A8%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D8%AD%D9%85%DB%8C%D9%84-%DA%A9%D8%B1%D8%AF"
+  },
   {
    "id": "15b8bc8987ca2a5007eb98540830fe090936ae24",
    "titleKey": "811ed6bc07e9a8ee5d517bb551e3f3b1da5665eb",
@@ -8605,7 +8897,7 @@
    "items": 451
   }
  ],
- "aiCursor": 1,
+ "aiCursor": 2,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9179,21 +9471,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794529830206,
-  "Akharin_khodro/8913": 1794529830206,
-  "Akharin_khodro/8914": 1794529830206,
-  "Akharin_khodro/8915": 1794529830206,
-  "Akharin_khodro/8916": 1794529830206,
-  "Akharin_khodro/8919": 1794529830206,
-  "Akharin_khodro/8920": 1794529830206,
-  "Akharin_khodro/8921": 1794529830206,
-  "Akharin_khodro/8922": 1794529830206,
-  "Akharin_khodro/8923": 1794529830206,
-  "Akharin_khodro/8924": 1794529830206,
-  "Akharin_khodro/8925": 1794529830206,
-  "Akharin_khodro/8926": 1794529830206,
-  "Akharin_khodro/8927": 1794529830206,
-  "Akharin_khodro/8928": 1794529830206,
+  "Akharin_khodro/8908": 1794530612114,
+  "Akharin_khodro/8913": 1794530612114,
+  "Akharin_khodro/8914": 1794530612114,
+  "Akharin_khodro/8915": 1794530612114,
+  "Akharin_khodro/8916": 1794530612114,
+  "Akharin_khodro/8919": 1794530612114,
+  "Akharin_khodro/8920": 1794530612114,
+  "Akharin_khodro/8921": 1794530612114,
+  "Akharin_khodro/8922": 1794530612114,
+  "Akharin_khodro/8923": 1794530612114,
+  "Akharin_khodro/8924": 1794530612114,
+  "Akharin_khodro/8925": 1794530612114,
+  "Akharin_khodro/8926": 1794530612114,
+  "Akharin_khodro/8927": 1794530612114,
+  "Akharin_khodro/8928": 1794530612114,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -9500,29 +9792,27 @@
    }
   }
  },
- "tweetCursor": 4,
- "lastRunAt": "2026-11-13T00:35:16.538Z",
+ "tweetCursor": 10,
+ "lastRunAt": "2026-11-13T00:43:32.119Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1079,
-  "inWindow": 159,
-  "fresh": 87,
-  "sent": 1,
+  "inWindow": 147,
+  "fresh": 89,
+  "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 113,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 85,
-  "queued": 1,
-  "tweetRateLimited": false,
-  "bundleSent": true,
-  "bundleItems": 75
+  "queued": 3,
+  "tweetRateLimited": false
  }
 }

@@ -1,5 +1,8 @@
 {
  "sentIds": {
+  "a72016973a2a66f843f93fc57c92250d0690715b": 1794534234321,
+  "1c25ac8690cc7fd33330412723f077fe5fc00aeb": 1794534234321,
+  "d7214611c1300b91ba6a0e49563894299598a8e9": 1794534234321,
   "e9a50eda51a45444ab7f82699956452fa381caf7": 1794533711248,
   "c1a16b38ce0387bbbfddd73f6503984a82205bc8": 1794533093804,
   "7f96ce5a00ebeccf44e19585a4b92d4d7a0773bd": 1794533093804,
@@ -1196,12 +1199,12 @@
   "70cc532998fde910f9fa8b50f9e0a2bf25176114": 1794492990447,
   "73e5033ac5ec32b28a9d05ac74d6bb11186dbaf9": 1794492990447,
   "40c819de9363ae2e7fff7be74eaa6d5c0f66afb8": 1794492479827,
-  "be76b0c16bba36bcad6b5a5bbe3a9cab303d64c1": 1794492479827,
-  "22a62dcae1b0afb048f5fdaf7ae94932e65363a2": 1794492479827,
-  "533814bfab330dea8fc7ed092633c3c1cfc10f27": 1794492479827,
-  "2ab2fd7003da5929fee792cca2764fc1dae4a4f2": 1794492479827
+  "be76b0c16bba36bcad6b5a5bbe3a9cab303d64c1": 1794492479827
  },
  "sentTitles": {
+  "165991f2db87ab297e173cb57346579a80d21cee": 1794534234321,
+  "d16429b19f7d64a4929d01d73f7f12628dd180d6": 1794534234321,
+  "8a62d2ed7f5a39bce8fa9470d516911a9ca44788": 1794534234321,
   "8e55fa269c58a37efdef237a341c7d3216eb0074": 1794533711248,
   "24e601fee30e17c5a88f678ab3deaa4a1f237b17": 1794533093804,
   "d9438562647a06cc20c2ebf6a868ca4945551170": 1794533093804,
@@ -1798,10 +1801,7 @@
   "c98e0b2a64735f4f737b708ffa82f66044f47ef2": 1794503797669,
   "e0b9481bc781bbbfa1f4d80376699bf44d9c672f": 1794503797669,
   "673c9ce6861b991bbb3fe84f1f6fa43498e16f63": 1794503797669,
-  "60fc58a70e38866d554c814fb6a92aea90ea84cb": 1794503129975,
-  "1e3935a255ec62643612a593864fc213de54ca78": 1794503129975,
-  "9684470a823927e54c593474bda097a9d341fb27": 1794503129975,
-  "396b2f3d5df04b2f4eefeb29591158763c809c36": 1794503129975
+  "60fc58a70e38866d554c814fb6a92aea90ea84cb": 1794503129975
  },
  "sentTitleTexts": {
   "قوی تر بودن و به طور موثرتری در مقیاس قاره اروپا عمل کردن این همان دلیل وجود جامعه سیاسی اروپا است که فرانسه در سال ۲۰۲۲ ان را اغاز کرده است امروز در دبلین چهل ": 1794533711248,
@@ -3008,6 +3008,157 @@
   "press tv تلگرام دانیل مک ادامز می گوید در نهایت وقتی اوضاع در منطقه ارام گیرد و همه چیز مشخص شود ایران در موقعیتی به مراتب بهتر از هر زمان دیگری قرار خواهد گرفت": 1794508430262
  },
  "pool": [
+  {
+   "id": "08b3d7939d7f625dfa78ee711a2028741f3b98b6",
+   "titleKey": "5dc3127babe4c6cf20a4cd6af292144cfc99f306",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Top trade committee Democrats launch probe into Trump administration approving Nvidia’s chip sales to China The top Democrats on the House and Senate’s trade committees are requesting the Commerce Department preserve its records on President Trump’s decision late last year to allow Nvidia to sell its H200 chips to China. The investigation was announced Thursday by Sen. Ron Wyden (D-Ore.), ranking member of the Senate Finance Committee; and Rep. Richard…",
+   "at": "2026-11-12T22:52:19.000Z",
+   "url": "https://thehill.com/policy/technology/6217470-democrats-investigate-trump-nvidia-chips-china/"
+  },
+  {
+   "id": "ec0c5b06b486a5b490b6b653a53fa74f77738465",
+   "titleKey": "73463cbd6c9e792500c019957b818479bc23e0d4",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Kalshi ends Donald Trump Jr. advisory role, pointing to Polymarket ties Kalshi has ended Donald Trump Jr.’s advisory role with the company after his firm, 1789 Capital, increased its investment in Polymarket earlier this year. “We have mutually agreed to end Don’s advisory role after his firm’s significant investment in a competitor this past summer,” Kalshi spokesperson Dani Lever said in a statement. “We are grateful…",
+   "at": "2026-11-12T22:57:35.000Z",
+   "url": "https://thehill.com/policy/technology/6217564-trump-jr-kalshi-advisory-end/"
+  },
+  {
+   "id": "df04ba3fbd2b46d161690f6d5350d584648d86e4",
+   "titleKey": "188d0f7433f4c4a74afbc8c3b5e53f5d58cd0386",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "5 takeaways from Nvidia’s Jensen Huang scandal Corporate America is in the midst of its most dramatic scandal in years. Jensen Huang, the CEO and co-founder of Nvidia, resigned Thursday after admitting to one extramarital affair, with a woman suspected of being a Chinese agent, and amid new reporting of a second affair, this time with an Nvidia colleague. The vast company…",
+   "at": "2026-11-12T22:59:47.000Z",
+   "url": "https://thehill.com/homenews/analysis/6217604-nvidias-jensen-huang-resigned/"
+  },
+  {
+   "id": "e03cd407b856d7ec8aa50d4e632a52ea118a862f",
+   "titleKey": "a5861a084f43d6fb17a39fdc5bc49a07d6c2e937",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Congressional offices paralyzed by Microsoft outage - Politico Congressional offices paralyzed by Microsoft outage Politico",
+   "at": "2026-11-12T23:07:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNelNNV29mUHlQbzRCemh4dE54OGhuS2poOExjSzRGU0dFMkdGSS1CWF9WNGtLcFhqZThFZlBqakFfVmN3dFBmTWxiNV81cUpNUERoUV9qQVQ4ekpJLWlUdEFBUkd3QjlzeTMtZUZ2ZEE3OHBFTUVfM1RZR1JCbVlNbjB5ZGxqdFcxTWZRTWtKUEN4NlRrZTNSUlRybGFCNTNrSnZr?oc=5"
+  },
+  {
+   "id": "661b779ff72d281408a65223e9baba190c999dae",
+   "titleKey": "de685a9227671e685e8aab2626f9ca7df1f2fad3",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "'A lie' - Palmer committed to England, says Rogers Morgan Rogers says any suggestion Cole Palmer is not committed to England \"is a lie\" and \"nonsense\".",
+   "at": "2026-11-12T23:09:07.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c6e9kjne5y8vo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "c536a485242f2266108648ecca8fc4248a3f7d1e",
+   "titleKey": "2da6f4386fd32ee0e3db9eee1b6d40b51026796e",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "News Review: Israel deadly attack on Gaza hospital - PressTV News Review: Israel deadly attack on Gaza hospital PressTV",
+   "at": "2026-11-12T23:20:02.000Z",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQWDkyT2d4X3lQTWlBOURraGRVV2s2Z3p3My13RmVJZGVma01VaUxncm93QzFjcFNQRHEwVjdFVmxtWnh2ZXdMdG4zQ1BxdHQ0T1dUZFNMdm1mN3FYQlBNaTVUR0lRUmxfempmRzBrbUZNYVB4LTBRQkdGZjJLdVdDcmM1SExma1V2QnlQUlJhR0RiYVFjdGJMSHFUT0Zkdw?oc=5"
+  },
+  {
+   "id": "29de2334c5a26223b01d5dce5589b8142d3afdfd",
+   "titleKey": "f717cf68462b725efea386ac668a75231f7ea517",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Bessent Sees Ending ‘Tax Gimmicks’ as Option to Trim US Deficit - Bloomberg.com Bessent Sees Ending ‘Tax Gimmicks’ as Option to Trim US Deficit Bloomberg.com",
+   "at": "2026-11-13T00:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQLTlFSWl1YzNSTl9ZQ05ia0tVdkxMbmNtWWNVNTdTUzAycG9aZ0dfSnVEVjUzd3h0VkFMM0RubUhRc2wtbkdKUTJMT1dzWkJ0alQxMEV6eUg2b3dRUmNrU1dYUHFxbDJQSHpSMG51SDREMVBVYzl1cUphYVFsQVdDQmVYZzk0MkZva0IwU3Vnc21obGJRb1VWY0k5X2JLUVF4aHNtQXQ4VEtqOWhLOVI5LVNR?oc=5"
+  },
+  {
+   "id": "db9ea53593db5310a98df70224e96edb0f28db68",
+   "titleKey": "4503df928578f11d50de6d8e6215bdc2d43e4988",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Lutnick’s longtime friendship with Trump may not save him - Politico Lutnick’s longtime friendship with Trump may not save him Politico",
+   "at": "2026-11-13T00:55:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNb1FkLXhzbEgyU0lvUzFpVGFCOWU1OE9POWN5VVhZMXB0cHk5NUR5TDVNNG0yRURKNjBLWDE5UkRfOXVBVTVYaUluUUVNNUQ4NUszVWhQTmpnWW03bnc5b0UxelV1R1lWTkM0M2pEZ1FNTXl1WTBfaUtjTTFnODE1RU5HdmYwZlBBUXNhblRGYk4?oc=5"
+  },
+  {
+   "id": "4b1ac35ab322432f1207ea899cc790bf959b6670",
+   "titleKey": "b61844e6ad43aba3b37693e684f6941b4f2ce852",
+   "source": "People's Daily English",
+   "cat": "tech",
+   "lang": "en",
+   "text": "Budapest conference highlights RMB's growing role in trade, financing - People's Daily Online Budapest conference highlights RMB's growing role in trade, financing People's Daily Online",
+   "at": "2026-11-13T01:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE95UEJGWEVFUC1uVjhJSWJ4S2puMlh2cWZOMGZUVEJUc1JxeHA3OVBjSDJlV2ExWXU4UklHLUNSQlV4ak9RWm5rWVBsQlBkOEFmVlNYZlFmd3N2bzl5TjRReU9XQQ?oc=5"
+  },
+  {
+   "id": "0f433113e2888d0459468007c08c42c4d2e8b64a",
+   "titleKey": "f571de7c1f0f12e2565965ce75a133e7a0b99f16",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "No European security guarantees until Ukrainian conflict resolved — Kushner The US president’s special envoy noted that \"no broader European security arrangements will be finalized without addressing Ukraine’s security concerns\"",
+   "at": "2026-11-13T01:12:00.000Z",
+   "url": "https://tass.com/world/2217529"
+  },
+  {
+   "id": "2d2bfd030a1e63dc019888a8c7efc320d4f15cf4",
+   "titleKey": "b900507970757c8783fb77c652aa79230433bf82",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | The midterms won’t define Trump’s legacy. Iran will. - The Washington Post Opinion | The midterms won’t define Trump’s legacy. Iran will. The Washington Post",
+   "at": "2026-11-13T01:22:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQaWJEcWFlc0ZRYmJNaWl1WG5xSU5sNzBKVXU0NUhVUGlFNjh4MVFSOW9IeC1sOEtnS21vUjFsZkJnb01aalRwY1NsQXBPTDVsNzdFc3lXRk5hem5NamhUcDZhajVZNEdSNFNkRmhXRC1VM1Vsb1RFdjVkaHFicW5UcTcyTERFN25pVTZlTHg2RlhZUURPWWVIUHZEclJnRHlKeU9PY1VucDF6TDdGYTkw?oc=5"
+  },
+  {
+   "id": "cd9e54ca0020b97eb6bd6e159ffc0c63d0786f43",
+   "titleKey": "e7c23b70d5bd8434c2f93476c518346eaa2c479a",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Pegula saves match point to beat Noskova & reach WTA Finals last four A determined Jessica Pegula saves match point to beat Wimbledon champion Linda Noskova and reach the WTA Finals last four at the expense of Coco Gauff.",
+   "at": "2026-11-13T01:23:06.000Z",
+   "url": "https://www.bbc.co.uk/sport/tennis/articles/c57429mgdkjdo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "a72016973a2a66f843f93fc57c92250d0690715b",
+   "titleKey": "165991f2db87ab297e173cb57346579a80d21cee",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "ساعت دقیق تحویل سال ۱۴۰۶ اعلام شد ساعت دقیق تحویل سال ۱۴۰۶ هجری خورشیدی مشخص شد.",
+   "at": "2026-11-13T01:30:03.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175288/ساعت-دقیق-تحویل-سال-1406-اعلام-شد"
+  },
+  {
+   "id": "1c25ac8690cc7fd33330412723f077fe5fc00aeb",
+   "titleKey": "d16429b19f7d64a4929d01d73f7f12628dd180d6",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "نماینده مجلس: ممکن است یک مدت دیگر دشمن هوس کند به ایران حمله کند/ اگر دشمن دچار اشتباه شود، به هم‌پیمانان و پشتیبانی‌کنندگان هم خسارات بالایی می‌خورد محمدصالح جوکار رئیس کمیسیون امور داخلی کشور و شوراهای مجلس با تأکید بر ضرورت خروج ایران از وضعیت نه جنگ و نه صلح گفت: تداوم تهدیدها آرامش و آسایش مردم را مختل کرده و تنها راه پایان دادن به این شرایط، تقویت قدرت بازدارندگی کشور به‌گونه‌ای است که دشمن از هرگونه اقدام علیه ایران منصرف شود. وی همچنین با اشاره به تجربه حمله در جریان مذاکرات، تأکید کرد که نمی‌توان به آمریکا اعتماد کرد.",
+   "at": "2026-11-13T01:35:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301147/%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87-%D9%85%D8%AC%D9%84%D8%B3-%D9%85%D9%85%DA%A9%D9%86-%D8%A7%D8%B3%D8%AA-%DB%8C%DA%A9-%D9%85%D8%AF%D8%AA-%D8%AF%DB%8C%DA%AF%D8%B1-%D8%AF%D8%B4%D9%85%D9%86-%D9%87%D9%88%D8%B3-%DA%A9%D9%86%D8%AF-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%AD%D9%85%D9%84%D9%87"
+  },
+  {
+   "id": "d7214611c1300b91ba6a0e49563894299598a8e9",
+   "titleKey": "8a62d2ed7f5a39bce8fa9470d516911a9ca44788",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "هشدار حذف زنگ ورزش در برخی مدارس/درخواست توقف صدور مجوز برای مدارس فاقد فضای ورزشی رئیس گروه سلامت نوجوانان، جوانان و مدارس وزارت بهداشت از پیگیری‌ها برای ایجاد زیرساخت جهت فعالیت بدنی دانش‌آموزان در مدارس غیرانتفاعی خبر داد و گفت: از آموزش و پرورش درخواست کرده‌ایم که مجوز فعالیت برای مدارسی که شرایط کافی جهت فعالیت بدنی دانش‌آموزان ندارند، صادر نکند.",
+   "at": "2026-11-13T01:37:00.000Z",
+   "url": "https://www.isna.ir/news/1405081913261/%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AD%D8%B0%D9%81-%D8%B2%D9%86%DA%AF-%D9%88%D8%B1%D8%B2%D8%B4-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%AE%DB%8C-%D9%85%D8%AF%D8%A7%D8%B1%D8%B3-%D8%AF%D8%B1%D8%AE%D9%88%D8%A7%D8%B3%D8%AA-%D8%AA%D9%88%D9%82%D9%81-%D8%B5%D8%AF%D9%88%D8%B1-%D9%85%D8%AC%D9%88%D8%B2-%D8%A8%D8%B1%D8%A7%DB%8C"
+  },
+  {
+   "id": "b6d7b994c1c3aa0507407153a059677c35fd9589",
+   "titleKey": "f096f32c5c10963af901911be8ee5c1e1bb778e4",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 Four killed in military helicopter crash in Turkey 🔺 Turkey’s Defense Ministry said four service members were killed when a military helicopter crashed in the country’s south. @PressTV",
+   "at": "2026-11-13T01:40:07.000Z",
+   "url": "https://t.me/presstv/214496"
+  },
   {
    "id": "d8487971efeb990377263ad9d05687699f6b0608",
    "titleKey": "2ee1a03fafc1a1ec55fa9c7ad39c0a88bb4ab585",
@@ -5042,6 +5193,36 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T01:34:54.667Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: ساعت دقیق تحویل سال ۱۴۰۶ اعلام شد ساعت دقیق تحویل سال ۱۴۰۶ هجری خورشیدی مشخص شد.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T01:43:38.253Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: نماینده مجلس: ممکن است یک مدت دیگر دشمن هوس کند به ایران حمله کند/ اگر دشمن دچار اشتباه شود، به هم‌پیمانان و پشتیبانی‌کنندگان هم خسارات بالایی می‌خورد محمدصالح جوکار رئیس کمیسیون امور داخلی کشور و شوراهای مجلس با تأکید بر ضرورت خروج ایران از وضعیت نه جنگ و نه صلح گفت: تداوم تهدیدها آرامش و آسایش مردم را مختل کرده و تنها راه پایان دادن به این شرایط، تقویت قدرت بازدارندگی کشور به‌گونه‌ای است که دشمن از هرگونه اقدام علیه ایران منصرف شود. وی همچنین با اشاره به تجربه حمله در جریان مذاکرات، تأکید کرد که نمی‌توان به آمریکا اعتماد کرد.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2024/11/04/4/6123330.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T01:43:38.954Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: هشدار حذف زنگ ورزش در برخی مدارس/درخواست توقف صدور مجوز برای مدارس فاقد فضای ورزشی رئیس گروه سلامت نوجوانان، جوانان و مدارس وزارت بهداشت از پیگیری‌ها برای ایجاد زیرساخت جهت فعالیت بدنی دانش‌آموزان در مدارس غیرانتفاعی خبر داد و گفت: از آموزش و پرورش درخواست کرده‌ایم که مجوز فعالیت برای مدارسی که شرایط کافی جهت فعالیت بدنی دانش‌آموزان ندارند، صادر نکند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/09/22/4/63984029.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T01:43:39.655Z"
   }
  ],
  "tweetQueue": [],
@@ -5219,6 +5400,92 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "e03cd407b856d7ec8aa50d4e632a52ea118a862f",
+   "titleKey": "a5861a084f43d6fb17a39fdc5bc49a07d6c2e937",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Congressional offices paralyzed by Microsoft outage - Politico Congressional offices paralyzed by Microsoft outage Politico",
+   "at": "2026-11-12T23:07:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNelNNV29mUHlQbzRCemh4dE54OGhuS2poOExjSzRGU0dFMkdGSS1CWF9WNGtLcFhqZThFZlBqakFfVmN3dFBmTWxiNV81cUpNUERoUV9qQVQ4ekpJLWlUdEFBUkd3QjlzeTMtZUZ2ZEE3OHBFTUVfM1RZR1JCbVlNbjB5ZGxqdFcxTWZRTWtKUEN4NlRrZTNSUlRybGFCNTNrSnZr?oc=5"
+  },
+  {
+   "id": "29de2334c5a26223b01d5dce5589b8142d3afdfd",
+   "titleKey": "f717cf68462b725efea386ac668a75231f7ea517",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Bessent Sees Ending ‘Tax Gimmicks’ as Option to Trim US Deficit - Bloomberg.com Bessent Sees Ending ‘Tax Gimmicks’ as Option to Trim US Deficit Bloomberg.com",
+   "at": "2026-11-13T00:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQLTlFSWl1YzNSTl9ZQ05ia0tVdkxMbmNtWWNVNTdTUzAycG9aZ0dfSnVEVjUzd3h0VkFMM0RubUhRc2wtbkdKUTJMT1dzWkJ0alQxMEV6eUg2b3dRUmNrU1dYUHFxbDJQSHpSMG51SDREMVBVYzl1cUphYVFsQVdDQmVYZzk0MkZva0IwU3Vnc21obGJRb1VWY0k5X2JLUVF4aHNtQXQ4VEtqOWhLOVI5LVNR?oc=5"
+  },
+  {
+   "id": "db9ea53593db5310a98df70224e96edb0f28db68",
+   "titleKey": "4503df928578f11d50de6d8e6215bdc2d43e4988",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Lutnick’s longtime friendship with Trump may not save him - Politico Lutnick’s longtime friendship with Trump may not save him Politico",
+   "at": "2026-11-13T00:55:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNb1FkLXhzbEgyU0lvUzFpVGFCOWU1OE9POWN5VVhZMXB0cHk5NUR5TDVNNG0yRURKNjBLWDE5UkRfOXVBVTVYaUluUUVNNUQ4NUszVWhQTmpnWW03bnc5b0UxelV1R1lWTkM0M2pEZ1FNTXl1WTBfaUtjTTFnODE1RU5HdmYwZlBBUXNhblRGYk4?oc=5"
+  },
+  {
+   "id": "4b1ac35ab322432f1207ea899cc790bf959b6670",
+   "titleKey": "b61844e6ad43aba3b37693e684f6941b4f2ce852",
+   "source": "People's Daily English",
+   "cat": "tech",
+   "lang": "en",
+   "text": "Budapest conference highlights RMB's growing role in trade, financing - People's Daily Online Budapest conference highlights RMB's growing role in trade, financing People's Daily Online",
+   "at": "2026-11-13T01:00:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE95UEJGWEVFUC1uVjhJSWJ4S2puMlh2cWZOMGZUVEJUc1JxeHA3OVBjSDJlV2ExWXU4UklHLUNSQlV4ak9RWm5rWVBsQlBkOEFmVlNYZlFmd3N2bzl5TjRReU9XQQ?oc=5"
+  },
+  {
+   "id": "0f433113e2888d0459468007c08c42c4d2e8b64a",
+   "titleKey": "f571de7c1f0f12e2565965ce75a133e7a0b99f16",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "No European security guarantees until Ukrainian conflict resolved — Kushner The US president’s special envoy noted that \"no broader European security arrangements will be finalized without addressing Ukraine’s security concerns\"",
+   "at": "2026-11-13T01:12:00.000Z",
+   "url": "https://tass.com/world/2217529"
+  },
+  {
+   "id": "a72016973a2a66f843f93fc57c92250d0690715b",
+   "titleKey": "165991f2db87ab297e173cb57346579a80d21cee",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "ساعت دقیق تحویل سال ۱۴۰۶ اعلام شد ساعت دقیق تحویل سال ۱۴۰۶ هجری خورشیدی مشخص شد.",
+   "at": "2026-11-13T01:30:03.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175288/ساعت-دقیق-تحویل-سال-1406-اعلام-شد"
+  },
+  {
+   "id": "1c25ac8690cc7fd33330412723f077fe5fc00aeb",
+   "titleKey": "d16429b19f7d64a4929d01d73f7f12628dd180d6",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "نماینده مجلس: ممکن است یک مدت دیگر دشمن هوس کند به ایران حمله کند/ اگر دشمن دچار اشتباه شود، به هم‌پیمانان و پشتیبانی‌کنندگان هم خسارات بالایی می‌خورد محمدصالح جوکار رئیس کمیسیون امور داخلی کشور و شوراهای مجلس با تأکید بر ضرورت خروج ایران از وضعیت نه جنگ و نه صلح گفت: تداوم تهدیدها آرامش و آسایش مردم را مختل کرده و تنها راه پایان دادن به این شرایط، تقویت قدرت بازدارندگی کشور به‌گونه‌ای است که دشمن از هرگونه اقدام علیه ایران منصرف شود. وی همچنین با اشاره به تجربه حمله در جریان مذاکرات، تأکید کرد که نمی‌توان به آمریکا اعتماد کرد.",
+   "at": "2026-11-13T01:35:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301147/%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87-%D9%85%D8%AC%D9%84%D8%B3-%D9%85%D9%85%DA%A9%D9%86-%D8%A7%D8%B3%D8%AA-%DB%8C%DA%A9-%D9%85%D8%AF%D8%AA-%D8%AF%DB%8C%DA%AF%D8%B1-%D8%AF%D8%B4%D9%85%D9%86-%D9%87%D9%88%D8%B3-%DA%A9%D9%86%D8%AF-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%AD%D9%85%D9%84%D9%87"
+  },
+  {
+   "id": "d7214611c1300b91ba6a0e49563894299598a8e9",
+   "titleKey": "8a62d2ed7f5a39bce8fa9470d516911a9ca44788",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "هشدار حذف زنگ ورزش در برخی مدارس/درخواست توقف صدور مجوز برای مدارس فاقد فضای ورزشی رئیس گروه سلامت نوجوانان، جوانان و مدارس وزارت بهداشت از پیگیری‌ها برای ایجاد زیرساخت جهت فعالیت بدنی دانش‌آموزان در مدارس غیرانتفاعی خبر داد و گفت: از آموزش و پرورش درخواست کرده‌ایم که مجوز فعالیت برای مدارسی که شرایط کافی جهت فعالیت بدنی دانش‌آموزان ندارند، صادر نکند.",
+   "at": "2026-11-13T01:37:00.000Z",
+   "url": "https://www.isna.ir/news/1405081913261/%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AD%D8%B0%D9%81-%D8%B2%D9%86%DA%AF-%D9%88%D8%B1%D8%B2%D8%B4-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%AE%DB%8C-%D9%85%D8%AF%D8%A7%D8%B1%D8%B3-%D8%AF%D8%B1%D8%AE%D9%88%D8%A7%D8%B3%D8%AA-%D8%AA%D9%88%D9%82%D9%81-%D8%B5%D8%AF%D9%88%D8%B1-%D9%85%D8%AC%D9%88%D8%B2-%D8%A8%D8%B1%D8%A7%DB%8C"
+  },
+  {
+   "id": "b6d7b994c1c3aa0507407153a059677c35fd9589",
+   "titleKey": "f096f32c5c10963af901911be8ee5c1e1bb778e4",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴 Four killed in military helicopter crash in Turkey 🔺 Turkey’s Defense Ministry said four service members were killed when a military helicopter crashed in the country’s south. @PressTV",
+   "at": "2026-11-13T01:40:07.000Z",
+   "url": "https://t.me/presstv/214496"
+  },
   {
    "id": "eeb75af0189963d4c24a7d4a9950f3475e721c8f",
    "titleKey": "6a54b52b2f1d5e79e016b7a562e4cc00fc0f7a23",
@@ -9243,7 +9510,7 @@
    "items": 451
   }
  ],
- "aiCursor": 5,
+ "aiCursor": 6,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9817,21 +10084,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794533709124,
-  "Akharin_khodro/8913": 1794533709124,
-  "Akharin_khodro/8914": 1794533709124,
-  "Akharin_khodro/8915": 1794533709124,
-  "Akharin_khodro/8916": 1794533709124,
-  "Akharin_khodro/8919": 1794533709124,
-  "Akharin_khodro/8920": 1794533709124,
-  "Akharin_khodro/8921": 1794533709124,
-  "Akharin_khodro/8922": 1794533709124,
-  "Akharin_khodro/8923": 1794533709124,
-  "Akharin_khodro/8924": 1794533709124,
-  "Akharin_khodro/8925": 1794533709124,
-  "Akharin_khodro/8926": 1794533709124,
-  "Akharin_khodro/8927": 1794533709124,
-  "Akharin_khodro/8928": 1794533709124,
+  "Akharin_khodro/8908": 1794534234316,
+  "Akharin_khodro/8913": 1794534234316,
+  "Akharin_khodro/8914": 1794534234316,
+  "Akharin_khodro/8915": 1794534234316,
+  "Akharin_khodro/8916": 1794534234316,
+  "Akharin_khodro/8919": 1794534234316,
+  "Akharin_khodro/8920": 1794534234316,
+  "Akharin_khodro/8921": 1794534234316,
+  "Akharin_khodro/8922": 1794534234316,
+  "Akharin_khodro/8923": 1794534234316,
+  "Akharin_khodro/8924": 1794534234316,
+  "Akharin_khodro/8925": 1794534234316,
+  "Akharin_khodro/8926": 1794534234316,
+  "Akharin_khodro/8927": 1794534234316,
+  "Akharin_khodro/8928": 1794534234316,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10157,28 +10424,27 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-13T01:35:11.250Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-13T01:43:54.323Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1078,
-  "inWindow": 122,
-  "fresh": 73,
-  "sent": 1,
+  "fetched": 1077,
+  "inWindow": 124,
+  "fresh": 77,
+  "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
-  "tweetsSent": 1,
+  "tweetsFetched": 114,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
-  "dailySent": "morning",
   "aiFailed": false,
-  "skippedUntranslated": 72,
-  "queued": 1,
+  "skippedUntranslated": 74,
+  "queued": 3,
   "tweetRateLimited": false
  }
 }

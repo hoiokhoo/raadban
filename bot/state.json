@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "0a6af437adc1b41fc8ce5b2369f93fa70d9e05b2": 1794610329383,
+  "943a73947eb6bdc23c050ccb562cb5a2f8a0c5a1": 1794610329383,
+  "ffed0a2e2fb1ee24da19393bbe37d5bb9270e593": 1794610329383,
+  "c333a719e2a11556b0dd86e9289c67887f142b97": 1794610329383,
   "28e055abed4decf4383eed5254c37a51b3fa88fb": 1794609799914,
   "137abf57814981252ab23dd9f990ce46064426f1": 1794609799914,
   "c27049bc94384cb5efda209cb66cb61480c781f5": 1794609799914,
@@ -1195,13 +1199,13 @@
   "66bc37fec1d5c0deff9549f937bf91205d8a4660": 1794575676207,
   "4adf77b2979a370c16ef6f01ed3f6688af8121f2": 1794575676207,
   "8e1af67a4100cc762caa24e7ada921a33cba849f": 1794575676207,
-  "a77c21e3153fe039ab7799e082bf5b5b3ec5898c": 1794575676207,
-  "71488feade5999b6ad22f6377274378131b77b93": 1794575676207,
-  "10d3998732b7aeeb69fbd7fa3a0341442ad035d2": 1794575676207,
-  "2dd6ee9248d63c77dd4438b4ccf92bf7d100f67f": 1794575676207,
-  "c1363bbfdb7268ee20f66eeded5d9945b20ca07e": 1794575676207
+  "a77c21e3153fe039ab7799e082bf5b5b3ec5898c": 1794575676207
  },
  "sentTitles": {
+  "2c21395ce5e45455775429d340e2555b54fca3fd": 1794610329383,
+  "53e50b48a626d2296a4bbceec0f55c4a103d6c56": 1794610329383,
+  "a6840933c29201b6bb8f0c74fb4d342991afbd22": 1794610329383,
+  "3319b38d8d91cac6432cbeff5d8e5d5d8468e0e6": 1794610329383,
   "ba272c8cd4ec402df73406711f50de740242222f": 1794609799914,
   "8ae76893a2292dd60913707337445b2e14aae5cb": 1794609799914,
   "e8b5269ce42f3c99ccfa8411e8dd268040aad3aa": 1794609799914,
@@ -1797,11 +1801,7 @@
   "b48129721211e7a5126ad6a0325b3b771af58254": 1794588453604,
   "dafa2e19accc1d86e343b24b8b776b2a283ee68d": 1794588453604,
   "f24f1221bc70253a42bac7bea7a075e173f6cf02": 1794588453604,
-  "507aa1e0f0421edc7e0404c5b75801ccfe9bf1f4": 1794588453604,
-  "570d9c25ae008f2834fa785b6beefdaf1882d290": 1794588453604,
-  "97f8661c532e46eb5c535dbfe71d7516e37e7306": 1794588453604,
-  "9ac9e7cc757977be67ac98fdb7e50b8db64a6ac1": 1794588453604,
-  "b6d163bb0d2bd49dbb54c0f468931b2d9e7c29f1": 1794588453604
+  "507aa1e0f0421edc7e0404c5b75801ccfe9bf1f4": 1794588453604
  },
  "sentTitleTexts": {
   "با شهرداران شهرهای مختلف اوکراین از همه بخش های اوکراین از جمله خارکیف دنیپرو اوژهورود ایوانو فرانکیفسک چرنیوتسی چرکاسی میکولاییف و وینیتسیا دیدار کردم سرپرستان": 1794605776331,
@@ -3008,6 +3008,146 @@
   "خبرگزاری ایسنا نوسازی و توسعه زیرساخت های برق قم با شتاب دنبال می شود مدیرعامل شرکت توزیع نیروی برق استان قم از اجرای مجموعه ای از اقدامات زیرساختی و توسعه ای د": 1794588453604
  },
  "pool": [
+  {
+   "id": "4b008f047585df86385c5653c47de6cc35c5c252",
+   "titleKey": "121b12ea61809c59a4dee391c29832e2491574ae",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "أمين مجلس التعاون: الاعتداء على دول الخليج يستدعي تحركاً دولياً - العربية أمين مجلس التعاون: الاعتداء على دول الخليج يستدعي تحركاً دولياً العربية",
+   "at": "2026-11-13T21:10:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijgRBVV95cUxNTDBXa252TGRNVHJqeEl4REFQOVh3S29zZ0hhaWc5MnBRenBkNHNFaUl5bFJ6QnlBcmJxLUxaOEtIRWJ1TWU2THVsaDYzNVVsQ3NRMThuc1RwSS1yRDZlY0QxcUZOUlBoNHd4LUZDbWdlQWtxcXhTSTk1dGU3UDlQdFRZVWhleHV2MkZMQ0hzdTA2YjNpOGpzWUdNaktOS3VoZC01V1UzNkpCcGtMNV9Gc3ByYXlfWDFIZ3d0MWVzYVNlTnQ0ek0wQXBlUmRHb0U2RlhIbTY4SmU3UDRMUkZiLXplbWdHdU14LU9vV3ZCTkRYMU1MWGZTZGIxZi1ETVNzb05tN3g2V3lqdHlpb3VGcEI4c1k1eU14Z25wUkc3cUE4RGI3Z0hxVnFXamdJVGRGRTRZWmFJYWpIVnBWY0VVampNbm1OTkpRMzhXSld3VlF4VnFwcDQ5eUg3Y3htMk9maTYyUGQ0UEgxM1RDQTNIRlVuTGRqNWY5QnJCR2I0QnZicDFPRDI5cmVYOEY4TEoxMjBHVzc0N0FsUnByYl9ZdGFRY1dSTUZFM21uZG82NHZUUWJRTWU1WVFPdklpeXd4S1JwLU8xSE1PMzBnazlJSzhPQ2hJeW5OTXplYmp5MHczRWN6alRMbVE5T0pHbVFXeFRKcjl3N2xiRUQ2NmpmVWUtN3AwLTBfTHFEQ0V30gGTBEFVX3lxTFBZN3RmN2JIR29vaEFhaF9wYWVWM0VWNkJ5QTJER0JHdllxYTRwZUxOOW5lSnNqMUNlYmJCdUpDQjltRkZNMnF5R185Rkt1WkVHaW9PbExSVEdleVBXRjhGaDRrUzdrdmdRLVdFZ1U2M1Y2OWhOcGZFYzIwUEF1VjlzS0VLZmQzaWIydVV6aTY3YXhlb0syeXVLZXc5RXZIbldROUp6dVdIZVdnOENPTEt6YXNEaGFjb1d4WUpwOGFJaVZVRWR4azhfb1pCd0hSYy03NkczRGZTTms5ZUtYeU5abkQzWXBoblhOWHBlbk9NTnJ1ZG5iUERBNEdSQmR2WnpFbnVOaVd0OC05M2xrMFJCWmQ2MmNIY0dUOGhkNEEyV0VkNHhUbE1Ib04ta3BqSnQyQklnUjA3RXozQ0t5a2Rlel9TWEcxX3FGTUNoRVVYTU5JeldycVpnRXhIUVdCblhrWk1WRWpaXzBST1NFOHVVaDFfQUV3akk1VlBnSFYxeTlmdzRoY3RRTnBDTldlSWlOWm5HbVRITzU1eTZmajFJNlZZekwtYkM5WGJyV21NQVpSNUpLRWlXRDZmTEI1WWllbFltMVBPWGhvVjBkQXZMRDJIQ2VZN2NBZENDbkRIWU9MTVJaT0Jfb3Z0cmQxdDIyTV9aclVuYUljM2ZlR0lQdjNGQ3FiTENlYmtUOHlvcU85dw?oc=5"
+  },
+  {
+   "id": "8a717105c58202d2dcb27b4d2cea8f96a1a61279",
+   "titleKey": "fa349050431f74d31b17f20fe826f8b0ca37650b",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "The story behind the viral ad that helped Scott Colom win in Mississippi - The Washington Post The story behind the viral ad that helped Scott Colom win in Mississippi The Washington Post",
+   "at": "2026-11-13T21:43:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZG42WHBOa1JBTFhzZnJkWXBGbmtNVHUwY255Q2l4MTduOG5HcFExcEJZVXNETS1GcUZ6U3pPakRoclZxSkg3SHlmSkpGcl9adnJDVDBDdVhiLVpDWlluTHBFdGRwWHRFc2Y4cDhIa2x0S1ROd25ocU9BcEpUTGZ0SHRiR2RPekwzZWlaT2VadVNZeTNZRHRqSVp0UFhtMWRIZWVubHpUQ2s1dEIzRjRYVGZvWVo?oc=5"
+  },
+  {
+   "id": "190c8ff8d6504c4185b7d5da906f953fbdf511e1",
+   "titleKey": "1abbf3852612ba6b2f95557dd1ddbc7f42b3972c",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Trump administration allows states six more months to stand up Medicaid work rules - Politico Trump administration allows states six more months to stand up Medicaid work rules Politico",
+   "at": "2026-11-13T22:04:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQM1lGRWpybVF2RThMSGgxY1BBVHZHaFltcUFpWTJtM21YVF9OUDBReEFsWXMwcERIUXBtbWo3MThJam5XNUs2WHJnVV84aGR1WjBoZ2pOdkpsYjFTcHViWTRSSUxRM1ptOHZhbDluSXlIWXUyMkxVeHlBUzRtUS1PSjU5OGNfaU5ETFRaTGI2WEpYejNCS3I3ek1rcTZFYy1QUFk0YVVROA?oc=5"
+  },
+  {
+   "id": "8bb6cec246901302006171f70cd8c018c5242603",
+   "titleKey": "efc94c9eaa1fb202f54cd44ca82a72d1281d18a8",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Karnataka auto drivers pool Rs 12 lakh for free village ambulance service Drivers in Karnata's villages recognized a medical transport problem and devised a solution to it. They collectively raised funds through small contributions to purchase an ambulance. The service will provide free emergency transportation to local villagers in need. It emphasizes community cooperation and the significance of addressing local issues collectively. This initiative showcases how shared responsibility can lead to meaningful progress in rural healthcare.",
+   "at": "2026-11-13T22:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/in-a-karnataka-village-where-patients-were-rushed-to-hospitals-in-auto-rickshaws-drivers-and-residents-pooled-savings-to-buy-a-rs-12-lakh-ambulance-the-drivers-now-offer-free-emergency-transport-for-two-villages/articleshow/135793636.cms"
+  },
+  {
+   "id": "65a92b17fcb9e9fe80796fb1a4fe5ffafe18d1ef",
+   "titleKey": "1843193d6ff7ea8653ce28d3881dcbc54d70d058",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Missouri woman wins $800,000 after delivery driver crosses traffic blindly A Missouri appeals court upheld an $800,000 jury verdict in favor of Amy Bolandis following a traffic accident. It was determined that the delivery van driver failed to check for oncoming vehicles before merging into Bolandis's lane, leading to the collision. The court ruled decisively that Bolandis was not speeding, emphasizing the responsibility of all drivers to prioritize safety when entering traffic.",
+   "at": "2026-11-13T22:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-missouri-delivery-driver-pulled-into-traffic-after-a-trucker-waved-him-through-and-a-womans-car-hit-his-van-he-admitted-he-could-not-see-the-road-and-a-november-10-appeals-court-upheld-her-800000-injury-award/articleshow/135771958.cms"
+  },
+  {
+   "id": "e0ae4ae6266af364854cd5eebfbe9d076ff184b4",
+   "titleKey": "99e4a1c0924b4acb01b78326669c70b4954f9b10",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Goalkeeper involved in fatal collision gets 12-game ban Jesus Owono is given a 12-match suspension by the Spanish football federation's disciplinary committee after his challenge which resulted in the death of Jesus de Miguel.",
+   "at": "2026-11-13T22:37:30.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cm98xy2j8k1ko?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "6c9615f0a3b88e1331bf4e5953ea278035c1b820",
+   "titleKey": "045d5af2f709626585be5a08f0727b57c4a93145",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "4 Nagas killed in sniper attack on Manipur NH",
+   "at": "2026-11-13T22:38:47.000Z",
+   "url": "https://timesofindia.indiatimes.com/city/guwahati/4-nagas-killed-in-sniper-attack-on-manipur-nh/articleshow/135818876.cms"
+  },
+  {
+   "id": "045525a78e46425f75a51cc891138bf670eed95d",
+   "titleKey": "06002406a850c7cdd25ee69aa914346e4f7f6cbc",
+   "source": "RT",
+   "lang": "en",
+   "text": "Gestapo 2.0? Germany grants spy agencies sweeping new powers Germany has passed sweeping intelligence reforms granting spy agencies powers to conduct sabotage, enter homes and deploy AI surveillance Read Full Article at RT.com",
+   "at": "2026-11-13T22:38:52.000Z",
+   "url": "https://rt-english.com/news/648825-gemany-spy-agencies-new-powers/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "0a6af437adc1b41fc8ce5b2369f93fa70d9e05b2",
+   "titleKey": "2c21395ce5e45455775429d340e2555b54fca3fd",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اگر آمریکا به راه‌حل دیپلماتیک متعهد است فورا به محاصره پایان دهد سفیر و نماینده ایران در سازمان ملل در نشست شورای امنیت گفت: اگر واشنگتن واقعا به راه‌حل دیپلماتیک متعهد است، باید فورا و بدون قیدوشرط به تجاوز خود پایان دهد.",
+   "at": "2026-11-13T22:42:21.000Z",
+   "url": "https://www.mehrnews.com/news/7009928/%D8%A7%DA%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D8%B1%D8%A7%D9%87-%D8%AD%D9%84-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%AA%DB%8C%DA%A9-%D9%85%D8%AA%D8%B9%D9%87%D8%AF-%D8%A7%D8%B3%D8%AA-%D9%81%D9%88%D8%B1%D8%A7-%D8%A8%D9%87-%D9%85%D8%AD%D8%A7%D8%B5%D8%B1%D9%87-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86"
+  },
+  {
+   "id": "cf7d302a522fc64b5107b4c3fa665d9816c74667",
+   "titleKey": "ce527e4dffea8fb2e9b4c998d2baf182778bd435",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jeffries outlines Democratic plans for Medicare expansion House Democratic Leader Hakeem Jeffries (D-N.Y.) on Friday endorsed efforts to lower the Medicare eligibility age and expand the program, as Democrats try to navigate internal tensions around a progressive push for Medicare for All. During a conference in Denver about the future of the Democratic party, Jeffries outlined the healthcare legislative priorities Democrats plan…",
+   "at": "2026-11-13T22:43:31.000Z",
+   "url": "https://thehill.com/homenews/house/6219982-jeffries-endorses-medicare-age-lowering/"
+  },
+  {
+   "id": "943a73947eb6bdc23c050ccb562cb5a2f8a0c5a1",
+   "titleKey": "53e50b48a626d2296a4bbceec0f55c4a103d6c56",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "بلایی که کندن موی دماغ سرتان می آورد موهای بینی شاید از نظر ظاهری آزاردهنده باشند، اما نقش مهمی در سیستم دفاعی بدن دارند. م",
+   "at": "2026-11-13T22:44:22.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308225-%D8%A8%D9%84%D8%A7%DB%8C%DB%8C-%DA%A9%D9%87-%DA%A9%D9%86%D8%AF%D9%86-%D9%85%D9%88%DB%8C-%D8%AF%D9%85%D8%A7%D8%BA-%D8%B3%D8%B1%D8%AA%D8%A7%D9%86-%D9%85%DB%8C-%D8%A2%D9%88%D8%B1%D8%AF"
+  },
+  {
+   "id": "e6a4fe7357967855d56f5ea7ef14f9255130c5a5",
+   "titleKey": "a6db9a5c5fe209900736630471d1c0290c97a7d9",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Fed unveils 2027 calendar, confirming October meeting will not include rates vote The Federal Reserve on Thursday released next year’s schedule for its Federal Open Market Committee (FOMC), confirming that one meeting will feature discussions on strategy and not a vote on interest rates. The Fed said in a release the FOMC will meet eight times in 2027, with the first meeting in late January and subsequent…",
+   "at": "2026-11-13T22:44:33.000Z",
+   "url": "https://thehill.com/business/6219883-fed-announces-2027-meeting-schedule/"
+  },
+  {
+   "id": "f9a22355c79e77d4799b44a49a7682f325f2c228",
+   "titleKey": "62f6d8e5eec5dc62e4374a281a24ceaafddaf32b",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "France hold nerve to edge past South Africa in thriller France hold on to end their five-match losing run against South Africa at Stade de France with an enthralling 21-19 victory in Paris.",
+   "at": "2026-11-13T22:47:44.000Z",
+   "url": "https://www.bbc.co.uk/sport/rugby-union/articles/cqm2j810r2m2o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "ffed0a2e2fb1ee24da19393bbe37d5bb9270e593",
+   "titleKey": "a6840933c29201b6bb8f0c74fb4d342991afbd22",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "فعالیت ۷۰ شرکت صنایع خلاق و فرهنگی در پارک علم و فناوری خراسان رضوی معاون توسعه فناوری پارک علم و فناوری خراسان رضوی با اشاره به فعالیت حدود ۷۰ شرکت در حوزه صنایع خلاق و فرهنگی در این پارک، گفت:با وجود بهره‌مندی محدود این شرکت‌ها از ظرفیت‌های قانون جهش تولید دانش‌بنیان، توسعه زیرساخت‌ها و گسترش بازار می‌تواند زمینه رشد کسب‌وکارهای کوچک این حوزه را فراهم کند و پیش‌بینی می‌شود طی دو تا سه سال آینده شاهد بزرگ‌تر شدن این شرکت‌ها و پیوستن آن‌ها به شرکت‌های متوسط باشیم.",
+   "at": "2026-11-13T22:50:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215214/%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA-%DB%B7%DB%B0-%D8%B4%D8%B1%DA%A9%D8%AA-%D8%B5%D9%86%D8%A7%DB%8C%D8%B9-%D8%AE%D9%84%D8%A7%D9%82-%D9%88-%D9%81%D8%B1%D9%87%D9%86%DA%AF%DB%8C-%D8%AF%D8%B1-%D9%BE%D8%A7%D8%B1%DA%A9-%D8%B9%D9%84%D9%85-%D9%88-%D9%81%D9%86%D8%A7%D9%88%D8%B1%DB%8C-%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86"
+  },
+  {
+   "id": "c333a719e2a11556b0dd86e9289c67887f142b97",
+   "titleKey": "3319b38d8d91cac6432cbeff5d8e5d5d8468e0e6",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "«تودوک»؛ عروسک ۱۰۰ ساله زنان تاجمیر تا آلمان و کانادا رفت | قصه کارآفرینی ۶۰ زن در روستای ۸۵۰ نفری تودوک‌های قد و نیم‌قد با استخوان‌های چوبی و تن پارچه‌ای و دامن زری و موی بُزی، سربند توری و صورت دکمه‌ای یا چشم و ابرو و لب‌ودهان نخی، بومی تاجمیرند.",
+   "at": "2026-11-13T22:50:00.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085676/%D8%AA%D9%88%D8%AF%D9%88%DA%A9-%D8%B9%D8%B1%D9%88%D8%B3%DA%A9-%DB%B1%DB%B0%DB%B0-%D8%B3%D8%A7%D9%84%D9%87-%D8%B2%D9%86%D8%A7%D9%86-%D8%AA%D8%A7%D8%AC%D9%85%DB%8C%D8%B1-%D8%AA%D8%A7-%D8%A2%D9%84%D9%85%D8%A7%D9%86-%D9%88-%DA%A9%D8%A7%D9%86%D8%A7%D8%AF%D8%A7-%D8%B1%D9%81%D8%AA-%D9%82%D8%B5%D9%87"
+  },
   {
    "id": "91e331d1789f45a15f8398ee3769637b82ac4fe7",
    "titleKey": "bc580e0130ec45f5c3aa82cdd6329d87748ccbd6",
@@ -5162,7 +5302,48 @@
   "car:هایما s7": 7600000000,
   "car:تیگو8": 11800000000
  },
- "bundleQueue": [],
+ "bundleQueue": [
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: اگر آمریکا به راه‌حل دیپلماتیک متعهد است فورا به محاصره پایان دهد سفیر و نماینده ایران در سازمان ملل در نشست شورای امنیت گفت: اگر واشنگتن واقعا به راه‌حل دیپلماتیک متعهد است، باید فورا و بدون قیدوشرط به تجاوز خود پایان دهد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2025/11/19/4/5783543.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:51:52.427Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: بلایی که کندن موی دماغ سرتان می آورد موهای بینی شاید از نظر ظاهری آزاردهنده باشند، اما نقش مهمی در سیستم دفاعی بدن دارند. م\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/WneuvGclzQak/zyktHlFV-aMADK-8ziosGrp-WYpWFiw6MIk9t9VGa0M9R2A3BWmF1GKa2oMVi11TpCBbsw1ipPs-B1vdaR3kVh0oHsSq2R9NkUpCcmhQFWqqkm0wn0ZR_O41gS2TsbBZuLNMXAhDvox1fy07rm4tPC9TaDDJufaGHqvtz8FpMDmOLi9zVIq3LbZPxx-8yvmg/586251.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T22:51:53.128Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: فعالیت ۷۰ شرکت صنایع خلاق و فرهنگی در پارک علم و فناوری خراسان رضوی معاون توسعه فناوری پارک علم و فناوری خراسان رضوی با اشاره به فعالیت حدود ۷۰ شرکت در حوزه صنایع خلاق و فرهنگی در این پارک، گفت:با وجود بهره‌مندی محدود این شرکت‌ها از ظرفیت‌های قانون جهش تولید دانش‌بنیان، توسعه زیرساخت‌ها و گسترش بازار می‌تواند زمینه رشد کسب‌وکارهای کوچک این حوزه را فراهم کند و پیش‌بینی می‌شود طی دو تا سه سال آینده شاهد بزرگ‌تر شدن این شرکت‌ها و پیوستن آن‌ها به شرکت‌های متوسط باشیم.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/11/12/4/64051808.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T22:51:53.829Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: «تودوک»؛ عروسک ۱۰۰ ساله زنان تاجمیر تا آلمان و کانادا رفت | قصه کارآفرینی ۶۰ زن در روستای ۸۵۰ نفری تودوک‌های قد و نیم‌قد با استخوان‌های چوبی و تن پارچه‌ای و دامن زری و موی بُزی، سربند توری و صورت دکمه‌ای یا چشم و ابرو و لب‌ودهان نخی، بومی تاجمیرند.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/11/13/4/5433690.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T22:51:54.530Z"
+  }
+ ],
  "tweetQueue": [],
  "lastNewsSlotKey": "2026-11-14T02:00",
  "lastTweetSlotKey": "2026-11-14T01:00",
@@ -5338,6 +5519,146 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "4b008f047585df86385c5653c47de6cc35c5c252",
+   "titleKey": "121b12ea61809c59a4dee391c29832e2491574ae",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "أمين مجلس التعاون: الاعتداء على دول الخليج يستدعي تحركاً دولياً - العربية أمين مجلس التعاون: الاعتداء على دول الخليج يستدعي تحركاً دولياً العربية",
+   "at": "2026-11-13T21:10:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijgRBVV95cUxNTDBXa252TGRNVHJqeEl4REFQOVh3S29zZ0hhaWc5MnBRenBkNHNFaUl5bFJ6QnlBcmJxLUxaOEtIRWJ1TWU2THVsaDYzNVVsQ3NRMThuc1RwSS1yRDZlY0QxcUZOUlBoNHd4LUZDbWdlQWtxcXhTSTk1dGU3UDlQdFRZVWhleHV2MkZMQ0hzdTA2YjNpOGpzWUdNaktOS3VoZC01V1UzNkpCcGtMNV9Gc3ByYXlfWDFIZ3d0MWVzYVNlTnQ0ek0wQXBlUmRHb0U2RlhIbTY4SmU3UDRMUkZiLXplbWdHdU14LU9vV3ZCTkRYMU1MWGZTZGIxZi1ETVNzb05tN3g2V3lqdHlpb3VGcEI4c1k1eU14Z25wUkc3cUE4RGI3Z0hxVnFXamdJVGRGRTRZWmFJYWpIVnBWY0VVampNbm1OTkpRMzhXSld3VlF4VnFwcDQ5eUg3Y3htMk9maTYyUGQ0UEgxM1RDQTNIRlVuTGRqNWY5QnJCR2I0QnZicDFPRDI5cmVYOEY4TEoxMjBHVzc0N0FsUnByYl9ZdGFRY1dSTUZFM21uZG82NHZUUWJRTWU1WVFPdklpeXd4S1JwLU8xSE1PMzBnazlJSzhPQ2hJeW5OTXplYmp5MHczRWN6alRMbVE5T0pHbVFXeFRKcjl3N2xiRUQ2NmpmVWUtN3AwLTBfTHFEQ0V30gGTBEFVX3lxTFBZN3RmN2JIR29vaEFhaF9wYWVWM0VWNkJ5QTJER0JHdllxYTRwZUxOOW5lSnNqMUNlYmJCdUpDQjltRkZNMnF5R185Rkt1WkVHaW9PbExSVEdleVBXRjhGaDRrUzdrdmdRLVdFZ1U2M1Y2OWhOcGZFYzIwUEF1VjlzS0VLZmQzaWIydVV6aTY3YXhlb0syeXVLZXc5RXZIbldROUp6dVdIZVdnOENPTEt6YXNEaGFjb1d4WUpwOGFJaVZVRWR4azhfb1pCd0hSYy03NkczRGZTTms5ZUtYeU5abkQzWXBoblhOWHBlbk9NTnJ1ZG5iUERBNEdSQmR2WnpFbnVOaVd0OC05M2xrMFJCWmQ2MmNIY0dUOGhkNEEyV0VkNHhUbE1Ib04ta3BqSnQyQklnUjA3RXozQ0t5a2Rlel9TWEcxX3FGTUNoRVVYTU5JeldycVpnRXhIUVdCblhrWk1WRWpaXzBST1NFOHVVaDFfQUV3akk1VlBnSFYxeTlmdzRoY3RRTnBDTldlSWlOWm5HbVRITzU1eTZmajFJNlZZekwtYkM5WGJyV21NQVpSNUpLRWlXRDZmTEI1WWllbFltMVBPWGhvVjBkQXZMRDJIQ2VZN2NBZENDbkRIWU9MTVJaT0Jfb3Z0cmQxdDIyTV9aclVuYUljM2ZlR0lQdjNGQ3FiTENlYmtUOHlvcU85dw?oc=5"
+  },
+  {
+   "id": "8a717105c58202d2dcb27b4d2cea8f96a1a61279",
+   "titleKey": "fa349050431f74d31b17f20fe826f8b0ca37650b",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "The story behind the viral ad that helped Scott Colom win in Mississippi - The Washington Post The story behind the viral ad that helped Scott Colom win in Mississippi The Washington Post",
+   "at": "2026-11-13T21:43:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZG42WHBOa1JBTFhzZnJkWXBGbmtNVHUwY255Q2l4MTduOG5HcFExcEJZVXNETS1GcUZ6U3pPakRoclZxSkg3SHlmSkpGcl9adnJDVDBDdVhiLVpDWlluTHBFdGRwWHRFc2Y4cDhIa2x0S1ROd25ocU9BcEpUTGZ0SHRiR2RPekwzZWlaT2VadVNZeTNZRHRqSVp0UFhtMWRIZWVubHpUQ2s1dEIzRjRYVGZvWVo?oc=5"
+  },
+  {
+   "id": "190c8ff8d6504c4185b7d5da906f953fbdf511e1",
+   "titleKey": "1abbf3852612ba6b2f95557dd1ddbc7f42b3972c",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Trump administration allows states six more months to stand up Medicaid work rules - Politico Trump administration allows states six more months to stand up Medicaid work rules Politico",
+   "at": "2026-11-13T22:04:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQM1lGRWpybVF2RThMSGgxY1BBVHZHaFltcUFpWTJtM21YVF9OUDBReEFsWXMwcERIUXBtbWo3MThJam5XNUs2WHJnVV84aGR1WjBoZ2pOdkpsYjFTcHViWTRSSUxRM1ptOHZhbDluSXlIWXUyMkxVeHlBUzRtUS1PSjU5OGNfaU5ETFRaTGI2WEpYejNCS3I3ek1rcTZFYy1QUFk0YVVROA?oc=5"
+  },
+  {
+   "id": "8bb6cec246901302006171f70cd8c018c5242603",
+   "titleKey": "efc94c9eaa1fb202f54cd44ca82a72d1281d18a8",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Karnataka auto drivers pool Rs 12 lakh for free village ambulance service Drivers in Karnata's villages recognized a medical transport problem and devised a solution to it. They collectively raised funds through small contributions to purchase an ambulance. The service will provide free emergency transportation to local villagers in need. It emphasizes community cooperation and the significance of addressing local issues collectively. This initiative showcases how shared responsibility can lead to meaningful progress in rural healthcare.",
+   "at": "2026-11-13T22:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/in-a-karnataka-village-where-patients-were-rushed-to-hospitals-in-auto-rickshaws-drivers-and-residents-pooled-savings-to-buy-a-rs-12-lakh-ambulance-the-drivers-now-offer-free-emergency-transport-for-two-villages/articleshow/135793636.cms"
+  },
+  {
+   "id": "65a92b17fcb9e9fe80796fb1a4fe5ffafe18d1ef",
+   "titleKey": "1843193d6ff7ea8653ce28d3881dcbc54d70d058",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Missouri woman wins $800,000 after delivery driver crosses traffic blindly A Missouri appeals court upheld an $800,000 jury verdict in favor of Amy Bolandis following a traffic accident. It was determined that the delivery van driver failed to check for oncoming vehicles before merging into Bolandis's lane, leading to the collision. The court ruled decisively that Bolandis was not speeding, emphasizing the responsibility of all drivers to prioritize safety when entering traffic.",
+   "at": "2026-11-13T22:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-missouri-delivery-driver-pulled-into-traffic-after-a-trucker-waved-him-through-and-a-womans-car-hit-his-van-he-admitted-he-could-not-see-the-road-and-a-november-10-appeals-court-upheld-her-800000-injury-award/articleshow/135771958.cms"
+  },
+  {
+   "id": "e0ae4ae6266af364854cd5eebfbe9d076ff184b4",
+   "titleKey": "99e4a1c0924b4acb01b78326669c70b4954f9b10",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Goalkeeper involved in fatal collision gets 12-game ban Jesus Owono is given a 12-match suspension by the Spanish football federation's disciplinary committee after his challenge which resulted in the death of Jesus de Miguel.",
+   "at": "2026-11-13T22:37:30.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cm98xy2j8k1ko?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "6c9615f0a3b88e1331bf4e5953ea278035c1b820",
+   "titleKey": "045d5af2f709626585be5a08f0727b57c4a93145",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "4 Nagas killed in sniper attack on Manipur NH",
+   "at": "2026-11-13T22:38:47.000Z",
+   "url": "https://timesofindia.indiatimes.com/city/guwahati/4-nagas-killed-in-sniper-attack-on-manipur-nh/articleshow/135818876.cms"
+  },
+  {
+   "id": "045525a78e46425f75a51cc891138bf670eed95d",
+   "titleKey": "06002406a850c7cdd25ee69aa914346e4f7f6cbc",
+   "source": "RT",
+   "lang": "en",
+   "text": "Gestapo 2.0? Germany grants spy agencies sweeping new powers Germany has passed sweeping intelligence reforms granting spy agencies powers to conduct sabotage, enter homes and deploy AI surveillance Read Full Article at RT.com",
+   "at": "2026-11-13T22:38:52.000Z",
+   "url": "https://rt-english.com/news/648825-gemany-spy-agencies-new-powers/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "0a6af437adc1b41fc8ce5b2369f93fa70d9e05b2",
+   "titleKey": "2c21395ce5e45455775429d340e2555b54fca3fd",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اگر آمریکا به راه‌حل دیپلماتیک متعهد است فورا به محاصره پایان دهد سفیر و نماینده ایران در سازمان ملل در نشست شورای امنیت گفت: اگر واشنگتن واقعا به راه‌حل دیپلماتیک متعهد است، باید فورا و بدون قیدوشرط به تجاوز خود پایان دهد.",
+   "at": "2026-11-13T22:42:21.000Z",
+   "url": "https://www.mehrnews.com/news/7009928/%D8%A7%DA%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D8%B1%D8%A7%D9%87-%D8%AD%D9%84-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%AA%DB%8C%DA%A9-%D9%85%D8%AA%D8%B9%D9%87%D8%AF-%D8%A7%D8%B3%D8%AA-%D9%81%D9%88%D8%B1%D8%A7-%D8%A8%D9%87-%D9%85%D8%AD%D8%A7%D8%B5%D8%B1%D9%87-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86"
+  },
+  {
+   "id": "cf7d302a522fc64b5107b4c3fa665d9816c74667",
+   "titleKey": "ce527e4dffea8fb2e9b4c998d2baf182778bd435",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jeffries outlines Democratic plans for Medicare expansion House Democratic Leader Hakeem Jeffries (D-N.Y.) on Friday endorsed efforts to lower the Medicare eligibility age and expand the program, as Democrats try to navigate internal tensions around a progressive push for Medicare for All. During a conference in Denver about the future of the Democratic party, Jeffries outlined the healthcare legislative priorities Democrats plan…",
+   "at": "2026-11-13T22:43:31.000Z",
+   "url": "https://thehill.com/homenews/house/6219982-jeffries-endorses-medicare-age-lowering/"
+  },
+  {
+   "id": "943a73947eb6bdc23c050ccb562cb5a2f8a0c5a1",
+   "titleKey": "53e50b48a626d2296a4bbceec0f55c4a103d6c56",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "بلایی که کندن موی دماغ سرتان می آورد موهای بینی شاید از نظر ظاهری آزاردهنده باشند، اما نقش مهمی در سیستم دفاعی بدن دارند. م",
+   "at": "2026-11-13T22:44:22.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308225-%D8%A8%D9%84%D8%A7%DB%8C%DB%8C-%DA%A9%D9%87-%DA%A9%D9%86%D8%AF%D9%86-%D9%85%D9%88%DB%8C-%D8%AF%D9%85%D8%A7%D8%BA-%D8%B3%D8%B1%D8%AA%D8%A7%D9%86-%D9%85%DB%8C-%D8%A2%D9%88%D8%B1%D8%AF"
+  },
+  {
+   "id": "e6a4fe7357967855d56f5ea7ef14f9255130c5a5",
+   "titleKey": "a6db9a5c5fe209900736630471d1c0290c97a7d9",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Fed unveils 2027 calendar, confirming October meeting will not include rates vote The Federal Reserve on Thursday released next year’s schedule for its Federal Open Market Committee (FOMC), confirming that one meeting will feature discussions on strategy and not a vote on interest rates. The Fed said in a release the FOMC will meet eight times in 2027, with the first meeting in late January and subsequent…",
+   "at": "2026-11-13T22:44:33.000Z",
+   "url": "https://thehill.com/business/6219883-fed-announces-2027-meeting-schedule/"
+  },
+  {
+   "id": "f9a22355c79e77d4799b44a49a7682f325f2c228",
+   "titleKey": "62f6d8e5eec5dc62e4374a281a24ceaafddaf32b",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "France hold nerve to edge past South Africa in thriller France hold on to end their five-match losing run against South Africa at Stade de France with an enthralling 21-19 victory in Paris.",
+   "at": "2026-11-13T22:47:44.000Z",
+   "url": "https://www.bbc.co.uk/sport/rugby-union/articles/cqm2j810r2m2o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "ffed0a2e2fb1ee24da19393bbe37d5bb9270e593",
+   "titleKey": "a6840933c29201b6bb8f0c74fb4d342991afbd22",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "فعالیت ۷۰ شرکت صنایع خلاق و فرهنگی در پارک علم و فناوری خراسان رضوی معاون توسعه فناوری پارک علم و فناوری خراسان رضوی با اشاره به فعالیت حدود ۷۰ شرکت در حوزه صنایع خلاق و فرهنگی در این پارک، گفت:با وجود بهره‌مندی محدود این شرکت‌ها از ظرفیت‌های قانون جهش تولید دانش‌بنیان، توسعه زیرساخت‌ها و گسترش بازار می‌تواند زمینه رشد کسب‌وکارهای کوچک این حوزه را فراهم کند و پیش‌بینی می‌شود طی دو تا سه سال آینده شاهد بزرگ‌تر شدن این شرکت‌ها و پیوستن آن‌ها به شرکت‌های متوسط باشیم.",
+   "at": "2026-11-13T22:50:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215214/%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA-%DB%B7%DB%B0-%D8%B4%D8%B1%DA%A9%D8%AA-%D8%B5%D9%86%D8%A7%DB%8C%D8%B9-%D8%AE%D9%84%D8%A7%D9%82-%D9%88-%D9%81%D8%B1%D9%87%D9%86%DA%AF%DB%8C-%D8%AF%D8%B1-%D9%BE%D8%A7%D8%B1%DA%A9-%D8%B9%D9%84%D9%85-%D9%88-%D9%81%D9%86%D8%A7%D9%88%D8%B1%DB%8C-%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86"
+  },
+  {
+   "id": "c333a719e2a11556b0dd86e9289c67887f142b97",
+   "titleKey": "3319b38d8d91cac6432cbeff5d8e5d5d8468e0e6",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "«تودوک»؛ عروسک ۱۰۰ ساله زنان تاجمیر تا آلمان و کانادا رفت | قصه کارآفرینی ۶۰ زن در روستای ۸۵۰ نفری تودوک‌های قد و نیم‌قد با استخوان‌های چوبی و تن پارچه‌ای و دامن زری و موی بُزی، سربند توری و صورت دکمه‌ای یا چشم و ابرو و لب‌ودهان نخی، بومی تاجمیرند.",
+   "at": "2026-11-13T22:50:00.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085676/%D8%AA%D9%88%D8%AF%D9%88%DA%A9-%D8%B9%D8%B1%D9%88%D8%B3%DA%A9-%DB%B1%DB%B0%DB%B0-%D8%B3%D8%A7%D9%84%D9%87-%D8%B2%D9%86%D8%A7%D9%86-%D8%AA%D8%A7%D8%AC%D9%85%DB%8C%D8%B1-%D8%AA%D8%A7-%D8%A2%D9%84%D9%85%D8%A7%D9%86-%D9%88-%DA%A9%D8%A7%D9%86%D8%A7%D8%AF%D8%A7-%D8%B1%D9%81%D8%AA-%D9%82%D8%B5%D9%87"
+  },
   {
    "id": "91e331d1789f45a15f8398ee3769637b82ac4fe7",
    "titleKey": "bc580e0130ec45f5c3aa82cdd6329d87748ccbd6",
@@ -9481,7 +9802,7 @@
    "items": 365
   }
  ],
- "aiCursor": 5,
+ "aiCursor": 6,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10055,22 +10376,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794609523642,
-  "Akharin_khodro/8913": 1794609523642,
-  "Akharin_khodro/8914": 1794609523642,
-  "Akharin_khodro/8915": 1794609523642,
-  "Akharin_khodro/8916": 1794609523642,
-  "Akharin_khodro/8919": 1794609523642,
-  "Akharin_khodro/8920": 1794609523642,
-  "Akharin_khodro/8921": 1794609523642,
-  "Akharin_khodro/8922": 1794609523642,
-  "Akharin_khodro/8923": 1794609523642,
-  "Akharin_khodro/8924": 1794609523642,
-  "Akharin_khodro/8925": 1794609523642,
-  "Akharin_khodro/8926": 1794609523642,
-  "Akharin_khodro/8927": 1794609523642,
-  "Akharin_khodro/8928": 1794609523642,
-  "Akharin_khodro/8929": 1794609523642,
+  "Akharin_khodro/8908": 1794610329379,
+  "Akharin_khodro/8913": 1794610329379,
+  "Akharin_khodro/8914": 1794610329379,
+  "Akharin_khodro/8915": 1794610329379,
+  "Akharin_khodro/8916": 1794610329379,
+  "Akharin_khodro/8919": 1794610329379,
+  "Akharin_khodro/8920": 1794610329379,
+  "Akharin_khodro/8921": 1794610329379,
+  "Akharin_khodro/8922": 1794610329379,
+  "Akharin_khodro/8923": 1794610329379,
+  "Akharin_khodro/8924": 1794610329379,
+  "Akharin_khodro/8925": 1794610329379,
+  "Akharin_khodro/8926": 1794610329379,
+  "Akharin_khodro/8927": 1794610329379,
+  "Akharin_khodro/8928": 1794610329379,
+  "Akharin_khodro/8929": 1794610329379,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10499,30 +10820,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-13T22:43:19.917Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-13T22:52:09.384Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1067,
-  "inWindow": 228,
-  "fresh": 85,
-  "sent": 6,
+  "inWindow": 232,
+  "fresh": 94,
+  "sent": 4,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
+  "tweetsFetched": 116,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 79,
-  "queued": 6,
-  "tweetRateLimited": false,
-  "hourlyProvider": "gemini-2",
-  "bundleSent": true,
-  "bundleItems": 188
+  "skippedUntranslated": 90,
+  "queued": 4,
+  "tweetRateLimited": false
  }
 }

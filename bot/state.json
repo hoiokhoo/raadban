@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "061f45bac1c2beafe5e36f95d3b1988d5f4e83a4": 1794605225278,
+  "38bdade859cd71f353adb0d6428561c6c61db954": 1794605225278,
+  "416e5b6bded2976a716ec6d11621f8cec809f710": 1794605225278,
+  "8786fbc9903f1c1d47071c357888fcc388b09d8e": 1794605225278,
   "0ec50e17148ede97de1576c2fbeb66649d3df459": 1794604706247,
   "53524a4780661c0b3c5d28db16ddc4e5716c1ac5": 1794604706247,
   "ec5b351afcbf80dad46225b4919c03eb2fa46fb8": 1794604706247,
@@ -1195,13 +1199,13 @@
   "tw-zelenskyyua-2121216083214414172": 1794574017230,
   "992a427c925857f93e231feb191ba52794723182": 1794573485810,
   "b1bae5359e3005cca89577cc8a2b48e1a2755097": 1794573485810,
-  "276eafabc85e6ca29f694a8126b4dd0df91bdbc2": 1794573485810,
-  "019e3e16ffbee6a201d2872fcbe30a1cd3885151": 1794573485810,
-  "296daabb2e1a7b7a6b2f662afc1c165495ab0b22": 1794573485810,
-  "79adbfd543520216919135fbf23dd94fe985ea24": 1794573485810,
-  "f74cf29dd180dc1e36072fec753093c4a7e73ab1": 1794573485810
+  "276eafabc85e6ca29f694a8126b4dd0df91bdbc2": 1794573485810
  },
  "sentTitles": {
+  "371e7902bfb63898178bb6c1a6441f3354d343d2": 1794605225278,
+  "383c22a1c339da7248bc53bd1b4c0d9dd827c49c": 1794605225278,
+  "3de7dace8b089f0f56ca99e881d34b9d044c84f6": 1794605225278,
+  "eebd55274042a044ae55741abd813033eaa978e1": 1794605225278,
   "50a96bbad54b4f97f8d743c4e6825d9f3a75a8b8": 1794604706247,
   "841b2ec4c2e6f8aa66776b12a56985fa0939c8a0": 1794604706247,
   "8c99bdbd14244c6281d03e54fdbebdd602702b2a": 1794604706247,
@@ -1797,11 +1801,7 @@
   "ba4bf3896246b8fe760e7b301a06589db4781be0": 1794588453604,
   "41aef78df338f72b2746ba4bb7d576d0e14a0558": 1794588453604,
   "a11dec47fb0fd6e1552ebdb205ecaa0fb6bd42b1": 1794588453604,
-  "803aaf38a4314d2117c99ea61206f132172d8148": 1794588453604,
-  "1d430aa6a3c568a17fdbe3b859d31aeec452f3fc": 1794588453604,
-  "807284f4af38d768b1138778c8241599189116a4": 1794588453604,
-  "209302201140ad580d043c2cb72b0a431846f16d": 1794588453604,
-  "477772733063607be719aab70b5d8898975ca050": 1794588453604
+  "803aaf38a4314d2117c99ea61206f132172d8148": 1794588453604
  },
  "sentTitleTexts": {
   "بازنشر mschlapp از شما speakerjohnson بابت رهبری دوستی و صداقت تان سپاسگزارم": 1794598628423,
@@ -3008,6 +3008,88 @@
   "همشهری انلاین سخنگوی تجارت خانه صمت فشارهای امریکا تجارت خارجی ایران را متوقف نکرد سید روح الله لطیفی با تاکید بر اینکه فشارهای امریکا نتوانسته تجارت خارجی ایرا": 1794588453604
  },
  "pool": [
+  {
+   "id": "1969bb49316651f7a193dafb14d03df03a76d0d1",
+   "titleKey": "5254f80ff73d5ac8dabc9a4d9a4ba76019f0efbe",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US Supreme Court to consider lawsuit over Robinhood's 2021 IPO - Reuters US Supreme Court to consider lawsuit over Robinhood's 2021 IPO Reuters",
+   "at": "2026-11-13T18:58:33.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUE0zT1RvMFJtc1k0LXVEa0Y4WUV1SjRBQUd0T1RSYzVJSjJ1MTlVZEdXUmVLZUgyWGdXMXZkTGdja3I1WG10QklEb2JaN1dYbFY3ZG5YenpZTTdXY29HbTByeEQzTWRpak1FdjRtVnpoY1VHMGVIZkVBSzU3QlhISDQ3UE1vR3Q4RFd4a0NfMmJmbEV6OVpuYWdpUExFOEJlT1d5LWtrTE9nQTNRdnZWRDQ1VnVlS3BIX0gw?oc=5"
+  },
+  {
+   "id": "20f7870bd5a2221c867c043e68814553e20d8a90",
+   "titleKey": "e881e86f82059ace98ecf2bd5466e9a6e259295e",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Tanker strikes river cruise boat in New Orleans, partially submerging it as rescues unfold - AP News Tanker strikes river cruise boat in New Orleans, partially submerging it as rescues unfold AP News",
+   "at": "2026-11-13T20:22:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQNlM1d3RDejItNTdSdk9KWU9PaWZPanZTQmNHd3JRY1BPTGJOYWRkaWYweVVqSzUyVkFadl84SmdVT3pyVVk2RzJYZmxMZFBPazVhQ2RKbklvSnlKZHQtWnZuM0xROU1fSDlSZVAtdzg2Y1BKS3VBWlAwMGllM3pLUFkyT1lwcWgxa3YtS0hCYW5NNGFtcGNlT3AtS2YwZnJZbWowSWlXSUhCM0dJSkE?oc=5"
+  },
+  {
+   "id": "db0be8414c406b9c3e0fdd48a9a8110e8c2cf879",
+   "titleKey": "b34e5ae41e7a0c8ba15fb7a5f1713c91dc070297",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد - العربي الجديد الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد العربي الجديد",
+   "at": "2026-11-13T20:53:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijARBVV95cUxNbzJteFRiX0hUMkRhdHhrMGJ6UHdxanA3QjVpa2ZIY2g4RmdhVWZ6Y0tpcjRwME5aVU5GNDBPSHpUSVhkMWNORWFRQmt0QU5LRTI2c2s2ZXVoSHpWck9nbC11RU9vXzZIZUo4RktaY043TUpxRG0ycUVhMFkweERWZTFsajRxQy1kb1hkMnJXYWhMdktzVWpFd0I3SEpnZklLTHFSdEItbVNSQ0pmNmpfTWIzMEx2R2daUE45R3RaZVBaZjVIVTM1ZU04OXh0bFJyclRMQjNzazdrUXo4UG5ZT1R4aVpvOWRfalc3SGhhZl92QnBuNm9YVEpZMVQyOVFvMGk5ZjlKbUpxWjF1eWxVSWhmbUZmYzNjbUMwVVg0T3NPNGptc1pWbVB2ZXlNWlp2NUxaZ3VhcXBSMm55OXJJX3JvakRZRzhJRTBUZUFEZlpGZ2FsYkRDTmtidG4waVExMzJJMXRBMXdmaDExc3BPSFVzRnN4WnpOVHQ5dTRyb2RUS1JDLWxGdEt6SnRuU0toejRSb1d4V283bmh1elBGem1kUUtmZEpVbl9MbHhCWTZwcmZ1ZDR0RmtDaFNaYkRuX04wNTVuYkVObmRpcG1vQzVSMDlvVkg0WllIc1NMVWEwUlVRelpDeVJGb2xWXzF0U2dmc2dBcndmOG04cFZ3djhNY2hQVUtJOWxLNdIBkgRBVV95cUxORWtLSWlDYVlIN2NxR1Y1bE5zM2hselZiOU1aQTFqQzF1R21yZ2lrUFBjZ2FleTBPbXVoN1RBR3lzRy1tYmVocTVUWUNXWFRRWWhLRlFiRkc1R3FWSWV4enZycXVXUHo3UDVETm5nU0U3a1o2d09vb0JCS1FSaG9wY25yeG9RY1F4TzZZeUdNZmZSd29mUzVnRFo4WVRMS3VQRUEzakFqSWpTWDFRcFU4bFFDSGhTU2JKdEdsem55S2NqMmlCcHRWcTVtM1dvX0tOdm1sY0pFVUdOVU9TdE5yOTYzc0p1SXExQW56WTRmV3RRajExV1FIRWlJMUxpV0NWb0o2TjhMZmpCX3dud1BKSy1IcTR6UXRMamw2LWx2bS1QUW1ieG1ZYzBhanBod0tta1FONHpfdnNLZXNqRWtmcjItRkxlLUFLSzFpNXpGOG1PQ0FxdlhVa2pzWlJSRS1WTXVMNzNvWXItZmRPcWVrX3h4dWJZTTFMdUh2V2NYV1hNSzZaZkxwNHZHaTBiWnlMZVZReG1CREdYRU9PUklnWXk2T0NXbTZJTzRoc3c1a0pRQjc0cW56TUh5NGJfMTA5SlZHQXZleVREQW9JOW1UM1FmN2xoVjI2NGtJQ0Y5MXNzQTdqTGpONlFNVWJDWUVIaEVoUjJoMV81NWItWU9lZVI3bnpVSTNRYXZCUnBieUc0Zw?oc=5"
+  },
+  {
+   "id": "f1e8ff0694161f303fc97698243ef98cded0e2b8",
+   "titleKey": "94935d77f4b91ef280c24fa4727f4832870de4a1",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Peltola vs. Sullivan not alone: 24 Alaska races still too close to call Twenty-four races for federal and state office in Alaska remain uncalled more than a week after Election Day, including the closely watched U.S. Senate contest, as votes from across the expansive state trickle in. Roughly 84 percent of the expected vote has been reported statewide, according to The Hill’s election desk partner Decision Desk HQ…",
+   "at": "2026-11-13T21:11:08.000Z",
+   "url": "https://thehill.com/homenews/campaign/6219645-peltola-sullivan-alaska-races-ranked-choice/"
+  },
+  {
+   "id": "966ee777f1ea273270cde60de97034aa9060c9e6",
+   "titleKey": "982ef1b79340ac730a4619d34e5163406dca3d4b",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Uber reports US driver’s license information stolen during data breach Uber disclosed this week an unauthorized third party improperly accessed the ride-hailing platform’s data, according to a notice shared by the California attorney general’s office. In the notice, dated Nov. 10, the company said a service provider had notified them of the incident a month prior. The platform then conducted an investigation, which found the…",
+   "at": "2026-11-13T21:12:15.000Z",
+   "url": "https://thehill.com/policy/technology/6219607-uber-drivers-license-data-stolen/"
+  },
+  {
+   "id": "061f45bac1c2beafe5e36f95d3b1988d5f4e83a4",
+   "titleKey": "371e7902bfb63898178bb6c1a6441f3354d343d2",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "ویدیو: گل سوم آلمان به صربستان توسط براخان گرودا گل سوم آلمان به صربستان توسط براخان گرودا زده شد.",
+   "at": "2026-11-13T21:21:34.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865575"
+  },
+  {
+   "id": "e928971bfd83496330ed72787c428e1523366f54",
+   "titleKey": "74df633f22b0d7f2274c1ff516af5730137c61fe",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "FAA orders nationwide ground stop The Federal Aviation Administration (FAA) issued a nationwide ground stop for all U.S. flights, Transportation Secretary Sean Duffy confirmed on Friday. “The [FAA] issued a nationwide ground stop for all U.S. airports following a communication issue impacting all Air Route Traffic Control Centers,” Duffy wrote on the social platform X. “FAA technicians are investigating the…",
+   "at": "2026-11-13T21:23:00.000Z",
+   "url": "https://thehill.com/policy/transportation/6219722-faa-issues-us-flight-ground-stop/"
+  },
+  {
+   "id": "416e5b6bded2976a716ec6d11621f8cec809f710",
+   "titleKey": "3de7dace8b089f0f56ca99e881d34b9d044c84f6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دویست و پنجاه و هشتمین شب تجمعات زنجانی‌ها در میدان دفاع از وطن زنجان- زنجانیها در دویست و پنجاه و هشتیمن شب حضور خود درمیدان و همزمان با شب شام غریبان شهادت حضرت فاطمه زهرا(س) در حمایت از رهبری و نظام مقدس جمهوری اسلامی ایران حضوری باشکوه درصحنه داشتند.",
+   "at": "2026-11-13T21:23:39.000Z",
+   "url": "https://www.mehrnews.com/news/7009915/%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88-%D9%87%D8%B4%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B2%D9%86%D8%AC%D8%A7%D9%86%DB%8C-%D9%87%D8%A7-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%AF%D9%81%D8%A7%D8%B9-%D8%A7%D8%B2-%D9%88%D8%B7%D9%86"
+  },
+  {
+   "id": "8786fbc9903f1c1d47071c357888fcc388b09d8e",
+   "titleKey": "eebd55274042a044ae55741abd813033eaa978e1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "خبر ذخیره‌سازی شده توسط در تاریخ ۱۴۰۵۰۸۲۳-۰۰:۵۱",
+   "at": "2026-11-13T21:24:57.000Z",
+   "url": "https://www.irna.ir/news/86320835/%D8%AE%D8%A8%D8%B1-%D8%B0%D8%AE%DB%8C%D8%B1%D9%87-%D8%B3%D8%A7%D8%B2%DB%8C-%D8%B4%D8%AF%D9%87-%D8%AA%D9%88%D8%B3%D8%B7-%D8%AF%D8%B1-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%DB%B1%DB%B4%DB%B0%DB%B5%DB%B0%DB%B8%DB%B2%DB%B3-%DB%B0%DB%B0-%DB%B5%DB%B1"
+  },
   {
    "id": "2c876cbdfb75e07109fb51340e71485cf2810abf",
    "titleKey": "7fdccdb9d0472822299184521aa04b6e8e0336a0",
@@ -6226,6 +6308,36 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-13T21:18:11.329Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: ویدیو: گل سوم آلمان به صربستان توسط براخان گرودا گل سوم آلمان به صربستان توسط براخان گرودا زده شد.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/vCKRUZjRZ8gP/2kGvwu2EZAHvtshYaqBGqSFdfVtyGKikXpTdUTDeCRz_FvKRUtTKCFLAPIz5d11wFM4phNBoz0mZraxVRTybaQPIfU1uWx_x5J9SOePWsFzAj9p-bFYv_UK1j0mvY8MW2_5Dbdk0QdK4rODhgQJ34w1pmuIRl8Epb9iBddckfU7G_GS7mJPmuL-4-yUENnqv/%D8%AA%DB%8C%D9%85+%D9%85%D9%84%DB%8C+%D8%A2%D9%84%D9%85%D8%A7%D9%86.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:26:49.201Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: دویست و پنجاه و هشتمین شب تجمعات زنجانی‌ها در میدان دفاع از وطن زنجان- زنجانیها در دویست و پنجاه و هشتیمن شب حضور خود درمیدان و همزمان با شب شام غریبان شهادت حضرت فاطمه زهرا(س) در حمایت از رهبری و نظام مقدس جمهوری اسلامی ایران حضوری باشکوه درصحنه داشتند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6261503.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:26:49.902Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): خبر ذخیره‌سازی شده توسط در تاریخ ۱۴۰۵۰۸۲۳-۰۰:۵۱\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238457.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:26:50.603Z"
   }
  ],
  "tweetQueue": [
@@ -6464,6 +6576,88 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "1969bb49316651f7a193dafb14d03df03a76d0d1",
+   "titleKey": "5254f80ff73d5ac8dabc9a4d9a4ba76019f0efbe",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US Supreme Court to consider lawsuit over Robinhood's 2021 IPO - Reuters US Supreme Court to consider lawsuit over Robinhood's 2021 IPO Reuters",
+   "at": "2026-11-13T18:58:33.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUE0zT1RvMFJtc1k0LXVEa0Y4WUV1SjRBQUd0T1RSYzVJSjJ1MTlVZEdXUmVLZUgyWGdXMXZkTGdja3I1WG10QklEb2JaN1dYbFY3ZG5YenpZTTdXY29HbTByeEQzTWRpak1FdjRtVnpoY1VHMGVIZkVBSzU3QlhISDQ3UE1vR3Q4RFd4a0NfMmJmbEV6OVpuYWdpUExFOEJlT1d5LWtrTE9nQTNRdnZWRDQ1VnVlS3BIX0gw?oc=5"
+  },
+  {
+   "id": "20f7870bd5a2221c867c043e68814553e20d8a90",
+   "titleKey": "e881e86f82059ace98ecf2bd5466e9a6e259295e",
+   "source": "AP News",
+   "lang": "en",
+   "text": "Tanker strikes river cruise boat in New Orleans, partially submerging it as rescues unfold - AP News Tanker strikes river cruise boat in New Orleans, partially submerging it as rescues unfold AP News",
+   "at": "2026-11-13T20:22:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQNlM1d3RDejItNTdSdk9KWU9PaWZPanZTQmNHd3JRY1BPTGJOYWRkaWYweVVqSzUyVkFadl84SmdVT3pyVVk2RzJYZmxMZFBPazVhQ2RKbklvSnlKZHQtWnZuM0xROU1fSDlSZVAtdzg2Y1BKS3VBWlAwMGllM3pLUFkyT1lwcWgxa3YtS0hCYW5NNGFtcGNlT3AtS2YwZnJZbWowSWlXSUhCM0dJSkE?oc=5"
+  },
+  {
+   "id": "db0be8414c406b9c3e0fdd48a9a8110e8c2cf879",
+   "titleKey": "b34e5ae41e7a0c8ba15fb7a5f1713c91dc070297",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد - العربي الجديد الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد العربي الجديد",
+   "at": "2026-11-13T20:53:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijARBVV95cUxNbzJteFRiX0hUMkRhdHhrMGJ6UHdxanA3QjVpa2ZIY2g4RmdhVWZ6Y0tpcjRwME5aVU5GNDBPSHpUSVhkMWNORWFRQmt0QU5LRTI2c2s2ZXVoSHpWck9nbC11RU9vXzZIZUo4RktaY043TUpxRG0ycUVhMFkweERWZTFsajRxQy1kb1hkMnJXYWhMdktzVWpFd0I3SEpnZklLTHFSdEItbVNSQ0pmNmpfTWIzMEx2R2daUE45R3RaZVBaZjVIVTM1ZU04OXh0bFJyclRMQjNzazdrUXo4UG5ZT1R4aVpvOWRfalc3SGhhZl92QnBuNm9YVEpZMVQyOVFvMGk5ZjlKbUpxWjF1eWxVSWhmbUZmYzNjbUMwVVg0T3NPNGptc1pWbVB2ZXlNWlp2NUxaZ3VhcXBSMm55OXJJX3JvakRZRzhJRTBUZUFEZlpGZ2FsYkRDTmtidG4waVExMzJJMXRBMXdmaDExc3BPSFVzRnN4WnpOVHQ5dTRyb2RUS1JDLWxGdEt6SnRuU0toejRSb1d4V283bmh1elBGem1kUUtmZEpVbl9MbHhCWTZwcmZ1ZDR0RmtDaFNaYkRuX04wNTVuYkVObmRpcG1vQzVSMDlvVkg0WllIc1NMVWEwUlVRelpDeVJGb2xWXzF0U2dmc2dBcndmOG04cFZ3djhNY2hQVUtJOWxLNdIBkgRBVV95cUxORWtLSWlDYVlIN2NxR1Y1bE5zM2hselZiOU1aQTFqQzF1R21yZ2lrUFBjZ2FleTBPbXVoN1RBR3lzRy1tYmVocTVUWUNXWFRRWWhLRlFiRkc1R3FWSWV4enZycXVXUHo3UDVETm5nU0U3a1o2d09vb0JCS1FSaG9wY25yeG9RY1F4TzZZeUdNZmZSd29mUzVnRFo4WVRMS3VQRUEzakFqSWpTWDFRcFU4bFFDSGhTU2JKdEdsem55S2NqMmlCcHRWcTVtM1dvX0tOdm1sY0pFVUdOVU9TdE5yOTYzc0p1SXExQW56WTRmV3RRajExV1FIRWlJMUxpV0NWb0o2TjhMZmpCX3dud1BKSy1IcTR6UXRMamw2LWx2bS1QUW1ieG1ZYzBhanBod0tta1FONHpfdnNLZXNqRWtmcjItRkxlLUFLSzFpNXpGOG1PQ0FxdlhVa2pzWlJSRS1WTXVMNzNvWXItZmRPcWVrX3h4dWJZTTFMdUh2V2NYV1hNSzZaZkxwNHZHaTBiWnlMZVZReG1CREdYRU9PUklnWXk2T0NXbTZJTzRoc3c1a0pRQjc0cW56TUh5NGJfMTA5SlZHQXZleVREQW9JOW1UM1FmN2xoVjI2NGtJQ0Y5MXNzQTdqTGpONlFNVWJDWUVIaEVoUjJoMV81NWItWU9lZVI3bnpVSTNRYXZCUnBieUc0Zw?oc=5"
+  },
+  {
+   "id": "f1e8ff0694161f303fc97698243ef98cded0e2b8",
+   "titleKey": "94935d77f4b91ef280c24fa4727f4832870de4a1",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Peltola vs. Sullivan not alone: 24 Alaska races still too close to call Twenty-four races for federal and state office in Alaska remain uncalled more than a week after Election Day, including the closely watched U.S. Senate contest, as votes from across the expansive state trickle in. Roughly 84 percent of the expected vote has been reported statewide, according to The Hill’s election desk partner Decision Desk HQ…",
+   "at": "2026-11-13T21:11:08.000Z",
+   "url": "https://thehill.com/homenews/campaign/6219645-peltola-sullivan-alaska-races-ranked-choice/"
+  },
+  {
+   "id": "966ee777f1ea273270cde60de97034aa9060c9e6",
+   "titleKey": "982ef1b79340ac730a4619d34e5163406dca3d4b",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Uber reports US driver’s license information stolen during data breach Uber disclosed this week an unauthorized third party improperly accessed the ride-hailing platform’s data, according to a notice shared by the California attorney general’s office. In the notice, dated Nov. 10, the company said a service provider had notified them of the incident a month prior. The platform then conducted an investigation, which found the…",
+   "at": "2026-11-13T21:12:15.000Z",
+   "url": "https://thehill.com/policy/technology/6219607-uber-drivers-license-data-stolen/"
+  },
+  {
+   "id": "061f45bac1c2beafe5e36f95d3b1988d5f4e83a4",
+   "titleKey": "371e7902bfb63898178bb6c1a6441f3354d343d2",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "ویدیو: گل سوم آلمان به صربستان توسط براخان گرودا گل سوم آلمان به صربستان توسط براخان گرودا زده شد.",
+   "at": "2026-11-13T21:21:34.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865575"
+  },
+  {
+   "id": "e928971bfd83496330ed72787c428e1523366f54",
+   "titleKey": "74df633f22b0d7f2274c1ff516af5730137c61fe",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "FAA orders nationwide ground stop The Federal Aviation Administration (FAA) issued a nationwide ground stop for all U.S. flights, Transportation Secretary Sean Duffy confirmed on Friday. “The [FAA] issued a nationwide ground stop for all U.S. airports following a communication issue impacting all Air Route Traffic Control Centers,” Duffy wrote on the social platform X. “FAA technicians are investigating the…",
+   "at": "2026-11-13T21:23:00.000Z",
+   "url": "https://thehill.com/policy/transportation/6219722-faa-issues-us-flight-ground-stop/"
+  },
+  {
+   "id": "416e5b6bded2976a716ec6d11621f8cec809f710",
+   "titleKey": "3de7dace8b089f0f56ca99e881d34b9d044c84f6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دویست و پنجاه و هشتمین شب تجمعات زنجانی‌ها در میدان دفاع از وطن زنجان- زنجانیها در دویست و پنجاه و هشتیمن شب حضور خود درمیدان و همزمان با شب شام غریبان شهادت حضرت فاطمه زهرا(س) در حمایت از رهبری و نظام مقدس جمهوری اسلامی ایران حضوری باشکوه درصحنه داشتند.",
+   "at": "2026-11-13T21:23:39.000Z",
+   "url": "https://www.mehrnews.com/news/7009915/%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D9%BE%D9%86%D8%AC%D8%A7%D9%87-%D9%88-%D9%87%D8%B4%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D8%B2%D9%86%D8%AC%D8%A7%D9%86%DB%8C-%D9%87%D8%A7-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%AF%D9%81%D8%A7%D8%B9-%D8%A7%D8%B2-%D9%88%D8%B7%D9%86"
+  },
+  {
+   "id": "8786fbc9903f1c1d47071c357888fcc388b09d8e",
+   "titleKey": "eebd55274042a044ae55741abd813033eaa978e1",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "خبر ذخیره‌سازی شده توسط در تاریخ ۱۴۰۵۰۸۲۳-۰۰:۵۱",
+   "at": "2026-11-13T21:24:57.000Z",
+   "url": "https://www.irna.ir/news/86320835/%D8%AE%D8%A8%D8%B1-%D8%B0%D8%AE%DB%8C%D8%B1%D9%87-%D8%B3%D8%A7%D8%B2%DB%8C-%D8%B4%D8%AF%D9%87-%D8%AA%D9%88%D8%B3%D8%B7-%D8%AF%D8%B1-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%DB%B1%DB%B4%DB%B0%DB%B5%DB%B0%DB%B8%DB%B2%DB%B3-%DB%B0%DB%B0-%DB%B5%DB%B1"
+  },
   {
    "id": "2c876cbdfb75e07109fb51340e71485cf2810abf",
    "titleKey": "7fdccdb9d0472822299184521aa04b6e8e0336a0",
@@ -9594,7 +9788,7 @@
    "items": 365
   }
  ],
- "aiCursor": 4,
+ "aiCursor": 5,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10168,22 +10362,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794604706243,
-  "Akharin_khodro/8913": 1794604706243,
-  "Akharin_khodro/8914": 1794604706243,
-  "Akharin_khodro/8915": 1794604706243,
-  "Akharin_khodro/8916": 1794604706243,
-  "Akharin_khodro/8919": 1794604706243,
-  "Akharin_khodro/8920": 1794604706243,
-  "Akharin_khodro/8921": 1794604706243,
-  "Akharin_khodro/8922": 1794604706243,
-  "Akharin_khodro/8923": 1794604706243,
-  "Akharin_khodro/8924": 1794604706243,
-  "Akharin_khodro/8925": 1794604706243,
-  "Akharin_khodro/8926": 1794604706243,
-  "Akharin_khodro/8927": 1794604706243,
-  "Akharin_khodro/8928": 1794604706243,
-  "Akharin_khodro/8929": 1794604706243,
+  "Akharin_khodro/8908": 1794605225274,
+  "Akharin_khodro/8913": 1794605225274,
+  "Akharin_khodro/8914": 1794605225274,
+  "Akharin_khodro/8915": 1794605225274,
+  "Akharin_khodro/8916": 1794605225274,
+  "Akharin_khodro/8919": 1794605225274,
+  "Akharin_khodro/8920": 1794605225274,
+  "Akharin_khodro/8921": 1794605225274,
+  "Akharin_khodro/8922": 1794605225274,
+  "Akharin_khodro/8923": 1794605225274,
+  "Akharin_khodro/8924": 1794605225274,
+  "Akharin_khodro/8925": 1794605225274,
+  "Akharin_khodro/8926": 1794605225274,
+  "Akharin_khodro/8927": 1794605225274,
+  "Akharin_khodro/8928": 1794605225274,
+  "Akharin_khodro/8929": 1794605225274,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10612,27 +10806,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-13T21:18:26.250Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-13T21:27:05.280Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1069,
-  "inWindow": 253,
-  "fresh": 82,
-  "sent": 6,
+  "fetched": 1068,
+  "inWindow": 245,
+  "fresh": 84,
+  "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
+  "tweetsFetched": 116,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 76,
-  "queued": 6,
+  "skippedUntranslated": 80,
+  "queued": 3,
   "tweetRateLimited": false
  }
 }

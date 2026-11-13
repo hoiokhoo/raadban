@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "9efac7ab4c7313c0bfac36e0dc932195cebcb64a": 1794610839855,
   "0a6af437adc1b41fc8ce5b2369f93fa70d9e05b2": 1794610329383,
   "943a73947eb6bdc23c050ccb562cb5a2f8a0c5a1": 1794610329383,
   "ffed0a2e2fb1ee24da19393bbe37d5bb9270e593": 1794610329383,
@@ -1198,10 +1199,10 @@
   "5dc3615c4b9adc37160ca513ac71be650d006c4f": 1794575676207,
   "66bc37fec1d5c0deff9549f937bf91205d8a4660": 1794575676207,
   "4adf77b2979a370c16ef6f01ed3f6688af8121f2": 1794575676207,
-  "8e1af67a4100cc762caa24e7ada921a33cba849f": 1794575676207,
-  "a77c21e3153fe039ab7799e082bf5b5b3ec5898c": 1794575676207
+  "8e1af67a4100cc762caa24e7ada921a33cba849f": 1794575676207
  },
  "sentTitles": {
+  "c099a2e935bac5be7be630348d5e4f43211ce978": 1794610839855,
   "2c21395ce5e45455775429d340e2555b54fca3fd": 1794610329383,
   "53e50b48a626d2296a4bbceec0f55c4a103d6c56": 1794610329383,
   "a6840933c29201b6bb8f0c74fb4d342991afbd22": 1794610329383,
@@ -1800,8 +1801,7 @@
   "776834bb24ed45647b384722f9408f9f50c509b9": 1794588453604,
   "b48129721211e7a5126ad6a0325b3b771af58254": 1794588453604,
   "dafa2e19accc1d86e343b24b8b776b2a283ee68d": 1794588453604,
-  "f24f1221bc70253a42bac7bea7a075e173f6cf02": 1794588453604,
-  "507aa1e0f0421edc7e0404c5b75801ccfe9bf1f4": 1794588453604
+  "f24f1221bc70253a42bac7bea7a075e173f6cf02": 1794588453604
  },
  "sentTitleTexts": {
   "با شهرداران شهرهای مختلف اوکراین از همه بخش های اوکراین از جمله خارکیف دنیپرو اوژهورود ایوانو فرانکیفسک چرنیوتسی چرکاسی میکولاییف و وینیتسیا دیدار کردم سرپرستان": 1794605776331,
@@ -3008,6 +3008,72 @@
   "خبرگزاری ایسنا نوسازی و توسعه زیرساخت های برق قم با شتاب دنبال می شود مدیرعامل شرکت توزیع نیروی برق استان قم از اجرای مجموعه ای از اقدامات زیرساختی و توسعه ای د": 1794588453604
  },
  "pool": [
+  {
+   "id": "713a48e07b7f204fa693f1295ffeaa35cd4250c6",
+   "titleKey": "482b3f30ffc0e4e088a8b54e38c4aad81b773e35",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "SpaceX to attempt double catch of huge Starship rocket Elon Musk’s company will try to grab both parts of the rocket for the first time.",
+   "at": "2026-11-13T20:12:02.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/ckregdgnl0xpo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "1555659307f6f50c48794361393844c9b23bbda0",
+   "titleKey": "325b020a93fb84175156017f2dc211479aacc194",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US extends shipping law waiver 90 days, to allow freer movement of oil, commodities - Reuters US extends shipping law waiver 90 days, to allow freer movement of oil, commodities Reuters",
+   "at": "2026-11-13T21:46:42.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQ2lneWN6TzV1ZXctMUFVUlJSbVVDUG1vOWNYM1d2Z25QV1ZlSHdjSFVmblhtX1UzNEQySEYwdjZNZGw3VnZPc00yOTEtSWFsY25CRTRhaGZJM2tFamQ3cDl6YTEwbmJLQ1VmdHo2Y2hjVThnNjdiQTNfai1xTDhFcmFITF9WblV6Rlk1M0FnbDRFWXJjdXA5R19ERUZ2WjdyZmg4bUxPQ2RZcmhaUzZxRjIwQk5jTWw1cUwxVw?oc=5"
+  },
+  {
+   "id": "6f4f7dc5eb9a7aa4527f946a27bf1b73376af6e4",
+   "titleKey": "ca722b9ca48cbcb14df734c5d4208332e02e05dd",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "FBI Said to Probe Whether Software Update Caused Mass FAA Outage - Bloomberg.com FBI Said to Probe Whether Software Update Caused Mass FAA Outage Bloomberg.com",
+   "at": "2026-11-13T22:01:21.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPQ2IyNzV5SFVBejUtbmJod1lMSktHTVljaFNPazBRY0lfRjFzRUFDd0pneG0xQnR0bHpySFBTeGo1WXlaV2ZCUEtZVWotSmdUVWxUVWJvcDMwYWY5d3o4NEpGX2w0QlJYTGc3U3pZTDBZWUZKSHAwV0J3RjNxUEdWOE9tME1janc5U0I5NWR2STR4MW50LWNVWWt4ZVB3eFROQW1ZWnkyekR6T0dUMTVBenVXV2RJZw?oc=5"
+  },
+  {
+   "id": "1d86eb69ab758a24798c011004d319b051bab25c",
+   "titleKey": "5cde2c482995e3ba3e74ea2bd65fe7b440989b03",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US National Weather Service reports nationwide internet, communications issues - Reuters US National Weather Service reports nationwide internet, communications issues Reuters",
+   "at": "2026-11-13T22:20:01.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVVd5T1hBd3pUa3JPeW5ob1VrRV82TjhsN2t2UEQ2MFhZc3hqNU1LeHVDOEN2Vzk0cmRWRi1lQUtkNjJHakRFa0NTajMxRXlybnZtbGhPU0hXUVVFdlpPUEhpRWxyemNsUXE2cnVwSzJiSFZORFE1N1d6Y2sydFVxaTh0Vy0tQ1VqdXZYbEppdXVWVFc4Q0VxczNDQjRtblRKSTZ0ejlFY1ZFYTVmbTlST2pqMEhXUWFlSkpZM294ektYZw?oc=5"
+  },
+  {
+   "id": "088af6d63819d9fbef42a2c3144ab1c22f242375",
+   "titleKey": "97e8171d31242a727e8e74f2ee97a45c23d32246",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Rescue efforts under way after tanker strikes river cruise boat in US American Heritage paddleboat with 129 passengers on board is partially submerged on Mississippi River in New Orleans.",
+   "at": "2026-11-13T22:47:16.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/rescue-efforts-under-way-after-tanker-strikes-river-cruise-boat-in-us?traffic_source=rss"
+  },
+  {
+   "id": "667ef2d7c76adbd67c3a0f132128184e931f2fab",
+   "titleKey": "efb5d01171923e69d790479d0c2275691bd40ab6",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Fitness obsessed & 'control freak' - what can Man Utd expect from Pochettino? What can Manchester United fans expect from their new manager Mauricio Pochettino? BBC Sport gets an insight from Toby Alderweireld, who played under him at Spurs.",
+   "at": "2026-11-13T22:53:17.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c85y13pv69xwo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "9efac7ab4c7313c0bfac36e0dc932195cebcb64a",
+   "titleKey": "c099a2e935bac5be7be630348d5e4f43211ce978",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "امیدواری سازمان ملل به میانجی‌گری برای توافق مسالمت‌آمیز ایران و آمریکا دستیار دبیرکل سازمان ملل در امور خاورمیانه از تلاش‌های دیپلماتیک برای میانجی‌گری استقبال و ابراز امیدواری کرد میانجی‌گران به ایران و ایالات متحده کمک کنند تا به توافقی مسالمت‌آمیز و پایدار دست یابند.",
+   "at": "2026-11-13T22:58:48.000Z",
+   "url": "https://www.isna.ir/news/1405082315243/%D8%A7%D9%85%DB%8C%D8%AF%D9%88%D8%A7%D8%B1%DB%8C-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D9%85%D9%84%D9%84-%D8%A8%D9%87-%D9%85%DB%8C%D8%A7%D9%86%D8%AC%DB%8C-%DA%AF%D8%B1%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D9%88%D8%A7%D9%81%D9%82-%D9%85%D8%B3%D8%A7%D9%84%D9%85%D8%AA-%D8%A2%D9%85%DB%8C%D8%B2-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86"
+  },
   {
    "id": "4b008f047585df86385c5653c47de6cc35c5c252",
    "titleKey": "121b12ea61809c59a4dee391c29832e2491574ae",
@@ -5342,6 +5408,16 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T22:51:54.530Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: امیدواری سازمان ملل به میانجی‌گری برای توافق مسالمت‌آمیز ایران و آمریکا دستیار دبیرکل سازمان ملل در امور خاورمیانه از تلاش‌های دیپلماتیک برای میانجی‌گری استقبال و ابراز امیدواری کرد میانجی‌گران به ایران و ایالات متحده کمک کنند تا به توافقی مسالمت‌آمیز و پایدار دست یابند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/14/4/64053819.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T23:00:25.601Z"
   }
  ],
  "tweetQueue": [],
@@ -5519,6 +5595,72 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "713a48e07b7f204fa693f1295ffeaa35cd4250c6",
+   "titleKey": "482b3f30ffc0e4e088a8b54e38c4aad81b773e35",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "SpaceX to attempt double catch of huge Starship rocket Elon Musk’s company will try to grab both parts of the rocket for the first time.",
+   "at": "2026-11-13T20:12:02.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/ckregdgnl0xpo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "1555659307f6f50c48794361393844c9b23bbda0",
+   "titleKey": "325b020a93fb84175156017f2dc211479aacc194",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US extends shipping law waiver 90 days, to allow freer movement of oil, commodities - Reuters US extends shipping law waiver 90 days, to allow freer movement of oil, commodities Reuters",
+   "at": "2026-11-13T21:46:42.000Z",
+   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQ2lneWN6TzV1ZXctMUFVUlJSbVVDUG1vOWNYM1d2Z25QV1ZlSHdjSFVmblhtX1UzNEQySEYwdjZNZGw3VnZPc00yOTEtSWFsY25CRTRhaGZJM2tFamQ3cDl6YTEwbmJLQ1VmdHo2Y2hjVThnNjdiQTNfai1xTDhFcmFITF9WblV6Rlk1M0FnbDRFWXJjdXA5R19ERUZ2WjdyZmg4bUxPQ2RZcmhaUzZxRjIwQk5jTWw1cUwxVw?oc=5"
+  },
+  {
+   "id": "6f4f7dc5eb9a7aa4527f946a27bf1b73376af6e4",
+   "titleKey": "ca722b9ca48cbcb14df734c5d4208332e02e05dd",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "FBI Said to Probe Whether Software Update Caused Mass FAA Outage - Bloomberg.com FBI Said to Probe Whether Software Update Caused Mass FAA Outage Bloomberg.com",
+   "at": "2026-11-13T22:01:21.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPQ2IyNzV5SFVBejUtbmJod1lMSktHTVljaFNPazBRY0lfRjFzRUFDd0pneG0xQnR0bHpySFBTeGo1WXlaV2ZCUEtZVWotSmdUVWxUVWJvcDMwYWY5d3o4NEpGX2w0QlJYTGc3U3pZTDBZWUZKSHAwV0J3RjNxUEdWOE9tME1janc5U0I5NWR2STR4MW50LWNVWWt4ZVB3eFROQW1ZWnkyekR6T0dUMTVBenVXV2RJZw?oc=5"
+  },
+  {
+   "id": "1d86eb69ab758a24798c011004d319b051bab25c",
+   "titleKey": "5cde2c482995e3ba3e74ea2bd65fe7b440989b03",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "US National Weather Service reports nationwide internet, communications issues - Reuters US National Weather Service reports nationwide internet, communications issues Reuters",
+   "at": "2026-11-13T22:20:01.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVVd5T1hBd3pUa3JPeW5ob1VrRV82TjhsN2t2UEQ2MFhZc3hqNU1LeHVDOEN2Vzk0cmRWRi1lQUtkNjJHakRFa0NTajMxRXlybnZtbGhPU0hXUVVFdlpPUEhpRWxyemNsUXE2cnVwSzJiSFZORFE1N1d6Y2sydFVxaTh0Vy0tQ1VqdXZYbEppdXVWVFc4Q0VxczNDQjRtblRKSTZ0ejlFY1ZFYTVmbTlST2pqMEhXUWFlSkpZM294ektYZw?oc=5"
+  },
+  {
+   "id": "088af6d63819d9fbef42a2c3144ab1c22f242375",
+   "titleKey": "97e8171d31242a727e8e74f2ee97a45c23d32246",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Rescue efforts under way after tanker strikes river cruise boat in US American Heritage paddleboat with 129 passengers on board is partially submerged on Mississippi River in New Orleans.",
+   "at": "2026-11-13T22:47:16.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/rescue-efforts-under-way-after-tanker-strikes-river-cruise-boat-in-us?traffic_source=rss"
+  },
+  {
+   "id": "667ef2d7c76adbd67c3a0f132128184e931f2fab",
+   "titleKey": "efb5d01171923e69d790479d0c2275691bd40ab6",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Fitness obsessed & 'control freak' - what can Man Utd expect from Pochettino? What can Manchester United fans expect from their new manager Mauricio Pochettino? BBC Sport gets an insight from Toby Alderweireld, who played under him at Spurs.",
+   "at": "2026-11-13T22:53:17.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/c85y13pv69xwo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "9efac7ab4c7313c0bfac36e0dc932195cebcb64a",
+   "titleKey": "c099a2e935bac5be7be630348d5e4f43211ce978",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "امیدواری سازمان ملل به میانجی‌گری برای توافق مسالمت‌آمیز ایران و آمریکا دستیار دبیرکل سازمان ملل در امور خاورمیانه از تلاش‌های دیپلماتیک برای میانجی‌گری استقبال و ابراز امیدواری کرد میانجی‌گران به ایران و ایالات متحده کمک کنند تا به توافقی مسالمت‌آمیز و پایدار دست یابند.",
+   "at": "2026-11-13T22:58:48.000Z",
+   "url": "https://www.isna.ir/news/1405082315243/%D8%A7%D9%85%DB%8C%D8%AF%D9%88%D8%A7%D8%B1%DB%8C-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D9%85%D9%84%D9%84-%D8%A8%D9%87-%D9%85%DB%8C%D8%A7%D9%86%D8%AC%DB%8C-%DA%AF%D8%B1%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D9%88%D8%A7%D9%81%D9%82-%D9%85%D8%B3%D8%A7%D9%84%D9%85%D8%AA-%D8%A2%D9%85%DB%8C%D8%B2-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86"
+  },
   {
    "id": "4b008f047585df86385c5653c47de6cc35c5c252",
    "titleKey": "121b12ea61809c59a4dee391c29832e2491574ae",
@@ -9802,7 +9944,7 @@
    "items": 365
   }
  ],
- "aiCursor": 6,
+ "aiCursor": 0,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10376,22 +10518,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794610329379,
-  "Akharin_khodro/8913": 1794610329379,
-  "Akharin_khodro/8914": 1794610329379,
-  "Akharin_khodro/8915": 1794610329379,
-  "Akharin_khodro/8916": 1794610329379,
-  "Akharin_khodro/8919": 1794610329379,
-  "Akharin_khodro/8920": 1794610329379,
-  "Akharin_khodro/8921": 1794610329379,
-  "Akharin_khodro/8922": 1794610329379,
-  "Akharin_khodro/8923": 1794610329379,
-  "Akharin_khodro/8924": 1794610329379,
-  "Akharin_khodro/8925": 1794610329379,
-  "Akharin_khodro/8926": 1794610329379,
-  "Akharin_khodro/8927": 1794610329379,
-  "Akharin_khodro/8928": 1794610329379,
-  "Akharin_khodro/8929": 1794610329379,
+  "Akharin_khodro/8908": 1794610839850,
+  "Akharin_khodro/8913": 1794610839850,
+  "Akharin_khodro/8914": 1794610839850,
+  "Akharin_khodro/8915": 1794610839850,
+  "Akharin_khodro/8916": 1794610839850,
+  "Akharin_khodro/8919": 1794610839850,
+  "Akharin_khodro/8920": 1794610839850,
+  "Akharin_khodro/8921": 1794610839850,
+  "Akharin_khodro/8922": 1794610839850,
+  "Akharin_khodro/8923": 1794610839850,
+  "Akharin_khodro/8924": 1794610839850,
+  "Akharin_khodro/8925": 1794610839850,
+  "Akharin_khodro/8926": 1794610839850,
+  "Akharin_khodro/8927": 1794610839850,
+  "Akharin_khodro/8928": 1794610839850,
+  "Akharin_khodro/8929": 1794610839850,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10820,27 +10962,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-13T22:52:09.384Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-13T23:00:39.857Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1067,
-  "inWindow": 232,
-  "fresh": 94,
-  "sent": 4,
+  "fetched": 1066,
+  "inWindow": 223,
+  "fresh": 97,
+  "sent": 1,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 116,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 90,
-  "queued": 4,
+  "skippedUntranslated": 96,
+  "queued": 1,
   "tweetRateLimited": false
  }
 }

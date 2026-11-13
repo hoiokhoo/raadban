@@ -1,5 +1,13 @@
 {
  "sentIds": {
+  "86e5e2608efb52b059204b35fb74d010185e0802": 1794542955425,
+  "76068530aac22e3e8ac4aeff180e3f36a43577cc": 1794542955425,
+  "980e0634ecd4639bdc08f16e7defa7f359edc139": 1794542955425,
+  "db9f1d89fce6716a45fe39b2c737b6482d1067bb": 1794542955425,
+  "c08c3bdda94cc1ca0b48164eee77381914910aad": 1794542955425,
+  "c7a87e5b44605a6a87534c9c89b110ea23fce40a": 1794542955425,
+  "17642416ee6eceb7148082acba86445f9cd85250": 1794542955425,
+  "2c0274050b39500002ae644813bca0adccab3b23": 1794542955425,
   "0f433113e2888d0459468007c08c42c4d2e8b64a": 1794542460162,
   "94ef00d0f8b0632bf67b6cf1d3aee3dbebbbc12a": 1794542460162,
   "d64581608ef2e09e8856abffe6d5300a00e58913": 1794542460162,
@@ -1191,17 +1199,17 @@
   "94123ab6dfc55d6f8ea67160a2fc0d8282b4fba3": 1794497624564,
   "f7a25095e2f52cbb9b8f84f87d792206723d4ace": 1794497624564,
   "caac76e3f4e819ecf562a934915b7b5d01a95eb4": 1794497624564,
-  "347fd313b8e64228fc5eefe1e1eec2140038624d": 1794497624564,
-  "085246b69c7b23f4c3ea75a83745c0f7863451fe": 1794497624564,
-  "de7f26448a3f08b081584f3736be6ebf2c8cda26": 1794497624564,
-  "fcd1d5187a41ca256070541548befeab9c5fd7fc": 1794497624564,
-  "211b1011cc2e772dc6859da46629a39d7b810c8b": 1794497624564,
-  "289aeef9f8509e0484d02d89125a91c8faebc72b": 1794497624564,
-  "99f4fbe0dc70e357fe630519b7eeb964e79b83ae": 1794497624564,
-  "d757454d9cec86b8257d279d5b2c634d0d259778": 1794497624564,
-  "912fecc49f1e5af7a8812a0410a512316981e0bb": 1794497624564
+  "347fd313b8e64228fc5eefe1e1eec2140038624d": 1794497624564
  },
  "sentTitles": {
+  "24dde63c553e7964465966efbfaf5b35060afb72": 1794542955425,
+  "6071e7749568b8ebe1d7267b3e27c0f846be7adf": 1794542955425,
+  "ac01c1a832ca5216324af3389a6e985800449bbb": 1794542955425,
+  "d8d0613e5195106ad0bf63569e751353d478a716": 1794542955425,
+  "6c3e3601a7fb4f86011ebe2defe6438f6fa180d4": 1794542955425,
+  "9f1dd6e0c779deb8a859820b080881aed1bbf94e": 1794542955425,
+  "041b64ac72898722d341648173be1b7f47e8643b": 1794542955425,
+  "ed4fb1165d6b7c97b2393b21f758e45bcf4c84dc": 1794542955425,
   "f571de7c1f0f12e2565965ce75a133e7a0b99f16": 1794542460162,
   "98c400b63e455ae723e23d6dd6e04cae17c6eeb1": 1794542460162,
   "e6393659d7ea43b4e0e8a9b1f52db34cf5fda6d8": 1794542460162,
@@ -1793,15 +1801,7 @@
   "0fd44a55cd9867267c3df212913fa7aadcbbc62e": 1794510781339,
   "b8daff976256e5f741ce284e08ed7ca69e711688": 1794510781339,
   "50fa4430b86a64258191da864be4eb18f7d46c39": 1794510781339,
-  "55aaef4e9799cb67aa7cb38ae8fd5a0bcbd0a11a": 1794510781339,
-  "b32b735ac1be366111d59226cbce5462ecc76618": 1794510781339,
-  "3125db78b1712581734d610593b20bfc1b8bb689": 1794510781339,
-  "b4f49634885b5d934b5b35b3a7edac43e5c9a2fc": 1794510781339,
-  "583b08ee6bd0e56a8da5c2f24838bc8192051997": 1794510781339,
-  "c86f045db4cb6b186e6d4267768df46d5835df3a": 1794510781339,
-  "86a7391e1ceaf932ca29d9a0ba0c53d37b2db708": 1794510781339,
-  "362eb6939b9ccee73b98630022151a7691829fe2": 1794510781339,
-  "8013f0934451cf40d5bd602b3a8e18ea03b53e47": 1794510781339
+  "55aaef4e9799cb67aa7cb38ae8fd5a0bcbd0a11a": 1794510781339
  },
  "sentTitleTexts": {
   "قوی تر بودن و به طور موثرتری در مقیاس قاره اروپا عمل کردن این همان دلیل وجود جامعه سیاسی اروپا است که فرانسه در سال ۲۰۲۲ ان را اغاز کرده است امروز در دبلین چهل ": 1794533711248,
@@ -3008,6 +3008,119 @@
   "اقتصادانلاین حقوق نیرو های مسلح پای لانچر موشک چه قدر است یکی از فرماندهان پرتاب موشک گفت در مجموعه هوافضای سپاه با نخبگانی کار می کنیم که اگر می خواستند بیرون ": 1794508430262
  },
  "pool": [
+  {
+   "id": "81f11b87cfb4022d586f69724c96f872471a0aed",
+   "titleKey": "e19caa82d4a5081bc74e2b69b7cda2843f00c063",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Mississippi elects first black senator in nearly 150 years Scott Colom will be the first black senator to represent Mississippi since 1881.",
+   "at": "2026-11-13T03:21:25.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/mississippi-elects-first-black-senator-in-nearly-150-years?traffic_source=rss"
+  },
+  {
+   "id": "acfa256b5b49eabed588891d6b93b7e1d5f26154",
+   "titleKey": "ccb7858e139a5099c1b4405bededb9677c090c36",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Starshield limitations disrupt 100% of Ukrainian missions — Axios Earlier, a spokesperson for SpaceX denied any restrictions on Starshield",
+   "at": "2026-11-13T03:45:00.000Z",
+   "url": "https://tass.com/world/2217543"
+  },
+  {
+   "id": "86e5e2608efb52b059204b35fb74d010185e0802",
+   "titleKey": "24dde63c553e7964465966efbfaf5b35060afb72",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "استاد حوزه :خانه حضرت زهرا(س) الگویعبادت ، خیرخواهی و مقاومت است بوشهر- ایرنا- استاد حوزه و دانشگاه با بیان اینکه سیره حضرت فاطمه زهرا(س) الگویی جامع برای زندگی فردی و اجتماعی است، گفت: خانه آن حضرت سه ویژگی برجسته عبادت، خیرخواهی و مقاومت داشت و خانواده‌ها با الگوگیری از این سیره می‌توانند به جایگاه والای انسانی و معنوی دست یابند.",
+   "at": "2026-11-13T03:59:15.000Z",
+   "url": "https://www.irna.ir/news/86320260/%D8%A7%D8%B3%D8%AA%D8%A7%D8%AF-%D8%AD%D9%88%D8%B2%D9%87-%D8%AE%D8%A7%D9%86%D9%87-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C%D8%B9%D8%A8%D8%A7%D8%AF%D8%AA-%D8%AE%DB%8C%D8%B1%D8%AE%D9%88%D8%A7%D9%87%DB%8C-%D9%88-%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%AA"
+  },
+  {
+   "id": "76068530aac22e3e8ac4aeff180e3f36a43577cc",
+   "titleKey": "6071e7749568b8ebe1d7267b3e27c0f846be7adf",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "ریزش ساختمان در نیویورک با حداقل ۸ کشته و ۱۷ زخمی + فیلم در پی فروریختن ساختمانی در منطقه بروکلین نیویورک، دست‌کم ۸ نفر جان باختند و ۱۷ نفر دیگر، از جمله ۷ کودک، زخمی شدند. کمیسر آتش‌نشانی نیویورک «لیلیان بونسینیوره» نیز گفت شمار قربانیان ممکن است «دقیقه‌به‌دقیقه» تغییر کند./آخرین خبر",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301261/%D8%B1%DB%8C%D8%B2%D8%B4-%D8%B3%D8%A7%D8%AE%D8%AA%D9%85%D8%A7%D9%86-%D8%AF%D8%B1-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%A8%D8%A7-%D8%AD%D8%AF%D8%A7%D9%82%D9%84-%DB%B8-%DA%A9%D8%B4%D8%AA%D9%87-%D9%88-%DB%B1%DB%B7-%D8%B2%D8%AE%D9%85%DB%8C-%D9%81%DB%8C%D9%84%D9%85"
+  },
+  {
+   "id": "980e0634ecd4639bdc08f16e7defa7f359edc139",
+   "titleKey": "ac01c1a832ca5216324af3389a6e985800449bbb",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "«پس کی ازدواج می‌کنی؟»؛ چرا جامعه از مجردها توضیح می‌خواهد؟ «ازدواج» در فرهنگ جامعه ایران فراتر از انتخاب شخصی و عاطفی، همچنان یکی از مهم‌ترین مراحل ورود افراد به برخورداری از پذیرش اجتماعی محسوب می‌شود؛ به‌گونه‌ای که مجرد ماندن، به‌ویژه با عبور از سنین متعارف ازدواج، گاهی به وضعیتی تبدیل می‌شود که فرد باید برای آن به خانواده و محیط اجتماعی پاسخ دهد.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082013756/%D9%BE%D8%B3-%DA%A9%DB%8C-%D8%A7%D8%B2%D8%AF%D9%88%D8%A7%D8%AC-%D9%85%DB%8C-%DA%A9%D9%86%DB%8C-%DA%86%D8%B1%D8%A7-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A7%D8%B2-%D9%85%D8%AC%D8%B1%D8%AF%D9%87%D8%A7-%D8%AA%D9%88%D8%B6%DB%8C%D8%AD-%D9%85%DB%8C-%D8%AE%D9%88%D8%A7%D9%87%D8%AF"
+  },
+  {
+   "id": "db9f1d89fce6716a45fe39b2c737b6482d1067bb",
+   "titleKey": "d8d0613e5195106ad0bf63569e751353d478a716",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "از شین‌آباد تا امروز؛ چرا هنوز بخاری نفتی در مدارس می‌سوزد؟ با گذشت سال‌ها از حادثه تلخ شین‌آباد، هنوز بخاری نفتی در برخی مدارس روشن است؛ گویی درس آن فاجعه همچنان آموخته نشده است.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.mehrnews.com/news/7007561/%D8%A7%D8%B2-%D8%B4%DB%8C%D9%86-%D8%A2%D8%A8%D8%A7%D8%AF-%D8%AA%D8%A7-%D8%A7%D9%85%D8%B1%D9%88%D8%B2-%DA%86%D8%B1%D8%A7-%D9%87%D9%86%D9%88%D8%B2-%D8%A8%D8%AE%D8%A7%D8%B1%DB%8C-%D9%86%D9%81%D8%AA%DB%8C-%D8%AF%D8%B1-%D9%85%D8%AF%D8%A7%D8%B1%D8%B3-%D9%85%DB%8C-%D8%B3%D9%88%D8%B2%D8%AF"
+  },
+  {
+   "id": "c08c3bdda94cc1ca0b48164eee77381914910aad",
+   "titleKey": "6c3e3601a7fb4f86011ebe2defe6438f6fa180d4",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "بارش پاییزی در خراسان رضوی ۷۹ درصد کاهش یافت مشهد - ایرنا - مدیر عامل شرکت آب منطقه‌ای خراسان رضوی گفت: میزان بارندگی استان از ابتدای سال آبی جاری (مهرماه) تاکنون و در فصل پاییز حدود ۷۹ درصد کاهش دارد.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.irna.ir/news/86320164/%D8%A8%D8%A7%D8%B1%D8%B4-%D9%BE%D8%A7%DB%8C%DB%8C%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86-%D8%B1%D8%B6%D9%88%DB%8C-%DB%B7%DB%B9-%D8%AF%D8%B1%D8%B5%D8%AF-%DA%A9%D8%A7%D9%87%D8%B4-%DB%8C%D8%A7%D9%81%D8%AA"
+  },
+  {
+   "id": "c7a87e5b44605a6a87534c9c89b110ea23fce40a",
+   "titleKey": "9f1dd6e0c779deb8a859820b080881aed1bbf94e",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "حملات گسترده یمن به شاه‌رگ اقتصادی بن‌سلمان / آرامکو در آتش سوخت تاسیسات نفتی عربستان هدف حمله یمن قرار گرفت.",
+   "at": "2026-11-13T04:00:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175292/حملات-گسترده-یمن-به-شاه-رگ-اقتصادی-بن-سلمان-آرامکو-در-آتش-سوخت"
+  },
+  {
+   "id": "e12cca118678b4ab0a3e08e91c7578e34670ca3b",
+   "titleKey": "c4e1356578d50889ad3c1d092a43296d22114265",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "SpaceX, Tesla may announce merger in December — Bloomberg According to the news agency, this will become the largest deal in history",
+   "at": "2026-11-13T04:03:06.000Z",
+   "url": "https://tass.com/economy/2217545"
+  },
+  {
+   "id": "1b5cee415b4e86525ea7e1d0df464ceca4073568",
+   "titleKey": "dd1b35a0666c33f60f9ee4f601bec493fd35a563",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "How did a tax proposal led the Dutch government to the verge of collapse? | Explained The Netherlands currently has a minority government by a coalition of three parties holding 66 seats in the 150-member Tweede Kamer, the lower house",
+   "at": "2026-11-13T04:03:17.000Z",
+   "url": "https://www.thehindu.com/business/Economy/how-did-a-tax-proposal-led-the-dutch-government-to-the-verge-of-collapse-explained/article71696493.ece"
+  },
+  {
+   "id": "17642416ee6eceb7148082acba86445f9cd85250",
+   "titleKey": "041b64ac72898722d341648173be1b7f47e8643b",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "فیلم | مراسم سوگواری شهادت حضرت فاطمه زهرا(س) در بوشهر بوشهر- ایرنا- مراسم سوگواری سالروز شهادت حضرت فاطمه زهرا(س) و شب وداع با شهدای گمنام، به همت آیت‌الله حسینی بوشهری در میدان امام خمینی(ره) شهر بوشهر برگزار شد.",
+   "at": "2026-11-13T04:05:23.000Z",
+   "url": "https://www.irna.ir/news/86320308/%D9%81%DB%8C%D9%84%D9%85-%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D8%B3%D9%88%DA%AF%D9%88%D8%A7%D8%B1%DB%8C-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%D9%87-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%AF%D8%B1-%D8%A8%D9%88%D8%B4%D9%87%D8%B1"
+  },
+  {
+   "id": "2c0274050b39500002ae644813bca0adccab3b23",
+   "titleKey": "ed4fb1165d6b7c97b2393b21f758e45bcf4c84dc",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مومنی: اقتصاد کشور را نمی‌توان مانند یک حجره اداره کرد یک اقتصاددان گفت: در پنج سال گذشته مطرح کرده‌ام که مفاهیمی مانند ناترازی انرژی و ناترازی بانکی در برخی موارد برای پنهان کردن نقش مافیاها، فساد، دزدی‌ها و بی‌کفایتی‌ها به کار گرفته می‌شوند؛ بنابراین کشور را نمی‌توان مانند یک حجره کوچک اداره کرد و همه مسائل پیچیده اقتصادی را با چهار عمل اصلی توضیح داد.",
+   "at": "2026-11-13T04:08:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114833/%D9%85%D9%88%D9%85%D9%86%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%DA%A9%D8%B4%D9%88%D8%B1-%D8%B1%D8%A7-%D9%86%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86-%D9%85%D8%A7%D9%86%D9%86%D8%AF-%DB%8C%DA%A9-%D8%AD%D8%AC%D8%B1%D9%87-%D8%A7%D8%AF%D8%A7%D8%B1%D9%87-%DA%A9%D8%B1%D8%AF"
+  },
   {
    "id": "c630ec885cd0b23903cc22e1b4dab8a6fd3126f7",
    "titleKey": "bfdc84a7c3d7275d91d3e6c5b8c0390b063c0ca6",
@@ -6371,6 +6484,86 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T04:00:45.491Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): استاد حوزه :خانه حضرت زهرا(س) الگویعبادت ، خیرخواهی و مقاومت است بوشهر- ایرنا- استاد حوزه و دانشگاه با بیان اینکه سیره حضرت فاطمه زهرا(س) الگویی جامع برای زندگی فردی و اجتماعی است، گفت: خانه آن حضرت سه ویژگی برجسته عبادت، خیرخواهی و مقاومت داشت و خانواده‌ها با الگوگیری از این سیره می‌توانند به جایگاه والای انسانی و معنوی دست یابند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236398.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T04:08:55.909Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: ریزش ساختمان در نیویورک با حداقل ۸ کشته و ۱۷ زخمی + فیلم در پی فروریختن ساختمانی در منطقه بروکلین نیویورک، دست‌کم ۸ نفر جان باختند و ۱۷ نفر دیگر، از جمله ۷ کودک، زخمی شدند. کمیسر آتش‌نشانی نیویورک «لیلیان بونسینیوره» نیز گفت شمار قربانیان ممکن است «دقیقه‌به‌دقیقه» تغییر کند./آخرین خبر\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2025/03/28/4/6205181.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:08:56.610Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: «پس کی ازدواج می‌کنی؟»؛ چرا جامعه از مجردها توضیح می‌خواهد؟ «ازدواج» در فرهنگ جامعه ایران فراتر از انتخاب شخصی و عاطفی، همچنان یکی از مهم‌ترین مراحل ورود افراد به برخورداری از پذیرش اجتماعی محسوب می‌شود؛ به‌گونه‌ای که مجرد ماندن، به‌ویژه با عبور از سنین متعارف ازدواج، گاهی به وضعیتی تبدیل می‌شود که فرد باید برای آن به خانواده و محیط اجتماعی پاسخ دهد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2021/12/29/4/62134063.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:08:57.311Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: از شین‌آباد تا امروز؛ چرا هنوز بخاری نفتی در مدارس می‌سوزد؟ با گذشت سال‌ها از حادثه تلخ شین‌آباد، هنوز بخاری نفتی در برخی مدارس روشن است؛ گویی درس آن فاجعه همچنان آموخته نشده است.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/11/4/6257112.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:08:58.012Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): بارش پاییزی در خراسان رضوی ۷۹ درصد کاهش یافت مشهد - ایرنا - مدیر عامل شرکت آب منطقه‌ای خراسان رضوی گفت: میزان بارندگی استان از ابتدای سال آبی جاری (مهرماه) تاکنون و در فصل پاییز حدود ۷۹ درصد کاهش دارد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r1/2026/11/08/4/173227704.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T04:08:58.713Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: حملات گسترده یمن به شاه‌رگ اقتصادی بن‌سلمان / آرامکو در آتش سوخت تاسیسات نفتی عربستان هدف حمله یمن قرار گرفت.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T04:08:59.414Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): فیلم | مراسم سوگواری شهادت حضرت فاطمه زهرا(س) در بوشهر بوشهر- ایرنا- مراسم سوگواری سالروز شهادت حضرت فاطمه زهرا(س) و شب وداع با شهدای گمنام، به همت آیت‌الله حسینی بوشهری در میدان امام خمینی(ره) شهر بوشهر برگزار شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173236565.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T04:09:00.115Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: مومنی: اقتصاد کشور را نمی‌توان مانند یک حجره اداره کرد یک اقتصاددان گفت: در پنج سال گذشته مطرح کرده‌ام که مفاهیمی مانند ناترازی انرژی و ناترازی بانکی در برخی موارد برای پنهان کردن نقش مافیاها، فساد، دزدی‌ها و بی‌کفایتی‌ها به کار گرفته می‌شوند؛ بنابراین کشور را نمی‌توان مانند یک حجره کوچک اداره کرد و همه مسائل پیچیده اقتصادی را با چهار عمل اصلی توضیح داد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/01/29/4/63733734.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T04:09:00.816Z"
   }
  ],
  "tweetQueue": [],
@@ -6548,6 +6741,128 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "4e9d610c21620de407fc4b01d708b84d8a861c2e",
+   "titleKey": "b2111adfdab10d152ba12131b2fd817c424ebf11",
+   "source": "AP News",
+   "lang": "en",
+   "text": "5 people are shot in DC, including 1 killed at a gym, and then suspect kills himself - AP News 5 people are shot in DC, including 1 killed at a gym, and then suspect kills himself AP News",
+   "at": "2026-11-13T02:11:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQMW5zRmhTTGNjXzZqa1hiWG1oWmVLeGZzZmZiVkhjOEpqTlJiMVZudG1meElSb2d5djFtM0FSUzM0UVdtYXdRcVZReTBxUG5rMW9ZYVQ3MlFXTGhZRG5rZmZnay1ONXlEVzJWdFRKZ3VLZGRDNFVzU21oVkZHTkhCZGlDNTA2NlgzY3lhdw?oc=5"
+  },
+  {
+   "id": "81f11b87cfb4022d586f69724c96f872471a0aed",
+   "titleKey": "e19caa82d4a5081bc74e2b69b7cda2843f00c063",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Mississippi elects first black senator in nearly 150 years Scott Colom will be the first black senator to represent Mississippi since 1881.",
+   "at": "2026-11-13T03:21:25.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/mississippi-elects-first-black-senator-in-nearly-150-years?traffic_source=rss"
+  },
+  {
+   "id": "acfa256b5b49eabed588891d6b93b7e1d5f26154",
+   "titleKey": "ccb7858e139a5099c1b4405bededb9677c090c36",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Starshield limitations disrupt 100% of Ukrainian missions — Axios Earlier, a spokesperson for SpaceX denied any restrictions on Starshield",
+   "at": "2026-11-13T03:45:00.000Z",
+   "url": "https://tass.com/world/2217543"
+  },
+  {
+   "id": "86e5e2608efb52b059204b35fb74d010185e0802",
+   "titleKey": "24dde63c553e7964465966efbfaf5b35060afb72",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "استاد حوزه :خانه حضرت زهرا(س) الگویعبادت ، خیرخواهی و مقاومت است بوشهر- ایرنا- استاد حوزه و دانشگاه با بیان اینکه سیره حضرت فاطمه زهرا(س) الگویی جامع برای زندگی فردی و اجتماعی است، گفت: خانه آن حضرت سه ویژگی برجسته عبادت، خیرخواهی و مقاومت داشت و خانواده‌ها با الگوگیری از این سیره می‌توانند به جایگاه والای انسانی و معنوی دست یابند.",
+   "at": "2026-11-13T03:59:15.000Z",
+   "url": "https://www.irna.ir/news/86320260/%D8%A7%D8%B3%D8%AA%D8%A7%D8%AF-%D8%AD%D9%88%D8%B2%D9%87-%D8%AE%D8%A7%D9%86%D9%87-%D8%AD%D8%B6%D8%B1%D8%AA-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%A7%D9%84%DA%AF%D9%88%DB%8C%D8%B9%D8%A8%D8%A7%D8%AF%D8%AA-%D8%AE%DB%8C%D8%B1%D8%AE%D9%88%D8%A7%D9%87%DB%8C-%D9%88-%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%AA"
+  },
+  {
+   "id": "76068530aac22e3e8ac4aeff180e3f36a43577cc",
+   "titleKey": "6071e7749568b8ebe1d7267b3e27c0f846be7adf",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "ریزش ساختمان در نیویورک با حداقل ۸ کشته و ۱۷ زخمی + فیلم در پی فروریختن ساختمانی در منطقه بروکلین نیویورک، دست‌کم ۸ نفر جان باختند و ۱۷ نفر دیگر، از جمله ۷ کودک، زخمی شدند. کمیسر آتش‌نشانی نیویورک «لیلیان بونسینیوره» نیز گفت شمار قربانیان ممکن است «دقیقه‌به‌دقیقه» تغییر کند./آخرین خبر",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301261/%D8%B1%DB%8C%D8%B2%D8%B4-%D8%B3%D8%A7%D8%AE%D8%AA%D9%85%D8%A7%D9%86-%D8%AF%D8%B1-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%A8%D8%A7-%D8%AD%D8%AF%D8%A7%D9%82%D9%84-%DB%B8-%DA%A9%D8%B4%D8%AA%D9%87-%D9%88-%DB%B1%DB%B7-%D8%B2%D8%AE%D9%85%DB%8C-%D9%81%DB%8C%D9%84%D9%85"
+  },
+  {
+   "id": "980e0634ecd4639bdc08f16e7defa7f359edc139",
+   "titleKey": "ac01c1a832ca5216324af3389a6e985800449bbb",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "«پس کی ازدواج می‌کنی؟»؛ چرا جامعه از مجردها توضیح می‌خواهد؟ «ازدواج» در فرهنگ جامعه ایران فراتر از انتخاب شخصی و عاطفی، همچنان یکی از مهم‌ترین مراحل ورود افراد به برخورداری از پذیرش اجتماعی محسوب می‌شود؛ به‌گونه‌ای که مجرد ماندن، به‌ویژه با عبور از سنین متعارف ازدواج، گاهی به وضعیتی تبدیل می‌شود که فرد باید برای آن به خانواده و محیط اجتماعی پاسخ دهد.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082013756/%D9%BE%D8%B3-%DA%A9%DB%8C-%D8%A7%D8%B2%D8%AF%D9%88%D8%A7%D8%AC-%D9%85%DB%8C-%DA%A9%D9%86%DB%8C-%DA%86%D8%B1%D8%A7-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A7%D8%B2-%D9%85%D8%AC%D8%B1%D8%AF%D9%87%D8%A7-%D8%AA%D9%88%D8%B6%DB%8C%D8%AD-%D9%85%DB%8C-%D8%AE%D9%88%D8%A7%D9%87%D8%AF"
+  },
+  {
+   "id": "db9f1d89fce6716a45fe39b2c737b6482d1067bb",
+   "titleKey": "d8d0613e5195106ad0bf63569e751353d478a716",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "از شین‌آباد تا امروز؛ چرا هنوز بخاری نفتی در مدارس می‌سوزد؟ با گذشت سال‌ها از حادثه تلخ شین‌آباد، هنوز بخاری نفتی در برخی مدارس روشن است؛ گویی درس آن فاجعه همچنان آموخته نشده است.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.mehrnews.com/news/7007561/%D8%A7%D8%B2-%D8%B4%DB%8C%D9%86-%D8%A2%D8%A8%D8%A7%D8%AF-%D8%AA%D8%A7-%D8%A7%D9%85%D8%B1%D9%88%D8%B2-%DA%86%D8%B1%D8%A7-%D9%87%D9%86%D9%88%D8%B2-%D8%A8%D8%AE%D8%A7%D8%B1%DB%8C-%D9%86%D9%81%D8%AA%DB%8C-%D8%AF%D8%B1-%D9%85%D8%AF%D8%A7%D8%B1%D8%B3-%D9%85%DB%8C-%D8%B3%D9%88%D8%B2%D8%AF"
+  },
+  {
+   "id": "c08c3bdda94cc1ca0b48164eee77381914910aad",
+   "titleKey": "6c3e3601a7fb4f86011ebe2defe6438f6fa180d4",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "بارش پاییزی در خراسان رضوی ۷۹ درصد کاهش یافت مشهد - ایرنا - مدیر عامل شرکت آب منطقه‌ای خراسان رضوی گفت: میزان بارندگی استان از ابتدای سال آبی جاری (مهرماه) تاکنون و در فصل پاییز حدود ۷۹ درصد کاهش دارد.",
+   "at": "2026-11-13T04:00:00.000Z",
+   "url": "https://www.irna.ir/news/86320164/%D8%A8%D8%A7%D8%B1%D8%B4-%D9%BE%D8%A7%DB%8C%DB%8C%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86-%D8%B1%D8%B6%D9%88%DB%8C-%DB%B7%DB%B9-%D8%AF%D8%B1%D8%B5%D8%AF-%DA%A9%D8%A7%D9%87%D8%B4-%DB%8C%D8%A7%D9%81%D8%AA"
+  },
+  {
+   "id": "c7a87e5b44605a6a87534c9c89b110ea23fce40a",
+   "titleKey": "9f1dd6e0c779deb8a859820b080881aed1bbf94e",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "حملات گسترده یمن به شاه‌رگ اقتصادی بن‌سلمان / آرامکو در آتش سوخت تاسیسات نفتی عربستان هدف حمله یمن قرار گرفت.",
+   "at": "2026-11-13T04:00:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175292/حملات-گسترده-یمن-به-شاه-رگ-اقتصادی-بن-سلمان-آرامکو-در-آتش-سوخت"
+  },
+  {
+   "id": "e12cca118678b4ab0a3e08e91c7578e34670ca3b",
+   "titleKey": "c4e1356578d50889ad3c1d092a43296d22114265",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "SpaceX, Tesla may announce merger in December — Bloomberg According to the news agency, this will become the largest deal in history",
+   "at": "2026-11-13T04:03:06.000Z",
+   "url": "https://tass.com/economy/2217545"
+  },
+  {
+   "id": "1b5cee415b4e86525ea7e1d0df464ceca4073568",
+   "titleKey": "dd1b35a0666c33f60f9ee4f601bec493fd35a563",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "How did a tax proposal led the Dutch government to the verge of collapse? | Explained The Netherlands currently has a minority government by a coalition of three parties holding 66 seats in the 150-member Tweede Kamer, the lower house",
+   "at": "2026-11-13T04:03:17.000Z",
+   "url": "https://www.thehindu.com/business/Economy/how-did-a-tax-proposal-led-the-dutch-government-to-the-verge-of-collapse-explained/article71696493.ece"
+  },
+  {
+   "id": "17642416ee6eceb7148082acba86445f9cd85250",
+   "titleKey": "041b64ac72898722d341648173be1b7f47e8643b",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "فیلم | مراسم سوگواری شهادت حضرت فاطمه زهرا(س) در بوشهر بوشهر- ایرنا- مراسم سوگواری سالروز شهادت حضرت فاطمه زهرا(س) و شب وداع با شهدای گمنام، به همت آیت‌الله حسینی بوشهری در میدان امام خمینی(ره) شهر بوشهر برگزار شد.",
+   "at": "2026-11-13T04:05:23.000Z",
+   "url": "https://www.irna.ir/news/86320308/%D9%81%DB%8C%D9%84%D9%85-%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D8%B3%D9%88%DA%AF%D9%88%D8%A7%D8%B1%DB%8C-%D8%B4%D9%87%D8%A7%D8%AF%D8%AA-%D8%AD%D8%B6%D8%B1%D8%AA-%D9%81%D8%A7%D8%B7%D9%85%D9%87-%D8%B2%D9%87%D8%B1%D8%A7-%D8%B3-%D8%AF%D8%B1-%D8%A8%D9%88%D8%B4%D9%87%D8%B1"
+  },
+  {
+   "id": "2c0274050b39500002ae644813bca0adccab3b23",
+   "titleKey": "ed4fb1165d6b7c97b2393b21f758e45bcf4c84dc",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مومنی: اقتصاد کشور را نمی‌توان مانند یک حجره اداره کرد یک اقتصاددان گفت: در پنج سال گذشته مطرح کرده‌ام که مفاهیمی مانند ناترازی انرژی و ناترازی بانکی در برخی موارد برای پنهان کردن نقش مافیاها، فساد، دزدی‌ها و بی‌کفایتی‌ها به کار گرفته می‌شوند؛ بنابراین کشور را نمی‌توان مانند یک حجره کوچک اداره کرد و همه مسائل پیچیده اقتصادی را با چهار عمل اصلی توضیح داد.",
+   "at": "2026-11-13T04:08:00.000Z",
+   "url": "https://www.isna.ir/news/1405082114833/%D9%85%D9%88%D9%85%D9%86%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%DA%A9%D8%B4%D9%88%D8%B1-%D8%B1%D8%A7-%D9%86%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86-%D9%85%D8%A7%D9%86%D9%86%D8%AF-%DB%8C%DA%A9-%D8%AD%D8%AC%D8%B1%D9%87-%D8%A7%D8%AF%D8%A7%D8%B1%D9%87-%DA%A9%D8%B1%D8%AF"
+  },
   {
    "id": "c630ec885cd0b23903cc22e1b4dab8a6fd3126f7",
    "titleKey": "bfdc84a7c3d7275d91d3e6c5b8c0390b063c0ca6",
@@ -10106,7 +10421,7 @@
    "items": 451
   }
  ],
- "aiCursor": 4,
+ "aiCursor": 5,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10680,21 +10995,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794542460158,
-  "Akharin_khodro/8913": 1794542460158,
-  "Akharin_khodro/8914": 1794542460158,
-  "Akharin_khodro/8915": 1794542460158,
-  "Akharin_khodro/8916": 1794542460158,
-  "Akharin_khodro/8919": 1794542460158,
-  "Akharin_khodro/8920": 1794542460158,
-  "Akharin_khodro/8921": 1794542460158,
-  "Akharin_khodro/8922": 1794542460158,
-  "Akharin_khodro/8923": 1794542460158,
-  "Akharin_khodro/8924": 1794542460158,
-  "Akharin_khodro/8925": 1794542460158,
-  "Akharin_khodro/8926": 1794542460158,
-  "Akharin_khodro/8927": 1794542460158,
-  "Akharin_khodro/8928": 1794542460158,
+  "Akharin_khodro/8908": 1794542955421,
+  "Akharin_khodro/8913": 1794542955421,
+  "Akharin_khodro/8914": 1794542955421,
+  "Akharin_khodro/8915": 1794542955421,
+  "Akharin_khodro/8916": 1794542955421,
+  "Akharin_khodro/8919": 1794542955421,
+  "Akharin_khodro/8920": 1794542955421,
+  "Akharin_khodro/8921": 1794542955421,
+  "Akharin_khodro/8922": 1794542955421,
+  "Akharin_khodro/8923": 1794542955421,
+  "Akharin_khodro/8924": 1794542955421,
+  "Akharin_khodro/8925": 1794542955421,
+  "Akharin_khodro/8926": 1794542955421,
+  "Akharin_khodro/8927": 1794542955421,
+  "Akharin_khodro/8928": 1794542955421,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11020,27 +11335,27 @@
    }
   }
  },
- "tweetCursor": 2,
- "lastRunAt": "2026-11-13T04:01:00.164Z",
+ "tweetCursor": 8,
+ "lastRunAt": "2026-11-13T04:09:15.428Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1078,
-  "inWindow": 185,
-  "fresh": 82,
-  "sent": 30,
+  "fetched": 1077,
+  "inWindow": 187,
+  "fresh": 64,
+  "sent": 8,
   "images": 0,
-  "translated": 24,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 118,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 52,
-  "queued": 30,
+  "skippedUntranslated": 56,
+  "queued": 8,
   "tweetRateLimited": false
  }
 }

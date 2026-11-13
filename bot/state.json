@@ -1,5 +1,11 @@
 {
  "sentIds": {
+  "0ec50e17148ede97de1576c2fbeb66649d3df459": 1794604706247,
+  "53524a4780661c0b3c5d28db16ddc4e5716c1ac5": 1794604706247,
+  "ec5b351afcbf80dad46225b4919c03eb2fa46fb8": 1794604706247,
+  "c9a4589f1f9aa5b76ffdd0573188ea69bee21dd0": 1794604706247,
+  "a8bd42e4ad171e0e20c647f64528766f3bdd0be9": 1794604706247,
+  "b6bff672ac9bacf6536869e3d67a12131682e44a": 1794604706247,
   "7b82b7ddb0650ea2d5c8f1af158584e1b468640a": 1794604177909,
   "8327d4a79bc1664d16f1affc7a13c48aa69ea59e": 1794604177909,
   "fe81526c0079f0747d7ea8341e9a9cfdf5eae16a": 1794604177909,
@@ -1193,15 +1199,15 @@
   "019e3e16ffbee6a201d2872fcbe30a1cd3885151": 1794573485810,
   "296daabb2e1a7b7a6b2f662afc1c165495ab0b22": 1794573485810,
   "79adbfd543520216919135fbf23dd94fe985ea24": 1794573485810,
-  "f74cf29dd180dc1e36072fec753093c4a7e73ab1": 1794573485810,
-  "53dae5d3acc2d77586e61954e1ab41d2212771f8": 1794573485810,
-  "76ba0ad72d19e16e64efa4c49973a1f14e606cf2": 1794573485810,
-  "f1278d2f583ea8c7816332f17b2a095eac3c2ef4": 1794573485810,
-  "48dfdb80c30895d58cacdddf3df91e36d1f3dadb": 1794573485810,
-  "ceadd17f3d482f921a4a3537f3e7d4fa33039b2c": 1794573485810,
-  "86e90473402266722b3aac5f6c86c2be217f1ed3": 1794573485810
+  "f74cf29dd180dc1e36072fec753093c4a7e73ab1": 1794573485810
  },
  "sentTitles": {
+  "50a96bbad54b4f97f8d743c4e6825d9f3a75a8b8": 1794604706247,
+  "841b2ec4c2e6f8aa66776b12a56985fa0939c8a0": 1794604706247,
+  "8c99bdbd14244c6281d03e54fdbebdd602702b2a": 1794604706247,
+  "8e60cafc4c38af03b5afcca4535cad7eaf052360": 1794604706247,
+  "34fd9feeb913e82ec46553bdda47ed5cf2e8468e": 1794604706247,
+  "63089dc848aae1ad832720acf4ce4a4fc28a68fe": 1794604706247,
   "1d4633b88af2bc1e66517b6993cf841a4f568279": 1794604177909,
   "da88f85b30cb3f16a809833aacdd1ef766fb0cdb": 1794604177909,
   "9d9df7a24e21f5752740f49f28bf3ea9707b60cc": 1794604177909,
@@ -1795,13 +1801,7 @@
   "1d430aa6a3c568a17fdbe3b859d31aeec452f3fc": 1794588453604,
   "807284f4af38d768b1138778c8241599189116a4": 1794588453604,
   "209302201140ad580d043c2cb72b0a431846f16d": 1794588453604,
-  "477772733063607be719aab70b5d8898975ca050": 1794588453604,
-  "4ccd1d9aad7d60e7e6719ba85ffefd00152723d2": 1794588453604,
-  "7bddc7a53ec4d5dc88b15886ae4f67ad5ffb00ef": 1794588453604,
-  "717bd0e0bd756931ac3d1f4f8a8a75c643498dc6": 1794588453604,
-  "65d4df50a496ce163ca04704911f27c0b7490b4b": 1794588453604,
-  "dfe0927d83b2a6479d8b7a7c8c57de6534214736": 1794588453604,
-  "769a6f18292369858ee9c03b830c9e2d98461ba1": 1794588453604
+  "477772733063607be719aab70b5d8898975ca050": 1794588453604
  },
  "sentTitleTexts": {
   "بازنشر mschlapp از شما speakerjohnson بابت رهبری دوستی و صداقت تان سپاسگزارم": 1794598628423,
@@ -3008,6 +3008,117 @@
   "همشهری انلاین سخنگوی تجارت خانه صمت فشارهای امریکا تجارت خارجی ایران را متوقف نکرد سید روح الله لطیفی با تاکید بر اینکه فشارهای امریکا نتوانسته تجارت خارجی ایرا": 1794588453604
  },
  "pool": [
+  {
+   "id": "2c876cbdfb75e07109fb51340e71485cf2810abf",
+   "titleKey": "7fdccdb9d0472822299184521aa04b6e8e0336a0",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "بيان قطري تركي: اتفاقية الدفاع المشترك تهدف لاتخاذ موقف موحد لمواجهة أي هجوم خارجي - العربية بيان قطري تركي: اتفاقية الدفاع المشترك تهدف لاتخاذ موقف موحد لمواجهة أي هجوم خارجي العربية",
+   "at": "2026-11-13T18:56:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimgVBVV95cUxPYzlSODNmNFZ6dVZaaFJTUHp4dVdfRTlDTkZaQUFWYmsxY0RaRHF2SHNQa2p6QUh0R0hWdWRxQkdNRmdMdmlNLTZyYWVNQVRCcGVseGlNRjNyVHRzYjc4M2cxcHdYaHZOSnd3ckQ3el9LQTRFN2VvRTQ4Y2UzX3R2Y2ZXTzhCclVwR2dUSlRoeHYtUDdoUzNKRE14SlpmR0tQWEd3WGQ1Y3lBZDNKbkN1elRJalYtc0VBZlA2eWp3SnRFWk5ScjZkSGdfYWF0Rm12ZmRpbHVxOWpqbmVvOHQ5UWRYeTNuek1qa1pPZFBPSzQzbGszSWp1X0JBQ0ZEdDZFbEdBcnRIRkxLTmtTQUl4TkNtUHZRV0FILXNjZVVwc0NMMVdRc2hIcFZFVU1XQnZQTnJ6OS1pbGphbjZ1RHg5QXFsbmJJd1M0Vl84Sk1ZWVBJb1JORXpkYjRBbFEyZXVsODhma2FrSTlHdlpxV1A5S2g5a2dPTmo2ek83RG5VYkhfWlgwdm1IMmlDV2xnNnBNd05KcmxxSlpUblM5UzY5Y2hvaFlJSnNWc1I0V2RDNndweFo2dENmNF96Z3dndW1mUW5GaHcxWnBGQVRpbnp6VEdoemxKbnhQWlI2aEFjejB1VFRxQ0czUkc1c2VUTi1kZnpwMWVodjBWZVZoMVpJckE3OWJqOElrRHdZZ0pwRVdEcGppZnlBdHJUS2ZGS3lfc2ktb2JWNEV3Yk03Um9wVjZIM1VXdXRwVUx4TXNzWVRWWW9fNG1DYUI3bUdvai1BTDA2dWFTbFNER1FpY0hzTXVpNGJtSEZVN1ZFT2JoSGZpcHNnODQtNlROdkNrNTRPMUFDNVdaYTdNTmpVSllreFFwU0ZVLWd3bXfSAZ8FQVVfeXFMTjZBWDJ4Yi1ZRDAxVjE0OVFHdUE0WmN4bU5oeVp1RWlBd3c1YkQ4TGNUbURpV3NYTzVHdXdfZExjM1cwUEtIc2hKS21aUlg5RTQyMUlhZVBpYlA4X0JkeHZKZXQyUkdnTzBkaVp1RXVwN2wwTzRRb1lYMWtDV2FtbE9yQVR6Y2syT2hvZ2pmM2RucmVzMi1LUk9sUWRoYVBiRG1BVWVkM0M1WGlqUld0dHpzR0pkSHZ0V3RtUFhEdEY1anFjZUpFTE14VmpELXpYM2c0LVh0aGtHQVhtV3JpbWVlV1dxMjlMUExQWjZOaGF1cTZ1a2w1UlBZaDhweWRIVlNMZWhtTnFtalNHeEpxVjlHRExyVldOZ2dzV0hOWDNWMmRQcXBBYkJEZU9kX3NNaG4xRWhPcVY5ckFxUWxTdUVQZEhoMmcwS3VETFhzM3BSZGl4ajhfVHlEZFRrTzNSb29sMjBRV29BMUdYcV82YVFOLUxxNWc4eDFheW5VMlVxdXJ5OUNLU3Nmd19PdmlGclBHcXpEUmNJQ2lTXzdkWURPcW81R1pDWjAtMHg4VEpBaWdpLUZZcVdHU2c0ZWxZcjN4NjEwQXY5dUV6Z3BxRGsybTlkN1A5bnM3NXFpNkxsSEVlczBTVTRDV3Uxb3ZsWWk0WUZaN2EwX3ZxRFlkdDVuay13bGdJcGVXdGdaMDN1TURkbHZLOVZnVGVXeWR6cTU4TFRPcmNVQS1kNnVmd2JGdkJiSVotNW1pRU53MGdLb0w5YnpCSUJZRF9mYVNOV2o3eXRrazEzUzRoMmR0VU5kUXdmSGpfekJGcjJhNVo0Y183RWdQLVo2d3lfVldBYmdqbV83XzlBMEZZUFpDWVEtaUNVUU1MNGxlLXN1bzA?oc=5"
+  },
+  {
+   "id": "a74123a82bb87ea0e5e578779b67da5a6fb98e49",
+   "titleKey": "1c4d42009b7a60614f7b4dbe6dce668c9075981e",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Brian Poindexter, incoming House Democrat, says he is subject of sexual harassment investigation - Politico Brian Poindexter, incoming House Democrat, says he is subject of sexual harassment investigation Politico",
+   "at": "2026-11-13T19:38:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR2FPdXJ0U3RjdlhSdE1udDNGbmt5LTNhcFl3U3FHZW5BMGgyUWhwLUNZUk1wMERlbkJhRkpLd2NfWTFFQU9yZ0ZGamxxaXJxZWZ0cHlOdGViZ3o3US16OHhMNDZGYURHVUJ5LXNqd09NRktpWTg0Y2pRNUFCUmMwczZCZWV6eE5KV3NF?oc=5"
+  },
+  {
+   "id": "4b9b27cc2307b62aabd051106e82b47961b37374",
+   "titleKey": "f3a660f2859e5d141c00b711b22e18d5763773ab",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Pope Leo cheered on return to Peru city where he served as bishop An estimated 1.5 million people have welcomed Pope Leo XIV back to the city in Peru where he once served as bishop.",
+   "at": "2026-11-13T20:52:31.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/pope-leo-cheered-on-return-to-peru-city-where-he-served-as-bishop?traffic_source=rss"
+  },
+  {
+   "id": "70dd21355b268ba89145715e6b50cf61e0d3b3ab",
+   "titleKey": "fb57f8cfd05d5bdb281735d1b863ed22e6512ea7",
+   "source": "NPR World",
+   "lang": "en",
+   "text": "Trump set to head to Asia while questions about Nvidia&apos;s future swirl President Trump gears up for a consequential trip to Asia for key conferences that will focus on trade and national security.",
+   "at": "2026-11-13T21:06:01.000Z",
+   "url": "https://www.npr.org/2026/11/13/nx-s1-6035715/trump-set-to-head-to-asia-while-questions-about-nvidias-future-swirl"
+  },
+  {
+   "id": "4fa2c41b51f425b85aa1e0955093c2833a0b157b",
+   "titleKey": "5471c4bb6d87e505374520b5b8d772d126698222",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'Extraordinary circumstances': US grounds all departing flights over safety concerns",
+   "at": "2026-11-13T21:07:41.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/international-business/extraordinary-circumstances-us-grounds-all-departing-flights-over-safety-concerns/articleshow/135816386.cms"
+  },
+  {
+   "id": "0ec50e17148ede97de1576c2fbeb66649d3df459",
+   "titleKey": "50a96bbad54b4f97f8d743c4e6825d9f3a75a8b8",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "تمام پروازهای آمریکا متوقف و تعلیق شدند اداره هوانوردی فدرال آمریکا (FAA) در اطلاعیه‌ای رسمی، دستور تعلیق و توقف فوری تمامی پروازهای مسافربری در سراسر این کشور را صادر کرد.",
+   "at": "2026-11-13T21:07:44.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085751/%D8%AA%D9%85%D8%A7%D9%85-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%AA%D9%88%D9%82%D9%81-%D9%88-%D8%AA%D8%B9%D9%84%DB%8C%D9%82-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "53524a4780661c0b3c5d28db16ddc4e5716c1ac5",
+   "titleKey": "841b2ec4c2e6f8aa66776b12a56985fa0939c8a0",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "انفجار و آتش سوزی دو نفتکش در تنگه هرمز/ سپاه اطلاعیه داد ​روابط عمومی نیروی دریایی سپاه از انفجار و آتش سوزی دو نفتکش متخلف در جنوب تنگه هرمز خبر داد.",
+   "at": "2026-11-13T21:11:04.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308216-%D8%A7%D9%86%D9%81%D8%AC%D8%A7%D8%B1-%D8%A2%D8%AA%D8%B4-%D8%B3%D9%88%D8%B2%DB%8C-%D8%AF%D9%88-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D8%AF%D8%B1-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D8%B3%D9%BE%D8%A7%D9%87-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%DB%8C%D9%87-%D8%AF%D8%A7%D8%AF"
+  },
+  {
+   "id": "2a15c5fecc32b6fce425d76e40f1eaf36c9da299",
+   "titleKey": "2d7e2fcbd450a5856711ef9f8a768cb173d37b54",
+   "source": "RT",
+   "lang": "en",
+   "text": "US grounds departing flights nationwide The FAA has ordered all departing flights across the US grounded until further notice Read Full Article at RT.com",
+   "at": "2026-11-13T21:11:25.000Z",
+   "url": "https://rt-english.com/news/648824-us-grounds-fligghts-nationwide/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "ec5b351afcbf80dad46225b4919c03eb2fa46fb8",
+   "titleKey": "8c99bdbd14244c6281d03e54fdbebdd602702b2a",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "محله محمودآباد یزد؛ حماسه ایستادگی در شب ۲۵۸ یزد- مردم محله محمودآباد یزد در دویست‌وپنجاه‌وهشتمین شب حضور، با تجمعی پرشور، بار دیگر عزم خود را برای دفاع از وطن و استمرار ایستادگی به نمایش گذاشتند.",
+   "at": "2026-11-13T21:14:48.000Z",
+   "url": "https://www.mehrnews.com/news/7009909/%D9%85%D8%AD%D9%84%D9%87-%D9%85%D8%AD%D9%85%D9%88%D8%AF%D8%A2%D8%A8%D8%A7%D8%AF-%DB%8C%D8%B2%D8%AF-%D8%AD%D9%85%D8%A7%D8%B3%D9%87-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%DA%AF%DB%8C-%D8%AF%D8%B1-%D8%B4%D8%A8-%DB%B2%DB%B5%DB%B8"
+  },
+  {
+   "id": "c9a4589f1f9aa5b76ffdd0573188ea69bee21dd0",
+   "titleKey": "8e60cafc4c38af03b5afcca4535cad7eaf052360",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "مراسم بیستمین سالگرد ارتحال آیت الله فاضل لنکرانی در قم برگزار شد قم - ایرنا- مراسم بیستمین سالگرد ارتحال مرجع تقلید فقید جهان تشیع،آیت الله العظمی محمد فاضل لنکرانی و عزاداری حضرت فاطمه زهرا(س) جمعه شب در قم برگزار شد.",
+   "at": "2026-11-13T21:15:03.000Z",
+   "url": "https://www.irna.ir/news/86320822/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D8%A8%DB%8C%D8%B3%D8%AA%D9%85%DB%8C%D9%86-%D8%B3%D8%A7%D9%84%DA%AF%D8%B1%D8%AF-%D8%A7%D8%B1%D8%AA%D8%AD%D8%A7%D9%84-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D9%81%D8%A7%D8%B6%D9%84-%D9%84%D9%86%DA%A9%D8%B1%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1-%D9%82%D9%85-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1"
+  },
+  {
+   "id": "a8bd42e4ad171e0e20c647f64528766f3bdd0be9",
+   "titleKey": "34fd9feeb913e82ec46553bdda47ed5cf2e8468e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "توسعه تعاملات هسته‌ای کشورهای عضو بریکس با حضور هیئت ایرانی در نشست آنتالیا تهران-ایرنا- نشست سالانه پلتفرم انرژی هسته‌ای بریکس، امروز در شهر آنتالیای ترکیه برگزار شد.",
+   "at": "2026-11-13T21:15:03.000Z",
+   "url": "https://www.irna.ir/news/86320833/%D8%AA%D9%88%D8%B3%D8%B9%D9%87-%D8%AA%D8%B9%D8%A7%D9%85%D9%84%D8%A7%D8%AA-%D9%87%D8%B3%D8%AA%D9%87-%D8%A7%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1%D9%87%D8%A7%DB%8C-%D8%B9%D8%B6%D9%88-%D8%A8%D8%B1%DB%8C%DA%A9%D8%B3-%D8%A8%D8%A7-%D8%AD%D8%B6%D9%88%D8%B1-%D9%87%DB%8C%D8%A6%D8%AA-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1"
+  },
+  {
+   "id": "b6bff672ac9bacf6536869e3d67a12131682e44a",
+   "titleKey": "63089dc848aae1ad832720acf4ce4a4fc28a68fe",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "بافق در موج ۲۵۸؛ حماسه حضور در سوگ بانوی دو عالم یزد- مردم شهرستان بافق در موج دویست‌وپنجاه‌وهشتم حضور، همزمان با شام شهادت حضرت فاطمه زهرا(س)، با شرکت در آیین تشییع نمادین آن حضرت ارادت خود را به خاندان اهل‌بیت(ع) نشان دادند.",
+   "at": "2026-11-13T21:15:38.000Z",
+   "url": "https://www.mehrnews.com/news/7009914/%D8%A8%D8%A7%D9%81%D9%82-%D8%AF%D8%B1-%D9%85%D9%88%D8%AC-%DB%B2%DB%B5%DB%B8-%D8%AD%D9%85%D8%A7%D8%B3%D9%87-%D8%AD%D8%B6%D9%88%D8%B1-%D8%AF%D8%B1-%D8%B3%D9%88%DA%AF-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%AF%D9%88-%D8%B9%D8%A7%D9%84%D9%85"
+  },
   {
    "id": "296eebf515ffa736e52ad80cca802650c1349ff1",
    "titleKey": "a65f2565f2ae343e4bc8047ceee0276de12fc6ea",
@@ -6055,6 +6166,66 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T21:09:23.558Z"
+  },
+  {
+   "kind": "news",
+   "text": "همشهری آنلاین: تمام پروازهای آمریکا متوقف و تعلیق شدند اداره هوانوردی فدرال آمریکا (FAA) در اطلاعیه‌ای رسمی، دستور تعلیق و توقف فوری تمامی پروازهای مسافربری در سراسر این کشور را صادر کرد.\n\n🖼 عکس خود خبر: https://media.hamshahrionline.ir/d/2026/10/11/4/5415759.jpg",
+   "source": "همشهری آنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:18:07.825Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: انفجار و آتش سوزی دو نفتکش در تنگه هرمز/ سپاه اطلاعیه داد ​روابط عمومی نیروی دریایی سپاه از انفجار و آتش سوزی دو نفتکش متخلف در جنوب تنگه هرمز خبر داد.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/J0Gp9bTwmZIt/FT5xlxN2J-kqajsbRpa9aTJM5mvc47rL2-gy9JME_k5apXHqr7nvs3ea7C0AaGxmHveEnNMi6Z_thfbFDjXLUxDjRkxR5QkGa7Et7sDZU_ceh6OZJMwCrxXRzyZFACG5v9hEQgiAZUWcsgVX2edPhuxfMDh1qziTxdby-E277ejas6_pSPgXVf6L-Y_5mROZ/ESnpPCd80xPo.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T21:18:08.526Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: محله محمودآباد یزد؛ حماسه ایستادگی در شب ۲۵۸ یزد- مردم محله محمودآباد یزد در دویست‌وپنجاه‌وهشتمین شب حضور، با تجمعی پرشور، بار دیگر عزم خود را برای دفاع از وطن و استمرار ایستادگی به نمایش گذاشتند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/06/10/4/6055042.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:18:09.227Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): مراسم بیستمین سالگرد ارتحال آیت الله فاضل لنکرانی در قم برگزار شد قم - ایرنا- مراسم بیستمین سالگرد ارتحال مرجع تقلید فقید جهان تشیع،آیت الله العظمی محمد فاضل لنکرانی و عزاداری حضرت فاطمه زهرا(س) جمعه شب در قم برگزار شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238443.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:18:09.928Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): توسعه تعاملات هسته‌ای کشورهای عضو بریکس با حضور هیئت ایرانی در نشست آنتالیا تهران-ایرنا- نشست سالانه پلتفرم انرژی هسته‌ای بریکس، امروز در شهر آنتالیای ترکیه برگزار شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238455.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T21:18:10.629Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: بافق در موج ۲۵۸؛ حماسه حضور در سوگ بانوی دو عالم یزد- مردم شهرستان بافق در موج دویست‌وپنجاه‌وهشتم حضور، همزمان با شام شهادت حضرت فاطمه زهرا(س)، با شرکت در آیین تشییع نمادین آن حضرت ارادت خود را به خاندان اهل‌بیت(ع) نشان دادند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/03/23/4/5958496.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T21:18:11.329Z"
   }
  ],
  "tweetQueue": [
@@ -6293,6 +6464,117 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "2c876cbdfb75e07109fb51340e71485cf2810abf",
+   "titleKey": "7fdccdb9d0472822299184521aa04b6e8e0336a0",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "بيان قطري تركي: اتفاقية الدفاع المشترك تهدف لاتخاذ موقف موحد لمواجهة أي هجوم خارجي - العربية بيان قطري تركي: اتفاقية الدفاع المشترك تهدف لاتخاذ موقف موحد لمواجهة أي هجوم خارجي العربية",
+   "at": "2026-11-13T18:56:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimgVBVV95cUxPYzlSODNmNFZ6dVZaaFJTUHp4dVdfRTlDTkZaQUFWYmsxY0RaRHF2SHNQa2p6QUh0R0hWdWRxQkdNRmdMdmlNLTZyYWVNQVRCcGVseGlNRjNyVHRzYjc4M2cxcHdYaHZOSnd3ckQ3el9LQTRFN2VvRTQ4Y2UzX3R2Y2ZXTzhCclVwR2dUSlRoeHYtUDdoUzNKRE14SlpmR0tQWEd3WGQ1Y3lBZDNKbkN1elRJalYtc0VBZlA2eWp3SnRFWk5ScjZkSGdfYWF0Rm12ZmRpbHVxOWpqbmVvOHQ5UWRYeTNuek1qa1pPZFBPSzQzbGszSWp1X0JBQ0ZEdDZFbEdBcnRIRkxLTmtTQUl4TkNtUHZRV0FILXNjZVVwc0NMMVdRc2hIcFZFVU1XQnZQTnJ6OS1pbGphbjZ1RHg5QXFsbmJJd1M0Vl84Sk1ZWVBJb1JORXpkYjRBbFEyZXVsODhma2FrSTlHdlpxV1A5S2g5a2dPTmo2ek83RG5VYkhfWlgwdm1IMmlDV2xnNnBNd05KcmxxSlpUblM5UzY5Y2hvaFlJSnNWc1I0V2RDNndweFo2dENmNF96Z3dndW1mUW5GaHcxWnBGQVRpbnp6VEdoemxKbnhQWlI2aEFjejB1VFRxQ0czUkc1c2VUTi1kZnpwMWVodjBWZVZoMVpJckE3OWJqOElrRHdZZ0pwRVdEcGppZnlBdHJUS2ZGS3lfc2ktb2JWNEV3Yk03Um9wVjZIM1VXdXRwVUx4TXNzWVRWWW9fNG1DYUI3bUdvai1BTDA2dWFTbFNER1FpY0hzTXVpNGJtSEZVN1ZFT2JoSGZpcHNnODQtNlROdkNrNTRPMUFDNVdaYTdNTmpVSllreFFwU0ZVLWd3bXfSAZ8FQVVfeXFMTjZBWDJ4Yi1ZRDAxVjE0OVFHdUE0WmN4bU5oeVp1RWlBd3c1YkQ4TGNUbURpV3NYTzVHdXdfZExjM1cwUEtIc2hKS21aUlg5RTQyMUlhZVBpYlA4X0JkeHZKZXQyUkdnTzBkaVp1RXVwN2wwTzRRb1lYMWtDV2FtbE9yQVR6Y2syT2hvZ2pmM2RucmVzMi1LUk9sUWRoYVBiRG1BVWVkM0M1WGlqUld0dHpzR0pkSHZ0V3RtUFhEdEY1anFjZUpFTE14VmpELXpYM2c0LVh0aGtHQVhtV3JpbWVlV1dxMjlMUExQWjZOaGF1cTZ1a2w1UlBZaDhweWRIVlNMZWhtTnFtalNHeEpxVjlHRExyVldOZ2dzV0hOWDNWMmRQcXBBYkJEZU9kX3NNaG4xRWhPcVY5ckFxUWxTdUVQZEhoMmcwS3VETFhzM3BSZGl4ajhfVHlEZFRrTzNSb29sMjBRV29BMUdYcV82YVFOLUxxNWc4eDFheW5VMlVxdXJ5OUNLU3Nmd19PdmlGclBHcXpEUmNJQ2lTXzdkWURPcW81R1pDWjAtMHg4VEpBaWdpLUZZcVdHU2c0ZWxZcjN4NjEwQXY5dUV6Z3BxRGsybTlkN1A5bnM3NXFpNkxsSEVlczBTVTRDV3Uxb3ZsWWk0WUZaN2EwX3ZxRFlkdDVuay13bGdJcGVXdGdaMDN1TURkbHZLOVZnVGVXeWR6cTU4TFRPcmNVQS1kNnVmd2JGdkJiSVotNW1pRU53MGdLb0w5YnpCSUJZRF9mYVNOV2o3eXRrazEzUzRoMmR0VU5kUXdmSGpfekJGcjJhNVo0Y183RWdQLVo2d3lfVldBYmdqbV83XzlBMEZZUFpDWVEtaUNVUU1MNGxlLXN1bzA?oc=5"
+  },
+  {
+   "id": "a74123a82bb87ea0e5e578779b67da5a6fb98e49",
+   "titleKey": "1c4d42009b7a60614f7b4dbe6dce668c9075981e",
+   "source": "Politico",
+   "lang": "en",
+   "text": "Brian Poindexter, incoming House Democrat, says he is subject of sexual harassment investigation - Politico Brian Poindexter, incoming House Democrat, says he is subject of sexual harassment investigation Politico",
+   "at": "2026-11-13T19:38:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPR2FPdXJ0U3RjdlhSdE1udDNGbmt5LTNhcFl3U3FHZW5BMGgyUWhwLUNZUk1wMERlbkJhRkpLd2NfWTFFQU9yZ0ZGamxxaXJxZWZ0cHlOdGViZ3o3US16OHhMNDZGYURHVUJ5LXNqd09NRktpWTg0Y2pRNUFCUmMwczZCZWV6eE5KV3NF?oc=5"
+  },
+  {
+   "id": "4b9b27cc2307b62aabd051106e82b47961b37374",
+   "titleKey": "f3a660f2859e5d141c00b711b22e18d5763773ab",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Pope Leo cheered on return to Peru city where he served as bishop An estimated 1.5 million people have welcomed Pope Leo XIV back to the city in Peru where he once served as bishop.",
+   "at": "2026-11-13T20:52:31.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/13/pope-leo-cheered-on-return-to-peru-city-where-he-served-as-bishop?traffic_source=rss"
+  },
+  {
+   "id": "70dd21355b268ba89145715e6b50cf61e0d3b3ab",
+   "titleKey": "fb57f8cfd05d5bdb281735d1b863ed22e6512ea7",
+   "source": "NPR World",
+   "lang": "en",
+   "text": "Trump set to head to Asia while questions about Nvidia&apos;s future swirl President Trump gears up for a consequential trip to Asia for key conferences that will focus on trade and national security.",
+   "at": "2026-11-13T21:06:01.000Z",
+   "url": "https://www.npr.org/2026/11/13/nx-s1-6035715/trump-set-to-head-to-asia-while-questions-about-nvidias-future-swirl"
+  },
+  {
+   "id": "4fa2c41b51f425b85aa1e0955093c2833a0b157b",
+   "titleKey": "5471c4bb6d87e505374520b5b8d772d126698222",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'Extraordinary circumstances': US grounds all departing flights over safety concerns",
+   "at": "2026-11-13T21:07:41.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/international-business/extraordinary-circumstances-us-grounds-all-departing-flights-over-safety-concerns/articleshow/135816386.cms"
+  },
+  {
+   "id": "0ec50e17148ede97de1576c2fbeb66649d3df459",
+   "titleKey": "50a96bbad54b4f97f8d743c4e6825d9f3a75a8b8",
+   "source": "همشهری آنلاین",
+   "lang": "fa",
+   "text": "تمام پروازهای آمریکا متوقف و تعلیق شدند اداره هوانوردی فدرال آمریکا (FAA) در اطلاعیه‌ای رسمی، دستور تعلیق و توقف فوری تمامی پروازهای مسافربری در سراسر این کشور را صادر کرد.",
+   "at": "2026-11-13T21:07:44.000Z",
+   "url": "https://www.hamshahrionline.ir/news/1085751/%D8%AA%D9%85%D8%A7%D9%85-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%85%D8%AA%D9%88%D9%82%D9%81-%D9%88-%D8%AA%D8%B9%D9%84%DB%8C%D9%82-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "53524a4780661c0b3c5d28db16ddc4e5716c1ac5",
+   "titleKey": "841b2ec4c2e6f8aa66776b12a56985fa0939c8a0",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "انفجار و آتش سوزی دو نفتکش در تنگه هرمز/ سپاه اطلاعیه داد ​روابط عمومی نیروی دریایی سپاه از انفجار و آتش سوزی دو نفتکش متخلف در جنوب تنگه هرمز خبر داد.",
+   "at": "2026-11-13T21:11:04.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308216-%D8%A7%D9%86%D9%81%D8%AC%D8%A7%D8%B1-%D8%A2%D8%AA%D8%B4-%D8%B3%D9%88%D8%B2%DB%8C-%D8%AF%D9%88-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D8%AF%D8%B1-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D8%B3%D9%BE%D8%A7%D9%87-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%DB%8C%D9%87-%D8%AF%D8%A7%D8%AF"
+  },
+  {
+   "id": "2a15c5fecc32b6fce425d76e40f1eaf36c9da299",
+   "titleKey": "2d7e2fcbd450a5856711ef9f8a768cb173d37b54",
+   "source": "RT",
+   "lang": "en",
+   "text": "US grounds departing flights nationwide The FAA has ordered all departing flights across the US grounded until further notice Read Full Article at RT.com",
+   "at": "2026-11-13T21:11:25.000Z",
+   "url": "https://rt-english.com/news/648824-us-grounds-fligghts-nationwide/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "ec5b351afcbf80dad46225b4919c03eb2fa46fb8",
+   "titleKey": "8c99bdbd14244c6281d03e54fdbebdd602702b2a",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "محله محمودآباد یزد؛ حماسه ایستادگی در شب ۲۵۸ یزد- مردم محله محمودآباد یزد در دویست‌وپنجاه‌وهشتمین شب حضور، با تجمعی پرشور، بار دیگر عزم خود را برای دفاع از وطن و استمرار ایستادگی به نمایش گذاشتند.",
+   "at": "2026-11-13T21:14:48.000Z",
+   "url": "https://www.mehrnews.com/news/7009909/%D9%85%D8%AD%D9%84%D9%87-%D9%85%D8%AD%D9%85%D9%88%D8%AF%D8%A2%D8%A8%D8%A7%D8%AF-%DB%8C%D8%B2%D8%AF-%D8%AD%D9%85%D8%A7%D8%B3%D9%87-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%DA%AF%DB%8C-%D8%AF%D8%B1-%D8%B4%D8%A8-%DB%B2%DB%B5%DB%B8"
+  },
+  {
+   "id": "c9a4589f1f9aa5b76ffdd0573188ea69bee21dd0",
+   "titleKey": "8e60cafc4c38af03b5afcca4535cad7eaf052360",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "مراسم بیستمین سالگرد ارتحال آیت الله فاضل لنکرانی در قم برگزار شد قم - ایرنا- مراسم بیستمین سالگرد ارتحال مرجع تقلید فقید جهان تشیع،آیت الله العظمی محمد فاضل لنکرانی و عزاداری حضرت فاطمه زهرا(س) جمعه شب در قم برگزار شد.",
+   "at": "2026-11-13T21:15:03.000Z",
+   "url": "https://www.irna.ir/news/86320822/%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D8%A8%DB%8C%D8%B3%D8%AA%D9%85%DB%8C%D9%86-%D8%B3%D8%A7%D9%84%DA%AF%D8%B1%D8%AF-%D8%A7%D8%B1%D8%AA%D8%AD%D8%A7%D9%84-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D9%81%D8%A7%D8%B6%D9%84-%D9%84%D9%86%DA%A9%D8%B1%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1-%D9%82%D9%85-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1"
+  },
+  {
+   "id": "a8bd42e4ad171e0e20c647f64528766f3bdd0be9",
+   "titleKey": "34fd9feeb913e82ec46553bdda47ed5cf2e8468e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "توسعه تعاملات هسته‌ای کشورهای عضو بریکس با حضور هیئت ایرانی در نشست آنتالیا تهران-ایرنا- نشست سالانه پلتفرم انرژی هسته‌ای بریکس، امروز در شهر آنتالیای ترکیه برگزار شد.",
+   "at": "2026-11-13T21:15:03.000Z",
+   "url": "https://www.irna.ir/news/86320833/%D8%AA%D9%88%D8%B3%D8%B9%D9%87-%D8%AA%D8%B9%D8%A7%D9%85%D9%84%D8%A7%D8%AA-%D9%87%D8%B3%D8%AA%D9%87-%D8%A7%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1%D9%87%D8%A7%DB%8C-%D8%B9%D8%B6%D9%88-%D8%A8%D8%B1%DB%8C%DA%A9%D8%B3-%D8%A8%D8%A7-%D8%AD%D8%B6%D9%88%D8%B1-%D9%87%DB%8C%D8%A6%D8%AA-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1"
+  },
+  {
+   "id": "b6bff672ac9bacf6536869e3d67a12131682e44a",
+   "titleKey": "63089dc848aae1ad832720acf4ce4a4fc28a68fe",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "بافق در موج ۲۵۸؛ حماسه حضور در سوگ بانوی دو عالم یزد- مردم شهرستان بافق در موج دویست‌وپنجاه‌وهشتم حضور، همزمان با شام شهادت حضرت فاطمه زهرا(س)، با شرکت در آیین تشییع نمادین آن حضرت ارادت خود را به خاندان اهل‌بیت(ع) نشان دادند.",
+   "at": "2026-11-13T21:15:38.000Z",
+   "url": "https://www.mehrnews.com/news/7009914/%D8%A8%D8%A7%D9%81%D9%82-%D8%AF%D8%B1-%D9%85%D9%88%D8%AC-%DB%B2%DB%B5%DB%B8-%D8%AD%D9%85%D8%A7%D8%B3%D9%87-%D8%AD%D8%B6%D9%88%D8%B1-%D8%AF%D8%B1-%D8%B3%D9%88%DA%AF-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%AF%D9%88-%D8%B9%D8%A7%D9%84%D9%85"
+  },
   {
    "id": "296eebf515ffa736e52ad80cca802650c1349ff1",
    "titleKey": "a65f2565f2ae343e4bc8047ceee0276de12fc6ea",
@@ -9312,7 +9594,7 @@
    "items": 365
   }
  ],
- "aiCursor": 3,
+ "aiCursor": 4,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9886,22 +10168,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794604177905,
-  "Akharin_khodro/8913": 1794604177905,
-  "Akharin_khodro/8914": 1794604177905,
-  "Akharin_khodro/8915": 1794604177905,
-  "Akharin_khodro/8916": 1794604177905,
-  "Akharin_khodro/8919": 1794604177905,
-  "Akharin_khodro/8920": 1794604177905,
-  "Akharin_khodro/8921": 1794604177905,
-  "Akharin_khodro/8922": 1794604177905,
-  "Akharin_khodro/8923": 1794604177905,
-  "Akharin_khodro/8924": 1794604177905,
-  "Akharin_khodro/8925": 1794604177905,
-  "Akharin_khodro/8926": 1794604177905,
-  "Akharin_khodro/8927": 1794604177905,
-  "Akharin_khodro/8928": 1794604177905,
-  "Akharin_khodro/8929": 1794604177905,
+  "Akharin_khodro/8908": 1794604706243,
+  "Akharin_khodro/8913": 1794604706243,
+  "Akharin_khodro/8914": 1794604706243,
+  "Akharin_khodro/8915": 1794604706243,
+  "Akharin_khodro/8916": 1794604706243,
+  "Akharin_khodro/8919": 1794604706243,
+  "Akharin_khodro/8920": 1794604706243,
+  "Akharin_khodro/8921": 1794604706243,
+  "Akharin_khodro/8922": 1794604706243,
+  "Akharin_khodro/8923": 1794604706243,
+  "Akharin_khodro/8924": 1794604706243,
+  "Akharin_khodro/8925": 1794604706243,
+  "Akharin_khodro/8926": 1794604706243,
+  "Akharin_khodro/8927": 1794604706243,
+  "Akharin_khodro/8928": 1794604706243,
+  "Akharin_khodro/8929": 1794604706243,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10330,27 +10612,27 @@
    }
   }
  },
- "tweetCursor": 10,
- "lastRunAt": "2026-11-13T21:09:37.911Z",
+ "tweetCursor": 0,
+ "lastRunAt": "2026-11-13T21:18:26.250Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1069,
-  "inWindow": 251,
-  "fresh": 75,
-  "sent": 4,
+  "inWindow": 253,
+  "fresh": 82,
+  "sent": 6,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 113,
+  "tweetsFetched": 115,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 71,
-  "queued": 4,
+  "skippedUntranslated": 76,
+  "queued": 6,
   "tweetRateLimited": false
  }
 }

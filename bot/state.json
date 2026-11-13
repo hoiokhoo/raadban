@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "841e0775e35d001103e9a9d1c4275d46b35bb698": 1794611942718,
   "7531b2a09d2b6dcbffb319a671c2caf1277c32e9": 1794611425170,
   "9664ea1c428ee861cfa8ae203a5aa8c47eee5ea8": 1794611425170,
   "0700c0a57af0dabe12043a80d98c940d29ff3eab": 1794611425170,
@@ -1198,10 +1199,10 @@
   "e98b9a8362d219589e6eac1a2fc495a009d34914": 1794576347591,
   "c72fe11aa726937576769762aa8948eb0716defd": 1794576347591,
   "2ff050e696663b218bea3645141a677134aed08d": 1794576347591,
-  "8a8e1483d993d9cb584932f5e9a8139a8ea7f392": 1794575676207,
-  "88f593b577780a6030a5b759d5e4462729a1041e": 1794575676207
+  "8a8e1483d993d9cb584932f5e9a8139a8ea7f392": 1794575676207
  },
  "sentTitles": {
+  "b53c361d5d73fcf4d226d2c6a4624ee6b5f29133": 1794611942718,
   "1ec7b32b3550b9818279c7c91fdfb1e305052a59": 1794611425170,
   "88d452b21523896271787b3903d98a3729decff6": 1794611425170,
   "1a0d94bb2c29c82fceecb5a8421fa07609153c3a": 1794611425170,
@@ -1800,8 +1801,7 @@
   "56cd803ececf306e43dac5e3c4daa0230efb2b6b": 1794588453604,
   "acaff0f63664ba822e872d61d869fcc0069dd390": 1794588453604,
   "926ffe5b5c03c81bc3b0a6495827f188a17672a6": 1794588453604,
-  "3d3644f4b691cba340790eb74891003f58bbd1bd": 1794588453604,
-  "d942bd05c7f40c7a5af4ec7c975c6668f0c421a2": 1794588453604
+  "3d3644f4b691cba340790eb74891003f58bbd1bd": 1794588453604
  },
  "sentTitleTexts": {
   "با شهرداران شهرهای مختلف اوکراین از همه بخش های اوکراین از جمله خارکیف دنیپرو اوژهورود ایوانو فرانکیفسک چرنیوتسی چرکاسی میکولاییف و وینیتسیا دیدار کردم سرپرستان": 1794605776331,
@@ -3008,6 +3008,205 @@
   "خبرگزاری ایسنا نوسازی و توسعه زیرساخت های برق قم با شتاب دنبال می شود مدیرعامل شرکت توزیع نیروی برق استان قم از اجرای مجموعه ای از اقدامات زیرساختی و توسعه ای د": 1794588453604
  },
  "pool": [
+  {
+   "id": "63ee72c52a46c12946b474c8ebf263c06b449b23",
+   "titleKey": "829e8a8d848e6727b4174e5610ab6326849c6079",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Paraguay’s ex-president Pena faces new charge over Ueno bank collapse The criminal association charge over his alleged role in the collapse of the bank comes a week after his removal.",
+   "at": "2026-11-13T20:18:09.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/paraguays-ex-president-pena-faces-new-charge-over-ueno-bank-collapse?traffic_source=rss"
+  },
+  {
+   "id": "5d165335759f15012f62826d2f7f219962fc3c17",
+   "titleKey": "f83951d1e00064429ee9d5ff6387f04f65fe7c4d",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Bessent blames US Commerce Department for not restricting Nvidia chip exports to China US Treasury Secretary Scott Bessent on Friday blamed the Commerce Department, led by Howard Lutnick, for delaying the blacklisting of Megaspeed, an Nvidia customer suspected of diverting advanced AI chips to China, days before US President Donald Trump and Chinese President Xi Jinping are expected to meet in Shenzhen. Bessent spoke a day after Nvidia co-founder Jensen Huang resigned as chief executive following reports that he had an affair with Alice Huang, a former executive at Singapore-based...",
+   "at": "2026-11-13T20:20:33.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374409/bessent-blames-us-commerce-department-not-restricting-nvidia-chip-exports-china"
+  },
+  {
+   "id": "7128e6af0f67e06c345f11d1259655f01b60d3be",
+   "titleKey": "81a9adcd5a4d2e40b66d720ed7bad416b098ef19",
+   "source": "Guardian Environment",
+   "lang": "en",
+   "text": "Send us your questions about climate crisis and politics for the next Stateside guest: Bill McKibben Kai Wright of the Guardian podcast Stateside will speak with author and environmentalist Bill McKibben – and we’d like to hear your questions Was the climate crisis one of your top political priorities during the midterm elections? We want to hear from you: what do you want political leaders to do about it in 2027? Democrats will control the House and Senate in the new year, and they have a long list of priorities ahead of them. But it remains to be seen just how much they will focus on one of the most pressing issues of our times: the climate crisis. The UN declared this summer that, despite some progress, it is now “unavoidable” that the globe will heat past the point that scientists say ",
+   "at": "2026-11-13T20:23:23.000Z",
+   "url": "https://www.theguardian.com/us-news/2026/nov/13/climate-environment-questions-bill-mckibben"
+  },
+  {
+   "id": "9d144ca940fcf85aa52210dbc8d76e5f6bba8598",
+   "titleKey": "4aecca35a5b897b2419f006663fe715948bd7fa3",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Pope thanks crowds on emotional return to ‘second home’ in Peru’s Chiclayo The Chicago-born pope was welcomed by huge crowds in the coastal city, on the final leg of his South America tour.",
+   "at": "2026-11-13T20:28:20.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/pope-thanks-crowds-on-emotional-return-to-second-home-in-perus-chiclayo?traffic_source=rss"
+  },
+  {
+   "id": "58e018d6d3f0d11be684595d62f290a4adfe6a6c",
+   "titleKey": "6d7106221d74f64d9407ff8f6e692d16f72f1091",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "🔴Spokesperson for the Yemeni Armed Forces: 🔺We targeted Saudi Arabia’s weapons depots in the Ras Abbas camp in Aden with ballistic missiles and drones. @PressTV",
+   "at": "2026-11-13T20:33:23.000Z",
+   "url": "https://t.me/presstv/214612"
+  },
+  {
+   "id": "8946c85d3857225fbf6fcf48a9baa9d697a030b9",
+   "titleKey": "fdb78d6174c7a65207885f5a4745e36f1572f6f4",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "Mamdani Strikes Deal With Trump on Bodega Food Stamp Rules - Bloomberg Mamdani Strikes Deal With Trump on Bodega Food Stamp Rules Bloomberg",
+   "at": "2026-11-13T20:34:09.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNWGRtUjExNndWMHhsYmt4a3RtSExhdHlmWUZJdlZsMEtZLWNiTVZJMFRFSHptQUJ5Wk5Pb1JuR1gzSDhnbEMyOVJESXlKNjFSRDJobTItUzFqYzBHRUFNWDVHbDB4VkFzNHZLc2RrRHJBb1hEcDhoSnd3aFFWQU1mY180QmZ0aXNzR0E4aFFvYTZvRHBWZlk2a2FpOW1HQTd3STBGVXhRU21FV01GVkRPQVVRdTc?oc=5"
+  },
+  {
+   "id": "da1cf4ed97da5112972b0de86b5fd016ceaf6190",
+   "titleKey": "6de2fd20dddcd63cf3518ad0a5784970839ac584",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Van Hollen calls to abolish Senate filibuster, rules out 2028 White House bid Sen. Chris Van Hollen (D-Md.), who is challenging Sen. Chuck Schumer (D-N.Y.) to be the next Senate majority leader, said Friday he wants to abolish the filibuster and ruled out a potential presidential run in 2028. Van Hollen, speaking to reporters at the What’s Next conference in Denver, argued that legislation should pass the Senate…",
+   "at": "2026-11-13T20:36:13.000Z",
+   "url": "https://thehill.com/homenews/senate/6219585-van-hollen-filibuster-2028/"
+  },
+  {
+   "id": "717aff3f40882db1b66a7545d8dcdff1af0c6ef5",
+   "titleKey": "dd4662f1875396c1f97d306746a414b5732aa583",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Slotkin: Elected officials fighting over progressive vs. moderate ‘missed the plot’ Sen. Elissa Slotkin (D-Mich.) said lawmakers who are warring with the opposite faction within the party had “missed the plot” of the midterm results during a major Democratic conference on Friday. “I think Michigan gave a really clear demonstration that whatever side of the Democrats you feel like you’re on, that is not what is…",
+   "at": "2026-11-13T20:42:02.000Z",
+   "url": "https://thehill.com/homenews/campaign/6219574-elissa-slotkin-midterm-voters-democratic-party/"
+  },
+  {
+   "id": "8e1cade7e7d2d052c17d9206ba7d7239e6ac2f3a",
+   "titleKey": "30adc276238fb9568baf166a706ecaf4db0774e3",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Ceasefire to be EU’s priority at Ukraine talks — von der Leyen European Commission President also pledged to present a 22nd package of sanctions on Russia as soon as possible and put forward proposals toward military funding for Ukraine before the end of the year",
+   "at": "2026-11-13T20:47:00.000Z",
+   "url": "https://tass.com/world/2218045"
+  },
+  {
+   "id": "db0be8414c406b9c3e0fdd48a9a8110e8c2cf879",
+   "titleKey": "b34e5ae41e7a0c8ba15fb7a5f1713c91dc070297",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد - العربي الجديد الهاكر الآلي.. الذكاء الاصطناعي يرفع فاتورة الاختراق على الاقتصاد العربي الجديد",
+   "at": "2026-11-13T20:53:35.000Z",
+   "url": "https://news.google.com/rss/articles/CBMijARBVV95cUxNbzJteFRiX0hUMkRhdHhrMGJ6UHdxanA3QjVpa2ZIY2g4RmdhVWZ6Y0tpcjRwME5aVU5GNDBPSHpUSVhkMWNORWFRQmt0QU5LRTI2c2s2ZXVoSHpWck9nbC11RU9vXzZIZUo4RktaY043TUpxRG0ycUVhMFkweERWZTFsajRxQy1kb1hkMnJXYWhMdktzVWpFd0I3SEpnZklLTHFSdEItbVNSQ0pmNmpfTWIzMEx2R2daUE45R3RaZVBaZjVIVTM1ZU04OXh0bFJyclRMQjNzazdrUXo4UG5ZT1R4aVpvOWRfalc3SGhhZl92QnBuNm9YVEpZMVQyOVFvMGk5ZjlKbUpxWjF1eWxVSWhmbUZmYzNjbUMwVVg0T3NPNGptc1pWbVB2ZXlNWlp2NUxaZ3VhcXBSMm55OXJJX3JvakRZRzhJRTBUZUFEZlpGZ2FsYkRDTmtidG4waVExMzJJMXRBMXdmaDExc3BPSFVzRnN4WnpOVHQ5dTRyb2RUS1JDLWxGdEt6SnRuU0toejRSb1d4V283bmh1elBGem1kUUtmZEpVbl9MbHhCWTZwcmZ1ZDR0RmtDaFNaYkRuX04wNTVuYkVObmRpcG1vQzVSMDlvVkg0WllIc1NMVWEwUlVRelpDeVJGb2xWXzF0U2dmc2dBcndmOG04cFZ3djhNY2hQVUtJOWxLNdIBkgRBVV95cUxORWtLSWlDYVlIN2NxR1Y1bE5zM2hselZiOU1aQTFqQzF1R21yZ2lrUFBjZ2FleTBPbXVoN1RBR3lzRy1tYmVocTVUWUNXWFRRWWhLRlFiRkc1R3FWSWV4enZycXVXUHo3UDVETm5nU0U3a1o2d09vb0JCS1FSaG9wY25yeG9RY1F4TzZZeUdNZmZSd29mUzVnRFo4WVRMS3VQRUEzakFqSWpTWDFRcFU4bFFDSGhTU2JKdEdsem55S2NqMmlCcHRWcTVtM1dvX0tOdm1sY0pFVUdOVU9TdE5yOTYzc0p1SXExQW56WTRmV3RRajExV1FIRWlJMUxpV0NWb0o2TjhMZmpCX3dud1BKSy1IcTR6UXRMamw2LWx2bS1QUW1ieG1ZYzBhanBod0tta1FONHpfdnNLZXNqRWtmcjItRkxlLUFLSzFpNXpGOG1PQ0FxdlhVa2pzWlJSRS1WTXVMNzNvWXItZmRPcWVrX3h4dWJZTTFMdUh2V2NYV1hNSzZaZkxwNHZHaTBiWnlMZVZReG1CREdYRU9PUklnWXk2T0NXbTZJTzRoc3c1a0pRQjc0cW56TUh5NGJfMTA5SlZHQXZleVREQW9JOW1UM1FmN2xoVjI2NGtJQ0Y5MXNzQTdqTGpONlFNVWJDWUVIaEVoUjJoMV81NWItWU9lZVI3bnpVSTNRYXZCUnBieUc0Zw?oc=5"
+  },
+  {
+   "id": "4f0f990d9da8fe1b60f6fac557ee8cbfb2e05534",
+   "titleKey": "3197fc51c0ab9c56dc9247d5f9eedfd1ae6c7e40",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "New Orleans river cruise boat partially sinks after tanker collision, 130 aboard",
+   "at": "2026-11-13T20:57:14.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/new-orleans-river-cruise-boat-partially-sinks-after-tanker-collision-130-aboard/articleshow/135816281.cms"
+  },
+  {
+   "id": "6677f8cb21dfee9cc483c4831d268ffb057d6a95",
+   "titleKey": "14198942c551fc06d4bbd11d1ee7b69dd3def5be",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Iran holds nationwide funeral processions for 350 unidentified martyrs of 1980s Sacred Defense Gisoo Misha Ahmadi reports from Tehran @PressTV",
+   "at": "2026-11-13T21:07:41.000Z",
+   "url": "https://t.me/presstv/214614"
+  },
+  {
+   "id": "2a15c5fecc32b6fce425d76e40f1eaf36c9da299",
+   "titleKey": "2d7e2fcbd450a5856711ef9f8a768cb173d37b54",
+   "source": "RT",
+   "lang": "en",
+   "text": "US grounds departing flights nationwide The FAA has ordered all departing flights across the US grounded until further notice Read Full Article at RT.com",
+   "at": "2026-11-13T21:11:25.000Z",
+   "url": "https://rt-english.com/news/648824-us-grounds-fligghts-nationwide/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "966ee777f1ea273270cde60de97034aa9060c9e6",
+   "titleKey": "982ef1b79340ac730a4619d34e5163406dca3d4b",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Uber reports US driver’s license information stolen during data breach Uber disclosed this week an unauthorized third party improperly accessed the ride-hailing platform’s data, according to a notice shared by the California attorney general’s office. In the notice, dated Nov. 10, the company said a service provider notified them of the incident a month prior. The platform then conducted an investigation, which found the unauthorized…",
+   "at": "2026-11-13T21:12:15.000Z",
+   "url": "https://thehill.com/policy/technology/6219607-uber-drivers-license-data-stolen/"
+  },
+  {
+   "id": "e928971bfd83496330ed72787c428e1523366f54",
+   "titleKey": "74df633f22b0d7f2274c1ff516af5730137c61fe",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "FAA orders nationwide ground stop The Federal Aviation Administration (FAA) issued a nationwide ground stop for all U.S. flights, Transportation Secretary Sean Duffy confirmed Friday. “The @FAANews [FAA] issued a nationwide ground stop for all U.S. airports following a communication issue impacting all Air Route Traffic Control Centers,” Duffy wrote on the social platform X. “FAA technicians are investigating the…",
+   "at": "2026-11-13T21:23:00.000Z",
+   "url": "https://thehill.com/policy/transportation/6219722-faa-issues-us-flight-ground-stop/"
+  },
+  {
+   "id": "68dbb89083812a87817a7ab038735b1e21edf900",
+   "titleKey": "0e29a882b7b87c1effd064ab4549a45dee803c91",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "EU’s fixation on Chinese subsidies masks its own structural stagnation The European Commission is moving to shield its industrial machinery and chemical sectors from Chinese imports, and is weighing a “kill switch” mechanism. Together with Washington, Brussels has settled into a familiar narrative: a record trade deficit with China is framed as proof of its “overcapacity” and attributed to state subsidies that allegedly tilt the global playing field. For European Union audiences frustrated by stagnant domestic manufacturing, this argument sounds intuitive. Held up...",
+   "at": "2026-11-13T21:30:09.000Z",
+   "url": "https://www.scmp.com/opinion/world-opinion/article/3373980/eus-fixation-chinese-subsidies-masks-its-own-structural-stagnation"
+  },
+  {
+   "id": "c00a8c85e49a0ff477740cc25da931212f20e906",
+   "titleKey": "56bc024a6f4778933d1a96416ca2a0c5265a932d",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "'MS 364': Outlook, Teams disrupted for nearly a day Microsoft 365 faced a major outage affecting email and communication tools for numerous businesses. In response, many organizations opted for alternative platforms like Slack and Zoom to keep operations running smoothly. Though some services saw partial recovery, users faced ongoing sporadic issues. Affected airlines and banks informed customers about the complications, while Microsoft clarified that there was no indication of a cyberattack causing the disruption.",
+   "at": "2026-11-13T21:37:10.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/international-business/ms-364-outlook-teams-disrupted-for-nearly-a-day/articleshow/135816513.cms"
+  },
+  {
+   "id": "6a3985b1890426749e9de8ce50e01cbc071c37cd",
+   "titleKey": "ea606bdacd6a16d2b9df8bd038f15715ae254458",
+   "source": "France 24 English",
+   "lang": "en",
+   "text": "France among five major powers to represent EU in Ukraine talks European Council President Antonio Costa on Friday said that Brussels will send diplomats from the bloc and five countries, including the UK, France, Germany, Italy and Poland, to upcoming Ukraine talks.",
+   "at": "2026-11-13T21:38:52.000Z",
+   "url": "https://www.france24.com/en/europe/20261113-europe-to-send-diplomats-from-across-the-continent-to-ukraine-peace-talks"
+  },
+  {
+   "id": "555de5d2a977eeaeb9e4301312e42a84996f9530",
+   "titleKey": "e5106e3216c8fdd83505a697ec49e50647b5ee6a",
+   "source": "RT",
+   "lang": "en",
+   "text": "Hope in Abu Dhabi, fighting in Europe, ‘hell’ in the Persian Gulf: RT stories that shaped the week RT’s top stories this week included trilateral peace talks, Europe’s struggle to find a Moscow envoy, and the looming threat of war in Iran Read Full Article at RT.com",
+   "at": "2026-11-13T21:42:46.000Z",
+   "url": "https://rt-english.com/news/648809-rt-top-stories-us-russia-talks-ukraine/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "e3af3fe2af1812552c934ce67711eb08105f5298",
+   "titleKey": "80699585a52ec8ae7663e8c097df55e9806c0690",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Tanker hits a river cruise boat on Mississippi River in New Orleans; rescue operations under way Authorities did not immediately release whether there were injuries or deaths; video from the scene showed the much larger Atlantic Asphalt tanker hit the paddlewheel cruise boat while it appeared to be docked as metal and glass crashed and crunched",
+   "at": "2026-11-13T22:20:10.000Z",
+   "url": "https://www.thehindu.com/news/international/new-orleans-usa-tanker-ship-river-cruise-crash-updates/article71699607.ece"
+  },
+  {
+   "id": "7e06cbb36c044c0b07c0f5c0edda09ad40311911",
+   "titleKey": "4390866dc9d44a931d715257d8804816992c2685",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport - PressTV Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport PressTV",
+   "at": "2026-11-13T23:04:45.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbnZfUGp2WERGSzJtc0RzMWlEU0s0S2hkSmd0ajZUS0ZQNDllNDdXTkc0WXloUEkxZ1h3ZU1XX0U0ZklSYy1QaGxQUEF0S2YxRzFQX3d5V21XM2doSEVNSGJncUhCaElvTGkyV25CcjU5ZVBsQVhneG83TWdWdkFXS0JIUjhQazRxd29aZkNyR2dKTnVBYUpGYnlsaEpVeVZXYzgzVG9mRnV2ekowdzQtZmZMdUk0WVdMSHhXMk40T1lPYUd1RS1Bb1hya21kMzBjUmc?oc=5"
+  },
+  {
+   "id": "841e0775e35d001103e9a9d1c4275d46b35bb698",
+   "titleKey": "b53c361d5d73fcf4d226d2c6a4624ee6b5f29133",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "نمایندگان چین و روسیه: جنگ علیه ایران باید فورا پایان یابد/جایگزینی برای مذاکره وجود ندارد نیویورک - ایرنا- نمایندگان چین و روسیه در نشست شورای امنیت سازمان ملل تاکید کردند که جنگ علیه ایران باید فورا پایان یابد و هیچ جایگزینی برای راه‌حل مبتنی بر مذاکره وجود ندارد.",
+   "at": "2026-11-13T23:15:00.000Z",
+   "url": "https://www.irna.ir/news/86320823/%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%DA%AF%D8%A7%D9%86-%DA%86%DB%8C%D9%86-%D9%88-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%AC%D9%86%DA%AF-%D8%B9%D9%84%DB%8C%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D8%A7%DB%8C%D8%AF-%D9%81%D9%88%D8%B1%D8%A7-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%DB%8C%D8%A7%D8%A8%D8%AF-%D8%AC%D8%A7%DB%8C%DA%AF%D8%B2%DB%8C%D9%86%DB%8C"
+  },
   {
    "id": "b1027e9b5d730679af68ed6cfd473e0d2740429c",
    "titleKey": "c3baa9e5075460a10e6e1c16acd678f06c25638c",
@@ -4975,6 +5174,16 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-13T23:09:53.201Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): نمایندگان چین و روسیه: جنگ علیه ایران باید فورا پایان یابد/جایگزینی برای مذاکره وجود ندارد نیویورک - ایرنا- نمایندگان چین و روسیه در نشست شورای امنیت سازمان ملل تاکید کردند که جنگ علیه ایران باید فورا پایان یابد و هیچ جایگزینی برای راه‌حل مبتنی بر مذاکره وجود ندارد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/09/16/4/173111024.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-13T23:18:48.386Z"
   }
  ],
  "tweetQueue": [
@@ -5168,6 +5377,24 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "7e06cbb36c044c0b07c0f5c0edda09ad40311911",
+   "titleKey": "4390866dc9d44a931d715257d8804816992c2685",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport - PressTV Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport PressTV",
+   "at": "2026-11-13T23:04:45.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbnZfUGp2WERGSzJtc0RzMWlEU0s0S2hkSmd0ajZUS0ZQNDllNDdXTkc0WXloUEkxZ1h3ZU1XX0U0ZklSYy1QaGxQUEF0S2YxRzFQX3d5V21XM2doSEVNSGJncUhCaElvTGkyV25CcjU5ZVBsQVhneG83TWdWdkFXS0JIUjhQazRxd29aZkNyR2dKTnVBYUpGYnlsaEpVeVZXYzgzVG9mRnV2ekowdzQtZmZMdUk0WVdMSHhXMk40T1lPYUd1RS1Bb1hya21kMzBjUmc?oc=5"
+  },
+  {
+   "id": "841e0775e35d001103e9a9d1c4275d46b35bb698",
+   "titleKey": "b53c361d5d73fcf4d226d2c6a4624ee6b5f29133",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "نمایندگان چین و روسیه: جنگ علیه ایران باید فورا پایان یابد/جایگزینی برای مذاکره وجود ندارد نیویورک - ایرنا- نمایندگان چین و روسیه در نشست شورای امنیت سازمان ملل تاکید کردند که جنگ علیه ایران باید فورا پایان یابد و هیچ جایگزینی برای راه‌حل مبتنی بر مذاکره وجود ندارد.",
+   "at": "2026-11-13T23:15:00.000Z",
+   "url": "https://www.irna.ir/news/86320823/%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%DA%AF%D8%A7%D9%86-%DA%86%DB%8C%D9%86-%D9%88-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%AC%D9%86%DA%AF-%D8%B9%D9%84%DB%8C%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D8%A7%DB%8C%D8%AF-%D9%81%D9%88%D8%B1%D8%A7-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%DB%8C%D8%A7%D8%A8%D8%AF-%D8%AC%D8%A7%DB%8C%DA%AF%D8%B2%DB%8C%D9%86%DB%8C"
+  },
   {
    "id": "tw-speakerjohnson-2121374198148768192",
    "titleKey": "f0c10664b6cb263ed54365ebaa98283f52dbeb1c",
@@ -9676,7 +9903,7 @@
    "items": 365
   }
  ],
- "aiCursor": 1,
+ "aiCursor": 2,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10250,22 +10477,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794611425166,
-  "Akharin_khodro/8913": 1794611425166,
-  "Akharin_khodro/8914": 1794611425166,
-  "Akharin_khodro/8915": 1794611425166,
-  "Akharin_khodro/8916": 1794611425166,
-  "Akharin_khodro/8919": 1794611425166,
-  "Akharin_khodro/8920": 1794611425166,
-  "Akharin_khodro/8921": 1794611425166,
-  "Akharin_khodro/8922": 1794611425166,
-  "Akharin_khodro/8923": 1794611425166,
-  "Akharin_khodro/8924": 1794611425166,
-  "Akharin_khodro/8925": 1794611425166,
-  "Akharin_khodro/8926": 1794611425166,
-  "Akharin_khodro/8927": 1794611425166,
-  "Akharin_khodro/8928": 1794611425166,
-  "Akharin_khodro/8929": 1794611425166,
+  "Akharin_khodro/8908": 1794611942714,
+  "Akharin_khodro/8913": 1794611942714,
+  "Akharin_khodro/8914": 1794611942714,
+  "Akharin_khodro/8915": 1794611942714,
+  "Akharin_khodro/8916": 1794611942714,
+  "Akharin_khodro/8919": 1794611942714,
+  "Akharin_khodro/8920": 1794611942714,
+  "Akharin_khodro/8921": 1794611942714,
+  "Akharin_khodro/8922": 1794611942714,
+  "Akharin_khodro/8923": 1794611942714,
+  "Akharin_khodro/8924": 1794611942714,
+  "Akharin_khodro/8925": 1794611942714,
+  "Akharin_khodro/8926": 1794611942714,
+  "Akharin_khodro/8927": 1794611942714,
+  "Akharin_khodro/8928": 1794611942714,
+  "Akharin_khodro/8929": 1794611942714,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10694,28 +10921,27 @@
    }
   }
  },
- "tweetCursor": 2,
- "lastRunAt": "2026-11-13T23:10:25.172Z",
+ "tweetCursor": 8,
+ "lastRunAt": "2026-11-13T23:19:02.720Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1066,
-  "inWindow": 229,
-  "fresh": 109,
-  "sent": 4,
+  "inWindow": 217,
+  "fresh": 105,
+  "sent": 1,
   "images": 0,
-  "translated": 1,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 118,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 105,
-  "queued": 4,
-  "tweetRateLimited": false,
-  "tweetsQueued": 1
+  "skippedUntranslated": 104,
+  "queued": 1,
+  "tweetRateLimited": false
  }
 }

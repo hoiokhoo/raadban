@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "7b0c9c995ca67ae56b3dac7f2a42ddcd262f0f91": 1794528758578,
+  "61a30fca0d3554ac7abfdb8fd2217fab00f9cc1c": 1794528758578,
   "9b68e578da021da2422120f7cfa7afb4d68c8364": 1794528227320,
   "fa4010d2e91226a18f7f6c3d152dbb5e03ce2500": 1794528227320,
   "0b934811b63dbfdba6a128e21870d9f0150db235": 1794528227320,
@@ -1197,11 +1199,11 @@
   "5ad75f51d323d115f268c128423f03884b6f0271": 1794492479827,
   "2edea1961412f2c2efa9e4a0226aca34794b9c39": 1794492479827,
   "4d9b5d0b62efbccd7e8b75faca2f3974f390340b": 1794492479827,
-  "6afa222fe7b158163db51e96448e767a91fb12d9": 1794492479827,
-  "722c7528d73cfab3bd76ba7bf5a95e06b2695fe9": 1794492479827,
-  "899a0be01cf9153f1145d73094d82b849ffe9a78": 1794492479827
+  "6afa222fe7b158163db51e96448e767a91fb12d9": 1794492479827
  },
  "sentTitles": {
+  "a3688e27155e86a5e4c2f3274aa4c8d30bb02764": 1794528758578,
+  "a4a0d55af5da4f0565970b26a918c91add09da86": 1794528758578,
   "15a905eae2025f82ba586d092225a2c4dd411ab5": 1794528227320,
   "04bb55be46e4db05d6bf36036e8cdbf569c26241": 1794528227320,
   "492130ee3d32ad9849396942943be2a005126407": 1794528227320,
@@ -1799,9 +1801,7 @@
   "f6a6da00f17dfb0abd1f9bbc7ffc0940d077adc7": 1794503129975,
   "99c91967155470e2280e518c2faa1fa96e0f4f55": 1794503129975,
   "6cde0eaecff63be8710a9b6f67556f963ab16bad": 1794503129975,
-  "fc004aa5b611de9b41594649bf71b4c6066c8aeb": 1794503129975,
-  "53870e81238f6423798357bcf9c1dc0cd4979199": 1794503129975,
-  "451cd741b862b3c926e43e8dad236aa248d8146e": 1794503129975
+  "fc004aa5b611de9b41594649bf71b4c6066c8aeb": 1794503129975
  },
  "sentTitleTexts": {
   "sepeacemissions jaredkushner و من در ایرلند پس از تمام مذاکرات این هفته ملاقات کردیم اول نتیجه انسانی گروگان ها ازاد خواهند شد و ما بر بزرگترین تبادل گروگان ها ": 1794526562655,
@@ -3008,6 +3008,54 @@
   "خبرگزاری ایسنا قاتل زن ۴۰ ساله در قایمشهر دستگیر و روانه زندان شد رییس کل دادگستری مازندران از دستگیری قاتل زن ۴۰ ساله در قایمشهر خبر داد و گفت متهم در تحقیقات ": 1794501772731
  },
  "pool": [
+  {
+   "id": "551c8060570daf7591d61b336f6d2e43b6a7607b",
+   "titleKey": "9227acfc4a4a2ac2283cb47bd54d42181e3e3f6b",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "New York City building collapse kills 8, mayor expands probe - Reuters New York City building collapse kills 8, mayor expands probe Reuters",
+   "at": "2026-11-12T22:13:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMDNXZXZfWXd6WXFDRWFCVThnWWRkVldNaFZ4a25wTF9HaW9JV2xNX1oyUzVSaF9JZ2gyM0J1MFhGd0p2UWNYcjdtc1RqaUFwRmxxZXF4ZEhFQmRxV0VQOTg4WFZGR0RydEVJVFNGeV8xUllsdmlSU0V4aDNLNXlVR3Vyb1NvdG1wVzJleFdrSURqOEpFVWdLYzJJZjFRMERKTzhB?oc=5"
+  },
+  {
+   "id": "0034f76ed67eaff15988c8fd0946ae76e5bfa4c1",
+   "titleKey": "29fca442677a0c9c89e2dd54fa222693c5d8f9d4",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "How Much Is That Leather Jacket Worth Now? - Bloomberg.com How Much Is That Leather Jacket Worth Now? Bloomberg.com",
+   "at": "2026-11-12T22:19:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOWlNwWmRqVlVGM3praUk1aEtybHY1VjNpam1qeXJ2bUxYQXNHNkVTT1FUUzBUN2FObGxWeUhBU3dBUWxYb2Z6TmJGcG1Sem5GRHp1OThOVDR2bzY2aTVIMWV1VWRucUVoTDdaR2tvVnlSZ255NUFJWkNueHBqcGlKWXo1MGo0bXVkdlgyNVh5SjdOR0ZnUG5HZGNNRWFiMkFjRjJXd1dMdzIxYXRIMU5sd1hB?oc=5"
+  },
+  {
+   "id": "7b0c9c995ca67ae56b3dac7f2a42ddcd262f0f91",
+   "titleKey": "a3688e27155e86a5e4c2f3274aa4c8d30bb02764",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هواشناسی استان خراسان رضوی امروز جمعه ۲۲ آبان ۱۴۰۵ / باران و برف و خطر سیلاب در راه است با ورود سامانه بارشی به خراسان رضوی، بارش باران و برف، احتمال رعدوبرق، آبگرفتگی معابر و سیلابی شدن مسیل‌ها پیش‌بینی شده است.",
+   "at": "2026-11-13T00:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175229/هواشناسی-استان-خراسان-رضوی-امروز-جمعه-22-آبان-1405-باران-و-برف-و-خطر-سیلاب-در-راه-است"
+  },
+  {
+   "id": "6bbb76b0d1c6e6abc80fe41f9d7feaabb8e70722",
+   "titleKey": "9e8cee90b7da1c35f011f07df9fbbe15c7f34a36",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "▶️ Governor of California, Gavin Newsom: “It’s a disgrace. Trump must apologize to Iranians.” @PressTV",
+   "at": "2026-11-13T00:04:53.000Z",
+   "url": "https://t.me/presstv/214493"
+  },
+  {
+   "id": "61a30fca0d3554ac7abfdb8fd2217fab00f9cc1c",
+   "titleKey": "a4a0d55af5da4f0565970b26a918c91add09da86",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "ترامپ: اگر لازم شود، در حمله مجدد به ایران تردید نخواهم کرد دونالد ترامپ که گزارش شده معاون خود را از تیم مذاکره کننده با ایران کنار گذاشته و صراحتا گفته نیازی به توافق با ایران ندارد، در مصاحبه جدیدی تاکید کرده که چنانچه لازم شود در دستور حمله نظامی جدید به ایران تردید نخواهد کرد. همزمان ایران هم تهدید کرده است که هرگونه همکاری کشورها با ارتش آمریکا را مشارکت در جنگ علیه خود تلقی خواهد کرد و حق پاسخگویی برای خود قایل خواهد شد. در آمریکا چهار سناتور کنگره که برنی سندرز یکی از آنهاست، خواستار توقف بودجه جنگ با ایران شده‌اند.",
+   "at": "2026-11-13T00:11:20.935Z",
+   "url": "https://www.bbc.co.uk/persian/live/c6p9d5yv112lt?at_medium=RSS&at_campaign=rss"
+  },
   {
    "id": "a2b59af08d2acad1359bddc30b06d33cd32fb24b",
    "titleKey": "275485f1898f7065016c3dc732ca2ab878db42c6",
@@ -6045,6 +6093,26 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-13T00:03:31.108Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: هواشناسی استان خراسان رضوی امروز جمعه ۲۲ آبان ۱۴۰۵ / باران و برف و خطر سیلاب در راه است با ورود سامانه بارشی به خراسان رضوی، بارش باران و برف، احتمال رعدوبرق، آبگرفتگی معابر و سیلابی شدن مسیل‌ها پیش‌بینی شده است.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-13T00:12:22.863Z"
+  },
+  {
+   "kind": "news",
+   "text": "BBC Persian: ترامپ: اگر لازم شود، در حمله مجدد به ایران تردید نخواهم کرد دونالد ترامپ که گزارش شده معاون خود را از تیم مذاکره کننده با ایران کنار گذاشته و صراحتا گفته نیازی به توافق با ایران ندارد، در مصاحبه جدیدی تاکید کرده که چنانچه لازم شود در دستور حمله نظامی جدید به ایران تردید نخواهد کرد. همزمان ایران هم تهدید کرده است که هرگونه همکاری کشورها با ارتش آمریکا را مشارکت در جنگ علیه خود تلقی خواهد کرد و حق پاسخگویی برای خود قایل خواهد شد. در آمریکا چهار سناتور کنگره که برنی سندرز یکی از آنهاست، خواستار توقف بودجه جنگ با ایران شده‌اند.\n\n🖼 عکس خود خبر: https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/71c7/live/62142570-def4-11f1-93e1-3b657b665bcf.jpg",
+   "source": "BBC Persian",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-13T00:12:23.564Z"
   }
  ],
  "tweetQueue": [],
@@ -6222,6 +6290,54 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "551c8060570daf7591d61b336f6d2e43b6a7607b",
+   "titleKey": "9227acfc4a4a2ac2283cb47bd54d42181e3e3f6b",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "New York City building collapse kills 8, mayor expands probe - Reuters New York City building collapse kills 8, mayor expands probe Reuters",
+   "at": "2026-11-12T22:13:15.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMDNXZXZfWXd6WXFDRWFCVThnWWRkVldNaFZ4a25wTF9HaW9JV2xNX1oyUzVSaF9JZ2gyM0J1MFhGd0p2UWNYcjdtc1RqaUFwRmxxZXF4ZEhFQmRxV0VQOTg4WFZGR0RydEVJVFNGeV8xUllsdmlSU0V4aDNLNXlVR3Vyb1NvdG1wVzJleFdrSURqOEpFVWdLYzJJZjFRMERKTzhB?oc=5"
+  },
+  {
+   "id": "0034f76ed67eaff15988c8fd0946ae76e5bfa4c1",
+   "titleKey": "29fca442677a0c9c89e2dd54fa222693c5d8f9d4",
+   "source": "Bloomberg",
+   "cat": "economy",
+   "lang": "en",
+   "text": "How Much Is That Leather Jacket Worth Now? - Bloomberg.com How Much Is That Leather Jacket Worth Now? Bloomberg.com",
+   "at": "2026-11-12T22:19:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOWlNwWmRqVlVGM3praUk1aEtybHY1VjNpam1qeXJ2bUxYQXNHNkVTT1FUUzBUN2FObGxWeUhBU3dBUWxYb2Z6TmJGcG1Sem5GRHp1OThOVDR2bzY2aTVIMWV1VWRucUVoTDdaR2tvVnlSZ255NUFJWkNueHBqcGlKWXo1MGo0bXVkdlgyNVh5SjdOR0ZnUG5HZGNNRWFiMkFjRjJXd1dMdzIxYXRIMU5sd1hB?oc=5"
+  },
+  {
+   "id": "7b0c9c995ca67ae56b3dac7f2a42ddcd262f0f91",
+   "titleKey": "a3688e27155e86a5e4c2f3274aa4c8d30bb02764",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هواشناسی استان خراسان رضوی امروز جمعه ۲۲ آبان ۱۴۰۵ / باران و برف و خطر سیلاب در راه است با ورود سامانه بارشی به خراسان رضوی، بارش باران و برف، احتمال رعدوبرق، آبگرفتگی معابر و سیلابی شدن مسیل‌ها پیش‌بینی شده است.",
+   "at": "2026-11-13T00:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175229/هواشناسی-استان-خراسان-رضوی-امروز-جمعه-22-آبان-1405-باران-و-برف-و-خطر-سیلاب-در-راه-است"
+  },
+  {
+   "id": "6bbb76b0d1c6e6abc80fe41f9d7feaabb8e70722",
+   "titleKey": "9e8cee90b7da1c35f011f07df9fbbe15c7f34a36",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "▶️ Governor of California, Gavin Newsom: “It’s a disgrace. Trump must apologize to Iranians.” @PressTV",
+   "at": "2026-11-13T00:04:53.000Z",
+   "url": "https://t.me/presstv/214493"
+  },
+  {
+   "id": "61a30fca0d3554ac7abfdb8fd2217fab00f9cc1c",
+   "titleKey": "a4a0d55af5da4f0565970b26a918c91add09da86",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "ترامپ: اگر لازم شود، در حمله مجدد به ایران تردید نخواهم کرد دونالد ترامپ که گزارش شده معاون خود را از تیم مذاکره کننده با ایران کنار گذاشته و صراحتا گفته نیازی به توافق با ایران ندارد، در مصاحبه جدیدی تاکید کرده که چنانچه لازم شود در دستور حمله نظامی جدید به ایران تردید نخواهد کرد. همزمان ایران هم تهدید کرده است که هرگونه همکاری کشورها با ارتش آمریکا را مشارکت در جنگ علیه خود تلقی خواهد کرد و حق پاسخگویی برای خود قایل خواهد شد. در آمریکا چهار سناتور کنگره که برنی سندرز یکی از آنهاست، خواستار توقف بودجه جنگ با ایران شده‌اند.",
+   "at": "2026-11-13T00:11:20.935Z",
+   "url": "https://www.bbc.co.uk/persian/live/c6p9d5yv112lt?at_medium=RSS&at_campaign=rss"
+  },
   {
    "id": "a2b59af08d2acad1359bddc30b06d33cd32fb24b",
    "titleKey": "275485f1898f7065016c3dc732ca2ab878db42c6",
@@ -11362,21 +11478,21 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794528227317,
-  "Akharin_khodro/8913": 1794528227317,
-  "Akharin_khodro/8914": 1794528227317,
-  "Akharin_khodro/8915": 1794528227317,
-  "Akharin_khodro/8916": 1794528227317,
-  "Akharin_khodro/8919": 1794528227317,
-  "Akharin_khodro/8920": 1794528227317,
-  "Akharin_khodro/8921": 1794528227317,
-  "Akharin_khodro/8922": 1794528227317,
-  "Akharin_khodro/8923": 1794528227317,
-  "Akharin_khodro/8924": 1794528227317,
-  "Akharin_khodro/8925": 1794528227317,
-  "Akharin_khodro/8926": 1794528227317,
-  "Akharin_khodro/8927": 1794528227317,
-  "Akharin_khodro/8928": 1794528227317,
+  "Akharin_khodro/8908": 1794528758575,
+  "Akharin_khodro/8913": 1794528758575,
+  "Akharin_khodro/8914": 1794528758575,
+  "Akharin_khodro/8915": 1794528758575,
+  "Akharin_khodro/8916": 1794528758575,
+  "Akharin_khodro/8919": 1794528758575,
+  "Akharin_khodro/8920": 1794528758575,
+  "Akharin_khodro/8921": 1794528758575,
+  "Akharin_khodro/8922": 1794528758575,
+  "Akharin_khodro/8923": 1794528758575,
+  "Akharin_khodro/8924": 1794528758575,
+  "Akharin_khodro/8925": 1794528758575,
+  "Akharin_khodro/8926": 1794528758575,
+  "Akharin_khodro/8927": 1794528758575,
+  "Akharin_khodro/8928": 1794528758575,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11683,27 +11799,27 @@
    }
   }
  },
- "tweetCursor": 2,
- "lastRunAt": "2026-11-13T00:03:47.322Z",
+ "tweetCursor": 8,
+ "lastRunAt": "2026-11-13T00:12:38.580Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1079,
-  "inWindow": 177,
-  "fresh": 76,
-  "sent": 3,
+  "inWindow": 167,
+  "fresh": 75,
+  "sent": 2,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 118,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 72,
-  "queued": 3,
+  "queued": 2,
   "tweetRateLimited": false
  }
 }

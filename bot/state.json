@@ -1,5 +1,9 @@
 {
  "sentIds": {
+  "3e15e900300e881428f995f475a670411e591dca": 1794615180598,
+  "25631d8b2d00d7a5100572a5c1ab1d1447a663ed": 1794615180598,
+  "da858fb6cda6f374a40db3aeb1544c88f0e25913": 1794615180598,
+  "a8b34bffe4c280ee8bb7d292268b8774f6b91b20": 1794615180598,
   "86cbb52bba3acdabd03ac8d9ad717df7ce2f95b0": 1794614679926,
   "e99b3207e91466be65f9112bec71158fecec042f": 1794614679926,
   "3faa83ae9c0a75001aee6f93af29b6af5119d3e6": 1794614679926,
@@ -1195,13 +1199,13 @@
   "32ed01750ffd65ecf8128f8642bdc91bf2972607": 1794577484422,
   "5328aa65aa3c2aa156ebaba1e2e611a5d6e2c8a9": 1794577484422,
   "e8895d1f3881cb1c2a7d537bb657a7e0c150f493": 1794577484422,
-  "f59578e4303f2fa33e2f162f35fef9cbccf9a366": 1794576865870,
-  "cca71841f0561698c2a7172ab9d06698ed458cbb": 1794576865870,
-  "791913ed66db804a9a32614c56a877ef162c905e": 1794576865870,
-  "9b4cb431fdf36cca6e89e4e1769ad86127e8ee1d": 1794576865870,
-  "cf5af57af65b9a63b1b56fd7c475289df93e506e": 1794576865870
+  "f59578e4303f2fa33e2f162f35fef9cbccf9a366": 1794576865870
  },
  "sentTitles": {
+  "96390e37fac3df12e966835f8b02625241f97ba4": 1794615180598,
+  "71b0e9a88cc334260ec46aa3aed8d679b3be0680": 1794615180598,
+  "180674dbf4514e8c189d61cb094f42d43df6af46": 1794615180598,
+  "02de8461f5c1598739de52145aae9697abf08c05": 1794615180598,
   "009226ef1129f8474c55f6529c479f36aa45fcaf": 1794614679926,
   "030d34adfc5385ab1b335e46040d402a9c401b9c": 1794614679926,
   "3eeadbc1462c8889125e1e1a2f3f52eeb15d2d46": 1794614679926,
@@ -1797,11 +1801,7 @@
   "6effb156f036b686f8dcbba32ddcd864190d5c6e": 1794589136864,
   "c4c2e1877cfb96e429a9c6ed945d0d4289ac19ef": 1794589136864,
   "83cae4c2ecc2199cd177dd96850af15c69b448b9": 1794589136864,
-  "b9053a61ca054c9f88d2742ec5f3b463c8f147fb": 1794589136864,
-  "c77063e4dbe5aad5d3a3b534986009b7cc86a365": 1794589136864,
-  "7f2f6a4a4bcbb9142cc84871d92d1bcc3fc59274": 1794589136864,
-  "b568f7b98e64f5245689b78a973ec4b79228de4d": 1794589136864,
-  "ebb4db3c40e8225e2674357aa01dfc6ffc0d7bc6": 1794589136864
+  "b9053a61ca054c9f88d2742ec5f3b463c8f147fb": 1794589136864
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,80 @@
   "خبرانلاین جفری ساکس جنگ ایران ترامپ را زمین زد فیلم اقتصاددان امریکایی گفت ترامپ با زیر پا گذاشتن وعده پایان جنگ ها هزینه سیاسی سنگینی پرداخت کرده است منبع اخری": 1794588453604
  },
  "pool": [
+  {
+   "id": "064509c7c3a7eee723ccd1270bc1042804ceeeff",
+   "titleKey": "2d9b1dab13d3efa63bb16ec3e2b0702ccd2e9c68",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China - The Washington Post Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China The Washington Post",
+   "at": "2026-11-13T23:18:23.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNV83TGNqLXB1TGRFV1otMFAwS3poMGY4dHp6V05vWllwcmJ0SGN1QkxXdHpob3czaXJSLW1jcjkta1FpRFR1emR3SVZtWWlUclVIWDlFODZHRDFabzcxR2JfamFhU3VxTnVRNG16Z0F2Y09wRUU0ZmxRazVwTDVSV0V2dlFNNm1WazBoUXg2U1kxM1p0Ym5NSmREU1htSDk2SF9jR2hSTXFYLU85ZHFnaW5YMzY?oc=5"
+  },
+  {
+   "id": "3e15e900300e881428f995f475a670411e591dca",
+   "titleKey": "96390e37fac3df12e966835f8b02625241f97ba4",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "این اشتباه ساده به ماشین لباس‌شویی آسیب می‌زند / ۸ وسیله‌ای که نباید داخل آن بیندازید بعضی از وسایلی که روزانه همراه لباس‌ها وارد ماشین لباس‌شویی می‌شوند، می‌توانند به پوشاک و قطعات دستگاه آسیب بزنند؛ اشتباهاتی ساده که گاهی هزینه‌های سنگینی به دنبال دارند.",
+   "at": "2026-11-14T00:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175399/این-اشتباه-ساده-به-ماشین-لباس-شویی-آسیب-می-زند-8-وسیله-ای-که-نباید-داخل-آن-بیندازید"
+  },
+  {
+   "id": "a460993f867d14dce86d37b102ca00bee05597e8",
+   "titleKey": "45bb209940dab0dc6a0b38827623317802db9e57",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Iran war live: Fighting grips Yemen as Qatar, Turkiye sign defence deal Doha, Ankara agreement pledges joint action against external attacks as fighting in Yemen displaces civilians.",
+   "at": "2026-11-14T00:00:25.000Z",
+   "url": "https://www.aljazeera.com/news/liveblog/2026/11/14/iran-war-live-fighting-grips-yemen-as-qatar-turkiye-sign-defence-deal?traffic_source=rss"
+  },
+  {
+   "id": "25631d8b2d00d7a5100572a5c1ab1d1447a663ed",
+   "titleKey": "71b0e9a88cc334260ec46aa3aed8d679b3be0680",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "کلاله در قاب همدلی؛ حضور شبانه مردم پایانی ندارد کلاله- خیابان‌های کلاله بار دیگر میزبان مردمی شد که با حضور در تجمع شبانه، بر حفظ همبستگی و تداوم همراهی خود تأکید کردند.",
+   "at": "2026-11-14T00:02:06.000Z",
+   "url": "https://www.mehrnews.com/news/7009933/%DA%A9%D9%84%D8%A7%D9%84%D9%87-%D8%AF%D8%B1-%D9%82%D8%A7%D8%A8-%D9%87%D9%85%D8%AF%D9%84%DB%8C-%D8%AD%D8%B6%D9%88%D8%B1-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86%DB%8C-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF"
+  },
+  {
+   "id": "9a22afde37dab6d5b53f95257ea63cd3555fd905",
+   "titleKey": "4708118aef32025eb3c695c9fbdeb2ce3e865dd7",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "All departing U.S. flights grounded due to communication outage The halt triggered immediate chaos and confusion for travelers, with departure boards at many airports showing flights were operating normally, even as customers were unable to board planes",
+   "at": "2026-11-14T00:04:33.000Z",
+   "url": "https://www.thehindu.com/news/international/all-departing-us-flights-grounded-due-to-communication-outage/article71700667.ece"
+  },
+  {
+   "id": "da858fb6cda6f374a40db3aeb1544c88f0e25913",
+   "titleKey": "180674dbf4514e8c189d61cb094f42d43df6af46",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "اندیمشک میزبان شهید گمنام دفاع مقدس اندیمشک - ایرنا - اندیمشک همزمان با سالروز شهادت حضرت فاطمه زهرا(س)، میزبان پیکر مطهر شهید گمنام هشت سال دفاع مقدس شد.",
+   "at": "2026-11-14T00:05:46.000Z",
+   "url": "https://www.irna.ir/news/86320805/%D8%A7%D9%86%D8%AF%DB%8C%D9%85%D8%B4%DA%A9-%D9%85%DB%8C%D8%B2%D8%A8%D8%A7%D9%86-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D9%81%D8%A7%D8%B9-%D9%85%D9%82%D8%AF%D8%B3"
+  },
+  {
+   "id": "a34a30b3f7455d870ad98de477f7589dfb05fb1f",
+   "titleKey": "3bed31c5d22527738f1a3e5b615147658c411d44",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Afghanistan’s new road to China ends at a closed border Taliban government hopes its Wakhan Corridor road will open new trade routes and reduce reliance on Pakistan.",
+   "at": "2026-11-14T00:06:43.000Z",
+   "url": "https://www.aljazeera.com/features/2026/11/14/wakhan-corridor-afghanistan-china-taliban?traffic_source=rss"
+  },
+  {
+   "id": "a8b34bffe4c280ee8bb7d292268b8774f6b91b20",
+   "titleKey": "02de8461f5c1598739de52145aae9697abf08c05",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "پهلوی، در سازمان‌دهی جنایت در ایران نقش داشته است",
+   "at": "2026-11-14T00:07:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852337/%D9%BE%D9%87%D9%84%D9%88%DB%8C-%D8%AF%D8%B1-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D8%AF%D9%87%DB%8C-%D8%AC%D9%86%D8%A7%DB%8C%D8%AA-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%86%D9%82%D8%B4-%D8%AF%D8%A7%D8%B4%D8%AA%D9%87-%D8%A7%D8%B3%D8%AA"
+  },
   {
    "id": "680c057ae2ce5d77e7afd7dea26f16081ec4656a",
    "titleKey": "7266ef007036a678b56f9adcc54e92a3e5cabd8d",
@@ -5867,6 +5941,46 @@
    "titleTexts": [],
    "cat": "economy",
    "queuedAt": "2026-11-14T00:04:24.954Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: این اشتباه ساده به ماشین لباس‌شویی آسیب می‌زند / ۸ وسیله‌ای که نباید داخل آن بیندازید بعضی از وسایلی که روزانه همراه لباس‌ها وارد ماشین لباس‌شویی می‌شوند، می‌توانند به پوشاک و قطعات دستگاه آسیب بزنند؛ اشتباهاتی ساده که گاهی هزینه‌های سنگینی به دنبال دارند.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T00:12:44.283Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: کلاله در قاب همدلی؛ حضور شبانه مردم پایانی ندارد کلاله- خیابان‌های کلاله بار دیگر میزبان مردمی شد که با حضور در تجمع شبانه، بر حفظ همبستگی و تداوم همراهی خود تأکید کردند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/01/4/6241180.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:12:44.984Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): اندیمشک میزبان شهید گمنام دفاع مقدس اندیمشک - ایرنا - اندیمشک همزمان با سالروز شهادت حضرت فاطمه زهرا(س)، میزبان پیکر مطهر شهید گمنام هشت سال دفاع مقدس شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/13/4/173238377.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T00:12:45.685Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: پهلوی، در سازمان‌دهی جنایت در ایران نقش داشته است\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/09/4/4748316.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T00:12:46.386Z"
   }
  ],
  "tweetQueue": [],
@@ -6044,6 +6158,80 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "064509c7c3a7eee723ccd1270bc1042804ceeeff",
+   "titleKey": "2d9b1dab13d3efa63bb16ec3e2b0702ccd2e9c68",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China - The Washington Post Behind Jensen Huang’s spy scandal, a shadow war for Trump’s ear on China The Washington Post",
+   "at": "2026-11-13T23:18:23.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNV83TGNqLXB1TGRFV1otMFAwS3poMGY4dHp6V05vWllwcmJ0SGN1QkxXdHpob3czaXJSLW1jcjkta1FpRFR1emR3SVZtWWlUclVIWDlFODZHRDFabzcxR2JfamFhU3VxTnVRNG16Z0F2Y09wRUU0ZmxRazVwTDVSV0V2dlFNNm1WazBoUXg2U1kxM1p0Ym5NSmREU1htSDk2SF9jR2hSTXFYLU85ZHFnaW5YMzY?oc=5"
+  },
+  {
+   "id": "3e15e900300e881428f995f475a670411e591dca",
+   "titleKey": "96390e37fac3df12e966835f8b02625241f97ba4",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "این اشتباه ساده به ماشین لباس‌شویی آسیب می‌زند / ۸ وسیله‌ای که نباید داخل آن بیندازید بعضی از وسایلی که روزانه همراه لباس‌ها وارد ماشین لباس‌شویی می‌شوند، می‌توانند به پوشاک و قطعات دستگاه آسیب بزنند؛ اشتباهاتی ساده که گاهی هزینه‌های سنگینی به دنبال دارند.",
+   "at": "2026-11-14T00:00:01.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175399/این-اشتباه-ساده-به-ماشین-لباس-شویی-آسیب-می-زند-8-وسیله-ای-که-نباید-داخل-آن-بیندازید"
+  },
+  {
+   "id": "a460993f867d14dce86d37b102ca00bee05597e8",
+   "titleKey": "45bb209940dab0dc6a0b38827623317802db9e57",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Iran war live: Fighting grips Yemen as Qatar, Turkiye sign defence deal Doha, Ankara agreement pledges joint action against external attacks as fighting in Yemen displaces civilians.",
+   "at": "2026-11-14T00:00:25.000Z",
+   "url": "https://www.aljazeera.com/news/liveblog/2026/11/14/iran-war-live-fighting-grips-yemen-as-qatar-turkiye-sign-defence-deal?traffic_source=rss"
+  },
+  {
+   "id": "25631d8b2d00d7a5100572a5c1ab1d1447a663ed",
+   "titleKey": "71b0e9a88cc334260ec46aa3aed8d679b3be0680",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "کلاله در قاب همدلی؛ حضور شبانه مردم پایانی ندارد کلاله- خیابان‌های کلاله بار دیگر میزبان مردمی شد که با حضور در تجمع شبانه، بر حفظ همبستگی و تداوم همراهی خود تأکید کردند.",
+   "at": "2026-11-14T00:02:06.000Z",
+   "url": "https://www.mehrnews.com/news/7009933/%DA%A9%D9%84%D8%A7%D9%84%D9%87-%D8%AF%D8%B1-%D9%82%D8%A7%D8%A8-%D9%87%D9%85%D8%AF%D9%84%DB%8C-%D8%AD%D8%B6%D9%88%D8%B1-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86%DB%8C-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF"
+  },
+  {
+   "id": "9a22afde37dab6d5b53f95257ea63cd3555fd905",
+   "titleKey": "4708118aef32025eb3c695c9fbdeb2ce3e865dd7",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "All departing U.S. flights grounded due to communication outage The halt triggered immediate chaos and confusion for travelers, with departure boards at many airports showing flights were operating normally, even as customers were unable to board planes",
+   "at": "2026-11-14T00:04:33.000Z",
+   "url": "https://www.thehindu.com/news/international/all-departing-us-flights-grounded-due-to-communication-outage/article71700667.ece"
+  },
+  {
+   "id": "da858fb6cda6f374a40db3aeb1544c88f0e25913",
+   "titleKey": "180674dbf4514e8c189d61cb094f42d43df6af46",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "اندیمشک میزبان شهید گمنام دفاع مقدس اندیمشک - ایرنا - اندیمشک همزمان با سالروز شهادت حضرت فاطمه زهرا(س)، میزبان پیکر مطهر شهید گمنام هشت سال دفاع مقدس شد.",
+   "at": "2026-11-14T00:05:46.000Z",
+   "url": "https://www.irna.ir/news/86320805/%D8%A7%D9%86%D8%AF%DB%8C%D9%85%D8%B4%DA%A9-%D9%85%DB%8C%D8%B2%D8%A8%D8%A7%D9%86-%D8%B4%D9%87%DB%8C%D8%AF-%DA%AF%D9%85%D9%86%D8%A7%D9%85-%D8%AF%D9%81%D8%A7%D8%B9-%D9%85%D9%82%D8%AF%D8%B3"
+  },
+  {
+   "id": "a34a30b3f7455d870ad98de477f7589dfb05fb1f",
+   "titleKey": "3bed31c5d22527738f1a3e5b615147658c411d44",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Afghanistan’s new road to China ends at a closed border Taliban government hopes its Wakhan Corridor road will open new trade routes and reduce reliance on Pakistan.",
+   "at": "2026-11-14T00:06:43.000Z",
+   "url": "https://www.aljazeera.com/features/2026/11/14/wakhan-corridor-afghanistan-china-taliban?traffic_source=rss"
+  },
+  {
+   "id": "a8b34bffe4c280ee8bb7d292268b8774f6b91b20",
+   "titleKey": "02de8461f5c1598739de52145aae9697abf08c05",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "پهلوی، در سازمان‌دهی جنایت در ایران نقش داشته است",
+   "at": "2026-11-14T00:07:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852337/%D9%BE%D9%87%D9%84%D9%88%DB%8C-%D8%AF%D8%B1-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D8%AF%D9%87%DB%8C-%D8%AC%D9%86%D8%A7%DB%8C%D8%AA-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%86%D9%82%D8%B4-%D8%AF%D8%A7%D8%B4%D8%AA%D9%87-%D8%A7%D8%B3%D8%AA"
+  },
   {
    "id": "680c057ae2ce5d77e7afd7dea26f16081ec4656a",
    "titleKey": "7266ef007036a678b56f9adcc54e92a3e5cabd8d",
@@ -9702,7 +9890,7 @@
    "items": 365
   }
  ],
- "aiCursor": 6,
+ "aiCursor": 0,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10276,22 +10464,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794614679922,
-  "Akharin_khodro/8913": 1794614679922,
-  "Akharin_khodro/8914": 1794614679922,
-  "Akharin_khodro/8915": 1794614679922,
-  "Akharin_khodro/8916": 1794614679922,
-  "Akharin_khodro/8919": 1794614679922,
-  "Akharin_khodro/8920": 1794614679922,
-  "Akharin_khodro/8921": 1794614679922,
-  "Akharin_khodro/8922": 1794614679922,
-  "Akharin_khodro/8923": 1794614679922,
-  "Akharin_khodro/8924": 1794614679922,
-  "Akharin_khodro/8925": 1794614679922,
-  "Akharin_khodro/8926": 1794614679922,
-  "Akharin_khodro/8927": 1794614679922,
-  "Akharin_khodro/8928": 1794614679922,
-  "Akharin_khodro/8929": 1794614679922,
+  "Akharin_khodro/8908": 1794615180594,
+  "Akharin_khodro/8913": 1794615180594,
+  "Akharin_khodro/8914": 1794615180594,
+  "Akharin_khodro/8915": 1794615180594,
+  "Akharin_khodro/8916": 1794615180594,
+  "Akharin_khodro/8919": 1794615180594,
+  "Akharin_khodro/8920": 1794615180594,
+  "Akharin_khodro/8921": 1794615180594,
+  "Akharin_khodro/8922": 1794615180594,
+  "Akharin_khodro/8923": 1794615180594,
+  "Akharin_khodro/8924": 1794615180594,
+  "Akharin_khodro/8925": 1794615180594,
+  "Akharin_khodro/8926": 1794615180594,
+  "Akharin_khodro/8927": 1794615180594,
+  "Akharin_khodro/8928": 1794615180594,
+  "Akharin_khodro/8929": 1794615180594,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10720,27 +10908,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-14T00:04:39.929Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-14T00:13:00.600Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1066,
-  "inWindow": 178,
-  "fresh": 92,
-  "sent": 5,
+  "fetched": 1067,
+  "inWindow": 177,
+  "fresh": 95,
+  "sent": 4,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 116,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 87,
-  "queued": 5,
+  "skippedUntranslated": 91,
+  "queued": 4,
   "tweetRateLimited": false
  }
 }

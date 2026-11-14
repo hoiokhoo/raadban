@@ -1,5 +1,8 @@
 {
  "sentIds": {
+  "3041fdf28818f702066db750ae1986e4326bece7": 1794621090907,
+  "54fded3e44a63921e8ad33c12887652db63f56d1": 1794621090907,
+  "41150287dc791aee9d07b8b23962ff961306c007": 1794621090907,
   "f1866aa0799eebfaec8191f12d39637abbdf366b": 1794620599043,
   "82e7fa5a76128d71d0b86f2ec0cf617e6f30dead": 1794620599043,
   "0584b7b0d59d575a54476e5a6c562a0761b442f2": 1794620599043,
@@ -1196,12 +1199,12 @@
   "a571942d18c51e62bf6df413cb7eaa10299169c7": 1794578746851,
   "1fcfa5f2f5a96858fd1a97ea315d7ab5c009fdda": 1794578746851,
   "860ef54711db7542604c0fb7772c8e231879ce44": 1794578746851,
-  "22135d5fc802ab920fbfe1ea66400b0190af5f8a": 1794578746851,
-  "1fd53d09b8cdbedc8c13bebb79ed498cf696b439": 1794578746851,
-  "49ede2ba99eb5c80d0e9c7e5b09f3f3f0593b53c": 1794578746851,
-  "b75ce29dd759d54ace3ea495935225574bd8c862": 1794578746851
+  "22135d5fc802ab920fbfe1ea66400b0190af5f8a": 1794578746851
  },
  "sentTitles": {
+  "cb71c1b247e97c86945297ed14dd06388919667b": 1794621090907,
+  "6d1459b894daa8c3832841d6a505f46928ebff58": 1794621090907,
+  "c35a2d4278995efe987c0c6b64f3d933cc954f65": 1794621090907,
   "5facca2f78eef7c31d4fa494cc4491170574f144": 1794620599043,
   "182fe6c75e2e5bba193ecca41230ae120504096c": 1794620599043,
   "886bb412454e175e154f5814fc9c96f87c999e1b": 1794620599043,
@@ -1798,10 +1801,7 @@
   "c6e95d0d033b0c04c2d9fd710151a613e429c2c7": 1794590886746,
   "fb44d3b682c724b86ba55ff80fe1a64f1ee2a54f": 1794590886746,
   "df9a4e24a62a39bf8f5417c457b1715948f9f932": 1794590886746,
-  "88dd49cf89575fabd3d685e88672f8626f4497b2": 1794590886746,
-  "2675788402d266127c6679a9104f2bf5109c2001": 1794590886746,
-  "b07ffb6bccdd1cf5d0e63c91861f033b91edbefa": 1794590284879,
-  "1f9691f8a9b5dd11a64072b647799f0c08418b60": 1794590284879
+  "88dd49cf89575fabd3d685e88672f8626f4497b2": 1794590886746
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,97 @@
   "مشرق نیوز گفتگوی تلفنی ولیعهد اردن با معاون ترامپ ولیعهد اردن با جی دی ونس معاون رییس دولت تروریستی امریکا تلفنی گفتگو کرد": 1794595315680
  },
  "pool": [
+  {
+   "id": "3efa24dfa38538bd8c4f3fd20e6654d31156fae0",
+   "titleKey": "1e06ae151dc8ccc98a2c899514eb80ddf3bb172c",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Fed's Jefferson says he is taking his policy cues from inflation - Reuters Fed's Jefferson says he is taking his policy cues from inflation Reuters",
+   "at": "2026-11-14T00:03:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQZW1TY0lTUklmN2JmVC0zMm5qMUdfOUFjWk43S1NTS1RpcGx1Ni0tWkJCX1NXWDg1cHdzazZsQUZlREpWRkl2UER3S2t0TjFON1lXeTNNLXA4SXZYYjFjbXh0SnJzcXFGV2FPZkhoc1dNc1ZhUXNTRjdmX3R2SUR0ZlZwcHlnT2F2ZzdLdnNkQ1I5Sy1tRmVGTS1GTEpUTmRTWVlkYXRR?oc=5"
+  },
+  {
+   "id": "7a0f61091684993035be9805fe902e7f02a9fed8",
+   "titleKey": "1ba60ceb3acae17bb62a7e8d8a9dbe5f607f82cf",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Trump to meet Putin and Xi in China, White House says - Reuters Trump to meet Putin and Xi in China, White House says Reuters",
+   "at": "2026-11-14T00:22:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPX1dzUndCOE42aUFUazd4SFcxMFVWUTl6VmRVOE5QR0ZjNWRXY19qWTVuRUthUXhDS3UybmZnQmFHSHVRV20wdXJwTUlKUTlGVU42N1B4bkVwSjI4bkdJeG94aFpxX01NUTdyWUJOUVZHSHlXZkxGZXlsTWhjSmUwRXoyRklMekIycXlEUk1pM1NpNjJp?oc=5"
+  },
+  {
+   "id": "5402faa0d59c4000807162cfbb420cffa99a37e4",
+   "titleKey": "c3ae5b155c294caeefee2c420257f487972a08fd",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Matt Henry's three-ball demolition exposes India's batting frailties ahead of WC Matt Finishes India Off With Devastating 6/27, Including Wickets Of Rohit, Kohli & Iyer In Opening Over, As India Sink To Second-Biggest Defeat In ODIs; Will Young Sizzles With Ton In 244-Run Win For Kiwis",
+   "at": "2026-11-14T01:00:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/matt-henrys-three-ball-demolition-exposes-indias-batting-frailties-ahead-of-2027-odi-world-cup/articleshow/135808455.cms"
+  },
+  {
+   "id": "5a82d265acaebf48fdf487077d31a110a3766659",
+   "titleKey": "74f57e228bb974af2859cce57d4eb059c61cf574",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Spanberger to reverse decision to participate in Trump’s school vouchers - The Washington Post Spanberger to reverse decision to participate in Trump’s school vouchers The Washington Post",
+   "at": "2026-11-14T01:21:32.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPRzZaQVFfbTBDUzdCXzhIdTNaWXFuSjJuT3E4RGtVbTlXRUFWN0JQTVE1a1VNN0VDTzVjNHZuNWRCYUJQWFU0ZmZXY0puQ2JVNTZoU2UzdDlxMk9wNFdMSnltdUpKbnowUVRNZ256RGpfQm1pUk9HS3ZCNGxqQ0poVTZFUHJTczMyMlQzS2pLTE0zSEdFNU1NaENNcjMzQnFMWmQzR2I0Z3Q2MzVwcERhYmkyOHE?oc=5"
+  },
+  {
+   "id": "0c06bec21f30d30a6753e7d23dcad40957e41821",
+   "titleKey": "bac56dfb9a7be3541791a51d78c848428732fbd6",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Returned from Greece, Punjab man builds Rs 2 crore sugarcane business After spending eight years in Greece, Hargurjit Singh Minhas has returned to Punjab with a vision to revolutionize farming. He cultivated 60 acres with a focus on sugarcane, integrating innovative planting techniques and intercropping. This enhanced productivity allows him to provide harvesting services to neighboring farmers, effectively boosting his income and transforming his family's land into a thriving agricultural business.",
+   "at": "2026-11-14T01:26:32.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/meet-hargurjit-singh-minhas-who-returned-to-punjab-after-eight-years-in-greece-and-built-a-sugarcane-business-reporting-rs-2-crore-revenue-and-rs-60-65-lakh-net-earnings/articleshow/135795547.cms"
+  },
+  {
+   "id": "1eac6075e0f09995ea19725fb44934820a700970",
+   "titleKey": "d0511847072053373bd813425784830b4e317bdf",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "US flight disruption: Air India flags possible delays to US-bound services Travelers on Air India flights faced significant delays due to a nationwide communication failure that affected the FAA, leading to a temporary ground halt of all flight departures across the U.S. Although the ground stop has since been lifted, passengers should brace for ongoing disruptions as the situation unfolds. Investigations are in progress to pinpoint the cause behind this communication breakdown, with safety being the top priority for FAA officials.",
+   "at": "2026-11-14T01:35:28.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/india-business/us-flight-disruption-air-india-flags-possible-delays-to-us-bound-services/articleshow/135820077.cms"
+  },
+  {
+   "id": "2ee6a3c35d4431ee176cb0fdf09ce2a72130389b",
+   "titleKey": "c28d0fa07ab4a7bc30df85da5dd8d8c022608554",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "‘New war crime’: Hezbollah condemns Israel attack on Gaza hospital Lebanon’s Hezbollah resistance movement has strongly condemned the “terrorist” Israeli attack on Nasser Hospital in Gaza, saying the occupying regime committed another “war crime” amid the international community’s silence. @PressTV",
+   "at": "2026-11-14T01:42:10.000Z",
+   "url": "https://t.me/presstv/214628"
+  },
+  {
+   "id": "3041fdf28818f702066db750ae1986e4326bece7",
+   "titleKey": "cb71c1b247e97c86945297ed14dd06388919667b",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "لغو برخی محدودیت های پروازی آمریکا/ وزیر آمریکایی: سیستم ناوبری ما بسیار کهنه است تهران-ایرنا- اداره هوانوردی فدرال آمریکا اعلام کرد که تصمیم لغو پروازهای آمریکا پایان یافته است.",
+   "at": "2026-11-14T01:43:53.000Z",
+   "url": "https://www.irna.ir/news/86320853/%D9%85%D9%85%D9%86%D9%88%D8%B9%DB%8C%D8%AA-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%84%D8%BA%D9%88-%D8%B4%D8%AF"
+  },
+  {
+   "id": "54fded3e44a63921e8ad33c12887652db63f56d1",
+   "titleKey": "6d1459b894daa8c3832841d6a505f46928ebff58",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "شرکت هواپیمایی «جت بلو» آمریکا تمامی پروازهای باقی‌مانده را لغو کرد تهران- ایرنا- شرکت هواپیمایی آمریکایی «جت بلو» (JetBlue) از لغو تمامی پروازهای باقی‌مانده خود خبر داد.",
+   "at": "2026-11-14T01:48:42.000Z",
+   "url": "https://www.irna.ir/news/86320854/%D8%B4%D8%B1%DA%A9%D8%AA-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%DB%8C%DB%8C-%D8%AC%D8%AA-%D8%A8%D9%84%D9%88-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D9%85%D8%A7%D9%85%DB%8C-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A8%D8%A7%D9%82%DB%8C-%D9%85%D8%A7%D9%86%D8%AF%D9%87-%D8%B1%D8%A7-%D9%84%D8%BA%D9%88"
+  },
+  {
+   "id": "41150287dc791aee9d07b8b23962ff961306c007",
+   "titleKey": "c35a2d4278995efe987c0c6b64f3d933cc954f65",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "توئیت حسام الدین آشنا با هشتگ «نفوذ»: در این کشور کسانی هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند حسام الدین آشنا در توئیتی با هشتگ نفوذ نوشت: در این کشور هستند کسانی که می تواننند مشاور امنیت ملی رئیس جمهور آمریکا را با چند حرکت حساب شده، از او جدا کنند. کسان دیگری هم هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند. ‏⁧",
+   "at": "2026-11-14T01:50:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301686/%D8%AA%D9%88%D8%A6%DB%8C%D8%AA-%D8%AD%D8%B3%D8%A7%D9%85-%D8%A7%D9%84%D8%AF%DB%8C%D9%86-%D8%A2%D8%B4%D9%86%D8%A7-%D8%A8%D8%A7-%D9%87%D8%B4%D8%AA%DA%AF-%D9%86%D9%81%D9%88%D8%B0-%D8%AF%D8%B1-%D8%A7%DB%8C%D9%86-%DA%A9%D8%B4%D9%88%D8%B1-%DA%A9%D8%B3%D8%A7%D9%86%DB%8C-%D9%87%D8%B3%D8%AA%D9%86%D8%AF"
+  },
   {
    "id": "b74dd6adacaa25663ed6a2abc379f42d168e03cd",
    "titleKey": "5f952be305c3ee703006b2031492f2edd33df913",
@@ -5481,6 +5572,36 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-14T01:43:04.800Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): لغو برخی محدودیت های پروازی آمریکا/ وزیر آمریکایی: سیستم ناوبری ما بسیار کهنه است تهران-ایرنا- اداره هوانوردی فدرال آمریکا اعلام کرد که تصمیم لغو پروازهای آمریکا پایان یافته است.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238474.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T01:51:14.998Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): شرکت هواپیمایی «جت بلو» آمریکا تمامی پروازهای باقی‌مانده را لغو کرد تهران- ایرنا- شرکت هواپیمایی آمریکایی «جت بلو» (JetBlue) از لغو تمامی پروازهای باقی‌مانده خود خبر داد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2020/03/01/4/157003803.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T01:51:15.699Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: توئیت حسام الدین آشنا با هشتگ «نفوذ»: در این کشور کسانی هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند حسام الدین آشنا در توئیتی با هشتگ نفوذ نوشت: در این کشور هستند کسانی که می تواننند مشاور امنیت ملی رئیس جمهور آمریکا را با چند حرکت حساب شده، از او جدا کنند. کسان دیگری هم هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند. ‏⁧\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/10/23/4/6493448.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T01:51:16.400Z"
   }
  ],
  "tweetQueue": [],
@@ -5658,6 +5779,97 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "3efa24dfa38538bd8c4f3fd20e6654d31156fae0",
+   "titleKey": "1e06ae151dc8ccc98a2c899514eb80ddf3bb172c",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Fed's Jefferson says he is taking his policy cues from inflation - Reuters Fed's Jefferson says he is taking his policy cues from inflation Reuters",
+   "at": "2026-11-14T00:03:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQZW1TY0lTUklmN2JmVC0zMm5qMUdfOUFjWk43S1NTS1RpcGx1Ni0tWkJCX1NXWDg1cHdzazZsQUZlREpWRkl2UER3S2t0TjFON1lXeTNNLXA4SXZYYjFjbXh0SnJzcXFGV2FPZkhoc1dNc1ZhUXNTRjdmX3R2SUR0ZlZwcHlnT2F2ZzdLdnNkQ1I5Sy1tRmVGTS1GTEpUTmRTWVlkYXRR?oc=5"
+  },
+  {
+   "id": "7a0f61091684993035be9805fe902e7f02a9fed8",
+   "titleKey": "1ba60ceb3acae17bb62a7e8d8a9dbe5f607f82cf",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "Trump to meet Putin and Xi in China, White House says - Reuters Trump to meet Putin and Xi in China, White House says Reuters",
+   "at": "2026-11-14T00:22:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPX1dzUndCOE42aUFUazd4SFcxMFVWUTl6VmRVOE5QR0ZjNWRXY19qWTVuRUthUXhDS3UybmZnQmFHSHVRV20wdXJwTUlKUTlGVU42N1B4bkVwSjI4bkdJeG94aFpxX01NUTdyWUJOUVZHSHlXZkxGZXlsTWhjSmUwRXoyRklMekIycXlEUk1pM1NpNjJp?oc=5"
+  },
+  {
+   "id": "5402faa0d59c4000807162cfbb420cffa99a37e4",
+   "titleKey": "c3ae5b155c294caeefee2c420257f487972a08fd",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Matt Henry's three-ball demolition exposes India's batting frailties ahead of WC Matt Finishes India Off With Devastating 6/27, Including Wickets Of Rohit, Kohli & Iyer In Opening Over, As India Sink To Second-Biggest Defeat In ODIs; Will Young Sizzles With Ton In 244-Run Win For Kiwis",
+   "at": "2026-11-14T01:00:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/matt-henrys-three-ball-demolition-exposes-indias-batting-frailties-ahead-of-2027-odi-world-cup/articleshow/135808455.cms"
+  },
+  {
+   "id": "5a82d265acaebf48fdf487077d31a110a3766659",
+   "titleKey": "74f57e228bb974af2859cce57d4eb059c61cf574",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Spanberger to reverse decision to participate in Trump’s school vouchers - The Washington Post Spanberger to reverse decision to participate in Trump’s school vouchers The Washington Post",
+   "at": "2026-11-14T01:21:32.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPRzZaQVFfbTBDUzdCXzhIdTNaWXFuSjJuT3E4RGtVbTlXRUFWN0JQTVE1a1VNN0VDTzVjNHZuNWRCYUJQWFU0ZmZXY0puQ2JVNTZoU2UzdDlxMk9wNFdMSnltdUpKbnowUVRNZ256RGpfQm1pUk9HS3ZCNGxqQ0poVTZFUHJTczMyMlQzS2pLTE0zSEdFNU1NaENNcjMzQnFMWmQzR2I0Z3Q2MzVwcERhYmkyOHE?oc=5"
+  },
+  {
+   "id": "0c06bec21f30d30a6753e7d23dcad40957e41821",
+   "titleKey": "bac56dfb9a7be3541791a51d78c848428732fbd6",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Returned from Greece, Punjab man builds Rs 2 crore sugarcane business After spending eight years in Greece, Hargurjit Singh Minhas has returned to Punjab with a vision to revolutionize farming. He cultivated 60 acres with a focus on sugarcane, integrating innovative planting techniques and intercropping. This enhanced productivity allows him to provide harvesting services to neighboring farmers, effectively boosting his income and transforming his family's land into a thriving agricultural business.",
+   "at": "2026-11-14T01:26:32.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/meet-hargurjit-singh-minhas-who-returned-to-punjab-after-eight-years-in-greece-and-built-a-sugarcane-business-reporting-rs-2-crore-revenue-and-rs-60-65-lakh-net-earnings/articleshow/135795547.cms"
+  },
+  {
+   "id": "1eac6075e0f09995ea19725fb44934820a700970",
+   "titleKey": "d0511847072053373bd813425784830b4e317bdf",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "US flight disruption: Air India flags possible delays to US-bound services Travelers on Air India flights faced significant delays due to a nationwide communication failure that affected the FAA, leading to a temporary ground halt of all flight departures across the U.S. Although the ground stop has since been lifted, passengers should brace for ongoing disruptions as the situation unfolds. Investigations are in progress to pinpoint the cause behind this communication breakdown, with safety being the top priority for FAA officials.",
+   "at": "2026-11-14T01:35:28.000Z",
+   "url": "https://timesofindia.indiatimes.com/business/india-business/us-flight-disruption-air-india-flags-possible-delays-to-us-bound-services/articleshow/135820077.cms"
+  },
+  {
+   "id": "2ee6a3c35d4431ee176cb0fdf09ce2a72130389b",
+   "titleKey": "c28d0fa07ab4a7bc30df85da5dd8d8c022608554",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "‘New war crime’: Hezbollah condemns Israel attack on Gaza hospital Lebanon’s Hezbollah resistance movement has strongly condemned the “terrorist” Israeli attack on Nasser Hospital in Gaza, saying the occupying regime committed another “war crime” amid the international community’s silence. @PressTV",
+   "at": "2026-11-14T01:42:10.000Z",
+   "url": "https://t.me/presstv/214628"
+  },
+  {
+   "id": "3041fdf28818f702066db750ae1986e4326bece7",
+   "titleKey": "cb71c1b247e97c86945297ed14dd06388919667b",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "لغو برخی محدودیت های پروازی آمریکا/ وزیر آمریکایی: سیستم ناوبری ما بسیار کهنه است تهران-ایرنا- اداره هوانوردی فدرال آمریکا اعلام کرد که تصمیم لغو پروازهای آمریکا پایان یافته است.",
+   "at": "2026-11-14T01:43:53.000Z",
+   "url": "https://www.irna.ir/news/86320853/%D9%85%D9%85%D9%86%D9%88%D8%B9%DB%8C%D8%AA-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%84%D8%BA%D9%88-%D8%B4%D8%AF"
+  },
+  {
+   "id": "54fded3e44a63921e8ad33c12887652db63f56d1",
+   "titleKey": "6d1459b894daa8c3832841d6a505f46928ebff58",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "شرکت هواپیمایی «جت بلو» آمریکا تمامی پروازهای باقی‌مانده را لغو کرد تهران- ایرنا- شرکت هواپیمایی آمریکایی «جت بلو» (JetBlue) از لغو تمامی پروازهای باقی‌مانده خود خبر داد.",
+   "at": "2026-11-14T01:48:42.000Z",
+   "url": "https://www.irna.ir/news/86320854/%D8%B4%D8%B1%DA%A9%D8%AA-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%DB%8C%DB%8C-%D8%AC%D8%AA-%D8%A8%D9%84%D9%88-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AA%D9%85%D8%A7%D9%85%DB%8C-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A8%D8%A7%D9%82%DB%8C-%D9%85%D8%A7%D9%86%D8%AF%D9%87-%D8%B1%D8%A7-%D9%84%D8%BA%D9%88"
+  },
+  {
+   "id": "41150287dc791aee9d07b8b23962ff961306c007",
+   "titleKey": "c35a2d4278995efe987c0c6b64f3d933cc954f65",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "توئیت حسام الدین آشنا با هشتگ «نفوذ»: در این کشور کسانی هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند حسام الدین آشنا در توئیتی با هشتگ نفوذ نوشت: در این کشور هستند کسانی که می تواننند مشاور امنیت ملی رئیس جمهور آمریکا را با چند حرکت حساب شده، از او جدا کنند. کسان دیگری هم هستند که به هزینه مجلس در ماه های آخر دوره رئیس جمهور آمریکا به او پاس گل می دهند. ‏⁧",
+   "at": "2026-11-14T01:50:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301686/%D8%AA%D9%88%D8%A6%DB%8C%D8%AA-%D8%AD%D8%B3%D8%A7%D9%85-%D8%A7%D9%84%D8%AF%DB%8C%D9%86-%D8%A2%D8%B4%D9%86%D8%A7-%D8%A8%D8%A7-%D9%87%D8%B4%D8%AA%DA%AF-%D9%86%D9%81%D9%88%D8%B0-%D8%AF%D8%B1-%D8%A7%DB%8C%D9%86-%DA%A9%D8%B4%D9%88%D8%B1-%DA%A9%D8%B3%D8%A7%D9%86%DB%8C-%D9%87%D8%B3%D8%AA%D9%86%D8%AF"
+  },
   {
    "id": "b74dd6adacaa25663ed6a2abc379f42d168e03cd",
    "titleKey": "5f952be305c3ee703006b2031492f2edd33df913",
@@ -10191,7 +10403,7 @@
    "items": 365
   }
  ],
- "aiCursor": 2,
+ "aiCursor": 3,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10765,22 +10977,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794620599039,
-  "Akharin_khodro/8913": 1794620599039,
-  "Akharin_khodro/8914": 1794620599039,
-  "Akharin_khodro/8915": 1794620599039,
-  "Akharin_khodro/8916": 1794620599039,
-  "Akharin_khodro/8919": 1794620599039,
-  "Akharin_khodro/8920": 1794620599039,
-  "Akharin_khodro/8921": 1794620599039,
-  "Akharin_khodro/8922": 1794620599039,
-  "Akharin_khodro/8923": 1794620599039,
-  "Akharin_khodro/8924": 1794620599039,
-  "Akharin_khodro/8925": 1794620599039,
-  "Akharin_khodro/8926": 1794620599039,
-  "Akharin_khodro/8927": 1794620599039,
-  "Akharin_khodro/8928": 1794620599039,
-  "Akharin_khodro/8929": 1794620599039,
+  "Akharin_khodro/8908": 1794621090904,
+  "Akharin_khodro/8913": 1794621090904,
+  "Akharin_khodro/8914": 1794621090904,
+  "Akharin_khodro/8915": 1794621090904,
+  "Akharin_khodro/8916": 1794621090904,
+  "Akharin_khodro/8919": 1794621090904,
+  "Akharin_khodro/8920": 1794621090904,
+  "Akharin_khodro/8921": 1794621090904,
+  "Akharin_khodro/8922": 1794621090904,
+  "Akharin_khodro/8923": 1794621090904,
+  "Akharin_khodro/8924": 1794621090904,
+  "Akharin_khodro/8925": 1794621090904,
+  "Akharin_khodro/8926": 1794621090904,
+  "Akharin_khodro/8927": 1794621090904,
+  "Akharin_khodro/8928": 1794621090904,
+  "Akharin_khodro/8929": 1794621090904,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11228,26 +11440,26 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-14T01:43:19.046Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-14T01:51:30.910Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1068,
-  "inWindow": 149,
-  "fresh": 85,
+  "inWindow": 143,
+  "fresh": 83,
   "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 114,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 81,
+  "skippedUntranslated": 80,
   "queued": 3,
   "tweetRateLimited": false
  }

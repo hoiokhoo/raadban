@@ -1,5 +1,11 @@
 {
  "sentIds": {
+  "b16ee2534038473dc002712d091a9a6df23182de": 1794617954335,
+  "6d0c23b9845d119cd6bd461fc2f6fd9bbc0f7974": 1794617954335,
+  "a44c42a4ccd1022ec75ee539a9c88ae858cdf3e1": 1794617954335,
+  "9654d75793fc81f4d2c947321a9fb3143d366908": 1794617954335,
+  "0514fa73fbc8f712f643994e9effd2475ea01d43": 1794617954335,
+  "efa3ff2ef09c41a9bb168223c95d31c9ce1860c6": 1794617954335,
   "fc4faca895d2029110d822cc8c6174ca05e31730": 1794616847626,
   "13135fbca983400016e2dcc33782685a7fc55f67": 1794616847626,
   "e666db03d1e719e67680fc4ff2f1b82a120cffb7": 1794616341622,
@@ -1193,15 +1199,15 @@
   "9de05a866b22bd34c0075c0577431820f9553642": 1794578141423,
   "412e8e196f824c44c6b5c07a9c63097e31352eab": 1794578141423,
   "072b9777b182f87b92587d1c732533d407cf2af4": 1794578141423,
-  "779d79d217ad0a6249e9fcbba4e991cbcb552069": 1794578141423,
-  "76bee0326b6fb7902e2c16c3e17de52dcaf745b7": 1794578141423,
-  "3a66f3de991e7c13964502cc611b9816b92cb2da": 1794578141423,
-  "5b6756fa313739c11fbf0a6c4e4f5a9d19bb1759": 1794578141423,
-  "514a78020636efcdd756776efe7513558925e4f7": 1794578141423,
-  "3201a336b6a90d15cf1f3cf05f50e30bba27d821": 1794578141423,
-  "3b025344f2946c35a9f41a3ececa2dfd7244f0b8": 1794578141423
+  "779d79d217ad0a6249e9fcbba4e991cbcb552069": 1794578141423
  },
  "sentTitles": {
+  "77f5e1e08cffb590c42bb27e262109eab4192a42": 1794617954335,
+  "061fc3a97d5f11d5afc934e9f2ef61fe7b87b2c0": 1794617954335,
+  "70eca431e3685288cc5087910dcafe18f43f70b6": 1794617954335,
+  "3dbc195741a9adbbe0d1b0c5742f14eadff7d0b6": 1794617954335,
+  "08ea9a798917bbb2bff451c3ddf10decfcc4bd02": 1794617954335,
+  "32f08668eef4ccbbaba66369b04a43b2a647a987": 1794617954335,
   "37bd03812db5dcf7876f86dc890c9c2544d01d73": 1794616847626,
   "0020836339e5544a01c72890518e6ed19f2c489c": 1794616847626,
   "5de91ea228d99954786c59c66b5eaf19459751e8": 1794616341622,
@@ -1795,13 +1801,7 @@
   "98f201ac32de4add70a35879648ebdf554f2ed02": 1794590284879,
   "d214e053fa64b7c4e378fa02b3a19bd010a0944d": 1794590284879,
   "4378d04db38f48bc2cf41771ff20e3e2cb0f89d3": 1794590284879,
-  "813b61d43648049f26c483657c54244768dbb09b": 1794590284879,
-  "8464fae8767000fca7f3a8185be9b94e04662107": 1794589755206,
-  "c931e525ce9faee5333f68ac11b4b5197457efbb": 1794589755206,
-  "8243795da4551d1292d1b592db4725d72e561fe4": 1794589755206,
-  "b3fe03fe193708ef55b6e1cf572f39522ea75d10": 1794589755206,
-  "efc4d8c7922185a161a8933bbf802b10c7cfe989": 1794589755206,
-  "610c3abfc4efa9085d187453b0be28ec8a705dde": 1794589755206
+  "813b61d43648049f26c483657c54244768dbb09b": 1794590284879
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,165 @@
   "مشرق نیوز گفتگوی تلفنی ولیعهد اردن با معاون ترامپ ولیعهد اردن با جی دی ونس معاون رییس دولت تروریستی امریکا تلفنی گفتگو کرد": 1794595315680
  },
  "pool": [
+  {
+   "id": "2e5f2d926f6e0a89d7e217621ec028b992ac4972",
+   "titleKey": "8b1f15698970b95d3ac26f6a6d9432b0f9c86563",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "خبيران لـ\"العربي الجديد\": الاحتباس الحراري في حاجة إلى حلول عاجلة - العربي الجديد خبيران لـ\"العربي الجديد\": الاحتباس الحراري في حاجة إلى حلول عاجلة العربي الجديد",
+   "at": "2026-11-13T22:25:49.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_gNBVV95cUxNSGFiTVJ1RlJJdEtZMjhwWGwwUEZXZnRtWU1pZXBERVZXM08yNS1La1ZPeVZQRFd2cldiMWQ1WFZlblNnWDBpT29tMkV2UjRva3paeHJjcmtYdE8yVTFLcVZyVk1GT3d4ajdpR1dRb1JNX0hSX1lERGdseXBCaDgtd1dudzd1YmhSenBJZ3hVcE1ONXpOcmpIcXhScElEenNnUVhmMzN5SDZyWFlTYmlnVUswajdldDVDcEVGV2I3ZVkta3J0Uk1XUGZVWUZjU08zRnhTb3NqX2VIbUhtTFBWbWdrTFR3UU9fbGRyWl9ocXVIQzFEM0xsMTlrUGljYTlncVNwaU9vbGhpVWR0QmJOMlVtNWJTckJ0aVl2Zk9ZNGhmbTA5QmhPcnhkT0NFVmdxNm9qQ09QQzQ4WlA3d2tmelNZVzJtWTBSY2RIQkRSbzVtcDRyUTJjY3JOR0Y4NFBZU01zSmRYMGRlNkY0X0FsYUkxaU1KSkFRYzFkcGNydk16QzM5UVpYRXB5T3pSb1RJNHMtYXFMdTYwNlRkN0JYbTQwNUxyek1scVpjOFhaYXhtYnVPOWJGRG9YUFFYd3dnSm54TWZSQy1fV0dDNVdmMGZBSV8zb0dfYVBwOHdUUmxzZ0J5Q3YwVFFaTUhwV3RPcG83STlka0Y4Ukt0bXfSAYMEQVVfeXFMTWw4d3pTUHhSVGFFdDVQc3ZYUmk1S2R2djNLcUMtS3gwRE5pcm1uT0laMGgwNFNvNHJ4Wm54VEdjUFAwMk9jZGVxV0ZYYWh4Y01iMmZ5RmtHYjFBM3dlZU8tTTVVQ0oxdndyTVk2aWxMbUNuUFp1ajduTmVEZDF6eGlNbXV3R1FPem1BV0ZabzROcFljMk81WG1hYnloV1ZOWllzeWhSMDRRQ2ZnYkNjY18xeUl2RlhzbkNJbW1YWTN2SFliZnhUUTBDRzYtaUpITzJUdUlfMkFsZ1o4b2ZvLUN1cXc2TzB0Q3FpLVBYTW1hLWZONERJNFVrRGxwVG1Vemo3NDNaaUFmcnN5bFhiX3BscjBocDV0OEVfS1JOclBMVkFORnhNUFl4b0U2a0RUZDdDRldWRGVQWkF4bTZIeWR2RnpMRWY4N0hIWFhPWXQ3bktRSmNZSXhDZWVPQU02U3pVYy1yTEdOczgtalM0cnBDRmo2TFo4YTdGbXdLT0RWcmhiQUw4MzRzNmxvVUhCNUZwQ1gtUzEyVms1ZXlfa0w3Mi0wdDVod243b3VLeUdPSmF3a2pYSElRTkZiWGV2Uy1vTTdXS3VSa2RBdjJSTDRfU1hGd1hwMER5bTZrcWh0cm5NTHBNVWRsWktFVFE2dXY1RUNUbS1fWUVXdllsVHZwcVk?oc=5"
+  },
+  {
+   "id": "46f795f7e0e51c43eb32e752f59f58c0437057d5",
+   "titleKey": "77204b84dcf047338869c66dd4c8e63408d64705",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "\"العونة\" و\"المجاملة\" و\"الفزعة\" تُنقذ موسم الزيتون في فرخة الفلسطينية - العربي الجديد \"العونة\" و\"المجاملة\" و\"الفزعة\" تُنقذ موسم الزيتون في فرخة الفلسطينية العربي الجديد",
+   "at": "2026-11-13T22:25:55.000Z",
+   "url": "https://news.google.com/rss/articles/CBMihARBVV95cUxPQWQ3U21INmhIS1ZlOFJrVGZjVTFQQUJzTVVFR0xITVNMNVZhNWREblV6RUpFZkdLZnlEcjJRSXhVM0pFRWFXakJqT255LXJtUm82SmxYUGlGckt6NTE0U1BNNFEyMkFScmMtOC0zcnNSNGY5VGdhWk9LeWlvcHE5alpId1duMUxZdjNyeF9SekdpQ1lBY1RrQmpsb1dOYTdwNzd3cFhneXBJbTBmYjlhRzFkZnZ6b2tmaElJTGdOWVNMR3BFZndOTlkyRVNoSW5Tc3JfU1VIeFA5SG93T2JfZzRnbWIxdE53VVVsZXRIQU9QM1MxLTNjLV93cl96RlkwNUhOdkxmN2VReGV4d2FOWHZyZklLSndXVlZVdVRRNU9ReTF6ZDNiWFB1QVJaQlh2Tzl0aHJVRXFTeUJGbHQ1WGJURDhOa29FUjVLb3FqcndBT2h2bkJncURmZVVENS1nelkyLTItZ0Fmc0FGSzNjeDBXX05iNWxYcXphN0x4UkhPWHplVndEeGlzY2tWeHZHT2tDdWZub2lOcng5RmkyRi1JSkM0ZHpJVjZOdkc1RVRJQ1NNc0ZyVWg4RFRsRlE0czV0NmR4X1VGdzZFRGJvZGNLR1ZBNjViZXFzZzI5MVlsQUE1ZUlhdmFHdlFwUmptVDdRWF95N2hoY1dkYUNJZXFXQ0TSAYoEQVVfeXFMTUl2QU1GNDNBQXdhWEhkbVFVWFJIUnZwejZyWmtfYVlzY1Vjc2tEWUpJOUtRazlabU9Ec0g0UWloQkpnS2NOTGVFRTVZZE5lTGY2YkNoeWJKVmtyLThKclFMQnlfU3RGbzFHSUtxSEtaUUs1bWpKOWxwZEJza3M0b1lfMFpreDRMZUxjLUJITDRpS1BFb0ZsZmkweDROT2xMVjRmTU9IQ2FjZGVKM2dQR1ItMWh3UnRPdlpIdWhyUHRBRUNpZXNiYko1bnl1OGVBd2NWSEZEeVV0VWpIdFJ6SlF6aWZZQ2NPdzVWd1l2VEc0WTBGbXduVUpvMEJ4RURQeDZlYlpjSkZHVVFvaXNmNDgyTWNYR2QxNW8xRGI2SU5Ca3FyOWp0MGlzQ2hKRkFhb2o4WWpOVlV5cmJZeW41WWR4M2I0WGJleGJlam14emtodnJzaW1Gb3FKMUhocFdRWGtBc0QzV0Z4N1FBNmxFM1hqQ3RoTHRWcUN3LWpJZDVxaEp4RngtTEhYS0J0aEt6ZVRCVEMzYm1GYU8zVlU4VC1lZDJBOGduX2dvc3pKRmdPMk9rTERyYXBKcmFnN1BVdFdLaHp3cTFGSlRCZmVSdnkzYXhLRHZlLWpSUkFoVGdXbHowTE1NUWFDU1FTcjEteUhVZ1dNYjFmRHphNnI4M2lkODE4TC1BRHBR?oc=5"
+  },
+  {
+   "id": "af57e3c26995516161c50f71ae9e5eaef57e8abb",
+   "titleKey": "535f29057f48f1fe49ef5b4d4fdcbd376c1aa051",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "مختبرات بريطانيا... 2.5 مليون تجربة على الحيوانات - العربي الجديد مختبرات بريطانيا... 2.5 مليون تجربة على الحيوانات العربي الجديد",
+   "at": "2026-11-13T22:26:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_AJBVV95cUxPallXR2syaHlkZjg1cU9kSmI1cy1OdnlaV19HQzkwQnBuSXRkN1dCS3FoUFBKc1JzOGY0XzhiY0hYSlNYd29oU0tLWUNXWnZrS0p2TWVxeEhFMDFickJuck9hdmtBdmw0eEQ3OU5GOGRCMUd6QXZuaWZpdUtWVzY5Vll4MGRuR0pzdlF5bkFURG94OVp0akprSm9XZV83amF1bDRXZ1gxSDAtcGs3b0ZUc2piX1hkSjc3RHJzU2ZrMHYwTDFyNm5QQlBZSzZOdkJtYS1LY0RibVliYVg2YVFBeC1VTUQzZUVvOFpLWlRTQ2ZlTzNjX0xlY0ctakhZVzZKazI1RmQ2bTlaZWdVc2VLOXBkN0ZDRXlzNURZbG8tRzNVNm5adXZ5SW9Xdnl0amhNQlA4RXBHQnpqeWlnWnY3UnZaYnRSa21MRnllRmF3bmVPSDJmcjVUWXgwLTRtbHNaazlrUEtOdElIa3hjZ1R2T0piTDZod2FFcDVCV9IBggNBVV95cUxQNmtmZ09tdVpMaTBjdXJscTEwRHBIS2lhNTVMOUx3ME44dUJrXzNMTnpheTR3REY0UkVfSTEtVlVDZGUyVjN5elBON1JZdWJKV0M5b1JxSWpmRlJzejQzNTN5LV9QNUc2Z1ZJbTVkOUY2dGNUTWFuY183MWRSTC1XaTdILTB3VFJVajh2OElRdnJhM2pLWFQ5eXZZd3g1SDY3TFZIb3g5Zk01SnozWkc0bElMc2VnOUNwTlJqUHg2VFBKeC1fcklDY3ZoRE5MT0NwZ2hwM2doeWpHM0NJeDZjVVNWQUFxb0RHZmx2VTFPVE9xSjhBNEREVUd6ZlJIZUFLcjQ5cllJVFV1N2pzemp5WWNkOVpQNUROYlZobkIwcmhIUVh5Mm45VHh0UENpV1ZUc1lvSGt3NlZVTDBrbkZYOHZ6Umd5VlhNWG5mTnp0UVhxb0szcWptdXhjS2xUNU5yalJ3cVpKMkJFZVE4NVNJOEJlSXZHWlRzRUZ5UFpWd0MtZw?oc=5"
+  },
+  {
+   "id": "a727a51e5f33b52ede3cbecddf2a6b2ccad7f7a9",
+   "titleKey": "b8225e31af3116f6356b91131fb44648a98abb95",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "كيف نختلف مع أحمد عبد المعطي حجازي؟ - العربي الجديد كيف نختلف مع أحمد عبد المعطي حجازي؟ العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgJBVV95cUxOSExYSk5TZUFqdGhWLUVIdmdKQTI1WUxiMkdJVnU3MzVYY0k4Rkw2dWNETFRwOTlrVnRxc1RMdjRGZWUxbDZDRGN6Q3lhRFNOQmtaREc3NV9TT195VzNRYWotV2gtMHliLTQyVDVuTDhLaTVhemk5b2lhZzIwMW5pTkk0eTQ1ZmRtOVcydXVqdElZWFBNTnBKUnhORV9OXzJSd3h0NW1hQkZVd2d0dWc2eE1EX1ZmdGoxTEZiNEJVNFp4TGlETUhkTS1kaEtCSEhvcE1ya1hVT00zSVF2d2dJa3BlNGtkMGJacXdYbTZNemJJYkFnTTVINEk3SFdXa0o5VEUtZC13b0E1elpRVlZHdGgxVDluNXBaLXF0S2lFeDUwR2EwM0EzUGxseE1CLXNvVlE?oc=5"
+  },
+  {
+   "id": "dbf772cb6cb3b4c9b21840624a154d20c6db755a",
+   "titleKey": "0de9b348bd95a59d35cd5709c9f220e44204097b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "هل الوحدة الوطنية ضرورية في فلسطين؟ - العربي الجديد هل الوحدة الوطنية ضرورية في فلسطين؟ العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiuAJBVV95cUxOZVpHYk9RMEdQQ0N6QlBvYWVBNmxMT3JmVVlfdnhZUXB3RHh0Q2lLNXAyNXVIc1NORVlTVnd0TzgzNkhQNTF5TVd5UHF5akRwRmdyLWk1ejRfMlF6M0Z4Z2xpS2YzLUJXc0VvYkRsei1DYndIYzU3VmRBN2FCY3BkRTc0OFR0eVNRSmQwNDYyMUlQOUVGOGpWd3lMS1ZocTBNLTVzLTZLQll0eG9ueUsxczVtdFVmVHBMZ1gyeDJJdy1IYjROdFVpc3NJVWV0NTdpbHpya0lPeGo1UFNGRElMLVFIX3RZSDBCb1hXcWljU2hkbjdHamxGTXdsN0ttblI0eTZ4MGtwUUs3RFBDdVBKYnZHRWkwbjE2VFhNeHFZTWFFWkVNbW5TSUFDZXRHblAzWFd2OG9iaWXSAb4CQVVfeXFMUHJqbi0xbkJ1ZWFXZ1hSUUU3cllmMlpEQ0NoWV9KWXZieHZDQmUwUXNZakltSGlhUTJmS0J6TmFGX2h6SGN6cE1ZVlVKaUZBLW10dGUxclBKWkIzQ3dIbWU2V3BuNVYtcXhaeVh0V3pEWHpTOUQ2ZTNvY21CYUk0WVdEUEloSnBEcVpkSDYwaGVQaEdBbVhXM1NWQkpQeGNjeUhSMklxMXJfeXoyRW1CZzZnZEhDTEVvSmpqV0hqd3FUcEdWZjh4LXlPdjFpeTZvY244Y3BpOGxnMFZiSnBZWkF3WEp3MkUyUXBLSjdTTl83NzlWNThxWVU3ZjNzZXA4akVfYmNCSUx3MUVCblh4Mk9MNzZFUjRZSEdOakJYUUVlS0l0MkFZQ1hUSWczZ2traGs0RUdHdXVBc0VDU0JB?oc=5"
+  },
+  {
+   "id": "119f65d4ec4ebb5678264e09d53b3a54ed379b78",
+   "titleKey": "8cb2342980d6a2d544e3a12a6caae28803a9965b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "غني وفقير وجنسن هوانغ - العربي الجديد غني وفقير وجنسن هوانغ العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxORVpRY29rZGtkbWg3bTlqWkdlN0VMWHRfWXNGOHFsUVlWM1pPRFpjVzB3RThZU3FlSVBzV1BFSm1pV2E0UFI4ZVVReVJIc1JyWE9pbDdzT2Y2OG5Vb1ZSMlg4YkMxeThPZXc1Y3FWdEhRVUFRbjJwUVQ4RmlPNjNYdzY4djFVR29aUzNfdUg2LXBYVE1wODlISF9lLU5icGc4T2Y1cGZRdjNOSzRtVF91d25hQkhIMUJBYTRZZnR0WVZ6ZjVMYlhnczdpTVQ2Z2JUXzdrT3Z1emNHcjlINlHSAeMBQVVfeXFMUDdNSlZoNjR2cFkxeTFGc1dFSldIckRlUi14ZDNvTE1UbTd0bERNNUhqYTlTd0NaVlIyZGw4QnVpUUJvRDc4U3h3UnVQZ09YVWg1OFUxZHduaHNxVG1oazZqM1g5cENtY29RRVlta3JKdXY3b3NvY1BJOWRzQVUzWVlxVks3UDJ2eVZncEs5Y1Y4QjI1S056dmdEQ19qS0J5T2VGMmZpVUZLWjhjb05BYWJvMVJkdFlzcWVRM1FxRExhU1A4YUY3MUZOSExZQ0wzTG1fYVA5N01xS0NZcUk3ZDJ2YU0?oc=5"
+  },
+  {
+   "id": "00957a17d35ca4cfe7b0c4eecd1535cb354b690c",
+   "titleKey": "a9d25511fb6dcac5476c8d39e9e2760750817bb4",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "خسارة ترامب ذات ارتدادات أوروبية مهمة - العربي الجديد خسارة ترامب ذات ارتدادات أوروبية مهمة العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi0AJBVV95cUxOcmlzamtfTjBzS0l0NEZxMk5Wdnl5c0xkNWdQM1pDQnIydUdqUk5UdWhNNWMxM1BYQk9Wc1h5dXFkaEdOa3E3ODN6b2UtMnJFYWJTS2RKTXV4ckVqM3hPZExXTk55ZWFvUXlCNE8yaUtCSFdNcGV0cUpvWUhOUVMydXVGV0JjNjFKWnpmb3NrZGNoMWNWZ1RGQnJtaHR6ZXVBXzBfcjEwRGtIWEl2VjN5UGxKbXpPYXBRNTl0bURxSmd4X0NkelJsNE1NdF9aUWhBUk9pa1JqUy1zN3BVMVlWVnd0dl90NWZ3aWJJMFVVN1YzOS1fZjF2SjVXN1dwWTdrV3R4Y2xPTGV1eDIwY1dZeUc3ZG9MOHR2QzFoVTdnVjFEeURzWDZJcEhQMDRZZVFFaF9nSzVOQmhTT1Zzd1hQX3hlZHFFWm9RTjcwNFpWRWnSAdYCQVVfeXFMTTNVOUxXQy1MemIxYW55WTd1U2RJT2Q1bi02aXRzMEllYU12V2RTTDd6UUhoVUlUQUZvdENPalpaSUNISlJEVERGNkJmd2tPakJFR3ZNclZ6YU1lYllHNkRJNGlzbnRVa2VpeHpkT2RaMFdkUl9NeXVyaUZfR05YNU85R2ZOWm5hRlM3QXR0TTlHQTZUTkh2WVVnaGF3V1pVU3JlQVlpOXEzVHgwenJ2dGc1ZjlkYWlVcnVXQzRCdmVLSzJFd1VSWEZIMjBGMUtFbFdtTlFxWGoyWTZYb0wwZWxpcHZUenpEM1dJMEhTTmRLakg3bG43TnpPZlJZdWpGRzJRbXM1eml3ZkVTT1lOdnZQcTJSeGdfX1RlemFZUVBUaGFxRm1lY1Y1dVRFaXh6bHAtUzJkSmhsUkFvVUFFUzBIWVBnLUdXUlhKR1RMTXMyMG16ZFl3?oc=5"
+  },
+  {
+   "id": "186a447a206f82c9119619702998bc8e7cd086b9",
+   "titleKey": "c5016c4ab37741625466135ec8d6863c96a1699a",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "أحمد هارون... فضيحة استرخاص الدماء - العربي الجديد أحمد هارون... فضيحة استرخاص الدماء العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwJBVV95cUxPaXVwcWZjV3Zrd3NMczZXaHlvZjBCa01xQi1TQjd1UkFxYTFTSENkR2xJY1pVZlFFQnBtNkpuU21NVHA1RTk2UVYtb2E2ZmhzQXZibHRSc1p0YktBRnFld0R6YWdfd2tTMHJMRFJCbU1tdGd5d0lmRm9KZ1JVUjNXV0wybXluR2tma3ZpVHNRMVByZVVkcDU1T1AtMmxfdnZDTjNrX05idUxyUUV6bUMwclJESWRGRkEwRG9zakhIdzRBdWxBNndNRnB6eEZRQkRKdldyakdobkQzZXhHa1BYMFlRSzcxMXRCUGJfYVdVQXNESFFLcjI5Wl91anlYM3B4UHlsTU54dEZ6RTlUMXE3TWZ2WlRTYm85Y1htVnRpa25SQ1JKTDhN?oc=5"
+  },
+  {
+   "id": "4aa11784c50bc188ec60d222ff0ee41de17803c4",
+   "titleKey": "c5522cdbff7e1f157713cf1d9be535de8d838412",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "انقلاب الدولة اللبنانية على نفسها - العربي الجديد انقلاب الدولة اللبنانية على نفسها العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitwJBVV95cUxNNGVUWDBlN21McHdZWFNVbjlORVNxRUNsTndqcFpWM09EZ0pwXzl6TUUwejJ3MXpKWnhSaVg2V1BhMS1QRDgxUm83ZG1YTmVUVTRkOWZfdzg5clpXLUJZc21OcS04ZmlwNVNSeDNjZVlTNWVfMEJNSmpYZ242cXdKcVpHX3dsVUpaLVVJZnBXYlA5TjV2NC1DajNEUE56amJUeVNUZXFIN05NMHNETE9mNjNnTG5uSVJMb2pPN2RKODRVMDJVLWExdmpsNEVJaTVDOWRrV2JVUVU3d0FUNHRjQXVRRFpNQWZraV9tYW94Y2FkNG5LT01OYjA1TmF3bnVTaXRQWnhKYVI2aXAySGhRbnBzYWRJVkJfT3F4cGJHaXYwbnh4X3RwM2xMdDFPdWF2WDQxSHczWdIBvAJBVV95cUxNaENjSUhkcWtpZG8yUWtDWFp4NUxMTzBpNkZ4YXhOdzBQbllMZGxobV9xcXBBOHIta3JlVmF3eUpUZzF3SU1iVWhWa3JmWEdMY2hONDJIRU1EcjZnSnNfWmUzMFYxTTdyRGJsdHpNbG16ZUVvaHEwbVJwNS1PQ185bUljS0pVV0hmeUltNlFZMmxYQWhwR09peVdRellhMk9hdVBDdUp5MjA0dGNoYnZfT0tfaWJGYzQtbmxXMzBFMGhDRURPVTJCRmhrQjFTczVDVnUzT0cxTE9Lemh3TkdVSmFld3Nwa0JDeVFfSHBpXzFCTXNGa1IyMlFoU0ctOUlNcDlQLTJmdzlfUDJyT1lqMWNTbGNpSTdXRVU2eWZpa04wR3k3RmNVQ3R6MlVVamhFS2VNSUR3M1ktMmpl?oc=5"
+  },
+  {
+   "id": "e40db2bfb1b68157251581e19214c2c5ade45879",
+   "titleKey": "228d684e6132589a9acc9d1710e6abe95518040b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "الجلوس على مقاعد المتفرّجين أمام الإبادة - العربي الجديد الجلوس على مقاعد المتفرّجين أمام الإبادة العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi6AJBVV95cUxQbjdORHNTbDBHYXUtcnlNWXUxeW5wOFFnRHFVR3M0S1B5SnZ3ZXJnSWM4cExOTE03dEVBTUZJUkpBSVVLRy1FdWxaZkNucFdNSjlWYlRUb2hRZTMwX2thTHNHaTlEMWhpanJheUpza2JUbHZxTzFlMlN5ZHU0WG8tWnNnQmNrbjZ2Wl9sRUhXTmJMTWgwTUs2ZjFNMXNKaXI3OEUyTFdlVUhvLXBuZzJXNU50VmlKdm5KajUzSnNHWGxORWZCd2lHVS1UUElSekNDQjQ2dW9fMzZvbE92VXdRYmp1RWZGalB6b2ZldGFLLWhEUEVVbFBOU1FUeGxzNmhtQkZQWUJCanFEQ0FyYl9RdXFYVEt1S05zZmZTLVhIY21xYnlIUjJtNVhtYXpFOFVCSkNaelVnQmxoOXcyb19kZURmQjVUdDdGNEE5eWdjQVB2S0dvVV85NkxIYnIxQ2x5ZnRDckJhVFrSAe4CQVVfeXFMUHNmMGNVZ3ItLWlyeWFwOFJpXy1od05zbWFObndUaUx3anFLemN0QW9DMXJDSmd1a3lmeFcyZ2pLT0NmYlJRTzY5dUtReWpHUjRzd3NFanVWZzNUN3VOME9MTVVVckJYWTJwV1ZvbmtXWUpkNjdHcXVlNDJnSXkwSzlxNDhRaU10VURfejNNMTMwUE14bFFQV3BjRGt6bDBLbGhhcThrenNOQlFESUhlY3pxeHhnWDR0V0x1SkVBZExqRWhXLTh4LU15N1pFdXJPZTVjTGU2eFJWWlNQWmR0WnQxbmxObmktSU5JS09ZSzNxRjBDQzVDbktnbjJBcmpjaHdrSmkzZFZlUU9SUVo2SGRjRFd2ejVUczBhT1BqUS10RFk2WmxDM2NIRXZ5YzJaY0NnZlhfN3JyWVpSWGs3U0tJbk1TbUlSSVlWVEFOQWUtTmdfcnY1UWs0UVlpNlZGdkVkSlNYUDBUN3VEdmpn?oc=5"
+  },
+  {
+   "id": "b16ee2534038473dc002712d091a9a6df23182de",
+   "titleKey": "77f5e1e08cffb590c42bb27e262109eab4192a42",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "واکنش ترامپ به زمینگیر شدن پروازها در فرودگاه‌های آمریکا رئیس‌جمهور آمریکا در گفت‌وگو با شبکه فاکس نیوز به بحران زمینگیر شدن پروازها در فرودگاه‌های این کشور واکنش نشان داده و گفت به نظر نمی‌رسد اختلال سراسری در پروازهای این کشور ناشی از حمله سایبری یا هوش مصنوعی باشد.",
+   "at": "2026-11-14T00:48:53.000Z",
+   "url": "https://www.isna.ir/news/1405082315244/%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D9%87-%D8%B2%D9%85%DB%8C%D9%86%DA%AF%DB%8C%D8%B1-%D8%B4%D8%AF%D9%86-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7-%D8%AF%D8%B1-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7"
+  },
+  {
+   "id": "6d0c23b9845d119cd6bd461fc2f6fd9bbc0f7974",
+   "titleKey": "061fc3a97d5f11d5afc934e9f2ef61fe7b87b2c0",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "وزیر امنیت داخلی آمریکا: هیچ مدرکی دال بر حمله عمدی به سامانه ارتباطی هوانوردی وجود ندارد وزیر امنیت داخلی آمریکا با تأکید بر اینکه هیچ نشانه‌ای از یک حمله عمدی یا تهدید علیه این کشور در جریان توقف سراسری پروازها وجود ندارد، آن را «یک قطعی مخابراتی» خواند و گفت که رسیدگی به آن زمان‌بر خواهد بود.",
+   "at": "2026-11-14T00:50:03.000Z",
+   "url": "https://www.isna.ir/news/1405082315245/%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D9%85%D9%86%DB%8C%D8%AA-%D8%AF%D8%A7%D8%AE%D9%84%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%87%DB%8C%DA%86-%D9%85%D8%AF%D8%B1%DA%A9%DB%8C-%D8%AF%D8%A7%D9%84-%D8%A8%D8%B1-%D8%AD%D9%85%D9%84%D9%87-%D8%B9%D9%85%D8%AF%DB%8C-%D8%A8%D9%87-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87"
+  },
+  {
+   "id": "a44c42a4ccd1022ec75ee539a9c88ae858cdf3e1",
+   "titleKey": "70eca431e3685288cc5087910dcafe18f43f70b6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "تشدید تنش‌ها در تنگه هرمز و باب‌ المندب تهدیدی برای اقتصاد جهانی است دستیار دبیرکل سازمان ملل متحد با اشاره به افزایش حوادث دریایی در منطقه نسبت به ادامه تنش ها در تنگه هرمز و باب المندب و مناطق پیرامونی آن هشدار داد.",
+   "at": "2026-11-14T00:51:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009925/%D8%AA%D8%B4%D8%AF%DB%8C%D8%AF-%D8%AA%D9%86%D8%B4-%D9%87%D8%A7-%D8%AF%D8%B1-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D9%88-%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D9%86%D8%AF%D8%A8-%D8%AA%D9%87%D8%AF%DB%8C%D8%AF%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%D8%AC%D9%87%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "7ecc601bdd79c53e084feb0e459ebd17579e95ad",
+   "titleKey": "e512c1b9934f419fc8fcb4d7b8aaf10b8520b6d5",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Sabalenka's season ended by Svitolina at WTA Finals Aryna Sabalenka's season ends in disappointment as Elina Svitolina beats the former world number one to claim her place in the knockout stage at the WTA Finals.",
+   "at": "2026-11-14T00:51:25.000Z",
+   "url": "https://www.bbc.co.uk/sport/tennis/articles/cw30gl912vq9o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "9654d75793fc81f4d2c947321a9fb3143d366908",
+   "titleKey": "3dbc195741a9adbbe0d1b0c5742f14eadff7d0b6",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "واکنش نیروی هوایی آمریکا به فعالیت مشکوک پهپادی بر فراز پایگاه نظامی در انگلیس نیروی هوایی آمریکا اعلام کرد پرسنل امنیتی این نیرو به گزارش‌های مربوط به آنچه «فعالیت مشکوک و غیرمجاز پهپادی» بر فراز پایگاه هوایی «لکنهیث» در انگلیس اعلام شده واکنش نشان داده‌اند.",
+   "at": "2026-11-14T00:52:15.000Z",
+   "url": "https://www.isna.ir/news/1405082315246/%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA-%D9%85%D8%B4%DA%A9%D9%88%DA%A9-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%DB%8C-%D8%A8%D8%B1-%D9%81%D8%B1%D8%A7%D8%B2-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87"
+  },
+  {
+   "id": "0514fa73fbc8f712f643994e9effd2475ea01d43",
+   "titleKey": "08ea9a798917bbb2bff451c3ddf10decfcc4bd02",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اختلال گسترده در وب‌سایت و اپلیکیشن راه‌آهن آمریکا همزمان با توقف سراسری پروازها شرکت مسافربری ریلی «امتراک» آمریکا از بروز اختلال فنی گسترده در وب‌سایت و اپلیکیشن موبایل خود و افزایش بی‌سابقه حجم تماس‌های مشتریان خبر داد.",
+   "at": "2026-11-14T00:55:14.000Z",
+   "url": "https://www.isna.ir/news/1405082315247/%D8%A7%D8%AE%D8%AA%D9%84%D8%A7%D9%84-%DA%AF%D8%B3%D8%AA%D8%B1%D8%AF%D9%87-%D8%AF%D8%B1-%D9%88%D8%A8-%D8%B3%D8%A7%DB%8C%D8%AA-%D9%88-%D8%A7%D9%BE%D9%84%DB%8C%DA%A9%DB%8C%D8%B4%D9%86-%D8%B1%D8%A7%D9%87-%D8%A2%D9%87%D9%86-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%87%D9%85%D8%B2%D9%85%D8%A7%D9%86-%D8%A8%D8%A7"
+  },
+  {
+   "id": "efa3ff2ef09c41a9bb168223c95d31c9ce1860c6",
+   "titleKey": "32f08668eef4ccbbaba66369b04a43b2a647a987",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حملات روسیه به اوکراین سه کشته و بیش از ۵۰ زخمی بر جای گذاشت تهران- ایرنا- مقام‌های اوکراینی اعلام کردند که در حمله روسیه به شهر جنوبی زاپوریژیا یک نفر کشته و بیش از ۵۰ تن زخمی شدند و در حمله به شهر بندری اودسا نیز ۲ تن جان باختند.",
+   "at": "2026-11-14T00:58:00.000Z",
+   "url": "https://www.irna.ir/news/86320846/%D8%AD%D9%85%D9%84%D8%A7%D8%AA-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%A8%D9%87-%D8%A7%D9%88%DA%A9%D8%B1%D8%A7%DB%8C%D9%86-%D8%B3%D9%87-%DA%A9%D8%B4%D8%AA%D9%87-%D9%88-%D8%A8%DB%8C%D8%B4-%D8%A7%D8%B2-%DB%B5%DB%B0-%D8%B2%D8%AE%D9%85%DB%8C-%D8%A8%D8%B1-%D8%AC%D8%A7%DB%8C-%DA%AF%D8%B0%D8%A7%D8%B4%D8%AA"
+  },
   {
    "id": "6a23ecfcd2064aaca3ffaef9d2ac0c49f85d092b",
    "titleKey": "1e171e532628f2dbcbeb9e5e7a67aa55e30a400c",
@@ -5166,6 +5325,66 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-14T00:40:32.825Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: واکنش ترامپ به زمینگیر شدن پروازها در فرودگاه‌های آمریکا رئیس‌جمهور آمریکا در گفت‌وگو با شبکه فاکس نیوز به بحران زمینگیر شدن پروازها در فرودگاه‌های این کشور واکنش نشان داده و گفت به نظر نمی‌رسد اختلال سراسری در پروازهای این کشور ناشی از حمله سایبری یا هوش مصنوعی باشد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/14/4/64053823.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:58:56.377Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: وزیر امنیت داخلی آمریکا: هیچ مدرکی دال بر حمله عمدی به سامانه ارتباطی هوانوردی وجود ندارد وزیر امنیت داخلی آمریکا با تأکید بر اینکه هیچ نشانه‌ای از یک حمله عمدی یا تهدید علیه این کشور در جریان توقف سراسری پروازها وجود ندارد، آن را «یک قطعی مخابراتی» خواند و گفت که رسیدگی به آن زمان‌بر خواهد بود.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/14/4/64053820.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:58:57.078Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: تشدید تنش‌ها در تنگه هرمز و باب‌ المندب تهدیدی برای اقتصاد جهانی است دستیار دبیرکل سازمان ملل متحد با اشاره به افزایش حوادث دریایی در منطقه نسبت به ادامه تنش ها در تنگه هرمز و باب المندب و مناطق پیرامونی آن هشدار داد.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/09/16/4/6176118.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:58:57.779Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: واکنش نیروی هوایی آمریکا به فعالیت مشکوک پهپادی بر فراز پایگاه نظامی در انگلیس نیروی هوایی آمریکا اعلام کرد پرسنل امنیتی این نیرو به گزارش‌های مربوط به آنچه «فعالیت مشکوک و غیرمجاز پهپادی» بر فراز پایگاه هوایی «لکنهیث» در انگلیس اعلام شده واکنش نشان داده‌اند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/14/4/64053821.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:58:58.480Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: اختلال گسترده در وب‌سایت و اپلیکیشن راه‌آهن آمریکا همزمان با توقف سراسری پروازها شرکت مسافربری ریلی «امتراک» آمریکا از بروز اختلال فنی گسترده در وب‌سایت و اپلیکیشن موبایل خود و افزایش بی‌سابقه حجم تماس‌های مشتریان خبر داد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/14/4/64053822.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:58:59.181Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): حملات روسیه به اوکراین سه کشته و بیش از ۵۰ زخمی بر جای گذاشت تهران- ایرنا- مقام‌های اوکراینی اعلام کردند که در حمله روسیه به شهر جنوبی زاپوریژیا یک نفر کشته و بیش از ۵۰ تن زخمی شدند و در حمله به شهر بندری اودسا نیز ۲ تن جان باختند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238468.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T00:58:59.882Z"
   }
  ],
  "tweetQueue": [],
@@ -5343,6 +5562,165 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "2e5f2d926f6e0a89d7e217621ec028b992ac4972",
+   "titleKey": "8b1f15698970b95d3ac26f6a6d9432b0f9c86563",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "خبيران لـ\"العربي الجديد\": الاحتباس الحراري في حاجة إلى حلول عاجلة - العربي الجديد خبيران لـ\"العربي الجديد\": الاحتباس الحراري في حاجة إلى حلول عاجلة العربي الجديد",
+   "at": "2026-11-13T22:25:49.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_gNBVV95cUxNSGFiTVJ1RlJJdEtZMjhwWGwwUEZXZnRtWU1pZXBERVZXM08yNS1La1ZPeVZQRFd2cldiMWQ1WFZlblNnWDBpT29tMkV2UjRva3paeHJjcmtYdE8yVTFLcVZyVk1GT3d4ajdpR1dRb1JNX0hSX1lERGdseXBCaDgtd1dudzd1YmhSenBJZ3hVcE1ONXpOcmpIcXhScElEenNnUVhmMzN5SDZyWFlTYmlnVUswajdldDVDcEVGV2I3ZVkta3J0Uk1XUGZVWUZjU08zRnhTb3NqX2VIbUhtTFBWbWdrTFR3UU9fbGRyWl9ocXVIQzFEM0xsMTlrUGljYTlncVNwaU9vbGhpVWR0QmJOMlVtNWJTckJ0aVl2Zk9ZNGhmbTA5QmhPcnhkT0NFVmdxNm9qQ09QQzQ4WlA3d2tmelNZVzJtWTBSY2RIQkRSbzVtcDRyUTJjY3JOR0Y4NFBZU01zSmRYMGRlNkY0X0FsYUkxaU1KSkFRYzFkcGNydk16QzM5UVpYRXB5T3pSb1RJNHMtYXFMdTYwNlRkN0JYbTQwNUxyek1scVpjOFhaYXhtYnVPOWJGRG9YUFFYd3dnSm54TWZSQy1fV0dDNVdmMGZBSV8zb0dfYVBwOHdUUmxzZ0J5Q3YwVFFaTUhwV3RPcG83STlka0Y4Ukt0bXfSAYMEQVVfeXFMTWw4d3pTUHhSVGFFdDVQc3ZYUmk1S2R2djNLcUMtS3gwRE5pcm1uT0laMGgwNFNvNHJ4Wm54VEdjUFAwMk9jZGVxV0ZYYWh4Y01iMmZ5RmtHYjFBM3dlZU8tTTVVQ0oxdndyTVk2aWxMbUNuUFp1ajduTmVEZDF6eGlNbXV3R1FPem1BV0ZabzROcFljMk81WG1hYnloV1ZOWllzeWhSMDRRQ2ZnYkNjY18xeUl2RlhzbkNJbW1YWTN2SFliZnhUUTBDRzYtaUpITzJUdUlfMkFsZ1o4b2ZvLUN1cXc2TzB0Q3FpLVBYTW1hLWZONERJNFVrRGxwVG1Vemo3NDNaaUFmcnN5bFhiX3BscjBocDV0OEVfS1JOclBMVkFORnhNUFl4b0U2a0RUZDdDRldWRGVQWkF4bTZIeWR2RnpMRWY4N0hIWFhPWXQ3bktRSmNZSXhDZWVPQU02U3pVYy1yTEdOczgtalM0cnBDRmo2TFo4YTdGbXdLT0RWcmhiQUw4MzRzNmxvVUhCNUZwQ1gtUzEyVms1ZXlfa0w3Mi0wdDVod243b3VLeUdPSmF3a2pYSElRTkZiWGV2Uy1vTTdXS3VSa2RBdjJSTDRfU1hGd1hwMER5bTZrcWh0cm5NTHBNVWRsWktFVFE2dXY1RUNUbS1fWUVXdllsVHZwcVk?oc=5"
+  },
+  {
+   "id": "46f795f7e0e51c43eb32e752f59f58c0437057d5",
+   "titleKey": "77204b84dcf047338869c66dd4c8e63408d64705",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "\"العونة\" و\"المجاملة\" و\"الفزعة\" تُنقذ موسم الزيتون في فرخة الفلسطينية - العربي الجديد \"العونة\" و\"المجاملة\" و\"الفزعة\" تُنقذ موسم الزيتون في فرخة الفلسطينية العربي الجديد",
+   "at": "2026-11-13T22:25:55.000Z",
+   "url": "https://news.google.com/rss/articles/CBMihARBVV95cUxPQWQ3U21INmhIS1ZlOFJrVGZjVTFQQUJzTVVFR0xITVNMNVZhNWREblV6RUpFZkdLZnlEcjJRSXhVM0pFRWFXakJqT255LXJtUm82SmxYUGlGckt6NTE0U1BNNFEyMkFScmMtOC0zcnNSNGY5VGdhWk9LeWlvcHE5alpId1duMUxZdjNyeF9SekdpQ1lBY1RrQmpsb1dOYTdwNzd3cFhneXBJbTBmYjlhRzFkZnZ6b2tmaElJTGdOWVNMR3BFZndOTlkyRVNoSW5Tc3JfU1VIeFA5SG93T2JfZzRnbWIxdE53VVVsZXRIQU9QM1MxLTNjLV93cl96RlkwNUhOdkxmN2VReGV4d2FOWHZyZklLSndXVlZVdVRRNU9ReTF6ZDNiWFB1QVJaQlh2Tzl0aHJVRXFTeUJGbHQ1WGJURDhOa29FUjVLb3FqcndBT2h2bkJncURmZVVENS1nelkyLTItZ0Fmc0FGSzNjeDBXX05iNWxYcXphN0x4UkhPWHplVndEeGlzY2tWeHZHT2tDdWZub2lOcng5RmkyRi1JSkM0ZHpJVjZOdkc1RVRJQ1NNc0ZyVWg4RFRsRlE0czV0NmR4X1VGdzZFRGJvZGNLR1ZBNjViZXFzZzI5MVlsQUE1ZUlhdmFHdlFwUmptVDdRWF95N2hoY1dkYUNJZXFXQ0TSAYoEQVVfeXFMTUl2QU1GNDNBQXdhWEhkbVFVWFJIUnZwejZyWmtfYVlzY1Vjc2tEWUpJOUtRazlabU9Ec0g0UWloQkpnS2NOTGVFRTVZZE5lTGY2YkNoeWJKVmtyLThKclFMQnlfU3RGbzFHSUtxSEtaUUs1bWpKOWxwZEJza3M0b1lfMFpreDRMZUxjLUJITDRpS1BFb0ZsZmkweDROT2xMVjRmTU9IQ2FjZGVKM2dQR1ItMWh3UnRPdlpIdWhyUHRBRUNpZXNiYko1bnl1OGVBd2NWSEZEeVV0VWpIdFJ6SlF6aWZZQ2NPdzVWd1l2VEc0WTBGbXduVUpvMEJ4RURQeDZlYlpjSkZHVVFvaXNmNDgyTWNYR2QxNW8xRGI2SU5Ca3FyOWp0MGlzQ2hKRkFhb2o4WWpOVlV5cmJZeW41WWR4M2I0WGJleGJlam14emtodnJzaW1Gb3FKMUhocFdRWGtBc0QzV0Z4N1FBNmxFM1hqQ3RoTHRWcUN3LWpJZDVxaEp4RngtTEhYS0J0aEt6ZVRCVEMzYm1GYU8zVlU4VC1lZDJBOGduX2dvc3pKRmdPMk9rTERyYXBKcmFnN1BVdFdLaHp3cTFGSlRCZmVSdnkzYXhLRHZlLWpSUkFoVGdXbHowTE1NUWFDU1FTcjEteUhVZ1dNYjFmRHphNnI4M2lkODE4TC1BRHBR?oc=5"
+  },
+  {
+   "id": "af57e3c26995516161c50f71ae9e5eaef57e8abb",
+   "titleKey": "535f29057f48f1fe49ef5b4d4fdcbd376c1aa051",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "مختبرات بريطانيا... 2.5 مليون تجربة على الحيوانات - العربي الجديد مختبرات بريطانيا... 2.5 مليون تجربة على الحيوانات العربي الجديد",
+   "at": "2026-11-13T22:26:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi_AJBVV95cUxPallXR2syaHlkZjg1cU9kSmI1cy1OdnlaV19HQzkwQnBuSXRkN1dCS3FoUFBKc1JzOGY0XzhiY0hYSlNYd29oU0tLWUNXWnZrS0p2TWVxeEhFMDFickJuck9hdmtBdmw0eEQ3OU5GOGRCMUd6QXZuaWZpdUtWVzY5Vll4MGRuR0pzdlF5bkFURG94OVp0akprSm9XZV83amF1bDRXZ1gxSDAtcGs3b0ZUc2piX1hkSjc3RHJzU2ZrMHYwTDFyNm5QQlBZSzZOdkJtYS1LY0RibVliYVg2YVFBeC1VTUQzZUVvOFpLWlRTQ2ZlTzNjX0xlY0ctakhZVzZKazI1RmQ2bTlaZWdVc2VLOXBkN0ZDRXlzNURZbG8tRzNVNm5adXZ5SW9Xdnl0amhNQlA4RXBHQnpqeWlnWnY3UnZaYnRSa21MRnllRmF3bmVPSDJmcjVUWXgwLTRtbHNaazlrUEtOdElIa3hjZ1R2T0piTDZod2FFcDVCV9IBggNBVV95cUxQNmtmZ09tdVpMaTBjdXJscTEwRHBIS2lhNTVMOUx3ME44dUJrXzNMTnpheTR3REY0UkVfSTEtVlVDZGUyVjN5elBON1JZdWJKV0M5b1JxSWpmRlJzejQzNTN5LV9QNUc2Z1ZJbTVkOUY2dGNUTWFuY183MWRSTC1XaTdILTB3VFJVajh2OElRdnJhM2pLWFQ5eXZZd3g1SDY3TFZIb3g5Zk01SnozWkc0bElMc2VnOUNwTlJqUHg2VFBKeC1fcklDY3ZoRE5MT0NwZ2hwM2doeWpHM0NJeDZjVVNWQUFxb0RHZmx2VTFPVE9xSjhBNEREVUd6ZlJIZUFLcjQ5cllJVFV1N2pzemp5WWNkOVpQNUROYlZobkIwcmhIUVh5Mm45VHh0UENpV1ZUc1lvSGt3NlZVTDBrbkZYOHZ6Umd5VlhNWG5mTnp0UVhxb0szcWptdXhjS2xUNU5yalJ3cVpKMkJFZVE4NVNJOEJlSXZHWlRzRUZ5UFpWd0MtZw?oc=5"
+  },
+  {
+   "id": "a727a51e5f33b52ede3cbecddf2a6b2ccad7f7a9",
+   "titleKey": "b8225e31af3116f6356b91131fb44648a98abb95",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "كيف نختلف مع أحمد عبد المعطي حجازي؟ - العربي الجديد كيف نختلف مع أحمد عبد المعطي حجازي؟ العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMisgJBVV95cUxOSExYSk5TZUFqdGhWLUVIdmdKQTI1WUxiMkdJVnU3MzVYY0k4Rkw2dWNETFRwOTlrVnRxc1RMdjRGZWUxbDZDRGN6Q3lhRFNOQmtaREc3NV9TT195VzNRYWotV2gtMHliLTQyVDVuTDhLaTVhemk5b2lhZzIwMW5pTkk0eTQ1ZmRtOVcydXVqdElZWFBNTnBKUnhORV9OXzJSd3h0NW1hQkZVd2d0dWc2eE1EX1ZmdGoxTEZiNEJVNFp4TGlETUhkTS1kaEtCSEhvcE1ya1hVT00zSVF2d2dJa3BlNGtkMGJacXdYbTZNemJJYkFnTTVINEk3SFdXa0o5VEUtZC13b0E1elpRVlZHdGgxVDluNXBaLXF0S2lFeDUwR2EwM0EzUGxseE1CLXNvVlE?oc=5"
+  },
+  {
+   "id": "dbf772cb6cb3b4c9b21840624a154d20c6db755a",
+   "titleKey": "0de9b348bd95a59d35cd5709c9f220e44204097b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "هل الوحدة الوطنية ضرورية في فلسطين؟ - العربي الجديد هل الوحدة الوطنية ضرورية في فلسطين؟ العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiuAJBVV95cUxOZVpHYk9RMEdQQ0N6QlBvYWVBNmxMT3JmVVlfdnhZUXB3RHh0Q2lLNXAyNXVIc1NORVlTVnd0TzgzNkhQNTF5TVd5UHF5akRwRmdyLWk1ejRfMlF6M0Z4Z2xpS2YzLUJXc0VvYkRsei1DYndIYzU3VmRBN2FCY3BkRTc0OFR0eVNRSmQwNDYyMUlQOUVGOGpWd3lMS1ZocTBNLTVzLTZLQll0eG9ueUsxczVtdFVmVHBMZ1gyeDJJdy1IYjROdFVpc3NJVWV0NTdpbHpya0lPeGo1UFNGRElMLVFIX3RZSDBCb1hXcWljU2hkbjdHamxGTXdsN0ttblI0eTZ4MGtwUUs3RFBDdVBKYnZHRWkwbjE2VFhNeHFZTWFFWkVNbW5TSUFDZXRHblAzWFd2OG9iaWXSAb4CQVVfeXFMUHJqbi0xbkJ1ZWFXZ1hSUUU3cllmMlpEQ0NoWV9KWXZieHZDQmUwUXNZakltSGlhUTJmS0J6TmFGX2h6SGN6cE1ZVlVKaUZBLW10dGUxclBKWkIzQ3dIbWU2V3BuNVYtcXhaeVh0V3pEWHpTOUQ2ZTNvY21CYUk0WVdEUEloSnBEcVpkSDYwaGVQaEdBbVhXM1NWQkpQeGNjeUhSMklxMXJfeXoyRW1CZzZnZEhDTEVvSmpqV0hqd3FUcEdWZjh4LXlPdjFpeTZvY244Y3BpOGxnMFZiSnBZWkF3WEp3MkUyUXBLSjdTTl83NzlWNThxWVU3ZjNzZXA4akVfYmNCSUx3MUVCblh4Mk9MNzZFUjRZSEdOakJYUUVlS0l0MkFZQ1hUSWczZ2traGs0RUdHdXVBc0VDU0JB?oc=5"
+  },
+  {
+   "id": "119f65d4ec4ebb5678264e09d53b3a54ed379b78",
+   "titleKey": "8cb2342980d6a2d544e3a12a6caae28803a9965b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "غني وفقير وجنسن هوانغ - العربي الجديد غني وفقير وجنسن هوانغ العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxORVpRY29rZGtkbWg3bTlqWkdlN0VMWHRfWXNGOHFsUVlWM1pPRFpjVzB3RThZU3FlSVBzV1BFSm1pV2E0UFI4ZVVReVJIc1JyWE9pbDdzT2Y2OG5Vb1ZSMlg4YkMxeThPZXc1Y3FWdEhRVUFRbjJwUVQ4RmlPNjNYdzY4djFVR29aUzNfdUg2LXBYVE1wODlISF9lLU5icGc4T2Y1cGZRdjNOSzRtVF91d25hQkhIMUJBYTRZZnR0WVZ6ZjVMYlhnczdpTVQ2Z2JUXzdrT3Z1emNHcjlINlHSAeMBQVVfeXFMUDdNSlZoNjR2cFkxeTFGc1dFSldIckRlUi14ZDNvTE1UbTd0bERNNUhqYTlTd0NaVlIyZGw4QnVpUUJvRDc4U3h3UnVQZ09YVWg1OFUxZHduaHNxVG1oazZqM1g5cENtY29RRVlta3JKdXY3b3NvY1BJOWRzQVUzWVlxVks3UDJ2eVZncEs5Y1Y4QjI1S056dmdEQ19qS0J5T2VGMmZpVUZLWjhjb05BYWJvMVJkdFlzcWVRM1FxRExhU1A4YUY3MUZOSExZQ0wzTG1fYVA5N01xS0NZcUk3ZDJ2YU0?oc=5"
+  },
+  {
+   "id": "00957a17d35ca4cfe7b0c4eecd1535cb354b690c",
+   "titleKey": "a9d25511fb6dcac5476c8d39e9e2760750817bb4",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "خسارة ترامب ذات ارتدادات أوروبية مهمة - العربي الجديد خسارة ترامب ذات ارتدادات أوروبية مهمة العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi0AJBVV95cUxOcmlzamtfTjBzS0l0NEZxMk5Wdnl5c0xkNWdQM1pDQnIydUdqUk5UdWhNNWMxM1BYQk9Wc1h5dXFkaEdOa3E3ODN6b2UtMnJFYWJTS2RKTXV4ckVqM3hPZExXTk55ZWFvUXlCNE8yaUtCSFdNcGV0cUpvWUhOUVMydXVGV0JjNjFKWnpmb3NrZGNoMWNWZ1RGQnJtaHR6ZXVBXzBfcjEwRGtIWEl2VjN5UGxKbXpPYXBRNTl0bURxSmd4X0NkelJsNE1NdF9aUWhBUk9pa1JqUy1zN3BVMVlWVnd0dl90NWZ3aWJJMFVVN1YzOS1fZjF2SjVXN1dwWTdrV3R4Y2xPTGV1eDIwY1dZeUc3ZG9MOHR2QzFoVTdnVjFEeURzWDZJcEhQMDRZZVFFaF9nSzVOQmhTT1Zzd1hQX3hlZHFFWm9RTjcwNFpWRWnSAdYCQVVfeXFMTTNVOUxXQy1MemIxYW55WTd1U2RJT2Q1bi02aXRzMEllYU12V2RTTDd6UUhoVUlUQUZvdENPalpaSUNISlJEVERGNkJmd2tPakJFR3ZNclZ6YU1lYllHNkRJNGlzbnRVa2VpeHpkT2RaMFdkUl9NeXVyaUZfR05YNU85R2ZOWm5hRlM3QXR0TTlHQTZUTkh2WVVnaGF3V1pVU3JlQVlpOXEzVHgwenJ2dGc1ZjlkYWlVcnVXQzRCdmVLSzJFd1VSWEZIMjBGMUtFbFdtTlFxWGoyWTZYb0wwZWxpcHZUenpEM1dJMEhTTmRLakg3bG43TnpPZlJZdWpGRzJRbXM1eml3ZkVTT1lOdnZQcTJSeGdfX1RlemFZUVBUaGFxRm1lY1Y1dVRFaXh6bHAtUzJkSmhsUkFvVUFFUzBIWVBnLUdXUlhKR1RMTXMyMG16ZFl3?oc=5"
+  },
+  {
+   "id": "186a447a206f82c9119619702998bc8e7cd086b9",
+   "titleKey": "c5016c4ab37741625466135ec8d6863c96a1699a",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "أحمد هارون... فضيحة استرخاص الدماء - العربي الجديد أحمد هارون... فضيحة استرخاص الدماء العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMipwJBVV95cUxPaXVwcWZjV3Zrd3NMczZXaHlvZjBCa01xQi1TQjd1UkFxYTFTSENkR2xJY1pVZlFFQnBtNkpuU21NVHA1RTk2UVYtb2E2ZmhzQXZibHRSc1p0YktBRnFld0R6YWdfd2tTMHJMRFJCbU1tdGd5d0lmRm9KZ1JVUjNXV0wybXluR2tma3ZpVHNRMVByZVVkcDU1T1AtMmxfdnZDTjNrX05idUxyUUV6bUMwclJESWRGRkEwRG9zakhIdzRBdWxBNndNRnB6eEZRQkRKdldyakdobkQzZXhHa1BYMFlRSzcxMXRCUGJfYVdVQXNESFFLcjI5Wl91anlYM3B4UHlsTU54dEZ6RTlUMXE3TWZ2WlRTYm85Y1htVnRpa25SQ1JKTDhN?oc=5"
+  },
+  {
+   "id": "4aa11784c50bc188ec60d222ff0ee41de17803c4",
+   "titleKey": "c5522cdbff7e1f157713cf1d9be535de8d838412",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "انقلاب الدولة اللبنانية على نفسها - العربي الجديد انقلاب الدولة اللبنانية على نفسها العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitwJBVV95cUxNNGVUWDBlN21McHdZWFNVbjlORVNxRUNsTndqcFpWM09EZ0pwXzl6TUUwejJ3MXpKWnhSaVg2V1BhMS1QRDgxUm83ZG1YTmVUVTRkOWZfdzg5clpXLUJZc21OcS04ZmlwNVNSeDNjZVlTNWVfMEJNSmpYZ242cXdKcVpHX3dsVUpaLVVJZnBXYlA5TjV2NC1DajNEUE56amJUeVNUZXFIN05NMHNETE9mNjNnTG5uSVJMb2pPN2RKODRVMDJVLWExdmpsNEVJaTVDOWRrV2JVUVU3d0FUNHRjQXVRRFpNQWZraV9tYW94Y2FkNG5LT01OYjA1TmF3bnVTaXRQWnhKYVI2aXAySGhRbnBzYWRJVkJfT3F4cGJHaXYwbnh4X3RwM2xMdDFPdWF2WDQxSHczWdIBvAJBVV95cUxNaENjSUhkcWtpZG8yUWtDWFp4NUxMTzBpNkZ4YXhOdzBQbllMZGxobV9xcXBBOHIta3JlVmF3eUpUZzF3SU1iVWhWa3JmWEdMY2hONDJIRU1EcjZnSnNfWmUzMFYxTTdyRGJsdHpNbG16ZUVvaHEwbVJwNS1PQ185bUljS0pVV0hmeUltNlFZMmxYQWhwR09peVdRellhMk9hdVBDdUp5MjA0dGNoYnZfT0tfaWJGYzQtbmxXMzBFMGhDRURPVTJCRmhrQjFTczVDVnUzT0cxTE9Lemh3TkdVSmFld3Nwa0JDeVFfSHBpXzFCTXNGa1IyMlFoU0ctOUlNcDlQLTJmdzlfUDJyT1lqMWNTbGNpSTdXRVU2eWZpa04wR3k3RmNVQ3R6MlVVamhFS2VNSUR3M1ktMmpl?oc=5"
+  },
+  {
+   "id": "e40db2bfb1b68157251581e19214c2c5ade45879",
+   "titleKey": "228d684e6132589a9acc9d1710e6abe95518040b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "الجلوس على مقاعد المتفرّجين أمام الإبادة - العربي الجديد الجلوس على مقاعد المتفرّجين أمام الإبادة العربي الجديد",
+   "at": "2026-11-14T00:13:08.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi6AJBVV95cUxQbjdORHNTbDBHYXUtcnlNWXUxeW5wOFFnRHFVR3M0S1B5SnZ3ZXJnSWM4cExOTE03dEVBTUZJUkpBSVVLRy1FdWxaZkNucFdNSjlWYlRUb2hRZTMwX2thTHNHaTlEMWhpanJheUpza2JUbHZxTzFlMlN5ZHU0WG8tWnNnQmNrbjZ2Wl9sRUhXTmJMTWgwTUs2ZjFNMXNKaXI3OEUyTFdlVUhvLXBuZzJXNU50VmlKdm5KajUzSnNHWGxORWZCd2lHVS1UUElSekNDQjQ2dW9fMzZvbE92VXdRYmp1RWZGalB6b2ZldGFLLWhEUEVVbFBOU1FUeGxzNmhtQkZQWUJCanFEQ0FyYl9RdXFYVEt1S05zZmZTLVhIY21xYnlIUjJtNVhtYXpFOFVCSkNaelVnQmxoOXcyb19kZURmQjVUdDdGNEE5eWdjQVB2S0dvVV85NkxIYnIxQ2x5ZnRDckJhVFrSAe4CQVVfeXFMUHNmMGNVZ3ItLWlyeWFwOFJpXy1od05zbWFObndUaUx3anFLemN0QW9DMXJDSmd1a3lmeFcyZ2pLT0NmYlJRTzY5dUtReWpHUjRzd3NFanVWZzNUN3VOME9MTVVVckJYWTJwV1ZvbmtXWUpkNjdHcXVlNDJnSXkwSzlxNDhRaU10VURfejNNMTMwUE14bFFQV3BjRGt6bDBLbGhhcThrenNOQlFESUhlY3pxeHhnWDR0V0x1SkVBZExqRWhXLTh4LU15N1pFdXJPZTVjTGU2eFJWWlNQWmR0WnQxbmxObmktSU5JS09ZSzNxRjBDQzVDbktnbjJBcmpjaHdrSmkzZFZlUU9SUVo2SGRjRFd2ejVUczBhT1BqUS10RFk2WmxDM2NIRXZ5YzJaY0NnZlhfN3JyWVpSWGs3U0tJbk1TbUlSSVlWVEFOQWUtTmdfcnY1UWs0UVlpNlZGdkVkSlNYUDBUN3VEdmpn?oc=5"
+  },
+  {
+   "id": "b16ee2534038473dc002712d091a9a6df23182de",
+   "titleKey": "77f5e1e08cffb590c42bb27e262109eab4192a42",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "واکنش ترامپ به زمینگیر شدن پروازها در فرودگاه‌های آمریکا رئیس‌جمهور آمریکا در گفت‌وگو با شبکه فاکس نیوز به بحران زمینگیر شدن پروازها در فرودگاه‌های این کشور واکنش نشان داده و گفت به نظر نمی‌رسد اختلال سراسری در پروازهای این کشور ناشی از حمله سایبری یا هوش مصنوعی باشد.",
+   "at": "2026-11-14T00:48:53.000Z",
+   "url": "https://www.isna.ir/news/1405082315244/%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A8%D9%87-%D8%B2%D9%85%DB%8C%D9%86%DA%AF%DB%8C%D8%B1-%D8%B4%D8%AF%D9%86-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7-%D8%AF%D8%B1-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7"
+  },
+  {
+   "id": "6d0c23b9845d119cd6bd461fc2f6fd9bbc0f7974",
+   "titleKey": "061fc3a97d5f11d5afc934e9f2ef61fe7b87b2c0",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "وزیر امنیت داخلی آمریکا: هیچ مدرکی دال بر حمله عمدی به سامانه ارتباطی هوانوردی وجود ندارد وزیر امنیت داخلی آمریکا با تأکید بر اینکه هیچ نشانه‌ای از یک حمله عمدی یا تهدید علیه این کشور در جریان توقف سراسری پروازها وجود ندارد، آن را «یک قطعی مخابراتی» خواند و گفت که رسیدگی به آن زمان‌بر خواهد بود.",
+   "at": "2026-11-14T00:50:03.000Z",
+   "url": "https://www.isna.ir/news/1405082315245/%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D9%85%D9%86%DB%8C%D8%AA-%D8%AF%D8%A7%D8%AE%D9%84%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%87%DB%8C%DA%86-%D9%85%D8%AF%D8%B1%DA%A9%DB%8C-%D8%AF%D8%A7%D9%84-%D8%A8%D8%B1-%D8%AD%D9%85%D9%84%D9%87-%D8%B9%D9%85%D8%AF%DB%8C-%D8%A8%D9%87-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87"
+  },
+  {
+   "id": "a44c42a4ccd1022ec75ee539a9c88ae858cdf3e1",
+   "titleKey": "70eca431e3685288cc5087910dcafe18f43f70b6",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "تشدید تنش‌ها در تنگه هرمز و باب‌ المندب تهدیدی برای اقتصاد جهانی است دستیار دبیرکل سازمان ملل متحد با اشاره به افزایش حوادث دریایی در منطقه نسبت به ادامه تنش ها در تنگه هرمز و باب المندب و مناطق پیرامونی آن هشدار داد.",
+   "at": "2026-11-14T00:51:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009925/%D8%AA%D8%B4%D8%AF%DB%8C%D8%AF-%D8%AA%D9%86%D8%B4-%D9%87%D8%A7-%D8%AF%D8%B1-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D9%88-%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D9%86%D8%AF%D8%A8-%D8%AA%D9%87%D8%AF%DB%8C%D8%AF%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%D8%AC%D9%87%D8%A7%D9%86%DB%8C"
+  },
+  {
+   "id": "7ecc601bdd79c53e084feb0e459ebd17579e95ad",
+   "titleKey": "e512c1b9934f419fc8fcb4d7b8aaf10b8520b6d5",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Sabalenka's season ended by Svitolina at WTA Finals Aryna Sabalenka's season ends in disappointment as Elina Svitolina beats the former world number one to claim her place in the knockout stage at the WTA Finals.",
+   "at": "2026-11-14T00:51:25.000Z",
+   "url": "https://www.bbc.co.uk/sport/tennis/articles/cw30gl912vq9o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "9654d75793fc81f4d2c947321a9fb3143d366908",
+   "titleKey": "3dbc195741a9adbbe0d1b0c5742f14eadff7d0b6",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "واکنش نیروی هوایی آمریکا به فعالیت مشکوک پهپادی بر فراز پایگاه نظامی در انگلیس نیروی هوایی آمریکا اعلام کرد پرسنل امنیتی این نیرو به گزارش‌های مربوط به آنچه «فعالیت مشکوک و غیرمجاز پهپادی» بر فراز پایگاه هوایی «لکنهیث» در انگلیس اعلام شده واکنش نشان داده‌اند.",
+   "at": "2026-11-14T00:52:15.000Z",
+   "url": "https://www.isna.ir/news/1405082315246/%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA-%D9%85%D8%B4%DA%A9%D9%88%DA%A9-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%DB%8C-%D8%A8%D8%B1-%D9%81%D8%B1%D8%A7%D8%B2-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87"
+  },
+  {
+   "id": "0514fa73fbc8f712f643994e9effd2475ea01d43",
+   "titleKey": "08ea9a798917bbb2bff451c3ddf10decfcc4bd02",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "اختلال گسترده در وب‌سایت و اپلیکیشن راه‌آهن آمریکا همزمان با توقف سراسری پروازها شرکت مسافربری ریلی «امتراک» آمریکا از بروز اختلال فنی گسترده در وب‌سایت و اپلیکیشن موبایل خود و افزایش بی‌سابقه حجم تماس‌های مشتریان خبر داد.",
+   "at": "2026-11-14T00:55:14.000Z",
+   "url": "https://www.isna.ir/news/1405082315247/%D8%A7%D8%AE%D8%AA%D9%84%D8%A7%D9%84-%DA%AF%D8%B3%D8%AA%D8%B1%D8%AF%D9%87-%D8%AF%D8%B1-%D9%88%D8%A8-%D8%B3%D8%A7%DB%8C%D8%AA-%D9%88-%D8%A7%D9%BE%D9%84%DB%8C%DA%A9%DB%8C%D8%B4%D9%86-%D8%B1%D8%A7%D9%87-%D8%A2%D9%87%D9%86-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%87%D9%85%D8%B2%D9%85%D8%A7%D9%86-%D8%A8%D8%A7"
+  },
+  {
+   "id": "efa3ff2ef09c41a9bb168223c95d31c9ce1860c6",
+   "titleKey": "32f08668eef4ccbbaba66369b04a43b2a647a987",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "حملات روسیه به اوکراین سه کشته و بیش از ۵۰ زخمی بر جای گذاشت تهران- ایرنا- مقام‌های اوکراینی اعلام کردند که در حمله روسیه به شهر جنوبی زاپوریژیا یک نفر کشته و بیش از ۵۰ تن زخمی شدند و در حمله به شهر بندری اودسا نیز ۲ تن جان باختند.",
+   "at": "2026-11-14T00:58:00.000Z",
+   "url": "https://www.irna.ir/news/86320846/%D8%AD%D9%85%D9%84%D8%A7%D8%AA-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%A8%D9%87-%D8%A7%D9%88%DA%A9%D8%B1%D8%A7%DB%8C%D9%86-%D8%B3%D9%87-%DA%A9%D8%B4%D8%AA%D9%87-%D9%88-%D8%A8%DB%8C%D8%B4-%D8%A7%D8%B2-%DB%B5%DB%B0-%D8%B2%D8%AE%D9%85%DB%8C-%D8%A8%D8%B1-%D8%AC%D8%A7%DB%8C-%DA%AF%D8%B0%D8%A7%D8%B4%D8%AA"
+  },
   {
    "id": "6a23ecfcd2064aaca3ffaef9d2ac0c49f85d092b",
    "titleKey": "1e171e532628f2dbcbeb9e5e7a67aa55e30a400c",
@@ -9272,7 +9650,7 @@
    "items": 365
   }
  ],
- "aiCursor": 4,
+ "aiCursor": 5,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9846,22 +10224,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794617412462,
-  "Akharin_khodro/8913": 1794617412462,
-  "Akharin_khodro/8914": 1794617412462,
-  "Akharin_khodro/8915": 1794617412462,
-  "Akharin_khodro/8916": 1794617412462,
-  "Akharin_khodro/8919": 1794617412462,
-  "Akharin_khodro/8920": 1794617412462,
-  "Akharin_khodro/8921": 1794617412462,
-  "Akharin_khodro/8922": 1794617412462,
-  "Akharin_khodro/8923": 1794617412462,
-  "Akharin_khodro/8924": 1794617412462,
-  "Akharin_khodro/8925": 1794617412462,
-  "Akharin_khodro/8926": 1794617412462,
-  "Akharin_khodro/8927": 1794617412462,
-  "Akharin_khodro/8928": 1794617412462,
-  "Akharin_khodro/8929": 1794617412462,
+  "Akharin_khodro/8908": 1794617954331,
+  "Akharin_khodro/8913": 1794617954331,
+  "Akharin_khodro/8914": 1794617954331,
+  "Akharin_khodro/8915": 1794617954331,
+  "Akharin_khodro/8916": 1794617954331,
+  "Akharin_khodro/8919": 1794617954331,
+  "Akharin_khodro/8920": 1794617954331,
+  "Akharin_khodro/8921": 1794617954331,
+  "Akharin_khodro/8922": 1794617954331,
+  "Akharin_khodro/8923": 1794617954331,
+  "Akharin_khodro/8924": 1794617954331,
+  "Akharin_khodro/8925": 1794617954331,
+  "Akharin_khodro/8926": 1794617954331,
+  "Akharin_khodro/8927": 1794617954331,
+  "Akharin_khodro/8928": 1794617954331,
+  "Akharin_khodro/8929": 1794617954331,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10290,26 +10668,27 @@
    }
   }
  },
- "tweetCursor": 4,
- "lastRunAt": "2026-11-14T00:50:12.468Z",
+ "tweetCursor": 10,
+ "lastRunAt": "2026-11-14T00:59:14.337Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1068,
-  "inWindow": 146,
-  "fresh": 69,
-  "sent": 0,
+  "inWindow": 154,
+  "fresh": 83,
+  "sent": 6,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 117,
+  "tweetsFetched": 113,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 69,
+  "skippedUntranslated": 77,
+  "queued": 6,
   "tweetRateLimited": false
  }
 }

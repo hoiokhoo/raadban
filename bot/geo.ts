@@ -18,6 +18,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { mergeSimilarItems, buildHourlyCorpus, type HourlyItem, type MergedItem } from './hourly';
+import { isPureArabic } from './lang';
 
 // ---------- سوپرپرامپت تحلیل ۴ساعتهٔ ژئوپلیتیک (پیش‌فرض؛ قابل بازنویسی از bot/prompts.json با کلید «geo») ----------
 
@@ -459,5 +460,6 @@ export function validateGeoText(raw: string | undefined | null, maxLen = 5200): 
   if (letters.length < 150) return null;
   const fa = letters.filter((c) => /[\u0600-\u06FF]/.test(c)).length;
   if (fa / letters.length < 0.5) return null; // پیام غیرفارسی مطلقاً ارسال نمی‌شود
+  if (isPureArabic(t)) return null; // عربیِ خالص هم ارسال نمی‌شود — کانال فارسی است (۱۵ نوامبر)
   return t;
 }

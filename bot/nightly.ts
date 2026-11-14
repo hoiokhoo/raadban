@@ -20,6 +20,7 @@
  */
 
 import { dateKeyOf, weekdayFaOf } from './calendar';
+import { isPureArabic } from './lang';
 import type { PoolItem } from './digest';
 
 // ---------- سوپرپرامپت تحلیل جامع شبانه (پیش‌فرض؛ قابل بازنویسی از bot/prompts.json با کلید «nightly») ----------
@@ -237,5 +238,6 @@ export function validateNightlyText(raw: string | undefined | null, maxLen = 600
   if (letters.length < 250) return null;
   const fa = letters.filter((c) => /[\u0600-\u06FF]/.test(c)).length;
   if (fa / letters.length < 0.5) return null; // پیام غیرفارسی مطلقاً ارسال نمی‌شود
+  if (isPureArabic(t)) return null; // عربیِ خالص هم ارسال نمی‌شود — کانال فارسی است (۱۵ نوامبر)
   return t;
 }

@@ -82,10 +82,13 @@ export async function translateChannelMessage(messageId: string): Promise<{ ok: 
   return { ok: true };
 }
 
-/** تشخیص ساده غیرفارسی‌بودن متن (سهم نویسه‌های فارسی/عربی کمتر از ۱۵٪) */
+/** تشخیص غیرفارسی‌بودن متن — سهم نویسه‌های فارسی/عربی از «همهٔ» نویسه‌های الفبایی.
+ *  ۱۵ نوامبر ۲۰۲۶: مخرج پیشین فقط لاتین/عربی/چینی بود و عبری/سیریلیک/یونانی و… را نمی‌دید
+ *  (متن عبری «فارسی» تلقی می‌شد — همان ریشهٔ باگ توییت نتانیاهو در ربات). حالا همهٔ حروف
+ *  (\p{L}) مخرج‌اند و فقط غلبهٔ خط عربی‌فارسی «فارسی» شمرده می‌شود. */
 export function isLikelyForeign(text: string): boolean {
   const faChars = (text.match(/[\u0600-\u06FF]/g) || []).length;
-  const letters = (text.match(/[A-Za-z\u0600-\u06FF\u4e00-\u9fff]/g) || []).length;
+  const letters = (text.match(/\p{L}/gu) || []).length;
   if (letters === 0) return false;
   return faChars / letters < 0.15;
 }

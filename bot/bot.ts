@@ -99,6 +99,7 @@ import {
 } from './geo';
 import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
 import { fetchHourlyForecast, buildWeatherMessage } from './weather';
+import { buildWeatherCardCaption, renderWeatherCardPng } from './weather-card';
 import {
   pickHadith,
   bankStatus,
@@ -1206,6 +1207,44 @@ export async function sendBalePhotoLadder(token: string, chatId: string, imageUr
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** آپلود مستقیم بایت‌های تصویر (کارت رندرشدهٔ محلی) به sendPhoto بله —
+ *  دو تلاش با احترام به ۴۲۹، کپشن HTML و بازگشت به کپشن ساده؛ شکست شفاف */
+export async function sendBalePhotoBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string): Promise<{ ok: boolean; error?: string }> {
+  if (bytes.length < 1000) return { ok: false, error: `تصویر خیلی کوچک است (${bytes.length} بایت)` };
+  if (bytes.length > 10 * 1024 * 1024) return { ok: false, error: 'تصویر بزرگ‌تر از ۱۰ مگابایت است' };
+  const cap = (caption || '').trim().slice(0, 1024);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const form = new FormData();
+    form.append('chat_id', chatId);
+    if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
+    form.append('photo', new Blob([bytes as BlobPart], { type: 'image/png' }), filename);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30_000);
+    try {
+      const res = await fetch(`${BALES_API_BASE}/bot${token}/sendPhoto`, { method: 'POST', body: form, signal: controller.signal });
+      const text = await res.text().catch(() => '');
+      if (res.ok) return { ok: true };
+      let retryAfter: number | undefined;
+      try {
+        const j = JSON.parse(text) as { parameters?: { retry_after?: number } };
+        retryAfter = j.parameters?.retry_after;
+      } catch { /* پاسخ JSON نبود */ }
+      if (retryAfter && attempt === 0) {
+        await sleep(Math.min(retryAfter, 30) * 1000);
+        continue;
+      }
+      return { ok: false, error: `آپلود کارت ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}` };
+    } catch (e) {
+      const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود کارت' : e.message) : 'خطای ناشناخته';
+      if (attempt === 0) { await sleep(2000); continue; }
+      return { ok: false, error: msg };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  return { ok: false, error: 'نامشخص' };
 }
 
 // ---------- زنجیرهٔ مدل (رایگان‌محور — فراوان و چرخشی) ----------
@@ -2491,18 +2530,36 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
         daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'preview', isTest: true, at: new Date().toISOString() });
         trimDailyState(daily);
       } else {
+        // کارت تصویری اول — خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶: بخش هواشناسی به‌صورت کارت/چارت در بله؛
+        // رندر ناموفق یا شکست ارسال همهٔ مقصدها → بازگشت صادقانه به پیام متنی کامل (هیچ داده‌ای از دست نمی‌رود)
         let ok = false;
         let lastErr = '';
-        for (const t of CFG.targets) {
-          const s = await sendBaleMessage(CFG.token, t, msg.text);
-          if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیش‌بینی ساعتی به ${t}: ${lastErr}`); continue; }
-          ok = true;
+        let viaCard = false;
+        const card = await renderWeatherCardPng({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours }).catch(() => null);
+        if (card) {
+          const cap = buildWeatherCardCaption({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours });
+          viaCard = true;
+          for (const t of CFG.targets) {
+            const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png', cap);
+            if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال کارت هواشناسی به ${t}: ${lastErr}`); continue; }
+            ok = true;
+          }
+          if (!ok) console.warn(`⚠️ ارسال کارت هواشناسی به هیچ مقصدی موفق نشد (${lastErr}) — پیام متنی کامل جایگزین می‌شود`);
+        } else {
+          console.warn('⚠️ رندر کارت هواشناسی ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)');
+        }
+        if (!ok) {
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, msg.text);
+            if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیش‌بینی ساعتی به ${t}: ${lastErr}`); continue; }
+            ok = true;
+          }
         }
         if (ok) {
           daily.lastWeatherKey = wKey;
-          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'sent', isTest: false, at: new Date().toISOString() });
+          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'sent', isTest: false, imageUrl: viaCard ? 'card' : undefined, at: new Date().toISOString() });
           summary.dailySent = 'weather';
-          console.log(`✅ پیش‌بینی ساعتی فردا (${tomorrowKey}) ارسال شد — ${hours?.length ?? 0} ساعت معتبر`);
+          console.log(`✅ پیش‌بینی ساعتی فردا (${tomorrowKey}) ارسال شد — ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'متن کامل'} — ${hours?.length ?? 0} ساعت معتبر`);
         } else {
           daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'failed', isTest: false, error: lastErr || 'هیچ مقصدی موفق نشد', at: new Date().toISOString() });
           console.error('❌ پیش‌بینی ساعتی ارسال نشد — چرخهٔ بعد تلاش می‌کند');

@@ -1,5 +1,19 @@
 {
  "sentIds": {
+  "f49644010a92bd16775b9f156661362c3f8a5a8f": 1794627505004,
+  "eb6b49ab7c63fd905759fd0feac2186d5492dba4": 1794627505004,
+  "7664311b5301ca84808492db4abb3ed288f96fb3": 1794627505004,
+  "3a97acbb275e1fdbf97463c8db3f6543a5e70383": 1794627505004,
+  "b76fc4131bcbdc8274225e9156e11811c690bd63": 1794627505004,
+  "26ac312d535db9a18d3432eec4cc487dfc0dfc35": 1794627505004,
+  "2f0d27d87966bc099d235f6088f73f6da26a7540": 1794627505004,
+  "e8df8945a57ddcc92287e324d4190153b4616a29": 1794627505004,
+  "1eb6bc846aafa03bbac8708631c82a7b21ad7e8f": 1794627505004,
+  "05a5b8ebd6282d80a2ab8e0d7636998960c12128": 1794627505004,
+  "5fd8650fd9cbea9f9dd99fdc0f953e94b2ffd4db": 1794627505004,
+  "c934241c4e614ffac345905d7c903dbd6ff158a3": 1794627505004,
+  "61095ba66e52bc490145f3dc07832c8f22b8414f": 1794627505004,
+  "10b132da55ce2ec15d7f62c92e280d8df6b02c55": 1794627505004,
   "d63745343797ce61bbd6d68d83ceeb7f5c72cbd6": 1794627003837,
   "77d8dcb3d834c494d876be40b32165bba7781da2": 1794627003837,
   "4c93878f53a7e2a1b9c411b29e4847e363dce654": 1794627003837,
@@ -1185,23 +1199,23 @@
   "4bc39c922f8c3469f9ed69091f63db02c73f32b3": 1794583520657,
   "6b63b9255cba1783abc2451f1cfc60b9ac02674f": 1794583520657,
   "531b26b173267e78ea84e243b061824bdfcbc100": 1794583520657,
-  "0f9c0180b80c5c236ccd7d46b8573213e33a7bc4": 1794583520657,
-  "ed999b57b3a10331dde3eeaae02ff7fac1b63526": 1794583520657,
-  "1d01003599d14b723c367b7ecff922240ead93fe": 1794583520657,
-  "6d1e4654dc096c63b9fad0864940e82661ea0a13": 1794583520657,
-  "3c891ffda9aefcb52113294ea7a78b52c243b0df": 1794583520657,
-  "c0183bbcb6015222c8b96ac7abc7b6909228f2cc": 1794583520657,
-  "ca4cab37a14a79d34b0797f48301f52a2b651301": 1794583520657,
-  "03ac4ed7cb9b848b6d0066535008e94fb89ccbb6": 1794583520657,
-  "d697f81499a26316488b4946c7618731a9680134": 1794583520657,
-  "846288c91fe5e65d5534389787174059a1d50b0d": 1794583520657,
-  "1366870d68840e68daeaf8cedadf2a37a0b195a9": 1794583520657,
-  "b05a395b91acec24e48fc9c42e106ff47e0e91cb": 1794583520657,
-  "db069a7a59ee2ad4f3e2ef3f8b3802e1eba23f51": 1794583520657,
-  "c2c0f411f35588d3fce2beb7d8b4e5b407925795": 1794583520657,
-  "1b041ecb9e154dcff02e3af6dfa37f57cfb9fc6a": 1794582940050
+  "0f9c0180b80c5c236ccd7d46b8573213e33a7bc4": 1794583520657
  },
  "sentTitles": {
+  "76da7fd106b53839b8196440d21a2174affba655": 1794627505004,
+  "9d6d726579a8e374667a70078cf204e457b71313": 1794627505004,
+  "dc65c70c2fd3f7e62ab874b5e3035d937fd74741": 1794627505004,
+  "3d1f660793a2b65e59591dec4d7116ac2b1f986f": 1794627505004,
+  "b69282162aced8954296de6f69c85a2338f30bfb": 1794627505004,
+  "3d483ca354ac781bfaaaeb4c4a96225f0034c8c8": 1794627505004,
+  "754ff1fc509beb835cd157a803f2e5c0f9227765": 1794627505004,
+  "ded8f81cfa7f1c40583a962648e569a9f501c6ae": 1794627505004,
+  "b3b1793c6395ff312f5e5fbcec72bea4e1c2f9a3": 1794627505004,
+  "d152b29a68173f82285a612b7932695383387ea6": 1794627505004,
+  "48c1bd05b84ca7a10ebd1022bdeba6a9fcde5c5b": 1794627505004,
+  "c36595c960734f1c697b64d2da44d76efda1a439": 1794627505004,
+  "fa503ce0f3ea7ca3f40eefd16d3076adea8de8da": 1794627505004,
+  "dd6c0317d50e8b24e63736e71e1ddd2ce9523b42": 1794627505004,
   "9948b427284fd69a8e9933209e35dc10d40d9058": 1794627003837,
   "00f7cc685878a32167121d3dd05617622b54eed6": 1794627003837,
   "22929199bed921e113eddcce3021128e6abc9490": 1794627003837,
@@ -1787,21 +1801,7 @@
   "3adcbed9a6ca6e960b5831db190ceba20a76b086": 1794598628423,
   "689268754d44985b0d97f0b2466a4289f9f59fd5": 1794598628423,
   "10e84b0089d32df2bc4dbd3e0ea1901f11ceadfe": 1794598628423,
-  "89666bd4af8aba8e672a5188925a933fd0999f26": 1794598628423,
-  "17c8bfa0d8f1a8d144949a023e90165a882cf3dd": 1794598628423,
-  "d07573047bbf32acfab53839524cd599a18d11f2": 1794598029779,
-  "309ff71d3bc3aaaa8f95a34b038f94cba59129e4": 1794598029779,
-  "f730df1418bf2bfb67da6147d05a7157468d05ef": 1794598029779,
-  "e3fcd55070827b4ef97c062facb6d704f78efb10": 1794598029779,
-  "9517c05986368f63de3e6d833a6612a36d0772b1": 1794598029779,
-  "d4a8045c54cb998ebf0cae4b1fa0e7454cd5d3d9": 1794598029779,
-  "b7569572cac2bf5d543f0e3c4e593a59f338e8ae": 1794598029779,
-  "862d3ce957e01c62f3754cf50a3643cd66d28cba": 1794598029779,
-  "5f680bb3ce30ae69645c78612999ce475caf16c1": 1794598029779,
-  "ee4c5dcd6ef62716b588740a25d2d233fc1d4716": 1794598029779,
-  "5f40036d05d66d3b19514dc8e47accf81d49ca53": 1794598029779,
-  "c5f3bf32795496f3604f9ef915859a2cd53bf972": 1794597526662,
-  "6fa0e423418c0270efb7d4e7c9cc9fd0ca0a8770": 1794597526662
+  "89666bd4af8aba8e672a5188925a933fd0999f26": 1794598628423
  },
  "sentTitleTexts": {
   "از این به روزرسانی بسیار سپاسگزارم به دلیل عملکرد قهرمانانه نیروهای امدادی ما وضعیت تمامی مسافران مشخص شده است این چیزی جز یک معجزه نیست": 1794627003837,
@@ -3008,6 +3008,137 @@
   "خبرانلاین امام جمعه اردبیل خارج کردن مواد هسته ای به روسیه در دوران برجام تجربه بسیار تلخی بود راکتور اب سنگین با بتن پر شد اما حتی به یک بند برجام عمل نشد ایت ": 1794595315680
  },
  "pool": [
+  {
+   "id": "f49644010a92bd16775b9f156661362c3f8a5a8f",
+   "titleKey": "76da7fd106b53839b8196440d21a2174affba655",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Lehigh 65-60 Marist (Nov 13, 2026) Final Score - ESPN Lehigh 65-60 Marist (Nov 13, 2026) Final Score ESPN",
+   "at": "2026-11-14T00:57:39.000Z",
+   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE05YS0yN1liOFhSRXktVGU3WG5VVThsOVBiMS1IWXRzNHZfNTF5dlBoQUd4YlRGZjhJOWdIS3RPdmQxdkhUNjdOQlQ4N2RheGxwNXQtMjViQ2xMUnpFbjNoVzg5OVNwblpfS3IzOFVSSVFkNzI5OXRB?oc=5"
+  },
+  {
+   "id": "eb6b49ab7c63fd905759fd0feac2186d5492dba4",
+   "titleKey": "9d6d726579a8e374667a70078cf204e457b71313",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Democratic U.S. senators order Musk to preserve records on Ukraine Starlink access Ukrainian forces say Starshield, the military-grade version of Starlink, is vital for frontline communications and ‌drone operations in their defense against Russian drone and missile attacks",
+   "at": "2026-11-14T03:24:31.000Z",
+   "url": "https://www.thehindu.com/news/international/democratic-us-senators-order-musk-to-preserve-records-on-ukraine-starlink-access/article71700765.ece"
+  },
+  {
+   "id": "7664311b5301ca84808492db4abb3ed288f96fb3",
+   "titleKey": "dc65c70c2fd3f7e62ab874b5e3035d937fd74741",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Former Nvidia CEO Jensen Huang misled top lawyer on affair with Alice Huang: report During the autumn of 2025 and in October 2026, in ‌response to press queries that drew some Nvidia leaders’ attention to his relationship with Megaspeed and Alice ​Huang, Jensen Huang at both times described their interactions as appropriate",
+   "at": "2026-11-14T03:28:04.000Z",
+   "url": "https://www.thehindu.com/news/international/former-nvidia-ceo-jensen-huang-misled-top-lawyer-on-affair-with-alice-huang-report/article71700767.ece"
+  },
+  {
+   "id": "3a97acbb275e1fdbf97463c8db3f6543a5e70383",
+   "titleKey": "3d1f660793a2b65e59591dec4d7116ac2b1f986f",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیشبینی محسن رضایی: جنگ بعدی ۳ تا ۵ روز طول می‌کشد + فیلم محسن رضایی با تأکید بر آمادگی نظامی ایران اعلام کرد در صورت حمله به کشور، بر اساس محاسبات آنها جنگ بیش از سه تا پنج‌روز ادامه نخواهد یافت. پایگاه‌های نزدیک آمریکا را می‌زنیم و سپس پایگاه‌های دوردست آمریکا را هم خواهیم زد.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301662/%D9%BE%DB%8C%D8%B4%D8%A8%DB%8C%D9%86%DB%8C-%D9%85%D8%AD%D8%B3%D9%86-%D8%B1%D8%B6%D8%A7%DB%8C%DB%8C-%D8%AC%D9%86%DA%AF-%D8%A8%D8%B9%D8%AF%DB%8C-%DB%B3-%D8%AA%D8%A7-%DB%B5-%D8%B1%D9%88%D8%B2-%D8%B7%D9%88%D9%84-%D9%85%DB%8C-%DA%A9%D8%B4%D8%AF-%D9%81%DB%8C%D9%84%D9%85"
+  },
+  {
+   "id": "b76fc4131bcbdc8274225e9156e11811c690bd63",
+   "titleKey": "b69282162aced8954296de6f69c85a2338f30bfb",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "شرایط سخت کار در رادیولوژی/ تحمل تبعیض در پرتو اشعه/ حق شیفت نمی‌گیریم! یک فعال صنفی و کارشناس رادیولوژی می‌گوید پرتوکاران با وجود مواجهه مستقیم با اشعه و عوامل عفونی، نه تعرفه مستقلی دارند و نه مشمول ضرایب قانون ارتقای بهره‌وری می‌شوند؛ وضعیتی که باعث شده تولیدکنندگان بخش مهمی از درآمد بیمارستان‌ها، کمترین سهم را از بودجه سلامت ببرند.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864734"
+  },
+  {
+   "id": "26ac312d535db9a18d3432eec4cc487dfc0dfc35",
+   "titleKey": "3d483ca354ac781bfaaaeb4c4a96225f0034c8c8",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "از تُن ماهی قسطی تا تخم مرغ ۲۷ هزار تومانی/ یک تورم نجومی جدید در راه است؟ چرا بار اصلی سیاست‌های انقباضی در دوران جنگ و تحریم بر دوش مردمی افتاده است که اکثریت آن‌ها مزدبگیرند و با حقوق‌های ثابت ریالی، باید هزینه‌های دلاری زندگی را بپردازند؟",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864394"
+  },
+  {
+   "id": "2f0d27d87966bc099d235f6088f73f6da26a7540",
+   "titleKey": "754ff1fc509beb835cd157a803f2e5c0f9227765",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "کجای مزد کارگران تورم‌زاست؟/ دستمزد به زیر ۱۰۰ دلار رسید، حقوق نجومی مدیران را کاهش دهید فعالان کارگری نسبت به اظهارات مزدی اخیر معاون اول پزشکیان درباره نقش مزد کارگران در ایجاد تورم، ابراز تعجب و نگرانی می‌کنند.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1861659"
+  },
+  {
+   "id": "e8df8945a57ddcc92287e324d4190153b4616a29",
+   "titleKey": "ded8f81cfa7f1c40583a962648e569a9f501c6ae",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "لیست قیمت گوشت مرغ امروز شنبه ۲۳ آبان ۱۴۰۵ / ران و سینه مرغ کیلویی چند شد؟ + جدول تازه‌ترین قیمت گوشت مرغ در بازار ۲۳ آبان‎‌ماه ۱۴۰۵ اعلام شد.",
+   "at": "2026-11-14T03:30:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175444/لیست-قیمت-گوشت-مرغ-امروز-شنبه-23-آبان-1405-ران-و-سینه-مرغ-کیلویی-چند-شد-جدول"
+  },
+  {
+   "id": "1eb6bc846aafa03bbac8708631c82a7b21ad7e8f",
+   "titleKey": "b3b1793c6395ff312f5e5fbcec72bea4e1c2f9a3",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "محاصره اقتصادی ایران به ضرر غرب تمام شد؟ / احتمال عقب‌نشینی ناگهانی آمریکا کارشناس مسائل بین‌الملل با اشاره به افزایش تحرکات دیپلماتیک میان ایران و آمریکا، احتمال وقوع جنگ گسترده را بسیار پایین دانست و گفت: واشینگتن به دلیل آگاهی از هزینه‌های درگیری نظامی، به دنبال راهی برای خروج از وضعیت فعلی است.",
+   "at": "2026-11-14T03:30:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175382/محاصره-اقتصادی-ایران-به-ضرر-غرب-تمام-شد-احتمال-عقب-نشینی-ناگهانی-آمریکا"
+  },
+  {
+   "id": "05a5b8ebd6282d80a2ab8e0d7636998960c12128",
+   "titleKey": "d152b29a68173f82285a612b7932695383387ea6",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "واکنش دولت ترامپ به توقف پروازها در سراسر آمریکا وزیر امنیت داخلی آمریکا از آغاز بررسی‌ها درباره علت توقف پروازها در سراسر این کشور خبر داد و گفت احتمال نقش سامانه جدید کنترل ترافیک هوایی مبتنی بر هوش مصنوعی در بروز اختلالات گسترده ارتباطی نیز در دست بررسی است.",
+   "at": "2026-11-14T03:30:09.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865586"
+  },
+  {
+   "id": "5fd8650fd9cbea9f9dd99fdc0f953e94b2ffd4db",
+   "titleKey": "48c1bd05b84ca7a10ebd1022bdeba6a9fcde5c5b",
+   "source": "تجارت نیوز",
+   "lang": "fa",
+   "text": "قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ از سوی بنگاه‌های معاملاتی اعلام شد. پست قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول اولین بار در تجارت نیوز ظاهر شد.",
+   "at": "2026-11-14T03:30:23.000Z",
+   "url": "https://tejaratnews.com/%d9%82%db%8c%d9%85%d8%aa-%d8%ae%d9%88%d8%af%d8%b1%d9%88-%d8%a7%d9%85%d8%b1%d9%88%d8%b2-%d8%b4%d9%86%d8%a8%d9%87-%db%b2%db%b3-%d8%a2%d8%a8%d8%a7%d9%86-%db%b1%db%b4%db%b0%db%b5-%d8%ad%d8%a8%d8%a7"
+  },
+  {
+   "id": "c934241c4e614ffac345905d7c903dbd6ff158a3",
+   "titleKey": "c36595c960734f1c697b64d2da44d76efda1a439",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "استاندار یزد: نمایشگاه کتاب، فرصت پیوند دوباره جامعه با یار مهربان است یزد- ایرنا - استاندار یزد با دعوت از اقشار مختلف مردم برای بازدید از سیزدهمین نمایشگاه کتاب استان، برگزاری این رویداد فرهنگی پس از هفت سال وقفه را فرصتی برای گسترش فرهنگ مطالعه و پیوند دوباره جامعه با کتاب و یار مهربان ذکر کرد.",
+   "at": "2026-11-14T03:33:24.000Z",
+   "url": "https://www.irna.ir/news/86320864/%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%DB%8C%D8%B2%D8%AF-%D9%86%D9%85%D8%A7%DB%8C%D8%B4%DA%AF%D8%A7%D9%87-%DA%A9%D8%AA%D8%A7%D8%A8-%D9%81%D8%B1%D8%B5%D8%AA-%D9%BE%DB%8C%D9%88%D9%86%D8%AF-%D8%AF%D9%88%D8%A8%D8%A7%D8%B1%D9%87-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A8%D8%A7-%DB%8C%D8%A7%D8%B1-%D9%85%D9%87%D8%B1%D8%A8%D8%A7%D9%86"
+  },
+  {
+   "id": "61095ba66e52bc490145f3dc07832c8f22b8414f",
+   "titleKey": "fa503ce0f3ea7ca3f40eefd16d3076adea8de8da",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "روزنامه منتقد دولت: مسئولین در مورد کارت‌سوخت، حاشیه سازی می‌کنند جمع‌آوری کارت‌های سوخت اضطراری جایگاه‌داران از ۱۱ استان کشور، دور جدید اجرای سیاست دولت برای مدیریت بازار بنزین است؛ سیاستی که با هدف افزایش نظارت بر توزیع سوخت و هدایت مصرف‌کنندگان به استفاده از کارت شخصی دنبال می‌شود.",
+   "at": "2026-11-14T03:35:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301699/%D8%B1%D9%88%D8%B2%D9%86%D8%A7%D9%85%D9%87-%D9%85%D9%86%D8%AA%D9%82%D8%AF-%D8%AF%D9%88%D9%84%D8%AA-%D9%85%D8%B3%D8%A6%D9%88%D9%84%DB%8C%D9%86-%D8%AF%D8%B1-%D9%85%D9%88%D8%B1%D8%AF-%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B3%D9%88%D8%AE%D8%AA-%D8%AD%D8%A7%D8%B4%DB%8C%D9%87-%D8%B3%D8%A7%D8%B2%DB%8C-%D9%85%DB%8C-%DA%A9%D9%86%D9%86%D8%AF"
+  },
+  {
+   "id": "10b132da55ce2ec15d7f62c92e280d8df6b02c55",
+   "titleKey": "dd6c0317d50e8b24e63736e71e1ddd2ce9523b42",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "آشفتگی در آسمان آمریکا؛ ماجرای توقف سراسری پروازها چه بود؟ اختلال گسترده در سامانه کنترل ترافیک هوایی آمریکا، بامداد امروز به توقف بیش از چهار ساعته پروازها در سراسر این کشور انجامید؛ بحرانی که با لغو و تأخیر هزاران پرواز، سرگردانی مسافران و آشفتگی در فعالیت فرودگاه‌ها همراه شد.",
+   "at": "2026-11-14T03:35:23.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865587"
+  },
   {
    "id": "d63745343797ce61bbd6d68d83ceeb7f5c72cbd6",
    "titleKey": "9948b427284fd69a8e9933209e35dc10d40d9058",
@@ -5815,6 +5946,146 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-14T03:29:48.003Z"
+  },
+  {
+   "kind": "news",
+   "text": "ESPN: نتیجه نهایی لی‌های 65-60 ماریست (13 نوامبر 2026) - ای‌اس‌پي‌ان نتیجه نهایی لی‌های 65-60 ماریست (13 نوامبر 2026) ای‌اس‌پي‌ان",
+   "source": "ESPN",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "sports",
+   "queuedAt": "2026-11-14T03:38:01.444Z"
+  },
+  {
+   "kind": "news",
+   "text": "The Hindu: دستور سناتورهای دموکرات آمریکا به ماسک برای حفظ سوابق دسترسی اوکراین به استارلینک؛ نیروهای اوکراینی می‌گویند استارشیلد، نسخه نظامی استارلینک، برای ارتباطات خط مقدم و عملیات‌های پهپادی در دفاع آن‌ها در برابر حملات پهپادی و موشکی روسیه حیاتی است\n\n🖼 عکس خود خبر: https://th-i.thgim.com/public/incoming/eo65yq/article71700771.ece/alternates/LANDSCAPE_1200/Election_2_26_Musk__6793.jpg",
+   "source": "The Hindu",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:02.145Z"
+  },
+  {
+   "kind": "news",
+   "text": "The Hindu: بر اساس یک گزارش، جنسن هوآنگ، مدیرعامل سابق انویدیا، وکیل ارشد شرکت را در مورد رابطه عاشقانه خود با آلیس هوآنگ گمراه کرده است؛ در پاییز 2025 و در اکتبر 2026، در پاسخ به پرسش‌های مطبوعاتی که توجه برخی از مدیران انویدیا را به رابطه او با مگاسپید و آلیس هوآنگ جلب کرد، جنسن هوآنگ در هر دو زمان تعاملاتشان را مناسب توصیف کرده بود\n\n🖼 عکس خود خبر: https://th-i.thgim.com/public/incoming/brd9se/article71700769.ece/alternates/LANDSCAPE_1200/2026-11-13T150315Z_675275027_RC2U8IAML0JZ_RTRMADP_3_NVIDIA-CEO.JPG",
+   "source": "The Hindu",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:02.847Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: پیشبینی محسن رضایی: جنگ بعدی ۳ تا ۵ روز طول می‌کشد + فیلم محسن رضایی با تأکید بر آمادگی نظامی ایران اعلام کرد در صورت حمله به کشور، بر اساس محاسبات آنها جنگ بیش از سه تا پنج‌روز ادامه نخواهد یافت. پایگاه‌های نزدیک آمریکا را می‌زنیم و سپس پایگاه‌های دوردست آمریکا را هم خواهیم زد.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/10/23/4/6493196.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T03:38:03.548Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: شرایط سخت کار در رادیولوژی/ تحمل تبعیض در پرتو اشعه/ حق شیفت نمی‌گیریم! یک فعال صنفی و کارشناس رادیولوژی می‌گوید پرتوکاران با وجود مواجهه مستقیم با اشعه و عوامل عفونی، نه تعرفه مستقلی دارند و نه مشمول ضرایب قانون ارتقای بهره‌وری می‌شوند؛ وضعیتی که باعث شده تولیدکنندگان بخش مهمی از درآمد بیمارستان‌ها، کمترین سهم را از بودجه سلامت ببرند.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/8SBbzg7FCEba/P63nUSypAO_41ZghL1UamYZZwbLZg-k4P1EJbOaAwKDSYsVwUzQSqZsk4gSbpn6KV-IbsVC8jDSAWovZk6hjMm9J_ZQiU2bxLg18d6qiXf1hXojZ-QQ3bJCA7NC2ClJn4NrXzTZp8zX5TmlzcrESaU2-TV9PvXwHrWKzNuqIp9HT8IZH_hcMGmkAhDYOlS0j/%D9%BE%D8%B1%D8%AA%D9%88.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:04.249Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: از تُن ماهی قسطی تا تخم مرغ ۲۷ هزار تومانی/ یک تورم نجومی جدید در راه است؟ چرا بار اصلی سیاست‌های انقباضی در دوران جنگ و تحریم بر دوش مردمی افتاده است که اکثریت آن‌ها مزدبگیرند و با حقوق‌های ثابت ریالی، باید هزینه‌های دلاری زندگی را بپردازند؟\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/pCdwZDuYDJnD/4cpHeWMAJ2qgmQ52nhpw5uYjwhdXBgce2nPglScP8K_R2pWWUAixD8i34WVEGU_-w2Dc8dCYBR4yMavs2fbMdj9CtqtH_RUXkrTu06oeHCoJRVpBL7MVz6ryPS_hZ9MRXB9bpSOvPnq_P1d7xx-XBfcYV_478cBXgrgOlvWAxvFxY5DlY3Tc2gjdroR3zWLK/%D8%AA%D9%88%D8%B1%D9%85.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:04.950Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: کجای مزد کارگران تورم‌زاست؟/ دستمزد به زیر ۱۰۰ دلار رسید، حقوق نجومی مدیران را کاهش دهید فعالان کارگری نسبت به اظهارات مزدی اخیر معاون اول پزشکیان درباره نقش مزد کارگران در ایجاد تورم، ابراز تعجب و نگرانی می‌کنند.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/Ys9UnntcSmHJ/WdfAUydX1RmqRZ5lgx1HJ9rd4fkn9jgNFNfC4sFMZ_0RcvMgYOUBdjRCZP01lXAmD770-NEjlpZsj7xlIE77GqAfFZsVGqXtfIirEz2W5u5lCkL_AtgJbdXyCMKkDjPJF0bfHQE_6JrVmY0OH0pgItt4yum8YoQJog6yuq5OMJUw2bw51z9RvL4Ypz1kGKCH/+%DA%A9%D8%A7%D8%B1%DA%AF%D8%B1%DB%8C.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:05.651Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: لیست قیمت گوشت مرغ امروز شنبه ۲۳ آبان ۱۴۰۵ / ران و سینه مرغ کیلویی چند شد؟ + جدول تازه‌ترین قیمت گوشت مرغ در بازار ۲۳ آبان‎‌ماه ۱۴۰۵ اعلام شد.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T03:38:06.352Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: محاصره اقتصادی ایران به ضرر غرب تمام شد؟ / احتمال عقب‌نشینی ناگهانی آمریکا کارشناس مسائل بین‌الملل با اشاره به افزایش تحرکات دیپلماتیک میان ایران و آمریکا، احتمال وقوع جنگ گسترده را بسیار پایین دانست و گفت: واشینگتن به دلیل آگاهی از هزینه‌های درگیری نظامی، به دنبال راهی برای خروج از وضعیت فعلی است.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T03:38:07.053Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: واکنش دولت ترامپ به توقف پروازها در سراسر آمریکا وزیر امنیت داخلی آمریکا از آغاز بررسی‌ها درباره علت توقف پروازها در سراسر این کشور خبر داد و گفت احتمال نقش سامانه جدید کنترل ترافیک هوایی مبتنی بر هوش مصنوعی در بروز اختلالات گسترده ارتباطی نیز در دست بررسی است.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/9luRh2Bgppm1/dwYoZjD_4BkPFHPC7rKkLjfo_Tw23gaw9P5YrvdC7ZNbQfAz2Ji72fweIJ8xbOSZEOGwcBULF8dLjue8hzMIGVztK7Ga_GKsrzd2DAu4ZysTOA82-DNea26Xi0uCyx_q2gJ5CquI4gTMYD1f2uxSBgkMEQ7nMaOcnqGPkSHAsnvwomfFzZg-q-iQcGW3nMW5/Capture.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:07.754Z"
+  },
+  {
+   "kind": "news",
+   "text": "تجارت نیوز: قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ از سوی بنگاه‌های معاملاتی اعلام شد. پست قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول اولین بار در تجارت نیوز ظاهر شد.",
+   "source": "تجارت نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:08.455Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): استاندار یزد: نمایشگاه کتاب، فرصت پیوند دوباره جامعه با یار مهربان است یزد- ایرنا - استاندار یزد با دعوت از اقشار مختلف مردم برای بازدید از سیزدهمین نمایشگاه کتاب استان، برگزاری این رویداد فرهنگی پس از هفت سال وقفه را فرصتی برای گسترش فرهنگ مطالعه و پیوند دوباره جامعه با کتاب و یار مهربان ذکر کرد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238502.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:09.156Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرآنلاین: روزنامه منتقد دولت: مسئولین در مورد کارت‌سوخت، حاشیه سازی می‌کنند جمع‌آوری کارت‌های سوخت اضطراری جایگاه‌داران از ۱۱ استان کشور، دور جدید اجرای سیاست دولت برای مدیریت بازار بنزین است؛ سیاستی که با هدف افزایش نظارت بر توزیع سوخت و هدایت مصرف‌کنندگان به استفاده از کارت شخصی دنبال می‌شود.\n\n🖼 عکس خود خبر: https://media.khabaronline.ir/d/2026/10/31/4/6496993.jpg",
+   "source": "خبرآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T03:38:09.857Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایلنا: آشفتگی در آسمان آمریکا؛ ماجرای توقف سراسری پروازها چه بود؟ اختلال گسترده در سامانه کنترل ترافیک هوایی آمریکا، بامداد امروز به توقف بیش از چهار ساعته پروازها در سراسر این کشور انجامید؛ بحرانی که با لغو و تأخیر هزاران پرواز، سرگردانی مسافران و آشفتگی در فعالیت فرودگاه‌ها همراه شد.\n\n🖼 عکس خود خبر: https://cdn.ilna.ir/thumbnail/xXcXg9p3eiKw/n0BRcosV38Ef1LfdDNwFnHuTLOdFVQ6byuAn8jNxRR20s6UgTsZpb3RLFOCUiU6rLAuHaL9OPpP-mnE3S39iQOYvWtn6FGdaFVWvB8NlbZ7jurepoDr_PYLB4FCJ260bj_3_UeM0xc4a0pLq7m4r_ecl6NgXSP4FCASqAW1tl1ejCQgCcp1YMgHUo6NtLgu4/Capture.jpg",
+   "source": "خبرگزاری ایلنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T03:38:10.558Z"
   }
  ],
  "tweetQueue": [],
@@ -5992,6 +6263,137 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "f49644010a92bd16775b9f156661362c3f8a5a8f",
+   "titleKey": "76da7fd106b53839b8196440d21a2174affba655",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Lehigh 65-60 Marist (Nov 13, 2026) Final Score - ESPN Lehigh 65-60 Marist (Nov 13, 2026) Final Score ESPN",
+   "at": "2026-11-14T00:57:39.000Z",
+   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE05YS0yN1liOFhSRXktVGU3WG5VVThsOVBiMS1IWXRzNHZfNTF5dlBoQUd4YlRGZjhJOWdIS3RPdmQxdkhUNjdOQlQ4N2RheGxwNXQtMjViQ2xMUnpFbjNoVzg5OVNwblpfS3IzOFVSSVFkNzI5OXRB?oc=5"
+  },
+  {
+   "id": "eb6b49ab7c63fd905759fd0feac2186d5492dba4",
+   "titleKey": "9d6d726579a8e374667a70078cf204e457b71313",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Democratic U.S. senators order Musk to preserve records on Ukraine Starlink access Ukrainian forces say Starshield, the military-grade version of Starlink, is vital for frontline communications and ‌drone operations in their defense against Russian drone and missile attacks",
+   "at": "2026-11-14T03:24:31.000Z",
+   "url": "https://www.thehindu.com/news/international/democratic-us-senators-order-musk-to-preserve-records-on-ukraine-starlink-access/article71700765.ece"
+  },
+  {
+   "id": "7664311b5301ca84808492db4abb3ed288f96fb3",
+   "titleKey": "dc65c70c2fd3f7e62ab874b5e3035d937fd74741",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Former Nvidia CEO Jensen Huang misled top lawyer on affair with Alice Huang: report During the autumn of 2025 and in October 2026, in ‌response to press queries that drew some Nvidia leaders’ attention to his relationship with Megaspeed and Alice ​Huang, Jensen Huang at both times described their interactions as appropriate",
+   "at": "2026-11-14T03:28:04.000Z",
+   "url": "https://www.thehindu.com/news/international/former-nvidia-ceo-jensen-huang-misled-top-lawyer-on-affair-with-alice-huang-report/article71700767.ece"
+  },
+  {
+   "id": "3a97acbb275e1fdbf97463c8db3f6543a5e70383",
+   "titleKey": "3d1f660793a2b65e59591dec4d7116ac2b1f986f",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "پیشبینی محسن رضایی: جنگ بعدی ۳ تا ۵ روز طول می‌کشد + فیلم محسن رضایی با تأکید بر آمادگی نظامی ایران اعلام کرد در صورت حمله به کشور، بر اساس محاسبات آنها جنگ بیش از سه تا پنج‌روز ادامه نخواهد یافت. پایگاه‌های نزدیک آمریکا را می‌زنیم و سپس پایگاه‌های دوردست آمریکا را هم خواهیم زد.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301662/%D9%BE%DB%8C%D8%B4%D8%A8%DB%8C%D9%86%DB%8C-%D9%85%D8%AD%D8%B3%D9%86-%D8%B1%D8%B6%D8%A7%DB%8C%DB%8C-%D8%AC%D9%86%DA%AF-%D8%A8%D8%B9%D8%AF%DB%8C-%DB%B3-%D8%AA%D8%A7-%DB%B5-%D8%B1%D9%88%D8%B2-%D8%B7%D9%88%D9%84-%D9%85%DB%8C-%DA%A9%D8%B4%D8%AF-%D9%81%DB%8C%D9%84%D9%85"
+  },
+  {
+   "id": "b76fc4131bcbdc8274225e9156e11811c690bd63",
+   "titleKey": "b69282162aced8954296de6f69c85a2338f30bfb",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "شرایط سخت کار در رادیولوژی/ تحمل تبعیض در پرتو اشعه/ حق شیفت نمی‌گیریم! یک فعال صنفی و کارشناس رادیولوژی می‌گوید پرتوکاران با وجود مواجهه مستقیم با اشعه و عوامل عفونی، نه تعرفه مستقلی دارند و نه مشمول ضرایب قانون ارتقای بهره‌وری می‌شوند؛ وضعیتی که باعث شده تولیدکنندگان بخش مهمی از درآمد بیمارستان‌ها، کمترین سهم را از بودجه سلامت ببرند.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864734"
+  },
+  {
+   "id": "26ac312d535db9a18d3432eec4cc487dfc0dfc35",
+   "titleKey": "3d483ca354ac781bfaaaeb4c4a96225f0034c8c8",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "از تُن ماهی قسطی تا تخم مرغ ۲۷ هزار تومانی/ یک تورم نجومی جدید در راه است؟ چرا بار اصلی سیاست‌های انقباضی در دوران جنگ و تحریم بر دوش مردمی افتاده است که اکثریت آن‌ها مزدبگیرند و با حقوق‌های ثابت ریالی، باید هزینه‌های دلاری زندگی را بپردازند؟",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1864394"
+  },
+  {
+   "id": "2f0d27d87966bc099d235f6088f73f6da26a7540",
+   "titleKey": "754ff1fc509beb835cd157a803f2e5c0f9227765",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "کجای مزد کارگران تورم‌زاست؟/ دستمزد به زیر ۱۰۰ دلار رسید، حقوق نجومی مدیران را کاهش دهید فعالان کارگری نسبت به اظهارات مزدی اخیر معاون اول پزشکیان درباره نقش مزد کارگران در ایجاد تورم، ابراز تعجب و نگرانی می‌کنند.",
+   "at": "2026-11-14T03:30:00.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1861659"
+  },
+  {
+   "id": "e8df8945a57ddcc92287e324d4190153b4616a29",
+   "titleKey": "ded8f81cfa7f1c40583a962648e569a9f501c6ae",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "لیست قیمت گوشت مرغ امروز شنبه ۲۳ آبان ۱۴۰۵ / ران و سینه مرغ کیلویی چند شد؟ + جدول تازه‌ترین قیمت گوشت مرغ در بازار ۲۳ آبان‎‌ماه ۱۴۰۵ اعلام شد.",
+   "at": "2026-11-14T03:30:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175444/لیست-قیمت-گوشت-مرغ-امروز-شنبه-23-آبان-1405-ران-و-سینه-مرغ-کیلویی-چند-شد-جدول"
+  },
+  {
+   "id": "1eb6bc846aafa03bbac8708631c82a7b21ad7e8f",
+   "titleKey": "b3b1793c6395ff312f5e5fbcec72bea4e1c2f9a3",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "محاصره اقتصادی ایران به ضرر غرب تمام شد؟ / احتمال عقب‌نشینی ناگهانی آمریکا کارشناس مسائل بین‌الملل با اشاره به افزایش تحرکات دیپلماتیک میان ایران و آمریکا، احتمال وقوع جنگ گسترده را بسیار پایین دانست و گفت: واشینگتن به دلیل آگاهی از هزینه‌های درگیری نظامی، به دنبال راهی برای خروج از وضعیت فعلی است.",
+   "at": "2026-11-14T03:30:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175382/محاصره-اقتصادی-ایران-به-ضرر-غرب-تمام-شد-احتمال-عقب-نشینی-ناگهانی-آمریکا"
+  },
+  {
+   "id": "05a5b8ebd6282d80a2ab8e0d7636998960c12128",
+   "titleKey": "d152b29a68173f82285a612b7932695383387ea6",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "واکنش دولت ترامپ به توقف پروازها در سراسر آمریکا وزیر امنیت داخلی آمریکا از آغاز بررسی‌ها درباره علت توقف پروازها در سراسر این کشور خبر داد و گفت احتمال نقش سامانه جدید کنترل ترافیک هوایی مبتنی بر هوش مصنوعی در بروز اختلالات گسترده ارتباطی نیز در دست بررسی است.",
+   "at": "2026-11-14T03:30:09.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865586"
+  },
+  {
+   "id": "5fd8650fd9cbea9f9dd99fdc0f953e94b2ffd4db",
+   "titleKey": "48c1bd05b84ca7a10ebd1022bdeba6a9fcde5c5b",
+   "source": "تجارت نیوز",
+   "lang": "fa",
+   "text": "قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ از سوی بنگاه‌های معاملاتی اعلام شد. پست قیمت خودرو امروز شنبه ۲۳ آبان ۱۴۰۵ / حباب قیمت خودرو ترکید؛ عقب‌نشینی میلیونی مدل‌های پرفروش در بازار + جدول اولین بار در تجارت نیوز ظاهر شد.",
+   "at": "2026-11-14T03:30:23.000Z",
+   "url": "https://tejaratnews.com/%d9%82%db%8c%d9%85%d8%aa-%d8%ae%d9%88%d8%af%d8%b1%d9%88-%d8%a7%d9%85%d8%b1%d9%88%d8%b2-%d8%b4%d9%86%d8%a8%d9%87-%db%b2%db%b3-%d8%a2%d8%a8%d8%a7%d9%86-%db%b1%db%b4%db%b0%db%b5-%d8%ad%d8%a8%d8%a7"
+  },
+  {
+   "id": "c934241c4e614ffac345905d7c903dbd6ff158a3",
+   "titleKey": "c36595c960734f1c697b64d2da44d76efda1a439",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "استاندار یزد: نمایشگاه کتاب، فرصت پیوند دوباره جامعه با یار مهربان است یزد- ایرنا - استاندار یزد با دعوت از اقشار مختلف مردم برای بازدید از سیزدهمین نمایشگاه کتاب استان، برگزاری این رویداد فرهنگی پس از هفت سال وقفه را فرصتی برای گسترش فرهنگ مطالعه و پیوند دوباره جامعه با کتاب و یار مهربان ذکر کرد.",
+   "at": "2026-11-14T03:33:24.000Z",
+   "url": "https://www.irna.ir/news/86320864/%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%DB%8C%D8%B2%D8%AF-%D9%86%D9%85%D8%A7%DB%8C%D8%B4%DA%AF%D8%A7%D9%87-%DA%A9%D8%AA%D8%A7%D8%A8-%D9%81%D8%B1%D8%B5%D8%AA-%D9%BE%DB%8C%D9%88%D9%86%D8%AF-%D8%AF%D9%88%D8%A8%D8%A7%D8%B1%D9%87-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%A8%D8%A7-%DB%8C%D8%A7%D8%B1-%D9%85%D9%87%D8%B1%D8%A8%D8%A7%D9%86"
+  },
+  {
+   "id": "61095ba66e52bc490145f3dc07832c8f22b8414f",
+   "titleKey": "fa503ce0f3ea7ca3f40eefd16d3076adea8de8da",
+   "source": "خبرآنلاین",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "روزنامه منتقد دولت: مسئولین در مورد کارت‌سوخت، حاشیه سازی می‌کنند جمع‌آوری کارت‌های سوخت اضطراری جایگاه‌داران از ۱۱ استان کشور، دور جدید اجرای سیاست دولت برای مدیریت بازار بنزین است؛ سیاستی که با هدف افزایش نظارت بر توزیع سوخت و هدایت مصرف‌کنندگان به استفاده از کارت شخصی دنبال می‌شود.",
+   "at": "2026-11-14T03:35:00.000Z",
+   "url": "https://www.khabaronline.ir/news/2301699/%D8%B1%D9%88%D8%B2%D9%86%D8%A7%D9%85%D9%87-%D9%85%D9%86%D8%AA%D9%82%D8%AF-%D8%AF%D9%88%D9%84%D8%AA-%D9%85%D8%B3%D8%A6%D9%88%D9%84%DB%8C%D9%86-%D8%AF%D8%B1-%D9%85%D9%88%D8%B1%D8%AF-%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B3%D9%88%D8%AE%D8%AA-%D8%AD%D8%A7%D8%B4%DB%8C%D9%87-%D8%B3%D8%A7%D8%B2%DB%8C-%D9%85%DB%8C-%DA%A9%D9%86%D9%86%D8%AF"
+  },
+  {
+   "id": "10b132da55ce2ec15d7f62c92e280d8df6b02c55",
+   "titleKey": "dd6c0317d50e8b24e63736e71e1ddd2ce9523b42",
+   "source": "خبرگزاری ایلنا",
+   "lang": "fa",
+   "text": "آشفتگی در آسمان آمریکا؛ ماجرای توقف سراسری پروازها چه بود؟ اختلال گسترده در سامانه کنترل ترافیک هوایی آمریکا، بامداد امروز به توقف بیش از چهار ساعته پروازها در سراسر این کشور انجامید؛ بحرانی که با لغو و تأخیر هزاران پرواز، سرگردانی مسافران و آشفتگی در فعالیت فرودگاه‌ها همراه شد.",
+   "at": "2026-11-14T03:35:23.000Z",
+   "url": "https://www.ilna.ir/fa/tiny/news-1865587"
+  },
   {
    "id": "d63745343797ce61bbd6d68d83ceeb7f5c72cbd6",
    "titleKey": "9948b427284fd69a8e9933209e35dc10d40d9058",
@@ -10553,7 +10955,7 @@
    "items": 365
   }
  ],
- "aiCursor": 3,
+ "aiCursor": 4,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -11127,22 +11529,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794627002635,
-  "Akharin_khodro/8913": 1794627002635,
-  "Akharin_khodro/8914": 1794627002635,
-  "Akharin_khodro/8915": 1794627002635,
-  "Akharin_khodro/8916": 1794627002635,
-  "Akharin_khodro/8919": 1794627002635,
-  "Akharin_khodro/8920": 1794627002635,
-  "Akharin_khodro/8921": 1794627002635,
-  "Akharin_khodro/8922": 1794627002635,
-  "Akharin_khodro/8923": 1794627002635,
-  "Akharin_khodro/8924": 1794627002635,
-  "Akharin_khodro/8925": 1794627002635,
-  "Akharin_khodro/8926": 1794627002635,
-  "Akharin_khodro/8927": 1794627002635,
-  "Akharin_khodro/8928": 1794627002635,
-  "Akharin_khodro/8929": 1794627002635,
+  "Akharin_khodro/8908": 1794627505000,
+  "Akharin_khodro/8913": 1794627505000,
+  "Akharin_khodro/8914": 1794627505000,
+  "Akharin_khodro/8915": 1794627505000,
+  "Akharin_khodro/8916": 1794627505000,
+  "Akharin_khodro/8919": 1794627505000,
+  "Akharin_khodro/8920": 1794627505000,
+  "Akharin_khodro/8921": 1794627505000,
+  "Akharin_khodro/8922": 1794627505000,
+  "Akharin_khodro/8923": 1794627505000,
+  "Akharin_khodro/8924": 1794627505000,
+  "Akharin_khodro/8925": 1794627505000,
+  "Akharin_khodro/8926": 1794627505000,
+  "Akharin_khodro/8927": 1794627505000,
+  "Akharin_khodro/8928": 1794627505000,
+  "Akharin_khodro/8929": 1794627505000,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -11590,27 +11992,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-14T03:30:03.839Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-14T03:38:25.006Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1069,
-  "inWindow": 169,
-  "fresh": 5,
-  "sent": 5,
+  "inWindow": 176,
+  "fresh": 14,
+  "sent": 14,
   "images": 0,
-  "translated": 1,
+  "translated": 3,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
-  "tweetsSent": 2,
+  "tweetsFetched": 116,
+  "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 0,
-  "queued": 5,
+  "queued": 14,
   "tweetRateLimited": false
  }
 }

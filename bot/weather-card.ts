@@ -3,14 +3,19 @@
  * «یه اسکرین‌شات از بخش هواشناسی بده ببینم» → خروجی بخش هواشناسی از متنِ ۲۴خطی
  * به یک کارت PNG خوانا تبدیل شد تا در بله مثل اینفوگرافیک دیده شود.
  *
- * معماری: ساخت SVG با چیدمان راست‌به‌چپ و فونت وزیرمتن → تبدیل به PNG با sharp (libvips/librsvg).
- * فونت: بستهٔ npm «vazirmatn» (TTF در node_modules) از طریق FONTCONFIG_FILE پروژه‌ای (.fontconfig.conf)
- * در دسترس pango/librsvg قرار می‌گیرد — هیچ فونت سیستم‌محوری.
+ * به‌روزرسانی ۱۵ نوامبر ۲۰۲۶ (خواستهٔ کاربر):
+ * - فونت «نازنین» — B Nazanin (bot/assets/fonts/BNazanin.ttf) با پشتیبان وزیرمتن؛
+ * - پس‌زمینهٔ تصویر طبیعت (bot/assets/nature-bg.jpg) کمی تیره‌شده تا خوانایی متن حفظ شود؛
+ *   نبود فایل عکس/شکست ترکیب → بازگشت صادقانه به پس‌زمینهٔ تختِ قبلی (هیچ کارت نیمه‌ساختگی).
+ *
+ * معماری: ساخت SVG با چیدمان راست‌به‌چپ → تبدیل به PNG با sharp (libvips/librsvg).
+ * فونت‌ها: بستهٔ npm «vazirmatn» + bot/assets/fonts از طریق FONTCONFIG_FILE پروژه‌ای
+ * (.fontconfig.conf) در دسترس pango/librsvg قرار می‌گیرند — هیچ فونت سیستم‌محوری.
  *
  * صراحت: هر ساعت بی‌داده در کارت نمی‌آید؛ ورودی ناکافی (کمتر از MIN_HOURS) → null؛
- * شکست رندر (sharp/فونت) → null و فراخواننده به‌صورت شفاف پیام متنی می‌فرستد — هیچ کارت نیمه‌ساختگی.
+ * شکست رندر (sharp/فونت) → null و فراخواننده به‌صورت شفاف پیام متنی می‌فرستد.
  */
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
@@ -22,6 +27,12 @@ if (!process.env.FONTCONFIG_FILE) {
   try { mkdirSync(join(PROJECT_ROOT, '.fc-cache'), { recursive: true }); } catch { /* بی‌اهمیت */ }
   process.env.FONTCONFIG_FILE = join(PROJECT_ROOT, '.fontconfig.conf');
 }
+
+/** خانوادهٔ فونت کارت — «نازنین» خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶؛ وزیرمتن پشتیبان نویسه‌های
+ *  فاقد در نازنین (°، ٪، —) و sans-serif پشتیبان پایانی. */
+export const FONT_FA = "'B Nazanin', Vazirmatn, sans-serif";
+/** ضخامت لایهٔ تیره‌کنندهٔ پس‌زمینهٔ طبیعت — «کمی تیره که مشکل خوندن ایجاد نکنه» */
+export const BG_DARKEN = 0.45;
 
 export interface WeatherCardInput {
   city: string;
@@ -125,10 +136,21 @@ export function isNightHour(hhmm: string): boolean {
 
 // ---------- ساخت SVG — خالص و تست‌پذیر (بدون sharp) ----------
 
-export function makeWeatherCardSvg(input: WeatherCardInput): string {
+export interface WeatherCardSvgOptions {
+  /** پس‌زمینهٔ تصویر طبیعت — true: بدون کف تخت، پنل‌ها نیمه‌شفاف (لایه‌ها روی عکس می‌نشینند) */
+  photoBg?: boolean;
+}
+
+export function makeWeatherCardSvg(input: WeatherCardInput, opts: WeatherCardSvgOptions = {}): string {
   const { city, tomorrow, hours } = input;
   if (!hours || hours.length === 0) return '';
   const H = CARD_H(input);
+  const photo = opts.photoBg === true;
+  // شفافیت پنل‌ها روی عکس — متن سفید روی پنل تیرهٔ نیمه‌شفاف + عکس تیره‌شده = خوانا
+  const hdrA = photo ? 0.88 : 1;
+  const chipA = photo ? 0.92 : 1;
+  const cellA = photo ? 0.9 : 1;
+  const cellNightA = photo ? 0.93 : 1;
 
   const temps = hours.map((h) => h.temp);
   const minT = Math.min(...temps);
@@ -152,19 +174,19 @@ export function makeWeatherCardSvg(input: WeatherCardInput): string {
 
   // سربرگ
   const header = `
-  <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
-  <text x="${W - PAD}" y="82" font-size="40" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(`پیش‌بینی ساعتی فردا — ${city}`)}</text>
-  <text x="${W - PAD}" y="134" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${tomorrow.weekdayFa} ${tomorrow.shamsi} • ${tomorrow.miladi}`)}</text>
-  <text x="${W - PAD}" y="196" font-size="32" font-weight="500" fill="#ffd75e" text-anchor="end">${rtl(`کمینه ${faDigits(String(minT))}°  •  بیشینه ${faDigits(String(maxT))}°  •  ${faDigits(String(hours.length))} ساعت معتبر`)}</text>`;
+  <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)" fill-opacity="${hdrA}"/>
+  <text x="${W - PAD}" y="82" font-family="${FONT_FA}" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(`پیش‌بینی ساعتی فردا — ${city}`)}</text>
+  <text x="${W - PAD}" y="134" font-family="${FONT_FA}" font-size="28" fill="#9fc3e8" text-anchor="end">${rtl(`${tomorrow.weekdayFa} ${tomorrow.shamsi} • ${tomorrow.miladi}`)}</text>
+  <text x="${W - PAD}" y="196" font-family="${FONT_FA}" font-size="34" font-weight="500" fill="#ffd75e" text-anchor="end">${rtl(`کمینه ${faDigits(String(minT))}°  •  بیشینه ${faDigits(String(maxT))}°  •  ${faDigits(String(hours.length))} ساعت معتبر`)}</text>`;
 
   // تراشه‌ها — راست به چپ
   const chipW = (W - PAD * 2 - (chips.length - 1) * 16) / chips.length;
   const chipsSvg = chips.map((c, i) => {
     const x = W - PAD - chipW - i * (chipW + 16); // اولین تراشه راست‌ترین
     return `
-  <rect x="${x.toFixed(1)}" y="${HEADER_H + 22}" width="${chipW.toFixed(1)}" height="${CHIPS_H - 44}" rx="14" fill="#123a5e"/>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 52}" font-size="20" fill="#8fb8d9" text-anchor="middle">${rtl(c.label)}</text>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 86}" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">${rtl(c.value)}</text>`;
+  <rect x="${x.toFixed(1)}" y="${HEADER_H + 22}" width="${chipW.toFixed(1)}" height="${CHIPS_H - 44}" rx="14" fill="#123a5e" fill-opacity="${chipA}"/>
+  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 52}" font-family="${FONT_FA}" font-size="22" fill="#8fb8d9" text-anchor="middle">${rtl(c.label)}</text>
+  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 86}" font-family="${FONT_FA}" font-size="27" font-weight="700" fill="#e8f1fa" text-anchor="middle">${rtl(c.value)}</text>`;
   }).join('');
 
   // شبکهٔ ساعتی — دو ستون؛ ستون راست نیمهٔ اول روز (راست‌به‌چپ خوانده می‌شود)
@@ -177,21 +199,22 @@ export function makeWeatherCardSvg(input: WeatherCardInput): string {
     const yTop = GRID_TOP + 14 + row * ROW_H;
     const night = isNightHour(h.hhmm);
     const bg = night ? '#0f2c47' : '#123a5e';
+    const bgA = night ? cellNightA : cellA;
     const iconKind = isNightHour(h.hhmm) && (h.code === 0 || h.code === 1) ? 'moon' : iconKindOf(h.code);
     const precip = h.precipProb === null ? 'بارش —' : `بارش ${faDigits(String(h.precipProb))}٪`;
     const feels = Math.abs(h.feels - h.temp) >= 3 ? `  (احساس ${faDigits(String(h.feels))}°)` : '';
     const cx = xRight - colW + 56;
     return `
-  <rect x="${(xRight - colW).toFixed(1)}" y="${yTop}" width="${colW.toFixed(1)}" height="${ROW_H - 12}" rx="12" fill="${bg}"/>
+  <rect x="${(xRight - colW).toFixed(1)}" y="${yTop}" width="${colW.toFixed(1)}" height="${ROW_H - 12}" rx="12" fill="${bg}" fill-opacity="${bgA}"/>
   ${iconSvg(iconKind, cx, yTop + (ROW_H - 12) / 2)}
-  <text x="${xRight - 24}" y="${yTop + 40}" font-size="26" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(faDigits(h.hhmm))}</text>
-  <text x="${xRight - 24}" y="${yTop + 72}" font-size="21" fill="#c9d9ea" text-anchor="end">${rtl(`${precip} • باد ${faDigits(String(h.windKmh))}`)}</text>
-  <text x="${xRight - colW + 100}" y="${yTop + 48}" font-size="27" font-weight="700" fill="${tempColor(h.temp)}" text-anchor="start">${rtl(`${faDigits(String(h.temp))}°${feels}`)}</text>`;
+  <text x="${xRight - 24}" y="${yTop + 40}" font-family="${FONT_FA}" font-size="28" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(faDigits(h.hhmm))}</text>
+  <text x="${xRight - 24}" y="${yTop + 72}" font-family="${FONT_FA}" font-size="23" fill="#c9d9ea" text-anchor="end">${rtl(`${precip} • باد ${faDigits(String(h.windKmh))}`)}</text>
+  <text x="${xRight - colW + 100}" y="${yTop + 48}" font-family="${FONT_FA}" font-size="29" font-weight="700" fill="${tempColor(h.temp)}" text-anchor="start">${rtl(`${faDigits(String(h.temp))}°${feels}`)}</text>`;
   }).join('');
 
   const footer = `
-  <text x="${W - PAD}" y="${H - 34}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl(`منبع: Open-Meteo — مدل‌های عددی جوّ • منطقهٔ زمانی ${city}`)}</text>
-  <text x="${PAD}" y="${H - 34}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl(`رصدبان | هر شب ساعت ${faDigits(input.weatherHour)}`)}</text>`;
+  <text x="${W - PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="end">${rtl(`منبع: Open-Meteo — مدل‌های عددی جوّ • منطقهٔ زمانی ${city}`)}</text>
+  <text x="${PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="start">${rtl(`رصدبان | هر شب ساعت ${faDigits(input.weatherHour)}`)}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
@@ -199,7 +222,7 @@ export function makeWeatherCardSvg(input: WeatherCardInput): string {
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>
     </linearGradient>
   </defs>
-  <rect width="${W}" height="${H}" fill="#0a1c30"/>
+  ${photo ? '' : `<rect width="${W}" height="${H}" fill="#0a1c30"/>`}
   ${header}
   ${chipsSvg}
   ${cellsSvg}
@@ -209,17 +232,61 @@ export function makeWeatherCardSvg(input: WeatherCardInput): string {
 
 // ---------- رندر PNG ----------
 
-/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت خراب ارسال نمی‌شود) */
+/** پس‌زمینهٔ طبیعت — یک‌بار بارگذاری و در حافظهٔ فرایند کش می‌شود؛ نبود فایل → null (کارت تخت قبلی) */
+let natureBgCache: Buffer | null | undefined;
+function loadNatureBg(): Buffer | null {
+  if (natureBgCache !== undefined) return natureBgCache;
+  try {
+    natureBgCache = readFileSync(join(PROJECT_ROOT, 'bot', 'assets', 'nature-bg.jpg'));
+  } catch {
+    natureBgCache = null; // دارایی گم‌شده → بازگشت صادقانه به پس‌زمینهٔ تخت
+  }
+  return natureBgCache;
+}
+
+/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت خراب ارسال نمی‌شود).
+ *  پس‌زمینه: تصویر طبیعتِ تیره‌شده (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶) + لایهٔ کارت نیمه‌شفاف روی آن؛
+ *  نبود/شکست عکس → همان کارت با پس‌زمینهٔ تختِ تیرهٔ قبلی — هر دو مسیر دادهٔ یکسان و خوانا. */
 export async function renderWeatherCardPng(input: WeatherCardInput): Promise<WeatherCardPng | null> {
   try {
     if (!input.hours || input.hours.length === 0) return null;
+    const H = CARD_H(input);
+    const sharp = (await import('sharp')).default;
+
+    const finish = async (png: Buffer): Promise<WeatherCardPng | null> => {
+      const meta = await sharp(png).metadata();
+      if (!meta.width || !meta.height || png.length < 5000) return null;
+      return { png, width: meta.width, height: meta.height };
+    };
+
+    // ۱) مسیر پس‌زمینهٔ تصویر طبیعت — عکس تیره‌شده زیر، لایهٔ کارت (بدون کف تخت) روی آن
+    const bgBuf = loadNatureBg();
+    if (bgBuf) {
+      try {
+        const svgOverlay = makeWeatherCardSvg(input, { photoBg: true });
+        if (!svgOverlay) return null;
+        const overlayPng = await sharp(Buffer.from(svgOverlay), { density: 72 }).png().toBuffer();
+        const darkSvg = Buffer.from(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#04101d" fill-opacity="${BG_DARKEN}"/></svg>`,
+        );
+        const base = await sharp(bgBuf)
+          .resize(W, H, { fit: 'cover', position: 'attention' })
+          .composite([{ input: darkSvg }])
+          .png()
+          .toBuffer();
+        const out = await sharp(base).composite([{ input: overlayPng }]).png().toBuffer();
+        const r = await finish(out);
+        if (r) return r;
+      } catch {
+        // شکست ترکیب عکس → ادامه با مسیر تخت (هیچ کارت نیمه‌ساختگی ارسال نمی‌شود)
+      }
+    }
+
+    // ۲) مسیر تخت — همان ظاهر پایدار قبلی
     const svg = makeWeatherCardSvg(input);
     if (!svg) return null;
-    const sharp = (await import('sharp')).default;
     const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
-    const meta = await sharp(png).metadata();
-    if (!meta.width || !meta.height || png.length < 5000) return null;
-    return { png, width: meta.width, height: meta.height };
+    return await finish(png);
   } catch {
     return null;
   }

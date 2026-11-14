@@ -43,6 +43,12 @@ const settingsSchema = z.object({
   city: z.string().min(2).max(60).optional(),
   lat: z.number().min(-90).max(90).optional(),
   lon: z.number().min(-180).max(180).optional(),
+  // شهرهای اضافهٔ کارت هواشناسی — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶ (خوانسار و افجه لواسان زیر تهران)
+  extraWeatherCities: z.array(z.object({
+    name: z.string().min(2).max(60),
+    lat: z.number().min(-90).max(90),
+    lon: z.number().min(-180).max(180),
+  }).passthrough()).max(4).optional(),
   prayerMethod: z.enum(['tehran', 'mwl', 'custom']).optional(),
   fajrAngle: z.number().min(10).max(25).optional(),
   ishaAngle: z.number().min(7).max(25).optional(),
@@ -99,12 +105,13 @@ export async function PUT(req: NextRequest) {
       repoError = e instanceof Error ? e.message : 'خطای ناشناخته';
     }
 
-    // آینه به DB
+    // آینه به DB — ستون‌های شناخته‌شدهٔ مدل Prisma فقط؛ شهرهای اضافهٔ هواشناسی فقط در فایل مرجع
     try {
+      const { extraWeatherCities: _extra, ...dbMirror } = next;
       await db.dailySettings.upsert({
         where: { id: 'singleton' },
-        create: { id: 'singleton', ...next },
-        update: { ...next },
+        create: { id: 'singleton', ...dbMirror },
+        update: { ...dbMirror },
       });
     } catch { /* DB در دسترس نیست — فایل مرجع است */ }
 

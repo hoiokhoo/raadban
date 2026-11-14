@@ -69,6 +69,9 @@ jobs:
           # (REST dispatch بولین را گاهی «true» رشته‌ای می‌دهد — هر دو صورت مقایسه می‌شود)
           FORCE_DIGEST: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
           FORCE_PRICE: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '1' || '' }}
+          # فونت فارسی کارت‌ها (نازنین + وزیرمتن) — fontconfig فقط از محیطِ آغاز فرایند می‌خواند؛
+          # تخصیص process.env در bun به کتابخانهٔ native نمی‌رسد (یافتهٔ ۱۵ نوامبر ۲۰۲۶)
+          FONTCONFIG_FILE: ${{ github.workspace }}/.fontconfig.conf
         run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }} ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '--force-digest' || '' }}
 
       - name: ثبت حافظهٔ ضدتکرار (state) در ریپو

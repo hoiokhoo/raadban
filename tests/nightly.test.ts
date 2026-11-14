@@ -46,11 +46,15 @@ describe('DEFAULT_SYSTEM_NIGHTLY — سوپرپرامپت تحلیل شبانه 
     }
   });
 
-  test('حافظهٔ پایدار و تیک اعتبارسنجی در پرامپت صریح است', () => {
+  test('حافظهٔ پایدار و قفل تیک سامانه در پرامپت صریح است (به‌روزرسانی ۱۵ نوامبر ۲۰۲۶)', () => {
     expect(DEFAULT_SYSTEM_NIGHTLY).toContain('حافظهٔ پایدار');
-    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('۲ منبع مستقل');
     expect(DEFAULT_SYSTEM_NIGHTLY).toContain('تاریخ');
     expect(DEFAULT_SYSTEM_NIGHTLY).toContain('هیچ خبر، عدد، نام، نقل‌قول یا تاریخ از حافظهٔ خودتان اضافه نکنید');
+    // قفل تیک به جملهٔ منبع — همان ⑨ برای شب ۲۲:۳۰: تیک از خودِ مدل ممنوع؛ سامانه تطبیق اجباری می‌کند
+    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('تیک اعتبارسنجی (✅) را شما نمی‌نویسید');
+    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('تطبیق می‌دهد');
+    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('عدد بیگانه');
+    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('شمار واقعی منابعش');
   });
 });
 

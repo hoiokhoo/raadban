@@ -1,5 +1,10 @@
 {
  "sentIds": {
+  "86cbb52bba3acdabd03ac8d9ad717df7ce2f95b0": 1794614679926,
+  "e99b3207e91466be65f9112bec71158fecec042f": 1794614679926,
+  "3faa83ae9c0a75001aee6f93af29b6af5119d3e6": 1794614679926,
+  "9e2762003c2da60318cce688c477b20568513fd7": 1794614679926,
+  "cf9337bd86da9af43bee144d62a94a34cf62a51d": 1794614679926,
   "b3b32785b6e6c6bca9ea0ff41375a6ffd28e6d5d": 1794614121294,
   "38287c5ff678e26885e70942ec0cf19ff30eb08e": 1794613618702,
   "114fff4c9a71d4912791a4960758a1bff4d24bcc": 1794613618702,
@@ -1194,14 +1199,14 @@
   "cca71841f0561698c2a7172ab9d06698ed458cbb": 1794576865870,
   "791913ed66db804a9a32614c56a877ef162c905e": 1794576865870,
   "9b4cb431fdf36cca6e89e4e1769ad86127e8ee1d": 1794576865870,
-  "cf5af57af65b9a63b1b56fd7c475289df93e506e": 1794576865870,
-  "886354266b1224714a88810db35b8acd0fdde269": 1794576865870,
-  "17391a6b1383967229a43f9454d0e3d0f043fe2f": 1794576865870,
-  "fe1c7bd9b6590994a3682651584e570a41676a03": 1794576865870,
-  "f53c63cb0027d7a216e72d61476779a9ffa47244": 1794576865870,
-  "b545f4485225d60b86adda857ea08cfe73a1794a": 1794576865870
+  "cf5af57af65b9a63b1b56fd7c475289df93e506e": 1794576865870
  },
  "sentTitles": {
+  "009226ef1129f8474c55f6529c479f36aa45fcaf": 1794614679926,
+  "030d34adfc5385ab1b335e46040d402a9c401b9c": 1794614679926,
+  "3eeadbc1462c8889125e1e1a2f3f52eeb15d2d46": 1794614679926,
+  "232a8d91b733e58a0a96fdd24495a089cf845afd": 1794614679926,
+  "c2fd058c172b2a09b6bb022191805ced0e7361b8": 1794614679926,
   "9947bda3324121edf3e2feb0d263597de831333f": 1794614121294,
   "f5ee58f87ed80eaa0341ba122f5ec31fb8a00220": 1794613618702,
   "054aa72124ef8ab524e04bfb048114a3600b6ea8": 1794613618702,
@@ -1796,12 +1801,7 @@
   "c77063e4dbe5aad5d3a3b534986009b7cc86a365": 1794589136864,
   "7f2f6a4a4bcbb9142cc84871d92d1bcc3fc59274": 1794589136864,
   "b568f7b98e64f5245689b78a973ec4b79228de4d": 1794589136864,
-  "ebb4db3c40e8225e2674357aa01dfc6ffc0d7bc6": 1794589136864,
-  "44dd3d48934fc1836a9566f2bccbdcc6177c5480": 1794589136864,
-  "13b4d1ba6d9485eebb63cc8108ff9912dae6f9bc": 1794589136864,
-  "f5e42ab2e6bcf9a3e5e77b8b77f0c9e49117ca32": 1794589136864,
-  "5abb3ebca57f4cda5fa455cacf0869b85e3f419b": 1794589136864,
-  "693e9c5ebec0a72373b08f3c41c028a37d2f3dea": 1794589136864
+  "ebb4db3c40e8225e2674357aa01dfc6ffc0d7bc6": 1794589136864
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,82 @@
   "خبرانلاین جفری ساکس جنگ ایران ترامپ را زمین زد فیلم اقتصاددان امریکایی گفت ترامپ با زیر پا گذاشتن وعده پایان جنگ ها هزینه سیاسی سنگینی پرداخت کرده است منبع اخری": 1794588453604
  },
  "pool": [
+  {
+   "id": "680c057ae2ce5d77e7afd7dea26f16081ec4656a",
+   "titleKey": "7266ef007036a678b56f9adcc54e92a3e5cabd8d",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Security siren goes off at UK military base for second time today — newspaper The Feltwell base is located in Norfolk in eastern England",
+   "at": "2026-11-13T23:45:00.000Z",
+   "url": "https://tass.com/world/2218063"
+  },
+  {
+   "id": "86cbb52bba3acdabd03ac8d9ad717df7ce2f95b0",
+   "titleKey": "009226ef1129f8474c55f6529c479f36aa45fcaf",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "گرگان در شب ۲۵۸؛ خیابان‌هایی که هنوز از حضور مردم گرم‌اند گرگان-مردم گرگان بار دیگر با حضوری پرشور در تجمع شبانه، بر تداوم همدلی و ایستادگی خود تأکید کردند و جلوه‌ای از همراهی و اتحاد را به نمایش گذاشتند.",
+   "at": "2026-11-13T23:53:19.000Z",
+   "url": "https://www.mehrnews.com/news/7009932/%DA%AF%D8%B1%DA%AF%D8%A7%D9%86-%D8%AF%D8%B1-%D8%B4%D8%A8-%DB%B2%DB%B5%DB%B8-%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86-%D9%87%D8%A7%DB%8C%DB%8C-%DA%A9%D9%87-%D9%87%D9%86%D9%88%D8%B2-%D8%A7%D8%B2-%D8%AD%D8%B6%D9%88%D8%B1-%D9%85%D8%B1%D8%AF%D9%85-%DA%AF%D8%B1%D9%85-%D8%A7%D9%86%D8%AF"
+  },
+  {
+   "id": "e99b3207e91466be65f9112bec71158fecec042f",
+   "titleKey": "030d34adfc5385ab1b335e46040d402a9c401b9c",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "برخورد یک نفتکش با کشتی مسافربری در نیواورلئان/۳۲ نفر به بیمارستان منتقل شدند تهران- ایرنا - یک کشتی بزرگ تفریحی در پی برخورد با یک تانکر نفتکش در نیواورلئان واژگون و عملیات نجات در رودخانه می سی سی پی آغاز شد.",
+   "at": "2026-11-13T23:54:19.000Z",
+   "url": "https://www.irna.ir/news/86320844/%D8%A8%D8%B1%D8%AE%D9%88%D8%B1%D8%AF-%DB%8C%DA%A9-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D8%A8%D8%A7-%DA%A9%D8%B4%D8%AA%DB%8C-%D9%85%D8%B3%D8%A7%D9%81%D8%B1%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1-%D9%86%DB%8C%D9%88%D8%A7%D9%88%D8%B1%D9%84%D8%A6%D8%A7%D9%86-%DB%B3%DB%B2-%D9%86%D9%81%D8%B1-%D8%A8%D9%87-%D8%A8%DB%8C%D9%85%D8%A7%D8%B1%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "3faa83ae9c0a75001aee6f93af29b6af5119d3e6",
+   "titleKey": "3eeadbc1462c8889125e1e1a2f3f52eeb15d2d46",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رسوایی جنسی در انویدیا چگونه به دردسری برای کاخ سفید تبدیل شد؟ رئیس انویدیا یکی از معدود مدیران تجاری بود که دسترسی مستقیم به رئیس‌جمهوری آمریکا داشت. او بارها با ترامپ دیدار کرده بود، همراه او به بریتانیا سفر کرده بود و در ماه مه نیز برای سفر ترامپ به چین، در هواپیمای ویژه ریاست‌جمهوری آمریکا همراهش بود.",
+   "at": "2026-11-13T23:55:16.000Z",
+   "url": "https://www.bbc.com/persian/articles/cm894lk5wdpxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "e8bf03005a352aa73eb160ace4554e3f129b02d0",
+   "titleKey": "afc35f702b410ec33614cd9f32470959fa847b58",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Newly released footage shows another oil tanker struck a naval mine in the Strait of Hormuz @PressTV",
+   "at": "2026-11-13T23:55:45.000Z",
+   "url": "https://t.me/presstv/214621"
+  },
+  {
+   "id": "9e2762003c2da60318cce688c477b20568513fd7",
+   "titleKey": "232a8d91b733e58a0a96fdd24495a089cf845afd",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "گالیکش در سوگ بانوی دو عالم؛ تجمع شبانه مردم رنگ فاطمی گرفت گالیکش- مردم گالیکش در تجمع شبانه خود با برپایی مراسم عزاداری، در سوگ شهادت حضرت فاطمه زهرا (س) به سوگواری پرداختند و ارادت خود را به بانوی دو عالم نشان دادند.",
+   "at": "2026-11-13T23:56:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009934/%DA%AF%D8%A7%D9%84%DB%8C%DA%A9%D8%B4-%D8%AF%D8%B1-%D8%B3%D9%88%DA%AF-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%AF%D9%88-%D8%B9%D8%A7%D9%84%D9%85-%D8%AA%D8%AC%D9%85%D8%B9-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D8%B1%D9%86%DA%AF-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%DA%AF%D8%B1%D9%81%D8%AA"
+  },
+  {
+   "id": "4851f23dab91b7ef9271ddf32b5ab008e0b12198",
+   "titleKey": "02bebaa9501e7ace92bcea58e748b742ac6a0a7b",
+   "source": "RT",
+   "lang": "en",
+   "text": "Putin, Trump and Xi to hold rare three-way meeting in China – AP The leaders of Russia, China and the US plan to meet in Shenzhen next week, with nuclear arms control and global conflicts on the agenda Read Full Article at RT.com",
+   "at": "2026-11-13T23:58:48.000Z",
+   "url": "https://rt-english.com/news/648828-trump-putin-xi-meeting-/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "cf9337bd86da9af43bee144d62a94a34cf62a51d",
+   "titleKey": "c2fd058c172b2a09b6bb022191805ced0e7361b8",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "پرواز مشکوک پهپادها بر فراز پایگاه هوایی آمریکا در انگلیس/درخواست فوری از شهروندان اسکای‌نیوز از مشاهده فعالیت مشکوک پهپادی بر فراز پایگاه هوایی لیکن‌هیث خبر داد.",
+   "at": "2026-11-14T00:00:11.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308223-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2-%D9%85%D8%B4%DA%A9%D9%88%DA%A9-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%D9%87%D8%A7-%D8%A8%D8%B1-%D9%81%D8%B1%D8%A7%D8%B2-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D8%AF%D8%B1%D8%AE%D9%88%D8%A7%D8%B3%D8%AA-%D9%81%D9%88%D8%B1%DB%8C-%D8%A7%D8%B2-%D8%B4%D9%87%D8%B1%D9%88%D9%86%D8%AF%D8%A7%D9%86"
+  },
   {
    "id": "813698cd0765e2806e5342ee61f2a35d7dd6cb3c",
    "titleKey": "0a0d0fd52a4399b4a4aab9757b0a9edb800c4db5",
@@ -5741,6 +5817,56 @@
    "titleTexts": [],
    "cat": "economy",
    "queuedAt": "2026-11-13T23:55:06.217Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: گرگان در شب ۲۵۸؛ خیابان‌هایی که هنوز از حضور مردم گرم‌اند گرگان-مردم گرگان بار دیگر با حضوری پرشور در تجمع شبانه، بر تداوم همدلی و ایستادگی خود تأکید کردند و جلوه‌ای از همراهی و اتحاد را به نمایش گذاشتند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/13/4/6261600.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:04:22.150Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): برخورد یک نفتکش با کشتی مسافربری در نیواورلئان/۳۲ نفر به بیمارستان منتقل شدند تهران- ایرنا - یک کشتی بزرگ تفریحی در پی برخورد با یک تانکر نفتکش در نیواورلئان واژگون و عملیات نجات در رودخانه می سی سی پی آغاز شد.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238469.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T00:04:22.851Z"
+  },
+  {
+   "kind": "news",
+   "text": "BBC Persian: رسوایی جنسی در انویدیا چگونه به دردسری برای کاخ سفید تبدیل شد؟ رئیس انویدیا یکی از معدود مدیران تجاری بود که دسترسی مستقیم به رئیس‌جمهوری آمریکا داشت. او بارها با ترامپ دیدار کرده بود، همراه او به بریتانیا سفر کرده بود و در ماه مه نیز برای سفر ترامپ به چین، در هواپیمای ویژه ریاست‌جمهوری آمریکا همراهش بود.\n\n🖼 عکس خود خبر: https://ichef.bbci.co.uk/ace/ws/240/cpsprodpb/b549/live/c2855c40-df7a-11f1-b844-3146c4983677.png",
+   "source": "BBC Persian",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:04:23.552Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری مهر: گالیکش در سوگ بانوی دو عالم؛ تجمع شبانه مردم رنگ فاطمی گرفت گالیکش- مردم گالیکش در تجمع شبانه خود با برپایی مراسم عزاداری، در سوگ شهادت حضرت فاطمه زهرا (س) به سوگواری پرداختند و ارادت خود را به بانوی دو عالم نشان دادند.\n\n🖼 عکس خود خبر: https://media.mehrnews.com/d/2026/11/07/4/6252096.jpg",
+   "source": "خبرگزاری مهر",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:04:24.253Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: پرواز مشکوک پهپادها بر فراز پایگاه هوایی آمریکا در انگلیس/درخواست فوری از شهروندان اسکای‌نیوز از مشاهده فعالیت مشکوک پهپادی بر فراز پایگاه هوایی لیکن‌هیث خبر داد.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/c1k17LT9cg0Y/RtkavzyUFHk8fdYGG9mBNEyrPMEthgX2aGeFR1BwoV2GtWu1izekMK1IhzRVt7KQRErq5c48SgaMkPrBjRcgucKlcWdnT8UJERq1_JofibQv7qKUA2h9iJjMZ0TJQLPS6IBf5Gb6hT9oaCTtq7OwAarDV5czqiuIuJKRLLp_k7j05ZNinclR-zAj1Z0sopwZ/%D9%BE%D9%87%D9%BE%D8%A7%D8%AF.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T00:04:24.954Z"
   }
  ],
  "tweetQueue": [],
@@ -5918,6 +6044,82 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "680c057ae2ce5d77e7afd7dea26f16081ec4656a",
+   "titleKey": "7266ef007036a678b56f9adcc54e92a3e5cabd8d",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Security siren goes off at UK military base for second time today — newspaper The Feltwell base is located in Norfolk in eastern England",
+   "at": "2026-11-13T23:45:00.000Z",
+   "url": "https://tass.com/world/2218063"
+  },
+  {
+   "id": "86cbb52bba3acdabd03ac8d9ad717df7ce2f95b0",
+   "titleKey": "009226ef1129f8474c55f6529c479f36aa45fcaf",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "گرگان در شب ۲۵۸؛ خیابان‌هایی که هنوز از حضور مردم گرم‌اند گرگان-مردم گرگان بار دیگر با حضوری پرشور در تجمع شبانه، بر تداوم همدلی و ایستادگی خود تأکید کردند و جلوه‌ای از همراهی و اتحاد را به نمایش گذاشتند.",
+   "at": "2026-11-13T23:53:19.000Z",
+   "url": "https://www.mehrnews.com/news/7009932/%DA%AF%D8%B1%DA%AF%D8%A7%D9%86-%D8%AF%D8%B1-%D8%B4%D8%A8-%DB%B2%DB%B5%DB%B8-%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86-%D9%87%D8%A7%DB%8C%DB%8C-%DA%A9%D9%87-%D9%87%D9%86%D9%88%D8%B2-%D8%A7%D8%B2-%D8%AD%D8%B6%D9%88%D8%B1-%D9%85%D8%B1%D8%AF%D9%85-%DA%AF%D8%B1%D9%85-%D8%A7%D9%86%D8%AF"
+  },
+  {
+   "id": "e99b3207e91466be65f9112bec71158fecec042f",
+   "titleKey": "030d34adfc5385ab1b335e46040d402a9c401b9c",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "برخورد یک نفتکش با کشتی مسافربری در نیواورلئان/۳۲ نفر به بیمارستان منتقل شدند تهران- ایرنا - یک کشتی بزرگ تفریحی در پی برخورد با یک تانکر نفتکش در نیواورلئان واژگون و عملیات نجات در رودخانه می سی سی پی آغاز شد.",
+   "at": "2026-11-13T23:54:19.000Z",
+   "url": "https://www.irna.ir/news/86320844/%D8%A8%D8%B1%D8%AE%D9%88%D8%B1%D8%AF-%DB%8C%DA%A9-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D8%A8%D8%A7-%DA%A9%D8%B4%D8%AA%DB%8C-%D9%85%D8%B3%D8%A7%D9%81%D8%B1%D8%A8%D8%B1%DB%8C-%D8%AF%D8%B1-%D9%86%DB%8C%D9%88%D8%A7%D9%88%D8%B1%D9%84%D8%A6%D8%A7%D9%86-%DB%B3%DB%B2-%D9%86%D9%81%D8%B1-%D8%A8%D9%87-%D8%A8%DB%8C%D9%85%D8%A7%D8%B1%D8%B3%D8%AA%D8%A7%D9%86"
+  },
+  {
+   "id": "3faa83ae9c0a75001aee6f93af29b6af5119d3e6",
+   "titleKey": "3eeadbc1462c8889125e1e1a2f3f52eeb15d2d46",
+   "source": "BBC Persian",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "رسوایی جنسی در انویدیا چگونه به دردسری برای کاخ سفید تبدیل شد؟ رئیس انویدیا یکی از معدود مدیران تجاری بود که دسترسی مستقیم به رئیس‌جمهوری آمریکا داشت. او بارها با ترامپ دیدار کرده بود، همراه او به بریتانیا سفر کرده بود و در ماه مه نیز برای سفر ترامپ به چین، در هواپیمای ویژه ریاست‌جمهوری آمریکا همراهش بود.",
+   "at": "2026-11-13T23:55:16.000Z",
+   "url": "https://www.bbc.com/persian/articles/cm894lk5wdpxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "e8bf03005a352aa73eb160ace4554e3f129b02d0",
+   "titleKey": "afc35f702b410ec33614cd9f32470959fa847b58",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "Newly released footage shows another oil tanker struck a naval mine in the Strait of Hormuz @PressTV",
+   "at": "2026-11-13T23:55:45.000Z",
+   "url": "https://t.me/presstv/214621"
+  },
+  {
+   "id": "9e2762003c2da60318cce688c477b20568513fd7",
+   "titleKey": "232a8d91b733e58a0a96fdd24495a089cf845afd",
+   "source": "خبرگزاری مهر",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "گالیکش در سوگ بانوی دو عالم؛ تجمع شبانه مردم رنگ فاطمی گرفت گالیکش- مردم گالیکش در تجمع شبانه خود با برپایی مراسم عزاداری، در سوگ شهادت حضرت فاطمه زهرا (س) به سوگواری پرداختند و ارادت خود را به بانوی دو عالم نشان دادند.",
+   "at": "2026-11-13T23:56:09.000Z",
+   "url": "https://www.mehrnews.com/news/7009934/%DA%AF%D8%A7%D9%84%DB%8C%DA%A9%D8%B4-%D8%AF%D8%B1-%D8%B3%D9%88%DA%AF-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%AF%D9%88-%D8%B9%D8%A7%D9%84%D9%85-%D8%AA%D8%AC%D9%85%D8%B9-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D8%B1%D9%86%DA%AF-%D9%81%D8%A7%D8%B7%D9%85%DB%8C-%DA%AF%D8%B1%D9%81%D8%AA"
+  },
+  {
+   "id": "4851f23dab91b7ef9271ddf32b5ab008e0b12198",
+   "titleKey": "02bebaa9501e7ace92bcea58e748b742ac6a0a7b",
+   "source": "RT",
+   "lang": "en",
+   "text": "Putin, Trump and Xi to hold rare three-way meeting in China – AP The leaders of Russia, China and the US plan to meet in Shenzhen next week, with nuclear arms control and global conflicts on the agenda Read Full Article at RT.com",
+   "at": "2026-11-13T23:58:48.000Z",
+   "url": "https://rt-english.com/news/648828-trump-putin-xi-meeting-/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "cf9337bd86da9af43bee144d62a94a34cf62a51d",
+   "titleKey": "c2fd058c172b2a09b6bb022191805ced0e7361b8",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "پرواز مشکوک پهپادها بر فراز پایگاه هوایی آمریکا در انگلیس/درخواست فوری از شهروندان اسکای‌نیوز از مشاهده فعالیت مشکوک پهپادی بر فراز پایگاه هوایی لیکن‌هیث خبر داد.",
+   "at": "2026-11-14T00:00:11.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308223-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2-%D9%85%D8%B4%DA%A9%D9%88%DA%A9-%D9%BE%D9%87%D9%BE%D8%A7%D8%AF%D9%87%D8%A7-%D8%A8%D8%B1-%D9%81%D8%B1%D8%A7%D8%B2-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D8%AF%D8%B1%D8%AE%D9%88%D8%A7%D8%B3%D8%AA-%D9%81%D9%88%D8%B1%DB%8C-%D8%A7%D8%B2-%D8%B4%D9%87%D8%B1%D9%88%D9%86%D8%AF%D8%A7%D9%86"
+  },
   {
    "id": "b823d0954050e60e9d0d8e0a4c12b84c69e0a12b",
    "titleKey": "1768055fb244a077fdf7ea819eb1203808679c4f",
@@ -10074,22 +10276,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794614121290,
-  "Akharin_khodro/8913": 1794614121290,
-  "Akharin_khodro/8914": 1794614121290,
-  "Akharin_khodro/8915": 1794614121290,
-  "Akharin_khodro/8916": 1794614121290,
-  "Akharin_khodro/8919": 1794614121290,
-  "Akharin_khodro/8920": 1794614121290,
-  "Akharin_khodro/8921": 1794614121290,
-  "Akharin_khodro/8922": 1794614121290,
-  "Akharin_khodro/8923": 1794614121290,
-  "Akharin_khodro/8924": 1794614121290,
-  "Akharin_khodro/8925": 1794614121290,
-  "Akharin_khodro/8926": 1794614121290,
-  "Akharin_khodro/8927": 1794614121290,
-  "Akharin_khodro/8928": 1794614121290,
-  "Akharin_khodro/8929": 1794614121290,
+  "Akharin_khodro/8908": 1794614679922,
+  "Akharin_khodro/8913": 1794614679922,
+  "Akharin_khodro/8914": 1794614679922,
+  "Akharin_khodro/8915": 1794614679922,
+  "Akharin_khodro/8916": 1794614679922,
+  "Akharin_khodro/8919": 1794614679922,
+  "Akharin_khodro/8920": 1794614679922,
+  "Akharin_khodro/8921": 1794614679922,
+  "Akharin_khodro/8922": 1794614679922,
+  "Akharin_khodro/8923": 1794614679922,
+  "Akharin_khodro/8924": 1794614679922,
+  "Akharin_khodro/8925": 1794614679922,
+  "Akharin_khodro/8926": 1794614679922,
+  "Akharin_khodro/8927": 1794614679922,
+  "Akharin_khodro/8928": 1794614679922,
+  "Akharin_khodro/8929": 1794614679922,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10518,27 +10720,27 @@
    }
   }
  },
- "tweetCursor": 0,
- "lastRunAt": "2026-11-13T23:55:21.298Z",
+ "tweetCursor": 6,
+ "lastRunAt": "2026-11-14T00:04:39.929Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1068,
-  "inWindow": 179,
-  "fresh": 84,
-  "sent": 1,
+  "fetched": 1066,
+  "inWindow": 178,
+  "fresh": 92,
+  "sent": 5,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 115,
+  "tweetsFetched": 116,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 83,
-  "queued": 1,
+  "skippedUntranslated": 87,
+  "queued": 5,
   "tweetRateLimited": false
  }
 }

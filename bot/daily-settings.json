@@ -13,5 +13,17 @@
   "fajrAngle": 17.7,
   "ishaAngle": 14,
   "maghribMinutes": 15,
-  "qamariBasis": "umalqura"
+  "qamariBasis": "umalqura",
+  "extraWeatherCities": [
+    {
+      "name": "خوانسار",
+      "lat": 33.2205,
+      "lon": 50.315
+    },
+    {
+      "name": "افجه لواسان",
+      "lat": 35.85,
+      "lon": 51.6833
+    }
+  ]
 }

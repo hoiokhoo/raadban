@@ -9,6 +9,9 @@
 # خروجی: خلاصهٔ PASS/FAIL برای هر بخش؛ کد خروج ۰ فقط اگر همه سبز باشند.
 # ============================================================================
 cd /home/z/my-project
+# فونت فارسی کارت‌ها (نازنین + وزیرمتن) — fontconfig فقط از محیطِ آغاز فرایند می‌خواند؛
+# تخصیص process.env در bun به کتابخانهٔ native نمی‌رسد (یافتهٔ ۱۵ نوامبر ۲۰۲۶)
+export FONTCONFIG_FILE=/home/z/my-project/.fontconfig.conf
 PASS=0; FAIL=0
 ok()   { PASS=$((PASS+1)); echo "✅ $1"; }
 bad()  { FAIL=$((FAIL+1)); echo "❌ $1"; }

@@ -110,8 +110,9 @@ import {
   type GeoAnalysis,
 } from './geo';
 import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
-import { fetchHourlyForecast, buildWeatherMessage } from './weather';
+import { fetchHourlyForecast, buildWeatherMessage, type HourlyEntry } from './weather';
 import { buildWeatherCardCaption, renderWeatherCardPng } from './weather-card';
+import { dominantKindOf, renderWeatherGif, buildWeatherGifCaption } from './weather-gif';
 import {
   pickHadith,
   bankStatus,
@@ -119,7 +120,7 @@ import {
   buildDailyMessage,
   type HadithUsage,
 } from './daily';
-import { fetchDayHistory, dayHistoryFromCache, pruneDayHistoryCache, type DayHistoryCacheEntry } from './day-history';
+import { fetchDayHistory, dayHistoryFromCache, pruneDayHistoryCache, filterDayHistoryEntries, type DayHistoryCacheEntry } from './day-history';
 import type { PrayerMethod, PrayerTimesDay } from './prayer';
 
 // ---------- پیکربندی از محیط ----------
@@ -697,8 +698,12 @@ export interface DailyRunEntry {
 export interface DailyBotState {
   lastMorningKey?: string;
   lastEveningKey?: string;
-  /** کلید آخرین ارسال پیش‌بینی ساعتی («2026-11-10T21:00») — ضدتکرار روزانه */
+  /** کلید آخرین ارسال پیش‌بینی ساعتی («2026-11-10T21:00») — ضدتکرار روزانه (شهر اصلی — میراث تک‌شهری) */
   lastWeatherKey?: string;
+  /** کلید آخرین ارسال پیش‌بینی هر شهر — ضدتکرار مستقل؛ شکست یک شهر، شهرهای دیگر را دوباره‌فرست نمی‌کند */
+  lastWeatherKeys?: Record<string, string>;
+  /** کلید آخرین ارسال گیف هواشناسی — یک گیف برای کل بخش در شب */
+  lastWeatherGifKey?: string;
   /** احادیث استفاده‌شده — هرگز هرس نمی‌شود؛ ضدتکرار مطلق حتی پس از ری‌استارت (کامیت ریپو) */
   usedHadiths: Record<string, HadithUsage>;
   /** نشانگر چرخش چهارده معصوم ۰..۱۳ — انتخاب متعادل */
@@ -709,6 +714,12 @@ export interface DailyBotState {
   dayHistoryCache?: Record<string, DayHistoryCacheEntry>;
   /** سوابق انتشار — آخرین ۱۵۰ نوبت */
   runs: DailyRunEntry[];
+}
+
+export interface WeatherCity {
+  name: string;
+  lat: number;
+  lon: number;
 }
 
 export interface DailySettingsFile {
@@ -723,6 +734,10 @@ export interface DailySettingsFile {
   city: string;
   lat: number;
   lon: number;
+  /** شهرهای اضافهٔ کارت هواشناسی (زیر شهر اصلی) — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶:
+   *  «زیر بخش هواشناسی تهران آب و هوای خوانسار و افجه لواسون رو هم به همین شکل اضافه کن».
+   *  شهر اول همیشه شهر اصلی (city/lat/lon — مشترک با اوقات شرعی) است. */
+  extraWeatherCities?: WeatherCity[];
   prayerMethod: PrayerMethod;
   fajrAngle: number;
   ishaAngle: number;
@@ -741,6 +756,11 @@ export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
   city: 'تهران',
   lat: 35.6892,
   lon: 51.389,
+  // خوانسار (اصفهان) و افجه لواسان (شهرستان شمیرانات) — مختصات: جست‌وجوی جغرافیایی Open-Meteo و دانشنامهٔ تهران بزرگ
+  extraWeatherCities: [
+    { name: 'خوانسار', lat: 33.2205, lon: 50.315 },
+    { name: 'افجه لواسان', lat: 35.85, lon: 51.6833 },
+  ],
   prayerMethod: 'tehran',
   fajrAngle: 17.7,
   ishaAngle: 14,
@@ -749,6 +769,35 @@ export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
 };
 
 const HHMM_RE = /^([01]?\d|2[0-3]):[0-5]\d$/;
+
+/** اعتبارسنجی یک شهر اضافهٔ هواشناسی — نام معتبر + مختصات در بازهٔ زمین */
+function validWeatherCity(c: unknown): c is WeatherCity {
+  if (!c || typeof c !== 'object') return false;
+  const v = c as Partial<WeatherCity>;
+  return typeof v.name === 'string' && v.name.trim().length >= 2 && v.name.length <= 60
+    && typeof v.lat === 'number' && Number.isFinite(v.lat) && Math.abs(v.lat) <= 90
+    && typeof v.lon === 'number' && Number.isFinite(v.lon) && Math.abs(v.lon) <= 180;
+}
+
+/** سقف شهرهای اضافه — هر شهر یک کارت جدا در هر شب؛ بیش از این اسپم کانال است */
+const EXTRA_WEATHER_CITIES_CAP = 4;
+
+/** فهرست شهرهای کارت هواشناسی — شهر اصلی (تنظیمات) اول، سپس شهرهای اضافهٔ معتبرِ بدون تکرار نام.
+ *  تابع خالص و تست‌پذیر. */
+export function weatherCitiesOf(s: DailySettingsFile): WeatherCity[] {
+  const main: WeatherCity = { name: (s.city || '').trim() || 'تهران', lat: s.lat, lon: s.lon };
+  const seen = new Set([main.name]);
+  const extras = (Array.isArray(s.extraWeatherCities) ? s.extraWeatherCities : [])
+    .filter(validWeatherCity)
+    .filter((c) => {
+      const n = c.name.trim();
+      if (seen.has(n)) return false;
+      seen.add(n);
+      return true;
+    })
+    .slice(0, EXTRA_WEATHER_CITIES_CAP);
+  return [main, ...extras];
+}
 
 /** بارگذاری تنظیمات پیام‌های روزانه — فایل خراب/نبود → پیش‌فرض‌ها */
 export function loadDailySettings(file: string): DailySettingsFile {
@@ -762,6 +811,9 @@ export function loadDailySettings(file: string): DailySettingsFile {
     if (out.timezone && !/^[\w\-+/]+$/.test(out.timezone)) out.timezone = DAILY_SETTINGS_DEFAULTS.timezone;
     if (!Number.isFinite(out.lat) || Math.abs(out.lat) > 90) out.lat = DAILY_SETTINGS_DEFAULTS.lat;
     if (!Number.isFinite(out.lon) || Math.abs(out.lon) > 180) out.lon = DAILY_SETTINGS_DEFAULTS.lon;
+    // شهرهای اضافهٔ هواشناسی — نامعتبرها حذف؛ سقف رعایت؛ نامعتبر → پیش‌فرض‌ها
+    if (!Array.isArray(out.extraWeatherCities)) out.extraWeatherCities = DAILY_SETTINGS_DEFAULTS.extraWeatherCities;
+    else out.extraWeatherCities = out.extraWeatherCities.filter(validWeatherCity).slice(0, EXTRA_WEATHER_CITIES_CAP);
     if (!['tehran', 'mwl', 'custom'].includes(out.prayerMethod)) out.prayerMethod = 'tehran';
     if (!['umalqura', 'civil'].includes(out.qamariBasis)) out.qamariBasis = 'umalqura';
     return out;
@@ -1239,7 +1291,7 @@ export async function sendBalePhotoLadder(token: string, chatId: string, imageUr
 
 /** آپلود مستقیم بایت‌های تصویر (کارت رندرشدهٔ محلی) به sendPhoto بله —
  *  دو تلاش با احترام به ۴۲۹، کپشن HTML و بازگشت به کپشن ساده؛ شکست شفاف */
-export async function sendBalePhotoBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string): Promise<{ ok: boolean; error?: string }> {
+export async function sendBalePhotoBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string, mime = 'image/png'): Promise<{ ok: boolean; error?: string }> {
   if (bytes.length < 1000) return { ok: false, error: `تصویر خیلی کوچک است (${bytes.length} بایت)` };
   if (bytes.length > 10 * 1024 * 1024) return { ok: false, error: 'تصویر بزرگ‌تر از ۱۰ مگابایت است' };
   const cap = (caption || '').trim().slice(0, 1024);
@@ -1247,7 +1299,7 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
     const form = new FormData();
     form.append('chat_id', chatId);
     if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
-    form.append('photo', new Blob([bytes as BlobPart], { type: 'image/png' }), filename);
+    form.append('photo', new Blob([bytes as BlobPart], { type: mime }), filename);
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 30_000);
     try {
@@ -2233,6 +2285,24 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
     if (t2) { r = r2; text = t2; }
   }
   summary.nightlyProvider = r.providerId;
+  // ── قفل تیک به جملهٔ منبع — همان ⑨ برای گزارش شبانه (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶:
+  // «شب ۲۲:۳۰ را هم با همین قفل تطبیق منبع پایه‌گذاری کن») — هر مورد رویداد به‌اجبار با خوشه‌های
+  // منبع همان روز مقایسه می‌شود؛ مورد بی‌خاستگاه/عددساختگی حذف؛ تیک فقط از دادهٔ ≥۲ منبع مستقل.
+  // همهٔ موارد حذف شوند → اسلات علامت نمی‌خورد (آرشیو روز می‌ماند؛ چرخهٔ بعد تلاش می‌کند).
+  if (text) {
+    const g = groundAiBundle(text, merged);
+    if (!g.text) {
+      console.warn(`⚠️ تحلیل شبانه: هر ${enToFaDigits(String(g.total))} مورد خروجی در تطبیق اجباری با منبع رد شد — اسلات علامت نمی‌خورد`);
+      summary.aiFailed = true;
+      summary.groundDropped = g.dropped;
+      return;
+    }
+    text = g.text;
+    if (g.dropped > 0) {
+      summary.groundDropped = g.dropped;
+      console.warn(`🛡 قفل تیک به منبع (شبانهٔ ۲۲:۳۰): ${g.dropped} مورد از ${g.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${g.droppedSamples.join(' | ')}`);
+    }
+  }
   console.log(`تحلیل جامع شبانه: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
   if (!text) {
     summary.aiFailed = true;
@@ -2573,7 +2643,12 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     if (!hist || hist.entries.length === 0) {
       console.warn(`⚠️ وقایع ${kind === 'morning' ? 'امروز' : 'فردا'} از ویکی‌پدیا دریافت نشد/خالی بود — بخش وقایع در پیام ${label} نمی‌آید (صادقانه)`);
     } else {
-      console.log(`وقایع ${hist.title}: ${hist.entries.length} مدخل از ویکی‌پدیای فارسی`);
+      // پالایش محتوایی — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶: حذف اغتشاش/مسایل ضد جمهوری اسلامی و
+      // بازیگران/فوتبالیست‌ها از وقایع روز (حافظهٔ خام دست‌نخورده؛ پالایش در لحظهٔ نمایش)
+      const keptEntries = filterDayHistoryEntries(hist.entries);
+      const blocked = hist.entries.length - keptEntries.length;
+      hist = keptEntries.length > 0 ? { ...hist, entries: keptEntries } : null;
+      console.log(`وقایع ${hist ? hist.title : ''}: ${hist ? hist.entries.length : 0} مدخل پس از پالایش${blocked > 0 ? ` (${blocked} مدخل موضوعی حذف شد)` : ''} از ویکی‌پدیای فارسی`);
     }
     const msg = await buildDailyMessage({
       kind, dateKey: pNow.dateKey, tz: dSettings.timezone, qamariBasis: dSettings.qamariBasis, city: dSettings.city,
@@ -2635,61 +2710,106 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
   // ---------- پیام پیش‌بینی ساعتی فردا — ساعت ۲۱:۰۰ به وقت کانال (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
   // «شب ساعت ۹ پیش‌بینی ساعتی فردای تهران را بگذار، از ساعت ۱۲ نصف شب تا [پایان] فردا»
   // بدون حدیث و تصویر — پیام کاربردی مستقل. دادهٔ معتبر نبود → هیچ عدد ساختگی، ثبت خطا و تلاش چرخهٔ بعد.
+  // ۱۵ نوامبر ۲۰۲۶: چندشهری — کارت هر شهر (تهران، سپس خوانسار و افجه لواسان «به همین شکل» زیر آن)
+  // با ضدتکرار مستقل هر شهر + یک گیف متحرک وضعیت غالب برای کل بخش در پایان.
   if (dSettings.weatherEnabled) {
-    const wKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastWeatherKey, pNow);
-    if (wKey) {
-      const tomorrowKey = shiftDateKey(pNow.dateKey, 1);
-      const hours = await fetchHourlyForecast(dSettings.lat, dSettings.lon, dSettings.timezone, tomorrowKey).catch(() => null);
-      const tomorrow = tripleDateOf(tomorrowKey, dSettings.timezone, dSettings.qamariBasis);
-      const msg = buildWeatherMessage({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours });
+    const cities = weatherCitiesOf(dSettings);
+    const tomorrowKey = shiftDateKey(pNow.dateKey, 1);
+    const tomorrow = tripleDateOf(tomorrowKey, dSettings.timezone, dSettings.qamariBasis);
+    // میراث تک‌شهری: lastWeatherKey قدیمی متعلق به شهر اصلی است — یک‌بار به نقشهٔ شهری منتقل می‌شود
+    const cityKeys: Record<string, string> = { ...(daily.lastWeatherKeys || {}) };
+    const mainName = cities[0]?.name;
+    if (daily.lastWeatherKey && mainName && cityKeys[mainName] === undefined) cityKeys[mainName] = daily.lastWeatherKey;
+    let anySent = false;
+    let mainHours: HourlyEntry[] | null = null; // سوخت گیف وضعیت غالب (شهر اصلی)
+
+    for (let ci = 0; ci < cities.length; ci++) {
+      const c = cities[ci];
+      const wKey = dueSlotKey(Date.now(), [dSettings.weatherHour], cityKeys[c.name], pNow);
+      if (!wKey) continue;
+      const hours = await fetchHourlyForecast(c.lat, c.lon, dSettings.timezone, tomorrowKey).catch(() => null);
+      const msg = buildWeatherMessage({ city: c.name, tomorrow, weatherHour: dSettings.weatherHour, hours });
       if (!msg) {
-        console.error(`❌ پیش‌بینی ساعتی: دادهٔ معتبر برای ${tomorrowKey} دریافت نشد — پیام ساختگی منتشر نمی‌شود (چرخهٔ بعد تلاش می‌کند)`);
-        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'failed', isTest: false, error: 'دادهٔ پیش‌بینی معتبر دریافت نشد', at: new Date().toISOString() });
+        console.error(`❌ پیش‌بینی ساعتی ${c.name}: دادهٔ معتبر برای ${tomorrowKey} دریافت نشد — پیام ساختگی منتشر نمی‌شود (چرخهٔ بعد تلاش می‌کند)`);
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: `${wKey}|${c.name}`, status: 'failed', isTest: false, error: `دادهٔ پیش‌بینی ${c.name} معتبر دریافت نشد`, at: new Date().toISOString() });
         trimDailyState(daily);
-      } else if (CFG.dryRun) {
-        console.log(`=== DRY_RUN — پیش‌نمایش پیش‌بینی ساعتی فردا (اسلات ${wKey}) ===`);
+        continue;
+      }
+      if (CFG.dryRun) {
+        console.log(`=== DRY_RUN — پیش‌نمایش پیش‌بینی ساعتی فردا — ${c.name} (اسلات ${wKey}) ===`);
         console.log(msg.text.replace(/<[^>]+>/g, ''));
         console.log('=== پایان پیش‌نمایش ===');
-        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'preview', isTest: true, at: new Date().toISOString() });
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: `${wKey}|${c.name}`, status: 'preview', isTest: true, at: new Date().toISOString() });
         trimDailyState(daily);
-      } else {
-        // کارت تصویری اول — خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶: بخش هواشناسی به‌صورت کارت/چارت در بله؛
-        // رندر ناموفق یا شکست ارسال همهٔ مقصدها → بازگشت صادقانه به پیام متنی کامل (هیچ داده‌ای از دست نمی‌رود)
-        let ok = false;
-        let lastErr = '';
-        let viaCard = false;
-        // hours اینجا غیرتهی است (msg غیرتهی فقط با دادهٔ معتبر ساخته می‌شود)؛ «|| []» برای تایپ‌اِمنی
-        const card = await renderWeatherCardPng({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] }).catch(() => null);
-        if (card) {
-          const cap = buildWeatherCardCaption({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] });
-          viaCard = true;
-          for (const t of CFG.targets) {
-            const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png', cap);
-            if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال کارت هواشناسی به ${t}: ${lastErr}`); continue; }
-            ok = true;
-          }
-          if (!ok) console.warn(`⚠️ ارسال کارت هواشناسی به هیچ مقصدی موفق نشد (${lastErr}) — پیام متنی کامل جایگزین می‌شود`);
-        } else {
-          console.warn('⚠️ رندر کارت هواشناسی ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)');
-        }
-        if (!ok) {
-          for (const t of CFG.targets) {
-            const s = await sendBaleMessage(CFG.token, t, msg.text);
-            if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیش‌بینی ساعتی به ${t}: ${lastErr}`); continue; }
-            ok = true;
-          }
-        }
-        if (ok) {
-          daily.lastWeatherKey = wKey;
-          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'sent', isTest: false, imageUrl: viaCard ? 'card' : undefined, at: new Date().toISOString() });
-          summary.dailySent = 'weather';
-          console.log(`✅ پیش‌بینی ساعتی فردا (${tomorrowKey}) ارسال شد — ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'متن کامل'} — ${hours?.length ?? 0} ساعت معتبر`);
-        } else {
-          daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: wKey, status: 'failed', isTest: false, error: lastErr || 'هیچ مقصدی موفق نشد', at: new Date().toISOString() });
-          console.error('❌ پیش‌بینی ساعتی ارسال نشد — چرخهٔ بعد تلاش می‌کند');
-        }
-        trimDailyState(daily);
+        continue;
       }
+      if (ci === 0) mainHours = hours; // گیف از شهر اصلی تغذیه می‌شود
+      // کارت تصویری اول — خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶: بخش هواشناسی به‌صورت کارت/چارت در بله؛
+      // رندر ناموفق یا شکست ارسال همهٔ مقصدها → بازگشت صادقانه به پیام متنی کامل (هیچ داده‌ای از دست نمی‌رود)
+      let ok = false;
+      let lastErr = '';
+      let viaCard = false;
+      const card = await renderWeatherCardPng({ city: c.name, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] }).catch(() => null);
+      if (card) {
+        const cap = buildWeatherCardCaption({ city: c.name, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] });
+        viaCard = true;
+        for (const t of CFG.targets) {
+          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png', cap);
+          if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال کارت هواشناسی ${c.name} به ${t}: ${lastErr}`); continue; }
+          ok = true;
+        }
+        if (!ok) console.warn(`⚠️ ارسال کارت هواشناسی ${c.name} به هیچ مقصدی موفق نشد (${lastErr}) — پیام متنی کامل جایگزین می‌شود`);
+      } else {
+        console.warn(`⚠️ رندر کارت هواشناسی ${c.name} ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)`);
+      }
+      if (!ok) {
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, msg.text);
+          if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال پیش‌بینی ساعتی ${c.name} به ${t}: ${lastErr}`); continue; }
+          ok = true;
+        }
+      }
+      if (ok) {
+        cityKeys[c.name] = wKey;
+        daily.lastWeatherKeys = { ...cityKeys };
+        if (ci === 0) daily.lastWeatherKey = wKey; // میراث تک‌شهری برای سازگاری
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: `${wKey}|${c.name}`, status: 'sent', isTest: false, imageUrl: viaCard ? 'card' : undefined, at: new Date().toISOString() });
+        summary.dailySent = 'weather';
+        anySent = true;
+        console.log(`✅ پیش‌بینی ساعتی فردای ${c.name} (${tomorrowKey}) ارسال شد — ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'متن کامل'} — ${hours?.length ?? 0} ساعت معتبر`);
+      } else {
+        daily.runs.push({ dateKey: pNow.dateKey, kind: 'weather', slotKey: `${wKey}|${c.name}`, status: 'failed', isTest: false, error: lastErr || 'هیچ مقصدی موفق نشد', at: new Date().toISOString() });
+        console.error(`❌ پیش‌بینی ساعتی ${c.name} ارسال نشد — چرخهٔ بعد تلاش می‌کند`);
+      }
+      trimDailyState(daily);
+      await sleep(600); // فاصلهٔ میان کارت‌های شهرها — خوانایی در کانال
+    }
+
+    // ---------- گیف متحرک وضعیت غالب — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶: «گیف هم به اون بخش اضافه کن» ----------
+    // تزئینی و مستقل: دادهٔ شهر اصلی (یا نخستین شهر موفق) → وضعیت غالب → ۱۲ فریم متحرک؛
+    // شکست رندر/ارسال فقط تزئین را از دست می‌دهد — کارت‌های شهرها قبلاً مستقل ارسال شده‌اند.
+    const gifKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastWeatherGifKey, pNow);
+    if (gifKey && anySent && mainHours) {
+      const dom = dominantKindOf(mainHours);
+      const gif = dom ? await renderWeatherGif(dom.kind).catch(() => null) : null;
+      if (dom && gif) {
+        const cap = buildWeatherGifCaption(cities[0].name, dom, { minT: Math.min(...mainHours.map((h) => h.temp)), maxT: Math.max(...mainHours.map((h) => h.temp)) });
+        let gifOk = false;
+        for (const t of CFG.targets) {
+          const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-weather.gif', cap, 'image/gif');
+          if (!s.ok) { console.error(`❌ ارسال گیف هواشناسی به ${t}: ${s.error || 'نامشخص'}`); continue; }
+          gifOk = true;
+        }
+        if (gifOk) {
+          daily.lastWeatherGifKey = gifKey;
+          console.log(`✅ گیف وضعیت غالب فردا ارسال شد — ${dom.label} (${cities[0].name})`);
+        } else {
+          console.warn('⚠️ گیف هواشناسی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند (تزئینی)');
+        }
+      } else {
+        console.warn('⚠️ رندر گیف هواشناسی ناموفق بود — کارت‌ها مستقل ارسال شده‌اند');
+      }
+      trimDailyState(daily);
     }
   }
 }

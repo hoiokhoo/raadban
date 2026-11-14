@@ -17,13 +17,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { api, faNum, faDateTime } from '@/lib/client';
 import { LoadingCard } from '@/components/panels/dashboard';
-import { Sun, Moon, Save, Eye, BookOpen, ImageIcon, History, AlertTriangle, CalendarDays, CloudSun } from 'lucide-react';
+import { Sun, Moon, Save, Eye, BookOpen, ImageIcon, History, AlertTriangle, CalendarDays, CloudSun, MapPin, Plus, Trash2 } from 'lucide-react';
 
 interface DailySettings {
   morningEnabled: boolean; eveningEnabled: boolean;
   morningHour: string; eveningHour: string;
   weatherEnabled: boolean; weatherHour: string;
   timezone: string; city: string; lat: number; lon: number;
+  /** شهرهای اضافهٔ کارت هواشناسی (زیر شهر اصلی) — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶ */
+  extraWeatherCities?: Array<{ name: string; lat: number; lon: number }>;
   prayerMethod: 'tehran' | 'mwl' | 'custom';
   fajrAngle: number; ishaAngle: number; maghribMinutes: number;
   qamariBasis: 'umalqura' | 'civil';
@@ -111,6 +113,30 @@ export function DailyMessagesPanel() {
   const s = data.settings;
   const upd = (patch: Partial<DailySettings>): Partial<DailySettings> => patch;
 
+  // شهرهای اضافهٔ کارت هواشناسی — ویرایش محلی و ذخیرهٔ یکجا (خواستهٔ ۱۵ نوامبر ۲۰۲۶)
+  const extraCities = s.extraWeatherCities || [];
+  const setExtraCity = (i: number, patch: Partial<{ name: string; lat: number; lon: number }>) => {
+    setData((d) => {
+      if (!d) return d;
+      const list = (d.settings.extraWeatherCities || []).map((c, k) => (k === i ? { ...c, ...patch } : c));
+      return { ...d, settings: { ...d.settings, extraWeatherCities: list } };
+    });
+  };
+  const addExtraCity = () => {
+    setData((d) => {
+      if (!d) return d;
+      const list = [...(d.settings.extraWeatherCities || []), { name: '', lat: 0, lon: 0 }].slice(0, 4);
+      return { ...d, settings: { ...d.settings, extraWeatherCities: list } };
+    });
+  };
+  const removeExtraCity = (i: number) => {
+    setData((d) => {
+      if (!d) return d;
+      const list = (d.settings.extraWeatherCities || []).filter((_, k) => k !== i);
+      return { ...d, settings: { ...d.settings, extraWeatherCities: list } };
+    });
+  };
+
   return (
     <div className="space-y-4" dir="rtl">
       {/* تنظیمات */}
@@ -163,6 +189,22 @@ export function DailyMessagesPanel() {
                 <Button size="sm" variant="outline" disabled={busy === 'w-h'} onClick={() => save(upd({ weatherHour: s.weatherHour }), 'w-h')}><Save className="h-4 w-4" /> ذخیرهٔ ساعت</Button>
               </div>
               <p className="text-xs text-muted-foreground">۲۴ ساعت روز بعد (۰۰:۰۰ تا ۲۳:۰۰) از Open-Meteo — دما، وضعیت، احتمال بارش و باد برای موقعیت کانال.</p>
+              {/* شهرهای اضافه — زیر کارت شهر اصلی، «به همین شکل» (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶) */}
+              <div className="space-y-1 rounded-md bg-muted/40 p-2">
+                <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> شهرهای اضافهٔ کارت هواشناسی (زیر {s.city})</div>
+                {extraCities.map((c, i) => (
+                  <div key={i} className="flex items-center gap-1">
+                    <Input value={c.name} placeholder="نام شهر" onChange={(e) => setExtraCity(i, { name: e.target.value })} className="h-8 flex-1 text-xs" />
+                    <Input value={String(c.lat)} dir="ltr" placeholder="عرض" onChange={(e) => setExtraCity(i, { lat: Number(e.target.value) || 0 })} className="h-8 w-20 text-xs" />
+                    <Input value={String(c.lon)} dir="ltr" placeholder="طول" onChange={(e) => setExtraCity(i, { lon: Number(e.target.value) || 0 })} className="h-8 w-20 text-xs" />
+                    <Button size="sm" variant="ghost" className="h-8 w-8 p-0" onClick={() => removeExtraCity(i)} title="حذف"><Trash2 className="h-3.5 w-3.5 text-destructive" /></Button>
+                  </div>
+                ))}
+                <div className="flex gap-1">
+                  <Button size="sm" variant="outline" className="h-8" disabled={extraCities.length >= 4} onClick={addExtraCity}><Plus className="h-3.5 w-3.5" /> افزودن شهر</Button>
+                  <Button size="sm" variant="outline" className="h-8" disabled={busy === 'w-cities'} onClick={() => save(upd({ extraWeatherCities: extraCities.filter((c) => c.name.trim().length >= 2) }), 'w-cities')}><Save className="h-3.5 w-3.5" /> ذخیرهٔ شهرها</Button>
+                </div>
+              </div>
               <Button size="sm" variant="outline" className="w-full" disabled={busy === 'w-preview'} onClick={() => doPreview('weather', false)}>
                 <Eye className="h-4 w-4" /> پیش‌نمایش پیش‌بینی (بدون ارسال)
               </Button>

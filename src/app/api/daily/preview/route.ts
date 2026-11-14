@@ -18,7 +18,7 @@ import { readRepoFileWithFallback } from '@/lib/gh-sync';
 import { getBaleToken, ensureBaleChatId, sendBaleMessage, sendBalePhoto } from '@/lib/bale-bot';
 import { DAILY_SETTINGS_DEFAULTS, type DailySettingsFile } from '../../../../../bot/bot';
 import { pickHadith, fetchNatureImage, buildDailyMessage, type HadithUsage } from '../../../../../bot/daily';
-import { fetchDayHistory, dayHistoryFromCache, type DayHistoryCacheEntry } from '../../../../../bot/day-history';
+import { fetchDayHistory, dayHistoryFromCache, filterDayHistoryEntries, type DayHistoryCacheEntry } from '../../../../../bot/day-history';
 import { dateKeyOf, shiftDateKey, tripleDateOf } from '../../../../../bot/calendar';
 import { fetchHourlyForecast, buildWeatherMessage } from '../../../../../bot/weather';
 import { NextRequest } from 'next/server';
@@ -39,18 +39,31 @@ export async function POST(req: NextRequest) {
     const todayKey = dateKeyOf(Date.now(), tz);
 
     // ---------- پیش‌بینی ساعتی فردا (بدون حدیث/تصویر — هیچ تغییری در state) ----------
+    // ۱۵ نوامبر ۲۰۲۶: چندشهری — متن هر شهر (اصلی + شهرهای اضافه) در پیش‌نمایش پشت‌سرهم می‌آید
     if (kind === 'weather') {
       const tomorrowKey = shiftDateKey(todayKey, 1);
-      const hours = await fetchHourlyForecast(settings.lat ?? 35.6892, settings.lon ?? 51.389, tz, tomorrowKey).catch(() => null);
+      const weatherCities: Array<{ name: string; lat: number; lon: number }> = [
+        { name: settings.city || 'تهران', lat: settings.lat ?? 35.6892, lon: settings.lon ?? 51.389 },
+        ...(Array.isArray(settings.extraWeatherCities) ? settings.extraWeatherCities : []),
+      ];
+      const seenCity = new Set<string>();
+      const parts: string[] = [];
+      let hoursCount = 0;
+      for (const c of weatherCities) {
+        const name = (c.name || '').trim();
+        if (!name || seenCity.has(name)) continue;
+        seenCity.add(name);
+        const hours = await fetchHourlyForecast(c.lat, c.lon, tz, tomorrowKey).catch(() => null);
+        if (!hours) continue;
+        const tomorrow = tripleDateOf(tomorrowKey, tz, settings.qamariBasis || 'umalqura');
+        const msg = buildWeatherMessage({ city: name, tomorrow, weatherHour: settings.weatherHour || '21:00', hours });
+        if (msg) { parts.push(msg.text); hoursCount += hours.length; }
+      }
       let sent: { ok: boolean; error?: string; to?: string } = { ok: false, error: 'ارسال درخواست نشد' };
-      if (!hours) {
+      if (parts.length === 0) {
         return ok({ kind, dateKey: todayKey, hadith: null, consumed: false, preview: null, sent, note: 'دادهٔ پیش‌بینی معتبر دریافت نشد — پیام ساختگی ساخته نمی‌شود (صادقانه)' });
       }
-      const tomorrow = tripleDateOf(tomorrowKey, tz, settings.qamariBasis || 'umalqura');
-      const msg = buildWeatherMessage({ city: settings.city || 'تهران', tomorrow, weatherHour: settings.weatherHour || '21:00', hours });
-      if (!msg) {
-        return ok({ kind, dateKey: todayKey, hadith: null, consumed: false, preview: null, sent, note: 'پارس پیش‌بینی ناقص بود — پیام منتشر نمی‌شود (صادقانه)' });
-      }
+      const previewText = parts.join('\n\n──────────────\n\n');
       if (body.send) {
         const token = await getBaleToken();
         if (!token) {
@@ -60,10 +73,21 @@ export async function POST(req: NextRequest) {
           if (!chat.ok || !chat.chatId) {
             sent = { ok: false, error: chat.error || 'شناسهٔ چت مدیر یافت نشد — در بله به بات Start بدهید' };
           } else {
-            const s = await sendBaleMessage(chat.chatId, msg.text);
-            sent = { ok: s.ok, error: s.ok ? undefined : s.error, to: chat.chatId };
+            // ارسال آزمایشی فقط متن شهر اصلی است (مثل قبل) — پیش‌نمایش چندشهری در متن بالا کامل است
+            const mainMsg = buildWeatherMessage({
+              city: settings.city || 'تهران',
+              tomorrow: tripleDateOf(tomorrowKey, tz, settings.qamariBasis || 'umalqura'),
+              weatherHour: settings.weatherHour || '21:00',
+              hours: await fetchHourlyForecast(settings.lat ?? 35.6892, settings.lon ?? 51.389, tz, tomorrowKey).catch(() => null),
+            });
+            if (mainMsg) {
+              const s = await sendBaleMessage(chat.chatId, mainMsg.text);
+              sent = { ok: s.ok, error: s.ok ? undefined : s.error, to: chat.chatId };
+            } else {
+              sent = { ok: false, error: 'متن شهر اصلی دوباره ساخته نشد' };
+            }
             await db.dailyRunLog.create({
-              data: { dateKey: todayKey, kind: 'weather', slotKey: `${todayKey}Tpreview`, status: s.ok ? 'preview' : 'failed', isTest: true, error: s.ok ? null : (s.error || null) },
+              data: { dateKey: todayKey, kind: 'weather', slotKey: `${todayKey}Tpreview`, status: sent.ok ? 'preview' : 'failed', isTest: true, error: sent.ok ? null : (sent.error || null) },
             }).catch(() => {});
           }
         }
@@ -71,10 +95,11 @@ export async function POST(req: NextRequest) {
       return ok({
         kind,
         dateKey: todayKey,
-        preview: { text: msg.text, photoUrl: null, photoCaption: null },
+        preview: { text: previewText, photoUrl: null, photoCaption: null },
         hadith: null,
         consumed: false,
-        hoursCount: hours.length,
+        hoursCount,
+        cities: [...seenCity],
         sent,
       });
     }
@@ -101,6 +126,8 @@ export async function POST(req: NextRequest) {
     // شکست → بخش حذف می‌شود (صادقانه). پیش‌نمایش هیچ چیزی در state نمی‌نویسد.
     const histDayKey = kind === 'morning' ? todayKey : shiftDateKey(todayKey, 1);
     const hist = dayHistoryFromCache(histCache, histDayKey) ?? (await fetchDayHistory(tripleDateOf(histDayKey, tz, settings.qamariBasis || 'umalqura').keys.j).catch(() => null));
+    // پالایش وقایع — همان قاعدهٔ ربات (خواستهٔ ۱۵ نوامبر): حذف اغتشاش/ضد جمهوری اسلامی/بازیگر/فوتبال
+    const histEntries = hist ? filterDayHistoryEntries(hist.entries) : [];
     const msg = await buildDailyMessage({
       kind,
       dateKey: todayKey,
@@ -118,7 +145,7 @@ export async function POST(req: NextRequest) {
       },
       hadith: pick.hadith,
       image,
-      dayHistory: hist?.entries ?? null,
+      dayHistory: histEntries.length > 0 ? histEntries : null,
     });
 
     let sent: { ok: boolean; error?: string; to?: string } = { ok: false, error: 'ارسال درخواست نشد' };

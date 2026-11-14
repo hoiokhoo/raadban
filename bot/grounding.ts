@@ -20,11 +20,15 @@ import { tokensFa, type MergedItem } from './hourly';
 import { faDigits } from './daily';
 
 // ---------- آستانه‌ها (قابل تزریق برای تست) ----------
+// ۱۶ نوامبر ۲۰۲۶ — متریک از ژاکارد به «پوشش» (overlap/containment) تغییر کرد:
+// |A∩B| / min(|A|,|B|). خلاصهٔ دوخطی (~۱۵ توکن) از خوشهٔ بلندِ منبع (~۸۰ توکن) در ژاکارد
+// ناچیز می‌شود (≈۰٫۲) و به‌نادرست «بی‌خاستگاه» می‌افتاد؛ در پوشش، سهم توکن‌های مورد در
+// خوشهٔ منبع سنجیده می‌شود — خلاصهٔ وفادار ≈۱، هالوسینیشنِ بی‌واژهٔ مشترک ≈۰.
 
-/** شباهت ژاکارد ≥ این مقدار → مورد خاستگاه‌دار در خوشهٔ منبع */
-export const GROUND_SIM_KEEP = 0.26;
-/** شباهت زیر این مقدار → بی‌خاستگاه قطعی (حتی بدون عدد بیگانه) */
-export const GROUND_SIM_DROP = 0.09;
+/** پوشش ≥ این مقدار → مورد خاستگاه‌دار در خوشهٔ منبع (توکن‌هایش تقریباً همه در منبع هستند) */
+export const GROUND_SIM_KEEP = 0.55;
+/** پوشش زیر این مقدار → بی‌خاستگاه قطعی (حتی بدون عدد بیگانه) */
+export const GROUND_SIM_DROP = 0.15;
 
 export interface GroundOptions {
   simKeep?: number;
@@ -165,6 +169,15 @@ function jaccard(a: Set<string>, b: Set<string>): number {
   return inter / (a.size + b.size - inter);
 }
 
+/** پوشش (containment) — سهم توکن‌های کوچک‌تر که در مجموعهٔ بزرگ‌تر هستند:
+ *  |A∩B| / min(|A|,|B|). متریک صحیح برای «خلاصهٔ وفادارِ» خوشهٔ بلند منبع (۱۶ نوامبر). */
+export function containment(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let inter = 0;
+  for (const t of a) if (b.has(t)) inter++;
+  return inter / Math.min(a.size, b.size);
+}
+
 /** قلب رفع ریشه‌ای ⑨ — مقایسهٔ اجباری هر موردِ خروجی با جمله‌های منبع و قفل تیک.
  *  خروجی: متن پاک‌شده + فهرست موارد خاستگاه‌دار. تیک مدل در هیچ حالتی زنده نمی‌ماند. */
 export function groundAiBundle(raw: string, merged: MergedItem[], opts: GroundOptions = {}): GroundResult {
@@ -196,7 +209,8 @@ export function groundAiBundle(raw: string, merged: MergedItem[], opts: GroundOp
     let bestIdx = -1;
     let bestSim = 0;
     clusterTokens.forEach((ct, i) => {
-      const sim = jaccard(tk, ct);
+      // پوشش — متریک خلاصه‌ساز؛ ژاکارد پشتیبان (بازنویسی هم‌عرض هم پوشش بالا دارد)
+      const sim = Math.max(containment(tk, ct), jaccard(tk, ct));
       if (sim > bestSim) { bestSim = sim; bestIdx = i; }
     });
     const missing = foreignNumbers(text, corpusTexts);

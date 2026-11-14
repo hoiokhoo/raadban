@@ -91,6 +91,11 @@ export function dayHistoryApiUrl(title: string): string {
   return `https://fa.wikipedia.org/w/api.php?action=query&redirects=1&titles=${encodeURIComponent(title)}&prop=revisions&rvprop=content&rvslots=main&format=json&formatversion=2`;
 }
 
+/** نشانی API ویکی‌پدیای انگلیسی — برای رویدادهای جهانی روز میلادی */
+export function enDayHistoryApiUrl(title: string): string {
+  return `https://en.wikipedia.org/w/api.php?action=query&redirects=1&titles=${encodeURIComponent(title)}&prop=revisions&rvprop=content&rvslots=main&format=json&formatversion=2`;
+}
+
 // ---------- پارسر متن ویکی (خالص) ----------
 
 /** پاک‌سازی متن یک مدخل — حذف پانویس، پیوند‌ها، قالب‌ها و تگ‌ها */
@@ -167,7 +172,10 @@ export function parseFaWikiDayWikitext(wt: string): DayHistoryEntry[] {
 // بعدی بدون واکشی مجدد اثر می‌کند). هر دو فهرست صریح، خالص و تست‌پذیرند.
 
 /** واژه‌های موضوع اغتشاغ/اعتراض/ضد جمهوری اسلامی — هر مدخلِ دارای این واژه‌ها حذف می‌شود.
- *  دقت: واژه‌های انقلابی/مردمی (انقلاب، قیام، راهپیمایی ۲۲ بهمن) عمداً در این فهرست نیستند. */
+ *  دقت: واژه‌های انقلابی/مردمی (انقلاب، قیام، راهپیمایی ۲۲ بهمن) عمداً در این فهرست نیستند.
+ *  ۱۶ نوامبر ۲۰۲۶ — نام‌های چهره‌های ماجرای ۱۴۰۱ به‌صورت صریح اضافه شدند (خواستهٔ کاربر:
+ *  «حوادث مرتبط با اغتشاشات ایران مثه کیان پیرفلک و ... نمی‌خوام داخل وقایع بیاد») —
+ *  متنِ برخی مدخل‌های ویکی نامِ چهره را دارد ولی واژهٔ «اعتراض» نه؛ نام‌ها خودشان مسدود می‌کنند. */
 export const RIOT_ANTI_IRI_KEYWORDS: readonly string[] = [
   'اغتشاش',
   'اعتراض', // اعتراضات/اعتراض‌های — همهٔ بازه‌ها
@@ -183,6 +191,13 @@ export const RIOT_ANTI_IRI_KEYWORDS: readonly string[] = [
   'سلطنت‌طلب',
   'سلطنت طلب',
   'سازمان مجاهدین خلق', // وقایع تروریستی این گروه — بازوی ضد جمهوری اسلامی
+  // چهره‌های ماجرای اغتشاشات ۱۴۰۱ — بازنویسیِ بی‌واژهٔ «اعتراض» هم مسدود شود
+  'پیرفلک', // کیان پیرفلک
+  'نیکا شاکرمی',
+  'شاکرمی',
+  'حدیث نجفی',
+  'سارینا اسماعیل',
+  'پوپک زرین',
 ];
 
 /** واژهٔ حوزهٔ بازیگران سینما/تلویزیون و فوتبال (بازیکن/فوتبالیست/بازی فوتبال) */
@@ -192,6 +207,17 @@ export const SHOW_FOOTBALL_KEYWORDS: readonly string[] = [
   'فوتبال', // فوتبالیست، بازیکن فوتبال، تیم ملی فوتبال، فوتبالی
 ];
 
+/** سال‌های موج رویدادهای اغتشاشی — رویدادهای این سال‌ها با کلیدواژهٔ نرمِ خشونت/اعتراض مسدود می‌شوند
+ *  (خواستهٔ کاربر ۱۶ نوامبر، صفحهٔ واقعی ۲۵ آبان: «قتل‌عام ماهشهر»، «قطعی اینترنت ۱۳۹۸»،
+ *  «حمله به بازار ایذه»، «حادثه ۲۵ آبان ۱۴۰۱» — هیچ‌کدام واژهٔ «اعتراض» نداشتند) */
+export const RIOT_ERA_YEARS: readonly number[] = [1398, 1401, 1402, 1403];
+const RIOT_ERA_SOFT_RE = /حمله|کشته|قتل|مرگ|تیر|قطعی|اینترنت|اعتراض|اغتشاش|ایذه|ماهشهر|خودسوزی|حادثه|دستگیری|خیابان|بازار/;
+
+/** مدخلِ سال‌های اغتشاش با نشانهٔ خشونت/اعتراض — باید حذف شود (سال + بافت، نه فقط واژه) */
+export function isRiotEraEntry(year: number, text: string): boolean {
+  return RIOT_ERA_YEARS.includes(year) && RIOT_ERA_SOFT_RE.test((text || '').replace(/[\u200c\u200f\u200e]/g, ''));
+}
+
 /** یک مدخل باید حذف شود؟ — تطبیق زیررشته‌ای روی متن پاک؛ خالص و تست‌پذیر */
 export function isDayHistoryBlocked(text: string): boolean {
   const t = (text || '').replace(/[\u200c\u200f\u200e]/g, ''); // نیم‌فاصله/کنترل bidi نادیده
@@ -199,9 +225,13 @@ export function isDayHistoryBlocked(text: string): boolean {
   return all.some((k) => t.includes(k.replace(/[\u200c]/g, '')));
 }
 
-/** پالایش فهرست وقایع — ورودی خام، خروجی فقط مدخل‌های مجاز؛ ترتیب حفظ می‌شود. تابع خالص. */
+/** پالایش فهرست وقایع — ورودی خام، خروجی فقط مدخل‌های مجاز؛ ترتیب حفظ می‌شود. تابع خالص.
+ *  ۱۶ نوامبر: لایهٔ دوم سال‌محور — مدخل‌های سال‌های اغتشاش (۱۳۹۸/۱۴۰۱/…) با هر نشانهٔ
+ *  خشونت/اعتراض (حمله/قتل/قطعی اینترنت/حادثه/…) حذف می‌شوند؛ رخدادهای بی‌طرف همان سال‌ها می‌مانند. */
 export function filterDayHistoryEntries(entries: DayHistoryEntry[]): DayHistoryEntry[] {
-  return (entries || []).filter((e) => e && typeof e.text === 'string' && !isDayHistoryBlocked(e.text));
+  return (entries || []).filter((e) => e && typeof e.text === 'string' &&
+    !isDayHistoryBlocked(e.text) &&
+    !isRiotEraEntry(e.year, e.text));
 }
 
 // ---------- فرمت‌کنندهٔ بلوک پیام (خالص) ----------
@@ -213,17 +243,114 @@ function truncate(s: string, n: number): string {
   return s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`;
 }
 
-/** بلوک «وقایع امروز/فردا» — به سبک نمونهٔ کاربر: «۱۲۷۶؛ زادروز نیما یوشیج، پدر شعر نو فارسی».
+/** بلوک «وقایع امروز/فردا» — قالب نمونهٔ کاربر (۱۶ نوامبر ۲۰۲۶):
+ *  «۲۵ آبان ۱۲۹۳؛ درگذشت ستارخان.» — تاریخ کامل (روز ماه سال) در هر سطر.
+ *  dayMonth = عنوان روز («۲۵ آبان»)؛ نبود → قالب قدیمی فقط با سال (سازگاری).
  *  ترتیب: رویدادها، سپس زادروزها، سپس درگذشت‌ها. خالی → رشتهٔ خالی؛ کل بخش از پیام حذف می‌شود. */
-export function formatDayHistoryBlock(entries: DayHistoryEntry[], dayLabel: 'امروز' | 'فردا'): string {
+export function formatDayHistoryBlock(entries: DayHistoryEntry[], dayLabel: 'امروز' | 'فردا', dayMonth?: string): string {
   if (!entries || entries.length === 0) return '';
+  const dm = (dayMonth || '').replace(/[؛;.,]\s*$/, '').trim();
   const L: string[] = [`<b>📜 وقایع ${dayLabel} در تاریخ</b>`];
   for (const kind of ['event', 'birth', 'death'] as const) {
     const list = entries.filter((e) => e.kind === kind).slice(0, CAPS[kind]);
     const prefix = kind === 'birth' ? 'زادروز ' : kind === 'death' ? 'درگذشت ' : '';
-    for (const e of list) L.push(`• ${faNum(e.year)}؛ ${prefix}${truncate(e.text, MAX_TEXT)}`);
+    for (const e of list) {
+      const when = dm ? `${dm} ${faNum(e.year)}` : faNum(e.year);
+      L.push(`• ${when}؛ ${prefix}${truncate(e.text, MAX_TEXT)}`);
+    }
   }
   return L.length > 1 ? L.join('\n') : '';
+}
+
+// ---------- وقایع جهانی امروز (میلادی) — خواستهٔ کاربر ۱۶ نوامبر ۲۰۲۶ ----------
+// نمونهٔ کاربر: «۱۶ نوامبر ۱۹۴۵؛ ایجاد یونسکو.» — بخش «رویدادهای جهانی» از صفحهٔ روزِ
+// ویکی‌پدیای انگلیسی (November 16) واکشی و ترجمهٔ فارسی در caller انجام می‌شود.
+
+/** نام ماه‌های میلادی — برای نشانی صفحهٔ روز ویکی‌پدیای انگلیسی */
+export const EN_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+/** نام فارسی ماه‌های میلادی — برای بلوک «رویدادهای جهانی» («۱۶ نوامبر ۱۹۴۵؛ …») */
+export const EN_MONTHS_FA = ['ژانویه', 'فوریه', 'مارس', 'آوریل', 'مه', 'ژوئن', 'ژوئیه', 'اوت', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر'];
+
+/** نشانی صفحهٔ روز میلادی — «November 16»؛ نامعتبر → رشتهٔ خالی */
+export function enWikiDayTitle(m: number, d: number): string {
+  if (!Number.isInteger(m) || !Number.isInteger(d) || m < 1 || m > 12 || d < 1 || d > 31) return '';
+  return `${EN_MONTHS[m - 1]} ${d}`;
+}
+
+/** پالایندهٔ اهمیت رویداد جهانی — ایران/ایران‌باوری یا کلیدواژه‌های تاریخی مهم
+ *  (جنگ، پیمان، استقلال، تأسیس نهاد جهانی، زلزله، هسته‌ای، ترور، المپیک…).
+ *  رویدادهای جزئی (زادروز بازیکن بیسبال و…) رد می‌شوند. تابع خالص تست‌پذیر. */
+export function isSignificantWorldEvent(text: string): boolean {
+  const t = (text || '');
+  if (/\b(Iran|Persia|Persian|Tehran)\b/i.test(t)) return true;
+  return /\b(founded|established|treaty|independence|independent|declared|constitution|revolution|war\b|war begins|begins|ends|signed|assassinat|earthquake|nuclear|United Nations|UNESCO|NATO|World Health|Olympic|summit|launch|first\s|pandemic|vaccine|collapse|resign)\w*/i.test(t);
+}
+
+/** پارس بخش Events صفحهٔ روزِ ویکی‌پدیای انگلیسی — «* [[1945]] – UNESCO founded.»
+ *  ساختار واقعی صفحه: ==Events== زیرمجموعه‌های ===Pre-1600=== / ===1601–1900=== / ===1901–present===
+ *  دارد و جداکنندهٔ سال گاهی موجودیت HTML «&ndash;» است — هر دو پوشش داده می‌شوند:
+ *  فقط سربرگ سطح‌۲ بخش را عوض می‌کند؛ زیرمجموعه‌ها (===) بخش جاری را نگه می‌دارند.
+ *  خروجی: مدخل‌های مهم (پالایندهٔ اهمیت)، حداکثر limit مورد، تازه‌ترین اول. خالص و تست‌پذیر. */
+export function parseEnWikiDayWikitext(wt: string, limit = 6): DayHistoryEntry[] {
+  if (!wt) return [];
+  let inEvents = false;
+  const raw: Array<{ year: number; text: string }> = [];
+  for (const rawLine of wt.split('\n')) {
+    const line = rawLine.trim();
+    // سربرگ سطح ۲ («==Events==») — فقط این بخش را عوض می‌کند؛ زیرمجموعه‌های === نادیده
+    if (line.startsWith('==') && !line.startsWith('===')) {
+      const secTitle = line.replace(/^==+\s*/, '').replace(/\s*==+$/, '').trim();
+      inEvents = /^events?\b/i.test(secTitle);
+      continue;
+    }
+    if (line.startsWith('===')) continue; // زیرمجموعهٔ همان بخش
+    if (!inEvents || !line.startsWith('*')) continue;
+    // موجودیت‌های رایج جداکننده: &ndash; / &mdash;
+    const stripped = line.replace(/^\*+\s*/, '').replace(/&ndash;/gi, '–').replace(/&mdash;/gi, '—');
+    const m = /^\[?\[?(\d{3,4})\]?\]?\s*[–—-]\s*(.+)$/.exec(stripped);
+    if (!m) continue;
+    const year = Number(m[1]);
+    const text = cleanWikiText(m[2]);
+    if (!Number.isFinite(year) || year < 1 || year > 2100 || text.length < 8) continue;
+    if (!isSignificantWorldEvent(text)) continue;
+    raw.push({ year, text });
+  }
+  // انتخاب مخلوط: ایران‌مرتبط‌ها همیشه + ۳ رویداد تازه‌ترین + تکمیل با رویدادهای شاخص کهنِ
+  // دوران مدرن (≥۱۸۰۰ — مثل تأسیس یونسکو ۱۹۴۵ در نمونهٔ کاربر)؛ خروجی مرتب بر سال نزولی.
+  const seen = new Set<string>();
+  const uniq = raw.filter((e) => {
+    const k = `${e.year}|${e.text}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).sort((a, b) => b.year - a.year);
+  const picked = uniq.filter((e) => /\b(Iran|Persia|Persian|Tehran)\b/i.test(e.text)).slice(0, 2);
+  const others = uniq.filter((e) => !picked.includes(e));
+  for (const e of others.slice(0, 3)) picked.push(e); // تازه‌ترین‌ها
+  for (let i = others.length - 1; i >= 0 && picked.length < limit; i--) {
+    if (others[i]!.year >= 1800) picked.push(others[i]!); // شاخص‌های کهنِ دوران مدرن
+  }
+  return picked.slice(0, limit).sort((a, b) => b.year - a.year).map((e) => ({ year: e.year, text: e.text, kind: 'event' as const }));
+}
+
+/** واکشی رویدادهای جهانی امروز میلادی از ویکی‌پدیای انگلیسی — دو تلاش (fetch + پشتیبان curl).
+ *  شکست کامل → null (بخش حذف می‌شود، صادقانه). ورودی: کلید میلادی TripleDate.keys.g (ماه، روز). */
+export async function fetchWorldDayHistory(g: { m: number; d: number }): Promise<DayHistory | null> {
+  const title = enWikiDayTitle(g.m, g.d);
+  if (!title) return null;
+  const url = enDayHistoryApiUrl(title);
+  for (const delay of [0, 4000]) {
+    if (delay > 0) await new Promise((r) => setTimeout(r, delay));
+    const json = (await getJson(url)) ?? (await getJsonViaCurl(url));
+    if (!json) continue;
+    const wt = extractWikitext(json);
+    if (!wt) continue;
+    const entries = parseEnWikiDayWikitext(wt);
+    if (entries.length === 0) continue;
+    return { title, pageUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, '_'))}`, entries };
+  }
+  return null;
 }
 
 // ---------- واکشی شبکه‌ای ----------

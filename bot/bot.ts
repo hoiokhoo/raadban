@@ -115,6 +115,7 @@ import {
 import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
 import { fetchHourlyForecast, buildWeatherMessage, type HourlyEntry } from './weather';
 import { buildWeatherCardCaption, renderWeatherCardPng } from './weather-card';
+import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif, buildWeatherGifCaption } from './weather-gif';
 import {
   pickHadith,
@@ -123,7 +124,7 @@ import {
   buildDailyMessage,
   type HadithUsage,
 } from './daily';
-import { fetchDayHistory, dayHistoryFromCache, pruneDayHistoryCache, filterDayHistoryEntries, type DayHistoryCacheEntry } from './day-history';
+import { fetchDayHistory, fetchWorldDayHistory, dayHistoryFromCache, pruneDayHistoryCache, filterDayHistoryEntries, EN_MONTHS_FA, type DayHistoryCacheEntry, type DayHistoryEntry } from './day-history';
 import type { PrayerMethod, PrayerTimesDay } from './prayer';
 
 // ---------- پیکربندی از محیط ----------
@@ -229,6 +230,9 @@ const CFG = {
   maxTweets: Math.max(0, Math.min(12, Number(process.env.MAX_TWEETS || 6) || 6)),
   tweetAccountsPerCycle: Math.max(0, Math.min(20, Number(process.env.TWEET_ACCOUNTS_PER_CYCLE || 6) || 6)),
   tweetFetchGapMs: Math.max(500, Math.min(15_000, Number(process.env.TWEET_FETCH_GAP_MS || 2000) || 2000)),
+  // پنجرهٔ تازگی توییت‌ها — مستقل از پنجرهٔ خبر (خواستهٔ کاربر ۱۶ نوامبر: مقامات هر روز
+  // چند پست می‌گذارند؛ پنجرهٔ ۵ ساعته با چرخش ~۱۰ دقیقه‌ای هیچ پستی را از قلم نمی‌اندازد)
+  tweetWindowHours: Math.max(1, Math.min(24, Number(process.env.TWEET_WINDOW_HOURS || 5) || 5)),
   dryRun: process.env.DRY_RUN === '1',
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
@@ -1311,12 +1315,16 @@ export async function sendBalePhotoLadder(token: string, chatId: string, imageUr
 }
 
 /** آپلود مستقیم بایت‌های تصویر (کارت رندرشدهٔ محلی) به sendPhoto بله —
- *  دو تلاش با احترام به ۴۲۹، کپشن HTML و بازگشت به کپشن ساده؛ شکست شفاف */
+ *  تلاش تا ۳ بار: خطای گذرای ۵xx سرور آپلود بله («Internal Error: failed to upload file bytes» —
+ *  یافتهٔ ۱۶ نوامبر از لاگ تولید: آپلود گاهی به‌صورت گذرا ۵۰۰ می‌دهد و بدون تلاش مجدد، کارت همان
+ *  مقصد را از دست می‌دهد) + احترام به ۴۲۹؛ کپشن HTML و بازگشت به کپشن ساده؛ شکست شفاف */
 export async function sendBalePhotoBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string, mime = 'image/png'): Promise<{ ok: boolean; error?: string }> {
   if (bytes.length < 1000) return { ok: false, error: `تصویر خیلی کوچک است (${bytes.length} بایت)` };
   if (bytes.length > 10 * 1024 * 1024) return { ok: false, error: 'تصویر بزرگ‌تر از ۱۰ مگابایت است' };
   const cap = (caption || '').trim().slice(0, 1024);
-  for (let attempt = 0; attempt < 2; attempt++) {
+  let lastErr = '';
+  const MAX_TRIES = 3;
+  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
     const form = new FormData();
     form.append('chat_id', chatId);
     if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
@@ -1332,20 +1340,24 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
         const j = JSON.parse(text) as { parameters?: { retry_after?: number } };
         retryAfter = j.parameters?.retry_after;
       } catch { /* پاسخ JSON نبود */ }
-      if (retryAfter && attempt === 0) {
-        await sleep(Math.min(retryAfter, 30) * 1000);
+      lastErr = `آپلود کارت ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}`;
+      // ۴۲۹ (سهمیه) — انتظار طبق سرور؛ ۵xx (خطای گذرای آپلود) — تلاش مجدد با فاصلهٔ رشدنده
+      const waitSec = retryAfter ? Math.min(retryAfter, 30) : res.status >= 500 ? attempt * 2.5 : 0;
+      if ((retryAfter || res.status >= 500) && attempt < MAX_TRIES) {
+        await sleep(waitSec * 1000);
         continue;
       }
-      return { ok: false, error: `آپلود کارت ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}` };
+      return { ok: false, error: lastErr };
     } catch (e) {
       const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود کارت' : e.message) : 'خطای ناشناخته';
-      if (attempt === 0) { await sleep(2000); continue; }
+      lastErr = msg;
+      if (attempt < MAX_TRIES) { await sleep(2000 * attempt); continue; }
       return { ok: false, error: msg };
     } finally {
       clearTimeout(timer);
     }
   }
-  return { ok: false, error: 'نامشخص' };
+  return { ok: false, error: lastErr || 'نامشخص' };
 }
 
 // ---------- زنجیرهٔ مدل (رایگان‌محور — فراوان و چرخشی) ----------
@@ -1591,6 +1603,29 @@ export function validateOneShot(x: unknown, allowedCats?: string[]): OneShotOut 
 
 export interface BatchTranslationEntry { n: number; fa: string }
 
+/** نجات مدخل‌های سالم از JSON بریده‌شدهٔ مدل — ریشهٔ بن‌بست ترجمه (۱۶ نوامبر ۲۰۲۶):
+ *  دستهٔ بزرگ با سقف توکن، وسط JSON قطع می‌شد («{"t":[{"n":1,…},{"n":2,…» ← بدون بسته‌شدن)
+ *  و extractJson «همه» را می‌انداخت؛ ترجمه‌های ازدست‌رفته هر چرخه انبار می‌شدند (۶۴ مورد گیرکرده
+ *  در لاگ تولید). این تابع اشیای کامل {"n":k,"fa":"…"} را از متن بریده بیرون می‌کشد. خالص و تست‌پذیر. */
+export function salvageBatchTranslations(raw: string): BatchTranslationEntry[] | null {
+  if (!raw) return null;
+  const out: BatchTranslationEntry[] = [];
+  const seen = new Set<number>();
+  // اشیای کامل «n» و «fa» — دابل‌کوت و اسکیپ‌های درونی شناخته می‌شود
+  const re = /\{\s*"n"\s*:\s*(\d{1,3})\s*,\s*"fa"\s*:\s*"((?:[^"\\]|\\.)*)"\s*\}/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(raw)) !== null) {
+    const n = Number(m[1]);
+    let fa = '';
+    try { fa = JSON.parse(`"${m[2]}"`); } catch { fa = m[2]; }
+    if (!Number.isInteger(n) || n < 1 || n > 200 || fa.trim().length < 2) continue;
+    if (seen.has(n)) continue;
+    seen.add(n);
+    out.push({ n, fa: fa.trim().slice(0, 3500) });
+  }
+  return out.length > 0 ? out : null;
+}
+
 export function validateBatchTranslation(x: unknown): BatchTranslationEntry[] | null {
   let arr: unknown;
   if (Array.isArray(x)) arr = x;
@@ -1635,6 +1670,47 @@ export async function translateOne(text: string): Promise<string | null> {
   return entries?.find((e) => e.n === 1)?.fa || null;
 }
 
+/** ترجمه/خلاصهٔ دسته‌ای چندبچی — ریشهٔ بن‌بست ترجمه (۱۶ نوامبر ۲۰۲۶):
+ *  دستهٔ ۲۴تایی × ۱۲۰۰ نویسه از سقف توکن خروجی مدل‌ها بلندتر بود؛ JSON وسطش بریده می‌شد و
+ *  «همهٔ» ترجمه‌ها هر چرخه دور ریخته می‌شدند (۶۴ خبر گیرکرده در لاگ تولید). اینجا:
+ *  ۱) بچ‌های کوچکِ ۸تایی × ≤۹۰۰ نویسه — خروجی همیشه جا می‌شود؛
+ *  ۲) JSON بریده → نجات مدخل‌های سالم (salvageBatchTranslations)؛
+ *  ۳) پاسخ تجزیه‌ناپذیر → یک تلاش با تأمین‌کنندهٔ بعدی زنجیره.
+ *  خروجی: آرایه هم‌طول ورودی — رشتهٔ خالی یعنی آن مورد این بار ترجمه نشد (چرخهٔ بعد دوباره).
+ *  faithful=true → ترجمهٔ وفادار کامل (توییت‌ها)؛ پیش‌فرض → خلاصهٔ دوخطی خبر (خواستهٔ کاربر ۱۶ نوامبر). */
+export async function summarizeBatchFa(
+  texts: string[],
+  opts: { faithful?: boolean; maxPerItem?: number; maxTokens?: number } = {}
+): Promise<{ fa: string[]; translated: number; provider?: string }> {
+  const out: string[] = texts.map(() => '');
+  if (!texts || texts.length === 0) return { fa: out, translated: 0 };
+  const prompt = opts.faithful ? getTranslatePrompt() : getNewsSummaryPrompt();
+  const perItem = Math.max(120, Math.min(1200, opts.maxPerItem ?? 900));
+  const BATCH = 8;
+  let translated = 0;
+  let lastProvider: string | undefined;
+  for (let base = 0; base < texts.length; base += BATCH) {
+    const batch = texts.slice(base, base + BATCH);
+    const corpus = batch.map((t, j) => `[${j + 1}] ${(t || '').slice(0, perItem).replace(/\n+/g, ' ')}`).join('\n');
+    if (!corpus.trim()) continue;
+    let entries: BatchTranslationEntry[] | null = null;
+    for (let tryIdx = 0; tryIdx < 2 && !entries; tryIdx++) {
+      const r = await chainCall(prompt, corpus, { maxTokens: opts.maxTokens ?? 5000, skipIds: tryIdx > 0 && lastProvider ? [lastProvider] : ['openrouter'] });
+      if (!r.ok || !r.content) continue;
+      lastProvider = r.providerId;
+      entries = extractJson(r.content, validateBatchTranslation) ?? salvageBatchTranslations(r.content);
+      if (!entries) console.warn(`⚠️ پاسخ ${r.providerId || 'مدل'} قابل تجزیه نبود (بچ ${Math.floor(base / BATCH) + 1}) — ${tryIdx === 0 ? 'تأمین‌کنندهٔ بعدی' : 'بچ به چرخهٔ بعد'}`);
+    }
+    if (!entries) continue;
+    for (const e of entries) {
+      const idx = base + e.n - 1;
+      if (idx < 0 || idx >= texts.length) continue;
+      if (!out[idx] && !needsTranslation(e.fa)) { out[idx] = e.fa; translated++; } // فقط فارسیِ واقعی
+    }
+  }
+  return { fa: out, translated, provider: lastProvider };
+}
+
 // ---------- پرامپت‌ها — نسخهٔ سوپر حرفه‌ای (۵ نوامبر ۲۰۲۶) ----------
 // قابل ویرایش از اپلیکیشن: bot/prompts.json (اپلیکیشن کامیت می‌کند) بر این پیش‌فرض‌ها اولویت دارد.
 
@@ -1661,19 +1737,21 @@ export const DEFAULT_SYSTEM_BOT_ONESHOT = `
    فقط «یک» آیتم بسازید و شمارهٔ «همهٔ» آن پوشش‌ها را در refs بنویسید؛ متن بر پایهٔ کامل‌ترین و معتبرترین منبع است.
    هرگز یک رویداد را در دو آیتم تکرار نکنید؛ هرگز رویدادِ دستِ‌دوم را که فقط بازتاب همان خبر است جدا نیاورید.
 
-۴) متن هر رویداد (فیلد text) — قانون «خبر کامل، بدون خلاصه‌سازی» (خواستهٔ صریح کاربر):
-   کل محتوای منبع را به فارسیِ روان، سلیس و بی‌حاشیه بنویسید — «تمامِ» مطلب، نه چکیدهٔ آن:
-   - هر جمله، هر جزئیات، هر عدد، هر نام و هر نقل‌قولِ مهمِ منبع باید در متن بیاید.
-   - طول متن تابع خود خبر است: خبر کوتاه = متن کوتاه؛ خبر بلند = متن کامل و بلند.
-   - حذف جملهٔ مهم، فشرده‌سازی، چکیده‌نویسی یا «...» مطلقاً ممنوع؛ وسط جمله بریده نشود.
-   - بدون مقدمه («به گزارش...» ممنوع)، بدون تحلیل و برداشت شخصی، بدون نتیجه‌گیری، بدون پرسش،
-     بدون خطاب به مخاطب، بدون نقل‌قول جداگانه، بدون ایموجی در متن، بدون اشاره به «این خبر/این گزارش».
+۴) متن هر رویداد (فیلد text) — قانون «خلاصهٔ دوخطی شکیل» (خواستهٔ صریح کاربر ۱۶ نوامبر:
+   «دیگه نمیخوام اخبار عینا از خبرگذاریا بیام، میخوام خلاصه دو سه خطی اون خبر به فارسی روان
+   و خیلی شکیل و مرتب بیاد»):
+   هر خبر را در حداکثر دو سه خط (~۱۳۰ نویسه) به فارسیِ روان، سلیس و بی‌حاشیه بنویسید —
+   جوهرهٔ خبر کامل: کنشگر اصلی + اقدام/نتیجهٔ کلیدی + نام و عدد مهم.
+   - عین‌نویسی خبرگزاری، متن بلند، تشریفات («به گزارش…») و پس‌زمینهٔ اضافه ممنوع.
+   - هیچ رویداد، نام، عدد یا نقل‌قول مهم منبع از قلم نمی‌افتد — خلاصهٔ کامل، نه بریدهٔ ناقص.
+   - بدون تحلیل و برداشت شخصی، بدون نتیجه‌گیری، بدون پرسش، بدون خطاب به مخاطب،
+     بدون ایموجی در متن، بدون اشاره به «این خبر/این گزارش».
    - این متن عیناً بدنهٔ پیام می‌شود.
 
-۵) ترجمهٔ مطالب غیرفارسی: ترجمهٔ روان، کامل و تمام‌وکمال به فارسی — معادل‌سازی طبیعی به‌جای ترجمهٔ تحت‌اللفظی؛
-   هیچ افزودن، حذف، خلاصه‌سازی یا کوتاه‌سازی مطلقاً ممنوع — طول ترجمه هم‌عرض اصل مطلب است؛
+۵) ترجمهٔ مطالب غیرفارسی: ترجمهٔ روان و کامل به فارسی — معادل‌سازی طبیعی به‌جای ترجمهٔ تحت‌اللفظی؛
+   سپس همان قانون دوخطی بند ۴ روی آن اعمال می‌شود (خلاصهٔ شکیل، بدون از دست دادن نام/عدد مهم)؛
    نام اشخاص و نهادها به فارسیِ رایج (ترامپ، پوتین، اوپک)،
-   نام برندها و نهادهای بی‌معادل فارسی لاتین می‌ماند؛ اعداد به رقم فارسی نیستند — همان رقم اصلی.
+   نام برندها و نهادهای بی‌معادل فارسی لاتین می‌مانند؛ اعداد همان رقم اصلی.
 
 ۶) حکم فقط برای ایموجی (بدون هیچ توضیحی) — فقط با شواهد جست‌وجوی وبِ ارائه‌شده:
    - شواهد خبر را تأیید می‌کند → verdict = «تأیید می‌شود»
@@ -1694,7 +1772,7 @@ export const DEFAULT_SYSTEM_BOT_ONESHOT = `
 `.trim();
 
 export const DEFAULT_SYSTEM_BOT_TRANSLATE = `
-شما مترجم ارشد خبر و شبکه‌های اجتماعی هستید. ورودی: فهرست شماره‌دار متن‌ها (خبر، تیتر، یا توییت) به هر زبانی (انگلیسی، عربی، روسی، ترکی و...).
+شما مترجم ارشد خبر و شبکه‌های اجتماعی هستید. ورودی: فهرست شماره‌دار متن‌ها (خبر، تیتر، یا توییت) به هر زبانی (انگلیسی، عربی، روسی، عبری، ترکی و...).
 
 مأموریت: برای هر شماره، ترجمهٔ فارسیِ روانِ «کامل و تمام‌وکمالِ» همان متن را بنویسید.
 
@@ -1712,6 +1790,30 @@ export const DEFAULT_SYSTEM_BOT_TRANSLATE = `
 برای «همهٔ» شماره‌های ورودی پاسخ بدهید — هیچ شماره‌ای را جا نیندازید.
 `.trim();
 
+/** پرامپت خلاصهٔ دوخطیِ خبرهای خارجی — خواستهٔ کاربر ۱۶ نوامبر ۲۰۲۶:
+ *  «دیگه نمیخوام اخبار عینا از خبرگذاریا بیام، میخوام خلاصه دو سه خطی اون خبر به فارسی
+ *  روان و خیلی شکیل و مرتب بیاد» — خروجیِ کوتاه هم بن‌بست سقف توکن دستهٔ بزرگ ترجمه را می‌شکند. */
+export const DEFAULT_NEWS_SUMMARY_PROMPT = `
+شما «دبیر سردبیری رصدبان» هستید — خبرهای خارجی برای انتشار در کانال فارسی آماده می‌کنید.
+ورودی: فهرست شماره‌دار خبرهای خارجی (انگلیسی/عربی/روسی/عبری/...) از خبرگزاری‌های جهان.
+
+مأموریت: برای هر شماره، «خلاصهٔ خبری دوخطی» به فارسیِ روان، سلیس، شکیل و مرتب بنویسید — نه ترجمهٔ لفظ‌به‌لفظ.
+
+قواعد الزامی:
+- هر خلاصه حداکثر حدود ۱۳۰ نویسه است (دو سطر موبایل) — یک جملهٔ خبری کامل و بی‌حاشیه.
+- جوهرهٔ خبر باید کامل باشد: کنشگر اصلی + مهم‌ترین اقدام/نتیجه + نام و عدد کلیدی (اگر هست).
+- خبرگزاری متن بلند می‌نویسد؛ شما فقط خودِ خبر را برمی‌دارید: تشریفات، پس‌زمینهٔ اضافه،
+  تکرار و صفت‌های تبلیغاتی حذف می‌شود؛ هیچ رویداد، نام یا عدد مهمی از قلم نمی‌افتد.
+- هیچ نام، عدد، تاریخ یا نقل‌قولی که در متن ورودی نیست اضافه نکنید (هالوسینیشن ممنوع).
+- نام اشخاص و نهادها به فارسیِ رایج (ترامپ، پوتین، سازمان ملل)؛ برندهای بی‌معادل لاتین بمانند.
+- اعداد همان رقم اصلی بمانند؛ بدون «به گزارش»، بدون ایموجی، بدون لینک.
+- فارسی معیار و روان؛ جملهٔ ساده؛ بدون خطاب به مخاطب.
+
+خروجی فقط و فقط یک JSON (بدون هیچ متن اضافه):
+{"t":[{"n":شماره,"fa":"خلاصهٔ دوخطی فارسی"},...]}
+برای «همهٔ» شماره‌های ورودی پاسخ بدهید — هیچ شماره‌ای را جا نیندازید.
+`.trim();
+
 // پرامپت‌های فعال — می‌توانند از bot/prompts.json بازنویسی شوند (ویرایش از اپلیکیشن)
 let activeOneshot = DEFAULT_SYSTEM_BOT_ONESHOT;
 let activeTranslate = DEFAULT_SYSTEM_BOT_TRANSLATE;
@@ -1719,6 +1821,7 @@ let activeDigest = DEFAULT_SYSTEM_BOT_DIGEST;
 let activeHourly = DEFAULT_SYSTEM_HOURLY;
 let activeNightly = DEFAULT_SYSTEM_NIGHTLY;
 let activeGeo = DEFAULT_SYSTEM_GEO;
+let activeSummary = DEFAULT_NEWS_SUMMARY_PROMPT;
 
 export function getOneshotPrompt(): string { return activeOneshot; }
 export function getTranslatePrompt(): string { return activeTranslate; }
@@ -1726,20 +1829,23 @@ export function getDigestPrompt(): string { return activeDigest; }
 export function getHourlyPrompt(): string { return activeHourly; }
 export function getNightlyPrompt(): string { return activeNightly; }
 export function getGeoPrompt(): string { return activeGeo; }
+/** پرامپت خلاصهٔ دوخطی خبرهای خارجی (۱۶ نوامبر) — جای ترجمهٔ بلند در دستهٔ تیترها */
+export function getNewsSummaryPrompt(): string { return activeSummary; }
 
 /** اعمال پرامپت‌های ویرایش‌شده — فقط متن بلند و معتبر پذیرفته می‌شود (محافظت از رفتار ربات) */
-export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean; nightly: boolean; geo: boolean } {
-  const r = { oneshot: false, translate: false, digest: false, hourly: false, nightly: false, geo: false };
+export function applyPromptOverrides(p: { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string; summary?: string }): { oneshot: boolean; translate: boolean; digest: boolean; hourly: boolean; nightly: boolean; geo: boolean; summary: boolean } {
+  const r = { oneshot: false, translate: false, digest: false, hourly: false, nightly: false, geo: false, summary: false };
   if (typeof p.oneshot === 'string' && p.oneshot.trim().length >= 400) { activeOneshot = p.oneshot.trim(); r.oneshot = true; }
   if (typeof p.translate === 'string' && p.translate.trim().length >= 200) { activeTranslate = p.translate.trim(); r.translate = true; }
   if (typeof p.digest === 'string' && p.digest.trim().length >= 400) { activeDigest = p.digest.trim(); r.digest = true; }
   if (typeof p.hourly === 'string' && p.hourly.trim().length >= 400) { activeHourly = p.hourly.trim(); r.hourly = true; }
   if (typeof p.nightly === 'string' && p.nightly.trim().length >= 400) { activeNightly = p.nightly.trim(); r.nightly = true; }
   if (typeof p.geo === 'string' && p.geo.trim().length >= 400) { activeGeo = p.geo.trim(); r.geo = true; }
+  if (typeof p.summary === 'string' && p.summary.trim().length >= 300) { activeSummary = p.summary.trim(); r.summary = true; }
   return r;
 }
 
-export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string; updatedAt?: string }
+export interface PromptFile { oneshot?: string; translate?: string; digest?: string; hourly?: string; nightly?: string; geo?: string; summary?: string; updatedAt?: string }
 
 /** پارس فایل پرامپت‌های ویرایش‌شده — تابع خالص تست‌پذیر */
 export function parsePromptFile(raw: string): PromptFile {
@@ -1752,6 +1858,7 @@ export function parsePromptFile(raw: string): PromptFile {
       hourly: typeof o.hourly === 'string' ? o.hourly : undefined,
       nightly: typeof o.nightly === 'string' ? o.nightly : undefined,
       geo: typeof o.geo === 'string' ? o.geo : undefined,
+      summary: typeof o.summary === 'string' ? o.summary : undefined,
       updatedAt: typeof o.updatedAt === 'string' ? o.updatedAt : undefined,
     };
   } catch { return {}; }
@@ -1806,7 +1913,14 @@ export async function searchWeb(query: string): Promise<WebEvidence[]> {
 // بدون ریپلای؛ ایکس از IP دیتاسنتر (GitHub Actions) سهمیهٔ تنگ دارد — ۴۲۹ صادقانه ثبت و
 // در چرخهٔ بعدی دوباره تلاش می‌شود؛ هرگز داده ساختگی تولید نمی‌شود.
 
-export interface TweetAccount { handle: string; name?: string }
+export interface TweetAccount {
+  handle: string;
+  name?: string;
+  /** نام فارسی + مسئولیت — خط دوم نمایش توییت (خواستهٔ کاربر ۱۶ نوامبر) */
+  faName?: string;
+  /** پلتفرم: x (پیش‌فرض) | truth (تروث‌سوشال — خواستهٔ کاربر ۱۶ نوامبر) */
+  platform?: 'x' | 'truth';
+}
 
 export function readTweetAccounts(file: string): TweetAccount[] {
   try {
@@ -1820,7 +1934,14 @@ export function readTweetAccounts(file: string): TweetAccount[] {
       } else if (typeof x === 'object' && x !== null) {
         const o = x as Record<string, unknown>;
         const handle = typeof o.handle === 'string' ? o.handle.trim().replace(/^@/, '') : '';
-        if (/^[A-Za-z0-9_]{2,15}$/.test(handle)) out.push({ handle, name: typeof o.name === 'string' ? o.name : undefined });
+        if (!/^[A-Za-z0-9_]{2,15}$/.test(handle)) continue;
+        const platform = o.platform === 'truth' ? 'truth' : 'x';
+        out.push({
+          handle,
+          name: typeof o.name === 'string' ? o.name : undefined,
+          faName: typeof o.faName === 'string' ? o.faName : undefined,
+          platform,
+        });
       }
     }
     return out;
@@ -1999,6 +2120,67 @@ export function freshTweets(
   }
   fresh.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
   return { fresh: fresh.slice(0, opts.limit), blocked };
+}
+
+/** نامزد توییت/پست تازه — پلتفرم‌آگاه (ایکس + تروث‌سوشال؛ خواستهٔ کاربر ۱۶ نوامبر) */
+export interface TweetCandidate {
+  tweet: ParsedTweet;
+  /** handle یکتا برای ضدتکرار — تروث‌سوشال: «truth/<handle>» تا با ایکس هم‌نام تداخل نکند */
+  dedupHandle: string;
+  /** برچسب نمایشی منبع — «𝕏 Donald Trump» یا «🅣 Donald Trump (تروث‌سوشال)» */
+  label: string;
+  /** نام فارسی + مسئولیت — خط دوم نمایش (خواستهٔ ۱۶ نوامبر) */
+  faName?: string;
+  /** متن اصلی پیش از ترجمه */
+  orig: string;
+}
+
+/** واکشی توییت/پست‌های تازهٔ حساب‌های منتخب — مشترک میان حالت بست و تحلیل.
+ *  پلتفرم‌آگاه: x → خط زمانی ایکس؛ truth → آرشیو عمومی تروث‌سوشال (ترامپ).
+ *  پنجرهٔ تازگی مستقل توییت (TWEET_WINDOW_HOURS — پیش‌فرض ۵ ساعت). تابع شبکه‌ای با ضدتکرار state. */
+export async function collectFreshTweets(
+  st: BotState,
+  accounts: TweetAccount[],
+  titleSets: Set<string>[]
+): Promise<{ candidates: TweetCandidate[]; nextCursor: number; rateLimited: boolean; fetched: number; tried: number }> {
+  const cursor = Number(st.tweetCursor) || 0;
+  const { picked, nextCursor } = rotateAccounts(accounts, cursor, CFG.tweetAccountsPerCycle);
+  const candidates: TweetCandidate[] = [];
+  let rateLimited = false;
+  let fetched = 0;
+  for (const acc of picked) {
+    const isTruth = acc.platform === 'truth';
+    const dedupHandle = isTruth ? `truth/${acc.handle.toLowerCase()}` : acc.handle;
+    const label = isTruth
+      ? `🅣 ${acc.name || `@${acc.handle}`} (تروث‌سوشال)`
+      : `𝕏 ${acc.name || `@${acc.handle}`}`;
+    if (isTruth && acc.handle.toLowerCase() !== 'realdonaldtrump') {
+      // آرشیو عمومی تروث‌سوشال فقط ترامپ را پوشش می‌دهد — حساب دیگرِ تروث: رد صادقانه
+      console.warn(`⚠️ تروث‌سوشال: آرشیو عمومی فقط ترامپ را دارد — @${acc.handle} رد شد (هیچ ساختگی)`);
+      continue;
+    }
+    const r = isTruth
+      ? await fetchTruthSocialArchive(20_000, 20).then((t): TweetFetchResult =>
+          t.ok ? { ok: true, tweets: t.posts.map((p: TruthPost) => ({ id: p.id, text: p.text, createdAt: p.createdAt })) } : { ok: false, tweets: [], error: t.error })
+      : await fetchTweetTimeline(acc.handle);
+    if (r.ok) fetched += r.tweets.length;
+    if (r.rateLimited) {
+      rateLimited = true;
+      console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیهٔ حساب‌ها به چرخهٔ بعد می‌روند`);
+      break;
+    }
+    if (!r.ok) {
+      console.warn(`⚠️ توییت ${isTruth ? 'تروث‌سوشال' : 'ایکس'} @${acc.handle}: ${r.error} (صادقانه — در چرخهٔ بعدی دوباره)`);
+    } else {
+      const ft = freshTweets(st, r.tweets, dedupHandle, titleSets, { windowHours: CFG.tweetWindowHours, nowMs: Date.now(), limit: CFG.maxTweets });
+      for (const tw of ft.fresh) {
+        candidates.push({ tweet: tw, dedupHandle, label, faName: acc.faName, orig: tw.text });
+      }
+      console.log(`  ${label}: ${ft.fresh.length} پست تازه (${ft.blocked} قدیمی/تکراری رد شد)`);
+    }
+    await sleep(CFG.tweetFetchGapMs);
+  }
+  return { candidates, nextCursor, rateLimited, fetched, tried: picked.length };
 }
 
 // ---------- اجرای چرخه ----------
@@ -2667,18 +2849,48 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     if (!hist || hist.entries.length === 0) {
       console.warn(`⚠️ وقایع ${kind === 'morning' ? 'امروز' : 'فردا'} از ویکی‌پدیا دریافت نشد/خالی بود — بخش وقایع در پیام ${label} نمی‌آید (صادقانه)`);
     } else {
-      // پالایش محتوایی — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶: حذف اغتشاش/مسایل ضد جمهوری اسلامی و
-      // بازیگران/فوتبالیست‌ها از وقایع روز (حافظهٔ خام دست‌نخورده؛ پالایش در لحظهٔ نمایش)
+      // پالایش محتوایی — خواستهٔ کاربر ۱۵ و ۱۶ نوامبر ۲۰۲۶: حذف اغتشاش/مسایل ضد جمهوری اسلامی
+      // (واژه‌نامه + نام‌های چهره‌های ۱۴۰۱ مثل کیان پیرفلک) و بازیگران/فوتبالیست‌ها از وقایع روز
       const keptEntries = filterDayHistoryEntries(hist.entries);
       const blocked = hist.entries.length - keptEntries.length;
       hist = keptEntries.length > 0 ? { ...hist, entries: keptEntries } : null;
       console.log(`وقایع ${hist ? hist.title : ''}: ${hist ? hist.entries.length : 0} مدخل پس از پالایش${blocked > 0 ? ` (${blocked} مدخل موضوعی حذف شد)` : ''} از ویکی‌پدیای فارسی`);
     }
+    // ── رویدادهای جهانی همان روز (میلادی) — خواستهٔ کاربر ۱۶ نوامبر (نمونهٔ او:
+    //  «۱۶ نوامبر ۱۹۴۵؛ ایجاد یونسکو.») — واکشی از ویکی‌پدیای انگلیسی + ترجمهٔ دسته‌ای؛
+    //  شکست هر مرحله → بخش حذف (صادقانه). حافظهٔ همان روز: کلید «world:<تاریخ>» ──
+    const worldTd = tripleDateOf(histDayKey, dSettings.timezone, dSettings.qamariBasis);
+    const worldKey = `world:${histDayKey}`;
+    let worldEntries: DayHistoryEntry[] | null = dayHistoryFromCache(daily.dayHistoryCache, worldKey)?.entries ?? null;
+    if (!worldEntries) {
+      const world = await fetchWorldDayHistory(worldTd.keys.g).catch(() => null);
+      if (world && world.entries.length > 0) {
+        // ترجمهٔ وفادار دسته‌ای (رویدادهای تاریخی یک‌خطی‌اند) — بچ‌بندی ضد بن‌بست
+        const res = await summarizeBatchFa(world.entries.map((e) => e.text), { faithful: true, maxPerItem: 500 });
+        const faEntries: DayHistoryEntry[] = [];
+        res.fa.forEach((fa, i) => {
+          if (fa) faEntries.push({ year: world.entries[i]!.year, text: fa, kind: 'event' });
+        });
+        if (faEntries.length > 0) {
+          worldEntries = faEntries;
+          daily.dayHistoryCache = pruneDayHistoryCache({ ...(daily.dayHistoryCache || {}), [worldKey]: { title: world.title, entries: faEntries, at: new Date().toISOString() } });
+          console.log(`رویدادهای جهانی ${world.title}: ${faEntries.length} مدخل ترجمه و ذخیره شد`);
+        } else {
+          console.warn('⚠️ ترجمهٔ رویدادهای جهانی ناموفق بود — بخش جهانی در پیام نمی‌آید (صادقانه)');
+        }
+      } else {
+        console.warn(`⚠️ رویدادهای جهانی ${worldTd.keys.g.m}/${worldTd.keys.g.d} دریافت نشد — بخش جهانی در پیام نمی‌آید (صادقانه)`);
+      }
+    }
+    const worldDayMonth = `${enToFaDigits(String(worldTd.keys.g.d))} ${EN_MONTHS_FA[worldTd.keys.g.m - 1] || ''}`.trim();
     const msg = await buildDailyMessage({
       kind, dateKey: pNow.dateKey, tz: dSettings.timezone, qamariBasis: dSettings.qamariBasis, city: dSettings.city,
       prayer: { lat: dSettings.lat, lon: dSettings.lon, method: dSettings.prayerMethod, fajrAngle: dSettings.fajrAngle, ishaAngle: dSettings.ishaAngle, maghribMinutes: dSettings.maghribMinutes, tz: dSettings.timezone },
       hadith: pick.hadith, image: img,
       dayHistory: hist?.entries ?? null,
+      dayHistoryTitle: hist?.title,
+      worldHistory: worldEntries,
+      worldDayMonth,
       morningHour: dSettings.morningHour,
       eveningHour: dSettings.eveningHour,
     });
@@ -3037,24 +3249,18 @@ async function main(): Promise<void> {
     const pool: PoolItem[] = Array.isArray(state.pool) ? state.pool : [];
     state.pool = pool;
 
-    // ۱) ترجمهٔ دسته‌جمعی خوشه‌های غیرفارسی — مبنای پیکرهٔ تحلیل (فارسی روان)
+    // ۱) خلاصهٔ دوخطی دسته‌جمعی خوشه‌های خارجی — مبنای پیکرهٔ تحلیل (فارسی روان)
+    // ۱۶ نوامبر: خلاصهٔ دوخطی به‌جای ترجمهٔ بلند (خواستهٔ کاربر) + بچ‌بندی ضد بن‌بست توکن
     const needTr = groups.filter((g) => !(g.primary.translationFa || '').trim() &&
       (g.primary.language !== 'fa' || isLikelyForeign(g.primary.content)));
     if (needTr.length > 0) {
-      const trCorpus = needTr.map((g, j) => `[${j + 1}] ${g.primary.content.slice(0, 1200).replace(/\n+/g, ' ')}`).join('\n');
-      const r = await chainCall(getTranslatePrompt(), trCorpus, { maxTokens: 6000, skipIds: ['openrouter'] });
-      if (r.ok && r.content) {
-        const entries = extractJson(r.content, validateBatchTranslation);
-        if (entries) {
-          let tr = 0;
-          for (const e of entries) {
-            const t = needTr[e.n - 1];
-            if (t && !needsTranslation(e.fa)) { t.primary.translationFa = e.fa; tr++; }
-          }
-          summary.translated += tr;
-          console.log(`ترجمهٔ پیکرهٔ تحلیل: ${tr} عنوان (${r.providerId})`);
-        }
-      } else console.warn(`⚠️ ترجمهٔ پیکرهٔ تحلیل ناموفق: ${r.error} — متن اصلی در استخر می‌ماند (هیچ ساختگی)`);
+      const res = await summarizeBatchFa(needTr.map((g) => g.primary.content), { maxPerItem: 900 });
+      let tr = 0;
+      res.fa.forEach((fa, i) => {
+        if (fa) { needTr[i]!.primary.translationFa = fa; tr++; }
+      });
+      summary.translated += tr;
+      console.log(`خلاصهٔ دوخطی پیکرهٔ تحلیل: ${tr} عنوان از ${needTr.length}${res.provider ? ` (${res.provider})` : ''}`);
     }
 
     // ۲) همهٔ خوشه‌ها به استخر — بدون هیچ ارسال خبری
@@ -3073,54 +3279,33 @@ async function main(): Promise<void> {
     summary.poolSize = state.pool.length;
     console.log(`استخر تحلیل: +${poolRes.added} (${poolRes.droppedDup} تکراری) — کل ${enToFaDigits(String(state.pool.length))}`);
 
-    // ۳) توییت‌ها → استخر تحلیل (بدون ارسال مستقیم — عیناً «هیچ خبری ارسال نشه»)
+    // ۳) توییت/پست‌های مقامات → استخر تحلیل (بدون ارسال مستقیم — عیناً «هیچ خبری ارسال نشه»)
     let tweetNextCursor: number | null = null;
     const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
     if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
-      const cursor = Number(state.tweetCursor) || 0;
-      const { picked, nextCursor } = rotateAccounts(tweetAccounts, cursor, CFG.tweetAccountsPerCycle);
-      tweetNextCursor = nextCursor;
-      summary.tweetAccountsTried = picked.length;
-      const twItems: PoolItem[] = [];
-      let rateLimited = false;
-      for (const acc of picked) {
-        const r = await fetchTweetTimeline(acc.handle);
-        if (r.ok) summary.tweetsFetched = (summary.tweetsFetched || 0) + r.tweets.length;
-        if (r.rateLimited) { rateLimited = true; console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیه به چرخهٔ بعد`); break; }
-        if (!r.ok) { console.warn(`⚠️ توییت @${acc.handle}: ${r.error} (صادقانه)`); }
-        else {
-          const ft = freshTweets(state, r.tweets, acc.handle, titleSets, { windowHours: CFG.windowHours, nowMs: Date.now(), limit: CFG.maxTweets });
-          for (const tw of ft.fresh) {
-            twItems.push({
-              id: `tw-${acc.handle.toLowerCase()}-${tw.id}`,
-              titleKey: sha1(`tw-title:${acc.handle}:${tw.id}`),
-              source: `𝕏 ${acc.name || `@${acc.handle}`}`,
-              cat: 'general',
-              lang: 'en',
-              text: tw.text,
-              at: (tw.createdAt || new Date()).toISOString(),
-            });
-          }
-        }
-        await sleep(CFG.tweetFetchGapMs);
-      }
-      summary.tweetRateLimited = rateLimited;
+      const collected = await collectFreshTweets(state, tweetAccounts, titleSets);
+      tweetNextCursor = collected.nextCursor;
+      summary.tweetAccountsTried = collected.tried;
+      summary.tweetsFetched = (summary.tweetsFetched || 0) + collected.fetched;
+      summary.tweetRateLimited = collected.rateLimited;
+      const twItems: PoolItem[] = collected.candidates.map((c) => ({
+        id: `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`,
+        titleKey: sha1(`tw-title:${c.dedupHandle}:${c.tweet.id}`),
+        source: c.label,
+        cat: 'general',
+        lang: 'en',
+        text: c.tweet.text,
+        at: (c.tweet.createdAt || new Date()).toISOString(),
+      }));
       if (twItems.length > 0) {
-        // ترجمهٔ دسته‌جمعی توییت‌ها — متن کامل تا ۹۰۰ نویسه
-        const trCorpus = twItems.map((p, j) => `[${j + 1}] ${p.text.slice(0, 900).replace(/\n+/g, ' ')}`).join('\n');
-        const r = await chainCall(getTranslatePrompt(), trCorpus, { maxTokens: 6000, skipIds: ['openrouter'] });
-        if (r.ok && r.content) {
-          const entries = extractJson(r.content, validateBatchTranslation);
-          if (entries) {
-            let tr = 0;
-            for (const e of entries) {
-              const p = twItems[e.n - 1];
-              if (p && !needsTranslation(e.fa)) { p.fa = e.fa; tr++; }
-            }
-            summary.translated += tr;
-            if (tr) console.log(`ترجمهٔ دسته‌جمعی توییت: ${tr} مورد (${r.providerId})`);
-          }
-        } else console.warn(`⚠️ ترجمهٔ توییت ناموفق: ${r.error} — متن اصلی در استخر می‌ماند (هیچ ساختگی)`);
+        // ترجمهٔ وفادار کامل توییت‌ها (نمایش دوخطی: اصلی + نام فارسی: ترجمه) — بچ‌بندی ضد بن‌بست
+        const res = await summarizeBatchFa(twItems.map((p) => p.text), { faithful: true, maxPerItem: 900 });
+        let tr = 0;
+        res.fa.forEach((fa, i) => {
+          if (fa) { twItems[i]!.fa = fa; tr++; }
+        });
+        summary.translated += tr;
+        if (tr) console.log(`ترجمهٔ توییت‌ها: ${tr} مورد از ${twItems.length}${res.provider ? ` (${res.provider})` : ''}`);
       }
       const twRes = addToPool(state.pool, twItems, CFG.poolCap);
       state.pool = twRes.pool;
@@ -3175,8 +3360,9 @@ async function main(): Promise<void> {
     console.log('هیچ خبر تازهٔ قابل ارسالی نبود — بست خالی ارسال نمی‌شود؛ توییت‌ها و اسلات‌ها ادامه می‌یابند');
   }
 
-  // ۶) ترجمهٔ دسته‌جمعی تیترهای غیرفارسی (یک فراخوانی سبک — بدون OpenRouter)
-  //  ورودی هر مورد تا ۱۲۰۰ نویسه (قبلاً ۳۰۰ بود — عامل ترجمهٔ ناقص) و سقف خروجی ۶۰۰۰ توکن
+  // ۶) خلاصهٔ دوخطیِ دسته‌جمعی تیترهای غیرفارسی — خواستهٔ کاربر ۱۶ نوامبر:
+  //  «دیگه نمیخوام اخبار عینا از خبرگذاریا بیام، میخوام خلاصه دو سه خطی اون خبر به فارسی روان و
+  //  خیلی شکیل و مرتب بیاد» — بچ‌های ۸تایی + نجات JSON بریده (بن‌بست ۶۴ خبری ۱۶ نوامبر رفع شد).
   //  ── خودترمیمی «ترجمهٔ مسموم» (۱۵ نوامبر): ترجمهٔ ذخیره‌شده‌ای که خودش غیرفارسی است
   //  (مدل روزی انگلیسی/عبری پس داده بود) پاک می‌شود تا این چرخه دوباره ترجمه کند —
   //  قبلاً چنین آیتمی چون translationFa «غیرخالی» داشت برای همیشه از ترجمه و ارسال می‌افتاد (بن‌بست). ──
@@ -3190,32 +3376,21 @@ async function main(): Promise<void> {
     .map((g, i) => ({ g, i }))
     .filter(({ g }) => !(g.primary.translationFa || '').trim() &&
       (g.primary.language !== 'fa' || isLikelyForeign(g.primary.content)));
-  // سقف دستهٔ ترجمه در هر چرخه — در حالت بست «همهٔ» رویدادها صف می‌شوند و دستهٔ ترجمه می‌تواند
-  // بزرگ شود؛ مازاد بدون علامت‌گذاری می‌ماند و در چرخه‌های بعدی ترجمه می‌شود (خبری از قلم نمی‌افتد)
+  // سقف دستهٔ ترجمه در هر چرخه — خلاصهٔ دوخطی سبک است؛ ۳ بچِ ۸تایی در هر چرخه، مازاد به چرخهٔ بعد
   const needTr = needTrAll.slice(0, 24);
   if (needTrAll.length > needTr.length) {
     console.log(`ترجمه: ${needTrAll.length} مورد در انتظار بود — ${needTr.length} مورد این چرخه، بقیه برای چرخهٔ بعد`);
   }
   if (needTr.length > 0) {
-    const corpus = needTr.map(({ g }, j) =>
-      `[${j + 1}] ${g.primary.content.slice(0, 1200).replace(/\n+/g, ' ')}`).join('\n');
-    const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 6000, skipIds: ['openrouter'] });
-    if (r.ok && r.content) {
-      const entries = extractJson(r.content, validateBatchTranslation);
-      if (entries) {
-        let trOk = 0;
-        for (const e of entries) {
-          const t = needTr[e.n - 1];
-          // فقط ترجمهٔ واقعاً فارسی ذخیره می‌شود — پاسخ غیرفارسی (بازگشتِ همان انگلیسی/عبری)
-          // هرگز «ترجمه» تلقی نمی‌شود تا بن‌بست دوباره ساخته نشود (هم‌ارز مسیر توییت/تحلیل)
-          if (t && !needsTranslation(e.fa)) { t.g.primary.translationFa = e.fa; trOk++; }
-        }
-        summary.translated += trOk;
-        console.log(`ترجمهٔ دسته‌جمعی: ${trOk} عنوان (${r.providerId})`);
-      } else console.warn('⚠️ پاسخ ترجمه قابل تجزیه نبود — تیترها خام می‌مانند (صادقانه)');
-    } else {
-      console.warn(`⚠️ ترجمه ناموفق: ${r.error} — تیترها خام می‌مانند (هیچ ساختگی)`);
-    }
+    const res = await summarizeBatchFa(needTr.map(({ g }) => g.primary.content), { maxPerItem: 900 });
+    let trOk = 0;
+    res.fa.forEach((fa, i) => {
+      // فقط خلاصهٔ واقعاً فارسی ذخیره می‌شود — پاسخ غیرفارسی هرگز «ترجمه» تلقی نمی‌شود (ضد بن‌بست)
+      if (fa) { needTr[i]!.g.primary.translationFa = fa; trOk++; }
+    });
+    summary.translated += trOk;
+    console.log(`خلاصهٔ دوخطی: ${trOk} عنوان از ${needTr.length}${res.provider ? ` (${res.provider})` : ''}`);
+    if (trOk === 0) console.warn('⚠️ هیچ ترجمه‌ای این چرخه ننشست — موارد برای چرخهٔ بعد می‌مانند (هیچ ساختگی)');
   }
 
   // ۷) جست‌وجوی رایگان وب برای حداکثر ۲ خبر تازهٔ بالای فهرست (بدون مصرف سهمیهٔ مدل)
@@ -3349,8 +3524,9 @@ async function main(): Promise<void> {
         ids: [], titleKeys: [], titleTexts: [], cat,
         queuedAt: new Date().toISOString(),
       });
-      if (queue.length > 300) {
-        const dropped = queue.splice(0, queue.length - 300);
+      if (queue.length > 600) {
+        // ۱۶ نوامبر: ۳۰۰ → ۶۰۰ — بازهٔ دوساعته گاهی ۳۰۰+ رویداد داشت و سرریز، خبرِ هنوز-ارسال‌نشده را می‌ریخت
+        const dropped = queue.splice(0, queue.length - 600);
         console.warn(`⚠️ سرریز صف بستهٔ خبری — ${dropped.length} مورد قدیمی‌تر حذف شد`);
       }
       summary.queued = (summary.queued || 0) + 1;
@@ -3456,60 +3632,36 @@ async function main(): Promise<void> {
   let tweetNextCursor: number | null = null;
   const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
   if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
-    const cursor = Number(state.tweetCursor) || 0;
-    const { picked, nextCursor } = rotateAccounts(tweetAccounts, cursor, CFG.tweetAccountsPerCycle);
-    tweetNextCursor = nextCursor;
-    summary.tweetAccountsTried = picked.length;
-    console.log(`توییت‌ها: ${picked.length} حساب از ${tweetAccounts.length} (چرخش از ایندکس ${cursor})`);
-    const candidates: Array<{ tweet: ParsedTweet; handle: string; label: string; orig: string }> = [];
-    let rateLimited = false;
-    for (const acc of picked) {
-      const r = await fetchTweetTimeline(acc.handle);
-      if (r.ok) summary.tweetsFetched = (summary.tweetsFetched || 0) + r.tweets.length;
-      if (r.rateLimited) {
-        rateLimited = true;
-        console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیهٔ حساب‌ها به چرخهٔ بعد می‌روند`);
-        break;
-      }
-      if (!r.ok) {
-        console.warn(`⚠️ توییت @${acc.handle}: ${r.error} (صادقانه — در چرخهٔ بعدی دوباره)`);
-      } else {
-        const ft = freshTweets(state, r.tweets, acc.handle, titleSets, { windowHours: CFG.windowHours, nowMs: Date.now(), limit: CFG.maxTweets });
-        // متن اصلی پیش از ترجمه نگه داشته می‌شود — نمایش «متن اصلی + ترجمهٔ فارسی زیرش» (خواستهٔ ۱۳ نوامبر)
-        for (const tw of ft.fresh) candidates.push({ tweet: tw, handle: acc.handle, label: acc.name || `@${acc.handle}`, orig: tw.text });
-        console.log(`  @${acc.handle}: ${ft.fresh.length} توییت تازه (${ft.blocked} قدیمی/تکراری رد شد)`);
-      }
-      await sleep(CFG.tweetFetchGapMs);
-    }
-    summary.tweetRateLimited = rateLimited;
-    const toSend = candidates.slice(0, CFG.maxTweets);
+    // واکشی پلتفرم‌آگاه (ایکس + تروث‌سوشال ترامپ) + پنجرهٔ تازگی مستقل توییت — خواستهٔ کاربر ۱۶ نوامبر:
+    // «توییتها و تروث سوشال ترامپ و قالیباف و سایر مقامات تاثیرگذار رو نمیبینم!»
+    const collected = await collectFreshTweets(state, tweetAccounts, titleSets);
+    tweetNextCursor = collected.nextCursor;
+    summary.tweetAccountsTried = collected.tried;
+    summary.tweetsFetched = (summary.tweetsFetched || 0) + collected.fetched;
+    summary.tweetRateLimited = collected.rateLimited;
+    console.log(`توییت‌ها: ${collected.tried} حساب از ${tweetAccounts.length} (چرخش از ایندکس ${Number(state.tweetCursor) || 0}) — ${collected.candidates.length} پست تازه`);
+    const toSend = collected.candidates.slice(0, CFG.maxTweets);
     if (toSend.length > 0) {
-      // ترجمهٔ دسته‌جمعی توییت‌های غیرفارسی — یک فراخوانی مدل برای کل چرخه (بدون OpenRouter)
+      // ترجمهٔ وفادار کامل توییت‌های غیرفارسی — بچ‌های ۸تایی + نجات JSON بریده (۱۶ نوامبر)؛
       // متن کامل توییت (تا ۹۰۰ نویسه — سقف واقعی ایکس) به مدل می‌رود — ترجمهٔ تمام‌وکمال بدون خلاصه‌سازی
       const needIdx = toSend.map((c, i) => ({ c, i })).filter(({ c }) => needsTranslation(c.tweet.text));
       if (needIdx.length > 0) {
-        const corpus = needIdx.map(({ c }, j) => `[${j + 1}] ${c.tweet.text.slice(0, 900).replace(/\n+/g, ' ')}`).join('\n');
-        const r = await chainCall(getTranslatePrompt(), corpus, { maxTokens: 6000, skipIds: ['openrouter'] });
-        if (r.ok && r.content) {
-          const entries = extractJson(r.content, validateBatchTranslation);
-          if (entries) {
-            let tr = 0;
-            for (const e of entries) {
-              const t = needIdx[e.n - 1];
-              if (t && !needsTranslation(e.fa)) { t.c.tweet.text = e.fa; tr++; } // فقط ترجمهٔ واقعاً فارسی
-            }
-            summary.translated += tr;
-            console.log(`ترجمهٔ دسته‌جمعی توییت: ${tr} مورد (${r.providerId})`);
-          } else console.warn('⚠️ پاسخ ترجمهٔ توییت قابل تجزیه نبود — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند');
-        } else console.warn(`⚠️ ترجمهٔ توییت ناموفق: ${r.error} — توییت‌های غیرفارسی به چرخهٔ بعد می‌مانند (هیچ ساختگی)`);
+        const res = await summarizeBatchFa(needIdx.map(({ c }) => c.tweet.text), { faithful: true, maxPerItem: 900 });
+        let tr = 0;
+        res.fa.forEach((fa, j) => {
+          if (fa) { needIdx[j]!.c.tweet.text = fa; tr++; } // فقط ترجمهٔ واقعاً فارسی
+        });
+        summary.translated += tr;
+        console.log(`ترجمهٔ توییت‌ها: ${tr} مورد از ${needIdx.length}${res.provider ? ` (${res.provider})` : ''}`);
+        if (tr === 0) console.warn('⚠️ ترجمهٔ توییت این چرخه ننشست — غیرفارسی‌ها به چرخهٔ بعد می‌مانند (هیچ ساختگی)');
       }
       // توییت‌ها به آرشیو روزانهٔ تحلیل شبانه هم می‌روند — پس از ترجمه تا فارسی‌شان در پیکرهٔ شب بیاید
       // (خواستهٔ ۱۳ نوامبر: «تمامی اخبار و وقایع اون روز تحلیل بشه»)
-      if (candidates.length > 0) {
-        const candPool: PoolItem[] = candidates.map((c) => ({
-          id: `tw-${c.handle.toLowerCase()}-${c.tweet.id}`,
-          titleKey: sha1(`tw-title:${c.handle}:${c.tweet.id}`),
-          source: `𝕏 ${c.label}`,
+      if (collected.candidates.length > 0) {
+        const candPool: PoolItem[] = collected.candidates.map((c) => ({
+          id: `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`,
+          titleKey: sha1(`tw-title:${c.dedupHandle}:${c.tweet.id}`),
+          source: c.label,
           cat: 'general',
           lang: 'en',
           text: c.tweet.text,
@@ -3533,13 +3685,14 @@ async function main(): Promise<void> {
         // قانون عکس: توییت بدون عکسِ خودش، بدون تصویر ارسال می‌شود (بدون آواتار — خواستهٔ کاربر)
         if (bundleMode) {
           // صف جداگانهٔ توییت — بستهٔ مستقل در اسلات فرد (یک ساعت بعد از بستهٔ خبر)؛
-          // متن صف = ترجمهٔ فارسی (ضدتکرار/علامت بر همان)؛ متن اصلی در orig — بسته «متن اصلی +
-          // ترجمهٔ فارسی زیرش» را می‌سازد (خواستهٔ ۱۳ نوامبر)؛ صف تا ارسال موفق می‌ماند
-          const idKey = `tw-${c.handle.toLowerCase()}-${c.tweet.id}`;
+          // متن صف = ترجمهٔ فارسی (ضدتکرار/علامت بر همان)؛ متن اصلی در orig و نام فارسی در faName —
+          // بسته «متن اصلی + نام توییت‌کنندهٔ فارسی: ترجمه» را می‌سازد (خواستهٔ ۱۳ و ۱۶ نوامبر)؛ صف تا ارسال موفق می‌ماند
+          const idKey = `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`;
           tweetQueue.push({
             kind: 'tweet',
             text: fa,
             orig,
+            faName: c.faName,
             source: c.label,
             ids: [idKey],
             titleKeys: [],
@@ -3556,12 +3709,12 @@ async function main(): Promise<void> {
           // ضدتکرارِ زمان جمع‌بندی، خودِ توییت‌های صف را «تکراری» می‌پنداشت (اشکال ۱۲ نوامبر)
           summary.tweetsQueued = (summary.tweetsQueued || 0) + 1;
         } else {
-          // حالت news — همان قالب «متن اصلی + ترجمهٔ فارسی زیرش» (خواستهٔ ۱۳ نوامبر)
-          const body = tweetDisplayBody(orig, fa);
-          const msg = composeNewsMessage({ sourceName: `𝕏 ${c.label}`, text: body, verdict: '' }, 3400);
-          if (await sendForCategory('general', msg, undefined, `𝕏 ${c.label}`)) {
+          // حالت news — همان قالب «متن اصلی + نام فارسی: ترجمهٔ فارسی» (خواستهٔ ۱۳ و ۱۶ نوامبر)
+          const body = tweetDisplayBody(orig, fa, c.faName);
+          const msg = composeNewsMessage({ sourceName: c.label, text: body, verdict: '' }, 3400);
+          if (await sendForCategory('general', msg, undefined, c.label)) {
             summary.tweetsSent = (summary.tweetsSent || 0) + 1;
-            sentIds.push(`tw-${c.handle.toLowerCase()}-${c.tweet.id}`);
+            sentIds.push(`tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`);
             sentTitleTexts.push(normalizeTitle(c.tweet.text).slice(0, 160));
             markMsg(fa);
           }
@@ -3656,9 +3809,16 @@ async function main(): Promise<void> {
       // آیتم‌ها همان موارد خاستگاه‌دار با تیک قطعی (مسیر هوشمند) یا خوشه‌های خام با تیک دادهٔ
       // سامانه (مسیر پشتیبان)؛ شکست رندر/ارسال فقط لاگ می‌شود — متن اصلی هرگز قربانی کارت نمی‌شود.
       let newsCardSent = false;
+      // مسیر خام: متن خام تا دو خط (۵۶×۲ نویسه — هم‌عرض کارت) در مرز واژه بریده می‌شود تا
+      // کارت هرگز «ناقص وسط جمله» نگذارد؛ آیتم‌های هوشمند از قبل دوخطی‌اند (۱۶ نوامبر)
+      const rawCardText = (t: string): string => {
+        if (t.length <= 112) return t;
+        const cut = t.lastIndexOf(' ', 112);
+        return `${t.slice(0, cut > 60 ? cut : 111).trimEnd()}…`;
+      };
       const cardItems = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
-        : mergedItems.slice(0, 10).map((m) => ({ text: m.text.slice(0, 170), tick: m.verified, source: (m.sources[0] || '').trim() }));
+        : mergedItems.slice(0, 10).map((m) => ({ text: rawCardText(m.text), tick: m.verified, source: (m.sources[0] || '').trim() }));
       if (cardItems.length >= 3 && !CFG.dryRun) {
         const pCard = tehranParts(Date.now());
         const cardDate = tripleDateOf(pCard.dateKey, 'Asia/Tehran', 'umalqura');
@@ -3741,9 +3901,12 @@ async function main(): Promise<void> {
         }
         twItems.push({
           id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
-          source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
+          // source صف از قبل نشانگر پلتفرم دارد («𝕏 …» / «🅣 …») — دیگر جدا/اضافه نمی‌شود (۱۶ نوامبر)
+          source: (q.source || '').trim(),
           text,
           orig: q.orig?.trim(),
+          // نام فارسی توییت‌کننده — خط دوم نمایش: «دونالد ترامپ (رئیس‌جمهور آمریکا): ترجمه» (۱۶ نوامبر)
+          faName: q.faName?.trim(),
           at: q.queuedAt,
         });
       }

@@ -55,7 +55,19 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, snapshotOf, type CarStore } from './market';
+import { fetchMarketData, formatMarketMessage, snapshotOf, applyDeltas, type CarStore, type Quote } from './market';
+import { renderMarketCardPng, buildMarketCardCaption } from './market-card';
+import { renderNewsCardPng, buildNewsCardCaption } from './news-card';
+import { groundAiBundle, type GroundResult } from './grounding';
+import {
+  updateSourceHealth,
+  updateFailStreak,
+  buildSilentSourcesText,
+  buildFailStreakText,
+  type SourceStat,
+  type SourceHealth,
+  type AdminHealth,
+} from './admin-alerts';
 import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, tweetDisplayBody, type BundleItem } from './bundle';
 import {
   DEFAULT_SYSTEM_HOURLY,
@@ -238,6 +250,10 @@ const CFG = {
   // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با GEO_HOURS
   geoSlots: parseSlots(process.env.GEO_HOURS, '0,4,8,12,16,20'),
   geoChannelsFile: process.env.BOT_GEO_CHANNELS_FILE || 'bot/geo-channels.json',
+  // اعلان‌های مدیر (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶): N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه
+  adminChat: process.env.BALE_ADMIN_CHAT?.trim() || '',
+  adminFailStreak: Math.max(2, Math.min(30, Number(process.env.ADMIN_FAIL_STREAK || 3) || 3)),
+  adminSilentDays: Math.max(1, Math.min(30, Number(process.env.ADMIN_SILENT_DAYS || 3) || 3)),
   // سقف آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانه (پس از ارسال موفق خالی می‌شود)
   dailyPoolCap: Math.max(100, Math.min(800, Number(process.env.BOT_DAILY_POOL_CAP || 500) || 500)),
   // کانال‌های خبری خودرو (t.me/s/<id>) — منبع قیمت خودرو با فرمت «مدل⬅️قیمت»
@@ -582,19 +598,23 @@ async function fetchSource(src: BotSource): Promise<BotItem[]> {
   return items;
 }
 
-/** دریافت همهٔ منابع با همزمانی محدود — خطای هر منبع فقط در لاگ (صراحت) */
-export async function fetchAllSources(srcs: BotSource[]): Promise<{ items: BotItem[]; failed: number }> {
+/** دریافت همهٔ منابع با همزمانی محدود — خطای هر منبع فقط در لاگ (صراحت).
+ *  perSource: نتیجهٔ هر منبع (ok = حداقل یک آیتم) — سوخت اعلان خاموشی منابع برای مدیر */
+export async function fetchAllSources(srcs: BotSource[]): Promise<{ items: BotItem[]; failed: number; perSource: SourceStat[] }> {
   const items: BotItem[] = [];
+  const perSource: SourceStat[] = [];
   let failed = 0;
   for (let i = 0; i < srcs.length; i += CFG.fetchConcurrency) {
     const batch = srcs.slice(i, i + CFG.fetchConcurrency);
     const results = await Promise.all(batch.map((s) => fetchSource(s).catch(() => [] as BotItem[])));
     for (let j = 0; j < results.length; j++) {
-      if (results[j].length === 0) failed++;
+      const ok = results[j].length > 0;
+      if (!ok) failed++;
+      perSource.push({ name: batch[j].name, ok });
       items.push(...results[j]);
     }
   }
-  return { items, failed };
+  return { items, failed, perSource };
 }
 
 // ---------- ضدتکرار بین‌چرخه‌ای (state در ریپو کامیت می‌شود) ----------
@@ -650,6 +670,10 @@ export interface BotState {
   saleAlertIds?: Record<string, number>;
   /** پیام‌های روزانه — احادیث استفاده‌شده (هرگز هرس نمی‌شود)، تصاویر، سوابق انتشار */
   daily?: DailyBotState;
+  /** سلامت منابع برای اعلان مدیر — آخرین خروجی هر منبع + اعلان‌های ارسال‌شده (خواستهٔ ۱۵ نوامبر) */
+  sourceHealth?: SourceHealth;
+  /** زنجیرهٔ شکست چرخه‌ها برای اعلان مدیر — N چرخهٔ پیاپی (خواستهٔ ۱۵ نوامبر) */
+  adminHealth?: AdminHealth;
   lastRunAt?: string;
   lastRun?: Record<string, unknown>;
 }
@@ -827,6 +851,8 @@ export function loadState(path: string): BotState {
       carStore: raw.carStore && typeof raw.carStore === 'object' ? (raw.carStore as CarStore) : undefined,
       saleAlertIds: raw.saleAlertIds && typeof raw.saleAlertIds === 'object' ? (raw.saleAlertIds as Record<string, number>) : undefined,
       daily: raw.daily && typeof raw.daily === 'object' ? raw.daily : undefined,
+      sourceHealth: raw.sourceHealth && typeof raw.sourceHealth === 'object' ? raw.sourceHealth : undefined,
+      adminHealth: raw.adminHealth && typeof raw.adminHealth === 'object' ? raw.adminHealth : undefined,
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
@@ -894,6 +920,8 @@ export function mergeSentState(
     carStore: st.carStore,
     saleAlertIds: st.saleAlertIds,
     daily: st.daily,
+    sourceHealth: st.sourceHealth,
+    adminHealth: st.adminHealth,
   };
 }
 
@@ -1945,6 +1973,10 @@ export interface RunSummary {
   priceSent?: boolean;
   dryRun?: boolean;
   error?: string;
+  // قفل تیک به منبع — موارد بی‌خاستگاه حذف‌شده در تطبیق اجباری (رفع ریشه‌ای ⑨؛ ۱۵ نوامبر)
+  groundDropped?: number;
+  // اعلان‌های خودکار مدیر (خواستهٔ ۱۵ نوامبر ۲۰۲۶)
+  adminAlerts?: number;
   // پیام‌های روزانه / بست نیم‌ساعته / اطلاعیهٔ فروش (خواستهٔ ۱۰ نوامبر ۲۰۲۶)
   dailySent?: string;
   queued?: number;
@@ -2083,19 +2115,40 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
       console.log(formatMarketMessage(md.quotes, state.priceSnap));
       console.log('=== پایان پیش‌نمایش ===');
     } else if (md.quotes.length >= 3) {
-      const msg = formatMarketMessage(md.quotes, state.priceSnap);
+      // کارت تصویری اول — خواستهٔ کاربر ۱۵ نوامبر («زیرساخت هواشناسی»)، رندر/ارسال ناموفق →
+      // بازگشت صادقانه به پیام متنی کامل (هیچ قلمی از دست نمی‌رود)
+      const pMkt = tehranParts(Date.now());
+      const mktDate = tripleDateOf(pMkt.dateKey, 'Asia/Tehran', 'umalqura');
+      const mktSlot = pKey.startsWith('force') ? 'گزارش فوری' : pMkt.hhmm < '15:00' ? 'میان‌روز' : 'شب';
+      const withDelta = applyDeltas(md.quotes, state.priceSnap);
       let ok = false;
-      for (const t of CFG.targets) {
-        const s = await sendBaleMessage(CFG.token, t, msg);
-        if (s.ok) ok = true;
-        else console.error(`❌ ارسال گزارش بازار به ${t} ناموفق: ${s.error}`);
+      let viaCard = false;
+      const card = await renderMarketCardPng({ date: mktDate, slotLabel: mktSlot, quotes: withDelta }).catch(() => null);
+      if (card) {
+        const cap = buildMarketCardCaption({ date: mktDate, slotLabel: mktSlot, quotes: withDelta });
+        for (const t of CFG.targets) {
+          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-market.png', cap);
+          if (s.ok) { ok = true; viaCard = true; }
+          else console.error(`❌ ارسال کارت بازار به ${t}: ${s.error}`);
+        }
+        if (!ok) console.warn('⚠️ ارسال کارت بازار به هیچ مقصدی موفق نشد — پیام متنی جایگزین می‌شود');
+      } else {
+        console.warn('⚠️ رندر کارت بازار ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)');
+      }
+      if (!ok) {
+        const msg = formatMarketMessage(md.quotes, state.priceSnap);
+        for (const t of CFG.targets) {
+          const s = await sendBaleMessage(CFG.token, t, msg);
+          if (s.ok) ok = true;
+          else console.error(`❌ ارسال گزارش بازار به ${t} ناموفق: ${s.error}`);
+        }
       }
       if (ok) {
         summary.priceSent = true;
         state.lastPriceKey = pKey;
         state.priceSnap = snapshotOf(md.quotes);
         state.carStore = md.carStore || state.carStore;
-        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
       }
     } else {
       console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
@@ -2315,6 +2368,23 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     if (t2) { r = r2; text = t2; }
   }
   summary.geoProvider = r.providerId;
+  // ── قفل تیک به جملهٔ منبع — مقایسهٔ اجباری خروجی/منبع (رفع ریشه‌ای ⑨؛ خواستهٔ ۱۵ نوامبر) ──
+  // تیک مدل حذف؛ هر مورد با خوشهٔ کانالی تطبیق؛ بی‌خاستگاه/عددساختگی حذف؛ تیک فقط از
+  // دادهٔ «≥۲ کانال مستقل» همان خوشه. همهٔ موارد حذف شوند → اسلات علامت نمی‌خورد (چرخهٔ بعد).
+  if (text) {
+    const g = groundAiBundle(text, merged);
+    if (!g.text) {
+      console.warn(`⚠️ تحلیل ژئوپلیتیک: هر ${enToFaDigits(String(g.total))} مورد خروجی در تطبیق اجباری با منبع رد شد — اسلات علامت نمی‌خورد`);
+      summary.aiFailed = true;
+      summary.groundDropped = g.dropped;
+      return;
+    }
+    text = g.text;
+    if (g.dropped > 0) {
+      summary.groundDropped = g.dropped;
+      console.warn(`🛡 قفل تیک به منبع (چپ و راست): ${g.dropped} مورد از ${g.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${g.droppedSamples.join(' | ')}`);
+    }
+  }
   console.log(`تحلیل ۴ساعتهٔ ژئوپلیتیک: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
   if (!text) {
     summary.aiFailed = true;
@@ -2356,6 +2426,59 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     channels: channels.length,
   });
   console.log(`🌐 تحلیل ۴ساعتهٔ ژئوپلیتیک ارسال و ذخیره شد (${dKey}) — ${merged.length} رویداد از ${channels.length} کانال، حافظه: ${state.geoAnalyses.length} بازه، ${chunks.length} پیام`);
+}
+
+// ---------- اعلان‌های خودکار مدیر (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶) ----------
+// «اگر N چرخهٔ پیاپی شکست یا منبعی چند روز خاموش شد، یک پیام به چت مدیر».
+// چرخهٔ «ناموفق» = زنجیرهٔ هوش مصنوعی پاسخ معتبر نداد یا همهٔ منابع بی‌خروجی بودند.
+// مقصدها: BALE_ADMIN_CHAT، نبود → نخستین مقصد اصلی. ارسال ناموفق فقط لاگ — اعلان بعدی دورهٔ بعد.
+
+export function cycleFailedReasonOf(summary: RunSummary): string {
+  if (summary.sources > 0 && summary.sourcesFailed >= summary.sources) {
+    return `همهٔ ${enToFaDigits(String(summary.sources))} منبع بی‌خروجی بودند (شبکه/فیلترشکن؟)`;
+  }
+  if (summary.aiFailed) return 'زنجیرهٔ هوش مصنوعی پاسخ معتبر نداد (کلیدها/سهمیهٔ تأمین‌کنندگان؟)';
+  return 'نامشخص';
+}
+
+export async function runAdminAlerts(state: BotState, summary: RunSummary, perSource: SourceStat[]): Promise<void> {
+  const adminChat = CFG.adminChat || CFG.targets[0];
+  const now = new Date();
+  const p = tehranParts(now.getTime());
+  // خاموشی منابع — آخرین خروجی سالم شمرده می‌شود؛ منبع تازه دورهٔ مهلت دارد
+  const sh = updateSourceHealth(state.sourceHealth, perSource, now, { silentDays: CFG.adminSilentDays });
+  // زنجیرهٔ شکست چرخه‌ها
+  const failed = summary.aiFailed === true || (summary.sources > 0 && summary.sourcesFailed >= summary.sources);
+  const fh = updateFailStreak(state.adminHealth, failed, now, { threshold: CFG.adminFailStreak });
+  const texts: string[] = [];
+  if (sh.alerts.length > 0) texts.push(buildSilentSourcesText(sh.alerts, p.dateFa));
+  if (fh.alert) texts.push(buildFailStreakText(fh.alert, p.dateFa, cycleFailedReasonOf(summary)));
+  if (CFG.dryRun) {
+    if (texts.length > 0) {
+      console.log('=== DRY_RUN — اعلان‌های مدیر (ارسال نمی‌شود) ===');
+      for (const t of texts) console.log(t.replace(/<[^>]+>/g, ''));
+      console.log('=== پایان پیش‌نمایش ===');
+    }
+    return; // در آزمون خشک state سلامت هم تغییر نمی‌کند
+  }
+  state.sourceHealth = sh.health;
+  state.adminHealth = fh.health;
+  if (texts.length === 0) return;
+  if (!adminChat || !CFG.token) {
+    console.warn(`⚠️ اعلان مدیر لازم است ولی مقصد/توکن تنظیم نیست (BALE_ADMIN_CHAT) — خاموش: ${sh.alerts.map((a) => a.name).join('، ') || '—'}؛ زنجیرهٔ شکست: ${fh.health.failStreak || 0}`);
+    return;
+  }
+  let sent = 0;
+  for (const t of texts) {
+    const s = await sendBaleMessage(CFG.token, adminChat, t);
+    if (s.ok) sent++;
+    else console.error(`❌ ارسال اعلان مدیر ناموفق: ${s.error}`);
+    await sleep(400);
+  }
+  if (sent > 0) {
+    summary.adminAlerts = sent;
+    console.log(`🔔 اعلان مدیر ارسال شد (${sent} پیام) — منابع خاموش: ${sh.alerts.map((a) => a.name).join('، ') || '—'}؛ زنجیرهٔ شکست: ${fh.health.failStreak || 0} چرخه`);
+  }
 }
 
 // ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
@@ -2535,9 +2658,10 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
         let ok = false;
         let lastErr = '';
         let viaCard = false;
-        const card = await renderWeatherCardPng({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours }).catch(() => null);
+        // hours اینجا غیرتهی است (msg غیرتهی فقط با دادهٔ معتبر ساخته می‌شود)؛ «|| []» برای تایپ‌اِمنی
+        const card = await renderWeatherCardPng({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] }).catch(() => null);
         if (card) {
-          const cap = buildWeatherCardCaption({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours });
+          const cap = buildWeatherCardCaption({ city: dSettings.city, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] });
           viaCard = true;
           for (const t of CFG.targets) {
             const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png', cap);
@@ -2683,7 +2807,7 @@ async function main(): Promise<void> {
   console.log(`منابع قابل دریافت: ${srcs.length}`);
 
   // ۲) دریافت
-  const { items, failed } = await fetchAllSources(srcs);
+  const { items, failed, perSource } = await fetchAllSources(srcs);
   summary.sourcesFailed = failed;
   summary.fetched = items.length;
   console.log(`دریافت شد: ${items.length} مطلب (${failed} منبع بی‌خروجی)`);
@@ -3342,11 +3466,64 @@ async function main(): Promise<void> {
         if (ai2) { r = r2; aiText = ai2; }
       }
       summary.hourlyProvider = r.providerId;
-      console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}`);
+      // ── قفل تیک به جملهٔ منبع — مقایسهٔ اجباری خروجی/منبع (رفع ریشه‌ای ⑨؛ خواستهٔ ۱۵ نوامبر) ──
+      // تیک ✅ مدل در هیچ حالتی زنده نمی‌ماند؛ هر مورد با خوشهٔ منبع تطبیق می‌شود؛ مورد بی‌خاستگاه
+      // یا با عدد بیگانه حذف می‌شود (هالوسینیشن — نمونهٔ ۱۴ نوامبر)؛ تیک نهایی فقط از دادهٔ
+      // «≥۲ منبع مستقل» همان خوشه می‌آید. همهٔ موارد حذف شوند → مسیر خام صادقانه (بدون تحلیل).
+      let grounded: GroundResult | null = null;
+      if (aiText) {
+        grounded = groundAiBundle(aiText, mergedItems);
+        if (!grounded.text) {
+          console.warn(`⚠️ مقایسهٔ اجباری با منبع: هر ${enToFaDigits(String(grounded.total))} مورد خروجی بی‌خاستگاه بود — مسیر خام صادقانه؛ نمونه: ${grounded.droppedSamples.join(' | ')}`);
+          summary.groundDropped = grounded.dropped;
+          aiText = null;
+          grounded = null;
+        } else {
+          aiText = grounded.text;
+          if (grounded.dropped > 0) {
+            summary.groundDropped = grounded.dropped;
+            console.warn(`🛡 قفل تیک به منبع: ${grounded.dropped} مورد از ${grounded.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${grounded.droppedSamples.join(' | ')}`);
+          }
+        }
+      }
+      console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}${grounded ? ` — تطبیق منبع: ${grounded.kept}/${grounded.total} نگه داشته، ${grounded.ticked} تیک قطعی` : ''}`);
       // سربرگ حذف شد — خواستهٔ صریح کاربر ۱۲ نوامبر: «متن 🕒 اخبار 20:30 تا 20:41 رو حذف کن»
       const chunks = aiText
         ? chunkHourlyMessage(aiText, 3300)
         : buildBundleChunks(dedup.kept.map((q) => q.text), { maxLen: 3300 });
+      // ── کارت تصویری بستهٔ خبری — خواستهٔ کاربر ۱۵ نوامبر («زیرساخت هواشناسی») ──
+      // آیتم‌ها همان موارد خاستگاه‌دار با تیک قطعی (مسیر هوشمند) یا خوشه‌های خام با تیک دادهٔ
+      // سامانه (مسیر پشتیبان)؛ شکست رندر/ارسال فقط لاگ می‌شود — متن اصلی هرگز قربانی کارت نمی‌شود.
+      let newsCardSent = false;
+      const cardItems = grounded
+        ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
+        : mergedItems.slice(0, 10).map((m) => ({ text: m.text.slice(0, 170), tick: m.verified, source: (m.sources[0] || '').trim() }));
+      if (cardItems.length >= 3 && !CFG.dryRun) {
+        const pCard = tehranParts(Date.now());
+        const cardDate = tripleDateOf(pCard.dateKey, 'Asia/Tehran', 'umalqura');
+        const newsCard = await renderNewsCardPng({
+          date: cardDate,
+          items: cardItems.slice(0, 10),
+          total: mergedItems.length,
+          dropped: grounded?.dropped ?? 0,
+        }).catch(() => null);
+        if (newsCard) {
+          const cap = buildNewsCardCaption({
+            date: cardDate,
+            items: cardItems.slice(0, 10),
+            total: mergedItems.length,
+            dropped: grounded?.dropped ?? 0,
+          });
+          for (const t of CFG.targets) {
+            const s = await sendBalePhotoBytes(CFG.token, t, newsCard.png, 'raadban-news.png', cap);
+            if (s.ok) newsCardSent = true;
+            else console.error(`❌ ارسال کارت بستهٔ خبری به ${t}: ${s.error}`);
+          }
+        } else {
+          console.warn('⚠️ رندر کارت بستهٔ خبری ناموفق بود — فقط پیام متنی ارسال می‌شود (صادقانه)');
+        }
+        if (newsCardSent) await sleep(600);
+      }
       let ok = false;
       for (const c of chunks) {
         for (const t of CFG.targets) {
@@ -3359,7 +3536,7 @@ async function main(): Promise<void> {
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length}) در ${chunks.length} پیام${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}`);
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length}) در ${chunks.length} پیام${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${newsCardSent ? ' + کارت تصویری' : ''}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
         // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
           state.hourlyAnalyses = appendAnalysis(history, {
@@ -3432,6 +3609,9 @@ async function main(): Promise<void> {
 
   // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
   await runNightlyAnalysis({ state, summary, dryRun: false });
+
+  // ── اعلان‌های خودکار مدیر — N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه (خواستهٔ ۱۵ نوامبر) ──
+  await runAdminAlerts(state, summary, perSource);
 
   // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد
   const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });

@@ -1,5 +1,6 @@
 {
  "sentIds": {
+  "e3073238951a2587818fa45a67edecd19c5c3b25": 1794619510165,
   "f2205a625b9f8c0cdd7e13eb40c4cfc17afcab00": 1794619020702,
   "34ff64818a70120d07fe314d15c401525f9d540f": 1794619020702,
   "c476df21a8c7a1713cd3e479ea3f7a2f5dbe46df": 1794619020702,
@@ -1198,10 +1199,10 @@
   "b3d10579c5a3144025955ebac3ef6f666cde3cf9": 1794578746851,
   "aeaf59de0cf3dce15af7e77cd1c123300647b857": 1794578746851,
   "c405b7a7cac162ad8490d284fdb45d51b943097d": 1794578746851,
-  "28788c60f04b65469d14d8041a659bcb16f6f1e2": 1794578746851,
-  "9582681975f216089a66af588319b1ca90e82cdf": 1794578746851
+  "28788c60f04b65469d14d8041a659bcb16f6f1e2": 1794578746851
  },
  "sentTitles": {
+  "63dd6a24db343b7beb4444e9d2b6a6a83e7d32f4": 1794619510165,
   "c1d8c89b4f77f445189a5b5ef9eb20ec0051ad55": 1794619020702,
   "9de1a1625753e03abb70510e73613607a928373d": 1794619020702,
   "590b871d62755569814a468675ee6c6ce04e3f48": 1794619020702,
@@ -1800,8 +1801,7 @@
   "4160d0c255e40ebb1c89c689578e268c7de07d2f": 1794590284879,
   "6ba5f06d1a0f34f6954649cb98f0f8cf39014b6e": 1794590284879,
   "868c1289a0438e87dae5ca992feb6f0fbffc5717": 1794590284879,
-  "660fda1118bebfad1462e4af9b243b892b00eb02": 1794590284879,
-  "7a4e4e9c87a92812927c96de0f494a01544c949b": 1794590284879
+  "660fda1118bebfad1462e4af9b243b892b00eb02": 1794590284879
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,188 @@
   "مشرق نیوز گفتگوی تلفنی ولیعهد اردن با معاون ترامپ ولیعهد اردن با جی دی ونس معاون رییس دولت تروریستی امریکا تلفنی گفتگو کرد": 1794595315680
  },
  "pool": [
+  {
+   "id": "747e89c9279720a115baf8ded8adcf8eb580f3ae",
+   "titleKey": "2baf6c1615012ca8b8c16219ca67ddd6da8f6579",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Mullin: No indication of ‘nefarious attack’ on FAA as DHS investigates root cause of telecom outage Homeland Security Secretary Markwayne Mullin stressed that Americans flying Friday are safe, even as he said the Department of Homeland Security (DHS) would continue to seek the root cause of a telecom outage that pushed the government to ground flights. “This was a telecommunication outage throughout FAA,” Mullin said while fielding questions outside the White…",
+   "at": "2026-11-13T22:27:18.000Z",
+   "url": "https://thehill.com/policy/transportation/6219936-mullin-faa-telecommunication-outage-ground-stop/"
+  },
+  {
+   "id": "e0ae4ae6266af364854cd5eebfbe9d076ff184b4",
+   "titleKey": "99e4a1c0924b4acb01b78326669c70b4954f9b10",
+   "source": "BBC Sport",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Goalkeeper involved in fatal collision gets 12-game ban Jesus Owono is given a 12-match suspension by the Spanish football federation's disciplinary committee after his challenge which resulted in the death of Jesus de Miguel.",
+   "at": "2026-11-13T22:37:30.000Z",
+   "url": "https://www.bbc.co.uk/sport/football/articles/cm98xy2j8k1ko?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "045525a78e46425f75a51cc891138bf670eed95d",
+   "titleKey": "06002406a850c7cdd25ee69aa914346e4f7f6cbc",
+   "source": "RT",
+   "lang": "en",
+   "text": "Gestapo 2.0? Germany grants spy agencies sweeping new powers Germany has passed sweeping intelligence reforms granting spy agencies powers to conduct sabotage, enter homes and deploy AI surveillance Read Full Article at RT.com",
+   "at": "2026-11-13T22:38:52.000Z",
+   "url": "https://rt-english.com/news/648825-gemany-spy-agencies-new-powers/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
+  },
+  {
+   "id": "cf7d302a522fc64b5107b4c3fa665d9816c74667",
+   "titleKey": "e64257ca4c384af27623d9593851b1965e3042f6",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Jeffries outlines Democratic plans for Medicare expansion House Democratic Leader Hakeem Jeffries (N.Y.) on Friday endorsed efforts to lower the Medicare eligibility age and expand the program, as Democrats try to navigate internal tensions around a progressive push for “Medicare for All.” During a conference in Denver about the future of the Democratic Party, Jeffries outlined the healthcare legislative priorities Democrats plan…",
+   "at": "2026-11-13T22:43:31.000Z",
+   "url": "https://thehill.com/homenews/house/6219982-jeffries-endorses-medicare-age-lowering/"
+  },
+  {
+   "id": "e6a4fe7357967855d56f5ea7ef14f9255130c5a5",
+   "titleKey": "a6db9a5c5fe209900736630471d1c0290c97a7d9",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Fed unveils 2027 calendar, confirming October meeting will not include rates vote The Federal Reserve on Thursday released next year’s schedule for its Federal Open Market Committee (FOMC), confirming that one meeting will feature discussions on strategy and not a vote on interest rates. The Fed said in a release the FOMC will meet eight times in 2027, with the first meeting in late January and subsequent…",
+   "at": "2026-11-13T22:44:33.000Z",
+   "url": "https://thehill.com/business/6219883-fed-announces-2027-meeting-schedule/"
+  },
+  {
+   "id": "088af6d63819d9fbef42a2c3144ab1c22f242375",
+   "titleKey": "fe7fc4ba87070f784e611c8f46d1239ff3d0db5c",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "32 passengers taken to hospital after tanker hits river cruise boat in US American Heritage paddleboat with 129 passengers on board is partially submerged on Mississippi River in New Orleans.",
+   "at": "2026-11-13T22:47:16.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/13/rescue-efforts-under-way-after-tanker-strikes-river-cruise-boat-in-us?traffic_source=rss"
+  },
+  {
+   "id": "6593446e245c7004de3e99f548ae0e9596598cae",
+   "titleKey": "a01964b9c8b4f84f8c39a0d3ea282c060e4b0901",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US authorities investige potential role of AI in air traffic control systems' malfunction The authorities have suspended flights from all airports nationwide due to equipment problems at 22 Air Route Traffic Control Centers",
+   "at": "2026-11-13T22:53:11.000Z",
+   "url": "https://tass.com/economy/2218059"
+  },
+  {
+   "id": "483b9a4bcdb35499071025c0a591b9a73ac380b0",
+   "titleKey": "800e3453f9b1166f88662146bb968cfa525b0502",
+   "source": "China Daily",
+   "cat": "tech",
+   "lang": "en",
+   "text": "Hong Kong's offshore RMB bond market gathers pace - China Daily Hong Kong's offshore RMB bond market gathers pace China Daily",
+   "at": "2026-11-13T23:00:05.000Z",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9wb2gzbE5ONTRUWmJ4RE9icWlSS09QSGpNTG56eEJ3eHh4TEpwX2psV09nUFB6UG14aVB2ZVE4cWMweXQxaWxDbXI5R1Iwc1Mxc0FiRWQ3LU1nb2ZsV1lpNFpkQTZBd0RnZ3NUdEJia0tZd0dfSXlkZXI5NGVZdw?oc=5"
+  },
+  {
+   "id": "1813bc728751ff466d4871d2d293d64ed54c7dbe",
+   "titleKey": "29ca79906e91dae2bb518a9ff452a8dc5bb0ef38",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Over 10,000 flights delayed or canceled in US — website US Secretary of Homeland Security Markwayne Mullin said that the authorities currently see no signs that \"nefarious\" acts caused the suspension of flights from airports across the country",
+   "at": "2026-11-13T23:03:18.000Z",
+   "url": "https://tass.com/emergencies/2218061"
+  },
+  {
+   "id": "7e06cbb36c044c0b07c0f5c0edda09ad40311911",
+   "titleKey": "4390866dc9d44a931d715257d8804816992c2685",
+   "source": "Press TV",
+   "lang": "en",
+   "text": "Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport - PressTV Yemen launches sweeping ballistic, drone strikes on Saudi military targets, Riyadh airport PressTV",
+   "at": "2026-11-13T23:04:45.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbnZfUGp2WERGSzJtc0RzMWlEU0s0S2hkSmd0ajZUS0ZQNDllNDdXTkc0WXloUEkxZ1h3ZU1XX0U0ZklSYy1QaGxQUEF0S2YxRzFQX3d5V21XM2doSEVNSGJncUhCaElvTGkyV25CcjU5ZVBsQVhneG83TWdWdkFXS0JIUjhQazRxd29aZkNyR2dKTnVBYUpGYnlsaEpVeVZXYzgzVG9mRnV2ekowdzQtZmZMdUk0WVdMSHhXMk40T1lPYUd1RS1Bb1hya21kMzBjUmc?oc=5"
+  },
+  {
+   "id": "90b2ff09fb657eb893e758a2899b579d364fddcb",
+   "titleKey": "c316db75b0495c6aac8df84ec7d644a36f35ddcd",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Investors flock to Anthropic IPO but question durability of AI lead - Reuters EXCLUSIVE: Investors flock to Anthropic IPO but question durability of AI lead Reuters",
+   "at": "2026-11-13T23:30:55.000Z",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOckJYSDVUWDh1cTJPb3ptd2pLZmxuNXBtSEJkN0F0WWFucUZuWDgtQ0dZbzZITDBWY3dhSWZqcjcyZl9FdGpHdHJsX1dkbVowTkZ3OWRKd3pwN2NIMnBGZ1AtbDFkMkl6Vm1RZFNsZ2VDOU1nLUVmY2d4UHV2U01ER1pJTmdlSGFDdmsyM2ZhbXlXYVdEb01ERlNybGxWY0RsYlo4QlNxa0NCaUNpQjQw?oc=5"
+  },
+  {
+   "id": "8a717105c58202d2dcb27b4d2cea8f96a1a61279",
+   "titleKey": "fa349050431f74d31b17f20fe826f8b0ca37650b",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "The story behind the viral ad that helped Scott Colom win in Mississippi - The Washington Post The story behind the viral ad that helped Scott Colom win in Mississippi The Washington Post",
+   "at": "2026-11-13T23:40:34.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZG42WHBOa1JBTFhzZnJkWXBGbmtNVHUwY255Q2l4MTduOG5HcFExcEJZVXNETS1GcUZ6U3pPakRoclZxSkg3SHlmSkpGcl9adnJDVDBDdVhiLVpDWlluTHBFdGRwWHRFc2Y4cDhIa2x0S1ROd25ocU9BcEpUTGZ0SHRiR2RPekwzZWlaT2VadVNZeTNZRHRqSVp0UFhtMWRIZWVubHpUQ2s1dEIzRjRYVGZvWVo?oc=5"
+  },
+  {
+   "id": "a70dd183084b8d3db88c515f8a031a5325af77a7",
+   "titleKey": "01b3b6991392987333210cbd1ed212ce05273611",
+   "source": "Washington Post",
+   "lang": "en",
+   "text": "Opinion | D.C. progressives wreck robotaxis - The Washington Post Opinion | D.C. progressives wreck robotaxis The Washington Post",
+   "at": "2026-11-14T00:01:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQZkVkVzJlTjBDSGx2OGpvVndQb093YWFNd3Voemp0cTk4NXZKSEhkRTFZU0N5SEZKQVJ4ZUVKOUd0RktUWW1zUkRpdXQ0dERhazg4SmZNX2FKSnA1S3lZUmVrZ2M5NGQtT3FBY2FGMVh2cTMyN1ZDUk5hTjNsbVZQZ1JkNGc5cjdkczlNdVQzUTRVdnRoZWI1RUEySk8wc0xIeHVmUi1qenQ3TmFqakVsMkE1Z3hCOTQ?oc=5"
+  },
+  {
+   "id": "713a48e07b7f204fa693f1295ffeaa35cd4250c6",
+   "titleKey": "9efa14825574a6b65395f4a0b56ab293ee8eb05f",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Setback for SpaceX Starship rocket's double-catch test Elon Musk’s company aborted an attempted catch of the rocket’s booster - instead it came down in the ocean.",
+   "at": "2026-11-14T00:01:01.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/ckregdgnl0xpo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "fb24bf85badd23f3258edb72ecaf5b589e5bcf4c",
+   "titleKey": "3c8a18a08fb20dae1fd3193d86d26cb197638357",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "دور إرث الخوف في تشكيل الوعي الجمعي: سورية نموذجاً - العربي الجديد دور إرث الخوف في تشكيل الوعي الجمعي: سورية نموذجاً العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinANBVV95cUxPZnJHMGhESlJPVVY0ZlpzVDhEdl92dmZNb0Vya3RtNThabFJvQXdLRWJkSzVyR3ZJLURWZlgwUldmRzN0RW8yb3g5eVhhXzcydHM5bkxVbGkxNXhrbTUwNmJHbEZUUlZrbExCb0RXVk1PUXowQzN5NTFrcEhSVDdOUi1yeXlnRDVEMHN6RzY0LTdGeklSYnNvSUh3ZXJQYVdQUW9zeU9Hanptdl9SaEQwWkV3c0VMejEwZDNJRW9OenhJYmY4b0tabUVIZ3I5V2swTUhoS29hWlJxNWxjWF9wZUlObmx5RWJ4VURUY2s5MUtiSXl2OFMyX0lodU5XQUszc1RjaDdyMkdUSFZlZEhVNFJ1NXpvSl9scVBKb19SVDJ4TTdrUjFfdDhiMmdHMlNDY20tRzJ0N19NNjU0dXhIbFZXUmNCLWNWV0Y1dDZFdkFrU1d3WllHeFplSjlTVnF4VHRfWTl0SVN2SGRQY0NiRU1Kc25PS3E0VXNjZW1KTzNXWHNSVy1JX0kwb0gwWmdONlExSFc5S3dadGlZ0gGiA0FVX3lxTE9pcFE3d0ZsellDaXM1Q0lPTjlscklQOHdIaVV3X2xPOTZIMW5ZY2E0dGotdXpIZkYxekVBaF9NcTVDalJBWW5HZU1YUU9mb01YV1V1RkxSaDBsLXN1TEV5aVZHYTZGTFpLdVRaVU5EMk1jNUxxSFVydGIwVUQyeDA1eUlBZGoyVGRaTjY2WEdsbFdxY18ydWlXRmgzRkdTZUtVSW1MSEhNUHlYc2JXNHNWWGRUSDNJRmk3VGp0cWJjSHpLUGg2ME5CYUczWkloSm1kNXREcXgta194bkg3RklBNjdnZERCZXJ1MEpLUnJxTVUwb3QzU09LQWxNcGE5VmFMRXFadUF1ZDVNd3Z0S0tBTmtMQWlOeEEzc3pTWmp4clBkbGZhTGJEclkxZUMwc2ZjMFd5TzlfaXdaVTRrYThZMlRKME1BdlAySTVBRWszTk5SaFB6b0k4TFVrcVVyWEctZ2pESWZEeTdHMDJIbXp6SU41Z0tnamduMkpwN050YzVabkVaQ3M4ZHFZTHg5anQxYXUyZlNLZGtrYnh2bnBQZHc?oc=5"
+  },
+  {
+   "id": "321554413d548667d776fa90306a619a7bb490df",
+   "titleKey": "312b817c87f2a35262bbf2c348116c734d2927b5",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US air traffic control equipment won’t be repaired anytime soon — authorities Secretary of Homeland Security Markwayne Mullin emphasized that the causes of the outage are still unknown",
+   "at": "2026-11-14T00:16:01.000Z",
+   "url": "https://tass.com/society/2218065"
+  },
+  {
+   "id": "ae0194976f06083306bd5dd495e8f8dc64e2942d",
+   "titleKey": "99a16aecb1be6f00550c4c06f94d5633ae35763a",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Rubio, off script, leans into inspiring vision for America as 2028 speculation grows Secretary of State Marco Rubio promoted an inspirational view of the United States during remarks at a conservative law conference Friday, invoking the image of a country where an ambitious attitude binds Americans — striving toward living up to the founding ideals Rubio’s off-script remarks, which followed a keynote address during the annual conference of…",
+   "at": "2026-11-14T01:14:44.000Z",
+   "url": "https://thehill.com/homenews/administration/6220243-rubio-federalist-society-remarks-2028-preview/"
+  },
+  {
+   "id": "f7f0d855a5805288cda5f346f328ac0547bc6884",
+   "titleKey": "6ec4693533bee99f4fb25d3aaa611da45ecfd11a",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "U.S. FAA ground stop LIVE updates: All flights grounded; no indication country under threat, says Homeland Security chief The incident marks only the second time such an alert was given in U.S. airspace since the 9/11 attacks.",
+   "at": "2026-11-14T01:19:27.000Z",
+   "url": "https://www.thehindu.com/news/international/us-flights-grounded-faa-nationwide-stop-usa-flights-live-updates-november-14-2026/article71700693.ece"
+  },
+  {
+   "id": "2870d4f19a492c58c6d553cff565576b095dba87",
+   "titleKey": "6544bd2cc46db45b97a77c0ee2507ccdbe250d5c",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Microsoft Outage LIVE: Microsoft apologises as global service outage eases Microsoft is testing fixes, rerouting traffic and boosting server capacity as it works to stabilise its systems and restore services",
+   "at": "2026-11-14T01:21:03.000Z",
+   "url": "https://www.thehindu.com/sci-tech/technology/microsoft-outlook-outage-status-microsoft-365-services-live-updates-november-14-2026/article71700692.ece"
+  },
+  {
+   "id": "e3073238951a2587818fa45a67edecd19c5c3b25",
+   "titleKey": "63dd6a24db343b7beb4444e9d2b6a6a83e7d32f4",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "سمنوپزان؛ روایت عشق و ارادت به بانوی آب و آیینه بعضی آیین‌ها روایت عشق‌، ایمان و پیوند ناگسستنی نسل‌ها با ریشه‌های فرهنگ و باورهایشان هستند.",
+   "at": "2026-11-14T01:25:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852414/%D8%B3%D9%85%D9%86%D9%88%D9%BE%D8%B2%D8%A7%D9%86-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D8%B9%D8%B4%D9%82-%D9%88-%D8%A7%D8%B1%D8%A7%D8%AF%D8%AA-%D8%A8%D9%87-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%A2%D8%A8-%D9%88-%D8%A2%DB%8C%DB%8C%D9%86%D9%87"
+  },
   {
    "id": "1fb069bf552a517b1be3ab12a53df6d2f2d132c1",
    "titleKey": "d7bb3fc91018e0a796fc901343dd59c61ce72c03",
@@ -5043,6 +5225,16 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-14T01:16:46.021Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: سمنوپزان؛ روایت عشق و ارادت به بانوی آب و آیینه بعضی آیین‌ها روایت عشق‌، ایمان و پیوند ناگسستنی نسل‌ها با ریشه‌های فرهنگ و باورهایشان هستند.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/13/4/4750153.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T01:24:55.760Z"
   }
  ],
  "tweetQueue": [],
@@ -5220,6 +5412,60 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "fb24bf85badd23f3258edb72ecaf5b589e5bcf4c",
+   "titleKey": "3c8a18a08fb20dae1fd3193d86d26cb197638357",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "دور إرث الخوف في تشكيل الوعي الجمعي: سورية نموذجاً - العربي الجديد دور إرث الخوف في تشكيل الوعي الجمعي: سورية نموذجاً العربي الجديد",
+   "at": "2026-11-14T00:13:07.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinANBVV95cUxPZnJHMGhESlJPVVY0ZlpzVDhEdl92dmZNb0Vya3RtNThabFJvQXdLRWJkSzVyR3ZJLURWZlgwUldmRzN0RW8yb3g5eVhhXzcydHM5bkxVbGkxNXhrbTUwNmJHbEZUUlZrbExCb0RXVk1PUXowQzN5NTFrcEhSVDdOUi1yeXlnRDVEMHN6RzY0LTdGeklSYnNvSUh3ZXJQYVdQUW9zeU9Hanptdl9SaEQwWkV3c0VMejEwZDNJRW9OenhJYmY4b0tabUVIZ3I5V2swTUhoS29hWlJxNWxjWF9wZUlObmx5RWJ4VURUY2s5MUtiSXl2OFMyX0lodU5XQUszc1RjaDdyMkdUSFZlZEhVNFJ1NXpvSl9scVBKb19SVDJ4TTdrUjFfdDhiMmdHMlNDY20tRzJ0N19NNjU0dXhIbFZXUmNCLWNWV0Y1dDZFdkFrU1d3WllHeFplSjlTVnF4VHRfWTl0SVN2SGRQY0NiRU1Kc25PS3E0VXNjZW1KTzNXWHNSVy1JX0kwb0gwWmdONlExSFc5S3dadGlZ0gGiA0FVX3lxTE9pcFE3d0ZsellDaXM1Q0lPTjlscklQOHdIaVV3X2xPOTZIMW5ZY2E0dGotdXpIZkYxekVBaF9NcTVDalJBWW5HZU1YUU9mb01YV1V1RkxSaDBsLXN1TEV5aVZHYTZGTFpLdVRaVU5EMk1jNUxxSFVydGIwVUQyeDA1eUlBZGoyVGRaTjY2WEdsbFdxY18ydWlXRmgzRkdTZUtVSW1MSEhNUHlYc2JXNHNWWGRUSDNJRmk3VGp0cWJjSHpLUGg2ME5CYUczWkloSm1kNXREcXgta194bkg3RklBNjdnZERCZXJ1MEpLUnJxTVUwb3QzU09LQWxNcGE5VmFMRXFadUF1ZDVNd3Z0S0tBTmtMQWlOeEEzc3pTWmp4clBkbGZhTGJEclkxZUMwc2ZjMFd5TzlfaXdaVTRrYThZMlRKME1BdlAySTVBRWszTk5SaFB6b0k4TFVrcVVyWEctZ2pESWZEeTdHMDJIbXp6SU41Z0tnamduMkpwN050YzVabkVaQ3M4ZHFZTHg5anQxYXUyZlNLZGtrYnh2bnBQZHc?oc=5"
+  },
+  {
+   "id": "321554413d548667d776fa90306a619a7bb490df",
+   "titleKey": "312b817c87f2a35262bbf2c348116c734d2927b5",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "US air traffic control equipment won’t be repaired anytime soon — authorities Secretary of Homeland Security Markwayne Mullin emphasized that the causes of the outage are still unknown",
+   "at": "2026-11-14T00:16:01.000Z",
+   "url": "https://tass.com/society/2218065"
+  },
+  {
+   "id": "ae0194976f06083306bd5dd495e8f8dc64e2942d",
+   "titleKey": "99a16aecb1be6f00550c4c06f94d5633ae35763a",
+   "source": "The Hill",
+   "lang": "en",
+   "text": "Rubio, off script, leans into inspiring vision for America as 2028 speculation grows Secretary of State Marco Rubio promoted an inspirational view of the United States during remarks at a conservative law conference Friday, invoking the image of a country where an ambitious attitude binds Americans — striving toward living up to the founding ideals Rubio’s off-script remarks, which followed a keynote address during the annual conference of…",
+   "at": "2026-11-14T01:14:44.000Z",
+   "url": "https://thehill.com/homenews/administration/6220243-rubio-federalist-society-remarks-2028-preview/"
+  },
+  {
+   "id": "f7f0d855a5805288cda5f346f328ac0547bc6884",
+   "titleKey": "6ec4693533bee99f4fb25d3aaa611da45ecfd11a",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "U.S. FAA ground stop LIVE updates: All flights grounded; no indication country under threat, says Homeland Security chief The incident marks only the second time such an alert was given in U.S. airspace since the 9/11 attacks.",
+   "at": "2026-11-14T01:19:27.000Z",
+   "url": "https://www.thehindu.com/news/international/us-flights-grounded-faa-nationwide-stop-usa-flights-live-updates-november-14-2026/article71700693.ece"
+  },
+  {
+   "id": "2870d4f19a492c58c6d553cff565576b095dba87",
+   "titleKey": "6544bd2cc46db45b97a77c0ee2507ccdbe250d5c",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Microsoft Outage LIVE: Microsoft apologises as global service outage eases Microsoft is testing fixes, rerouting traffic and boosting server capacity as it works to stabilise its systems and restore services",
+   "at": "2026-11-14T01:21:03.000Z",
+   "url": "https://www.thehindu.com/sci-tech/technology/microsoft-outlook-outage-status-microsoft-365-services-live-updates-november-14-2026/article71700692.ece"
+  },
+  {
+   "id": "e3073238951a2587818fa45a67edecd19c5c3b25",
+   "titleKey": "63dd6a24db343b7beb4444e9d2b6a6a83e7d32f4",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "سمنوپزان؛ روایت عشق و ارادت به بانوی آب و آیینه بعضی آیین‌ها روایت عشق‌، ایمان و پیوند ناگسستنی نسل‌ها با ریشه‌های فرهنگ و باورهایشان هستند.",
+   "at": "2026-11-14T01:25:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852414/%D8%B3%D9%85%D9%86%D9%88%D9%BE%D8%B2%D8%A7%D9%86-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D8%B9%D8%B4%D9%82-%D9%88-%D8%A7%D8%B1%D8%A7%D8%AF%D8%AA-%D8%A8%D9%87-%D8%A8%D8%A7%D9%86%D9%88%DB%8C-%D8%A2%D8%A8-%D9%88-%D8%A2%DB%8C%DB%8C%D9%86%D9%87"
+  },
   {
    "id": "1fb069bf552a517b1be3ab12a53df6d2f2d132c1",
    "titleKey": "d7bb3fc91018e0a796fc901343dd59c61ce72c03",
@@ -9513,7 +9759,7 @@
    "items": 365
   }
  ],
- "aiCursor": 0,
+ "aiCursor": 1,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10087,22 +10333,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794619020698,
-  "Akharin_khodro/8913": 1794619020698,
-  "Akharin_khodro/8914": 1794619020698,
-  "Akharin_khodro/8915": 1794619020698,
-  "Akharin_khodro/8916": 1794619020698,
-  "Akharin_khodro/8919": 1794619020698,
-  "Akharin_khodro/8920": 1794619020698,
-  "Akharin_khodro/8921": 1794619020698,
-  "Akharin_khodro/8922": 1794619020698,
-  "Akharin_khodro/8923": 1794619020698,
-  "Akharin_khodro/8924": 1794619020698,
-  "Akharin_khodro/8925": 1794619020698,
-  "Akharin_khodro/8926": 1794619020698,
-  "Akharin_khodro/8927": 1794619020698,
-  "Akharin_khodro/8928": 1794619020698,
-  "Akharin_khodro/8929": 1794619020698,
+  "Akharin_khodro/8908": 1794619510162,
+  "Akharin_khodro/8913": 1794619510162,
+  "Akharin_khodro/8914": 1794619510162,
+  "Akharin_khodro/8915": 1794619510162,
+  "Akharin_khodro/8916": 1794619510162,
+  "Akharin_khodro/8919": 1794619510162,
+  "Akharin_khodro/8920": 1794619510162,
+  "Akharin_khodro/8921": 1794619510162,
+  "Akharin_khodro/8922": 1794619510162,
+  "Akharin_khodro/8923": 1794619510162,
+  "Akharin_khodro/8924": 1794619510162,
+  "Akharin_khodro/8925": 1794619510162,
+  "Akharin_khodro/8926": 1794619510162,
+  "Akharin_khodro/8927": 1794619510162,
+  "Akharin_khodro/8928": 1794619510162,
+  "Akharin_khodro/8929": 1794619510162,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10531,27 +10777,27 @@
    }
   }
  },
- "tweetCursor": 6,
- "lastRunAt": "2026-11-14T01:17:00.705Z",
+ "tweetCursor": 12,
+ "lastRunAt": "2026-11-14T01:25:10.167Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1068,
-  "inWindow": 144,
-  "fresh": 83,
-  "sent": 5,
+  "fetched": 1067,
+  "inWindow": 141,
+  "fresh": 77,
+  "sent": 1,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 116,
+  "tweetsFetched": 111,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 78,
-  "queued": 5,
+  "skippedUntranslated": 76,
+  "queued": 1,
   "tweetRateLimited": false
  }
 }

@@ -1,5 +1,7 @@
 {
  "sentIds": {
+  "fc4faca895d2029110d822cc8c6174ca05e31730": 1794616847626,
+  "13135fbca983400016e2dcc33782685a7fc55f67": 1794616847626,
   "e666db03d1e719e67680fc4ff2f1b82a120cffb7": 1794616341622,
   "a479395fde576544547d558741eedf50fb074feb": 1794616341622,
   "9ae854f934fad673d00a5835e572e5f41f68fa69": 1794616341622,
@@ -1197,11 +1199,11 @@
   "5b6756fa313739c11fbf0a6c4e4f5a9d19bb1759": 1794578141423,
   "514a78020636efcdd756776efe7513558925e4f7": 1794578141423,
   "3201a336b6a90d15cf1f3cf05f50e30bba27d821": 1794578141423,
-  "3b025344f2946c35a9f41a3ececa2dfd7244f0b8": 1794578141423,
-  "cab5d3892102fb9b38c5d9b889d95e213b84f428": 1794578141423,
-  "f4241c07b6cbeba214d25f3b822b526f840ef932": 1794578141423
+  "3b025344f2946c35a9f41a3ececa2dfd7244f0b8": 1794578141423
  },
  "sentTitles": {
+  "37bd03812db5dcf7876f86dc890c9c2544d01d73": 1794616847626,
+  "0020836339e5544a01c72890518e6ed19f2c489c": 1794616847626,
   "5de91ea228d99954786c59c66b5eaf19459751e8": 1794616341622,
   "3ccf76fb5c3741a7919d1d45ba422a6d5c170ae3": 1794616341622,
   "8b455e380834b4b5ca84f3e0e9943b093b778b17": 1794616341622,
@@ -1799,9 +1801,7 @@
   "8243795da4551d1292d1b592db4725d72e561fe4": 1794589755206,
   "b3fe03fe193708ef55b6e1cf572f39522ea75d10": 1794589755206,
   "efc4d8c7922185a161a8933bbf802b10c7cfe989": 1794589755206,
-  "610c3abfc4efa9085d187453b0be28ec8a705dde": 1794589755206,
-  "e5d9a0ec875627daee5c543d9f9a09aef8bb7425": 1794589755206,
-  "a295a87a2ba1b60127b50a77d08148d952b0bca0": 1794589755206
+  "610c3abfc4efa9085d187453b0be28ec8a705dde": 1794589755206
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,71 @@
   "مشرق نیوز گفتگوی تلفنی ولیعهد اردن با معاون ترامپ ولیعهد اردن با جی دی ونس معاون رییس دولت تروریستی امریکا تلفنی گفتگو کرد": 1794595315680
  },
  "pool": [
+  {
+   "id": "6a23ecfcd2064aaca3ffaef9d2ac0c49f85d092b",
+   "titleKey": "1e171e532628f2dbcbeb9e5e7a67aa55e30a400c",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Microsoft services begin recovering after global outage Microsoft services began recovering on Friday after a global outage disrupted Outlook and Teams.",
+   "at": "2026-11-14T00:17:59.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/microsoft-services-begin-recovering-after-global-outage?traffic_source=rss"
+  },
+  {
+   "id": "b8c8bd106b6c66a1a0369b80f2c1d1d3ab04d252",
+   "titleKey": "91cfc3360c1837fac00df61e1eabdf88f0c8b404",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "UK police open sex offence probe into comedian and author David Walliams The British TV personality, 55, denies sexual assault allegations, saying he has not broken the law.",
+   "at": "2026-11-14T00:22:07.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/14/uk-police-open-sex-offence-probe-into-comedian-and-author-david-walliams?traffic_source=rss"
+  },
+  {
+   "id": "f035c14b23684481f07601a29ab6f2272f58f837",
+   "titleKey": "8f4361185fc1752bfcbdeb824c528ad45787ade7",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Trump, Xi and Putin set for unprecedented trilateral meeting in China",
+   "at": "2026-11-14T00:26:37.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/trump-xi-and-putin-set-for-unprecedented-trilateral-meeting-in-china/articleshow/135819647.cms"
+  },
+  {
+   "id": "7faa81304293d84abcb511739eb86bbd410ffe6c",
+   "titleKey": "ee3f919898be678d0a1ba95836d06a3238024ff0",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "US flight chaos: Thousands stranded as FAA halts take-offs nationwide – what we know so far A nationwide ground stop for flights in the United States was ordered due to a telecommunications outage. The Federal Aviation Administration implemented the measure to ensure safety as communications were disrupted. Thousands of passengers faced delays and cancellations across various airports. Investigations are ongoing to determine the cause of the telecommunications failure, but no security threat has been identified.",
+   "at": "2026-11-14T00:28:26.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/us-flight-chaos-nearly-500-journeys-disrupted-as-faa-halts-take-offs-nationwide-what-we-know-so-far/articleshow/135819594.cms"
+  },
+  {
+   "id": "fc4faca895d2029110d822cc8c6174ca05e31730",
+   "titleKey": "37bd03812db5dcf7876f86dc890c9c2544d01d73",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هشدار نماینده مجلس درباره حذف شرط اجتهاد از وزیر اطلاعات/ قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود مجتبی یوسفی در توئیتی با بیان این که «قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود»",
+   "at": "2026-11-14T00:30:33.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308218-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87-%D9%85%D8%AC%D9%84%D8%B3-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AD%D8%B0%D9%81-%D8%B4%D8%B1%D8%B7-%D8%A7%D8%AC%D8%AA%D9%87%D8%A7%D8%AF-%D8%A7%D8%B2-%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D9%82%D8%B1%D8%A7%D8%B1-%D9%86%D8%A8%D9%88%D8%AF%D9%87-%D9%86%DB%8C%D8%B3%D8%AA-%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D8%B3%D8%A7%D9%88%D8%A7%DA%A9-%DA%AF%D9%88%D9%86%D9%87-%D8%A7%D8%AF%D8%A7%D8%B1%D9%87-%D8%B4%D9%88%D8%AF"
+  },
+  {
+   "id": "c64667d5cce3970b45efd1d2ce06fa174cbc033b",
+   "titleKey": "c8e571cdff781b9c808fb6859b603100f81e0456",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "White House confirms US-China-Russia trilateral on Apec sidelines The White House on Friday confirmed an unprecedented meeting between leaders of the US, China and Russia has been scheduled to take place on the sidelines of the Asia-Pacific Economic Cooperation (Apec) summit in Shenzhen next week. “President Trump will conclude his visit to China with a trilateral meeting between the President of the United States, the President of the People’s Republic of China and the President of the Russian Federation,” said Olivia Wales, the White House assistant press...",
+   "at": "2026-11-14T00:30:57.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374415/white-house-confirms-us-china-russia-trilateral-apec-sidelines"
+  },
+  {
+   "id": "13135fbca983400016e2dcc33782685a7fc55f67",
+   "titleKey": "0020836339e5544a01c72890518e6ed19f2c489c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک کارشناس طلا: طلای سپرده‌گذاری‌شده در بانک‌ها می‌تواند وارد چرخه تولید شود یک کارشناس طلا با اشاره به کاهش تولید مصنوعات طلا، گفت: اگر طلاهایی که اکنون در بانک‌ها دپو شده است وارد چرخه تولید شود، می‌تواند به واحدهای تولیدی کمک کند؛ چراکه برخی از واحدهای تولید، مواد اولیه ندارند و به دلیل نبود سرمایه، در تامین طلا برای ساخت محصولات خود با مشکل مواجه هستند.",
+   "at": "2026-11-14T00:40:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215228/%DB%8C%DA%A9-%DA%A9%D8%A7%D8%B1%D8%B4%D9%86%D8%A7%D8%B3-%D8%B7%D9%84%D8%A7-%D8%B7%D9%84%D8%A7%DB%8C-%D8%B3%D9%BE%D8%B1%D8%AF%D9%87-%DA%AF%D8%B0%D8%A7%D8%B1%DB%8C-%D8%B4%D8%AF%D9%87-%D8%AF%D8%B1-%D8%A8%D8%A7%D9%86%DA%A9-%D9%87%D8%A7-%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86%D8%AF-%D9%88%D8%A7%D8%B1%D8%AF"
+  },
   {
    "id": "9ae854f934fad673d00a5835e572e5f41f68fa69",
    "titleKey": "8b455e380834b4b5ca84f3e0e9943b093b778b17",
@@ -5081,7 +5146,28 @@
   "car:هایما s7": 7600000000,
   "car:تیگو8": 11800000000
  },
- "bundleQueue": [],
+ "bundleQueue": [
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: هشدار نماینده مجلس درباره حذف شرط اجتهاد از وزیر اطلاعات/ قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود مجتبی یوسفی در توئیتی با بیان این که «قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود»\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/SUHSkBiQeKDd/zYdbqXlozLktpw5ifa2Ki6vkv7_kN0asOthn_Wsr8zFoWf6TCLLbUhxPJoWFiqaFtCQqUmez_Ev-fR0Izf1FmqmeisVn-Z5cGhiMOV7_J6jvLGcea2_o3hvCywqlG0DX4d8QWMAKlCcNfVCFQkFvKo55W2iQv8ejS0J8PGEW3rg5X5tahhia5pma-gkkVFPI/6300496.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T00:40:32.124Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: یک کارشناس طلا: طلای سپرده‌گذاری‌شده در بانک‌ها می‌تواند وارد چرخه تولید شود یک کارشناس طلا با اشاره به کاهش تولید مصنوعات طلا، گفت: اگر طلاهایی که اکنون در بانک‌ها دپو شده است وارد چرخه تولید شود، می‌تواند به واحدهای تولیدی کمک کند؛ چراکه برخی از واحدهای تولید، مواد اولیه ندارند و به دلیل نبود سرمایه، در تامین طلا برای ساخت محصولات خود با مشکل مواجه هستند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/09/12/4/63969528.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T00:40:32.825Z"
+  }
+ ],
  "tweetQueue": [],
  "lastNewsSlotKey": "2026-11-14T04:00",
  "lastTweetSlotKey": "2026-11-14T03:00",
@@ -5257,6 +5343,71 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "6a23ecfcd2064aaca3ffaef9d2ac0c49f85d092b",
+   "titleKey": "1e171e532628f2dbcbeb9e5e7a67aa55e30a400c",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Microsoft services begin recovering after global outage Microsoft services began recovering on Friday after a global outage disrupted Outlook and Teams.",
+   "at": "2026-11-14T00:17:59.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/14/microsoft-services-begin-recovering-after-global-outage?traffic_source=rss"
+  },
+  {
+   "id": "b8c8bd106b6c66a1a0369b80f2c1d1d3ab04d252",
+   "titleKey": "91cfc3360c1837fac00df61e1eabdf88f0c8b404",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "UK police open sex offence probe into comedian and author David Walliams The British TV personality, 55, denies sexual assault allegations, saying he has not broken the law.",
+   "at": "2026-11-14T00:22:07.000Z",
+   "url": "https://www.aljazeera.com/news/2026/11/14/uk-police-open-sex-offence-probe-into-comedian-and-author-david-walliams?traffic_source=rss"
+  },
+  {
+   "id": "f035c14b23684481f07601a29ab6f2272f58f837",
+   "titleKey": "8f4361185fc1752bfcbdeb824c528ad45787ade7",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Trump, Xi and Putin set for unprecedented trilateral meeting in China",
+   "at": "2026-11-14T00:26:37.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/trump-xi-and-putin-set-for-unprecedented-trilateral-meeting-in-china/articleshow/135819647.cms"
+  },
+  {
+   "id": "7faa81304293d84abcb511739eb86bbd410ffe6c",
+   "titleKey": "ee3f919898be678d0a1ba95836d06a3238024ff0",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "US flight chaos: Thousands stranded as FAA halts take-offs nationwide – what we know so far A nationwide ground stop for flights in the United States was ordered due to a telecommunications outage. The Federal Aviation Administration implemented the measure to ensure safety as communications were disrupted. Thousands of passengers faced delays and cancellations across various airports. Investigations are ongoing to determine the cause of the telecommunications failure, but no security threat has been identified.",
+   "at": "2026-11-14T00:28:26.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/us-flight-chaos-nearly-500-journeys-disrupted-as-faa-halts-take-offs-nationwide-what-we-know-so-far/articleshow/135819594.cms"
+  },
+  {
+   "id": "fc4faca895d2029110d822cc8c6174ca05e31730",
+   "titleKey": "37bd03812db5dcf7876f86dc890c9c2544d01d73",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "هشدار نماینده مجلس درباره حذف شرط اجتهاد از وزیر اطلاعات/ قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود مجتبی یوسفی در توئیتی با بیان این که «قرار نبوده و نیست وزارت اطلاعات ساواک‌گونه اداره شود»",
+   "at": "2026-11-14T00:30:33.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308218-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87-%D9%85%D8%AC%D9%84%D8%B3-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AD%D8%B0%D9%81-%D8%B4%D8%B1%D8%B7-%D8%A7%D8%AC%D8%AA%D9%87%D8%A7%D8%AF-%D8%A7%D8%B2-%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D9%82%D8%B1%D8%A7%D8%B1-%D9%86%D8%A8%D9%88%D8%AF%D9%87-%D9%86%DB%8C%D8%B3%D8%AA-%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%A7%D8%B7%D9%84%D8%A7%D8%B9%D8%A7%D8%AA-%D8%B3%D8%A7%D9%88%D8%A7%DA%A9-%DA%AF%D9%88%D9%86%D9%87-%D8%A7%D8%AF%D8%A7%D8%B1%D9%87-%D8%B4%D9%88%D8%AF"
+  },
+  {
+   "id": "c64667d5cce3970b45efd1d2ce06fa174cbc033b",
+   "titleKey": "c8e571cdff781b9c808fb6859b603100f81e0456",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "White House confirms US-China-Russia trilateral on Apec sidelines The White House on Friday confirmed an unprecedented meeting between leaders of the US, China and Russia has been scheduled to take place on the sidelines of the Asia-Pacific Economic Cooperation (Apec) summit in Shenzhen next week. “President Trump will conclude his visit to China with a trilateral meeting between the President of the United States, the President of the People’s Republic of China and the President of the Russian Federation,” said Olivia Wales, the White House assistant press...",
+   "at": "2026-11-14T00:30:57.000Z",
+   "url": "https://www.scmp.com/news/china/diplomacy/article/3374415/white-house-confirms-us-china-russia-trilateral-apec-sidelines"
+  },
+  {
+   "id": "13135fbca983400016e2dcc33782685a7fc55f67",
+   "titleKey": "0020836339e5544a01c72890518e6ed19f2c489c",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک کارشناس طلا: طلای سپرده‌گذاری‌شده در بانک‌ها می‌تواند وارد چرخه تولید شود یک کارشناس طلا با اشاره به کاهش تولید مصنوعات طلا، گفت: اگر طلاهایی که اکنون در بانک‌ها دپو شده است وارد چرخه تولید شود، می‌تواند به واحدهای تولیدی کمک کند؛ چراکه برخی از واحدهای تولید، مواد اولیه ندارند و به دلیل نبود سرمایه، در تامین طلا برای ساخت محصولات خود با مشکل مواجه هستند.",
+   "at": "2026-11-14T00:40:00.000Z",
+   "url": "https://www.isna.ir/news/1405082215228/%DB%8C%DA%A9-%DA%A9%D8%A7%D8%B1%D8%B4%D9%86%D8%A7%D8%B3-%D8%B7%D9%84%D8%A7-%D8%B7%D9%84%D8%A7%DB%8C-%D8%B3%D9%BE%D8%B1%D8%AF%D9%87-%DA%AF%D8%B0%D8%A7%D8%B1%DB%8C-%D8%B4%D8%AF%D9%87-%D8%AF%D8%B1-%D8%A8%D8%A7%D9%86%DA%A9-%D9%87%D8%A7-%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86%D8%AF-%D9%88%D8%A7%D8%B1%D8%AF"
+  },
   {
    "id": "3a40dfbafebdb3605890f20773329ce8f8495bcb",
    "titleKey": "117cd279297aa19865938dd3537feaa0dafb3791",
@@ -9121,7 +9272,7 @@
    "items": 365
   }
  ],
- "aiCursor": 3,
+ "aiCursor": 4,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -9695,22 +9846,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794616306454,
-  "Akharin_khodro/8913": 1794616306454,
-  "Akharin_khodro/8914": 1794616306454,
-  "Akharin_khodro/8915": 1794616306454,
-  "Akharin_khodro/8916": 1794616306454,
-  "Akharin_khodro/8919": 1794616306454,
-  "Akharin_khodro/8920": 1794616306454,
-  "Akharin_khodro/8921": 1794616306454,
-  "Akharin_khodro/8922": 1794616306454,
-  "Akharin_khodro/8923": 1794616306454,
-  "Akharin_khodro/8924": 1794616306454,
-  "Akharin_khodro/8925": 1794616306454,
-  "Akharin_khodro/8926": 1794616306454,
-  "Akharin_khodro/8927": 1794616306454,
-  "Akharin_khodro/8928": 1794616306454,
-  "Akharin_khodro/8929": 1794616306454,
+  "Akharin_khodro/8908": 1794616847622,
+  "Akharin_khodro/8913": 1794616847622,
+  "Akharin_khodro/8914": 1794616847622,
+  "Akharin_khodro/8915": 1794616847622,
+  "Akharin_khodro/8916": 1794616847622,
+  "Akharin_khodro/8919": 1794616847622,
+  "Akharin_khodro/8920": 1794616847622,
+  "Akharin_khodro/8921": 1794616847622,
+  "Akharin_khodro/8922": 1794616847622,
+  "Akharin_khodro/8923": 1794616847622,
+  "Akharin_khodro/8924": 1794616847622,
+  "Akharin_khodro/8925": 1794616847622,
+  "Akharin_khodro/8926": 1794616847622,
+  "Akharin_khodro/8927": 1794616847622,
+  "Akharin_khodro/8928": 1794616847622,
+  "Akharin_khodro/8929": 1794616847622,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10139,30 +10290,27 @@
    }
   }
  },
- "tweetCursor": 8,
- "lastRunAt": "2026-11-14T00:32:21.624Z",
+ "tweetCursor": 14,
+ "lastRunAt": "2026-11-14T00:40:47.629Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
   "fetched": 1067,
-  "inWindow": 171,
-  "fresh": 94,
-  "sent": 27,
+  "inWindow": 158,
+  "fresh": 72,
+  "sent": 2,
   "images": 0,
-  "translated": 24,
+  "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 114,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
-  "skippedUntranslated": 67,
-  "queued": 27,
-  "tweetRateLimited": false,
-  "hourlyProvider": "gemini-4",
-  "bundleSent": true,
-  "bundleItems": 82
+  "skippedUntranslated": 70,
+  "queued": 2,
+  "tweetRateLimited": false
  }
 }

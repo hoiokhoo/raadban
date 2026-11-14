@@ -69,10 +69,13 @@ import {
   type AdminHealth,
 } from './admin-alerts';
 import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, tweetDisplayBody, type BundleItem } from './bundle';
+import { needsTranslationLang } from './lang';
 import {
   DEFAULT_SYSTEM_HOURLY,
   mergeSimilarItems,
   dropAlreadySent,
+  isDuplicateText,
+  tokensFa,
   buildHourlyCorpus,
   buildHistoryBlock,
   validateHourlyText,
@@ -314,31 +317,20 @@ export function cleanNewsText(s: string): string {
   return t.replace(/\s+/g, ' ').trim();
 }
 
-/** نسبت نویسه‌های لاتین — تشخیص خبر خارجی‌زبان در نبود فراداده */
+/** نسبت نویسه‌های لاتین — تشخیص خبر خارجی‌زبان در نبود فراداده.
+ *  از ۱۵ نوامبر ۲۰۲۶ به دروازهٔ خط lang.ts واگذار شد — عبری/چینی/… هم «خارجی»اند،
+ *  وگرنه آیتم خارجی‌زبان با فرادادهٔ غلط language=fa از دستهٔ ترجمه جا می‌ماند. */
 export function isLikelyForeign(s: string): boolean {
-  const t = s.slice(0, 400);
-  if (!t) return false;
-  const latin = (t.match(/[A-Za-z]/g) || []).length;
-  return latin / t.length > 0.35;
+  return needsTranslationLang(s);
 }
 
 /** ── گیت بازرسی ۱ (قطعی، بدون مدل) — آیا این متن غیرفارسی است؟ ──
- *  لاتین (انگلیسی/فرانسه/...)، سیریلیک (روسی) و عربی (نویسه‌های عربی خالص بدون پچژگ فارسی) را می‌گیرد.
- *  تضمین خواستهٔ کاربر: هیچ خبر غیرفارسی بدون ترجمه به بله نمی‌رود. */
+ *  منطق در bot/lang.ts (فهرست سفید خط فارسی) — ریشه‌یابی باگ توییت عبری نتانیاهو
+ *  (۱۵ نوامبر ۲۰۲۶): نسخهٔ قدیمی فقط لاتین/سیریلیک/عربی را می‌شناخت و عبری/چینی/یونانی و…
+ *  «فارسی» تلقی می‌شد و بی‌ترجمه می‌گذشت. حالا هر خط بیگانه با سهم معنادار → ترجمه.
+ *  تضمین خواستهٔ کاربر: هیچ خبر/توییت غیرفارسی بدون ترجمه به بله نمی‌رود. */
 export function needsTranslation(s: string): boolean {
-  const t = s.slice(0, 500);
-  if (!t.trim()) return false;
-  const letters = t.match(/\p{L}/gu) || [];
-  if (letters.length === 0) return false;
-  const latin = letters.filter((c) => /[A-Za-z]/.test(c)).length;
-  if (latin / letters.length > 0.35) return true;
-  const cyrillic = letters.filter((c) => /[\u0400-\u04FF]/.test(c)).length;
-  if (cyrillic / letters.length > 0.2) return true;
-  // عربی: نویسه‌های انحصاری عربی (ة ي ك ـة) و نبود نویسه‌های انحصاری فارسی (پ چ ژ گ)
-  const arabicOnly = (t.match(/[ةيك]/g) || []).length;
-  const persianOnly = (t.match(/[پچژگ]/g) || []).length;
-  if (arabicOnly >= 2 && persianOnly === 0 && letters.length > 40) return true;
-  return false;
+  return needsTranslationLang(s);
 }
 
 /** متن فارسیِ روانِ قابل ارسال از یک گروه — null یعنی «ترجمه نشده، ارسال ممنوع».
@@ -397,9 +389,12 @@ export function makeIds(item: { url?: string; content: string }): { id: string; 
   };
 }
 
-/** توکن‌های عنوان/متن — یک‌بار محاسبه برای مقایسهٔ پرتکرار */
+/** توکن‌های عنوان/متن — یک‌بار محاسبه برای مقایسهٔ پرتکرار.
+ *  ۱۵ نوامبر ۲۰۲۶ — یکسان‌سازی: همان توکنایزر معنایی hourly.ts (بدون ایست‌واژه‌های پُرتکرار
+ *  «از/به/که/را/…» و واژه‌های دوهرفتی)؛ قبلاً دو توکنایزر ناهمگون داشتیم و ایست‌واژه‌ها
+ *  شباهتِ همهٔ متن‌های فارسی را متورم می‌کرد — مقایسه‌ها حالا معنایی و دقیق‌ترند. */
 export function tokensOf(s: string): Set<string> {
-  return new Set(normalizeTitle(s).split(' ').filter((w) => w.length > 1));
+  return tokensFa(s);
 }
 
 /** شباهت ژاکارد توکن‌ها — ۰..۱ */
@@ -411,15 +406,15 @@ export function jaccard(a: string, b: string): number {
   return inter / (A.size + B.size - inter);
 }
 
-/** شباهت متن با هرکدام از مجموعه‌توکن‌های ازپیش‌محاسبه — برای فیلتر ضدتکرار بین‌چرخه‌ای */
+/** شباهت متن با هرکدام از مجموعه‌توکن‌های ازپیش‌محاسبه — برای فیلتر ضدتکرار بین‌چرخه‌ای.
+ *  ۱۵ نوامبر: علاوه بر طبقهٔ قوی (ژاکارد ≥ آستانه)، پل انکری هم فعال است —
+ *  بازنویسیِ همان رویداد با «عدد/نام لاتین» مشترک هم بلاک می‌شود (عدم تکرار اخبار نقل‌شده). */
 export function isSimilarToAny(text: string, sets: Set<string>[], threshold = 0.5): boolean {
   if (sets.length === 0) return false;
   const T = tokensOf(text);
   if (T.size === 0) return false;
   for (const S of sets) {
-    let inter = 0;
-    for (const x of T) if (S.has(x)) inter++;
-    if (inter / (T.size + S.size - inter) >= threshold) return true;
+    if (isDuplicateText(T, S, { strong: threshold })) return true;
   }
   return false;
 }
@@ -607,10 +602,16 @@ export async function fetchAllSources(srcs: BotSource[]): Promise<{ items: BotIt
   let failed = 0;
   for (let i = 0; i < srcs.length; i += CFG.fetchConcurrency) {
     const batch = srcs.slice(i, i + CFG.fetchConcurrency);
-    const results = await Promise.all(batch.map((s) => fetchSource(s).catch(() => [] as BotItem[])));
+    const first = await Promise.all(batch.map((s) => fetchSource(s).catch(() => [] as BotItem[])));
+    // تلاش مجدد یک‌بارهٔ منبع بی‌خروجی (خواستهٔ کاربر ۱۵ نوامبر: «دریافت اخبار» پایدارتر) —
+    // خطای گذرای شبکه/۵۰۳ نباید یک چرخهٔ کامل از انداختن خبرِ آن منبع بیندازد؛
+    // خبرِ ازقلم‌افتادهٔ چرخهٔ قبل همچنان در پنجرهٔ زمانی است و چرخهٔ بعد برمی‌گردد.
+    const results = await Promise.all(first.map((r, j) =>
+      r.length > 0 ? Promise.resolve(r) : sleep(1200).then(() => fetchSource(batch[j]).catch(() => [] as BotItem[]))
+    ));
     for (let j = 0; j < results.length; j++) {
       const ok = results[j].length > 0;
-      if (!ok) failed++;
+      if (!ok && first[j].length === 0) failed++;
       perSource.push({ name: batch[j].name, ok });
       items.push(...results[j]);
     }
@@ -994,12 +995,25 @@ export function isStorySent(st: BotState, it: BotItem, titleSets?: Set<string>[]
 export interface ItemGroup { primary: BotItem; members: BotItem[] }
 
 /** خوشه‌بندی حریصانه با شباهت عنوان — تابع خالص تست‌پذیر.
- *  نمایندهٔ گروه = نخستین انتشار (کهن‌ترین publishedAt؛ بی‌تاریخ = تازه‌ترین ورودی فید) */
+ *  نمایندهٔ گروه = نخستین انتشار (کهن‌ترین publishedAt؛ بی‌تاریخ = تازه‌ترین ورودی فید).
+ *  ۱۵ نوامبر: پل انکری — پوششِ دوبارهٔ همان رویداد با واژه‌های متفاوت ولی عدد/نام مشترک
+ *  هم به همان خوشه می‌رود (تجمیع اخبار تکراری). */
 export function clusterItems(items: BotItem[], threshold = 0.5): ItemGroup[] {
   const sorted = [...items].sort((a, b) => (a.publishedAt?.getTime() ?? Infinity) - (b.publishedAt?.getTime() ?? Infinity));
   const groups: ItemGroup[] = [];
+  const setCache = new Map<BotItem, Set<string>>();
+  const setOf = (x: BotItem): Set<string> => {
+    let s = setCache.get(x);
+    if (!s) { s = tokensOf(x.content); setCache.set(x, s); }
+    return s;
+  };
   for (const it of sorted) {
-    const g = groups.find((grp) => grp.members.some((m) => m.titleKey === it.titleKey || jaccard(m.content, it.content) >= threshold));
+    const itSet = setOf(it);
+    const g = groups.find((grp) => grp.members.some((m) =>
+      m.titleKey === it.titleKey ||
+      jaccard(m.content, it.content) >= threshold ||
+      isDuplicateText(itSet, setOf(m), { strong: threshold })
+    ));
     if (g) g.members.push(it);
     else groups.push({ primary: it, members: [it] });
   }
@@ -1109,6 +1123,12 @@ export function planBotSends(
   const limit = opts.textLimit ?? 3400;
   const used = new Set<number>();
   const texts: string[] = [...(opts.priorTexts || [])];
+  const setCache = new Map<string, Set<string>>();
+  const setOf = (t: string): Set<string> => {
+    let s = setCache.get(t);
+    if (!s) { s = tokensOf(t); setCache.set(t, s); }
+    return s;
+  };
   const raw: PlannedSend[] = [];
   let skippedBadRef = 0, skippedDupGroup = 0, skippedDupText = 0;
   for (const item of items) {
@@ -1117,7 +1137,8 @@ export function planBotSends(
     if (validRefs.some((n) => used.has(n))) { skippedDupGroup++; continue; }
     const g = ordered[validRefs[0] - 1];
     const body = item.text.trim();
-    if (texts.some((t) => jaccard(t, body) >= sim)) { skippedDupText++; continue; }
+    // پل انکری هم اینجاست — دو بازنویسی مدل از یک رویداد با عدد/نام مشترک فقط یک‌بار می‌رود
+    if (texts.some((t) => isDuplicateText(setOf(body), setOf(t), { strong: sim }))) { skippedDupText++; continue; }
     texts.push(body);
     for (const n of validRefs) used.add(n);
     raw.push({ g, text: body, verdict: item.verdict, refs: validRefs, cat: item.cat });
@@ -2233,10 +2254,13 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
     return;
   }
   // تجمیع مشابه‌ها + پیکرهٔ شماره‌دار با شمار منابع مستقل — همان زنجیرهٔ اثبات‌شدهٔ بستهٔ ساعتی
+  // برچسب دستهٔ خبری هم به پیکره می‌رود تا مدل محوربندی گزارش شبانه را درست کند (۱۵ نوامبر)
+  const catTitles = new Map<string, string>(loadBotConfig().categories.map((c) => [c.slug, c.title]));
   const hourlyItems: HourlyItem[] = todayItems.map((it) => ({
     id: it.id,
     source: it.source,
     text: (it.fa || '').trim() || it.text,
+    cat: it.cat ? (catTitles.get(it.cat) || undefined) : undefined,
     at: it.at,
   }));
   const merged = mergeSimilarItems(hourlyItems);
@@ -3153,6 +3177,15 @@ async function main(): Promise<void> {
 
   // ۶) ترجمهٔ دسته‌جمعی تیترهای غیرفارسی (یک فراخوانی سبک — بدون OpenRouter)
   //  ورودی هر مورد تا ۱۲۰۰ نویسه (قبلاً ۳۰۰ بود — عامل ترجمهٔ ناقص) و سقف خروجی ۶۰۰۰ توکن
+  //  ── خودترمیمی «ترجمهٔ مسموم» (۱۵ نوامبر): ترجمهٔ ذخیره‌شده‌ای که خودش غیرفارسی است
+  //  (مدل روزی انگلیسی/عبری پس داده بود) پاک می‌شود تا این چرخه دوباره ترجمه کند —
+  //  قبلاً چنین آیتمی چون translationFa «غیرخالی» داشت برای همیشه از ترجمه و ارسال می‌افتاد (بن‌بست). ──
+  let healedTr = 0;
+  for (const g of groups) {
+    const storedFa = (g.primary.translationFa || '').trim();
+    if (storedFa && needsTranslation(storedFa)) { g.primary.translationFa = undefined; healedTr++; }
+  }
+  if (healedTr > 0) console.log(`خودترمیمی ترجمه: ${enToFaDigits(String(healedTr))} مورد ترجمهٔ غیرفارسیِ ذخیره‌شده پاک و به صف ترجمه برگشت`);
   const needTrAll = ordered
     .map((g, i) => ({ g, i }))
     .filter(({ g }) => !(g.primary.translationFa || '').trim() &&
@@ -3170,11 +3203,15 @@ async function main(): Promise<void> {
     if (r.ok && r.content) {
       const entries = extractJson(r.content, validateBatchTranslation);
       if (entries) {
+        let trOk = 0;
         for (const e of entries) {
           const t = needTr[e.n - 1];
-          if (t) { t.g.primary.translationFa = e.fa; summary.translated++; }
+          // فقط ترجمهٔ واقعاً فارسی ذخیره می‌شود — پاسخ غیرفارسی (بازگشتِ همان انگلیسی/عبری)
+          // هرگز «ترجمه» تلقی نمی‌شود تا بن‌بست دوباره ساخته نشود (هم‌ارز مسیر توییت/تحلیل)
+          if (t && !needsTranslation(e.fa)) { t.g.primary.translationFa = e.fa; trOk++; }
         }
-        console.log(`ترجمهٔ دسته‌جمعی: ${summary.translated} عنوان (${r.providerId})`);
+        summary.translated += trOk;
+        console.log(`ترجمهٔ دسته‌جمعی: ${trOk} عنوان (${r.providerId})`);
       } else console.warn('⚠️ پاسخ ترجمه قابل تجزیه نبود — تیترها خام می‌مانند (صادقانه)');
     } else {
       console.warn(`⚠️ ترجمه ناموفق: ${r.error} — تیترها خام می‌مانند (هیچ ساختگی)`);
@@ -3560,8 +3597,12 @@ async function main(): Promise<void> {
         id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
         source: (q.source || '').trim(),
         text: q.text.replace(/\n?🖼 عکس خود خبر: \S+/g, '').replace(/^✅$|^⚠️$/gm, '').trim(),
+        // برچسب دستهٔ خبری — به پیکرهٔ تحلیل می‌رود تا مدل محوربندی درست کند (۱۵ نوامبر)
+        cat: q.cat ? (catTitles.get(q.cat) || undefined) : undefined,
         at: q.queuedAt,
       }));
+      // ضدتکرار با تاریخچه + علامت‌های همین چرخه (بستهٔ توییت همین چرخه ممکن است پیش از این
+      // اسلات اجرا شده باشد) — قبلاً فقط state پیشین دیده می‌شد
       const sentMsgSets = Object.keys(state.sentMsgTexts).map((t) => tokensOf(t));
       const dedup = dropAlreadySent(items, [...titleSets, ...sentMsgSets]);
       if (dedup.dropped > 0) console.log(`ضدتکرار زمان جمع‌بندی: ${dedup.dropped} مورد با مضمون تکراریِ ارسال‌شده‌های قبل حذف شد`);
@@ -3685,14 +3726,39 @@ async function main(): Promise<void> {
     //  «اگر جدید نبود هیچ متنی نفرست»: صف خالی = سکوت مطلق (خواستهٔ ۱۳ نوامبر) ──
     const tweetSlotKey = dueBundleSlotKey(Date.now(), CFG.tweetOffsetHours * 60, periodMin, state.lastTweetSlotKey, pSlot);
     if (tweetSlotKey && tweetQueue.length > 0) {
-      const twItems: HourlyItem[] = tweetQueue.map((q) => ({
-        id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
-        source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
-        text: q.text.trim(),
-        orig: q.orig?.trim(),
-        at: q.queuedAt,
-      }));
-      const twSentSets = [...titleSets, ...Object.keys(state.sentMsgTexts).map((t) => tokensOf(t))];
+      // ── گیت ترجمه در زمان ارسال هم اجرا می‌شود (۱۵ نوامبر): صف‌های ساخته‌شده پیش از
+      //  رفع باگ عبری ممکن است متن خام غیرفارسی داشته باشند؛ اینجا دوباره از gateFa
+      //  می‌گذرند و ترجمهٔشان می‌آید — نشد، صادقانه از این بسته حذف می‌شوند (چرخهٔ بعد
+      //  دوباره از ایکس گرفته می‌شوند). هیچ توییت غیرفارسی خام ارسال نمی‌شود. ──
+      const twItems: HourlyItem[] = [];
+      let twUntranslated = 0;
+      for (const q of tweetQueue) {
+        let text = q.text.trim();
+        if (needsTranslation(text)) {
+          const fa = await gateFa(text);
+          if (!fa) { twUntranslated++; continue; }
+          text = fa;
+        }
+        twItems.push({
+          id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
+          source: (q.source || '').replace(/^𝕏\s*/, '').trim(),
+          text,
+          orig: q.orig?.trim(),
+          at: q.queuedAt,
+        });
+      }
+      if (twUntranslated > 0) {
+        summary.skippedUntranslated = (summary.skippedUntranslated || 0) + twUntranslated;
+        console.warn(`⚠️ ${enToFaDigits(String(twUntranslated))} توییت صف‌شده هنوز ترجمه نشد — از این بسته حذف شد (صادقانه؛ چرخهٔ بعد دوباره تلاش می‌کند)`);
+      }
+      // علامت‌های همین چرخه (بستهٔ خبری همین چرخه) هم دیده شوند — قبلاً فقط state پیشین
+      // بود و اگر هر دو اسلات در یک اجرا می‌افتادند، توییتِ هم‌مضمونِ همان خبر می‌گذشت
+      const twSentSets = [
+        ...titleSets,
+        ...sentTitleTexts.map((t) => tokensOf(t)),
+        ...sentMsgTexts.map((t) => tokensOf(t)),
+        ...Object.keys(state.sentMsgTexts).map((t) => tokensOf(t)),
+      ];
       const twDedup = dropAlreadySent(twItems, twSentSets);
       if (twDedup.dropped > 0) console.log(`ضدتکرار بستهٔ توییت: ${twDedup.dropped} توییت با مضمون تکراری حذف شد`);
       // بدون سربرگ زمانی — خواستهٔ صریح کاربر ۱۳ نوامبر

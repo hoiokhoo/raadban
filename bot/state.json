@@ -1,5 +1,8 @@
 {
  "sentIds": {
+  "7cad8c2106e98ccb2c97459d93203c6bdf7cdde3": 1794620044600,
+  "44aa7bab14a4502069e73164e1fff1f887d12822": 1794620044600,
+  "cc7e85bc664d50ba51b8dd388b436524d1bf1df3": 1794620044600,
   "e3073238951a2587818fa45a67edecd19c5c3b25": 1794619510165,
   "f2205a625b9f8c0cdd7e13eb40c4cfc17afcab00": 1794619020702,
   "34ff64818a70120d07fe314d15c401525f9d540f": 1794619020702,
@@ -1196,12 +1199,12 @@
   "36fc764c2c0588357f0cc98d71c92be13226f300": 1794578746851,
   "217726db2752ebcf1f6c2ab051327cff53307a9b": 1794578746851,
   "4f8a0dbe98cffe3261099ece14baccde7663cfc8": 1794578746851,
-  "b3d10579c5a3144025955ebac3ef6f666cde3cf9": 1794578746851,
-  "aeaf59de0cf3dce15af7e77cd1c123300647b857": 1794578746851,
-  "c405b7a7cac162ad8490d284fdb45d51b943097d": 1794578746851,
-  "28788c60f04b65469d14d8041a659bcb16f6f1e2": 1794578746851
+  "b3d10579c5a3144025955ebac3ef6f666cde3cf9": 1794578746851
  },
  "sentTitles": {
+  "0f7be57e6bd22b0703b41948c48b12d564ad309b": 1794620044600,
+  "8da3c3e92850bf2f2bc04122abedd7dc91220c0e": 1794620044600,
+  "4a99f622ad73c675bd532eb66c06047a91709044": 1794620044600,
   "63dd6a24db343b7beb4444e9d2b6a6a83e7d32f4": 1794619510165,
   "c1d8c89b4f77f445189a5b5ef9eb20ec0051ad55": 1794619020702,
   "9de1a1625753e03abb70510e73613607a928373d": 1794619020702,
@@ -1798,10 +1801,7 @@
   "08a2203b89c15ba88e9cf9c26205efc22b24dda8": 1794590284879,
   "b084a09904ae5c7a03b22e28000c0eaa921d151e": 1794590284879,
   "ffdef504cd9bbfb50ea29c36c127a042b0a38da7": 1794590284879,
-  "4160d0c255e40ebb1c89c689578e268c7de07d2f": 1794590284879,
-  "6ba5f06d1a0f34f6954649cb98f0f8cf39014b6e": 1794590284879,
-  "868c1289a0438e87dae5ca992feb6f0fbffc5717": 1794590284879,
-  "660fda1118bebfad1462e4af9b243b892b00eb02": 1794590284879
+  "4160d0c255e40ebb1c89c689578e268c7de07d2f": 1794590284879
  },
  "sentTitleTexts": {
   "از تماس رییس ntsb که برای ارایه اخرین گزارش از حادثه قایق رودخانه ای در نیواورلیان با من تماس گرفت سپاسگزارم عملیات امداد و نجات همچنان ادامه دارد و دعا می کنیم": 1794613075903,
@@ -3008,6 +3008,135 @@
   "مشرق نیوز گفتگوی تلفنی ولیعهد اردن با معاون ترامپ ولیعهد اردن با جی دی ونس معاون رییس دولت تروریستی امریکا تلفنی گفتگو کرد": 1794595315680
  },
  "pool": [
+  {
+   "id": "ee8e35b7c10b14caeff250e18ac6a3643f3764cb",
+   "titleKey": "4457e4114fe799ad88b0858eb49483bab4a39641",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "أميركا تستأنف رحلات الطيران تدريجياً بعد شلل المطارات.. وتأثر نحو 1.5 مليون مسافر - العربية أميركا تستأنف رحلات الطيران تدريجياً بعد شلل المطارات.. وتأثر نحو 1.5 مليون مسافر العربية",
+   "at": "2026-11-14T00:17:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi-wRBVV95cUxNUVQ5c0NJZWlxMkliVlRvQzNVR3pWZW1RTGlLN0Q2a1FickNNVkwzdjhnSXRmOW5ocHYzWHdYY0dieVhQS25aQzUzSWxQcXBkUWk3R1BvZFR0ZmJNZ1ozTGFVdGhuTHRyeU1UMFloVG9TY3lYSGl2dkxndlZwQUs5WFF5aHFIMTRxUG9INl9EclhKdGZualBnSmpPbXVIYmxKR3JLcGRDaV9wWHItcTllN3o0X0RxMmVRSkNIOTBGN2NqQUZISld4RWNHY2tsWFlRVS1lWm1TblZDUVoxanhLYUZha1JDTFlSZTNRa3VwOTkwN01tUWlRc3MtRFFNYTlIOTJ1UkZhSnNnNTNRaXh0NW9WQzU2RkpaRm1OM0tkVG5lQTRDX080aWtoaUVkMTRFUnlDVUJJOUFtUHR0VWt5aTB4QTk4TTd3bzJZOEJlcFlvdC1uaUtBTFFTbkNfb3B5b0xOcWExbkNKLVRqaGtPSWs5aFYtMVFrRmJUdENjUW1kblRYRVh5ejJSSUNOUHhSLVdqYkN1S3ZIRVozY0FHdGQ2dDdiOVNrd09iLUoxQzBmekFMT2J1alB0dFI3WjNWRmhvOEViaWJNVTRBenZfclhTQ2hWV2Z0Z2dLYnpKY2NoNGJ1bTRFaWJvUXNPUkE0c210LThtYXZpTjM0b0tlNEtUb1NsdHpTaG81NUdENENGX056cXdRTUUwNHJtMmlBejhxQzh5ZEJvZ1VWal96ZFFVdEdQZ3ktNk5CbXJIR2I4U0FmRzlSTGRGZ0luRlRVMEJ0U3ZfSUxlRm9jMG5MRWdFZlJIenJNV2FsWXM5RnVnV0tRNWMzN2k0UdIBgAVBVV95cUxQRU1sZFJMRVFjZmVKY0FYZmk4a2I3R1RFckEwdUprX3dDOEdkWGx1b2ZuYUJqMEtXV3RvN0UxTzktNHdoS3NoZkFqVVJwRG92bXNHOXc1UTRSc1d1RGN4MDVCN1ZQam82SHBFRkpXUkhzaGFiRjhUX0JDcS1HZWNGYWQzdGxSSFZaZWVHNXA4cktYR0RaTmJ6SWd3dE81Ql9DZjBvMTdudl8tYU9DdUYtRmNqN0dMb3prUV9rTkwzTjRad2dTZmdid2JPX1A0VThBTnNPQWxDQ2hnZHFLQV9fdXZMOGlOQkY3VVVGVnpCNWJoelBiYVprb25MQ1hQN0JzblVCVHhLR3dXdFRpS0JHVlY3dHNFdklncFBJTVl0R1pGYk5SQWxnNEVEN0JEaEEzMDQwYjdHVkwxam05VW9FRFg5UzFhYzN6TkF1Wk5hUFd5ajFYNHMwS21sanlTTVJRWVlKN2pQUThSWlBnS2t6ZUE0aURHZFpxLXpUVEQ1QklJV0NCZWxYb1hMQ1VDdG1XUDdxZ1ltX0dWM083RGZvdURPMXBKb1pPWUlHR3BnRzBLN0xpc2RoZFJMMFNBbDB6TE9QaWpGbVVQMmxYYkViNjFyT0Y5VUhhZlI5dDBmbnJ5TFFSTzhBZVM1N0RXcThIRjkxaUxob0lTd1dVeGc1djIzcUp1NEFkRGw2dDNoOVVIdkJWaG1qelZkZjJlVHFIZzNiMDdhcXVTRmw5ak1lT2puZnJVLWtpZWVBMm5jMlhSQXpZektQTEdvODVPVHEwVDR4WFNCT0w1ZF81UEI1YjdLSnpZR3FKem1RXzN1Y3VlRVh0MllYbFlFS1lSZkw3?oc=5"
+  },
+  {
+   "id": "ae87096465ac88b86c58f9d9db2adb51ec025950",
+   "titleKey": "7fdbffc6011137f5d62d43fc68d35ca85a165dad",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Ex-Nvidia CEO misled top lawyer on affair with Chinese businesswoman, sources say - Reuters EXCLUSIVE: Ex-Nvidia CEO misled top lawyer on affair with Chinese businesswoman, sources say Reuters",
+   "at": "2026-11-14T00:25:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxONzdHUzc1NjBCWjJNbldoNEhWS3RkQzJNdHJGTXFfX0h0YWR5QjhHbjdkd3NENnU2eXZpMktjMWRzT216Y2tMbnB0dS04T25QZEtxQmNpZzQ2SjNXRHNwQ2h4ckdOdkJ3d19IRDBYaUs5dzZzc2o2WmliV3hnRjNSN3VyM0trT1hxMEh4M2ppd3RBQ2RXTVUtWE40MmI0S2Z1d0ZBVjZGV2FSa2tDVEpDWU02WXR0QjBOdHRmTHJRV09faXc?oc=5"
+  },
+  {
+   "id": "0a57fe360235d249a3630fc5cb185bceea9e044d",
+   "titleKey": "edf6ab5c760b146952ac581aa428a7fdd60d3adf",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Seahawks are hurting with injuries, but two players will return vs. Raiders - ESPN Seahawks are hurting with injuries, but two players will return vs. Raiders ESPN",
+   "at": "2026-11-14T00:30:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOaTE1dklwX2IyUHkxMXczd3hrdEJFdGRTRzRsVzhGMV9vSDkwTWV6RE92OXNQNlpmVmYzb0pZRmNraFY4bVhjbW5SLVVKUmhaZTROdm5yVkc3QzBNUVJqNWRSQTFrQmM2NUtqZDNCYVZNMG03LW5wSEFkc1B5THdpakhjNjYwUnkxT00ySkhXVFY5ZnlYbUoyZGo0SU1iTGM?oc=5"
+  },
+  {
+   "id": "41cbb33bcde74638b485e3ababf2bf14f858e84e",
+   "titleKey": "78a9bfc0c05876647ced451deec8f19bb4b8a9e3",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "White House says Trump to meet with Putin, Xi Jinping in China — news agency According to the US President's spokesperson, Donald Trump wants to discuss nuclear arms reduction during the meeting",
+   "at": "2026-11-14T00:33:00.000Z",
+   "url": "https://tass.com/world/2218067"
+  },
+  {
+   "id": "b8f309554944f98001e4c56bc189737dfa1fc28f",
+   "titleKey": "252a190927aa4636b125b362673fc3c50dc9a4f0",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "San Francisco Airport resumes flights to Asia This also applies to flights to Hawaii",
+   "at": "2026-11-14T00:45:01.000Z",
+   "url": "https://tass.com/economy/2218069"
+  },
+  {
+   "id": "f75f6737797fae536d81e799ec26ab05465ddf0e",
+   "titleKey": "c7d0acecc2503e738c83af46e7eca006f359fda0",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "سيسيل بويكس - العربي الجديد سيسيل بويكس العربي الجديد",
+   "at": "2026-11-14T01:05:29.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQckNTV2NMYnQ3TkYwQjlSdnVScHBxbnp3UjIwRzRpU3RvV2NNNzdMbnhzMkcxRzltWkh0LWU5ZXhYQW1QQ0tOV2VaalpVQmxOZlloeUJOemZRb2k5c0Nwd09BcW1CdnpqMWhTRVZBYkhEUnVNMDlRdVE0OVMxR09VQ0Y0R3BtSHBwZTJnNE9xVW8?oc=5"
+  },
+  {
+   "id": "8b8536e3d56177bb5ba1d5f8263372da77fcd7a6",
+   "titleKey": "a35956b7ae6862e258421429e874b950ff709edf",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "طهران تهاجم الخليج بعد تهدئة - العربي الجديد طهران تهاجم الخليج بعد تهدئة العربي الجديد",
+   "at": "2026-11-14T01:05:38.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOT1p1RWM1SFgya0s5TV9OM0RVSVNPUjBPUXlVM1JoOVRGUkNCMkZ3cUNKaFFLU3EtLVhzN3hLcVM1YjR3V3ZnLVU0S0hvWjBaUnBuZVViM0ZNSGJlZVk0UmtJYS1CRkV1Rm4wVlpsWjZpMFlLeWRWMUhycUFWTGNYYVVIWGYzTlJaeTlMcUFGYi10dw?oc=5"
+  },
+  {
+   "id": "9175ecd6f9f51b5fd8157d2c669914981063b70e",
+   "titleKey": "01994226587bbbfd2a587f55acadb65ac324ee69",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Trump admits that suspension of flights in US may be linked to outdated equipment The problem was not caused by a cyberattack or AI, the US leader said",
+   "at": "2026-11-14T01:10:01.000Z",
+   "url": "https://tass.com/world/2218071"
+  },
+  {
+   "id": "0673896c0e2affd92ffe4dae912cddb8a68870db",
+   "titleKey": "1f4f81c5f5a2938c6a1d895ef8f6eded06a87d52",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "141 overs lost: Babar suggests 'pink' solution for Pakistan's winter Test problem The opening Test was repeatedly interrupted by bad light, forcing players to leave the field before the scheduled close of play on most days.",
+   "at": "2026-11-14T01:16:22.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/141-overs-lost-babar-azam-mike-hesson-suggest-pink-solution-for-pakistans-winter-test-problem/articleshow/135819876.cms"
+  },
+  {
+   "id": "7cad8c2106e98ccb2c97459d93203c6bdf7cdde3",
+   "titleKey": "0f7be57e6bd22b0703b41948c48b12d564ad309b",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک جامعه‌شناس: ضعف سواد سیاسی عامل مرجعیت سلبریتی‌ها برای بخشی از جامعه است یک جامعه‌شناس سیاسی با اشاره به نقش محدودیت فعالیت احزاب و پایین بودن سواد سیاسی در مرجع شدن سلبریتی‌ها، گفت: این دو عامل رابطه‌ای متقابل با یکدیگر دارند.",
+   "at": "2026-11-14T01:30:00.000Z",
+   "url": "https://www.isna.ir/news/1405082315236/%DB%8C%DA%A9-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%B4%D9%86%D8%A7%D8%B3-%D8%B6%D8%B9%D9%81-%D8%B3%D9%88%D8%A7%D8%AF-%D8%B3%DB%8C%D8%A7%D8%B3%DB%8C-%D8%B9%D8%A7%D9%85%D9%84-%D9%85%D8%B1%D8%AC%D8%B9%DB%8C%D8%AA-%D8%B3%D9%84%D8%A8%D8%B1%DB%8C%D8%AA%DB%8C-%D9%87%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A8%D8%AE%D8%B4%DB%8C"
+  },
+  {
+   "id": "44aa7bab14a4502069e73164e1fff1f887d12822",
+   "titleKey": "8da3c3e92850bf2f2bc04122abedd7dc91220c0e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "هفت هزار پرواز در آمریکا لغو و یا با تاخیر مواجه شدند تهران-ایرنا- هفت هزار پرواز روز جمعه در پی اعلام وضعیت اضطراری در فرودگاهای سراسر آمریکا لغو و یا با تاخیر مواجه شدند.",
+   "at": "2026-11-14T01:30:00.000Z",
+   "url": "https://www.irna.ir/news/86320850/%D9%87%D9%81%D8%AA-%D9%87%D8%B2%D8%A7%D8%B1-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%84%D8%BA%D9%88-%D9%88-%DB%8C%D8%A7-%D8%A8%D8%A7-%D8%AA%D8%A7%D8%AE%DB%8C%D8%B1-%D9%85%D9%88%D8%A7%D8%AC%D9%87-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "d322dd31659519a043b62440f5d5c8acdc49a5d0",
+   "titleKey": "09e4abf86276bc923744b6cdd665790e30db19cf",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Don’t take Nvidia CEO Jensen Huang’s ‘sex’ scandal at face value “I thought spooks were supposed to be stealthy,” the uncouth, flatulent anti-hero Jackson Lamb complains in the hit British spy series Slow Horses as an annoying underling loudly enters his rundown office building, known to fans as Slough House. I have no idea if Alice Huang, the alleged love interest of billionaire Jensen Huang – who resigned as Nvidia CEO on Thursday – is really a Chinese Mata Hari. My own knowledge of espionage is confined to reading John le Carre and Robert Ludlum, and...",
+   "at": "2026-11-14T01:30:08.000Z",
+   "url": "https://www.scmp.com/opinion/china-opinion/article/3374017/dont-take-nvidia-ceo-jensen-huangs-sex-scandal-face-value"
+  },
+  {
+   "id": "cc7e85bc664d50ba51b8dd388b436524d1bf1df3",
+   "titleKey": "4a99f622ad73c675bd532eb66c06047a91709044",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "پنج سناریو برای آینده جنگ آمریکا و ایران/ پایان دادن به جنگ؛ دشوارتر از آغاز آن است؟ واشنگتن با مجموعه‌ای از گزینه‌های دشوار روبه‌روست: بازگشت به مذاکره، کاهش غیررسمی تنش، ادامه محاصره اقتصادی یا ازسرگیری جنگ. از سوی دیگر، تهران نیز با وجود فشارهای نظامی و اقتصادی، همچنان می‌تواند بر مسیر تحولات منطقه تأثیر بگذارد.",
+   "at": "2026-11-14T01:30:16.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308222-%D9%BE%D9%86%D8%AC-%D8%B3%D9%86%D8%A7%D8%B1%DB%8C%D9%88-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87-%D8%AC%D9%86%DA%AF-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D8%AF%D8%A7%D8%AF%D9%86-%D8%A8%D9%87-%D8%AC%D9%86%DA%AF-%D8%AF%D8%B4%D9%88%D8%A7%D8%B1%D8%AA%D8%B1-%D8%A7%D8%B2-%D8%A2%D8%BA%D8%A7%D8%B2-%D8%A2%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "6cf4365682089dc8f2f60b5d98bfdd161b3b21bc",
+   "titleKey": "be429438fa0b8efb70aa0cf3a11af1c6249b2ba3",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "US Federal Aviation Administration ordered an immediate nationwide suspension of all passenger flights following widespread communication system failures affecting air traffic controllers across the country. @PressTV",
+   "at": "2026-11-14T01:31:02.000Z",
+   "url": "https://t.me/presstv/214627"
+  },
   {
    "id": "747e89c9279720a115baf8ded8adcf8eb580f3ae",
    "titleKey": "2baf6c1615012ca8b8c16219ca67ddd6da8f6579",
@@ -5235,11 +5364,41 @@
    "titleTexts": [],
    "cat": "general",
    "queuedAt": "2026-11-14T01:24:55.760Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: یک جامعه‌شناس: ضعف سواد سیاسی عامل مرجعیت سلبریتی‌ها برای بخشی از جامعه است یک جامعه‌شناس سیاسی با اشاره به نقش محدودیت فعالیت احزاب و پایین بودن سواد سیاسی در مرجع شدن سلبریتی‌ها، گفت: این دو عامل رابطه‌ای متقابل با یکدیگر دارند.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2026/11/13/4/64053788.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-14T01:33:48.191Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری جمهوری اسلامی (ایرنا): هفت هزار پرواز در آمریکا لغو و یا با تاخیر مواجه شدند تهران-ایرنا- هفت هزار پرواز روز جمعه در پی اعلام وضعیت اضطراری در فرودگاهای سراسر آمریکا لغو و یا با تاخیر مواجه شدند.\n\n🖼 عکس خود خبر: https://img9.irna.ir/d/r2/2026/11/14/4/173238473.jpg",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-14T01:33:48.892Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: پنج سناریو برای آینده جنگ آمریکا و ایران/ پایان دادن به جنگ؛ دشوارتر از آغاز آن است؟ واشنگتن با مجموعه‌ای از گزینه‌های دشوار روبه‌روست: بازگشت به مذاکره، کاهش غیررسمی تنش، ادامه محاصره اقتصادی یا ازسرگیری جنگ. از سوی دیگر، تهران نیز با وجود فشارهای نظامی و اقتصادی، همچنان می‌تواند بر مسیر تحولات منطقه تأثیر بگذارد.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/c6mMVRz6tRdm/PBb2qKXuxpmNVSZPSFLjFp7sC-EU_z9i9iaOmdHPkXOWnIaplpzIjOfGa05ZCUuQo-tvw95i08_fPjS16dYRaovZYq26uYlofBsowUGs4cR1UgfeIF7-3kcis_fYQWfbvlXJge4LXaiDWhAMJvNDcZcRltSGiNFeIf8jFOBv6XGGwxQ8K1KF8bJ-7e_S4APo/pX3WZYlW9tM8.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-14T01:33:49.592Z"
   }
  ],
  "tweetQueue": [],
  "lastNewsSlotKey": "2026-11-14T04:00",
- "lastTweetSlotKey": "2026-11-14T03:00",
+ "lastTweetSlotKey": "2026-11-14T05:00",
  "lastBundleAt": "2026-11-11T17:29:35.225Z",
  "hourlyAnalyses": [
   {
@@ -5412,6 +5571,135 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "ee8e35b7c10b14caeff250e18ac6a3643f3764cb",
+   "titleKey": "4457e4114fe799ad88b0858eb49483bab4a39641",
+   "source": "Al Arabiya",
+   "lang": "ar",
+   "text": "أميركا تستأنف رحلات الطيران تدريجياً بعد شلل المطارات.. وتأثر نحو 1.5 مليون مسافر - العربية أميركا تستأنف رحلات الطيران تدريجياً بعد شلل المطارات.. وتأثر نحو 1.5 مليون مسافر العربية",
+   "at": "2026-11-14T00:17:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMi-wRBVV95cUxNUVQ5c0NJZWlxMkliVlRvQzNVR3pWZW1RTGlLN0Q2a1FickNNVkwzdjhnSXRmOW5ocHYzWHdYY0dieVhQS25aQzUzSWxQcXBkUWk3R1BvZFR0ZmJNZ1ozTGFVdGhuTHRyeU1UMFloVG9TY3lYSGl2dkxndlZwQUs5WFF5aHFIMTRxUG9INl9EclhKdGZualBnSmpPbXVIYmxKR3JLcGRDaV9wWHItcTllN3o0X0RxMmVRSkNIOTBGN2NqQUZISld4RWNHY2tsWFlRVS1lWm1TblZDUVoxanhLYUZha1JDTFlSZTNRa3VwOTkwN01tUWlRc3MtRFFNYTlIOTJ1UkZhSnNnNTNRaXh0NW9WQzU2RkpaRm1OM0tkVG5lQTRDX080aWtoaUVkMTRFUnlDVUJJOUFtUHR0VWt5aTB4QTk4TTd3bzJZOEJlcFlvdC1uaUtBTFFTbkNfb3B5b0xOcWExbkNKLVRqaGtPSWs5aFYtMVFrRmJUdENjUW1kblRYRVh5ejJSSUNOUHhSLVdqYkN1S3ZIRVozY0FHdGQ2dDdiOVNrd09iLUoxQzBmekFMT2J1alB0dFI3WjNWRmhvOEViaWJNVTRBenZfclhTQ2hWV2Z0Z2dLYnpKY2NoNGJ1bTRFaWJvUXNPUkE0c210LThtYXZpTjM0b0tlNEtUb1NsdHpTaG81NUdENENGX056cXdRTUUwNHJtMmlBejhxQzh5ZEJvZ1VWal96ZFFVdEdQZ3ktNk5CbXJIR2I4U0FmRzlSTGRGZ0luRlRVMEJ0U3ZfSUxlRm9jMG5MRWdFZlJIenJNV2FsWXM5RnVnV0tRNWMzN2k0UdIBgAVBVV95cUxQRU1sZFJMRVFjZmVKY0FYZmk4a2I3R1RFckEwdUprX3dDOEdkWGx1b2ZuYUJqMEtXV3RvN0UxTzktNHdoS3NoZkFqVVJwRG92bXNHOXc1UTRSc1d1RGN4MDVCN1ZQam82SHBFRkpXUkhzaGFiRjhUX0JDcS1HZWNGYWQzdGxSSFZaZWVHNXA4cktYR0RaTmJ6SWd3dE81Ql9DZjBvMTdudl8tYU9DdUYtRmNqN0dMb3prUV9rTkwzTjRad2dTZmdid2JPX1A0VThBTnNPQWxDQ2hnZHFLQV9fdXZMOGlOQkY3VVVGVnpCNWJoelBiYVprb25MQ1hQN0JzblVCVHhLR3dXdFRpS0JHVlY3dHNFdklncFBJTVl0R1pGYk5SQWxnNEVEN0JEaEEzMDQwYjdHVkwxam05VW9FRFg5UzFhYzN6TkF1Wk5hUFd5ajFYNHMwS21sanlTTVJRWVlKN2pQUThSWlBnS2t6ZUE0aURHZFpxLXpUVEQ1QklJV0NCZWxYb1hMQ1VDdG1XUDdxZ1ltX0dWM083RGZvdURPMXBKb1pPWUlHR3BnRzBLN0xpc2RoZFJMMFNBbDB6TE9QaWpGbVVQMmxYYkViNjFyT0Y5VUhhZlI5dDBmbnJ5TFFSTzhBZVM1N0RXcThIRjkxaUxob0lTd1dVeGc1djIzcUp1NEFkRGw2dDNoOVVIdkJWaG1qelZkZjJlVHFIZzNiMDdhcXVTRmw5ak1lT2puZnJVLWtpZWVBMm5jMlhSQXpZektQTEdvODVPVHEwVDR4WFNCT0w1ZF81UEI1YjdLSnpZR3FKem1RXzN1Y3VlRVh0MllYbFlFS1lSZkw3?oc=5"
+  },
+  {
+   "id": "ae87096465ac88b86c58f9d9db2adb51ec025950",
+   "titleKey": "7fdbffc6011137f5d62d43fc68d35ca85a165dad",
+   "source": "Reuters",
+   "lang": "en",
+   "text": "EXCLUSIVE: Ex-Nvidia CEO misled top lawyer on affair with Chinese businesswoman, sources say - Reuters EXCLUSIVE: Ex-Nvidia CEO misled top lawyer on affair with Chinese businesswoman, sources say Reuters",
+   "at": "2026-11-14T00:25:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxONzdHUzc1NjBCWjJNbldoNEhWS3RkQzJNdHJGTXFfX0h0YWR5QjhHbjdkd3NENnU2eXZpMktjMWRzT216Y2tMbnB0dS04T25QZEtxQmNpZzQ2SjNXRHNwQ2h4ckdOdkJ3d19IRDBYaUs5dzZzc2o2WmliV3hnRjNSN3VyM0trT1hxMEh4M2ppd3RBQ2RXTVUtWE40MmI0S2Z1d0ZBVjZGV2FSa2tDVEpDWU02WXR0QjBOdHRmTHJRV09faXc?oc=5"
+  },
+  {
+   "id": "0a57fe360235d249a3630fc5cb185bceea9e044d",
+   "titleKey": "edf6ab5c760b146952ac581aa428a7fdd60d3adf",
+   "source": "ESPN",
+   "cat": "sports",
+   "lang": "en",
+   "text": "Seahawks are hurting with injuries, but two players will return vs. Raiders - ESPN Seahawks are hurting with injuries, but two players will return vs. Raiders ESPN",
+   "at": "2026-11-14T00:30:00.000Z",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOaTE1dklwX2IyUHkxMXczd3hrdEJFdGRTRzRsVzhGMV9vSDkwTWV6RE92OXNQNlpmVmYzb0pZRmNraFY4bVhjbW5SLVVKUmhaZTROdm5yVkc3QzBNUVJqNWRSQTFrQmM2NUtqZDNCYVZNMG03LW5wSEFkc1B5THdpakhjNjYwUnkxT00ySkhXVFY5ZnlYbUoyZGo0SU1iTGM?oc=5"
+  },
+  {
+   "id": "41cbb33bcde74638b485e3ababf2bf14f858e84e",
+   "titleKey": "78a9bfc0c05876647ced451deec8f19bb4b8a9e3",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "White House says Trump to meet with Putin, Xi Jinping in China — news agency According to the US President's spokesperson, Donald Trump wants to discuss nuclear arms reduction during the meeting",
+   "at": "2026-11-14T00:33:00.000Z",
+   "url": "https://tass.com/world/2218067"
+  },
+  {
+   "id": "b8f309554944f98001e4c56bc189737dfa1fc28f",
+   "titleKey": "252a190927aa4636b125b362673fc3c50dc9a4f0",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "San Francisco Airport resumes flights to Asia This also applies to flights to Hawaii",
+   "at": "2026-11-14T00:45:01.000Z",
+   "url": "https://tass.com/economy/2218069"
+  },
+  {
+   "id": "f75f6737797fae536d81e799ec26ab05465ddf0e",
+   "titleKey": "c7d0acecc2503e738c83af46e7eca006f359fda0",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "سيسيل بويكس - العربي الجديد سيسيل بويكس العربي الجديد",
+   "at": "2026-11-14T01:05:29.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQckNTV2NMYnQ3TkYwQjlSdnVScHBxbnp3UjIwRzRpU3RvV2NNNzdMbnhzMkcxRzltWkh0LWU5ZXhYQW1QQ0tOV2VaalpVQmxOZlloeUJOemZRb2k5c0Nwd09BcW1CdnpqMWhTRVZBYkhEUnVNMDlRdVE0OVMxR09VQ0Y0R3BtSHBwZTJnNE9xVW8?oc=5"
+  },
+  {
+   "id": "8b8536e3d56177bb5ba1d5f8263372da77fcd7a6",
+   "titleKey": "a35956b7ae6862e258421429e874b950ff709edf",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "طهران تهاجم الخليج بعد تهدئة - العربي الجديد طهران تهاجم الخليج بعد تهدئة العربي الجديد",
+   "at": "2026-11-14T01:05:38.000Z",
+   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOT1p1RWM1SFgya0s5TV9OM0RVSVNPUjBPUXlVM1JoOVRGUkNCMkZ3cUNKaFFLU3EtLVhzN3hLcVM1YjR3V3ZnLVU0S0hvWjBaUnBuZVViM0ZNSGJlZVk0UmtJYS1CRkV1Rm4wVlpsWjZpMFlLeWRWMUhycUFWTGNYYVVIWGYzTlJaeTlMcUFGYi10dw?oc=5"
+  },
+  {
+   "id": "9175ecd6f9f51b5fd8157d2c669914981063b70e",
+   "titleKey": "01994226587bbbfd2a587f55acadb65ac324ee69",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Trump admits that suspension of flights in US may be linked to outdated equipment The problem was not caused by a cyberattack or AI, the US leader said",
+   "at": "2026-11-14T01:10:01.000Z",
+   "url": "https://tass.com/world/2218071"
+  },
+  {
+   "id": "0673896c0e2affd92ffe4dae912cddb8a68870db",
+   "titleKey": "1f4f81c5f5a2938c6a1d895ef8f6eded06a87d52",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "141 overs lost: Babar suggests 'pink' solution for Pakistan's winter Test problem The opening Test was repeatedly interrupted by bad light, forcing players to leave the field before the scheduled close of play on most days.",
+   "at": "2026-11-14T01:16:22.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/news/141-overs-lost-babar-azam-mike-hesson-suggest-pink-solution-for-pakistans-winter-test-problem/articleshow/135819876.cms"
+  },
+  {
+   "id": "7cad8c2106e98ccb2c97459d93203c6bdf7cdde3",
+   "titleKey": "0f7be57e6bd22b0703b41948c48b12d564ad309b",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "یک جامعه‌شناس: ضعف سواد سیاسی عامل مرجعیت سلبریتی‌ها برای بخشی از جامعه است یک جامعه‌شناس سیاسی با اشاره به نقش محدودیت فعالیت احزاب و پایین بودن سواد سیاسی در مرجع شدن سلبریتی‌ها، گفت: این دو عامل رابطه‌ای متقابل با یکدیگر دارند.",
+   "at": "2026-11-14T01:30:00.000Z",
+   "url": "https://www.isna.ir/news/1405082315236/%DB%8C%DA%A9-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D8%B4%D9%86%D8%A7%D8%B3-%D8%B6%D8%B9%D9%81-%D8%B3%D9%88%D8%A7%D8%AF-%D8%B3%DB%8C%D8%A7%D8%B3%DB%8C-%D8%B9%D8%A7%D9%85%D9%84-%D9%85%D8%B1%D8%AC%D8%B9%DB%8C%D8%AA-%D8%B3%D9%84%D8%A8%D8%B1%DB%8C%D8%AA%DB%8C-%D9%87%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A8%D8%AE%D8%B4%DB%8C"
+  },
+  {
+   "id": "44aa7bab14a4502069e73164e1fff1f887d12822",
+   "titleKey": "8da3c3e92850bf2f2bc04122abedd7dc91220c0e",
+   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
+   "lang": "fa",
+   "text": "هفت هزار پرواز در آمریکا لغو و یا با تاخیر مواجه شدند تهران-ایرنا- هفت هزار پرواز روز جمعه در پی اعلام وضعیت اضطراری در فرودگاهای سراسر آمریکا لغو و یا با تاخیر مواجه شدند.",
+   "at": "2026-11-14T01:30:00.000Z",
+   "url": "https://www.irna.ir/news/86320850/%D9%87%D9%81%D8%AA-%D9%87%D8%B2%D8%A7%D8%B1-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2-%D8%AF%D8%B1-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%84%D8%BA%D9%88-%D9%88-%DB%8C%D8%A7-%D8%A8%D8%A7-%D8%AA%D8%A7%D8%AE%DB%8C%D8%B1-%D9%85%D9%88%D8%A7%D8%AC%D9%87-%D8%B4%D8%AF%D9%86%D8%AF"
+  },
+  {
+   "id": "d322dd31659519a043b62440f5d5c8acdc49a5d0",
+   "titleKey": "09e4abf86276bc923744b6cdd665790e30db19cf",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Don’t take Nvidia CEO Jensen Huang’s ‘sex’ scandal at face value “I thought spooks were supposed to be stealthy,” the uncouth, flatulent anti-hero Jackson Lamb complains in the hit British spy series Slow Horses as an annoying underling loudly enters his rundown office building, known to fans as Slough House. I have no idea if Alice Huang, the alleged love interest of billionaire Jensen Huang – who resigned as Nvidia CEO on Thursday – is really a Chinese Mata Hari. My own knowledge of espionage is confined to reading John le Carre and Robert Ludlum, and...",
+   "at": "2026-11-14T01:30:08.000Z",
+   "url": "https://www.scmp.com/opinion/china-opinion/article/3374017/dont-take-nvidia-ceo-jensen-huangs-sex-scandal-face-value"
+  },
+  {
+   "id": "cc7e85bc664d50ba51b8dd388b436524d1bf1df3",
+   "titleKey": "4a99f622ad73c675bd532eb66c06047a91709044",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "پنج سناریو برای آینده جنگ آمریکا و ایران/ پایان دادن به جنگ؛ دشوارتر از آغاز آن است؟ واشنگتن با مجموعه‌ای از گزینه‌های دشوار روبه‌روست: بازگشت به مذاکره، کاهش غیررسمی تنش، ادامه محاصره اقتصادی یا ازسرگیری جنگ. از سوی دیگر، تهران نیز با وجود فشارهای نظامی و اقتصادی، همچنان می‌تواند بر مسیر تحولات منطقه تأثیر بگذارد.",
+   "at": "2026-11-14T01:30:16.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308222-%D9%BE%D9%86%D8%AC-%D8%B3%D9%86%D8%A7%D8%B1%DB%8C%D9%88-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87-%D8%AC%D9%86%DA%AF-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D8%AF%D8%A7%D8%AF%D9%86-%D8%A8%D9%87-%D8%AC%D9%86%DA%AF-%D8%AF%D8%B4%D9%88%D8%A7%D8%B1%D8%AA%D8%B1-%D8%A7%D8%B2-%D8%A2%D8%BA%D8%A7%D8%B2-%D8%A2%D9%86-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "6cf4365682089dc8f2f60b5d98bfdd161b3b21bc",
+   "titleKey": "be429438fa0b8efb70aa0cf3a11af1c6249b2ba3",
+   "source": "Press TV (تلگرام)",
+   "lang": "fa",
+   "text": "US Federal Aviation Administration ordered an immediate nationwide suspension of all passenger flights following widespread communication system failures affecting air traffic controllers across the country. @PressTV",
+   "at": "2026-11-14T01:31:02.000Z",
+   "url": "https://t.me/presstv/214627"
+  },
   {
    "id": "fb24bf85badd23f3258edb72ecaf5b589e5bcf4c",
    "titleKey": "3c8a18a08fb20dae1fd3193d86d26cb197638357",
@@ -9759,7 +10047,7 @@
    "items": 365
   }
  ],
- "aiCursor": 1,
+ "aiCursor": 2,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10333,22 +10621,22 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8908": 1794619510162,
-  "Akharin_khodro/8913": 1794619510162,
-  "Akharin_khodro/8914": 1794619510162,
-  "Akharin_khodro/8915": 1794619510162,
-  "Akharin_khodro/8916": 1794619510162,
-  "Akharin_khodro/8919": 1794619510162,
-  "Akharin_khodro/8920": 1794619510162,
-  "Akharin_khodro/8921": 1794619510162,
-  "Akharin_khodro/8922": 1794619510162,
-  "Akharin_khodro/8923": 1794619510162,
-  "Akharin_khodro/8924": 1794619510162,
-  "Akharin_khodro/8925": 1794619510162,
-  "Akharin_khodro/8926": 1794619510162,
-  "Akharin_khodro/8927": 1794619510162,
-  "Akharin_khodro/8928": 1794619510162,
-  "Akharin_khodro/8929": 1794619510162,
+  "Akharin_khodro/8908": 1794620044597,
+  "Akharin_khodro/8913": 1794620044597,
+  "Akharin_khodro/8914": 1794620044597,
+  "Akharin_khodro/8915": 1794620044597,
+  "Akharin_khodro/8916": 1794620044597,
+  "Akharin_khodro/8919": 1794620044597,
+  "Akharin_khodro/8920": 1794620044597,
+  "Akharin_khodro/8921": 1794620044597,
+  "Akharin_khodro/8922": 1794620044597,
+  "Akharin_khodro/8923": 1794620044597,
+  "Akharin_khodro/8924": 1794620044597,
+  "Akharin_khodro/8925": 1794620044597,
+  "Akharin_khodro/8926": 1794620044597,
+  "Akharin_khodro/8927": 1794620044597,
+  "Akharin_khodro/8928": 1794620044597,
+  "Akharin_khodro/8929": 1794620044597,
   "Akharin_khodro/8907": 1794486555785,
   "Akharin_khodro/8904": 1794461338734,
   "Akharin_khodro/8905": 1794461338734,
@@ -10429,9 +10717,14 @@
     "id": "kz-01",
     "dateKey": "2026-11-13",
     "kind": "evening"
+   },
+   "rz-01": {
+    "id": "rz-01",
+    "dateKey": "2026-11-14",
+    "kind": "morning"
    }
   },
-  "infallibleCursor": 9,
+  "infallibleCursor": 10,
   "usedImages": {
    "https://upload.wikimedia.org/wikipedia/commons/4/41/Duke_Forest_misty_morning_h.jpg": {
     "dateKey": "2026-11-10",
@@ -10468,6 +10761,10 @@
    "https://upload.wikimedia.org/wikipedia/commons/b/b1/Shangri-la.jpg": {
     "dateKey": "2026-11-13",
     "kind": "evening"
+   },
+   "https://upload.wikimedia.org/wikipedia/commons/a/aa/Starr-100314-2191-Vaccinium_reticulatum-habit_with_early_morning_light_and_clouds-Halemauu_Trail_Haleakala_National_Park-Maui_%2824985176046%29.jpg": {
+    "dateKey": "2026-11-14",
+    "kind": "morning"
    }
   },
   "runs": [
@@ -10592,9 +10889,19 @@
     "status": "sent",
     "isTest": false,
     "at": "2026-11-13T17:35:32.384Z"
+   },
+   {
+    "dateKey": "2026-11-14",
+    "kind": "morning",
+    "slotKey": "2026-11-14T05:00",
+    "status": "sent",
+    "isTest": false,
+    "hadithId": "rz-01",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Starr-100314-2191-Vaccinium_reticulatum-habit_with_early_morning_light_and_clouds-Halemauu_Trail_Haleakala_National_Park-Maui_%2824985176046%29.jpg",
+    "at": "2026-11-14T01:32:33.867Z"
    }
   ],
-  "lastMorningKey": "2026-11-13T05:00",
+  "lastMorningKey": "2026-11-14T05:00",
   "lastEveningKey": "2026-11-13T21:00",
   "lastWeatherKey": "2026-11-13T21:00",
   "dayHistoryCache": {
@@ -10777,27 +11084,28 @@
    }
   }
  },
- "tweetCursor": 12,
- "lastRunAt": "2026-11-14T01:25:10.167Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-14T01:34:04.602Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1067,
-  "inWindow": 141,
-  "fresh": 77,
-  "sent": 1,
+  "fetched": 1068,
+  "inWindow": 148,
+  "fresh": 88,
+  "sent": 3,
   "images": 0,
   "translated": 0,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 111,
+  "tweetsFetched": 118,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
+  "dailySent": "morning",
   "aiFailed": false,
-  "skippedUntranslated": 76,
-  "queued": 1,
+  "skippedUntranslated": 85,
+  "queued": 3,
   "tweetRateLimited": false
  }
 }

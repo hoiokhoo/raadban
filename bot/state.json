@@ -1,5 +1,10 @@
 {
  "sentIds": {
+  "5df6339f40283c96e943d5b5c0fdadd6839300bf": 1794790817608,
+  "698d2c5ff30249e6d71ff81efd11911b3a404d2f": 1794790817608,
+  "ee0b997e330f3cf8d175e98f59c3192634e504d4": 1794790817608,
+  "ad807253d939c627c07004c7d118171cddaebad9": 1794790817608,
+  "91a590431b39cd0b2fd127b285cacd6945a4fea2": 1794790817608,
   "f1c116d9df8ffc2a4de70fe73eb0fc7d13e79c7b": 1794790305307,
   "8261ad21d68289fe169dabb1c84a4ebd07013f37": 1794790305307,
   "2baa4b699ba2c17762ca695058e8eed0e9105eed": 1794790305307,
@@ -1194,14 +1199,14 @@
   "f8eba8cb164b98b305a947ca3be2dfa1fbc9fa0b": 1794759131392,
   "d370d15f9f53dc2bead5605a3c3a3ad0dd7f7179": 1794759131392,
   "bce465c0da32f025d696c45518bd0e961a6b612a": 1794759131392,
-  "d382778d2a9ac9d7ff431bf134bab0e8fb88e6ec": 1794759131392,
-  "04a69f81a2224106c47e97d67be0c165ae0e5853": 1794759131392,
-  "ca9e2369e0db763f64f2a0c9b0313d6f1625368d": 1794758617180,
-  "064bc18196b98d9cc8980e1c473b5fe90151a396": 1794758617180,
-  "5653ebc03d39120c3bddc2c2da0d1475f61e324f": 1794758617180,
-  "bdf897f5abdc7300f70093e76752d0a87b5e5014": 1794758617180
+  "d382778d2a9ac9d7ff431bf134bab0e8fb88e6ec": 1794759131392
  },
  "sentTitles": {
+  "8b4c10d729a8eee8cd801637e0c277faa62aceae": 1794790817608,
+  "fd2eb2766aa9845fab3fa1c85a9e3b2d734fdd0d": 1794790817608,
+  "1e35d8d443c343fc31f4597310dd9b43cfa50c5f": 1794790817608,
+  "6f37a6eba785cec00431b47d26b75acc62a05e53": 1794790817608,
+  "36f87cbfe0d4f4595c1732bf13fa0a3c0b9772aa": 1794790817608,
   "fc78c21319f7a61fbc7cd3d9246181ffb24ae16f": 1794790305307,
   "0c26a1adb9808caed856fa39c778a132740c6e9f": 1794790305307,
   "119d7ad60a7f2d110de8aecf7d91bf1b2e328f76": 1794790305307,
@@ -1796,12 +1801,7 @@
   "a450863ab90990958da72227b5b03d6f6bd07bba": 1794770297735,
   "27d6527a8a4645c3b8422c286d0085d777989c0d": 1794770297735,
   "c3fac1a4a1fc15c9724e9c06da778942bfeaf7de": 1794770297735,
-  "2834086498e3f20989d964816985b44d8e520897": 1794770297735,
-  "a920a124376b4f8cb52dd05e6be6c2dc04ead8bd": 1794770297735,
-  "9799f8f7b37a8295324dea434374f0e86c683c56": 1794770297735,
-  "e0761c2dd8c43525f033fc94d376e3c5571c878f": 1794770297735,
-  "ff24437e6ddd29c4e765e0b952745c91b5d9cf34": 1794770297735,
-  "6a34b402d67798fe3f845e2ec96ee79687a518c2": 1794770297735
+  "2834086498e3f20989d964816985b44d8e520897": 1794770297735
  },
  "sentTitleTexts": {
   "امشب من و alexstubb درباره گفت وگوهای صلح میان اوکراین و روسیه گفت وگو کردیم اروپا از طریق قالب e5 eu به طور نزدیک در این روند مشارکت خواهد داشت در این میان ما ": 1794785594771,
@@ -3009,6 +3009,53 @@
  },
  "pool": [
   {
+   "id": "5df6339f40283c96e943d5b5c0fdadd6839300bf",
+   "titleKey": "8b4c10d729a8eee8cd801637e0c277faa62aceae",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Worst ever! Rohit Sharma ends New Zealand series with unwanted career record During India's ODI series against New Zealand, Rohit Sharma faced uphill challenges, delivering a disappointing average of 7.50. With two ducks contributing to his low scores over four innings, his best effort registered at only 23 runs. Nonetheless, India clinched a 22-run victory in the last ODI, finishing the series 3-1.",
+   "at": "2026-11-16T00:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/india-vs-new-zealand/worst-ever-rohit-sharma-ends-new-zealand-series-with-unwanted-career-record/articleshow/135860744.cms"
+  },
+  {
+   "id": "698d2c5ff30249e6d71ff81efd11911b3a404d2f",
+   "titleKey": "fd2eb2766aa9845fab3fa1c85a9e3b2d734fdd0d",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "She slept through chess at 5, now she's India's 88th Grandmaster Initially disinterested in chess, Divya Deshmukh found her passion with the encouragement of her family. She rapidly rose through the ranks, claiming the title of national champion and later earning global fame by winning the FIDE Women's World Cup. As India's 88th Grandmaster, her accomplishments, recognized with the Arjuna Award from President Droupadi Murmu in 2026, aim to motivate young girls to embrace chess and pursue their dreams.",
+   "at": "2026-11-16T00:30:29.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/at-5-divya-deshmukh-found-chess-so-boring-she-fell-asleep-in-class-her-coach-used-homemade-chips-to-keep-her-awake-today-she-is-indias-88th-grandmaster-and-an-arjuna-award-winner/articleshow/135854977.cms"
+  },
+  {
+   "id": "ee0b997e330f3cf8d175e98f59c3192634e504d4",
+   "titleKey": "1e35d8d443c343fc31f4597310dd9b43cfa50c5f",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "جنگ اقتصادی در آب‌های آزاد / چین معادله تازه‌ای ساخت چین با اختصاص سپری پانزده میلیارد دلاری به دنبال مقابله با پیامدهای تحریم‌های دریایی آمریکا است.",
+   "at": "2026-11-16T00:51:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175879/جنگ-اقتصادی-در-آب-های-آزاد-چین-معادله-تازه-ای-ساخت"
+  },
+  {
+   "id": "ad807253d939c627c07004c7d118171cddaebad9",
+   "titleKey": "6f37a6eba785cec00431b47d26b75acc62a05e53",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "موفقیت نمایشگاه‌های تجاری به شکل‌گیری همکاری‌های اقتصادی است رئیس اتاق بازرگانی مشترک ایران و افغانستان، با تاکید بر ضرورت ارزیابی نتایج عملیاتی نمایشگاه‌های تجاری، گفت: موفقیت یک نمایشگاه صرفا با تعداد بازدیدکنندگان، جلسات برگزارشده یا تفاهم‌نامه‌های امضاشده سنجیده نمی‌شود، بلکه باید بررسی کرد که این رویداد تا چه اندازه به شناسایی فرصت‌های واقعی، یافتن شرکای تجاری مناسب و در نهایت شکل‌گیری همکاری‌های اقتصادی منجر شده است.",
+   "at": "2026-11-16T01:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082516828/%D9%85%D9%88%D9%81%D9%82%DB%8C%D8%AA-%D9%86%D9%85%D8%A7%DB%8C%D8%B4%DA%AF%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%AA%D8%AC%D8%A7%D8%B1%DB%8C-%D8%A8%D9%87-%D8%B4%DA%A9%D9%84-%DA%AF%DB%8C%D8%B1%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%87%D8%A7%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "91a590431b39cd0b2fd127b285cacd6945a4fea2",
+   "titleKey": "36f87cbfe0d4f4595c1732bf13fa0a3c0b9772aa",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "انفجار آب جوش زیر کاپوت؛ اشتباهی که صورت رانندگان را می‌سوزاند! باز کردن ناگهانی در رادیاتور هنگام جوش آوردن خودرو، سالانه ده‌ها راننده را با سوختگی‌های شدید روبه رو می‌کند.",
+   "at": "2026-11-16T01:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852945/%D8%A7%D9%86%D9%81%D8%AC%D8%A7%D8%B1-%D8%A2%D8%A8-%D8%AC%D9%88%D8%B4-%D8%B2%DB%8C%D8%B1-%DA%A9%D8%A7%D9%BE%D9%88%D8%AA-%D8%A7%D8%B4%D8%AA%D8%A8%D8%A7%D9%87%DB%8C-%DA%A9%D9%87-%D8%B5%D9%88%D8%B1%D8%AA-%D8%B1%D8%A7%D9%86%D9%86%D8%AF%DA%AF%D8%A7%D9%86-%D8%B1%D8%A7-%D9%85%DB%8C-%D8%B3%D9%88%D8%B2%D8%A7%D9%86%D8%AF"
+  },
+  {
    "id": "f1c116d9df8ffc2a4de70fe73eb0fc7d13e79c7b",
    "titleKey": "fc78c21319f7a61fbc7cd3d9246181ffb24ae16f",
    "source": "Bloomberg",
@@ -4204,15 +4251,6 @@
    "url": "https://www.isna.ir/news/1405082416802/%D8%AE%D8%B7%D8%B1-%D9%85%D9%88%D9%86%D9%88%DA%A9%D8%B3%DB%8C%D8%AF%DA%A9%D8%B1%D8%A8%D9%86-%D8%AF%D8%B1-%D8%AE%D9%88%D8%A7%D8%A8%DA%AF%D8%A7%D9%87-%D9%87%D8%A7-%D9%88-%D8%B4%D8%B9%D9%84%D9%87-%D9%87%D8%A7%DB%8C-%D9%86%D8%A7%D8%A7%DB%8C%D9%85%D9%86-%D8%AF%D8%B1-%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1-%D8%AA%D9%87%D8%B1%D8%A7%D9%86"
   },
   {
-   "id": "0a606381c945512adc581803aa039b95428717e7",
-   "titleKey": "541dd6f1666bd12ca72e691e8ec2c277582edef0",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ابوالهیل: ایران در ضربات ایستگاهی برتری دارد؛ عراق باید مراقب باشد ابوالهیل قدرت بدنی و استفاده از ضربات ایستگاهی را از ویژگی‌های تیم ملی ایران دانست و گفت دفاع عراق در سال‌های اخیر برابر ارسال‌ها و توپ‌های هوایی آسیب‌پذیر بوده است.",
-   "at": "2026-11-15T22:32:08.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1866555"
-  },
-  {
    "id": "00fafa4c02ff4a0faa1398429758fbbbe5f85c68",
    "titleKey": "920ecae0bab147e52a5f2c2c9cb979941f70b80c",
    "source": "Reuters",
@@ -4222,16 +4260,6 @@
    "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOZXRlTGlzNmUtbEZnZkZNVDhBYlZmdmxOdVJqaGlSaEMzQ04wb3duRUwyY1VDUjJiamE1OFVWNHl4T1ZhYnhlTU1xRDBzWGszVzAtRmxKek42bzQwVWNfRHpadXY0RllwcGZtcWNLZ0Z6bEg2VFlTallPQjFwd191YVhoLU5YUEttRktMeWxOdkp0YVh4UjFzUHBPMmExeXU4NUZnQk5wSlVKMFVXTVg3bG5oRl9zaU5USW52NE45NVo?oc=5"
   },
   {
-   "id": "9097f8d03a3d142cf08f09c8af26163b8bbcb4e2",
-   "titleKey": "f644720d67740ff17a2a26ba51edd49b329c086b",
-   "source": "ESPN",
-   "cat": "sports",
-   "lang": "en",
-   "text": "England hold off Spain rally to end WC winner's 43-game unbeaten run - ESPN England hold off Spain rally to end WC winner's 43-game unbeaten run ESPN",
-   "at": "2026-11-15T21:47:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPek5vTXptcGhSZXNTV2EydXJ0YTFKQ0pGc3REYkJ0a0p3c3R4WnBLUFNzb2Rnd1lHbzk0UG1sVTN3cmtWbVE1UVhidWRDaDVSb3ljTldXamk0MWFrUDEwd0NsYl9IY0tybkZPNG9TNE9YR2JUVU9CUTR4N1d4VEw3d0RtM01KY1A3NXc?oc=5"
-  },
-  {
    "id": "735bc3150eb423afb62a0877f1c7c1c51fe4f19a",
    "titleKey": "a0200f91e7b6a9817c5d525b827b1624c3accd0e",
    "source": "Al Jazeera English",
@@ -4239,16 +4267,6 @@
    "text": "Australia, Canada, Italy and the UK urge Israel to allow aid into Gaza The countries accuse Israel of preventing tents and other supplies from entering Gaza, despite the humanitarian crisis.",
    "at": "2026-11-15T22:06:38.000Z",
    "url": "https://www.aljazeera.com/news/2026/11/15/australia-canada-italy-and-the-uk-urge-israel-to-allow-aid-into-gaza?traffic_source=rss"
-  },
-  {
-   "id": "df1583140b09ee632cc5c9befc58657a6448de5f",
-   "titleKey": "265ddd70b1cf59bc08cae72d74f65678179edb31",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "نفت‌کش در تنگه هرمز دچار حادثه شد / روایت تازه از یک اتفاق دریایی انتشار گزارشی درباره وقوع یک حادثه در شرق تنگه هرمز، بار دیگر توجه‌ها را به تحولات و محدودیت‌های تردد دریایی در این منطقه جلب کرده است.",
-   "at": "2026-11-15T22:15:01.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2175950/نفت-کش-در-تنگه-هرمز-دچار-حادثه-شد-روایت-تازه-از-یک-اتفاق-دریایی"
   },
   {
    "id": "f688732c84cce902a2416e2269f33653ca3dac6b",
@@ -4261,16 +4279,6 @@
    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBGS1c4QUFLQ3dXQ2g3THB1OGw0MjZPMzhBd2JzU2lJeUxHbVdLUXVmaEU5b2NEZUNxamJxaklMUlNiVWVnUlZhV1lZQzlZWWpiNVJuTlR6djFmMy05Z1Fhc1ZRM0N2bVJ5QmRnbEsya0wyVjE0cHhXN3licw?oc=5"
   },
   {
-   "id": "30c32536c5ea843398ae903d5723226d4d22c066",
-   "titleKey": "5701415d69b2feddca5845a29688094b0292ef5a",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "فون در لاین: اروپا در مذاکرات صلح روسیه و اوکراین نقش فعالی خواهد داشت رئیس کمیسیون اروپا در اظهاراتی با تاکید بر مشارکت فعال این اتحادیه در روند مذاکرات صلح میان مسکو و کی‌یف، اعلام کرد که اروپا هم‌زمان به حمایت از اوکراین و افزایش فشار بر روسیه ادامه خواهد داد.",
-   "at": "2026-11-15T22:21:54.000Z",
-   "url": "https://www.isna.ir/news/1405082516826/%D9%81%D9%88%D9%86-%D8%AF%D8%B1-%D9%84%D8%A7%DB%8C%D9%86-%D8%A7%D8%B1%D9%88%D9%BE%D8%A7-%D8%AF%D8%B1-%D9%85%D8%B0%D8%A7%DA%A9%D8%B1%D8%A7%D8%AA-%D8%B5%D9%84%D8%AD-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D9%88-%D8%A7%D9%88%DA%A9%D8%B1%D8%A7%DB%8C%D9%86-%D9%86%D9%82%D8%B4-%D9%81%D8%B9%D8%A7%D9%84%DB%8C-%D8%AE%D9%88%D8%A7%D9%87%D8%AF"
-  },
-  {
    "id": "1b5aacaf4dd1e1453aa0217805962daaedabe035",
    "titleKey": "2bfce7f2e6956d2e8550e12010084ea69b0dd22d",
    "source": "خبرگزاری ایلنا",
@@ -4278,15 +4286,6 @@
    "text": "شکست خانگی اسپانیا مقابل انگلیس 10 نفره/ فرانسه برد، ایتالیا تحقیر شد رقابت‌های فوتبال لیگ ملت‌های اروپا با پیروزی فرانسه، انگلیس و بلژیک و شکست اسپانیا و ایتالیا پیگیری شد.",
    "at": "2026-11-15T22:22:44.000Z",
    "url": "https://www.ilna.ir/fa/tiny/news-1866552"
-  },
-  {
-   "id": "a47b2fa2854aadf7367c28d0cfb7a05a007a4b2f",
-   "titleKey": "3c5ef1b5f1cb9badafa24f48b64aecbcca3ca300",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "A Vulcan rocket failed 10 minutes after liftoff from Cape Canaveral today, losing 40 Amazon Leo satellites. Video: RT @PressTV",
-   "at": "2026-11-15T22:23:25.000Z",
-   "url": "https://t.me/presstv/214875"
   },
   {
    "id": "c6f717fdbe762fddb3c811fb0f8e9cb3b7759f06",
@@ -4298,15 +4297,6 @@
    "url": "https://www.bbc.co.uk/news/articles/cmdx1vpprk9vo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "7ba1f96f17064edc32f6e915c9a76163900d5ae9",
-   "titleKey": "ed2ed609b19375ea2201c1901a204a83cd14a8f9",
-   "source": "Anadolu Agency",
-   "lang": "en",
-   "text": "Australia, Canada, Italy, UK urge Israel to allow immediate entry of 150,000 tents, aid into Gaza - Anadolu Ajansı Australia, Canada, Italy, UK urge Israel to allow immediate entry of 150,000 tents, aid into Gaza Anadolu Ajansı",
-   "at": "2026-11-15T20:29:52.000Z",
-   "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQRE1RRWNtWjhYMFZTc2hwVUVSYzJtTlBBT3AxLUNtNUN5c1c0dVQ2eWk4YVh3X3VqNGN4bk1fRlNZRVduaVdPWkt1cnptN04xT1RyVVdRSnl0NXZrbkRYbFNZNE85V1hTYzdGVmNXdkdVSmloZVB5TV9NdC1YaWNMN1psNzQ2NUZEc0NiVTVYVHMtN3V3LU4yZzh3bW1PZU1EelVvX1JHUlBHMk5QY0hrZnhvSGlsanhQejRCMVNzTld5TEllcDZESVAyYlR6aURQ?oc=5"
-  },
-  {
    "id": "61804627eab5d21660cdf38002bbd37c0d6ba3f6",
    "titleKey": "bdccd1d00f30ea524fb93c991aad85a1d709c5aa",
    "source": "Al Jazeera English",
@@ -4316,15 +4306,6 @@
    "url": "https://www.aljazeera.com/news/2026/11/15/us-treasury-chief-calls-for-outsider-to-lead-embattled-tech-firm-nvidia?traffic_source=rss"
   },
   {
-   "id": "917b9a52c8079353f381923f708dd854627c4f97",
-   "titleKey": "6dcf3e69d8e312ffd78144c8ed2e53c0347777e2",
-   "source": "NPR World",
-   "lang": "en",
-   "text": "Sydney Sweeney has great jeans. Who made them? (Psst: Workers) Sydney Sweeney has great jeans, American Eagle Outfitters tells us. But who made them? And what are working conditions like in the garment factories of Pakistan and Bangladesh?",
-   "at": "2026-11-15T22:07:55.000Z",
-   "url": "https://www.npr.org/2026/11/15/nx-s1-6013327/sydney-sweeney-jeans-american-eagle-garment-industry"
-  },
-  {
    "id": "25181e53595284c0afb2c9f4519221424443905a",
    "titleKey": "717687aaefc1476458fb7f7ebf6e309809748a26",
    "source": "NPR World",
@@ -4332,15 +4313,6 @@
    "text": "What to expect from Trump and Xi&apos;s upcoming meeting in China Preview of what to expect as President Trump meets with Chinese leader Xi Jinping and Russian President Vladimir Putin at the Asia-Pacific Economic Cooperation summit in Shenzhen, China this week.",
    "at": "2026-11-15T22:11:26.000Z",
    "url": "https://www.npr.org/2026/11/15/nx-s1-6038814/what-to-expect-from-trump-and-xis-upcoming-meeting-in-china"
-  },
-  {
-   "id": "1da527425f7207aca8e6c43e115affd4580b6473",
-   "titleKey": "47eab0ef6ef02dee52b6d0b3a1cec5495bbbb25f",
-   "source": "همشهری آنلاین",
-   "lang": "fa",
-   "text": "کویت در آستانه توافق با اسرائیل؟ نگرانی از واکنش موشکی ایران خبرنگار شبکه ۱۴ تلویزیون اسرائیل از مذاکرات محرمانه میان تل‌آویو و کویت برای عادی‌سازی روابط خبر داد و مدعی شد آمریکا و امارات نیز برای پیشبرد این توافق تلاش می‌کنند. نگرانی کویت از واکنش احتمالی ایران، یکی از موانع اصلی این توافق عنوان شده است.",
-   "at": "2026-11-15T22:11:30.000Z",
-   "url": "https://www.hamshahrionline.ir/news/1086477/%DA%A9%D9%88%DB%8C%D8%AA-%D8%AF%D8%B1-%D8%A2%D8%B3%D8%AA%D8%A7%D9%86%D9%87-%D8%AA%D9%88%D8%A7%D9%81%D9%82-%D8%A8%D8%A7-%D8%A7%D8%B3%D8%B1%D8%A7%D8%A6%DB%8C%D9%84-%D9%86%DA%AF%D8%B1%D8%A7%D9%86%DB%8C-%D8%A7%D8%B2-%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D9%85%D9%88%D8%B4%DA%A9%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86"
   },
   {
    "id": "485d4eec016aceb3a61634b407060bd5e8ab6485",
@@ -4353,15 +4325,6 @@
    "url": "https://www.bbc.co.uk/sport/football/articles/cjg46lrpllrpo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "0a2a2f34969e85c31f735d8165a6c1dca48f07df",
-   "titleKey": "037b343132a523e5a2537adb520c660c8cd56c9c",
-   "source": "France 24 English",
-   "lang": "en",
-   "text": "Kroupi on target as France beat Turkey to reach Nations League quarters Eli Junior Kroupi scored his maiden goal for France as Les Bleus beat Turkey 2-1 in Bordeaux on Sunday to top their group with 13 points and qualify for the quarter-finals of the Nations League. World Cup winners Spain, who lost at home against England, are among their potential opponents in the last eight.",
-   "at": "2026-11-15T22:13:26.000Z",
-   "url": "https://www.france24.com/en/sport/20261115-kroupi-on-target-as-france-beat-turkey-to-reach-nations-league-quarters"
-  },
-  {
    "id": "9c5c59c565a4bcc33a0314d0b2e27119ba9de267",
    "titleKey": "205100b2ade387ed80b72fa0ad2ad966ef0fb437",
    "source": "خبرگزاری مهر",
@@ -4370,16 +4333,6 @@
    "text": "شهرکرد؛ موج ۲۶۰ میدان‌داری مردم در دفاع از رهبری شهرکرد-مردم شهرکرد در موج ۲۶۰ تجمعات مردمی در حمایت از رهبری و نیروهای مسلح به میدان آمدند.",
    "at": "2026-11-15T22:14:40.000Z",
    "url": "https://www.mehrnews.com/news/7012224/%D8%B4%D9%87%D8%B1%DA%A9%D8%B1%D8%AF-%D9%85%D9%88%D8%AC-%DB%B2%DB%B6%DB%B0-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%AF%D8%A7%D8%B1%DB%8C-%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%D8%B1-%D8%AF%D9%81%D8%A7%D8%B9-%D8%A7%D8%B2-%D8%B1%D9%87%D8%A8%D8%B1%DB%8C"
-  },
-  {
-   "id": "63b70ea3339461bdf1e1984ec98b56a77c1c1153",
-   "titleKey": "c89a9a3d731ed4fc5538a370f8d5927e8397f5e8",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "سالگرد ۴ شهید امنیت در مشهد برگزار شد مشهد- چهارمین سالگرد شهدای امنیت مشهد شامل شهیدان «حسین زینال‌زاده، دانیال رضازاده، حسن براتی و رسول دوست محمدی» در محل شهادت آنان برگزار شد.",
-   "at": "2026-11-15T22:14:46.000Z",
-   "url": "https://www.mehrnews.com/news/7012226/%D8%B3%D8%A7%D9%84%DA%AF%D8%B1%D8%AF-%DB%B4-%D8%B4%D9%87%DB%8C%D8%AF-%D8%A7%D9%85%D9%86%DB%8C%D8%AA-%D8%AF%D8%B1-%D9%85%D8%B4%D9%87%D8%AF-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1-%D8%B4%D8%AF"
   },
   {
    "id": "0d3b2ca3e064ed385cbe71177d0d4af1b90e20d6",
@@ -4392,15 +4345,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308690-%D8%A7%D8%AF%D8%B9%D8%A7%DB%8C-%D8%B2%D9%84%D9%86%D8%B3%DA%A9%DB%8C-%D8%AF%D8%B1%D8%B5%D8%AF-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-%D9%BE%D8%A7%D9%84%D8%A7%DB%8C%D8%B4-%D9%86%D9%81%D8%AA-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%B1%D8%A7-%D8%A7%D8%B2-%DA%A9%D8%A7%D8%B1-%D8%A7%D9%86%D8%AF%D8%A7%D8%AE%D8%AA%DB%8C%D9%85"
   },
   {
-   "id": "279a96b59edbb7ba2593da264cacf4a4fa64dbd7",
-   "titleKey": "21d0fa01297a841c801542ef5bc84e020a4dc9cf",
-   "source": "Al Masirah",
-   "lang": "ar",
-   "text": "شاهد | انتكاسة السعودية بعد باب المندب .. اليمن يمسك بزمام المبادرة في خليج عدن 06‏-06‏-1448هـ 15‏-11‏-2026م - المسيرة نت شاهد | انتكاسة السعودية بعد باب المندب .. اليمن يمسك بزمام المبادرة في خليج عدن 06‏-06‏-1448هـ 15‏-11‏-2026م المسيرة نت",
-   "at": "2026-11-15T19:49:22.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1tMEQzNU1qaDVFQ2x2RHNrUXpjMXkyMklLMjdzemhTT195dEFoM2VyeEJLYXhCU3FHTEZmSllHR25OalVfUmdqRXVDZFdvZw?oc=5"
-  },
-  {
    "id": "e801ee4b8c0bd77ea1dde21ba2d7301d3b09bab6",
    "titleKey": "eabf4ff8f011e7832ac4b16a01d7d114d911a542",
    "source": "Al-Araby Al-Jadeed",
@@ -4408,15 +4352,6 @@
    "text": "مكاسب الدول الطاردة كفاءاتها - العربي الجديد مكاسب الدول الطاردة كفاءاتها العربي الجديد",
    "at": "2026-11-15T19:53:56.000Z",
    "url": "https://news.google.com/rss/articles/CBMilgJBVV95cUxQRi00ZU5ubm1IWFhaZFM2bm9HTWNHUWdXT0JwbUhHc0s3aTZ5LXVpUGUycnB5MGVTNFVERk5idjR1ZDk5aUdadVpwQTRTSzB6d2FoR3B3ckJsaU85Vjk5b2NWekxFSmdCNENCeUg5U0p2M2ZmNENhVHBGV2tyc0otNTFMcUFqV1NZYU45OTlrYjI5RVJhZk9VbzhZSWNyTGRseUlXQ1Z0bUJ5NzFwQ1d5S3oyMjExNTNEMjVRM1lpRGtlWTBoZVdVTk84YVVOUm40TEVRcjN4bmpqOTVPRVRpNUN4MkVwZ3Rkam91ZGRZbnJVUDNjcnFQS0RHM2RaNkxPVDNwVDY5TXNvOEQyM0FWZXJoeWRzZ9IBmwJBVV95cUxQUTN5NmZGM1hUTlYxaUl1d1ZYRG1tN2dseE93SVBBNFoyZWd0Q0JYVU9UdG8zOGRpNHJSNHVpOWFjQVE5NFpKVkxCUTFaMi0wUi1zQzZsUlF1WjU0R0h2SlhNNXBtak1lbnFaNlFSQXlwdDVTMUFWODFPOU9LRlJaeElnUmhuVnBmSG9ST2JfWWxLeERLNzBVX3p1Q2p0YW5MQzBjd2YydW51UDZXTXpVSVB3LVNmYzMtNjBzdkZtcEdhbUNBa01STGZ0RWQtVUtJeWdocnYycl9oQVdTc09tclFjcVFRb0Q0aW9WMG83VUNIN25NdTBPY2VYejZKMTVZRmF0c09pZHIxakFEcGN1Q244VGZUeVdPVHVF?oc=5"
-  },
-  {
-   "id": "e773ca2fddb9d5bf7af8c059ed77e4145c0888f7",
-   "titleKey": "4a5341c976d0e2d2f596f96bf65eaa92bd92febf",
-   "source": "Reuters",
-   "lang": "en",
-   "text": "Rocket from Boeing-Lockheed firm fails mid-flight, destroys payload of Amazon satellites - Reuters Rocket from Boeing-Lockheed firm fails mid-flight, destroys payload of Amazon satellites Reuters",
-   "at": "2026-11-15T20:47:02.000Z",
-   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNRENJR2FvRjB1WmJfWk56alNqNHBwRHExSk0tdU91LV9wSUMzVm9PZEtRdHc0Y1JaMW44OVBJc3puTENpMXNBY3VmSVNjSTZIazlYRGh4aUxVaW9GdXNBamZla29sRzJnajdMdU1yQU9xekdPcUwyRXdaRzF4TXhiZXV6RDZIN21yVS15bGpNVUJFZUpnWU1ZTFJqbm94OXhjamR3SXFRV3F0YWZWSnA5ei1Gd2o4UW1PSnlrTnFtMENUb2V1VjVDc09XSFJNN0JaWXc?oc=5"
   },
   {
    "id": "e975df431eeb12a15c7033c313251bf45377f02e",
@@ -4428,15 +4363,6 @@
    "url": "https://news.google.com/rss/articles/CBMijARBVV95cUxNZ2wwMGF4MXpkNmQySHZXbHl1YjdMT2ZxZlI0QlpRYWcyNWtUMVNlbFQ5UEM0MHJSYVF2X0xpRHBqR2ZQWEt2THRWbmFyb1MxdFFOcTdtWncwR0pqakhNd3kzMk1qbF9ZZ2Z2d2pqS3ZXNGk4NlRqcFZzVWZoaEc0eTEyMkVBOXM0bTFveEVodnRiNWlYWnlGSzBGQjNaczFqUUliRDRCVE8xS2RFbGhETW5qc0c1Ql9hWnIzemdJU2RYVzM3UzJSWm5mVlN6MlJiSWtyeTBzdTZsN1BobEFJN19heS1EYXFkN2ZQZVlJYjRuaGxYVDMxcVpxQU8tT0ZPNUpzQ3lJQy1ULTZsWWh6dDdUZmpmRjlTLTA1bVcwWjJpclB6V0hzLXZmV3cxR1BvTWtmdm5OckpXUWZWa21rS2xvU1RXbTJpaTd1X3NLZ3dqTTNUVjhYbUpoSTFHTmY1Z054UzhKYU1haHlhY09Eai1WWEVZYkNnSEhEY3JpV2pNdmE4UHFEWkRyUzlpMXNpbkxkQjM0b0I2YTNQWFA3MWNUVElzRFlmeDZndlFVM09UXzRsY2JFWlVzTFNZNDdGNFpxMGhiVDFwaHRSVl8yLWRXVk1abk5FQ3NmRG9EU0Z0S3VQa3JTclR0VWpid28wN2dhMlRJc2ZlZUxoSzFpeEkxNUJzREo2am8tRw?oc=5"
   },
   {
-   "id": "988525c3e80970e8f1554e2f6749cc98001378b0",
-   "titleKey": "d44a2a596c63f1072dc126585b3d8e216f076335",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Empty Vande Bharat allowed to run 463km despite 'poor power brake' An empty Vande Bharat train journeyed 463 kilometers from Hatia to Deen Dayal Upadhyaya station despite brake problems. Two loco pilots had reported issues with the power brake before the journey commenced. An investigation revealed that brakes on every coach had been isolated, leading to joint brake failure. The South Eastern Railway's document indicated staff negligence in integrating the braking systems.",
-   "at": "2026-11-15T21:53:55.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/empty-vande-bharat-allowed-to-run-463km-despite-poor-power-brake/articleshow/135865881.cms"
-  },
-  {
    "id": "9b6bf71a00d4db3978b56e90141e759d040f0d25",
    "titleKey": "d0b663a75c8925d525bc6b777a3d99345389b65f",
    "source": "The Hill",
@@ -4446,16 +4372,6 @@
    "url": "https://thehill.com/policy/defense/6220052-lame-duck-ndaa-defense-fighting/"
   },
   {
-   "id": "fcbd82528dbea5d89ad63f104fd0aa3df34379a3",
-   "titleKey": "fb6a74d71556dc85422c75abe3717185912f2450",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "هواشناسی استان اردبیل امروز دوشنبه ۲۵ آبان ۱۴۰۵ / برف در راه است سامانه ناپایدار جوی از اواخر وقت امروز وارد استان اردبیل می‌شود.",
-   "at": "2026-11-15T22:00:01.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2175892/هواشناسی-استان-اردبیل-امروز-دوشنبه-25-آبان-1405-برف-در-راه-است"
-  },
-  {
    "id": "acf30113647bac54a13b6c7e757652e3bfb32795",
    "titleKey": "e68274c4bb3367a08135462c7bbf423f75e5c672",
    "source": "همشهری آنلاین",
@@ -4463,16 +4379,6 @@
    "text": "پناهگاه نظامی برای قدرتمندترین چهره‌های دولت آمریکا؛ نام چه کسانی مطرح است؟ فاکس‌نیوز در گزارشی از انتقال شماری از مقام‌های ارشد دولت دونالد ترامپ به پایگاه‌های نظامی اطراف واشنگتن خبر داد و نوشت تهدیدهای امنیتی علیه برخی از این مقام‌ها به سطح بی‌سابقه‌ای رسیده است.",
    "at": "2026-11-15T22:05:31.000Z",
    "url": "https://www.hamshahrionline.ir/news/1086476/%D9%BE%D9%86%D8%A7%D9%87%DA%AF%D8%A7%D9%87-%D9%86%D8%B8%D8%A7%D9%85%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%82%D8%AF%D8%B1%D8%AA%D9%85%D9%86%D8%AF%D8%AA%D8%B1%DB%8C%D9%86-%DA%86%D9%87%D8%B1%D9%87-%D9%87%D8%A7%DB%8C-%D8%AF%D9%88%D9%84%D8%AA-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%86%D8%A7%D9%85-%DA%86%D9%87-%DA%A9%D8%B3%D8%A7%D9%86%DB%8C"
-  },
-  {
-   "id": "6909b48453c557a2d7abfdb98bbb56b1d2274fcc",
-   "titleKey": "5e865edf60264dab0045680632b5811edda7dddb",
-   "source": "BBC Sport",
-   "cat": "sports",
-   "lang": "en",
-   "text": "London City earn point in thrilling draw against Arsenal London City Lionesses prove their elite credentials in a thrilling draw with Arsenal at Emirates Stadium.",
-   "at": "2026-11-15T22:06:41.000Z",
-   "url": "https://www.bbc.co.uk/sport/football/videos/cqy7rd2e400jo?at_medium=RSS&at_campaign=rss"
   },
   {
    "id": "bd4a888ad50003d9080159927845492a48d0ef1d",
@@ -4485,15 +4391,6 @@
    "url": "https://www.isna.ir/news/1405082516825/%D8%B4%D8%A8-%D8%AF%DB%8C%D9%88%D8%A7%D9%86%D9%87-%D9%88%D8%A7%D8%B1-%D9%84%DB%8C%DA%AF-%D9%85%D9%84%D8%AA-%D9%87%D8%A7-%D8%B3%D9%82%D9%88%D8%B7-%D8%A7%DB%8C%D8%AA%D8%A7%D9%84%DB%8C%D8%A7-%D8%B4%DA%A9%D8%B3%D8%AA-%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%DB%8C%D8%A7"
   },
   {
-   "id": "43bd7569476f9344267c71d1ff6bc3cf1ba4d416",
-   "titleKey": "1d11ec3caed0793f03e0b494dca6eb7c1d630864",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "Saudi drone strike devastates residential neighborhood in Sana'a Yahya Al-Wazir reports from Sana'a @PressTV",
-   "at": "2026-11-15T22:07:44.000Z",
-   "url": "https://t.me/presstv/214874"
-  },
-  {
    "id": "b0e08321c9216fbe4efca2ef624e9f568c55b4a7",
    "titleKey": "0589a16aa236cbe2dc9a39b990b06ea25bd181e1",
    "source": "ESPN",
@@ -4502,15 +4399,6 @@
    "text": "Jets QB Geno Smith suffers ankle injury, replaced by rookie Cade Klubnik - ESPN Jets QB Geno Smith suffers ankle injury, replaced by rookie Cade Klubnik ESPN",
    "at": "2026-11-15T20:56:00.000Z",
    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOSENTZXZnWkdKa2RaNG44LWdQRXF1aVZpYWlNaDZqbnQ5cVBkZDJDU01XR2tkX3c2aUpiaUZZbzcwLUczTV96QWFJS1dkeFBGSGZDTzJSMnJ5RDU1M1BGbjZHc1VpNWZ6WTY1WjFVdllDZXVlbDgzRW9Eem1OWUlMVWZ4Y0FZcTh4NnhYSnVwdWJPU3B1?oc=5"
-  },
-  {
-   "id": "94df0a2f9c5e12f538a32cbf5b7a38ff10547666",
-   "titleKey": "65006d3871ae92f0121d56aaa56acef34ad06fe2",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "In a first, CRPF battalion in anti-Naxal ops diverted to Manipur",
-   "at": "2026-11-15T21:44:30.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/crpf-men-in-anti-naxal-ops-diverted-to-manipur/articleshow/135865845.cms"
   },
   {
    "id": "f3ef66c52e5a89db9693b7651a588fd3e188be45",
@@ -4523,16 +4411,6 @@
    "url": "https://www.eghtesadonline.com/fa/news/2175867/پشت-پرده-جنجال-تازه-آمریکا-دولت-ترامپ-متهم-شد"
   },
   {
-   "id": "4b0c4b49e085490c7062a82cd3060097a6ce825f",
-   "titleKey": "614705c6b0dc5b19e50a0aa9740363d3aa7b23e3",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "قرارگاه شهید ابراهیم رشید پشتیبان تولید اثر هنری شهدای میناب شد قم- قرارگاه فرهنگی‌جهادی شهید ابراهیم رشید با تأمین بخشی از هزینه‌ها و تجهیزات فنی، از تولید اثر هنری با محوریت حضرت زهرا (س) و گرامیداشت شهدای دانش‌آموز میناب حمایت کرد.",
-   "at": "2026-11-15T21:53:06.000Z",
-   "url": "https://www.mehrnews.com/news/7012222/%D9%82%D8%B1%D8%A7%D8%B1%DA%AF%D8%A7%D9%87-%D8%B4%D9%87%DB%8C%D8%AF-%D8%A7%D8%A8%D8%B1%D8%A7%D9%87%DB%8C%D9%85-%D8%B1%D8%B4%DB%8C%D8%AF-%D9%BE%D8%B4%D8%AA%DB%8C%D8%A8%D8%A7%D9%86-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D8%A7%D8%AB%D8%B1-%D9%87%D9%86%D8%B1%DB%8C-%D8%B4%D9%87%D8%AF%D8%A7%DB%8C-%D9%85%DB%8C%D9%86%D8%A7%D8%A8"
-  },
-  {
    "id": "4b6b1747d5c491546f24a7efc57d300860af86c7",
    "titleKey": "648750ddce9ae5ffbc4500fc0c9993eaa32e4e1a",
    "source": "Al Mayadeen",
@@ -4540,15 +4418,6 @@
    "text": "صنعاء تُحكم السيطرة على باب المندب - الميادين صنعاء تُحكم السيطرة على باب المندب الميادين",
    "at": "2026-11-15T21:54:32.000Z",
    "url": "https://news.google.com/rss/articles/CBMi4gNBVV95cUxQYW1fVGJTMG1BZHp0VFE1UWJGeEJFM0FyNlNrdDY1emZMTVdoYlZ0MkdXamtwNXJCTVI5QXYzaEhCdGZYallwN1FObElwNTA1d0xjSURnbGd6bzVfLWN3Y05qVGQ2M1RpWl9SQU1OY1IzMjlCUENrR1QwX0ZIZGc3VVhBc3J6LXNyajdkS1kxM1ZwN3U3azhhNTlqbVVSRTJ4LVJBYkNMMlBlYmdEaktLckpEcWlubldwNEpuNC1CLWlaeGtMN0JkMGU3TTluZ2QzODY0YmJQTV9hVXJoMFBNS1JoWll3TUNHcmk3VkxKN1JSYlczRE8yS0R5Rk5vSXp6ckZTMDUweGgtS0Vjc3N5VldCRG1rWlBPZmFrNWI4Zm1Xbk9HN0ljY1ZmcTExdzhVYWdTc1RoZnFFaGkyMV81MU1CT18zNFNlXzNCQlJRRG1RTGllWmRROEpvZGdzUEZZSHFMUUhPMWkwazZ4cDlCcDg2OWN5ZVM4M0VBUzFkNHRlQVNfenE5OU9GamoyLWxzTDNlaGhOYS1MUnFEbGtjSEpVY0FUZ3l3OW15WTF1QWNud0JXS0JWS2p1VHVaVWVXNEFfWDBsVm1lNzVCNEhqMWYtU0d5c3Q0ZExMUXZGVWFjdw?oc=5"
-  },
-  {
-   "id": "da498396c0945b4cb792d8200f6614dea173bc3e",
-   "titleKey": "1c00208d1de8016ef9212a73589a3a3f12c695f9",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "بازگشت باشکوه رونالدینیو به فوتبال؛ پیروزی راونا با درخشش اسطوره برزیلی تهران- ایرنا- تیم فوتبال راونا ایتالیا در شبی کهرونالدینیو، اسطوره فوتبال برزیل را پس از ۱۱ سال دوری از مسابقات رسمی در ترکیب خود داشت موفق شد در چارچوب هفته چهاردهم لیگ دسته سوم ایتالیا مقابل فورلی به برتری دو بر صفر دست پیدا کند.",
-   "at": "2026-11-15T21:55:29.000Z",
-   "url": "https://www.irna.ir/news/86322833/%D8%A8%D8%A7%D8%B2%DA%AF%D8%B4%D8%AA-%D8%A8%D8%A7%D8%B4%DA%A9%D9%88%D9%87-%D8%B1%D9%88%D9%86%D8%A7%D9%84%D8%AF%DB%8C%D9%86%DB%8C%D9%88-%D8%A8%D9%87-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84-%D9%BE%DB%8C%D8%B1%D9%88%D8%B2%DB%8C-%D8%B1%D8%A7%D9%88%D9%86%D8%A7-%D8%A8%D8%A7-%D8%AF%D8%B1%D8%AE%D8%B4%D8%B4-%D8%A7%D8%B3%D8%B7%D9%88%D8%B1%D9%87"
   },
   {
    "id": "6a2eaa9c7c17938b04a6642070d8f4845ef75777",
@@ -4561,15 +4430,6 @@
    "url": "https://www.mehrnews.com/news/7012220/%D8%B1%D9%88%D8%A6%DB%8C%D9%86%DA%AF-%D9%82%D9%85-%D8%AF%D8%B1-%D9%85%D8%B3%DB%8C%D8%B1-%D8%B4%D9%86%D8%A7%D8%B3%D8%A7%DB%8C%DB%8C-%D9%86%D8%B3%D9%84-%D8%AA%D8%A7%D8%B2%D9%87-%D9%82%D9%87%D8%B1%D9%85%D8%A7%D9%86%D8%A7%D9%86-%D8%A7%D9%84%D9%85%D9%BE%DB%8C%DA%A9%DB%8C"
   },
   {
-   "id": "b3be357a9852aa1330e2d4f4a4f58f4e3b587f67",
-   "titleKey": "0a33565b14f23850ecf3c411e0fb136736afc0f5",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "Jordan sentences three men to death over deadly church attack Jordan has handed death sentences to the perpetrators of last month's deadly attack on a church in Hammoud village, in the Karak governorate. @PressTV",
-   "at": "2026-11-15T21:56:14.000Z",
-   "url": "https://t.me/presstv/214873"
-  },
-  {
    "id": "41bd7f04dd840d9f3ff48cf9832f29df8fd29015",
    "titleKey": "21ceffe899c858d001fe5cd0c972ddbdeaad2dd8",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4577,15 +4437,6 @@
    "text": "فاکس‌نیوز: مقامات ارشد آمریکا به پایگاه‌های نظامی اطراف واشنگتن‌دی‌سی پناه برده اند تهران - ایرنا - شبکه خبری فاکس نیوز گزارش داد که برخی از ارشد ترین و قدرتمندترین مقام‌های دولت ترامپ به پایگاه‌های نظامی اطراف واشنگتن‌دی‌سی پناه برده اند.",
    "at": "2026-11-15T21:57:29.000Z",
    "url": "https://www.irna.ir/news/86322877/%D9%81%D8%A7%DA%A9%D8%B3-%D9%86%DB%8C%D9%88%D8%B2-%D9%85%D9%82%D8%A7%D9%85%D8%A7%D8%AA-%D8%A7%D8%B1%D8%B4%D8%AF-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D9%86%D8%B8%D8%A7%D9%85%DB%8C-%D8%A7%D8%B7%D8%B1%D8%A7%D9%81-%D9%88%D8%A7%D8%B4%D9%86%DA%AF%D8%AA%D9%86-%D8%AF%DB%8C-%D8%B3%DB%8C"
-  },
-  {
-   "id": "6355578cf26e76a253c47033abf7587c4e17a152",
-   "titleKey": "85f55d262e1860ca428958c6519e3d7ad4080962",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "آتش بازی انگلیس در خاک اسپانیا؛ حذف ناباورانه ایتالیا با شکست مقابل بلژیک تهران- ایرنا- در هفته پایانی دور گروهی لیگ ملت‌های اروپا، انگلیس موفق شد در یک بازی جذاب اسپانیا را شکست دهد.",
-   "at": "2026-11-15T21:59:00.000Z",
-   "url": "https://www.irna.ir/news/86322883/%D8%A2%D8%AA%D8%B4-%D8%A8%D8%A7%D8%B2%DB%8C-%D8%A7%D9%86%DA%AF%D9%84%DB%8C%D8%B3-%D8%AF%D8%B1-%D8%AE%D8%A7%DA%A9-%D8%A7%D8%B3%D9%BE%D8%A7%D9%86%DB%8C%D8%A7-%D8%AD%D8%B0%D9%81-%D9%86%D8%A7%D8%A8%D8%A7%D9%88%D8%B1%D8%A7%D9%86%D9%87-%D8%A7%DB%8C%D8%AA%D8%A7%D9%84%DB%8C%D8%A7-%D8%A8%D8%A7-%D8%B4%DA%A9%D8%B3%D8%AA"
   },
   {
    "id": "d0f185715610d320e1f4feb68c98165d3fae0142",
@@ -4598,16 +4449,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308689-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%A7%D9%85%D9%86%DB%8C%D8%AA%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%A8%D8%AD%D8%B1%DB%8C%D9%86-%D8%A8%D9%87-%D8%B4%D9%87%D8%B1%D9%88%D9%86%D8%AF%D8%A7%D9%86-%D8%AE%D9%88%D8%AF-%D9%86%D8%B3%D8%A8%D8%AA-%D8%A8%D9%87-%D9%84%D8%BA%D9%88-%D9%BE%D8%B1%D9%88%D8%A7%D8%B2%D9%87%D8%A7-%D8%A8%D8%B3%D8%AA%D9%87-%D8%B4%D8%AF%D9%86-%D8%AD%D8%B1%DB%8C%D9%85-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D9%87%D9%88%D8%B4%DB%8C%D8%A7%D8%B1-%D8%A8%D8%A7%D8%B4%DB%8C%D8%AF"
   },
   {
-   "id": "54653715251e569ef675bce7640502edc30327d5",
-   "titleKey": "f5cca4ea361afa9beb6b80fe76f00707364da486",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "رایزنی های دیپلماتیک اعضای شورای عالی امنیت ملی درباره مذاکرات ایران و آمریکا محسن رضایی، دبیر شورای عالی امنیت ملی هم در پنجم نوامبر در کرملین با پوتین دیدار کرد و پیام رهبر انقلاب را به رئیس‌جمهور روسیه رساند. همچنین با وجود آنکه موضوع همکاری‌های اقتصادی و راهبردی دو کشور، از جمله احداث خط لوله انتقال گاز روسیه به ایران، نیز در این دیدار مطرح شد، بررسی پرونده جنگ و آینده امنیت منطقه از دیگر موضوعات مهمی بود که در این سفر مورد رایزنی قرار گرفت.",
-   "at": "2026-11-15T21:59:30.000Z",
-   "url": "https://www.khabaronline.ir/news/2302482/%D8%B1%D8%A7%DB%8C%D8%B2%D9%86%DB%8C-%D9%87%D8%A7%DB%8C-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%AA%DB%8C%DA%A9-%D8%A7%D8%B9%D8%B6%D8%A7%DB%8C-%D8%B4%D9%88%D8%B1%D8%A7%DB%8C-%D8%B9%D8%A7%D9%84%DB%8C-%D8%A7%D9%85%D9%86%DB%8C%D8%AA-%D9%85%D9%84%DB%8C-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D9%85%D8%B0%D8%A7%DA%A9%D8%B1%D8%A7%D8%AA"
-  },
-  {
    "id": "b8dad0cef2df8fe86b8ce7fa6de9092082463ae4",
    "titleKey": "8cc63ccc52e1e2d8a486cce961c5038b20cd38b2",
    "source": "مشرق نیوز",
@@ -4615,15 +4456,6 @@
    "text": "چالش بازگشت اعضای پ ک ک به ترکیه؛ پایان ماجرا به نفع کیست؟ گروه منحله پ ک ک خواستار آغاز ترتیبات قانونی جدید برای خلع سلاح کامل است.",
    "at": "2026-11-15T22:00:00.000Z",
    "url": "https://www.mashreghnews.ir/news/1852960/%DA%86%D8%A7%D9%84%D8%B4-%D8%A8%D8%A7%D8%B2%DA%AF%D8%B4%D8%AA-%D8%A7%D8%B9%D8%B6%D8%A7%DB%8C-%D9%BE-%DA%A9-%DA%A9-%D8%A8%D9%87-%D8%AA%D8%B1%DA%A9%DB%8C%D9%87-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D9%85%D8%A7%D8%AC%D8%B1%D8%A7-%D8%A8%D9%87-%D9%86%D9%81%D8%B9-%DA%A9%DB%8C%D8%B3%D8%AA"
-  },
-  {
-   "id": "26737ba1bab06c59968fafffc481ee7dec828c5d",
-   "titleKey": "72f2407a2b8eb2d5f56e915be02deac5ed64bcfa",
-   "source": "SCMP",
-   "lang": "en",
-   "text": "Serbia’s ex-foreign minister Vuk Jeremic on China’s rise in a ‘geopolitical recession’ Vuk Jeremic is a former Serbian foreign minister and served as president of the United Nations General Assembly from 2012 to 2013. He was also a candidate for UN secretary general in 2016, finishing in second place behind Antonio Guterres. Jeremic now heads the Centre for International Relations and Sustainable Development, a think tank based in Serbia. In this Open Questions interview, Jeremic discusses Europe’s geopolitical standing, transatlantic ties and China-Europe relations. He also...",
-   "at": "2026-11-15T22:00:11.000Z",
-   "url": "https://www.scmp.com/news/china/diplomacy/article/3374485/serbias-ex-foreign-minister-vuk-jeremic-chinas-rise-geopolitical-recession"
   },
   {
    "id": "8e29aafc5265349224b4a3e8d3957cf815775785",
@@ -4636,15 +4468,6 @@
    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPejVIVXpPLXlWenpsV2RkVEVHZmczZGhEeTg0eHpTYnJSemRZZTA1UnB1dm9ndXRmZ18yM0FNVHl5YjJJYllHRnVYdjJMNFR5MjRib2JOeXhmUENmRDBRWjVhTTJFalA4dVBXTnhFeFQ4ZXBVU05vUDRRTFFUVlA5WDY5VzZIT1pwRkpqckIyWElwcVl2Yl9n?oc=5"
   },
   {
-   "id": "b3e1780a10d5d840c5748dfb809e05f43684ecb2",
-   "titleKey": "eec14f8b3b03529255ac9b2fc0cc33ed68b42a43",
-   "source": "Anadolu Agency",
-   "lang": "en",
-   "text": "Children bearing heavy Ebola burden in DR Congo - Anadolu Ajansı Children bearing heavy Ebola burden in DR Congo Anadolu Ajansı",
-   "at": "2026-11-15T20:55:36.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQWkNyMGVsWFlqQ3lGUENwaEN2amxYZVJfR3RyMzVPMjJKRUtlTVlLeEV6VWxGTVNOVlpWV2puNTJRRExtaXB3YmZTaF85M19ONXFRTUhJUEtGSzdtVXFIM050a1hyVk1RYjNzdWp1NEswdVlZUFRNcURpMGp5eld0OTBhaHZNcWV1OFRR?oc=5"
-  },
-  {
    "id": "3d3dc33f8758b03877fd1a1907dbc5b512159eb5",
    "titleKey": "516e45d9fcd8a9c74c498aa6284a304ca0beebbf",
    "source": "Al-Araby Al-Jadeed",
@@ -4652,16 +4475,6 @@
    "text": "الأسئلة العالقة في ملف هوانغ.. صراع الصقور ودور ترامب وسرّ المذكرة - العربي الجديد الأسئلة العالقة في ملف هوانغ.. صراع الصقور ودور ترامب وسرّ المذكرة العربي الجديد",
    "at": "2026-11-15T21:02:38.000Z",
    "url": "https://news.google.com/rss/articles/CBMihwRBVV95cUxPUENIUDcxMGN2SlotSDF0dHZPdXNBTHFFdV81RlFQMUpnLUpVZjh5N1NaVS10TktDRFlsTHo5VTlRaHhEbkstcW9DLUY5T3RBVENYa3psdGVzOWdyOEZJV0JaVi1nenJ3MXdKREFJM1g3U0FRSExmYWR0UG5rMmQtR0xMSWMyUW9QdkQ4VzJkSEI4R0oxQnhSMHFoTGhxRE4yaWw1NDBDWWk3bzNWR3NLU0RvX2VZRFQ2STU4d0xReXB4OUNvOWFvSTBmZW1ZWDlkeXVpeTRBeXRFWFdKWDFZaW4xRDhPcWx5dVNFb1hWM1VIbm1wb1M3Z1hldHpWZm16bUNqWFZVcDYzbDd5ZTJ2MEw3SXFVb0lVRmZaS0xFd3BQODJ6dTNZTjJiMHFsN1pmeDgyRlJ0ZTREei1QSDYzU01iZTVnM0tQTm9sQ3FKVzFkWlBGeXplZG9EanZfQ0dUTEpMWGFLVENRY01SV1JUUGZpXzlsZVc5b2dOUVMxeGJvb2Z6ckFsdTF0U1MxY05kOUNyZDNjWnFwQ3kxY0NPNjhSSjdaV2ZMMkU0YmxPejZ1QmtpVy11UHZEa2FSVGRwU2paYURYVU90RHF3ekdNQVJoS1d6dUpicUtBaUV0MUJFTUl3SVdhc0duTldOM19tU2VqeTZPQlBRY2J6eDd2T1ZuMl9KU2c?oc=5"
-  },
-  {
-   "id": "dd0ee9b9126dbfbce5c797806bcfdede6d58e211",
-   "titleKey": "85a2f5bc64ccc08b099024b6fb36b61409aefb3c",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "همسایه شرقی ایران لرزید زمین لرزه ۵.۱ ریشتری استان بدخشان در شمال‌ شرق افغانستان را لرزاند",
-   "at": "2026-11-15T21:44:21.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308688-%D9%87%D9%85%D8%B3%D8%A7%DB%8C%D9%87-%D8%B4%D8%B1%D9%82%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%84%D8%B1%D8%B2%DB%8C%D8%AF"
   },
   {
    "id": "8495419c91874b749f62e9deb5c72520f926babd",
@@ -4674,15 +4487,6 @@
    "url": "https://www.eghtesadonline.com/fa/news/2175844/کارت-های-سوخت-در-کانون-ابهام-جمع-آوری-منتفی-شد"
   },
   {
-   "id": "1c05b9342f019d2b7a09ffb46c6bb710ec9105a7",
-   "titleKey": "2f0847bc4033e23f040911c159eb98e93c91a065",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ویدیو: گل دوم اسپانیا به انگلیس توسط نیکو ویلیامز گل دوم اسپانیا به انگلیس توسط نیکو ویلیامز زده شد.",
-   "at": "2026-11-15T21:45:16.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1866550"
-  },
-  {
    "id": "bc54fa45202e5d5dd38ef5ce071c82eeefde6db8",
    "titleKey": "0da28c813f9c5f6d976d0916910a8e6d45a56c78",
    "source": "خبرگزاری ایلنا",
@@ -4692,15 +4496,6 @@
    "url": "https://www.ilna.ir/fa/tiny/news-1866551"
   },
   {
-   "id": "47f350a4f88c4e3e3ba4c8dff2d41a3ddb4c529c",
-   "titleKey": "11a3ed86c290087ddb50b281cdcfb548d20c3c62",
-   "source": "TASS English",
-   "lang": "en",
-   "text": "Trump accuses Biden administration of damaging US civil aviation According to the US president, the administration of his predecessor made \"an old and broken system worse than when they began\"",
-   "at": "2026-11-15T21:47:20.000Z",
-   "url": "https://tass.com/world/2218413"
-  },
-  {
    "id": "f3857a5f3e70682176dd01dd698cef25265b5489",
    "titleKey": "bd6701dd1139ef2e7a76a014b3fd9604bbabf2e3",
    "source": "RT",
@@ -4708,15 +4503,6 @@
    "text": "Meta fined nearly $900 million in Facebook photo privacy ruling Italy has fined Meta €805 million over Facebook’s access to Android users’ photo galleries without informed consent Read Full Article at RT.com",
    "at": "2026-11-15T21:48:53.000Z",
    "url": "https://rt-english.com/news/648873-italy-fines-meta-privacy/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
-  },
-  {
-   "id": "49f2b06e2574215f5118ec46583ef2681096bc3e",
-   "titleKey": "1ea5bbb715f7fd9436137383d83d1993511cc7a2",
-   "source": "مشرق نیوز",
-   "lang": "fa",
-   "text": "۲۴ درصد کودکان و نوجوانان از فیلترشکن استفاده می‌کنند اکثر کودکان و نوجوانان ۵ تا ۱۶ سال از فضای مجازی استفاده می‌کنند.",
-   "at": "2026-11-15T21:49:00.000Z",
-   "url": "https://www.mashreghnews.ir/news/1852878/%DB%B2%DB%B4-%D8%AF%D8%B1%D8%B5%D8%AF-%DA%A9%D9%88%D8%AF%DA%A9%D8%A7%D9%86-%D9%88-%D9%86%D9%88%D8%AC%D9%88%D8%A7%D9%86%D8%A7%D9%86-%D8%A7%D8%B2-%D9%81%DB%8C%D9%84%D8%AA%D8%B1%D8%B4%DA%A9%D9%86-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D9%85%DB%8C-%DA%A9%D9%86%D9%86%D8%AF"
   },
   {
    "id": "5952808a6bf23fb05277594120025c3d95cb0788",
@@ -4729,16 +4515,6 @@
    "url": "https://www.mehrnews.com/news/7012219/%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9-%D8%AD%D9%85%D8%A7%D8%B3%DB%8C-%D9%85%D8%B1%D8%AF%D9%85-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8%DB%8C-%D8%A7%D8%B1%D9%88%D9%85%DB%8C%D9%87-%D8%A8%D9%87-%D9%85%D9%88%D8%AC-%DB%B2%DB%B6%DB%B0-%D8%B1%D8%B3%DB%8C%D8%AF"
   },
   {
-   "id": "ee9df8a6440f51be4cdc5fbaa4da1f31b57abf36",
-   "titleKey": "0df4192b338ef7676d94ad7d1ac8b222a6c04e75",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "دانشگاه جنجالی در آستانه بازگشت به مجارستان دانشگاه اروپای مرکزی که در دوران نخست‌وزیری ویکتور اوربان ناچار به ترک مجارستان و انتقال فعالیت‌های اصلی خود به اتریش شد، اکنون با تغییر فضای سیاسی این کشور، از احتمال گسترش دوباره فعالیت‌هایش در بوداپست خبر داده است؛ تحولی که می‌تواند به نمادی از احیای آزادی آکادمیک در مجارستان تبدیل شود.",
-   "at": "2026-11-15T21:50:00.000Z",
-   "url": "https://www.isna.ir/news/1405082416548/%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87-%D8%AC%D9%86%D8%AC%D8%A7%D9%84%DB%8C-%D8%AF%D8%B1-%D8%A2%D8%B3%D8%AA%D8%A7%D9%86%D9%87-%D8%A8%D8%A7%D8%B2%DA%AF%D8%B4%D8%AA-%D8%A8%D9%87-%D9%85%D8%AC%D8%A7%D8%B1%D8%B3%D8%AA%D8%A7%D9%86"
-  },
-  {
    "id": "b67483e1a1294b882d58a41d8672c4498631572a",
    "titleKey": "b4383c69deb9ac27fe1007dd665e30cfa0cc19b0",
    "source": "خبرگزاری مهر",
@@ -4749,15 +4525,6 @@
    "url": "https://www.mehrnews.com/news/7012221/%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%AF%D8%A7%D8%B1%DB%8C-%D8%B3%D9%84%D9%85%D8%A7%D8%B3%DB%8C-%D9%87%D8%A7-%D9%87%D9%85%D8%B2%D9%85%D8%A7%D9%86-%D8%A8%D8%A7-%D9%85%D9%88%D8%AC-%DB%B2%DB%B6%DB%B0-%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9-%D8%B4%D8%A8%D8%A7%D9%86%D9%87"
   },
   {
-   "id": "559e4ab428041d091f95710c32fa87dfcd2eb91a",
-   "titleKey": "4b1e9907e6185663a5c3d0d6a165925bc18e5d40",
-   "source": "Reuters",
-   "lang": "en",
-   "text": "Tens of thousands of Czechs rally against government media funding plan - Reuters Tens of thousands of Czechs rally against government media funding plan Reuters",
-   "at": "2026-11-15T19:14:27.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPV0pRaS1YQ3ZuYW42YldaYWdvWTBoN19GMFBGaXJBbGtSLWNtc3ZRRGoydDRzM3EyV0pPNjhEODV5Q3dRSXVtaTNwVzlBa2huUGR1SHNBUER4Z2RQaFlORENfUkdRMHFvcVRCWngxUTJiTnVXZGVRQzc1Tm9SQjNIQk5YYkFHZFdHbUtwa3czQ1YxVTA3QWdMd1BYNHY0cVpqZ1c2LXc4ODNrWFpRbVhUX2RpUkV6NTdJWVFDeW9idW9xUQ?oc=5"
-  },
-  {
    "id": "86d0a1d4cc3fc214ed820aa1d80577c3b8cd2136",
    "titleKey": "e9f473f688879705e0fbb7a261fd727214f8fb96",
    "source": "Al Arabiya",
@@ -4765,16 +4532,6 @@
    "text": "نيمار يخرج عن صمته بشأن علاقته بصديقة فينيسيوس السابقة - العربية نيمار يخرج عن صمته بشأن علاقته بصديقة فينيسيوس السابقة العربية",
    "at": "2026-11-15T20:13:00.000Z",
    "url": "https://news.google.com/rss/articles/CBMi0ANBVV95cUxNS19xMlUyQUNLSmtOT29lTnBjV29iaWs1cUZ3YzVEczBiN1lfbVEtUW5iUEhpRmRuN29JZ3U2UWRFQnlOZkxHcmJKbXc5WVJMekpCNzl3bjNzaEk1Y2pFVjdUVGpEeXZ0d3E4a1EyV1FMZmhQVkZwVjh5UkNWNE9DSGxNaS1Ea0hUWkMxTmI0NUh3YnhUN05mRmotZ3pDeC1VMzBremxpUHAyYjVLRmlzdzZBdm5CeGRCb2FtQlA4MV83NHRTZ2JFaURLMm5iSUJ4b19wdVYya1hSRklTUGRaa3U1WWw5OTZlRWZqV01oQ1NQSHdVblJiTkVsXzRCX2JMdGl6ZnExT0FnVDhpSHVjc3BYRHZhNUtseDg4RER5cFB2NU1hbVNZZmR2eTZlVE1IMnAwRU5ucnEwa3Q4cFMwREZGRXBOaldXRkswMFl0T3pCN2d5TjlPQ3JtYy1XU0hxbXlFLTgxdDFsT0VwcG1NZGZzbXdvU1JaV3BBWUZQOXl2dG9tQTFlbGhWT1BXQUV1Y3l0cU85ckVFRlNWVUtscVQzd0ladFlGakU1Z3VvYlA3MkxmckViR280WmM5UVNBTXRpMUhUXzFEZ0hyOFAwT9IB1gNBVV95cUxOUWY4ZzFYaHN5YVRLRGlxY1BGYW1LZkRiR0IzMFE1UThUUmdPMGZWVy1qVlgxZTVsMEN4MVN5bUtzRTNiUkNoWktuWlZqTzVDVTVIOGY5QXRSUlNnNVdYaEFJR0FkdzlwQmhaU0JoMk4xbjFBQ1ZXZTFvUUFkVFA1Z0R5a0phY19QYkttMVhKRWM1V0xNMjNRamRocVQxUUo0ajgzM0RfM3dBVkJrREVfaXV5cGFUTm1HdVJJaVh2M2RXNERwWWY0My10QTNhMVNtRWVINHMzemtHdHRXa2hkMzh4VWtrX3BUWTVrTkdFRFVQLXhGTWRyYnpTOENzekxoQVhPRGhDVmlsd00tWlU5ZTEtTjIwS09jWllseC1vM2wzby1ZajdxZ3dlMnJzY0lXQnpoWVpUUjlBUDRmVkpJS2hmVU9abGNDUWoyOGVXNlJ2amN3U2pKNVVvRFlnY2Qtd0k4aDBZdzZaZnlObUh6REFOaHViei1UVnJYa0Rjay1sOGR0UGlDV3B4b0NtRXAtbWdsZ2VUTGlrb29xUEJ2dnpDdlJSNDFUMnNYX0ttVGxXSDhZQXJ1X21XU3pLSXcyUzdaUG5jLXVhWjZYSXpZMHhiLTJSUQ?oc=5"
-  },
-  {
-   "id": "e9eda4e3c316b6118045547fdc632ba2b47450b0",
-   "titleKey": "c1d8c89b4f77f445189a5b5ef9eb20ec0051ad55",
-   "source": "باشگاه خبرنگاران جوان (YJC)",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "- باشگاه خبرنگاران جوان باشگاه خبرنگاران جوان",
-   "at": "2026-11-15T20:38:22.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1qdU5MNnRxUEFjV1RZWEd1UVhKMnlER0NlbHJ5N1FwMHd3SlcxcGU3Y2hWZG5YR3AyNW9Wa28wV2VBT2xJbm03dGRkTQ?oc=5"
   },
   {
    "id": "dcd56d767d07991a1c4bb9bd73bc8f5d63c93772",
@@ -4787,15 +4544,6 @@
    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOMnVwRi03dUFqMmhsSTg1eTdvbjRsYWFzU0NtQ1BFN3pzU3NrbmpwbnVHcnh0bkRQMlpxRjIwZXdnT3JUMllyVWVpUW1jVzhHNkJoWUtjOUk0ajZyVXllVFNrOXpLc0RfdmhvX3JLRUFjaHJRemJLRG9fbG5GNVd5dGtuTFFfdGoyVVR1dHhMOGFOSlU?oc=5"
   },
   {
-   "id": "bcd3bb586b4acc6e9f2d926a9c15acb6f923112c",
-   "titleKey": "226303a181f6a1ec8e288263d1fd91f4e39b5760",
-   "source": "Politico",
-   "lang": "en",
-   "text": "US colleges struggle as international students turn away - Politico US colleges struggle as international students turn away Politico",
-   "at": "2026-11-15T21:00:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOQ0pjRHBkVUIzcVBjNnVYMXdtU3gtSm9EVXhlOGctUUlQYS1OTEZJRTZZRC02YTcydXNJQTdXQklBcUVVMUl4X0JPNHlKbFNaS1pTaTZPdVAzZmR4LUd0S3ctSnlPZ2JKaGZaZU1hUGp0WVd5YTFoU01ybmU3Q25GbHIxQ0o3Z2pTWk9PU2x5bjF6ZXdlY192REZ0anphdlZQOU8xRWt6dVJ5QQ?oc=5"
-  },
-  {
    "id": "fa8b63801a895dd93d072cf8a60e087030cd170c",
    "titleKey": "10e909e7d286da7641ec432371bf30ad45dfcbc9",
    "source": "Times of India",
@@ -4803,15 +4551,6 @@
    "text": "Alabama student leads UNICEF fundraising among 600 schools, raises $5,500",
    "at": "2026-11-15T21:25:00.000Z",
    "url": "https://timesofindia.indiatimes.com/world/us/meet-jai-varikuti-the-alabama-student-who-founded-a-unicef-chapter-after-seeing-children-carry-water-his-campaign-now-spans-six-high-schools-leads-fundraising-among-over-600-schools-and-has-raised-nearly-5500/articleshow/135810419.cms"
-  },
-  {
-   "id": "6049a61a6a862c5f7df8a1d5a22db900e40693a9",
-   "titleKey": "3a9925d0046293fa1c05c89a3863f8bba4750b96",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Court backs order over dad's fake-name emails, revisits visitation limits After sending threatening emails to his ex-wife, an Alabama father grappled with custody issues. The court granted sole custody to the mother, citing the father's harassment. Although the appeals court upheld this decision, they recognized that the father's visitation hours were excessively limited. Consequently, a reassessment of the visitation schedule was ordered, while a protection order against him remains active until March 2027.",
-   "at": "2026-11-15T21:28:00.000Z",
-   "url": "https://timesofindia.indiatimes.com/world/us/after-an-alabama-court-found-a-father-used-a-false-name-to-send-harassing-emails-to-his-ex-wife-she-won-sole-custody-of-their-three-children-appeals-judges-upheld-her-protection-order-but-reopened-visitation-limits/articleshow/135828799.cms"
   },
   {
    "id": "15d5334c1730f36af4d4fd979c3b4d30f35d4747",
@@ -4824,15 +4563,6 @@
    "url": "https://www.eghtesadonline.com/fa/news/2175933/احتمال-خروج-کامل-ارتش-ترکیه-از-عراق-توافق-بغداد-و-آنکارا-چه-نقشی-دارد"
   },
   {
-   "id": "117d478f7c145df5f2568b4264c29ccd1dcb9666",
-   "titleKey": "0d84f1ae628b233cb833010a5bb509d0462e0ed5",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "'Defaming India at global platforms': Amit Shah hits back at Rahul Gandhi",
-   "at": "2026-11-15T21:35:43.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/shah-hits-back-at-rahul-says-hes-defaming-india-at-global-platforms/articleshow/135865782.cms"
-  },
-  {
    "id": "fdb690187a3dc94b7887d5312ab9f39616b3e803",
    "titleKey": "d671d6cddf29149d37ecb7e0e6e51dd08f832404",
    "source": "Press TV (تلگرام)",
@@ -4840,15 +4570,6 @@
    "text": "Gharibabadi: Iran fully prepared for diplomacy, economic siege, and military confrontation Iran is fully prepared to pursue diplomacy, withstand economic pressure, or respond to military confrontation, Deputy Foreign Minister Kazem Gharibabadi says, stressing that Tehran is ready for all three scenarios as tensions with the United States continue. @PressTV",
    "at": "2026-11-15T21:39:08.000Z",
    "url": "https://t.me/presstv/214872"
-  },
-  {
-   "id": "ef2b432324e81315f0c3c844185a584c063a9c3a",
-   "titleKey": "8a1f3e561a331240b250c7f3dd967c994bfcc863",
-   "source": "Al Arabiya",
-   "lang": "ar",
-   "text": "بعد استقالته.. جنسن هوانغ يناقش مع حلفائه العودة إلى قيادة \"إنفيديا\" - العربية بعد استقالته.. جنسن هوانغ يناقش مع حلفائه العودة إلى قيادة \"إنفيديا\" العربية",
-   "at": "2026-11-15T19:38:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMirAVBVV95cUxNS3BwWjkxR2VBODhIUnF0YTRGTTlCRGItUXMzVklZX3RTbnNlNlVWSG5aekd0ekdObG92YWl6OFRzQU40bzRiUjlsd0N0dDBJbjloWl8xZHJPeFhCSzhPellwamtNcE1ULVVfcDRRUU93RmV3QkhiYWRieTA5Vjktb3hLdWk1SzlGcEM0UEY2dlRidkpvWHB6LUYzbjRKbGQ5NFlnV25NWi1oNzB4SzZvNkMydXlQaVdzSXRKNDhYem5feE5YZzhpRUYyU2ZFUFplQ0hvNllMNld5eXQtMzdGQXJsdHo1MHRXUlp4NHZJSjQ5ZDVDN2o3OVBneEpYWEh5LWVIcGNlN091WDZscjhqS1NnQk1FenoyN0VrVkJmZm9CRFJIZTNMN2pibHp6YXJwX3JXWng3U3o2S1RJd29kWHhyTU9heW9hMkUwT0dBaFpEbEE4QnpUM0dkX2hYcnVUckNxX3YwUERrQlpOdmZaLUZYNmNTUnVqZ3JxTG16OHh4dnJoY1VVS3QtUXNnVkxEQ3cxUnZMQkRGdkhTVF9DSlpmNVRETzc5Ty05NWtpTE9pWjk3d1Q0bldZTmlsY3VROXMtVG9mdnZGVDVoYVRrMEU1aVRzQjMxY1hlQXdmZk5rVVlFUE5oanRtQlZBelJmTjdZV3d5alQzZEpoNjlvdkFBV01hWml3REJVSV84b3lUX1ZwZDNlYVJ6N0lNZEVJV0k4M0d6YVBrcC1wSEg4bXRsc1R6UkRjaUNHaWc0SWw0STBfcTRzdnhJcnZZY2gzcHZLOEZJdWlYcC1iX0p5VDc3UzBpZUQ0OG45TWJlTGZQLUZQWjhKT2pianRZNkdXYmVDWGVkaUY2Y2pTSWt2UmxZVEJpX1oxVUkwaUdWQjlxdEcxSzVKRENUVTfSAbIFQVVfeXFMTllTQUxsYmdVOHZzVWFCd2RpSlJWUFlxNnNLUWg5Tmo4Z2RYdEJFRGx2WlVOMldkS1QwbXdDc01Ja3J6VllHc0wySElaSEMtUE83dkJpWmc0MG1KYkZpVURyWDV2TnotMlJ5ZEdDc2xYUklwYUtEMjBfeUF2MEdZSlpMOU1Ba2ZMbjVaRjluQThrMllvbzZHNVZ0bzRNWXRKd2ZoYUdYbDJsRXlqZmpLQ05oazVZOG9US0k4QzNQaU9DOUhDcExCSkIzd1NTWUg0WXZLdVR0djV1TDhWeGNQR2UzclNWNTUyUm90eEo5c2xBTkpjMWhlM041S3FzV3ZSM1k4SXlZd3FaVFJGOGhGOUpEUU5hanBhdzZlNE9KbDdYb0FEMXJHZXZfTng5QUo4bGJRX1BqQmlpRG8zY09zY0lfYTd2VE9wSjA2QnltaGNOakpJclhlM0p4SXI1QVpjejdHemkxR0twNU5DdjQtTi13elBhZkc1eHVacEtCaFo5SlR6a25wQnE2WElYVDVwTUllSVItVlQxYk91WnFLMzZjTGlJSW50RVk3SHM5dGoxTzQ2MnZLQXBZRkkyQTRBVFNEbFRTSHJWZnZaZk92YmtSRk1zenV4SFJWMGJROU5FRV92YVVvZ09CaGxrTGllZW9uQV93aTVfMUJLWFowWGt4bXhqcFVhRU15UWxOWHdDeGFVUXgyUzdmNVF5ZGRpLTBDZmlWTFlya1hIc2gtY0hSZE1yXzU5X2tLN2VnNS10TG9MUVh4M3pzT3BPZHpwOHZabGtVY2tkOExmeXpkdHZ1a19tcWdpemJfUWN1dTFOM1pwalVtb1Z6eWVoWDRSWTNteHZsWHhPVVN0V205Q2k3MnlnX25XYlpXazFOTS1ScllXNkg1LVNEcWxpUXNMU2Jn?oc=5"
   },
   {
    "id": "8267749ac533c0a7cbfc49c04c81d3bfaa5c0c34",
@@ -4861,15 +4582,6 @@
    "url": "https://www.bbc.co.uk/sport/rugby-union/articles/c6vg25x1zqrro?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "d5b59389d4f12758b0578053963b99986bffdadb",
-   "titleKey": "28bf57c7fd92f878dc674b49bd5b1d9a61f67fcf",
-   "source": "The Hill",
-   "lang": "en",
-   "text": "Texas prosecutor accuses Warren of targeting Trump associates with investigations A federal prosecutor in Texas warned Sen. Elizabeth Warren (D-Mass.) on Sunday of potential legal consequences over her plans to investigate President Trump and his allies, demanding that she preserve documents related to her upcoming congressional oversight efforts. Aaron Reitz (R), the U.S. attorney for the Southern District of Texas, accused Warren of preparing to…",
-   "at": "2026-11-15T21:24:02.000Z",
-   "url": "https://thehill.com/homenews/senate/6221606-texas-prosecutor-warns-warren/"
-  },
-  {
    "id": "e83bd04e61d4741fc66ef41bfa9eaddce3c696ca",
    "titleKey": "ec416029456ae711eacb6bf648aaee0b321bbb48",
    "source": "NYT World",
@@ -4877,16 +4589,6 @@
    "text": "Jordan Sentences 3 to Death Over Greek Orthodox Church Attack The Jordanian military said that the men, who were arrested after a shooting at a Greek Orthodox church last month, had been convicted of terrorism charges.",
    "at": "2026-11-15T21:25:04.000Z",
    "url": "https://www.nytimes.com/2026/11/15/world/middleeast/jordan-church-attack-death-sentence.html"
-  },
-  {
-   "id": "566bb654ab3a2343a8304c39582eb5dbbbf4f6d0",
-   "titleKey": "45983c153b15d726fbc87d1ff89042d6b91595be",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "ورود سامانه بارشی به کشور از امشب / باران و برف در ۱۱ استان / تهران هم بارانی می‌شود رئیس مرکز ملی پیش‌بینی و مدیریت بحران مخاطرات وضع هوا از بارش باران و برف در برخی مناطق کشور طی روزهای دوشنبه و سه‌شنبه خبر داد و گفت: از امشب با نفوذ جریانات شمالی به سواحل دریای خزر، کاهش نسبی دما و بارش پراکنده آغاز می‌شود.",
-   "at": "2026-11-15T21:27:48.000Z",
-   "url": "https://www.khabaronline.ir/news/2302672/%D9%88%D8%B1%D9%88%D8%AF-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87-%D8%A8%D8%A7%D8%B1%D8%B4%DB%8C-%D8%A8%D9%87-%DA%A9%D8%B4%D9%88%D8%B1-%D8%A7%D8%B2-%D8%A7%D9%85%D8%B4%D8%A8-%D8%A8%D8%A7%D8%B1%D8%A7%D9%86-%D9%88-%D8%A8%D8%B1%D9%81-%D8%AF%D8%B1-%DB%B1%DB%B1-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86"
   },
   {
    "id": "b796f1377fe755025889ef05457d04959ef8ef42",
@@ -4898,16 +4600,6 @@
    "url": "https://www.scmp.com/opinion/china-opinion/article/3374204/5-steps-china-us-and-russia-could-take-apec-defuse-nuclear-risk"
   },
   {
-   "id": "c546b76008c38b5755744c2092b5517e4eb2310c",
-   "titleKey": "70aa6e49c8e96a118bfbda3f544037a19f304c3c",
-   "source": "ESPN",
-   "cat": "sports",
-   "lang": "en",
-   "text": "Mexico on brink of missing Nations League semifinals after loss to Jamaica - ESPN Mexico on brink of missing Nations League semifinals after loss to Jamaica ESPN",
-   "at": "2026-11-15T19:42:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOSi1TbEltQ3FTTHJYQWdXYy1vN2k2bVJLbnF1dmdPWENyYVUyY3ZteUlnNTR2Y3l6ZGJoQzRVMERLZ3ZTTzhnRkxkVVJpTXBILW5hbnMyNy1CVHVUN0NNcWk1Zy1mMkpYc29DWTRlR3c1SUlBRTlyZTE2MVN0TFVkYzZINUJ4NHNYYnp5NTZxU2NVbm53dmhOOA?oc=5"
-  },
-  {
    "id": "862ef8de01f3c554d61f33473c6476a0c1d15de2",
    "titleKey": "bff9a9e6aaa18610dfa12bafc6d7c3ce09b76c5c",
    "source": "Al Jazeera English",
@@ -4917,16 +4609,6 @@
    "url": "https://www.aljazeera.com/gallery/2026/11/15/photos-pope-leo-visits-perus-amazon-and-andean-regions-during-12-day-tour?traffic_source=rss"
   },
   {
-   "id": "4d5aa7bc8d96c31577ffe71f33c7777ab919b95b",
-   "titleKey": "f9f6bfe07c150d629c0d81af6f5f719563ac5afb",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "اگر شب‌ها در رختخواب با هجوم افکار مواجه می‌شوید، بخوانید یک روانشناس با تاکید بر اینکه اصلاح الگوهای فکری و رفتاری ریشه اصلی درمان بی‌خوابی است، نسبت به پیامدهای وابستگی به داروهای خواب‌آور هشدار داد: استفاده از تکنیک‌هایی مانند تخلیه ذهنی پیش از خواب، ترک بستر در زمان بی‌خوابی و مصرف اصولی مکمل‌هایی نظیر ملاتونین دور از نور آبی، نقش تعیین‌کننده‌ای در بازیابی چرخه طبیعی خواب دارد.",
-   "at": "2026-11-15T21:20:00.000Z",
-   "url": "https://www.isna.ir/news/1405082416621/%D8%A7%DA%AF%D8%B1-%D8%B4%D8%A8-%D9%87%D8%A7-%D8%AF%D8%B1-%D8%B1%D8%AE%D8%AA%D8%AE%D9%88%D8%A7%D8%A8-%D8%A8%D8%A7-%D9%87%D8%AC%D9%88%D9%85-%D8%A7%D9%81%DA%A9%D8%A7%D8%B1-%D9%85%D9%88%D8%A7%D8%AC%D9%87-%D9%85%DB%8C-%D8%B4%D9%88%DB%8C%D8%AF-%D8%A8%D8%AE%D9%88%D8%A7%D9%86%DB%8C%D8%AF"
-  },
-  {
    "id": "c829d1bc832a101b9919fe5b4e5c278a653f0c05",
    "titleKey": "c2fbc395b3af8d7e5e8d3cf7f66ae9d94228bdab",
    "source": "همشهری آنلاین",
@@ -4934,16 +4616,6 @@
    "text": "انهدام تیم تروریستی پژاک در غرب کشور توسط تکاوران سپاه + فیلم روابط عمومی قرارگاه نجف اشرف نیروی زمینی سپاه پاسداران انقلاب اسلامی از انهدام تیم تروریستی پژاک در مرزهای غربی کشور توسط رزمندگان تیپ تکاور انصارالرسول(ص) خبر داد",
    "at": "2026-11-15T21:20:19.000Z",
    "url": "https://www.hamshahrionline.ir/news/1086475/%D8%A7%D9%86%D9%87%D8%AF%D8%A7%D9%85-%D8%AA%DB%8C%D9%85-%D8%AA%D8%B1%D9%88%D8%B1%DB%8C%D8%B3%D8%AA%DB%8C-%D9%BE%DA%98%D8%A7%DA%A9-%D8%AF%D8%B1-%D8%BA%D8%B1%D8%A8-%DA%A9%D8%B4%D9%88%D8%B1-%D8%AA%D9%88%D8%B3%D8%B7-%D8%AA%DA%A9%D8%A7%D9%88%D8%B1%D8%A7%D9%86-%D8%B3%D9%BE%D8%A7%D9%87-%D9%81%DB%8C%D9%84%D9%85"
-  },
-  {
-   "id": "23f594c9951e47b45894c223117c847a796cfbda",
-   "titleKey": "ae960ac12335c576adec71524406a874890f9b9f",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "رئیس‌جمهور عراق: بغداد می‌تواند نقش محوری در ارتباط میان تهران و واشنگتن ایفا کند رئیس‌جمهور عراق با تاکید بر آمادگی بغداد برای میانجی‌گری میان ایران و آمریکا، اعلام کرد که این کشور از موقعیت مناسبی برای تسهیل گفت‌وگوهای دو طرف و کمک به دستیابی به صلح برخوردار است.",
-   "at": "2026-11-15T21:23:52.000Z",
-   "url": "https://www.isna.ir/news/1405082516823/%D8%B1%D8%A6%DB%8C%D8%B3-%D8%AC%D9%85%D9%87%D9%88%D8%B1-%D8%B9%D8%B1%D8%A7%D9%82-%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF-%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86%D8%AF-%D9%86%D9%82%D8%B4-%D9%85%D8%AD%D9%88%D8%B1%DB%8C-%D8%AF%D8%B1-%D8%A7%D8%B1%D8%AA%D8%A8%D8%A7%D8%B7-%D9%85%DB%8C%D8%A7%D9%86-%D8%AA%D9%87%D8%B1%D8%A7%D9%86"
   },
   {
    "id": "37ae86ee0b35ce4014d094df45cd8ac5d4e512f6",
@@ -4956,15 +4628,6 @@
    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOTW0yRGhpTTVJMHZVdlM4NUc2WDJGWkljT0VmREZ6NTNDcENHYzJ0ZUpab01nTFZxMnlsaFB3OVVzQ3h6TVZCVUdVejZRdWxJWlRrWU1jNmpMSzNuN0w2UXNEdlA5Wk4yVEVxOFR4aUFBczQwZkNMWUdhR2ltaXlZXzhjN0xlbGNjekE4eDNMSllEUlRFcXh3dGVodUNaT3VSVUlUQ0Z5d1Y2RVlYXzR5VQ?oc=5"
   },
   {
-   "id": "bf4f2dea07341bde48947184d059834cfc8bde17",
-   "titleKey": "0dbbd3ef32bffacf967ad37ada0df880b5117782",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ویدیو: گل دوم انگلیس به اسپانیا توسط ازری کنسا گل دوم انگلیس به اسپانیا توسط ازری کنسا زده شد.",
-   "at": "2026-11-15T21:07:10.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1866548"
-  },
-  {
    "id": "6f3ecd2522189a30a2fcf56ee8ce62e215212c31",
    "titleKey": "46ccb43362e0047cf03301591b8c494c4b9fabd6",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4972,15 +4635,6 @@
    "text": "استاندار کرمانشاه خواستار تسریع در ساخت مرکز امید زندگی و توسعه کمپ سراب نیلوفر شد کرمانشاه- ایرنا- استاندار کرمانشاه با تأکید بر تسریع در اجرای طرح‌های درمان و بازتوانی معتادان، خواستار تعیین تکلیف زمین مرکز امید زندگی، افزایش ظرفیت کمپ سراب نیلوفر و پیش‌بینی زمین‌های جایگزین شد و تأکید کرد که تأمین اعتبار و تجهیزات مورد نیاز نباید موجب تأخیر در اجرای این طرح‌ها شود.",
    "at": "2026-11-15T21:12:16.000Z",
    "url": "https://www.irna.ir/news/86322851/%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%DA%A9%D8%B1%D9%85%D8%A7%D9%86%D8%B4%D8%A7%D9%87-%D8%AE%D9%88%D8%A7%D8%B3%D8%AA%D8%A7%D8%B1-%D8%AA%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1-%D8%B3%D8%A7%D8%AE%D8%AA-%D9%85%D8%B1%DA%A9%D8%B2-%D8%A7%D9%85%DB%8C%D8%AF-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C-%D9%88-%D8%AA%D9%88%D8%B3%D8%B9%D9%87"
-  },
-  {
-   "id": "c02fee1471747829c7e484f0cb5430c1feb73bfb",
-   "titleKey": "941f60f6753155e99ede385a4cd521893dd5d083",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "Pictures, signs representing Minab massacre shown at Iran’s COP31 pavilion Nahid Poureisa reports from Antalya @PressTV",
-   "at": "2026-11-15T21:15:06.000Z",
-   "url": "https://t.me/presstv/214870"
   },
   {
    "id": "5c6099e36c430e88048b17953061a8f88bb1a07b",
@@ -4993,16 +4647,6 @@
    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNMFBVU1lvTnU1aFNlalppLVk1bHlWbkdPclZpM1FIZDcwUzNZd2JNaTYtQWFXa2pzaHctX1JGZjY3NUpvUUhSc2hkT3QxMXczT3J0cER0ZDM2OGZtQXJCU29oMFJpTk5VeFFHUE9mSHJ0N21zWXhhRGFYTU1uZHRPaVZ4a1EwblZueEVMdy1uSi0yS3Iwd3V5YVhHRk9nUktsbUpRR093SW8yOW1SODZJME5RSHl2QTdhVXc?oc=5"
   },
   {
-   "id": "6793c2dfe7ae5bc13ddb7b8ca3b3006223e56099",
-   "titleKey": "3c1817b533ce4432fd28fd608a41a22c81f87f7c",
-   "source": "ESPN",
-   "cat": "sports",
-   "lang": "en",
-   "text": "Lions' Amon-Ra St. Brown: Germany trip one he'll 'never forget' - ESPN Lions' Amon-Ra St. Brown: Germany trip one he'll 'never forget' ESPN",
-   "at": "2026-11-15T19:27:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9pWURVOE8zSnhCMEN2X0xJTUFaZ2RMajZsaDh5akdocWNwZjNlOHZzREpObnhPa0Q5NzhPSEE2eEdvclFPaFBNWmpFRFgzZ3lkbkJTWTlwdHIwaDBNNTdneE5ucmhZRFhwZkhBb0VmVnMxaF83THhnN1pn?oc=5"
-  },
-  {
    "id": "378e6e900929149830d0dc3875f3f9bca59f4372",
    "titleKey": "b2b03fd2f61ca183d3b8c5f48e446bb909c782d7",
    "source": "Asharq Al-Awsat",
@@ -5010,15 +4654,6 @@
    "text": "«ودية ملعب أرامكو» تجهز القادسية لاستئناف الدوري السعودي - الشرق الأوسط «ودية ملعب أرامكو» تجهز القادسية لاستئناف الدوري السعودي الشرق الأوسط",
    "at": "2026-11-15T20:26:15.000Z",
    "url": "https://news.google.com/rss/articles/CBMi1gRBVV95cUxPYUNDRk4zLU5iSFNFVjA3VjRSTFZpYlFUNm80UnlrQ1RXSGNMWlRPTEtiR0FZS3NwRWRyUno3OGx3T3pZVnVrRFlPdnRqSHdzMWE5aEc1cWRJdFZKN3ZHTmwzQ0N6TGJkMWdiVHJ0LVB2cnc5N2todm5hQm1EQlNSQWlGU1VqNVZjY1pCVmpTYVY0c21zLVJVV3E3ZzItX2QxbWxGT2h4aDJRQ1JKc3owUG1HLTBjT0VramZtazZHRmZrNFc5ZTY4X2lzZURtbUJwbjl4UG1JMzhDalE4WkpQSjZreVg1M0xhZUxzR3I0UzFvTFE4ZUo4dGZyQ0JxZVZpWW1SbFhNYmIwM1JZb3pXOFNzR3JvN0xJUlhXckFYRDRJUkt1cGJvVWxSS1owUXNJNTVwUUtRazRnV2dxQVVxT3c4aFV3S3QzbG1VUU5vX1dFZHloSXVmclRPX01RX3R3dkNmYnVuUzdVMXpGTVJFSUs0MjM1d2FySTRQZGUxWjFqR0FrWFVOWGljWHRKUXBVS1E1bF9wUGx1OG5KQ2pCVkw4TWN3ejROX0ZBOTNhQ2RMOVRsY0hjODRiZXBkeTNpVVVqVExpbkxhQldHYXNSbGtETE9SZkRBTEZqNGJwZVdPMHVMRnZVTlZDRC1YNWM0aUZ3MVBKSzFYQ0YzRVlLeGJDcTd2aDNDYmZVQzhONHAtanlIdDVLeXNfdTNRMkt4OVliOFJBc3phUGRTM1lOVmF5RVhQbzdJbUlaRkdJeWg2a3RHOEdnYnZkRzlCNDlLbVNyZ3lR?oc=5"
-  },
-  {
-   "id": "ff68185ac6c9f15faadcff72c99c04726ae4b34d",
-   "titleKey": "5d761b3b27b2d87d62615ba47bf7a3fb4146f12e",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "75% of hit-and-run victims miss out on compensation: Report A recent analysis highlights a troubling trend where many eligible hit-and-run victims fail to receive compensation. Annually, about 70,000 hit-and-run incidents occur, leading to numerous injuries and fatalities. Despite the launch of a compensation initiative in February 2022, only a limited number of claims have been successful. Victims often lack awareness of the program due to its complexity.",
-   "at": "2026-11-15T20:45:55.000Z",
-   "url": "https://timesofindia.indiatimes.com/business/india-business/75-of-hit-and-run-victims-miss-out-on-compensation-report/articleshow/135865456.cms"
   },
   {
    "id": "d94cadafc0cacfab106f2111b281dfba4a7d2f6d",
@@ -5031,15 +4666,6 @@
    "url": "https://www.mehrnews.com/news/7010292/%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D9%85%D9%87%D8%B1-%D8%A7%D8%B2-%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D8%B4%D8%B5%D8%AA%D9%85%DB%8C%D9%86-%D8%AD%D8%B6%D9%88%D8%B1-%D9%85%D8%B1%D8%AF%D9%85-%D8%A2%D8%B3%D8%AA%D8%A7%D9%86%D9%87-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA"
   },
   {
-   "id": "2b5fa103c41deba4d9d0ee12901e0c59e6baa0bb",
-   "titleKey": "b9aa7cfa7b182d93ad0b0aa3802a493a63bc539d",
-   "source": "Fox News World",
-   "lang": "en",
-   "text": "Iran vows ‘we will find you’ to 2 US Navy officers the day warship returns from Middle East Iran&apos;s embassy in South Africa posted a \"We will find you\" threat targeting two USS Spruance officers as the destroyer returned to San Diego.",
-   "at": "2026-11-15T20:58:36.000Z",
-   "url": "https://www.foxnews.com/world/iran-vows-we-find-you-2-us-navy-officers-day-warship-returns-from-middle-east"
-  },
-  {
    "id": "2b5353e1cb30dcc74459e4f1f32e8bd92c59a26f",
    "titleKey": "ebddcf1684fe413645c7978d390f0b951f665865",
    "source": "اقتصادآنلاین",
@@ -5048,16 +4674,6 @@
    "text": "هواشناسی استان لرستان امروز دوشنبه ۲۵ آبان ۱۴۰۵ / باد در راه است بر اساس پیش‌بینی هواشناسی، لرستان طی دو روز آینده شرایط جوی نسبتاً پایداری خواهد داشت.",
    "at": "2026-11-15T21:00:02.000Z",
    "url": "https://www.eghtesadonline.com/fa/news/2175890/هواشناسی-استان-لرستان-امروز-دوشنبه-25-آبان-1405-باد-در-راه-است"
-  },
-  {
-   "id": "472a2a728a4850b6f7484c924b0857580c6da612",
-   "titleKey": "96f3afbebc47229811e772705afa669bdfac5847",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مردم دیّر: خروج از ان‌پی‌تی حق مسلم ماست بوشهر- مردم بندر دیّر در دویست و شصتمین اجتماع برای خونخواهی امام شهید و حمایت از رهبر انقلاب و نیروهای مسلح شعار «خروج از ان‌پی‌تی حق مسلم ماست» سر دادند.",
-   "at": "2026-11-15T21:00:45.000Z",
-   "url": "https://www.mehrnews.com/news/7012195/%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%DB%8C%D8%B1-%D8%AE%D8%B1%D9%88%D8%AC-%D8%A7%D8%B2-%D8%A7%D9%86-%D9%BE%DB%8C-%D8%AA%DB%8C-%D8%AD%D9%82-%D9%85%D8%B3%D9%84%D9%85-%D9%85%D8%A7%D8%B3%D8%AA"
   },
   {
    "id": "c14fb71fbd0d0e886d36fbf18596521f3175d964",
@@ -5070,16 +4686,6 @@
    "url": "https://www.mehrnews.com/news/7012113/%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D8%B4%D8%B5%D8%AA%D9%85%DB%8C%D9%86-%D8%B4%D8%A8-%D8%AA%D8%AC%D9%85%D8%B9%D8%A7%D8%AA-%D9%85%D8%B1%D8%AF%D9%85-%DA%A9%D8%B1%D8%AC"
   },
   {
-   "id": "e50de19d2f531e2ec2d477fde8c4ad035e10c817",
-   "titleKey": "05823e8fe5c0bb514995542b8ed9ec909c7b5e01",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "دعای مردم کرج برای سبزپوشانی که از ایران دفاع می‌کنند البرز _ مردم کرج در تجمعات شبانه، این‌بار نیز مخاطب پرسشی درباره سربازان هوافضای ایران شدند؛ از آنها پرسیدیم چه دعایی بدرقه راه مدافعان پای لانچرها دارند.",
-   "at": "2026-11-15T21:03:25.000Z",
-   "url": "https://www.mehrnews.com/news/7012116/%D8%AF%D8%B9%D8%A7%DB%8C-%D9%85%D8%B1%D8%AF%D9%85-%DA%A9%D8%B1%D8%AC-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B3%D8%A8%D8%B2%D9%BE%D9%88%D8%B4%D8%A7%D9%86%DB%8C-%DA%A9%D9%87-%D8%A7%D8%B2-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%AF%D9%81%D8%A7%D8%B9-%D9%85%DB%8C-%DA%A9%D9%86%D9%86%D8%AF"
-  },
-  {
    "id": "d9beb8c48d8f5d26fd77fbd9d3803f7439638cb1",
    "titleKey": "48b26ea9efaa9bdf5e6330a865a4b0f52fa0d71f",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -5089,15 +4695,6 @@
    "url": "https://www.irna.ir/news/86322841/%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%DA%A9%D8%B1%D9%85%D8%A7%D9%86%D8%B4%D8%A7%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%DA%A9%D9%85%DA%A9-%D8%A8%D9%87-%D9%85%D8%B5%D8%AF%D9%88%D9%85%D8%A7%D9%86-%D8%B3%D8%A7%D9%86%D8%AD%D9%87-%D8%A7%D8%AA%D9%88%D8%A8%D9%88%D8%B3-%D8%A7%DB%8C%D9%84%D8%A7%D9%85-%D8%A7%D8%B9%D9%84%D8%A7%D9%85"
   },
   {
-   "id": "0d5d172cbbe66085e0aa4ee1ec3d276c0cd9ec03",
-   "titleKey": "942050224dfb6fab951727409bb5e8b0287ce93e",
-   "source": "France 24 English",
-   "lang": "en",
-   "text": "Nearly 2,200 migrants reach Spain's Canary Islands in two days Nearly 2,200 migrants have reached the Canary Islands over the past two days, Spain’s coastguard said Sunday, continuing a recent surge of arrivals from West African countries to the Spanish archipelago, where the authorities declared a migration emergency earlier this week.",
-   "at": "2026-11-15T21:06:01.000Z",
-   "url": "https://www.france24.com/en/europe/20261115-nearly-2200-migrants-reach-spain-canary-islands-in-two-days"
-  },
-  {
    "id": "9f8483996b1abdba0d5199dbc0fccf8c84af7ad3",
    "titleKey": "753bb9a504359d00a69650209cd13ea058e56d1e",
    "source": "The Hill",
@@ -5105,15 +4702,6 @@
    "text": "Trump says Interior will appeal ruling delaying golf course renovations President Trump said on Sunday that the Interior Department will appeal a court ruling which barred the Trump administration from closing East Potomac Park this weekend. “Biden appointed Judge Reyes has delayed, for yet another two weeks, the fix up and reconstruction, by the Department of the Interior, of one of the worst and most…",
    "at": "2026-11-15T20:44:12.000Z",
    "url": "https://thehill.com/homenews/administration/6221569-east-potomac-park-legal-battle/"
-  },
-  {
-   "id": "fa9274cf3ffc7e19ae08a87f5acc70a62b33c85a",
-   "titleKey": "0c6cdf0ee8a7c9fe3c79e3243deb4f53a2195763",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ویدیو: گل اول انگلیس به اسپانیا توسط هری کین گل اول انگلیس به اسپانیا توسط هری کین زده شد.",
-   "at": "2026-11-15T20:47:36.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1866547"
   },
   {
    "id": "f74f3a61090aa0a853f5c8270ab0b443ef3eaf7b",
@@ -5126,16 +4714,6 @@
    "url": "https://www.mehrnews.com/news/7012212/%D9%81%D9%84%DA%A9%DB%8C-%D8%AD%D8%B6%D9%88%D8%B1-%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%D8%B1-%D8%B5%D8%AD%D9%86%D9%87-%D9%BE%D8%B4%D8%AA%D9%88%D8%A7%D9%86%D9%87-%D8%B1%D8%B2%D9%85%D9%86%D8%AF%DA%AF%D8%A7%D9%86-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%A7%D8%B3%D8%AA"
   },
   {
-   "id": "71f18200616991b0b273df67fc63300d078cb07e",
-   "titleKey": "0b96b65821bd38c0320b092c2410d86a80f04a9d",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "میبد؛ ۲۶۰ شب حماسه در خیابان‌ها یزد- راهپیمایی شبانه مردم میبد در دویست‌وشصتمین شب حماسه و پایداری نیز ادامه یافت و شهروندان با حضور در خیابان‌ها، بار دیگر صحنه‌ای از همبستگی و حضور مردمی را رقم زدند.",
-   "at": "2026-11-15T20:51:42.000Z",
-   "url": "https://www.mehrnews.com/news/7012210/%D9%85%DB%8C%D8%A8%D8%AF-%DB%B2%DB%B6%DB%B0-%D8%B4%D8%A8-%D8%AD%D9%85%D8%A7%D8%B3%D9%87-%D8%AF%D8%B1-%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86-%D9%87%D8%A7"
-  },
-  {
    "id": "681ba45fcd666701b33018e255f13338914bc99e",
    "titleKey": "7ae9d970ddb994ae1e9f8f53b690a2aae2f4333b",
    "source": "دنیای اقتصاد",
@@ -5146,15 +4724,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308684-%D8%A7%D8%AF%D8%B9%D8%A7%DB%8C-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%AA%D8%A7%DB%8C%D9%85%D8%B2-%D9%86%D8%A7%D9%88-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%D8%A8%D8%B1-%D8%B1%D9%88%D8%B2%D9%88%D9%84%D8%AA-%D9%81%D8%B1%D8%AF%D8%A7-%D8%A8%D9%87-%D8%AE%D8%A7%D9%88%D8%B1%D9%85%DB%8C%D8%A7%D9%86%D9%87-%D9%85%DB%8C-%D8%B1%D8%B3%D8%AF"
   },
   {
-   "id": "becba756bee02f726ab7bfc46be9d0a66a99d6de",
-   "titleKey": "72fa16ae7a95bba5a30af50abf93983d08600542",
-   "source": "Asharq Al-Awsat",
-   "lang": "ar",
-   "text": "رايس يدافع عن بن وايت بعد صافرات الاستهجان: له مستقبل مع منتخب إنجلترا - الشرق الأوسط رايس يدافع عن بن وايت بعد صافرات الاستهجان: له مستقبل مع منتخب إنجلترا الشرق الأوسط",
-   "at": "2026-11-15T20:05:11.000Z",
-   "url": "https://news.google.com/rss/articles/CBMirAVBVV95cUxNUUtxUDBDVXdtc2lWdmZNWVppTFZXX2pMYXhQajNHV2JpeEJ2MkVQaWd1VngxNmxkY2tsSmdJejhnZzB5M3F2aXFjUWRBaVlfdm5LRmczdXdFam5ZcGJUTUtrQzM4N2o3WENQNVI1RE5YRV9vejJYVi1XM0FTdURzREhzemdDWURMbm9YU2JyUUd4bWhubG1Qa1VMUTRrS0ZMRENiZ1NwdVRuWDd1S0FJWlFvTDhlQVNMTDFyLURwSmZteDlsT1d5X1JVRHBwYjFGWURkemQzS1lDaFRyQUY4QnIxMlJkQ1U1djJYcEtwY2czS0xvZVVnbWphaHdBUFFVa3BwTXMzem9uUkYwaG14LVIyVE0zQXJldGpHVkdLRF9FeEdESEZ5ZXRSc3RaREprdEFGZ1l2eF9WbVROMXRSd1lITFd5MDEtUTNqbFlOaVMyaHlQdDJZSV9iSEVzR05aSkpzTHdXLVJncGpRVi1VNVVjOWdBOFFtVERSWEg1ZEpZRVJRMjFDOGJuR1BKVmQwaGFmd2llbDZJU1ZBTVNKaUhwWEZ1cnlyM09PUTNjcG1uU3E4QUkxdURjdmEzVkQ0Y1BhRS1YOWk2T2IybDdUWGhZazlQN3VWZ0NJa0NEa081RjA5YkNmSUhwdlVZcmpKaTRDY1pCS2htck9kM01oMHpWSWoydV8zeUxwbTBJQ1J6dDFfS0FNVjN0NTh0MDNPZVdac2dKcUx4cmtzTzNHOGtIbkU3blp4QmxCWWxWVFZjaUtkVXFzMkdDa3UzMWVGWjBXMXFKQlhwdWx6Ty1IakJVbWQxYVljaVhDamdqOUUzTXNuS2JnaEtYUlNyME5Va2xFOE5KWjRwclZfQzB4MEI2eThjdnJnZmpjS0V5bVVkekI4QmhkbU9DVEw?oc=5"
-  },
-  {
    "id": "194420eea6a1d908f55554ddafb2cc284549d40b",
    "titleKey": "ecee1c24c46ac6e2904c7198b572efd94620a2c0",
    "source": "خبرگزاری ایلنا",
@@ -5162,15 +4731,6 @@
    "text": "ویدیو: گل اول بلژیک به ایتالیا توسط ماکسیم دی کویپر گل اول بلژیک به ایتالیا توسط ماکسیم دی کویپر زده شد.",
    "at": "2026-11-15T20:28:40.000Z",
    "url": "https://www.ilna.ir/fa/tiny/news-1866543"
-  },
-  {
-   "id": "e05ae588ca05aade4c2a3556661a9d53924d920e",
-   "titleKey": "d5cd2ffff1cd1074a97701a5c8f9b004bbafd11a",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Govt healthcare spend up 3x since 2013-14 to 4.1 lakh crore Out-Of-Pocket Expense Dips But Families Still Paid 4L Cr In 2023-24",
-   "at": "2026-11-15T20:34:13.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/govt-healthcare-spend-up-3x-since-2013-14-to-4-1l-cr/articleshow/135865380.cms"
   },
   {
    "id": "234649ca4de3d061017398e55f1d3f859f96d23d",
@@ -5183,15 +4743,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4308683-%D8%B7%D8%B9%D9%86%D9%87-%D8%B3%D9%86%DA%AF%DB%8C%D9%86-%D8%B9%D8%B1%D8%A7%D9%82%DA%86%DB%8C-%D8%A8%D9%87-%D9%88%D8%B2%DB%8C%D8%B1-%D8%AC%D9%86%DA%AF-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7"
   },
   {
-   "id": "8830bc33c7ef4a663701f4be2fe507b3d550d22b",
-   "titleKey": "98964571bdd5c7049879ef58b8da1699bcf0b496",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ویدیو: گل سوم بلژیک به ایتالیا توسط ژرمی دوکو گل سوم بلژیک به ایتالیا توسط ژرمی دوکو زده شد.",
-   "at": "2026-11-15T20:44:10.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1866546"
-  },
-  {
    "id": "a1c1fa8bc1f551c79b3c1e8ac916044d3588fe01",
    "titleKey": "2d6cca5b39765f6e27e6ca3a16cc1a42fead7b9d",
    "source": "TASS English",
@@ -5201,15 +4752,6 @@
    "url": "https://tass.com/emergencies/2218405"
   },
   {
-   "id": "f81ce0dc5312ca37d196bb8a53c14bf2b08079fc",
-   "titleKey": "df4c132787f52b27fc7c5aa9777458140c4d07e5",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "🔴 Iran Deputy FM Kazem Gharibabadi: 🔺The US has shown that it is not trustworthy 🔺 US not implementing some of Iran’s conditions, no deal to be reached under these circumstances 🔺US has tested the military option and failed 🔺The US has failed in its air and land blockade on Iran 🔺Iran’s armed forces are prepared for any kind of military aggression 🔺It is impossible to wage war on Iran and expect its consequences to affect only Iran @PressTV",
-   "at": "2026-11-15T19:02:29.000Z",
-   "url": "https://t.me/presstv/214859"
-  },
-  {
    "id": "06413816fb72d272554b8d03922f7a2a763d696d",
    "titleKey": "8cd3cc97ee7a9921b38ca934c152a905d35a6024",
    "source": "Haaretz English",
@@ -5217,16 +4759,6 @@
    "text": "Report: Source for Arab parties' election fraud claims was ex-Netanyahu employee - Haaretz Report: Source for Arab parties' election fraud claims was ex-Netanyahu employee Haaretz",
    "at": "2026-11-15T19:23:00.000Z",
    "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxQZnRpWGhGYXMxTC1TU3prMHJJRF96WENlRHNPaGVwRkRyMHNuV25kb1F3VzBqTU5iQ21hZmp0VnNfbE9VV2h0SDFtY0lUcjd1N294YXBnb1Fzc0dLOEl3MFBRNHlpSXZDSXNTRGN2bGMzckJKREN5WkZ1RmV4RzAyZTdGLURRSzFXanVyWk5yMjBHN3p2M19KcHJ2RXRGR0ZFQnh3dXFWS0k1R1NHSUtpczIzUlgteUltMzZrYWQ2b19Pb09tektXeE9aQktpU3NVYngyMVNMTUgxUVBQS1JFdXRJM29SMkpfbDlhM0FfSlpyTWRQX2NhenI4RHVOODQteGJSbjRPRllnSFVhU0Q5NUZ1aFR5eVI0?oc=5"
-  },
-  {
-   "id": "ab0b8d365e3d9bdd9a428754b5f186ac1cae4066",
-   "titleKey": "7dfc285f6bf948e1305c08ffa5b2e9ad101f82d5",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "یک نفتکش متخلف در شرق تنگه هرمز دچار حریق شد روابط عمومی نیروی دریایی ارتش جمهوری اسلامی ایران ساعتی قبل در اطلاعیه ای اعلام کرد: یک نفت‌کش متخلف در شرق تنگه هرمز به مین دریایی برخورد کرد و دچار حریق شد.",
-   "at": "2026-11-15T20:27:42.000Z",
-   "url": "https://www.mehrnews.com/news/7012205/%DB%8C%DA%A9-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D9%85%D8%AA%D8%AE%D9%84%D9%81-%D8%AF%D8%B1-%D8%B4%D8%B1%D9%82-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D8%AF%DA%86%D8%A7%D8%B1-%D8%AD%D8%B1%DB%8C%D9%82-%D8%B4%D8%AF"
   },
   {
    "id": "c31c0d82aadc83a53c1a0c26f75953e6046bb4cf",
@@ -5239,16 +4771,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%AE%D8%A8%D8%B1-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%B3%DB%8C-64/4308645-%D8%B9%D8%B1%D8%A7%D9%82%DA%86%DB%8C-%D8%A8%D8%A7-%DA%86%D9%87-%D9%BE%DB%8C%D8%A7%D9%85%DB%8C-%D8%A8%D9%87-%D9%85%D9%86%D8%B7%D9%82%D9%87-%D9%85%DB%8C-%D8%B1%D9%88%D8%AF"
   },
   {
-   "id": "d32b1e1da2d2df0955fb78629d22fd76159f4e08",
-   "titleKey": "1757bbcb2d3ce4a47107930898a96d86d919d2cf",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "موانع اقتصادی ایمن‌سازی معادن تامین تجهیزات ایمنی معادن زیرزمینی به یکی از چالش‌های زنجیره تامین صنایع معدنی تبدیل شده است. وابستگی به واردات، نوسانات ارزی و محدودیت‌های تجاری، هزینه دسترسی به تجهیزات تخصصی را افزایش داده و امکان برنامه‌ریزی برای نوسازی و نگهداری سرمایه را محدود کرده است. این وضعیت در کنار فرسودگی ماشین‌آلات و اختلال در چرخه پرداخت مطالبات زغال‌سنگ، بر ظرفیت سرمایه‌گذاری و بهره‌وری معادن اثر می‌گذارد. پس از حادثه طبس، ضرورت رعایت استانداردهای ایمنی و نظارت بر عملکرد معادن بیش از گذشته مورد توجه قرار گرفته است؛ با این حال، تحقق پایدار این استانداردها علاوه بر نظارت موثر، به عملکرد بازار تجهیزات، رقابت‌پذیری عرضه داخلی و ثبات سیاست‌های ارزی و تجاری نیز وابسته است.",
-   "at": "2026-11-15T20:30:00.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D9%85%D8%B9%D8%AF%D9%86-%D8%B5%D9%86%D8%A7%DB%8C%D8%B9-%D9%85%D8%B9%D8%AF%D9%86%DB%8C-4/4308641-%D9%85%D9%88%D8%A7%D9%86%D8%B9-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C-%D8%A7%DB%8C%D9%85%D9%86-%D8%B3%D8%A7%D8%B2%DB%8C-%D9%85%D8%B9%D8%A7%D8%AF%D9%86"
-  },
-  {
    "id": "f5af6189670dbf1805f883739aa6d730a4b83c95",
    "titleKey": "d899f45185a7c2280fcc881dbac33583b7a6492f",
    "source": "دنیای اقتصاد",
@@ -5259,16 +4781,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%A8%D9%88%D8%B1%D8%B3-6/4308607-%D8%B1%DA%A9%D9%88%D8%B1%D8%AF%D8%B4%DA%A9%D9%86%DB%8C-%D9%BE%D8%B1-%D8%A7%D8%A8%D9%87%D8%A7%D9%85-%D8%A8%D9%88%D8%B1%D8%B3"
   },
   {
-   "id": "e639e0ce702cfa126b4d2b2f3bb95ec407b0365c",
-   "titleKey": "888981f0ee05b9443be623295a878f0de7da6a25",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "حکایت هنرمندان تکرارناپذیر مراسم پاسداشت خسرو احمدی بازیگر پیشکسوت تئاتر با حضور و سخنرانی چهره‌هایی همچون پرویز پرستویی، محسن کیایی، رضا بابک، رویا میرعلمی، مجید قناد، ایرج طهماسب و... همراه شد. این برنامه به همت انجمن بازیگران خانه تئاتر و با اجرای فرزاد حسنی در سالن استاد جوانمرد خانه تئاتر برگزار شد. در ابتدای برنامه، مازیار مهرگان و امیرحسین قلیچ با اجرای یک آیتم نمایشی به خسرو احمدی ادای احترام کردند و پس از آن فرزاد حسنی به بیان ویژگی‌های شخصیتی و هنری این بازیگر پرداخت. بهرام ابراهیمی، رئیس انجمن بازیگران خانه تئاتر، در سخنانی ضمن خوشامدگویی به حاضران گفت: «برای خسرو احمدی متنی آماده کرده بودیم، اما احساس کردم بهتر است متناسب با حال‌وهوای برنامه صحبت کنیم. من عاشق همه همکارانم هستم؛ از بزرگان حاضر در این جمع تا جوانانی که باید تلاش کنند به جایگاه این هنرمندان برسند. با عشق و افتخار",
-   "at": "2026-11-15T20:30:00.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D9%81%D8%B1%D9%87%D9%86%DA%AF-%D9%87%D9%86%D8%B1-32/4308599-%D8%AD%DA%A9%D8%A7%DB%8C%D8%AA-%D9%87%D9%86%D8%B1%D9%85%D9%86%D8%AF%D8%A7%D9%86-%D8%AA%DA%A9%D8%B1%D8%A7%D8%B1%D9%86%D8%A7%D9%BE%D8%B0%DB%8C%D8%B1"
-  },
-  {
    "id": "bf5c49f803cf9aa92cd30477c374cc6fbd80a69c",
    "titleKey": "586729f7cabf2653ccdd206b26d9a038c6bea8dc",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -5276,16 +4788,6 @@
    "text": "انهدام یک تیم از گروهک تروریستی پژاک در مرزهای غربی کشور تهران - ایرنا - روابط عمومی قرارگاه نجف اشرف نیروی زمینی سپاه پاسداران انقلاب اسلامی از انهدام تیم تروریستی پژاک در مرزهای غربی کشور توسط رزمندگان تیپ تکاور انصارالرسول(ص) خبر داد.",
    "at": "2026-11-15T20:31:10.000Z",
    "url": "https://www.irna.ir/news/86322865/%D8%A7%D9%86%D9%87%D8%AF%D8%A7%D9%85-%DB%8C%DA%A9-%D8%AA%DB%8C%D9%85-%D8%A7%D8%B2-%DA%AF%D8%B1%D9%88%D9%87%DA%A9-%D8%AA%D8%B1%D9%88%D8%B1%DB%8C%D8%B3%D8%AA%DB%8C-%D9%BE%DA%98%D8%A7%DA%A9-%D8%AF%D8%B1-%D9%85%D8%B1%D8%B2%D9%87%D8%A7%DB%8C-%D8%BA%D8%B1%D8%A8%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1"
-  },
-  {
-   "id": "494abb82adc695168926d1357f2a33c7610b54cf",
-   "titleKey": "e72620dc78314ecd50c3819827bde3cdb0f1c5b3",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مسمومیت ۵ نفر با گاز مونوکسیدکربن در مشهد مشهد- مسئول روابط عمومی مرکز اورژانس پیش بیمارستانی و مدیریت حوادث دانشگاه علوم پزشکی مشهد گفت: از مسمومیت ۵ نفر با گاز مونوکسید کربن در مشهد خبر داد.",
-   "at": "2026-11-15T20:33:58.000Z",
-   "url": "https://www.mehrnews.com/news/7012211/%D9%85%D8%B3%D9%85%D9%88%D9%85%DB%8C%D8%AA-%DB%B5-%D9%86%D9%81%D8%B1-%D8%A8%D8%A7-%DA%AF%D8%A7%D8%B2-%D9%85%D9%88%D9%86%D9%88%DA%A9%D8%B3%DB%8C%D8%AF%DA%A9%D8%B1%D8%A8%D9%86-%D8%AF%D8%B1-%D9%85%D8%B4%D9%87%D8%AF"
   },
   {
    "id": "1fe5278c610551643759e54de2027d5505a8fe47",
@@ -5298,16 +4800,6 @@
    "url": "https://www.khabaronline.ir/live/2302503/%D9%85%D8%AD%D9%85%D8%AF-%D9%82%D8%B1%D8%A8%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1-%D8%B5%D8%AF%D8%B1-%D9%81%D9%87%D8%B1%D8%B3%D8%AA-%D8%AE%D8%B1%DB%8C%D8%AF-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86%DB%8C-%D9%BE%D8%B1%D8%B3%D9%BE%D9%88%D9%84%DB%8C%D8%B3"
   },
   {
-   "id": "f3b64b91747fff2b8c4000c387139237aa686713",
-   "titleKey": "01086673cd08cf33e89b05449cd4f5e0dfbf6b9f",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "طعنه عراقچی به وزیر جنگ آمریکا با یادآوری سرنوشت یک سردار رومی سیدعباس عراقچی، وزیر امور خارجه جمهوری اسلامی ایران، در واکنش به اظهارات پیت هگست، وزیر جنگ آمریکا که گفته بود «با کسانی که شمشیر در دست دارند، از قوانین سخن نگویید»، با اشاره به سرنوشت یک سردار رومی، به وی کنایه زد.",
-   "at": "2026-11-15T20:21:16.000Z",
-   "url": "https://www.isna.ir/news/1405082416818/%D8%B7%D8%B9%D9%86%D9%87-%D8%B9%D8%B1%D8%A7%D9%82%DA%86%DB%8C-%D8%A8%D9%87-%D9%88%D8%B2%DB%8C%D8%B1-%D8%AC%D9%86%DA%AF-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D8%A7-%DB%8C%D8%A7%D8%AF%D8%A2%D9%88%D8%B1%DB%8C-%D8%B3%D8%B1%D9%86%D9%88%D8%B4%D8%AA-%DB%8C%DA%A9-%D8%B3%D8%B1%D8%AF%D8%A7%D8%B1-%D8%B1%D9%88%D9%85%DB%8C"
-  },
-  {
    "id": "1a19a30f84243a445051a76130fe7be14b9f8d03",
    "titleKey": "918aa53fe7a1d428a53cf678ec9767dd7b01933c",
    "source": "BBC World",
@@ -5317,15 +4809,6 @@
    "url": "https://www.bbc.co.uk/news/videos/c6pw4rl00lrjo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "7b78ef33dea0d474c17356fefc674325ebecadc5",
-   "titleKey": "5ef506bbc40c1807c5596c42ed838f4dd203a2f5",
-   "source": "Al Jazeera English",
-   "lang": "en",
-   "text": "Jordan sentences three men to death over deadly church attack in Karak",
-   "at": "2026-11-15T20:12:38.000Z",
-   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/jordan-sentences-three-men-to-death-over-deadly-church-attack-in-karak?traffic_source=rss"
-  },
-  {
    "id": "2f4133d0ba45a55e090ecf01720697bd2cbd7d9c",
    "titleKey": "be85960fd6fb123e9d42be8e58fad0b015fd6ad0",
    "source": "Politico",
@@ -5333,16 +4816,6 @@
    "text": "Foreign leaders look beyond Trump on his Asian meeting spree - Politico Foreign leaders look beyond Trump on his Asian meeting spree Politico",
    "at": "2026-11-15T19:00:00.000Z",
    "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE4wci1tVVRaX05DXzNoNHROT2h1aGVyaS1IM1ZaTk5DX1pKdGV3TXdjY0I3cVZWbmxMWEVDV0VvVm1Hd2l5MEdzeVVTSExucy15c2tJZktVWmpHemRBcWJ4RXo3eVNzSzJFeGk1SEhSRTRtVFdxdVlBNU1NZjU5QQ?oc=5"
-  },
-  {
-   "id": "9d82432c3be7cdaa4f7a0be3bfb09f478387a549",
-   "titleKey": "3f3773b17e8420031b1e8605eeaf7896f73ff04c",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "پرسپولیس آماده فروش اورونوف در نقل‌وانتقالات زمستانی مدیران باشگاه پرسپولیس امیدوارند که بتوانند در بازار نقل‌وانتقالات زمستانه از محل فروش اوستون اورونوف درآمدزایی کنند.",
-   "at": "2026-11-15T20:04:17.000Z",
-   "url": "https://www.khabaronline.ir/news/2302659/%D9%BE%D8%B1%D8%B3%D9%BE%D9%88%D9%84%DB%8C%D8%B3-%D8%A2%D9%85%D8%A7%D8%AF%D9%87-%D9%81%D8%B1%D9%88%D8%B4-%D8%A7%D9%88%D8%B1%D9%88%D9%86%D9%88%D9%81-%D8%AF%D8%B1-%D9%86%D9%82%D9%84-%D9%88%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D8%B2%D9%85%D8%B3%D8%AA%D8%A7%D9%86%DB%8C"
   },
   {
    "id": "409e787d1fac4c39f9c1a387b904c0e0daccb028",
@@ -5355,15 +4828,6 @@
    "url": "https://www.eghtesadonline.com/fa/news/2175946/آیزنکوت-نتانیاهو-حتی-یک-دقیقه-دیگر-نباید-در-قدرت-بماند-هشدار-درباره-آینده-دموکراسی-اسرائیل"
   },
   {
-   "id": "60305c2604c33bcca1fe93a56aab824b0845c07d",
-   "titleKey": "f6fb3504102e0862d006f323e860e2bcb4281c9a",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "فیلم سینمایی «اودیسه» در موسسه آفرینش‌های هنری مشهد نقد و بررسی شد مشهد- ایرنا- فیلم سینمایی «اودیسه» اثر «کریستوفر نولان» به عنوان دومین فیلم پرفروش سال ۲۰۲۶، پرفروش‌ترین فیلم تاریخ با رده‌بندی سنی R، پرفروش‌ترین فیلم توزیع‌شده توسط کمپانی یونیورسال و یازدهمین فیلم پرفروش تمام دوران‌ها یکشنبه شب با حضور ۲ کارشناس و استاد دانشگاه در موسسه آفرینش‌های هنری آستان قدس رضوی نقد و بررسی شد.",
-   "at": "2026-11-15T20:11:01.000Z",
-   "url": "https://www.irna.ir/news/86322816/%D9%81%DB%8C%D9%84%D9%85-%D8%B3%DB%8C%D9%86%D9%85%D8%A7%DB%8C%DB%8C-%D8%A7%D9%88%D8%AF%DB%8C%D8%B3%D9%87-%D8%AF%D8%B1-%D9%85%D9%88%D8%B3%D8%B3%D9%87-%D8%A2%D9%81%D8%B1%DB%8C%D9%86%D8%B4-%D9%87%D8%A7%DB%8C-%D9%87%D9%86%D8%B1%DB%8C-%D9%85%D8%B4%D9%87%D8%AF-%D9%86%D9%82%D8%AF-%D9%88-%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C"
-  },
-  {
    "id": "e595280baa4b105f5ec96e92ae20d9c78d889ca5",
    "titleKey": "83c4675c88ee38e0a79749162932cc2aa0327148",
    "source": "خبرگزاری ایسنا",
@@ -5372,16 +4836,6 @@
    "text": "ایمان واقعی در روزهای سخت و آسان زندگی جلوه‌گر می‌شود مدیر آستان مقدس امامزاده ابراهیم(ع) بابلسر با تأکید بر ضرورت شناخت عمیق اصول و فروع دین، گفت: دینداری تنها به دانستن مفاهیم و نام‌های اعتقادی محدود نمی‌شود، بلکه حقیقت ایمان باید در باور، رفتار، مسئولیت‌پذیری و سبک زندگی انسان تجلی پیدا کند.",
    "at": "2026-11-15T19:57:53.000Z",
    "url": "https://www.isna.ir/news/1405082416810/%D8%A7%DB%8C%D9%85%D8%A7%D9%86-%D9%88%D8%A7%D9%82%D8%B9%DB%8C-%D8%AF%D8%B1-%D8%B1%D9%88%D8%B2%D9%87%D8%A7%DB%8C-%D8%B3%D8%AE%D8%AA-%D9%88-%D8%A2%D8%B3%D8%A7%D9%86-%D8%B2%D9%86%D8%AF%DA%AF%DB%8C-%D8%AC%D9%84%D9%88%D9%87-%DA%AF%D8%B1-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
-  },
-  {
-   "id": "cbecf199d319787cede8085d663e2cfcccb51572",
-   "titleKey": "659d9ad544ab7b57e0ac763768b437ab7b6523b4",
-   "source": "Bloomberg",
-   "cat": "economy",
-   "lang": "en",
-   "text": "Anthropic Is About to Become the World’s Most Important AI Stock - Bloomberg.com Anthropic Is About to Become the World’s Most Important AI Stock Bloomberg.com",
-   "at": "2026-11-15T19:00:20.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNQ0FXWUttSDRhNUNacC1GM0hiUWtnSVRoamZreG5QRkFqNlZVTHdSUjNNeHNCNmhGWWZBcGxiaTBIcDhvSDZxNExuclFYRlBJTXFuRXdjd2xzNkdpZ2RkblFZYlFNNnBkcHdfU0VRQXhvaWNaamU2SUNNdDNCVTctZnB5cUZiVmFuXy1aWFNqRWlXQ3pZSl9NcGQ1MFFnWEZBTHdaZE9GNGI5cEJSaG1pQkhGNA?oc=5"
   },
   {
    "id": "26d2bbc34bb8a27743c4794d3bab688fef5869a7",
@@ -5394,15 +4848,6 @@
    "url": "https://www.mehrnews.com/news/7012188/%D8%AA%D8%A3%D9%85%DB%8C%D9%86-%D9%85%D8%A7%D9%84%DB%8C-%DB%B1%DB%B8-%D9%BE%D8%B1%D9%88%DA%98%D9%87-%D8%A8%D8%A7-%D9%85%D8%B4%D8%A7%D8%B1%DA%A9%D8%AA-%D9%85%D8%A4%D8%AF%DB%8C%D8%A7%D9%86-%D9%85%D8%A7%D9%84%DB%8C%D8%A7%D8%AA%DB%8C-%D8%AF%D8%B1-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86-%DA%A9%D8%B1%D9%85%D8%A7%D9%86"
   },
   {
-   "id": "b51e7d4c47d1400fef6fc3e567ea9faa6d621849",
-   "titleKey": "9a2069af66c49e719bc1a2891707d153d3f90d99",
-   "source": "Al Jazeera English",
-   "lang": "en",
-   "text": "Israeli drone filmed flying low outside homes in southern Lebanon Video shows an Israeli drone flying at low altitude over a residential area in southern Lebanon.",
-   "at": "2026-11-15T19:02:21.000Z",
-   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/15/israeli-drone-filmed-flying-low-outside-homes-in-southern-lebanon?traffic_source=rss"
-  },
-  {
    "id": "06c42f3f52125a892220c8401837d5f33c0b4f1e",
    "titleKey": "6a4e168356ca0101cabe3d22d497eeb960341dda",
    "source": "خبرگزاری مهر",
@@ -5413,16 +4858,6 @@
    "url": "https://www.mehrnews.com/news/7012186/%D8%A8%D8%A7%D8%B2%D9%BE%D8%B1%D8%AF%D8%A7%D8%AE%D8%AA-%D8%AA%D8%B3%D9%87%DB%8C%D9%84%D8%A7%D8%AA-%D8%A8%D8%A7%D9%86%DA%A9%DB%8C-%D8%B6%D8%B1%D9%88%D8%B1%D8%AA%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D8%AF%D8%A7%D9%88%D9%85-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D9%88-%D8%A7%D8%B4%D8%AA%D8%BA%D8%A7%D9%84-%D8%AF%D8%B1"
   },
   {
-   "id": "e5ece64edf7647ad759819dc82a1e1aa80e4603e",
-   "titleKey": "f0ed0b1fdf5b06c419f078b66644535140ea29df",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "شیوع آنفلوانزا در کشور شدت گرفت / ۵۳ درصد مبتلایان کودکان هستند آمارهای تازه وزارت بهداشت از افزایش موارد ابتلا به آنفلوانزا و رشد نمونه‌های مثبت این ویروس حکایت دارد؛ روندی که هم‌زمان با گردش کووید-۱۹، نگرانی‌ها درباره بیماری‌های تنفسی در فصل سرد را افزایش داده است.",
-   "at": "2026-11-15T19:27:05.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2175940/شیوع-آنفلوانزا-در-کشور-شدت-گرفت-53-درصد-مبتلایان-کودکان-هستند"
-  },
-  {
    "id": "a8bc529f2d4416e04cffec52bfe00efcfd44e25c",
    "titleKey": "6fb618901e0440026c6ecafbb0d36fb799fa9718",
    "source": "Sky News World",
@@ -5430,15 +4865,6 @@
    "text": "Company caught up in Nvidia controversy launches internal investigation A cloud computing company facing scrutiny over claims involving tech giant Nvidia has launched an internal investigation conducted by external lawyers.",
    "at": "2026-11-15T17:30:00.000Z",
    "url": "https://news.sky.com/story/company-caught-up-in-nvidia-controversy-launches-internal-investigation-13612539"
-  },
-  {
-   "id": "5a77519525a5ccd6c4fa203e99dd24ed40bcb2a9",
-   "titleKey": "5e12a498d9f64d52b3fad5cb89f3743b0d023d60",
-   "source": "همشهری آنلاین",
-   "lang": "fa",
-   "text": "آمریکایی ها از سایه خودشان هم می ترسند! آمریکایی‌ها دیگر نه به رسانه‌هایشان اعتماد دارند، نه به سیاستمدارانشان و حتی نه به یکدیگر؛ اعتماد اجتماعی در آمریکا به پایین‌ترین سطح نیم‌قرن اخیر سقوط کرده است!",
-   "at": "2026-11-15T19:25:00.000Z",
-   "url": "https://www.hamshahrionline.ir/news/1086439/%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7%DB%8C%DB%8C-%D9%87%D8%A7-%D8%A7%D8%B2-%D8%B3%D8%A7%DB%8C%D9%87-%D8%AE%D9%88%D8%AF%D8%B4%D8%A7%D9%86-%D9%87%D9%85-%D9%85%DB%8C-%D8%AA%D8%B1%D8%B3%D9%86%D8%AF"
   },
   {
    "id": "899b34b8ba0ba49dda19db0ac1420799b5f82b22",
@@ -5641,6 +5067,56 @@
    "titleTexts": [],
    "cat": "economy",
    "queuedAt": "2026-11-16T00:51:30.921Z"
+  },
+  {
+   "kind": "news",
+   "text": "Times of India: بدترین! روهیت شارما پایان سریال نیوزیلند را با رکورد ناخواستهٔ حرفه‌ای می‌گذارد. در سریال ODI هند علیه نیوزیلند، روهیت شارما با چالش‌های دشوار روبه‌رو شد و میانگین ناامیدکننده‌ای به 7.50 داشت. با دو داک (صفر) که به نمرات پایین او در چهار وینت اضافه کردند، بهترین تلاش او فقط 23 ضربه بود. با این حال، هند در آخرین ODI با برد 22 ضربه، سریال را با نتیجه 3-1 به پایان رساند.\n\n🖼 عکس خود خبر: https://static.toiimg.com/photo/msid-135860765,imgsize-109948.cms",
+   "source": "Times of India",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-16T00:59:59.872Z"
+  },
+  {
+   "kind": "news",
+   "text": "Times of India: او در سن 5 سالگی در مسابقات شطرنج خوابید، حالا 88مین گران‌مستر هند است. در ابتدا نسبت به شطرنج بی‌علاقه بود، اما با تشویق خانواده‌اش، علاقه‌اش را پیدا کرد. او به سرعت در رده‌ها بالا رفت، عنوان قهرمان ملی را کسب کرد و سپس با کسب قهرمانی در جام جهانی زنان فایده، شهرت جهانی به دست آورد. به عنوان 88مین گران‌مستر هند، دستاوردهای او که در سال 2026 با جایزه ارجونا از سوی رئیس‌جمهور دروپادی مورمو شناخته شد، هدفشان تشویق دختران جوان به پذیرش شطرنج و دنبال کردن رویاهایشان است.\n\n🖼 عکس خود خبر: https://static.toiimg.com/photo/msid-135855044,imgsize-1241941.cms",
+   "source": "Times of India",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-16T01:00:00.573Z"
+  },
+  {
+   "kind": "news",
+   "text": "اقتصادآنلاین: جنگ اقتصادی در آب‌های آزاد / چین معادله تازه‌ای ساخت چین با اختصاص سپری پانزده میلیارد دلاری به دنبال مقابله با پیامدهای تحریم‌های دریایی آمریکا است.",
+   "source": "اقتصادآنلاین",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-16T01:00:01.274Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: موفقیت نمایشگاه‌های تجاری به شکل‌گیری همکاری‌های اقتصادی است رئیس اتاق بازرگانی مشترک ایران و افغانستان، با تاکید بر ضرورت ارزیابی نتایج عملیاتی نمایشگاه‌های تجاری، گفت: موفقیت یک نمایشگاه صرفا با تعداد بازدیدکنندگان، جلسات برگزارشده یا تفاهم‌نامه‌های امضاشده سنجیده نمی‌شود، بلکه باید بررسی کرد که این رویداد تا چه اندازه به شناسایی فرصت‌های واقعی، یافتن شرکای تجاری مناسب و در نهایت شکل‌گیری همکاری‌های اقتصادی منجر شده است.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/off/khorasan/2024/10/25/4/63222726.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-16T01:00:01.975Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: انفجار آب جوش زیر کاپوت؛ اشتباهی که صورت رانندگان را می‌سوزاند! باز کردن ناگهانی در رادیاتور هنگام جوش آوردن خودرو، سالانه ده‌ها راننده را با سوختگی‌های شدید روبه رو می‌کند.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/15/4/4751320.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-16T01:00:02.676Z"
   }
  ],
  "tweetQueue": [],
@@ -5818,6 +5294,53 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "5df6339f40283c96e943d5b5c0fdadd6839300bf",
+   "titleKey": "8b4c10d729a8eee8cd801637e0c277faa62aceae",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Worst ever! Rohit Sharma ends New Zealand series with unwanted career record During India's ODI series against New Zealand, Rohit Sharma faced uphill challenges, delivering a disappointing average of 7.50. With two ducks contributing to his low scores over four innings, his best effort registered at only 23 runs. Nonetheless, India clinched a 22-run victory in the last ODI, finishing the series 3-1.",
+   "at": "2026-11-16T00:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/sports/cricket/india-vs-new-zealand/worst-ever-rohit-sharma-ends-new-zealand-series-with-unwanted-career-record/articleshow/135860744.cms"
+  },
+  {
+   "id": "698d2c5ff30249e6d71ff81efd11911b3a404d2f",
+   "titleKey": "fd2eb2766aa9845fab3fa1c85a9e3b2d734fdd0d",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "She slept through chess at 5, now she's India's 88th Grandmaster Initially disinterested in chess, Divya Deshmukh found her passion with the encouragement of her family. She rapidly rose through the ranks, claiming the title of national champion and later earning global fame by winning the FIDE Women's World Cup. As India's 88th Grandmaster, her accomplishments, recognized with the Arjuna Award from President Droupadi Murmu in 2026, aim to motivate young girls to embrace chess and pursue their dreams.",
+   "at": "2026-11-16T00:30:29.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/at-5-divya-deshmukh-found-chess-so-boring-she-fell-asleep-in-class-her-coach-used-homemade-chips-to-keep-her-awake-today-she-is-indias-88th-grandmaster-and-an-arjuna-award-winner/articleshow/135854977.cms"
+  },
+  {
+   "id": "ee0b997e330f3cf8d175e98f59c3192634e504d4",
+   "titleKey": "1e35d8d443c343fc31f4597310dd9b43cfa50c5f",
+   "source": "اقتصادآنلاین",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "جنگ اقتصادی در آب‌های آزاد / چین معادله تازه‌ای ساخت چین با اختصاص سپری پانزده میلیارد دلاری به دنبال مقابله با پیامدهای تحریم‌های دریایی آمریکا است.",
+   "at": "2026-11-16T00:51:02.000Z",
+   "url": "https://www.eghtesadonline.com/fa/news/2175879/جنگ-اقتصادی-در-آب-های-آزاد-چین-معادله-تازه-ای-ساخت"
+  },
+  {
+   "id": "ad807253d939c627c07004c7d118171cddaebad9",
+   "titleKey": "6f37a6eba785cec00431b47d26b75acc62a05e53",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "موفقیت نمایشگاه‌های تجاری به شکل‌گیری همکاری‌های اقتصادی است رئیس اتاق بازرگانی مشترک ایران و افغانستان، با تاکید بر ضرورت ارزیابی نتایج عملیاتی نمایشگاه‌های تجاری، گفت: موفقیت یک نمایشگاه صرفا با تعداد بازدیدکنندگان، جلسات برگزارشده یا تفاهم‌نامه‌های امضاشده سنجیده نمی‌شود، بلکه باید بررسی کرد که این رویداد تا چه اندازه به شناسایی فرصت‌های واقعی، یافتن شرکای تجاری مناسب و در نهایت شکل‌گیری همکاری‌های اقتصادی منجر شده است.",
+   "at": "2026-11-16T01:00:00.000Z",
+   "url": "https://www.isna.ir/news/1405082516828/%D9%85%D9%88%D9%81%D9%82%DB%8C%D8%AA-%D9%86%D9%85%D8%A7%DB%8C%D8%B4%DA%AF%D8%A7%D9%87-%D9%87%D8%A7%DB%8C-%D8%AA%D8%AC%D8%A7%D8%B1%DB%8C-%D8%A8%D9%87-%D8%B4%DA%A9%D9%84-%DA%AF%DB%8C%D8%B1%DB%8C-%D9%87%D9%85%DA%A9%D8%A7%D8%B1%DB%8C-%D9%87%D8%A7%DB%8C-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C-%D8%A7%D8%B3%D8%AA"
+  },
+  {
+   "id": "91a590431b39cd0b2fd127b285cacd6945a4fea2",
+   "titleKey": "36f87cbfe0d4f4595c1732bf13fa0a3c0b9772aa",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "انفجار آب جوش زیر کاپوت؛ اشتباهی که صورت رانندگان را می‌سوزاند! باز کردن ناگهانی در رادیاتور هنگام جوش آوردن خودرو، سالانه ده‌ها راننده را با سوختگی‌های شدید روبه رو می‌کند.",
+   "at": "2026-11-16T01:00:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1852945/%D8%A7%D9%86%D9%81%D8%AC%D8%A7%D8%B1-%D8%A2%D8%A8-%D8%AC%D9%88%D8%B4-%D8%B2%DB%8C%D8%B1-%DA%A9%D8%A7%D9%BE%D9%88%D8%AA-%D8%A7%D8%B4%D8%AA%D8%A8%D8%A7%D9%87%DB%8C-%DA%A9%D9%87-%D8%B5%D9%88%D8%B1%D8%AA-%D8%B1%D8%A7%D9%86%D9%86%D8%AF%DA%AF%D8%A7%D9%86-%D8%B1%D8%A7-%D9%85%DB%8C-%D8%B3%D9%88%D8%B2%D8%A7%D9%86%D8%AF"
+  },
   {
    "id": "f1c116d9df8ffc2a4de70fe73eb0fc7d13e79c7b",
    "titleKey": "fc78c21319f7a61fbc7cd3d9246181ffb24ae16f",
@@ -10090,7 +9613,7 @@
   }
  ],
  "lastGeoKey": "2026-11-16T04:00",
- "aiCursor": 5,
+ "aiCursor": 6,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -10724,23 +10247,23 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8935": 1794790305300,
-  "Akharin_khodro/8936": 1794790305300,
-  "Akharin_khodro/8937": 1794790305300,
-  "Akharin_khodro/8938": 1794790305300,
-  "Akharin_khodro/8939": 1794790305300,
-  "Akharin_khodro/8940": 1794790305300,
-  "Akharin_khodro/8941": 1794790305300,
-  "Akharin_khodro/8942": 1794790305300,
-  "Akharin_khodro/8943": 1794790305300,
-  "Akharin_khodro/8944": 1794790305300,
-  "Akharin_khodro/8945": 1794790305300,
-  "Akharin_khodro/8946": 1794790305300,
-  "Akharin_khodro/8947": 1794790305300,
-  "Akharin_khodro/8948": 1794790305300,
-  "Akharin_khodro/8949": 1794790305300,
-  "Akharin_khodro/8951": 1794790305300,
-  "Akharin_khodro/8952": 1794790305300,
+  "Akharin_khodro/8935": 1794790817601,
+  "Akharin_khodro/8936": 1794790817601,
+  "Akharin_khodro/8937": 1794790817601,
+  "Akharin_khodro/8938": 1794790817601,
+  "Akharin_khodro/8939": 1794790817601,
+  "Akharin_khodro/8940": 1794790817601,
+  "Akharin_khodro/8941": 1794790817601,
+  "Akharin_khodro/8942": 1794790817601,
+  "Akharin_khodro/8943": 1794790817601,
+  "Akharin_khodro/8944": 1794790817601,
+  "Akharin_khodro/8945": 1794790817601,
+  "Akharin_khodro/8946": 1794790817601,
+  "Akharin_khodro/8947": 1794790817601,
+  "Akharin_khodro/8948": 1794790817601,
+  "Akharin_khodro/8949": 1794790817601,
+  "Akharin_khodro/8951": 1794790817601,
+  "Akharin_khodro/8952": 1794790817601,
   "Akharin_khodro/8932": 1794752731657,
   "Akharin_khodro/8933": 1794752731657,
   "Akharin_khodro/8934": 1794752731657,
@@ -11675,112 +11198,112 @@
  },
  "sourceHealth": {
   "lastOkAt": {
-   "BBC Sport": "2026-11-16T00:51:45.306Z",
-   "CGTN": "2026-11-16T00:51:45.306Z",
-   "ESPN": "2026-11-16T00:51:45.306Z",
-   "RT": "2026-11-16T00:51:45.306Z",
+   "BBC Sport": "2026-11-16T01:00:17.607Z",
+   "CGTN": "2026-11-16T01:00:17.607Z",
+   "ESPN": "2026-11-16T01:00:17.607Z",
+   "RT": "2026-11-16T01:00:17.607Z",
    "TRT Persian": "2026-11-16T00:34:42.833Z",
-   "Press TV (تلگرام)": "2026-11-16T00:51:45.306Z",
-   "AP News": "2026-11-16T00:51:45.306Z",
-   "Anadolu Agency": "2026-11-16T00:51:45.306Z",
-   "Israel National News": "2026-11-16T00:51:45.306Z",
-   "Sputnik": "2026-11-16T00:51:45.306Z",
-   "Sky News World": "2026-11-16T00:51:45.306Z",
-   "اعتمادآنلاین": "2026-11-16T00:51:45.306Z",
-   "اقتصادآنلاین": "2026-11-16T00:51:45.306Z",
-   "Al Jazeera English": "2026-11-16T00:51:45.306Z",
-   "Al Jazeera Arabic": "2026-11-16T00:51:45.306Z",
-   "Alsumaria": "2026-11-16T00:51:45.306Z",
-   "Asharq Al-Awsat": "2026-11-16T00:51:45.306Z",
-   "Al-Araby Al-Jadeed": "2026-11-16T00:51:45.306Z",
-   "Al Arabiya": "2026-11-16T00:51:45.306Z",
-   "Al Masirah": "2026-11-16T00:51:45.306Z",
-   "Al Mayadeen": "2026-11-16T00:51:45.306Z",
-   "MSNBC": "2026-11-16T00:51:45.306Z",
-   "انصاف نیوز": "2026-11-16T00:51:45.306Z",
-   "NPR World": "2026-11-16T00:51:45.306Z",
-   "Iran International": "2026-11-16T00:51:45.306Z",
-   "باشگاه خبرنگاران جوان (YJC)": "2026-11-16T00:51:45.306Z",
-   "Bloomberg": "2026-11-16T00:51:45.306Z",
-   "BBC Persian": "2026-11-16T00:51:45.306Z",
-   "BBC World": "2026-11-16T00:51:45.306Z",
-   "TASS English": "2026-11-16T00:51:45.306Z",
-   "Times of Israel": "2026-11-16T00:51:45.306Z",
-   "Times of India": "2026-11-16T00:51:45.306Z",
-   "تجارت نیوز": "2026-11-16T00:51:45.306Z",
-   "خبرآنلاین": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری ایسنا": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری ایلنا": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری فارس": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری مهر": "2026-11-16T00:51:45.306Z",
-   "The Hill": "2026-11-16T00:51:45.306Z",
-   "The Hindu": "2026-11-16T00:51:45.306Z",
-   "Dawn": "2026-11-16T00:51:45.306Z",
-   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-16T00:51:45.306Z",
-   "دنیای اقتصاد": "2026-11-16T00:51:45.306Z",
-   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-16T00:51:45.306Z",
-   "DW English": "2026-11-16T00:51:45.306Z",
-   "DW Persian": "2026-11-16T00:51:45.306Z",
+   "Press TV (تلگرام)": "2026-11-16T01:00:17.607Z",
+   "AP News": "2026-11-16T01:00:17.607Z",
+   "Anadolu Agency": "2026-11-16T01:00:17.607Z",
+   "Israel National News": "2026-11-16T01:00:17.607Z",
+   "Sputnik": "2026-11-16T01:00:17.607Z",
+   "Sky News World": "2026-11-16T01:00:17.607Z",
+   "اعتمادآنلاین": "2026-11-16T01:00:17.607Z",
+   "اقتصادآنلاین": "2026-11-16T01:00:17.607Z",
+   "Al Jazeera English": "2026-11-16T01:00:17.607Z",
+   "Al Jazeera Arabic": "2026-11-16T01:00:17.607Z",
+   "Alsumaria": "2026-11-16T01:00:17.607Z",
+   "Asharq Al-Awsat": "2026-11-16T01:00:17.607Z",
+   "Al-Araby Al-Jadeed": "2026-11-16T01:00:17.607Z",
+   "Al Arabiya": "2026-11-16T01:00:17.607Z",
+   "Al Masirah": "2026-11-16T01:00:17.607Z",
+   "Al Mayadeen": "2026-11-16T01:00:17.607Z",
+   "MSNBC": "2026-11-16T01:00:17.607Z",
+   "انصاف نیوز": "2026-11-16T01:00:17.607Z",
+   "NPR World": "2026-11-16T01:00:17.607Z",
+   "Iran International": "2026-11-16T01:00:17.607Z",
+   "باشگاه خبرنگاران جوان (YJC)": "2026-11-16T01:00:17.607Z",
+   "Bloomberg": "2026-11-16T01:00:17.607Z",
+   "BBC Persian": "2026-11-16T01:00:17.607Z",
+   "BBC World": "2026-11-16T01:00:17.607Z",
+   "TASS English": "2026-11-16T01:00:17.607Z",
+   "Times of Israel": "2026-11-16T01:00:17.607Z",
+   "Times of India": "2026-11-16T01:00:17.607Z",
+   "تجارت نیوز": "2026-11-16T01:00:17.607Z",
+   "خبرآنلاین": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری ایسنا": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری ایلنا": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری فارس": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری مهر": "2026-11-16T01:00:17.607Z",
+   "The Hill": "2026-11-16T01:00:17.607Z",
+   "The Hindu": "2026-11-16T01:00:17.607Z",
+   "Dawn": "2026-11-16T01:00:17.607Z",
+   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-16T01:00:17.607Z",
+   "دنیای اقتصاد": "2026-11-16T01:00:17.607Z",
+   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-16T01:00:17.607Z",
+   "DW English": "2026-11-16T01:00:17.607Z",
+   "DW Persian": "2026-11-16T01:00:17.607Z",
    "Radio Zamaneh": "2026-11-15T14:54:40.264Z",
-   "RFI Persian": "2026-11-16T00:51:45.306Z",
-   "Radio Farda": "2026-11-16T00:51:45.306Z",
-   "People's Daily English": "2026-11-16T00:51:45.306Z",
-   "Reuters": "2026-11-16T00:51:45.306Z",
-   "WHO News": "2026-11-16T00:51:45.306Z",
-   "FAO News": "2026-11-16T00:51:45.306Z",
-   "SCMP": "2026-11-16T00:51:45.306Z",
-   "CNN World": "2026-11-16T00:51:45.306Z",
-   "Israel Channel 12": "2026-11-16T00:51:45.306Z",
-   "NOW14 Israel": "2026-11-16T00:51:45.306Z",
-   "Xinhua English": "2026-11-16T00:51:45.306Z",
-   "TOLOnews": "2026-11-16T00:51:45.306Z",
-   "عصر ایران (Asr-e Iran)": "2026-11-16T00:51:45.306Z",
-   "Fox News World": "2026-11-16T00:51:45.306Z",
-   "France 24 English": "2026-11-16T00:51:45.306Z",
-   "مشرق نیوز": "2026-11-16T00:51:45.306Z",
-   "NYT World": "2026-11-16T00:51:45.306Z",
-   "Haaretz English": "2026-11-16T00:51:45.306Z",
-   "Washington Post": "2026-11-16T00:51:45.306Z",
-   "WSJ World": "2026-11-16T00:51:45.306Z",
+   "RFI Persian": "2026-11-16T01:00:17.607Z",
+   "Radio Farda": "2026-11-16T01:00:17.607Z",
+   "People's Daily English": "2026-11-16T01:00:17.607Z",
+   "Reuters": "2026-11-16T01:00:17.607Z",
+   "WHO News": "2026-11-16T01:00:17.607Z",
+   "FAO News": "2026-11-16T01:00:17.607Z",
+   "SCMP": "2026-11-16T01:00:17.607Z",
+   "CNN World": "2026-11-16T01:00:17.607Z",
+   "Israel Channel 12": "2026-11-16T01:00:17.607Z",
+   "NOW14 Israel": "2026-11-16T01:00:17.607Z",
+   "Xinhua English": "2026-11-16T01:00:17.607Z",
+   "TOLOnews": "2026-11-16T01:00:17.607Z",
+   "عصر ایران (Asr-e Iran)": "2026-11-16T01:00:17.607Z",
+   "Fox News World": "2026-11-16T01:00:17.607Z",
+   "France 24 English": "2026-11-16T01:00:17.607Z",
+   "مشرق نیوز": "2026-11-16T01:00:17.607Z",
+   "NYT World": "2026-11-16T01:00:17.607Z",
+   "Haaretz English": "2026-11-16T01:00:17.607Z",
+   "Washington Post": "2026-11-16T01:00:17.607Z",
+   "WSJ World": "2026-11-16T01:00:17.607Z",
    "ورزش۳": "2026-11-14T19:49:20.670Z",
-   "Press TV": "2026-11-16T00:51:45.306Z",
-   "Politico": "2026-11-16T00:51:45.306Z",
-   "China Daily": "2026-11-16T00:51:45.306Z",
-   "Guardian World": "2026-11-16T00:51:45.306Z",
-   "Guardian Environment": "2026-11-16T00:51:45.306Z",
-   "Global Times": "2026-11-16T00:51:45.306Z",
-   "Euronews Persian": "2026-11-16T00:51:45.306Z",
-   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-16T00:51:45.306Z",
-   "همشهری آنلاین": "2026-11-16T00:51:45.306Z",
-   "انتخاب": "2026-11-16T00:51:45.306Z"
+   "Press TV": "2026-11-16T01:00:17.607Z",
+   "Politico": "2026-11-16T01:00:17.607Z",
+   "China Daily": "2026-11-16T01:00:17.607Z",
+   "Guardian World": "2026-11-16T01:00:17.607Z",
+   "Guardian Environment": "2026-11-16T01:00:17.607Z",
+   "Global Times": "2026-11-16T01:00:17.607Z",
+   "Euronews Persian": "2026-11-16T01:00:17.607Z",
+   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-16T01:00:17.607Z",
+   "همشهری آنلاین": "2026-11-16T01:00:17.607Z",
+   "انتخاب": "2026-11-16T01:00:17.607Z"
   },
   "alertedAt": {}
  },
  "adminHealth": {
   "failStreak": 0
  },
- "tweetCursor": 14,
- "lastRunAt": "2026-11-16T00:51:45.309Z",
+ "tweetCursor": 4,
+ "lastRunAt": "2026-11-16T01:00:17.611Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 3,
   "fetched": 1068,
-  "inWindow": 158,
-  "fresh": 8,
-  "sent": 8,
+  "inWindow": 150,
+  "fresh": 5,
+  "sent": 5,
   "images": 0,
-  "translated": 6,
+  "translated": 2,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 114,
+  "tweetsFetched": 117,
   "tweetsSent": 0,
   "tweetAccountsTried": 6,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 0,
-  "queued": 8,
+  "queued": 5,
   "tweetRateLimited": false
  }
 }

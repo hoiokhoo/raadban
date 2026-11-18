@@ -1,5 +1,13 @@
 {
  "sentIds": {
+  "b50de17b0e890b7887ce26c4b9b884bab38a7f6d": 1795045612949,
+  "1431aa957fde93a39ec086c2f1a3d38eefa29628": 1795045612949,
+  "7317b287461b408fbc19bfe65a5a456cd9b3337b": 1795045612949,
+  "8f3ef3cb7c9a3e04153d0fa02e65efa56cc4d7fa": 1795045612949,
+  "c6d87bb33ae78f6a157f2456468e0cbb016f0185": 1795045612949,
+  "b6852b66d9608850c5fd514a5515f21ad1bcb712": 1795045612949,
+  "32ab90b8b377f3578686b4bbcdf30e13f2107770": 1795045612949,
+  "24d226cbf61ff022e75d5b2a19702f21dd9e738f": 1795045612949,
   "9cf23ce7db1d853e0c5bfb6df7cf2b2ad84795a5": 1795045039761,
   "75205eb53fce93c048801abbf0696e0ca56a3545": 1795045039761,
   "a9a048ea5e7cb5b19a84bd2d702ba09f20218255": 1795045039761,
@@ -1191,17 +1199,17 @@
   "80748fb1f21498cdd3cc0e2db7b422d8b2a7e1e5": 1795020471144,
   "20defa4c6cb6efb4cbb516666dfd3aeb604e217b": 1795020471144,
   "e18183c4fadee949e190af99206b6d1b97b5d8de": 1795020471144,
-  "daa5f739f574d63996867c0f65fb545d74678e82": 1795020471144,
-  "8a223603598eb7f8d86893f3af799d5cb7aaf3e1": 1795020471144,
-  "87c30fe8c4c2652e813a23b7cc1eef92515745a8": 1795020471144,
-  "eaea2516cdf916af21a2ba3dd44a4189bfbc6887": 1795020471144,
-  "ce6e747b63f1df26f7dc670adb37265935fa1672": 1795020471144,
-  "7367c52c3ee9f4216e3c8a3bd44c0d53305c593a": 1795020471144,
-  "a1ad5ba503e708723ec1446d961b298def431028": 1795020471144,
-  "6a47fee7397b814e9147d864c946b09fb3ea9e40": 1795020471144,
-  "fbc6e8c390f171280bd54487bfa647e26b3fe8ec": 1795020471144
+  "daa5f739f574d63996867c0f65fb545d74678e82": 1795020471144
  },
  "sentTitles": {
+  "46115e4b84fa9b949d91af03d6c7a1a44e9edae9": 1795045612949,
+  "a643e2e2aa9aa7dff3e325601040c4ffd166eb32": 1795045612949,
+  "72cfbfc91fb6edff0573917c94b8c50d577d6f0f": 1795045612949,
+  "6206bffa8ebf98dc765851f51cec26fc7db26a20": 1795045612949,
+  "f8d495ebe8c9ad89e3a9e6eae3ee7b040066e628": 1795045612949,
+  "8425e44affc215de8b5acb216440c74df5a28d60": 1795045612949,
+  "398c5da1b46331e52b7f02508b9bec0dffb93c7b": 1795045612949,
+  "c71125d46f9ab5f774d3e8f0bac1ca170e3883ef": 1795045612949,
   "5f408536a63ac46bb1a04912585e20be2a42c630": 1795045039761,
   "ec934ef6af6ddd797d8ad611618791040f0841b6": 1795045039761,
   "a4f7ad628b4d463e0806dce906172409595efb7c": 1795045039761,
@@ -1793,15 +1801,7 @@
   "c4b29a0dd80f922814f4148e74d4d37682f27000": 1795028322371,
   "db0086fa16c5196a16ae9f2059cb66f924667f61": 1795028322371,
   "a47f0054665fdf41b95f822fda896a5e0117717f": 1795028322371,
-  "b8e09f42d46edb4711fdb00d26ca5a07b57f9447": 1795028322371,
-  "ca54f243ca5853a3011581fac0b04239f637c02b": 1795028322371,
-  "0e99ef5c6a5892c2faae27fbb9e43e0cdecab43b": 1795028322371,
-  "a23b06927bf666241b394077d7626414ad6aa411": 1795028322371,
-  "bfbe3964258550d3d20b2831e691b1a019a122e4": 1795028322371,
-  "f7edd9bce30d3d0f7b63dc067fa2026c0a52e43c": 1795028322371,
-  "0a68ada040d88153b66cda36a27e2f2d6c133d02": 1795028322371,
-  "493f5214568e6cb7017210009432785ad118e7e8": 1795028322371,
-  "f935e83260d31d85572d4127b248046f424750df": 1795028322371
+  "b8e09f42d46edb4711fdb00d26ca5a07b57f9447": 1795028322371
  },
  "sentTitleTexts": {
   "فرستادگان امریکایی گفتند که فردا در برلین در جریان نشست هایمان گزارشی از گفتگوهایی که رییس جمهور امریکا هم اکنون در چین در حال انجام ان است به ما ارایه خواهند د": 1795030798194,
@@ -3009,6 +3009,80 @@
  },
  "pool": [
   {
+   "id": "b50de17b0e890b7887ce26c4b9b884bab38a7f6d",
+   "titleKey": "46115e4b84fa9b949d91af03d6c7a1a44e9edae9",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Temple flower waste becomes leather alternative; firm processes 50 tonnes daily Phool aims to revolutionize waste management by repurposing discarded flowers collected from temples into eco-friendly products. Processing about 50 tonnes of floral waste daily across four Indian states, they have garnered $6 million in debt financing for future growth. Their standout items, including a leather alternative crafted from flowers, have received international acclaim. Additionally, Phool empowers marginalized women by creating meaningful job opportunities.",
+   "at": "2026-11-18T23:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/a-venture-that-turns-discarded-temple-flowers-into-an-alternative-to-leather-now-processes-50-tonnes-a-day-across-four-indian-states-it-has-secured-6-million-in-debt-financing-from-three-indian-banks/articleshow/135953862.cms"
+  },
+  {
+   "id": "1431aa957fde93a39ec086c2f1a3d38eefa29628",
+   "titleKey": "a643e2e2aa9aa7dff3e325601040c4ffd166eb32",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Russian man accused of spying on US tech defence company that assists Ukraine The suspect followed employees and and was found with fake US ID documents and two Russian passports, US prosecutors say.",
+   "at": "2026-11-18T23:28:03.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "7317b287461b408fbc19bfe65a5a456cd9b3337b",
+   "titleKey": "72cfbfc91fb6edff0573917c94b8c50d577d6f0f",
+   "source": "Fox News World",
+   "lang": "en",
+   "text": "Irish activist indicted in US over alleged destruction of $60M military plane United States prosecutors say Daithi O&apos;Corrain spent months planning the Shannon Airport attack that left a $60 million C-130H Hercules beyond repair",
+   "at": "2026-11-18T23:29:34.000Z",
+   "url": "https://www.foxnews.com/world/irish-activist-indicted-us-alleged-destruction-60m-military-plane"
+  },
+  {
+   "id": "8f3ef3cb7c9a3e04153d0fa02e65efa56cc4d7fa",
+   "titleKey": "6206bffa8ebf98dc765851f51cec26fc7db26a20",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "California couple die at seaside mansion; kids sue alleging carbon monoxide leak In a tragic turn of events, three children are pursuing a wrongful death lawsuit following the passing of their parents, John and Kristen Ruskey, due to carbon monoxide poisoning on February 8, 2026, at their seaside home. The lawsuit claims that a faulty water heater and a malfunctioning carbon monoxide detector were significant factors in their untimely deaths.",
+   "at": "2026-11-18T23:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-california-couple-died-after-spending-the-night-at-a-seaside-mansion-months-later-their-three-children-sued-the-homeowners-and-a-water-heater-maker-alleging-a-carbon-monoxide-leak-killed-both-parents/articleshow/135951886.cms"
+  },
+  {
+   "id": "c6d87bb33ae78f6a157f2456468e0cbb016f0185",
+   "titleKey": "f8d495ebe8c9ad89e3a9e6eae3ee7b040066e628",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Claude-maker Anthropic poised for $1.4tn stock market debut Anthropic started just five years ago an is now one of the biggest names in artificial intelligence.",
+   "at": "2026-11-18T23:36:04.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "b6852b66d9608850c5fd514a5515f21ad1bcb712",
+   "titleKey": "8425e44affc215de8b5acb216440c74df5a28d60",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مشاهده کیف هسته‌ای روسیه در سفر پوتین به چین همزمان با سفر رئیس‌جمهور روسیه به چین برای شرکت در اجلاس اپک، کیف ویژه فرماندهی هسته‌ای این کشور در میان اعضای هیئت همراه ولادیمیر پوتین مشاهده شد.",
+   "at": "2026-11-18T23:36:29.000Z",
+   "url": "https://www.isna.ir/news/1405082819431/%D9%85%D8%B4%D8%A7%D9%87%D8%AF%D9%87-%DA%A9%DB%8C%D9%81-%D9%87%D8%B3%D8%AA%D9%87-%D8%A7%DB%8C-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%AF%D8%B1-%D8%B3%D9%81%D8%B1-%D9%BE%D9%88%D8%AA%DB%8C%D9%86-%D8%A8%D9%87-%DA%86%DB%8C%D9%86"
+  },
+  {
+   "id": "32ab90b8b377f3578686b4bbcdf30e13f2107770",
+   "titleKey": "398c5da1b46331e52b7f02508b9bec0dffb93c7b",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Terrorists in Afghanistan armed themselves with drones, put pressure on Kabul Acting UN Under-Secretary-General for Counter-Terrorism Alexander Zuev said that the so-called Islamic State - Khorasan Province \"seeks to carry out operations both within the country and beyond its borders\"",
+   "at": "2026-11-18T23:39:07.000Z",
+   "url": "https://tass.com/politics/2220837"
+  },
+  {
+   "id": "24d226cbf61ff022e75d5b2a19702f21dd9e738f",
+   "titleKey": "c71125d46f9ab5f774d3e8f0bac1ca170e3883ef",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دردسر جدید برای ترامپ رابرت گارسیا، نماینده دموکرات مجلس نمایندگان آمریکا که انتظار می‌رود ریاست کمیته نظارت این مجلس را بر عهده بگیرد، از آغاز تحقیقات درباره اتهام‌های فساد در خانواده دونالد ترامپ، پرونده جفری اپستین و سیاست‌های سخت‌گیرانه دولت آمریکا در حوزه مهاجرت خبر داد.",
+   "at": "2026-11-18T23:42:11.000Z",
+   "url": "https://www.isna.ir/news/1405082819432/%D8%AF%D8%B1%D8%AF%D8%B3%D8%B1-%D8%AC%D8%AF%DB%8C%D8%AF-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE"
+  },
+  {
    "id": "9cf23ce7db1d853e0c5bfb6df7cf2b2ad84795a5",
    "titleKey": "5f408536a63ac46bb1a04912585e20be2a42c630",
    "source": "Bloomberg",
@@ -4171,15 +4245,6 @@
    "url": "https://www.mehrnews.com/news/7016048/%D8%A2%DA%98%D8%A7%D9%86%D8%B3-%D9%86%D9%85%DB%8C-%D8%AA%D9%88%D8%A7%D9%86%D8%AF-%D8%AF%D8%B1-%D9%82%D8%A8%D8%A7%D9%84-%D8%B2%D8%B1%D8%A7%D8%AF%D8%AE%D8%A7%D9%86%D9%87-%D8%A7%D8%AA%D9%85%DB%8C-%D8%B1%DA%98%DB%8C%D9%85-%D8%B5%D9%87%DB%8C%D9%88%D9%86%DB%8C%D8%B3%D8%AA%DB%8C-%D8%A8%DB%8C-%D8%AA%D9%81%D8%A7%D9%88%D8%AA"
   },
   {
-   "id": "0126a47328f141f2e664a86e55e24d5a60405cf1",
-   "titleKey": "09aa1ac72df622c3f4f6f06eb3b4d61cba48cbe7",
-   "source": "همشهری آنلاین",
-   "lang": "fa",
-   "text": "بیانیه ایران، روسیه و چین؛ بازرسی آژانس تنها پس‌از جنگ ممکن می‌شود ایران،‌ روسیه و چین روز چهارشنبه با انتشار بیانیه‌ای تجاوزات نظامی علیه ایران را رد کرده و تأکید نمودند که ازسرگیری بازرسی‌ها از تأسیسات هسته‌ای ایران تنها پس‌از پایان تهدیدها و اقدامات نظامی علیه ایران امکان‌پذیر است.",
-   "at": "2026-11-18T22:02:30.000Z",
-   "url": "https://www.hamshahrionline.ir/news/1087579/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D9%88-%DA%86%DB%8C%D9%86-%D8%A8%D8%A7%D8%B2%D8%B1%D8%B3%DB%8C-%D8%A2%DA%98%D8%A7%D9%86%D8%B3-%D8%AA%D9%86%D9%87%D8%A7-%D9%BE%D8%B3-%D8%A7%D8%B2-%D8%AC%D9%86%DA%AF-%D9%85%D9%85%DA%A9%D9%86-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
-  },
-  {
    "id": "ee64a1148190f230ed4f4fa36a869e016abba334",
    "titleKey": "5dbf4a637dc8fc273d1df9b2ccf226abd61170c1",
    "source": "Asharq Al-Awsat",
@@ -4187,15 +4252,6 @@
    "text": "«حصري»: محاضر رابطة الدوري السعودي تكشف عن 222 مليون ريال مصروفات تقديرية للموسم الجديد - الشرق الأوسط «حصري»: محاضر رابطة الدوري السعودي تكشف عن 222 مليون ريال مصروفات تقديرية للموسم الجديد الشرق الأوسط",
    "at": "2026-11-18T19:48:04.000Z",
    "url": "https://news.google.com/rss/articles/CBMipwVBVV95cUxOU3JNN2RzSC11cE9Yai15U05oQlRHdmFuZEItdmtha1RQbUlKT3d0NlNUZzBkWGdZY2Z4MllndGdkeVgwWEFnZjc4MEt2REVOSjlIV1kxMzdDVFE0X0hPUkxiTnFWcnpFYlUzUUp2MVJxTzJvR3Y5TnRUX25Pb3RKUVdpcktORXR3eDFaalVFYk9SZlJfaGlUSGpZWEgyU3JjWm01MVV2VHFaNG0xckVzTXp0S05ZQThHNDZFUm1qQmVtQk9OSTQtd01tQzFtRzd4eEhjSFBreGhYVEhsNVc3TG9ZdG5UVVhBUGE1Q0NCX1VQTEZ5VTBNYWVIYjV1Um9Ldm1kdjU3SGY0RzRPMDNkVkxvTkVCNjNsZ3psRUo1WFh2dE1pUFloTTIyRzI3Zmp4QW9pM1RjSDRUMnhlV2VPRTkxNk9PZEFGQnZ5VEpyTVEzeWxodE56X2hnTkZsMVk0LTlWZm50am5GVmY2X0tWaTBZOHVBdUQzcnB2YnBUMTlMWVBtQWhpQjFBQXlIbmdYUjM2Z2VoRml2NXJwNzFycTlXR0FDR09faUVmZHFHSEpNM0M4em5rME1zNTc5OXh2dnAxV2tzTDJOWWdXWDB6R0xMUE5HeXFyU054YkEtSDcydjJGZHpGMHNpVXhsc1Jwanhza3R2Sk90Q0g5alNNRzE1WGs0WXkxU0d3dG5FbndaSG9EUjgyVVZQVkdheC1pYm9GaHVrYURSZndJclAtRXF6UHRKNzRqa1NzZXI4TDd2ZlJUSDZ4NHhaMDVjaGFHMmdLR3ZGWG8wazBWVVBDbExiME9tRkpEQUxFelBhQ0VFOFkzdU5hRFV0NUowUnZOcEpXZkd6SGFUeHdzWDZ5aEJGZmlHOWt6aS1qSnJpcEpOWVNYYTFZ?oc=5"
-  },
-  {
-   "id": "cad3b1300310ece58e4aef6b46289a9b9af39800",
-   "titleKey": "076fdd4a1d22b467c44d3980b3fd562bf7cb2890",
-   "source": "AP News",
-   "lang": "en",
-   "text": "2026 U.S. House Election Results - AP News 2026 U.S. House Election Results AP News",
-   "at": "2026-11-18T20:00:40.000Z",
-   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBUM0VmeFZ2SjF1RGJlVENLazFvbHZxWjRIYUlNMFlKal9sRW1ySS1UQWo4djh3cWpLcXJLWWFuWXBmdkllMTd2aVRhWF9YZFM5ZGRmN3pxZW5nWERXMjREbTVDeGF2RXRfM3ZTUw?oc=5"
   },
   {
    "id": "9529eec269b303124e5b854814675026deda5642",
@@ -4207,16 +4263,6 @@
    "url": "https://thehill.com/homenews/house/6228792-homeland-security-tech-outages/"
   },
   {
-   "id": "f71a43599d4948dd80c553a35b76373f97204863",
-   "titleKey": "e18f3911fc604e12063f6806992b5f78b2898f4a",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "بیانیه وزارت امور خارجه درباره ضربات دفاعی ایران علیه پایگاه‌ها و دارایی‌های ارتش آمریکا وزارت امور خارجه جمهوری اسلامی ایران، اقدامات تجاوزکارانه ارتش ترویستی آمریکا علیه نقاطی از کشورمان در سواحل جنوبی طی چند روز گذشته را به‌شدت محکوم می‌کند.",
-   "at": "2026-11-18T21:43:00.000Z",
-   "url": "https://www.isna.ir/news/1405082819423/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%A7%D9%85%D9%88%D8%B1-%D8%AE%D8%A7%D8%B1%D8%AC%D9%87-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%B6%D8%B1%D8%A8%D8%A7%D8%AA-%D8%AF%D9%81%D8%A7%D8%B9%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%B9%D9%84%DB%8C%D9%87-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D9%87%D8%A7"
-  },
-  {
    "id": "2409d113d5e5ef513ed259698210a27b0c44f5d4",
    "titleKey": "4d4a844661d66bacda5e9debd294ed58aacc79cb",
    "source": "انصاف نیوز",
@@ -4224,15 +4270,6 @@
    "text": "آیت الله وحید خراسانی؛ مرجعِ مسئول و مردم پناه غلامرضا بنی اسدی، روزنامه‌نگار، در یادداشتی که در اختیار انصاف نیوز قرار داده است، نوشت: آیت الله هم بر ایمان مردم غیور بود و هم بر نام و اعتبار و حرمت شان. مرجع تقلید بود برای مومنان و ملجاء و پناه برای کسانی که احساس می کردند ستمی برآنان رفته است. «وحید خراسانی» فقط در«علم […] نوشته آیت الله وحید خراسانی؛ مرجعِ مسئول و مردم پناه اولین بار در انصاف نیوز پدیدار شد.",
    "at": "2026-11-18T21:44:01.000Z",
    "url": "https://ensafnews.com/679369/%d8%a2%db%8c%d8%aa-%d8%a7%d9%84%d9%84%d9%87-%d9%88%d8%ad%db%8c%d8%af-%d8%ae%d8%b1%d8%a7%d8%b3%d8%a7%d9%86%db%8c%d8%9b-%d9%85%d8%b1%d8%ac%d8%b9%d9%90-%d9%85%d8%b3%d8%a6%d9%88%d9%84-%d9%88-%d9%85%d8%b1/"
-  },
-  {
-   "id": "663adc5ca0c94f0b77e52174a5bb42638bd3d3d7",
-   "titleKey": "490578381f9871e4f77353a5f5ee15780c91bcae",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "بیانیه وزارت امور خارجه درباره پاسخ دفاعی ایران به تجاوزات نظامی ارتش تروریستی آمریکا تهران - ایرنا - وزارت امور خارجه در بیانیه ای، واکنش نیروهای مسلح جمهوری اسلامی ایران به اقدامات تجاوزکارانه را در چارچوب حق ذاتی دفاع مشروع و در راستای صیانت از حاکمیت ملی و تمامیت سرزمینی کشور دانست و تاکید کرد، مسئولیت حقوقی و بین‌المللی تبعات ناشی از این وضعیت متوجه آمریکا است.",
-   "at": "2026-11-18T21:44:32.000Z",
-   "url": "https://www.irna.ir/news/86326311/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%A7%D9%85%D9%88%D8%B1-%D8%AE%D8%A7%D8%B1%D8%AC%D9%87-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D9%BE%D8%A7%D8%B3%D8%AE-%D8%AF%D9%81%D8%A7%D8%B9%DB%8C-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D9%87-%D8%AA%D8%AC%D8%A7%D9%88%D8%B2%D8%A7%D8%AA-%D9%86%D8%B8%D8%A7%D9%85%DB%8C"
   },
   {
    "id": "c20357039aafd2d3c15e29a8c60d7b7821ab3db2",
@@ -4245,16 +4282,6 @@
    "url": "https://www.eghtesadonline.com/fa/news/2176473/ناترازی-بانک-ها-حل-نشد-دولت-در-تامین-سرمایه-بانک-ها-چقدر-عقب-ماند"
   },
   {
-   "id": "a89a0c0d80a24f877a9205303e737866e5903067",
-   "titleKey": "2eff264690d2ea90e88a5386c3a5ee898782c2b7",
-   "source": "Euronews Persian",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "نهاد ناظر حفاظت داده‌ها افشای گسترده ۱۵ میلیون پرونده در دویچه‌بانک را بررسی می‌کند یک نهاد ناظر داده‌های ایالتی در آلمان روز چهارشنبه تحقیقاتی را درباره دویچه بانک پس از یک نشت گسترده داده آغاز کرده است. این نهاد در حال بررسی احتمال نقض قوانین حفاظت از داده‌ها است.",
-   "at": "2026-11-18T21:45:36.000Z",
-   "url": "https://parsi.euronews.com/2026/11/18/data-watchdog-investigates-massive-deutsche-bank-leak-involving-15-million-files"
-  },
-  {
    "id": "325b91040e443221ae2abda04d77d3ed9e350606",
    "titleKey": "3cb3176b0f6ca512e930994e08cb64e5234e0b83",
    "source": "خبرگزاری ایسنا",
@@ -4263,16 +4290,6 @@
    "text": "بقایی: گروسی ظاهراً قطعنامه تاریخی ۱۹۹۵ را از یاد برده است سخنگوی وزارت خارجه گفت که گروسی نمی‌تواند با استناد به «عدم عضویت» رژیم صهیونیستی در معاهده منع اشاعه، بی‌تفاوتی آژانس در قبال زرادخانه اتمی آن رژیم و فتار دوگانه آژانس در قبال برنامه هسته‌ای ایران را کتمان کند.",
    "at": "2026-11-18T21:50:38.000Z",
    "url": "https://www.isna.ir/news/1405082819424/%D8%A8%D9%82%D8%A7%DB%8C%DB%8C-%DA%AF%D8%B1%D9%88%D8%B3%DB%8C-%D8%B8%D8%A7%D9%87%D8%B1%D8%A7-%D9%82%D8%B7%D8%B9%D9%86%D8%A7%D9%85%D9%87-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE%DB%8C-%DB%B1%DB%B9%DB%B9%DB%B5-%D8%B1%D8%A7-%D8%A7%D8%B2-%DB%8C%D8%A7%D8%AF-%D8%A8%D8%B1%D8%AF%D9%87-%D8%A7%D8%B3%D8%AA"
-  },
-  {
-   "id": "60d410be4c8e26929478d3f30b343e021488ba12",
-   "titleKey": "9bf22f0167d9dfbf77b6b3c1ef353757cb166cc5",
-   "source": "ESPN",
-   "cat": "sports",
-   "lang": "en",
-   "text": "Rob Manfred says MLB owners won't compromise on salary cap - ESPN Rob Manfred says MLB owners won't compromise on salary cap ESPN",
-   "at": "2026-11-18T20:42:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNVFdFYm1tWjh1OE5vQ3dQT0d2aFVSUV9pNXJ0ejgtNVFlcFYwWGRkRWJ0SmVYOTFDbTNjSFN2alF3WW9jS0JWYS1WR0ZCWElJRHhvNGR5d3dic2F6dEpqOTFDMk9HR05nSEl4M1h1UVRPVWpTOUVXSDRsbDFYTkc3ZWtRWTdJT3pISE0yWWw1bFNOMVRXOHlYYXBB?oc=5"
   },
   {
    "id": "d7dc60f18fdcb86bb0caff0dcea708faad984bbc",
@@ -4285,15 +4302,6 @@
    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOcVdFN3dYWXVfemZHQXFadWNMZWZqYjViVmxNQXhVcFVKWmgwYWt0YmxGaXlYVGVEYnh3QmdvOVZFWUw3bVJZVC1WcU5JRVYyRjA1MlRhX290a0J6X1FmQXNXdHhEV21PZC1UdmlNd3g4VnJGaXpDazlXcW9iOUcybzNpRHlOZFhidHNzOVc0VUdVZjlKUldlQ2ZNbURMcDNlTnlv?oc=5"
   },
   {
-   "id": "6ccc664f899664a5deb0523fca0ae00acf94aeaf",
-   "titleKey": "802928879560f8c50ed3382a7b0fe1400b1f5a55",
-   "source": "Al Jazeera English",
-   "lang": "en",
-   "text": "US Defence Secretary Hegseth reveals military partnership on Venezuela trip Pete Hegseth says the agreement will include joint training and intelligence sharing with the Venezuelan military.",
-   "at": "2026-11-18T21:01:05.000Z",
-   "url": "https://www.aljazeera.com/news/2026/11/18/us-defence-secretary-announces-military-partnership-on-trip-to-venezuela?traffic_source=rss"
-  },
-  {
    "id": "e48ba57fcb4e2086a1c7733195d00e1162734116",
    "titleKey": "d2ff263919b4f36df977f39992993e74a04f6759",
    "source": "Al Jazeera English",
@@ -4301,15 +4309,6 @@
    "text": "Floodwaters submerge cars and parking lots in Florida town Floodwaters turned streets and parking lots into rivers in Davie, Florida, leaving drivers facing dangerous conditions.",
    "at": "2026-11-18T21:08:04.000Z",
    "url": "https://www.aljazeera.com/video/newsfeed/2026/11/18/aje-onl-nf_floodwaters-submerge-cars-in-florida-181126?traffic_source=rss"
-  },
-  {
-   "id": "9a49f85a2fc32a3ca4b46b699b1088c2282ed478",
-   "titleKey": "d38bb86aa6e0161909cd1e5a7bca3f798531d397",
-   "source": "Al Jazeera English",
-   "lang": "en",
-   "text": "US lawmakers push to raise minimum wage to $25, end tipped pay system Public support for raising the minimum wage grows, with 78 percent of voters saying it was an important election issue.",
-   "at": "2026-11-18T21:24:19.000Z",
-   "url": "https://www.aljazeera.com/economy/2026/11/18/us-lawmakers-push-to-raise-minimum-wage-to-25-end-tipped-pay-system?traffic_source=rss"
   },
   {
    "id": "4462219057faf129a08ce9f3516328f486f4618a",
@@ -4321,16 +4320,6 @@
    "url": "https://timesofindia.indiatimes.com/world/rest-of-world/a-canadian-couple-built-a-deck-at-their-british-columbia-resort-cabin-without-written-approval-their-resort-manager-wanted-it-demolished-but-a-november-13-appeals-ruling-let-it-stay-with-a-5000-payment/articleshow/135947953.cms"
   },
   {
-   "id": "f2cf0405895a462b45ae38ec2f321d918e5b0e9a",
-   "titleKey": "91698c907031c2a818f1fdf29e85e17dccb06d8b",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "هشدار نایب‌رئیس مجلس به کشورهای منطقه / حاجی‌بابایی: همکاران آمریکا منتظر پاسخ ایران باشند حمیدرضا حاجی‌بابایی، نایب‌رئیس مجلس شورای اسلامی، در نطق پیش از دستور جلسه امروز مجلس با انتقاد از سیاست‌های آمریکا گفت: واشینگتن در طراحی پیروزی ساختگی ناکام مانده و دونالد ترامپ میان منافع آمریکا و اسرائیل گرفتار شده است.",
-   "at": "2026-11-18T21:30:02.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2176466/هشدار-نایب-رئیس-مجلس-به-کشورهای-منطقه-حاجی-بابایی-همکاران-آمریکا-منتظر-پاسخ-ایران-باشند"
-  },
-  {
    "id": "d7ff5ed52eed9a5b4aa8a91fa76fbfeb2aeddcf2",
    "titleKey": "0b3b123a78bbb7e40acbd5b6301e5408b3593db7",
    "source": "Times of India",
@@ -4338,16 +4327,6 @@
    "text": "35 yrs on, a landmark moment: Forces kill Kashmir's last active local terrorist Security forces gunned down Lashkar-e-Taiba terrorist Mohammad Lateef Bhat during a shootout outside a mosque in Kulgam. This incident concluded a weeklong operation to find him after the attack on a CRPF picket in Kulgam on November 11.",
    "at": "2026-11-18T21:30:08.000Z",
    "url": "https://timesofindia.indiatimes.com/india/35-yrs-on-a-landmark-moment-forces-kill-kashmirs-last-active-local-terrorist/articleshow/135971607.cms"
-  },
-  {
-   "id": "a963a591e7f00a9751f91892c1231a96e32fcbb6",
-   "titleKey": "4f0cce805ebc3919d1a1f8eb683784c44583cfe9",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "بیانیه سیدحسن خمینی درباره صدور احکام سنگین علیه ده‌ها تن از روحانیان و مؤمنان بحرین؛ رنج‌نامه‌ی شیعیان بحرین نباید به دامان نزاع مذهبی سقوط کند آیت الله سید حسن خمینی تأکید کرد: رنج‌نامه‌ی شیعیان بحرین نباید به دامان نزاع مذهبی سقوط کند. شیعه و سنی در این سرزمین، با سرنوشتی مشترک و دردی واحد زیست می‌کنند. هوشمندی امت اسلامی و نخبگان آن اقتضا می‌کند که با اصالت‌بخشی به وحدت، مانع از تحقق اهداف شوم دشمن مشترک شوند.",
-   "at": "2026-11-18T21:31:00.000Z",
-   "url": "https://www.khabaronline.ir/news/2304086/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D8%B3%DB%8C%D8%AF%D8%AD%D8%B3%D9%86-%D8%AE%D9%85%DB%8C%D9%86%DB%8C-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%B5%D8%AF%D9%88%D8%B1-%D8%A7%D8%AD%DA%A9%D8%A7%D9%85-%D8%B3%D9%86%DA%AF%DB%8C%D9%86-%D8%B9%D9%84%DB%8C%D9%87-%D8%AF%D9%87-%D9%87%D8%A7-%D8%AA%D9%86-%D8%A7%D8%B2"
   },
   {
    "id": "644aeaa1d3d3e0ed8fa7bc75f429d17d0410b233",
@@ -4360,15 +4339,6 @@
    "url": "https://www.mehrnews.com/news/7016044/%D8%AA%D9%88%D8%B3%D8%B9%D9%87-%D8%A8%DB%8C%D9%85%D8%A7%D8%B1%D8%B3%D8%AA%D8%A7%D9%86-%D9%82%D8%A7%D8%A6%D9%85-%D8%B4%D9%87%D8%B1-%D8%A8%D8%A7-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D8%B1%DB%8C%D8%B2%DB%8C-%DA%A9%D8%A7%D8%B1%D8%B4%D9%86%D8%A7%D8%B3%DB%8C-%D8%AF%D9%86%D8%A8%D8%A7%D9%84-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
   },
   {
-   "id": "70c56e17e7266883949e8e2b489787d789614578",
-   "titleKey": "f1f7bd4ad992e0d6e8e3049f512e5fee0d326846",
-   "source": "The Hill",
-   "lang": "en",
-   "text": "Pennsylvania reports eighth measles-related death Pennsylvania health officials and the Centers for Disease Control and Prevention (CDC) on Wednesday reported the commonwealth’s eighth measles-related death this year, one day after the U.S. lost its measles elimination status after 25 years. The state’s Department of Health said an unvaccinated Clinton County resident initially tested positive for the virus before their death.…",
-   "at": "2026-11-18T21:33:06.000Z",
-   "url": "https://thehill.com/policy/healthcare/6228640-pennsylvania-reports-eighth-measles-death/"
-  },
-  {
    "id": "abf3ba0bf1729a1ed7c0fac1d8e1dc68c5b1f14a",
    "titleKey": "ef76137e97e87af0c6588f4007ef04c795027218",
    "source": "TASS English",
@@ -4376,15 +4346,6 @@
    "text": "Putin to take part in trilateral meeting with Xi, Trump This will be the first-ever meeting in this format",
    "at": "2026-11-18T21:36:29.000Z",
    "url": "https://tass.com/politics/2220813"
-  },
-  {
-   "id": "41283b218d6cbf9a20ded2e78e31291551fd77a2",
-   "titleKey": "3076464d8e0ed7e5967efdabc6bcdd2487c51eba",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "Israel has killed 1,700 healthcare workers and nurses in Gaza The Palestinian National Nursing and Midwifery Association (PNNMA) in Gaza has announced that 1,700 healthcare and nursing professionals have been killed in Israeli airstrikes and ground offensives during the ongoing genocidal war on the besieged strip. @PressTV",
-   "at": "2026-11-18T21:37:59.000Z",
-   "url": "https://t.me/presstv/215308"
   },
   {
    "id": "3c8b6406597c9bc31b0c25d7e76744205a3cfcc4",
@@ -4397,16 +4358,6 @@
    "url": "https://www.mehrnews.com/news/7016029/%D8%AD%D8%A7%D9%84-%D9%88-%D9%87%D9%88%D8%A7%DB%8C-%D9%85%D8%AA%D9%81%D8%A7%D9%88%D8%AA-%D8%AA%D8%AC%D9%85%D8%B9-%DB%B2%DB%B6%DB%B3-%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%AA-%D9%85%D9%84%DB%8C-%D8%A7%D8%B1%D9%88%D9%85%DB%8C%D9%87-%D8%A8%D8%A7-%D8%AD%D8%B6%D9%88%D8%B1-%D9%BE%DB%8C%D8%B1%D8%BA%D9%84%D8%A7%D9%85%D8%A7%D9%86"
   },
   {
-   "id": "61bc444137e01be984c54b4d87709c7042fa58d5",
-   "titleKey": "2e39885437f484896e28eb9fff0dc5ab0539d419",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مردم سلماس در موج ۲۶۳ مقاومت همچنان در خیابان ایستاده اند ارومیه - مردم ولایی سلماس در حمایت از آرمان های انقلاب اسلامی و رهبری در موج دویست و شصت و سوم مقاومت ملی در خیابان تجمع کردند.",
-   "at": "2026-11-18T21:39:47.000Z",
-   "url": "https://www.mehrnews.com/news/7016005/%D9%85%D8%B1%D8%AF%D9%85-%D8%B3%D9%84%D9%85%D8%A7%D8%B3-%D8%AF%D8%B1-%D9%85%D9%88%D8%AC-%DB%B2%DB%B6%DB%B3-%D9%85%D9%82%D8%A7%D9%88%D9%85%D8%AA-%D9%87%D9%85%DA%86%D9%86%D8%A7%D9%86-%D8%AF%D8%B1-%D8%AE%DB%8C%D8%A7%D8%A8%D8%A7%D9%86-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%D9%87-%D8%A7%D9%86%D8%AF"
-  },
-  {
    "id": "adf55fed7d8944c2ee9184d7850d33803d72299b",
    "titleKey": "7ddcd09b28a291a80647ed00957e99fa0bb93a95",
    "source": "The Hill",
@@ -4414,16 +4365,6 @@
    "text": "New York presses ICE on winter safety at tent facility for women The state of New York pressed Immigration and Customs Enforcement (ICE) about winter safety at a Batavia detention center for women in a letter sent on Tuesday. New York’s Department of Health (DOH) and Department of Environmental Conservation (DEC) wrote to ICE Deputy Director Charles Wall that they were pursuing “information relating to Akima Infrastructure…",
    "at": "2026-11-18T21:40:27.000Z",
    "url": "https://thehill.com/homenews/state-watch/6228723-new-york-ice-batavia-tent-facility/"
-  },
-  {
-   "id": "f7a261f2b5430bc715ab3892de86d024991e9bb0",
-   "titleKey": "0e5455773be524e44194d5f3a8d607c53805e565",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "حضور پیرغلامان و خادمان حسینی کشور در روضه خانگی در ارومیه ارومیه - جمعی از پیرغلامان حاضر در اجلاس بین المللی پیرغلامان حسینی با حضور در منزل نوه مرحوم استاد حاج حسن روغنچی اورموی از پیرغلامان به نام ارومیه روضه خانگی برگزار کردند.",
-   "at": "2026-11-18T21:40:56.000Z",
-   "url": "https://www.mehrnews.com/news/7015997/%D8%AD%D8%B6%D9%88%D8%B1-%D9%BE%DB%8C%D8%B1%D8%BA%D9%84%D8%A7%D9%85%D8%A7%D9%86-%D9%88-%D8%AE%D8%A7%D8%AF%D9%85%D8%A7%D9%86-%D8%AD%D8%B3%DB%8C%D9%86%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1-%D8%AF%D8%B1-%D8%B1%D9%88%D8%B6%D9%87-%D8%AE%D8%A7%D9%86%DA%AF%DB%8C-%D8%AF%D8%B1-%D8%A7%D8%B1%D9%88%D9%85%DB%8C%D9%87"
   },
   {
    "id": "c378c0c92d6f11d71062b188ed1b5d4921ee2bdf",
@@ -4436,16 +4377,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309364-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D8%B4%D9%87%D8%B1%D9%88%D9%86%D8%AF%D8%A7%D9%86-%D8%AE%D9%88%D8%AF-%D8%AF%D8%B1-%D8%A8%D8%AD%D8%B1%DB%8C%D9%86-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AF%D8%A7%D8%AF-%D8%A7%D8%AD%D8%AA%D9%85%D8%A7%D9%84-%D8%AA%D8%B4%D8%AF%DB%8C%D8%AF-%D8%B3%D8%B1%DB%8C%D8%B9-%D8%AF%D8%B1%DA%AF%DB%8C%D8%B1%DB%8C-%D9%87%D8%A7-%D9%88%D8%AC%D9%88%D8%AF-%D8%AF%D8%A7%D8%B1%D8%AF"
   },
   {
-   "id": "37f050b35992c66cb672491bd3f10c368b31b4fd",
-   "titleKey": "b1c7b4813252b0b8373542a2d5f60c2c5de4d541",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "جزییات بزرگداشت آیت‌الله وحید خراسانی از سوی رهبر معظم انقلاب در قم قم- مراسم بزرگداشت ارتحال مرجع عالیقدر جهان تشیع، آیت‌الله‌العظمی وحید خراسانی، جمعه ۲۹ آبان‌ماه با حضور اقشار مختلف مردم در حرم مطهر حضرت معصومه(س) برگزار می‌شود.",
-   "at": "2026-11-18T21:41:02.000Z",
-   "url": "https://www.mehrnews.com/news/7016046/%D8%AC%D8%B2%DB%8C%DB%8C%D8%A7%D8%AA-%D8%A8%D8%B2%D8%B1%DA%AF%D8%AF%D8%A7%D8%B4%D8%AA-%D8%A2%DB%8C%D8%AA-%D8%A7%D9%84%D9%84%D9%87-%D9%88%D8%AD%DB%8C%D8%AF-%D8%AE%D8%B1%D8%A7%D8%B3%D8%A7%D9%86%DB%8C-%D8%A7%D8%B2-%D8%B3%D9%88%DB%8C-%D8%B1%D9%87%D8%A8%D8%B1-%D9%85%D8%B9%D8%B8%D9%85-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8"
-  },
-  {
    "id": "5e75825032a59f5f4a97de939c381985be242b35",
    "titleKey": "c52239c9e6be69e2ce838e6d57bb72ba658cfcc4",
    "source": "خبرگزاری مهر",
@@ -4454,15 +4385,6 @@
    "text": "حضور پیرغلامان حسینی در مراسم هیئت مذهبی مسجد قائم ارومیه ارومیه - در حاشیه بیست و سومین اجلاس بین المللی پیرغلامان حسینی در ارومیه جمعی از میهمانان این اجلاس در مراسم هیئت مذهبی حسین جان در مسجد قائم ارومیه شرکت کردند.",
    "at": "2026-11-18T21:42:02.000Z",
    "url": "https://www.mehrnews.com/news/7016041/%D8%AD%D8%B6%D9%88%D8%B1-%D9%BE%DB%8C%D8%B1%D8%BA%D9%84%D8%A7%D9%85%D8%A7%D9%86-%D8%AD%D8%B3%DB%8C%D9%86%DB%8C-%D8%AF%D8%B1-%D9%85%D8%B1%D8%A7%D8%B3%D9%85-%D9%87%DB%8C%D8%A6%D8%AA-%D9%85%D8%B0%D9%87%D8%A8%DB%8C-%D9%85%D8%B3%D8%AC%D8%AF-%D9%82%D8%A7%D8%A6%D9%85-%D8%A7%D8%B1%D9%88%D9%85%DB%8C%D9%87"
-  },
-  {
-   "id": "e962446e8b0e12b8332d4fa9bd76566e6cc50d62",
-   "titleKey": "ff84dc386a0186271d4385f661c4e92647c6f83c",
-   "source": "مشرق نیوز",
-   "lang": "fa",
-   "text": "فکت چک؛ اخباری که ۲۷ آبان ۱۴۰۵ تکذیب شدند مروری بر مهم‌ترین خبرها و ادعاهایی که در ۲۴ ساعت گذشته تکذیب شدند.",
-   "at": "2026-11-18T19:14:00.000Z",
-   "url": "https://www.mashreghnews.ir/news/1853753/%D9%81%DA%A9%D8%AA-%DA%86%DA%A9-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1%DB%8C-%DA%A9%D9%87-%DB%B2%DB%B7-%D8%A2%D8%A8%D8%A7%D9%86-%DB%B1%DB%B4%DB%B0%DB%B5-%D8%AA%DA%A9%D8%B0%DB%8C%D8%A8-%D8%B4%D8%AF%D9%86%D8%AF"
   },
   {
    "id": "b51513852d203e04b2c038a7302f5bfce0b0556d",
@@ -4475,15 +4397,6 @@
    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPTzc1LVdFYVgwTzNrbXF1ZmNLSmFuVmdlcHlKdFp6MWw4M19fZ3ZBUEQ2VldWV3Q2eEFhVkZWRXVOVE5DUzNENnVhUGpNUklBLXdSS1hDbXRMRjFvMEdwallZRUZhTnNabmdXSTVUbXJUb1dZMFVrYW5adDNNakZsZzdTUzl3VjJzbWo1V2tVV3plWVo3VmU0Qk5VU2EwT01XNnc?oc=5"
   },
   {
-   "id": "0da4f713c375cf44493fb9fe7ba24d3b3d330a14",
-   "titleKey": "50e310c0fcd0e74e670fbbf01c099d6a631a0531",
-   "source": "AP News",
-   "lang": "en",
-   "text": "Cornyn blocks top Justice Department official nominated for judicial vacancy in Texas - AP News Cornyn blocks top Justice Department official nominated for judicial vacancy in Texas AP News",
-   "at": "2026-11-18T20:43:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNZnA5WkdYc21sV1ZVaHBqQTBpRnktWG1hYUw2cGh6QUtvSllCVk9rcmNWd290MjhydWRIVUlyYkE4UnRGcTNSNjBWNFBCaUVsb0NBVjNoS3lfRG5RQVdMMEZNendoajhGRkZoVG9FUl9Zc1ZmNUtEOFdmY05lbVRUc0h2WU54WnZNVV9jeWtNMVNMb084?oc=5"
-  },
-  {
    "id": "fd3aaa8e4948fa79809043c82bc06c200400d1bb",
    "titleKey": "cb24752bc0dbeaf1a6640b1b5aa02e5fcf6b1476",
    "source": "Reuters",
@@ -4491,15 +4404,6 @@
    "text": "UAE Court orders freeze on crypto tokens stolen from Binance wallets - Reuters UAE Court orders freeze on crypto tokens stolen from Binance wallets Reuters",
    "at": "2026-11-18T21:05:38.000Z",
    "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNVlN6ZktkUTBHWUpjSTdjUmFSZUVMZlBwb05IaVdWX1FzVGlHdnF4cUpYVkNTMHVnYTlLZ0w1M01xTnlVNDV4dWg4SDNtRDJIYjNzOFBiTDBOODhVcDFzY0tQa2d6YV9Oc3BDTXNYLTNSOTNtaEcxZTRESmxfcXdxS0VtZnRPdzBFNW1LYThBdlRsc0ZmYXZtQXRGMlFCdHk2ak1rRml1TUpobFdGNnJwY0pDUGl6dVBXUjBMYThwOA?oc=5"
-  },
-  {
-   "id": "cf097f16cfda7fdfa030a356bb66a872e94df59c",
-   "titleKey": "5ace65a7a7b56b32e5873cdbb5b0aa752566a30f",
-   "source": "Fox News World",
-   "lang": "en",
-   "text": "US races to build bunkers across Middle East as Iranian strikes threaten American troops The U.S. Army is hiring contractors to build 17 reinforced concrete bunkers in Israel, Saudi Arabia and Lebanon amid Iranian missile and drone attacks.",
-   "at": "2026-11-18T21:18:28.000Z",
-   "url": "https://www.foxnews.com/world/us-races-build-bunkers-across-middle-east-iranian-strikes-threaten-american-troops"
   },
   {
    "id": "aa8f7f9cc6e2ab3a3bc988acc5345d0dee94e1ed",
@@ -4512,15 +4416,6 @@
    "url": "https://www.bbc.co.uk/sport/formula1/articles/cqkgr0elvl5zo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "9753931be40c1d679b262a67921074b3740ffe7a",
-   "titleKey": "0c9cfab154d5a6aadf16490e128cf9559f99b73b",
-   "source": "France 24 English",
-   "lang": "en",
-   "text": "Bassirou Diomaye Faye excluded from Senegal's ruling party In tonight's edition, the political divorce between Senegal's president and the powerful former prime minister and mentor is official. Also, all of Nigeria's states have shown willingness for a push to create their own police forces. And in parts of the continent, conflict and a drop in funding have placed huge pressures on children's learning.",
-   "at": "2026-11-18T21:21:28.000Z",
-   "url": "https://www.france24.com/en/bassirou-diomaye-faye-excluded-from-senegal-s-ruling-party"
-  },
-  {
    "id": "81e5f4831831e796ed3bd5df979d3ac7f27eb5e2",
    "titleKey": "cb43b1e4d332bc2cef09dc9d94d17017552dc4b2",
    "source": "Press TV (تلگرام)",
@@ -4528,15 +4423,6 @@
    "text": "🔴 Iran's Foreign Ministry: 🔺 Regional governments must prevent the use of their territories, bases and facilities for planning and carrying out aggression against Iran. 🔺 Allowing the US to use their territory for attacks on Iran violates good neighborliness, constitutes an act of aggression and entitles Iran to take defensive measures. 🔺 Iran has so far exercised maximum restraint, targeting only US military bases and assets in these countries, out of consideration for its neighbors and the interests of the Islamic Ummah. 🔺 Any renewed aggression or hostile action will face a decisive and deterrent response from the Armed Forces. @PressTV",
    "at": "2026-11-18T21:21:49.000Z",
    "url": "https://t.me/presstv/215307"
-  },
-  {
-   "id": "a2a27fde85e4f03d8d3bf0aa92a8aae75c66c0bd",
-   "titleKey": "593895c5711c484427af611b9b2e54d641d2f486",
-   "source": "The Hill",
-   "lang": "en",
-   "text": "NIH to move remaining retired research chimps to sanctuary The National Institutes of Health (NIH) announced Wednesday it will release the last government-owned research chimpanzees in early 2027 to a sanctuary, ending a decade-long effort to get the animals out of federal laboratories. The 34 chimpanzees, currently housed at the Keeling Center for Comparative Medicine and Research in Bastrop, Texas, will be transferred to…",
-   "at": "2026-11-18T21:21:57.000Z",
-   "url": "https://thehill.com/policy/healthcare/6228600-nih-retires-last-research-chimpanzees-2027/"
   },
   {
    "id": "b4d7346e4023513253e4c2d8197fdc603ba8c28e",
@@ -4549,16 +4435,6 @@
    "url": "https://www.bbc.co.uk/sport/football/articles/cr930l71z5ejo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "806797accb6672d91f2a9bdd7d802b5472d0826e",
-   "titleKey": "34fddb6fccc3b02ebe15766cf281415982eb1c22",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "بقائی: نیویورک‌تایمز در خدمت ترویج روایت متجاوزان به ایران قرار گرفته است سخنگوی وزارت امور خارجه تاکید کرد: نیویورک‌تایمز با عدول از اصول بنیادین روزنامه‌نگاری حرفه‌ای و طرح ادعاهای بی‌پایه در رابطه با سدهای ایران، عملا خود را در خدمت ترویج روایت متجاوزانی قرار داد که در جنگ غیرقانونی علیه ایران، بی‌اعتنایی کاملشان به حقوق بشردوستانه بین‌المللی و ابتدایی‌ترین اصول اخلاقی را نشان دادند.",
-   "at": "2026-11-18T21:22:48.000Z",
-   "url": "https://www.khabaronline.ir/news/2304091/%D8%A8%D9%82%D8%A7%D8%A6%DB%8C-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%AA%D8%A7%DB%8C%D9%85%D8%B2-%D8%AF%D8%B1-%D8%AE%D8%AF%D9%85%D8%AA-%D8%AA%D8%B1%D9%88%DB%8C%D8%AC-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA-%D9%85%D8%AA%D8%AC%D8%A7%D9%88%D8%B2%D8%A7%D9%86-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%82%D8%B1%D8%A7%D8%B1"
-  },
-  {
    "id": "df1073a63a0350b7e005f825bc38a3ab6a4a98f0",
    "titleKey": "fdad7184be491d732a3ce5fe4a2dc142c1327fd7",
    "source": "همشهری آنلاین",
@@ -4568,16 +4444,6 @@
    "url": "https://www.hamshahrionline.ir/news/1087578/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%AE%D8%A7%D8%B1%D8%AC%D9%87-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%AD%D9%85%D9%84%D8%A7%D8%AA-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D9%BE%D8%A7%D8%B3%D8%AE-%D8%AF%D9%81%D8%A7%D8%B9%DB%8C-%D8%A8%D9%87-%D9%BE%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D9%87%D8%A7"
   },
   {
-   "id": "5c85069b7ea1cf8794b78e6353a3fccd21f0772f",
-   "titleKey": "84031155f4f69d52ee79a5c2ff8e2d467680d49d",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "ورود ۶۶ نیروی جوان به آموزش و پرورش بردسکن بردسکن- مدیر آموزش و پرورش بردسکن گفت: امسال ۴۶ نفر از فرهنگیان بردسکن به افتخار بازنشستگی نائل شدند و ۶۶ نیروی جوان نیز از طریق دانشگاه فرهنگیان به مجموعه آموزش و پرورش پیوستند.",
-   "at": "2026-11-18T21:27:16.000Z",
-   "url": "https://www.mehrnews.com/news/7016043/%D9%88%D8%B1%D9%88%D8%AF-%DB%B6%DB%B6-%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D8%AC%D9%88%D8%A7%D9%86-%D8%A8%D9%87-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D9%88-%D9%BE%D8%B1%D9%88%D8%B1%D8%B4-%D8%A8%D8%B1%D8%AF%D8%B3%DA%A9%D9%86"
-  },
-  {
    "id": "79aa595ca5707f90f29d6c993c8594221a97ec4d",
    "titleKey": "fe14c467aab7965a98b0c76e0e91b79e2066aa3c",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4585,16 +4451,6 @@
    "text": "پاشینیان: ارمنستان قصدی برای پیوستن به ناتو ندارد تهران - ایرنا - نخست‌ وزیر ارمنستان به پارلمان این کشور گفت که ایروان قصدی برای پیوستن به اتحاد نظامی ناتو ندارد.",
    "at": "2026-11-18T21:27:40.000Z",
    "url": "https://www.irna.ir/news/86326315/%D9%BE%D8%A7%D8%B4%DB%8C%D9%86%DB%8C%D8%A7%D9%86-%D8%A7%D8%B1%D9%85%D9%86%D8%B3%D8%AA%D8%A7%D9%86-%D9%82%D8%B5%D8%AF%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%BE%DB%8C%D9%88%D8%B3%D8%AA%D9%86-%D8%A8%D9%87-%D9%86%D8%A7%D8%AA%D9%88-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF"
-  },
-  {
-   "id": "5d763a9b9933f03b68a0d335f2f008b53f9d7188",
-   "titleKey": "2b97c7b48ef47ccf3ec6ffe973fd9bf45fd00472",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "واکنش بقایی به گزارش نیویورک تایمز اسماعیل بقائی سخنگوی وزارت امور خارجه به تلاش مدیران روزنامه نیویورک‌تایمز برای توجیه انتشار ادعاهای بی‌اساس درباره ارتباط سدهای ایران با تأسیسات نظامی، در شبکه ایکس واکنش نشان داد.",
-   "at": "2026-11-18T21:28:37.000Z",
-   "url": "https://www.isna.ir/news/1405082819422/%D9%88%D8%A7%DA%A9%D9%86%D8%B4-%D8%A8%D9%82%D8%A7%DB%8C%DB%8C-%D8%A8%D9%87-%DA%AF%D8%B2%D8%A7%D8%B1%D8%B4-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%AA%D8%A7%DB%8C%D9%85%D8%B2"
   },
   {
    "id": "e1b8f98b1c619a5a287c792e1de198eda1e39980",
@@ -4607,15 +4463,6 @@
    "url": "https://www.mehrnews.com/news/7016042/%D9%88%D8%B2%D8%A7%D8%B1%D8%AA-%D8%AE%D8%A7%D8%B1%D8%AC%D9%87-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A7%D8%B2-%D8%AE%D8%A7%DA%A9-%DA%A9%D8%B4%D9%88%D8%B1%D9%87%D8%A7%DB%8C-%D9%85%D9%86%D8%B7%D9%82%D9%87-%D9%85%D8%B5%D8%AF%D8%A7%D9%82-%D8%AA%D8%AC%D8%A7%D9%88%D8%B2"
   },
   {
-   "id": "c99f903347d679abb14f19783a02c31541b03510",
-   "titleKey": "2700a0249bb4489e60b79c8c3553ca35972d7b57",
-   "source": "RT",
-   "lang": "en",
-   "text": "European Commission proposes new loan for Kiev The European Commission has officially presented its plan to borrow €45 billion guaranteed by the bloc’s budget to supply funding to Kiev Read Full Article at RT.com",
-   "at": "2026-11-18T21:29:49.000Z",
-   "url": "https://rt-english.com/news/649038-european-commission-new-loan-kiev/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
-  },
-  {
    "id": "7dcc92b8c8542ae99c0c195fd27119fbde4b9cc5",
    "titleKey": "659c928e3c39d543c738760ec84c8d6997e82d42",
    "source": "Bloomberg",
@@ -4624,16 +4471,6 @@
    "text": "US Carrier Leaves Persian Gulf for Japan, Leaving Two in Region - Bloomberg.com US Carrier Leaves Persian Gulf for Japan, Leaving Two in Region Bloomberg.com",
    "at": "2026-11-18T18:56:08.000Z",
    "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQMWNuaTRjUzV3aE5ZZXFuV05nYzRvSV9MNWRsdUo3UVR4bExyVVdfQjRSYXpKWjA4amxneW9tMzdmQjJSOVlCMExZb0xfR1NQN1hIQzRMY21CVWxwODllaFRKQ2ZMSXMyNk9VME9LQ3V0WXFaWWI5VnB1ZlViaXlqWU4zejhTTGRUTGdNQksxUENNZTEzc05taUMycGtMYXNCRl92OTRyelpFZlpXWW51cWtTNA?oc=5"
-  },
-  {
-   "id": "0ad368538a14809cc2cc4bc31732768e35121e0f",
-   "titleKey": "eac1384437ac9fb0b4e8059a0256029f3379dfe5",
-   "source": "ESPN",
-   "cat": "sports",
-   "lang": "en",
-   "text": "Fantasy hoops: Using the ESPN Player Rater to uncover 16 roto and category stars - ESPN Fantasy hoops: Using the ESPN Player Rater to uncover 16 roto and category stars ESPN",
-   "at": "2026-11-18T19:42:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNOVRYLXJEY1FSYWtFTW1nSHdFb1pJU1V5MHFVeU9DX2ktcllqbGFIeHhjNEo5TFRpZUxhZ1k0TmdrTWNIYnhjMXBsYXBaRWc2YXBVNzJ6UmZLY19GQkNYSlNHeEpfRWFOOUY3d0JORjBJMGlxdW40MTBLenJLYVA4SXNlTlllaWRRVDR6STQtQzBBVUM1UjVLcFRjNDVVbkNWdFUyYWNQY2pUaHBuWm42VGd0V0ZXRDA1aU93?oc=5"
   },
   {
    "id": "6344013a93c65a747075e000722c4cf98cc0fcf8",
@@ -4645,16 +4482,6 @@
    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZ1dqbjcxS1NvVGZBUEJYTDd1alo4YWNzRG9aMVZoVUE2b1ZibW95VlhQWDQ5dWNZTTFkbXBnbHVob1JMT21UMElBbnlQb01wT2Q4NXdHRi1GWGFfQ040NGRCRFlzcFNUTjJJMGRPT1FEWF9sTUJUZVV2MU90dUZOXzAzbmlnZWxwOG5YOVFNcUJOdGF1aEl6dERxSEhJMDA?oc=5"
   },
   {
-   "id": "4e30dee80cc3a46c97f5bfca681f19e8e2f28572",
-   "titleKey": "0bc7e3f011396554c5d12401bb8305514ee5f9ec",
-   "source": "Bloomberg",
-   "cat": "economy",
-   "lang": "en",
-   "text": "Anthropic Said to Be Weighing IPO Price as High as $85 Per Share - Bloomberg.com Anthropic Said to Be Weighing IPO Price as High as $85 Per Share Bloomberg.com",
-   "at": "2026-11-18T20:39:53.000Z",
-   "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPN2RCZGgzMEpHa1VyamFxRVdXVTRiUEJVMU5EV3c1SjllYjZrVEJUNV85dEw0dnAwMU85dkJnZzJvVXZpa1BjOVVIeVNJUzNuNDh6RjU1N0h6eTZ3ck1LVHExU1pTaXgzbUo2NEtrdjB0M2V0dUZmQkxoZ01wTzZVZFI0QnUyQnNzWlg0MlIxeFJxV1J4ZkMyZ3JwSVhQQnNqMVExemo2bnVqRlBsYXpNek9mTUM?oc=5"
-  },
-  {
    "id": "327e34eb6eb981681f9d8383d9695478c4d43595",
    "titleKey": "468dcb332dd395af504ef8f31a218a756e499ed3",
    "source": "Asharq Al-Awsat",
@@ -4664,16 +4491,6 @@
    "url": "https://news.google.com/rss/articles/CBMi7wRBVV95cUxNRVNBVGM5SDYtQ2JjNXVUSExsNDRFRG1HbXFlNEoxaEM3dmtndjNkd3Z2eE1kM0RFc21vNXlvY3EzbjUydWdIOGt6TUFEcmhKQW03b21QSXFxckhiWm11cFQzUmtWbmV5ZG9HSFVUUFFqc0F1XzRiczUwX0FhWnNJNUlMUUZIUTJNUUVhSHdzUFdHVnFzQ1dmVnRKZGZQOEhtci1TQk1nNHE4T1N5cmtLeWw1SzRqUUkwMWxMQnBSdVRZb2lkUWNmWTdXbkNLRXN5VUtuN2ltakZVM1lHVFl0MTRFRGVzSFRKV2dRcmE1VXZTYjk2MDduMjA4SW5pVUVTeWRBX25qWXJINDk5aENNWHBCN0lCcDNtTGZGcWdvdWc0TEZqYlJkYzE4dmlSQ0ZxSnI3aExJMUlHYWR0RmFiWUh5Umh5ampHOXR4SlJMbTgzZmlZQXgzMWFpdVZ6bVN3b003STJvSUJGOExwYVdEZmdGNmczcUJjajZFZk9sWG1xR3ctaFRJODNRYVNwbWx6OHRkMjd5VzJpZEVIUXR4T1ZMZzdjcG5Nckx2NG9RN2N0bmhZQTRwc0I3dzJubGZPNng1bUdTdTVKSTJyN0M1N3lrUlp0ODBZcWwtYXpRTzRneHhXTkhLcmh4YTFoYk9paWc0aU5SaUd0Z2Z6a1JJdEpfcXNTOVVHYkRDclEzNjhfWVlmZExiay1ENDVkNWw3dXBJcVNUeE5JbVZxdE5JZ21oR1hFeGZBWEFyQlJJT3RDUmxqcmlSSEpWWDJnbmNKS2lTS2xCSVpFaTBPckxWNVExX0x5QWZ6cXNkSmtuTQ?oc=5"
   },
   {
-   "id": "47e8b9f48e4f590d16ad482b6a1a1732b0b733ae",
-   "titleKey": "587a14cd90c12afab297803648be6c64fe87f154",
-   "source": "BBC Sport",
-   "cat": "sports",
-   "lang": "en",
-   "text": "England defender Carter joins Bay FC after Gotham exit England defender Jess Carter completes a move to Bay FC after leaving Gotham FC as a free agent.",
-   "at": "2026-11-18T21:07:26.000Z",
-   "url": "https://www.bbc.co.uk/sport/football/articles/ck5y169v1262o?at_medium=RSS&at_campaign=rss"
-  },
-  {
    "id": "6919484a5177d745426260c43f683f538a0d5d14",
    "titleKey": "e760db8bc236c98ecab53db2ccad1dbaa7da062f",
    "source": "Fox News World",
@@ -4681,15 +4498,6 @@
    "text": "Kim Jong Un&apos;s nuclear buildup sparks &apos;serious concern&apos; ahead of Trump-Xi-Putin summit IAEA chief Rafael Grossi warned Kim Jong Un&apos;s North Korean uranium enrichment expansion at Yongbyon is complete, calling it a serious concern.",
    "at": "2026-11-18T21:07:34.000Z",
    "url": "https://www.foxnews.com/world/kim-jong-un-nuclear-buildup-sparks-serious-concern-trump-xi-putin-summit"
-  },
-  {
-   "id": "068b5464f84ecb9795e7711c7fccc9455f300922",
-   "titleKey": "a38cf7897ddf638adbeb6c97bfeb99092391326a",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "بازدید اعضای کمیسیون اجتماعی مجلس از زنجیره عظیم تولید در مازندران نمایندگان کمیسیون اجتماعی مجلس د. جریان سفر نظارتی این کمیسیون به استان مازندران، از مرکز پرورش ماهیان خاویاری سمندک ساری با ظرفیت تولید ۲۰ هزار تن غذا در حاشیه شهر ساری بازدید کردند.",
-   "at": "2026-11-18T21:07:37.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1868200"
   },
   {
    "id": "557633748c0ff36ab4f09d536461427c1bee2d03",
@@ -4702,15 +4510,6 @@
    "url": "https://www.isna.ir/news/1405082819421/%D8%AD%D9%85%D9%84%D9%87-%DB%8C%D9%85%D9%86-%D8%A8%D9%87-%D9%81%D8%B1%D9%88%D8%AF%DA%AF%D8%A7%D9%87-%D8%AE%D8%A7%D9%84%D8%AF-%D9%88-%D9%85%D8%B1%DA%A9%D8%B2-%D9%85%D8%A7%D9%84%DB%8C-%D8%B1%DB%8C%D8%A7%D8%B6-%D9%88-%D8%AF%D9%88-%D9%87%D8%AF%D9%81-%D8%AF%D8%B1-%D8%AC%D9%86%D9%88%D8%A8-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86"
   },
   {
-   "id": "8022d2b0693bd81524fd069a0f6e80c0d8b621e6",
-   "titleKey": "1f6bc51e412acbee0ec976192e6383e3052afb47",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "نماینده مجلس: زعفرانکاران در برابر نوسانات بازار حمایت شوند مشهد - ایرنا - نماینده مردم شهرستان‌های تربت‌جام، تایباد، باخرز و صالح‌آباد در مجلس شورای اسلامی گفت: باید سازوکاری تدبیر شود تا زعفران‌کاران در برابر نوسانات و بازار متلاطم حمایت شده و آسیب بیشتری به تولید و معیشت این جمعیت گسترده وارد نشود.",
-   "at": "2026-11-18T21:09:37.000Z",
-   "url": "https://www.irna.ir/news/86326291/%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87-%D9%85%D8%AC%D9%84%D8%B3-%D8%B2%D8%B9%D9%81%D8%B1%D8%A7%D9%86%DA%A9%D8%A7%D8%B1%D8%A7%D9%86-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%A7%D8%A8%D8%B1-%D9%86%D9%88%D8%B3%D8%A7%D9%86%D8%A7%D8%AA-%D8%A8%D8%A7%D8%B2%D8%A7%D8%B1-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D8%B4%D9%88%D9%86%D8%AF"
-  },
-  {
    "id": "3d83b59302eddb578a7d41555399bfc869ec8600",
    "titleKey": "0a5e079c7e95e4b7883913c4013cbd75eb9ca307",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4718,15 +4517,6 @@
    "text": "معاون استاندار: کرمانشاه موزه زنده هنر و تاریخ ایران است کرمانشاه-ایرنا- معاون سیاسی، امنیتی و اجتماعی استانداری کرمانشاه با تأکید بر پیشینه غنی تاریخی و فرهنگی این استان گفت: کرمانشاه موزه زنده هنر و تاریخ ایران است و جوانان هنرمند، وارثان این میراث ارزشمند و سفیران فرهنگی کشور هستند.",
    "at": "2026-11-18T21:09:53.000Z",
    "url": "https://www.irna.ir/news/86326261/%D9%85%D8%B9%D8%A7%D9%88%D9%86-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%DA%A9%D8%B1%D9%85%D8%A7%D9%86%D8%B4%D8%A7%D9%87-%D9%85%D9%88%D8%B2%D9%87-%D8%B2%D9%86%D8%AF%D9%87-%D9%87%D9%86%D8%B1-%D9%88-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A7%D8%B3%D8%AA"
-  },
-  {
-   "id": "ba54d2b020a54a1b541bef53214513872d3a80a3",
-   "titleKey": "7864b768b994d4994a846a5e9fa9ec8405600cf4",
-   "source": "TASS English",
-   "lang": "en",
-   "text": "Houthis claim cruise missile strike on airport and financial center in Riyadh Spokesman Yahya Saree added that the strikes achieved \"accurate and direct hits\"",
-   "at": "2026-11-18T21:10:37.000Z",
-   "url": "https://tass.com/world/2220811"
   },
   {
    "id": "4ec6bc9c45205479f3a9b942df77cacd522b197a",
@@ -4739,16 +4529,6 @@
    "url": "https://www.mehrnews.com/news/7016002/%D9%81%D8%B1%D9%85%D8%A7%D9%86%D8%AF%D8%A7%D8%B1-%D8%AF%D8%B4%D8%AA%DB%8C-%D8%AA%D9%88%D8%B3%D8%B9%D9%87-%D8%B5%D9%86%D8%A7%DB%8C%D8%B9-%D8%AA%D8%A8%D8%AF%DB%8C%D9%84%DB%8C-%D8%A7%D8%B1%D8%B2%D8%B4-%D8%A7%D9%81%D8%B2%D9%88%D8%AF%D9%87-%D8%AE%D8%B1%D9%85%D8%A7-%D8%B1%D8%A7-%D8%A7%D9%81%D8%B2%D8%A7%DB%8C%D8%B4"
   },
   {
-   "id": "a726efdf5dac58385f58db95ebce7558992facdc",
-   "titleKey": "474a6cece9cbe20675123e6a2c557d01d2f5f434",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "امیرنژاد: مردم ایران از رویارویی با قدرت‌های خارجی هراسی ندارند بوشهر-فرمانده اسبق پایگاه دریایی انصارالحسین(ع) منطقه چهارم نیروی دریایی سپاه گفت: مردم ایران با تکیه بر ایمان، وحدت و رهنمودهای رهبر انقلاب، در میدان ایستادگی خواهند کرد.",
-   "at": "2026-11-18T21:12:46.000Z",
-   "url": "https://www.mehrnews.com/news/7016026/%D8%A7%D9%85%DB%8C%D8%B1%D9%86%DA%98%D8%A7%D8%AF-%D9%85%D8%B1%D8%AF%D9%85-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A7%D8%B2-%D8%B1%D9%88%DB%8C%D8%A7%D8%B1%D9%88%DB%8C%DB%8C-%D8%A8%D8%A7-%D9%82%D8%AF%D8%B1%D8%AA-%D9%87%D8%A7%DB%8C-%D8%AE%D8%A7%D8%B1%D8%AC%DB%8C-%D9%87%D8%B1%D8%A7%D8%B3%DB%8C-%D9%86%D8%AF%D8%A7%D8%B1%D9%86%D8%AF"
-  },
-  {
    "id": "e85ca5ee2d63b1ad92f033b3b2c3af82119a89d0",
    "titleKey": "7a07abf341de6f0a5255c406141d6143f3ee657d",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4756,15 +4536,6 @@
    "text": "آمریکا به شهروندان خود در بحرین هشدار داد تهران - ایرنا - سفارت آمریکا در بحرین با صدور پیامی جدید به آمریکایی های مقیم در این کشور هشدار داد تا هوشیار خود را حفظ کنند.",
    "at": "2026-11-18T21:13:31.000Z",
    "url": "https://www.irna.ir/news/86326307/%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D8%B4%D9%87%D8%B1%D9%88%D9%86%D8%AF%D8%A7%D9%86-%D8%AE%D9%88%D8%AF-%D8%AF%D8%B1-%D8%A8%D8%AD%D8%B1%DB%8C%D9%86-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1-%D8%AF%D8%A7%D8%AF"
-  },
-  {
-   "id": "aa93094d11028d084a4a2c6f97fe77a035a292a7",
-   "titleKey": "adbe62d48dff60de1c3de7f155d1145365c54ee5",
-   "source": "همشهری آنلاین",
-   "lang": "fa",
-   "text": "رأی ممتنع آمریکا به قطعنامه ضدایرانی سازمان ملل | توضیحات نماینده آمریکا! کمیتۀ سوم مجمع عمومی سازمان ملل متحد، روز چهارشنبه ۲۷ آبان‌ماه، قطعنامه‌ای را با عنوان «وضعیت حقوق بشر در جمهوری اسلامی ایران» تصویب کرد.",
-   "at": "2026-11-18T21:13:50.000Z",
-   "url": "https://www.hamshahrionline.ir/news/1087576/%D8%B1%D8%A3%DB%8C-%D9%85%D9%85%D8%AA%D9%86%D8%B9-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A8%D9%87-%D9%82%D8%B7%D8%B9%D9%86%D8%A7%D9%85%D9%87-%D8%B6%D8%AF%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D8%B3%D8%A7%D8%B2%D9%85%D8%A7%D9%86-%D9%85%D9%84%D9%84-%D8%AA%D9%88%D8%B6%DB%8C%D8%AD%D8%A7%D8%AA-%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%D9%87"
   },
   {
    "id": "5c09db4911c38fc3692b6242b2a4c2a18ed39504",
@@ -4777,16 +4548,6 @@
    "url": "https://www.mehrnews.com/news/7016034/%D8%A2%DA%AF%D8%A7%D9%87%DB%8C-%D8%A8%D8%AE%D8%B4%DB%8C-%D8%A8%D9%87-%D8%B9%D8%B4%D8%A7%DB%8C%D8%B1-%D8%AF%D8%B4%D8%AA%D8%B3%D8%AA%D8%A7%D9%86-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D9%85%D9%85%D9%86%D9%88%D8%B9%DB%8C%D8%AA-%DA%A9%D8%B4%D8%AA-%D8%AE%D8%B4%D8%AE%D8%A7%D8%B4"
   },
   {
-   "id": "88c0c019ec33d75ff49074755d7c02696484d6f8",
-   "titleKey": "b87e1f5b4425ef886e166c4b1bf83173633b12ae",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "بیش از ۲۰۰ برنامه در هفته بسیج شهرستان کاشمر برگزار می شود کاشمر- فرمانده ناحیه مقاومت بسیج سپاه کاشمر از اجرای ۸۶ برنامه شاخص و ۲۰۰ برنامه جانبی در شهرستان کاشمر همزمان با هفته بسیج خبر داد.",
-   "at": "2026-11-18T21:14:40.000Z",
-   "url": "https://www.mehrnews.com/news/7016040/%D8%A8%DB%8C%D8%B4-%D8%A7%D8%B2-%DB%B2%DB%B0%DB%B0-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D8%AF%D8%B1-%D9%87%D9%81%D8%AA%D9%87-%D8%A8%D8%B3%DB%8C%D8%AC-%D8%B4%D9%87%D8%B1%D8%B3%D8%AA%D8%A7%D9%86-%DA%A9%D8%A7%D8%B4%D9%85%D8%B1-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
-  },
-  {
    "id": "48e474683317c4d9d55e3222858ce36d184b9ed4",
    "titleKey": "744b17703e99bf06ee2556348ca5541e84afe43c",
    "source": "اقتصادآنلاین",
@@ -4795,16 +4556,6 @@
    "text": "بیانیه رسمی استقلال در حمایت از بختیاری‌زاده منتشر شد باشگاه استقلال در واکنش به حواشی و مشکلات اخیر تیم، با انتشار بیانیه‌ای بر حمایت کامل از سهراب بختیاری‌زاده تأکید کرد و از تلاش برای رفع موانع و فراهم کردن شرایط مناسب برای کادر فنی خبر داد.",
    "at": "2026-11-18T21:15:02.000Z",
    "url": "https://www.eghtesadonline.com/fa/news/2176649/بیانیه-رسمی-استقلال-در-حمایت-از-بختیاری-زاده-منتشر-شد"
-  },
-  {
-   "id": "e809ab14d77f163697e42e78b609ab3c9814d7d1",
-   "titleKey": "50b35803b6f26f387ca0feaae32b70e2b5913457",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مقاتلی: همه باید زمینه آبادانی کشور و رفع مشکلات را فراهم کنیم بوشهر-فرماندار دشتی با تأکید بر ضرورت همدلی، مشارکت عمومی و پاسخگویی مدیران گفت: در شرایط کنونی کشور، همه باید دست به دست هم دهیم و زمینه آبادانی کشور و رفع مشکلات کردم را فراهم کنیم.",
-   "at": "2026-11-18T21:16:00.000Z",
-   "url": "https://www.mehrnews.com/news/7016006/%D9%85%D9%82%D8%A7%D8%AA%D9%84%DB%8C-%D9%87%D9%85%D9%87-%D8%A8%D8%A7%DB%8C%D8%AF-%D8%B2%D9%85%DB%8C%D9%86%D9%87-%D8%A2%D8%A8%D8%A7%D8%AF%D8%A7%D9%86%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1-%D9%88-%D8%B1%D9%81%D8%B9-%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA-%D8%B1%D8%A7-%D9%81%D8%B1%D8%A7%D9%87%D9%85-%DA%A9%D9%86%DB%8C%D9%85"
   },
   {
    "id": "ba18e616b94beca0cd36e3e3b200f21b91e80d5a",
@@ -4817,15 +4568,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309363-%D8%A8%D9%84%D9%88%D9%85%D8%A8%D8%B1%DA%AF-%D9%86%D8%A7%D9%88-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%D8%A8%D8%B1-%D8%AC%D9%88%D8%B1%D8%AC-%D9%88%D8%A7%D8%B4%D9%86%DA%AF%D8%AA%D9%86-%D8%AE%D9%84%DB%8C%D8%AC-%D9%81%D8%A7%D8%B1%D8%B3-%D8%B1%D8%A7-%D8%AA%D8%B1%DA%A9-%DA%A9%D8%B1%D8%AF"
   },
   {
-   "id": "63ece0fd132d4914968247a5e3d12a8fbd62249f",
-   "titleKey": "f321a82ec12f291c4a4ed29fb927ef546bdb5c81",
-   "source": "همشهری آنلاین",
-   "lang": "fa",
-   "text": "انتشار برنامه «صحنه» با دستور مقام قضایی متوقف شد پلتفرم پخش‌کننده برنامه «صحنه» اعلام کرد انتشار این برنامه که قرار بود ۹ آذرماه انجام شود، در پی شکایت ساترا و با دستور مقام قضایی متوقف شده است.",
-   "at": "2026-11-18T21:17:07.000Z",
-   "url": "https://www.hamshahrionline.ir/news/1087577/%D8%A7%D9%86%D8%AA%D8%B4%D8%A7%D8%B1-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D8%B5%D8%AD%D9%86%D9%87-%D8%A8%D8%A7-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D9%85%D9%82%D8%A7%D9%85-%D9%82%D8%B6%D8%A7%DB%8C%DB%8C-%D9%85%D8%AA%D9%88%D9%82%D9%81-%D8%B4%D8%AF"
-  },
-  {
    "id": "e90c5990da1bc6a2c146bd2b4a6c2be683ef671e",
    "titleKey": "f345d69deff2bbb7793b5e867e1b992aac68f5c6",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -4833,15 +4575,6 @@
    "text": "۸۷ حمله هوایی عربستان به یمن در ۲۴ ساعت گذشته تهران - ایرنا - سخنگوی نیروهای مسلح یمن اعلام کرد که هواپیماهای جنگی ائتلاف به رهبری عربستان سعودی در ۲۴ ساعت گذشته ۸۷ حمله هوایی و موشکی علیه یمن انجام دادند.",
    "at": "2026-11-18T21:17:27.000Z",
    "url": "https://www.irna.ir/news/86326303/%DB%B8%DB%B7-%D8%AD%D9%85%D9%84%D9%87-%D9%87%D9%88%D8%A7%DB%8C%DB%8C-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86-%D8%A8%D9%87-%DB%8C%D9%85%D9%86-%D8%AF%D8%B1-%DB%B2%DB%B4-%D8%B3%D8%A7%D8%B9%D8%AA-%DA%AF%D8%B0%D8%B4%D8%AA%D9%87"
-  },
-  {
-   "id": "1b6391c5487fb53eb0677d33a716fd78f2edd2cc",
-   "titleKey": "59eb056eacdb8a99cc5c39d479d62871098c256a",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "ایران، چین و روسیه، رفع تهدیدها و تضمین امنیت را شرط از سرگیری بازرسی‌های آژانس دانستند لندن - ایرنا - ایران، چین و روسیه در بیانیه‌ای مشترک در نشست شورای حکام آژانس بین‌المللی انرژی اتمی، با محکوم کردن تجاوز نظامی به تأسیسات هسته‌ای تحت پادمان ایران، پایان کامل اقدامات خصمانه، رفع تهدیدهای نظامی و ارائه تضمین‌های معتبر برای جلوگیری از تکرار حملات را پیش‌شرط ازسرگیری کامل فعالیت‌های راستی‌آزمایی آژانس در کشور دانستند.",
-   "at": "2026-11-18T21:18:47.000Z",
-   "url": "https://www.irna.ir/news/86326312/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%DA%86%DB%8C%D9%86-%D9%88-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%B1%D9%81%D8%B9-%D8%AA%D9%87%D8%AF%DB%8C%D8%AF%D9%87%D8%A7-%D9%88-%D8%AA%D8%B6%D9%85%DB%8C%D9%86-%D8%A7%D9%85%D9%86%DB%8C%D8%AA-%D8%B1%D8%A7-%D8%B4%D8%B1%D8%B7-%D8%A7%D8%B2-%D8%B3%D8%B1%DA%AF%DB%8C%D8%B1%DB%8C"
   },
   {
    "id": "0e07fe1082d9d277c1a3f1d98eb04a7cca98b57a",
@@ -4853,15 +4586,6 @@
    "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxOX1lTUk42NjVtdURDYTRfTWhsdFRSXzNmRkJqbzhUdzZMYXRydm5yODRfNXowc1ptRG1ETHNvcEdvZ19PUzhDN3ZRVjRqQzlmM2xKdmJWNU1NYkNWV1RMc1hQZDBHQkoxaWpEQzdkWVJXWDg0cTVIUkZjRUw2YkZPa1hFcjZoUVhYMUJ5ekRHdGZNTEpsQU9kVm9XMENVYlRCUWtXcXZlQ3hDX3E3Qy15N0xvMlNIeDB0ZGQ5b05obGZjeWx3Nm9naEEzMDhVaDMxdXoxQzJhbmtUYjBUcFA5aW5vYjVmUllKbjhwTTBwbzNmYUdqYzZjZ1BDTmpSUGdxaG8wLXNVWQ?oc=5"
   },
   {
-   "id": "6f68d58438442ea6a5a2a8e77697a603201912a7",
-   "titleKey": "5093e723b632a9745eb16aa3d7baa7b261ea6958",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ضرورت توسعه بیمارستان ولی عصر قائم شهر، از اتاق‌های عمل تا گسترش کلینیک‌ها و به‌روزرسانی تجهیزات درمانی استاندار مازندران با تأکید بر ضرورت توسعه زیرساخت‌های درمانی بیمارستان تأمین اجتماعی ولیعصر قائمشهر، از برنامه‌ریزی برای اجرای طرح توسعه این مرکز درمانی در دو فاز خبر داد و گفت: با توجه به افزایش مراجعات بیماران و فشار اقتصادی بر خانوارها، تقویت ظرفیت‌های درمانی تأمین اجتماعی و ارتقای خدمات بیمارستانی یک ضرورت جدی است. ‎",
-   "at": "2026-11-18T19:21:48.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1868192"
-  },
-  {
    "id": "e36132f88f1994ce1e0873098dde807a723b454f",
    "titleKey": "1386a7fa839809af4dd297ba140fb9444fd7d9f2",
    "source": "France 24 English",
@@ -4869,16 +4593,6 @@
    "text": "'Netanyahu's only 2 tickets are racism or starting a war: He stopped acting as a democratic player' François Picard is pleased to welcome Israeli writer and filmmaker Etgar Keret, author of \"The Seven Good Years\", joining us from Tel Aviv. Keret argues that Netanyahu is seeking to remain in power, at any cost, including delegitimizing Arab parties and prolonging conflict. “For him, it could be a never-ending war as long as he's in power. He has no incentive to stop it,” he warns. Keret also calls for Israelis to examine how the war in Gaza was conducted, arguing that “the media as a whole ignored the war.”",
    "at": "2026-11-18T19:45:16.000Z",
    "url": "https://www.france24.com/en/tv-shows/spotlight/20261118-netanyahu-s-only-2-tickets-are-racism-or-starting-a-war-he-stopped-acting-as-a-democratic-player"
-  },
-  {
-   "id": "0f49d3dd8ff2849fae72f4aa2c0413abcf74fb89",
-   "titleKey": "66a5acd3e71bae4a2e5b5689846c31bce6fc9d97",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "نیویورک‌تایمز: ‌ترامپ از موضع ونس در قبال ایران ناراضی است روزنامه نیویورک تایمز نوشت رئیس‌جمهور آمریکا از موضع معاونش در قبال جنگ علیه ایران ناراضی و ناراحت است.",
-   "at": "2026-11-18T19:52:47.000Z",
-   "url": "https://www.khabaronline.ir/news/2304074/%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%AA%D8%A7%DB%8C%D9%85%D8%B2-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D8%A7%D8%B2-%D9%85%D9%88%D8%B6%D8%B9-%D9%88%D9%86%D8%B3-%D8%AF%D8%B1-%D9%82%D8%A8%D8%A7%D9%84-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%86%D8%A7%D8%B1%D8%A7%D8%B6%DB%8C-%D8%A7%D8%B3%D8%AA"
   },
   {
    "id": "6ccc71eecafd4ca653c39007662f01feccf3867b",
@@ -4890,15 +4604,6 @@
    "url": "https://www.france24.com/en/us-democrats-nominate-jeffries-to-be-first-black-house-speaker"
   },
   {
-   "id": "1a5b328ac9b7ea680891f3a7871e1277cfadc5cb",
-   "titleKey": "ea4f0c554a67485f9bd8f5a52082827d243c2bfc",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Idaho dropped 76 beavers by parachute in 1948, helping start new wild colonies",
-   "at": "2026-11-18T20:15:00.000Z",
-   "url": "https://timesofindia.indiatimes.com/world/rest-of-world/idaho-dropped-76-beavers-from-aeroplanes-in-parachute-equipped-boxes-in-1948-to-move-them-into-remote-forests-the-unusual-experiment-cost-just-30-per-four-animals-and-helped-establish-new-colonies/articleshow/135957998.cms"
-  },
-  {
    "id": "7a3c75600c99ae25546e8f052a4bc2f410d2cdc0",
    "titleKey": "ed848934ea1eb3d35a73066c8a2c53f31dbdfcbf",
    "source": "Asharq Al-Awsat",
@@ -4906,15 +4611,6 @@
    "text": "انتخابات «فيفا»: تاشيما منفتح على التحالف مع ديالو في مواجهة إنفانتينو - الشرق الأوسط انتخابات «فيفا»: تاشيما منفتح على التحالف مع ديالو في مواجهة إنفانتينو الشرق الأوسط",
    "at": "2026-11-18T20:25:08.000Z",
    "url": "https://news.google.com/rss/articles/CBMiqgVBVV95cUxOOHp6OFVMY2Zlc3F5RXRfUzJLc2xjTUQ4eUtJTVRNZW9aUEVGci1YUzRqLXdxZG9abFEzbGdxdkFBczE1N0d5ZlJZLVlsR2xsUURtazNtV3ZVOEVVWTdpc3JqdHYxbkxWM3FxTXNNM1RoZWE4VFh6Wl9pQnhteVNPajNjRndCR1ljenluNlVSY2U1Q0dqNDFscTh1LTBFMUI3cVUtV1pxMzVkbF81Y1BRbWVVQ1NxV3lVUWo0c2sweURtYnVzTmlQRm1HVVNBWHN6dzZHelhsTUtvdVpMTko0Q0dmSkFiZGlHRzhrclF5RXlQTElia01YcG5MSXEyQlZFa09UUUREdm5rekZvcV9iNEtyZnM3ZmM4S0prUkpvRzlFRy05YUpFcnNBR1Jac2FQbnlUVDhKY0FiMDZ1eFYtYTFnMjRLTEhVbWRrdGR3bHVwWUp3OHlEM1U0Rmc2TTRyeXU5QnlUWmtNSXZVWWxhTnp2TFRKcjlxVnNGWWxnbU9lVC1DVkk3NXlMZ3ZnNEx0RjZXbTZDTWpBaUhmODI2MnJfSU5uMjRvOVRSa09Ka3VVcHU0TFd6ME85OG9CR2I0N1JmWk1CUWVEODRmV3RveXF2VzBmSFpwRUw1MXZHa212NHIxT2IxMmhjSTJMN19pdWlGN2dXWlNpRkVITUswSDNONmtlcXJ4d1pvTFk4VFZOTnhmRVRhZmN5a3FXTUdoNXp5M3RnaTctaGl2R0hfLVRpT0VqckN0ZXFHTTNBdXRiV3hrTWxwbVBmWnlMSFU0U0lON1BxMUwxVmRxSjcxSS03S2hPYm05a0NWbDlxbFFmaGE2cEc3LWdyTnZWUGJObXFrSzNuYndIQzlOQ29fSURaRXVKWWdVd2NRRWFUeF93al9XNllKakJn?oc=5"
-  },
-  {
-   "id": "dc86d3b129265708a550f83871ec14d01fcf8659",
-   "titleKey": "e125c1df475e01ce5dd3b6939711617550495680",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Keralam CM Satheesan faces questions by ministers over key calls Keralam CM V D Satheesan encountered questions regarding key decisions during the cabinet meeting on Wednesday. Ministers raised concerns about appointments and representation, leading to discussions for nearly two-and-a-half hours.",
-   "at": "2026-11-18T20:52:52.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/keralam-ministers-question-cms-key-calls-at-cabinet-meet/articleshow/135971459.cms"
   },
   {
    "id": "654e0782a0b9df723c023795a3cf8ff9534c0e9a",
@@ -4926,16 +4622,6 @@
    "url": "https://thehill.com/homenews/senate/6228590-britt-proposed-national-fraud-office/"
   },
   {
-   "id": "5d3d24505d337a0398132ea8733eb54e6e99cbe6",
-   "titleKey": "307de25f4a758a5de74ea37718aa8f453c004c38",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "پوتین کیف معروف هسته‌ای روسیه را در چین به همراه خود برد + فیلم تصاویری از همراه‌داشتن کیف هسته‌ای معروف روسیه توسط ولادیمیر پوتین در سفر به چین منتشر شده است. این کیف که برای انتقال فرمان استفاده از تسلیحات هسته‌ای روسیه به کار می‌رود، در جریان این سفر نیز در کنار رئیس‌جمهور روسیه دیده شده است. در ویدئو منتشرشده، خبرنگار از یکی از افسران همراه پوتین می‌پرسد: «این همان کیف هسته‌ای معروف است؟» افسر نیز در پاسخ تأیید می‌کند: «بله»./بیسیمچی‌مدیا",
-   "at": "2026-11-18T21:00:00.000Z",
-   "url": "https://www.khabaronline.ir/news/2304072/%D9%BE%D9%88%D8%AA%DB%8C%D9%86-%DA%A9%DB%8C%D9%81-%D9%85%D8%B9%D8%B1%D9%88%D9%81-%D9%87%D8%B3%D8%AA%D9%87-%D8%A7%DB%8C-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%B1%D8%A7-%D8%AF%D8%B1-%DA%86%DB%8C%D9%86-%D8%A8%D9%87-%D9%87%D9%85%D8%B1%D8%A7%D9%87-%D8%AE%D9%88%D8%AF-%D8%A8%D8%B1%D8%AF-%D9%81%DB%8C%D9%84%D9%85"
-  },
-  {
    "id": "96646525445f9ce9820e6e8c73402cdfed0c17ed",
    "titleKey": "c3c74002bb213ef497318379462a955fb536354b",
    "source": "مشرق نیوز",
@@ -4945,16 +4631,6 @@
    "url": "https://www.mashreghnews.ir/news/1853692/%D8%B3%D8%B1%DA%A9%D9%88%D8%A8-%D8%AF%D8%B1-%D8%B1%DB%8C%D8%A7%D8%B6-%D8%B9%D8%B1%D8%A8%D8%B3%D8%AA%D8%A7%D9%86-%D8%B4%DA%A9%D8%B3%D8%AA-%D8%AF%D8%B1-%DB%8C%D9%85%D9%86-%D8%B1%D8%A7-%D8%A8%D8%A7-%D8%A7%D8%B9%D8%AF%D8%A7%D9%85-%D9%86%D9%88%D8%AC%D9%88%D8%A7%D9%86%D8%A7%D9%86-%D8%AC%D8%A8%D8%B1%D8%A7%D9%86"
   },
   {
-   "id": "f740e31bcaa1d555d67303965817eff60793dd31",
-   "titleKey": "6241b87341a84df88130046f5a885982ea2ede0a",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "نخست‌وزیر اسبق قطر: تاریخ گواهی می‌دهد که آمریکا از دوستانش حمایت نمی‌کند بن‌جاسم گفت که تاریخ گواهی می‌دهد واشنگتن از دوستانش حمایت نمی‌کند؛ هرچند بارها بر پایبندی خود به روابط دوستانه و ائتلاف با آنان تأکید کرده باشد.",
-   "at": "2026-11-18T21:00:06.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309362-%D9%86%D8%AE%D8%B3%D8%AA-%D9%88%D8%B2%DB%8C%D8%B1-%D8%A7%D8%B3%D8%A8%D9%82-%D9%82%D8%B7%D8%B1-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%DA%AF%D9%88%D8%A7%D9%87%DB%8C-%D9%85%DB%8C-%D8%AF%D9%87%D8%AF-%DA%A9%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%A7%D8%B2-%D8%AF%D9%88%D8%B3%D8%AA%D8%A7%D9%86%D8%B4-%D8%AD%D9%85%D8%A7%DB%8C%D8%AA-%D9%86%D9%85%DB%8C-%DA%A9%D9%86%D8%AF"
-  },
-  {
    "id": "1cd9cd070c555c547a64f2f7a40ef32c36e1e2ec",
    "titleKey": "0b63b6056a46edd081468ecc715731ed0994a399",
    "source": "RT",
@@ -4962,15 +4638,6 @@
    "text": "More missiles, more war: Europe pledges to keep Kiev fighting European governments have pledged billions in military aid for Ukraine as Zelensky demands more weapons and funding at Ramstein meeting Read Full Article at RT.com",
    "at": "2026-11-18T21:01:59.000Z",
    "url": "https://rt-english.com/news/649037-nato-europe-ukraine-weapons/?utm_source=rss&utm_medium=rss&utm_campaign=RSS"
-  },
-  {
-   "id": "6d7797104591e595c69cd34c23a20d33c3342264",
-   "titleKey": "9fb69cbd3d256d16a017b7543df53902b198c3e4",
-   "source": "TASS English",
-   "lang": "en",
-   "text": "IDF confirms start of ‘targeted’ operation west of Yellow Line in Gaza According to the statement, IDF began an operation to dismantle a terror tunnel",
-   "at": "2026-11-18T21:03:14.000Z",
-   "url": "https://tass.com/world/2220809"
   },
   {
    "id": "f275da7534ac1697971cd1f8e45909ec3bc9f083",
@@ -4983,16 +4650,6 @@
    "url": "https://www.bbc.co.uk/news/articles/cq4gnx28zp5lo?at_medium=RSS&at_campaign=rss"
   },
   {
-   "id": "2401b74f3efc092399b24c21e510770c2b309b76",
-   "titleKey": "fc7f0711850dc59694d523b010467a75c83d3323",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "گفت‌وگوهای پوتین و شی درباره مسائل منطقه‌ای برگزار شد دستیار رئیس‌جمهور روسیه گفت روسای جمهور روسیه و چین در دیدار خود درباره تمامی مسائل مهم در دستور کار بین‌المللی و منطقه‌ای گفت‌وگو کردند.",
-   "at": "2026-11-18T19:56:39.000Z",
-   "url": "https://www.khabaronline.ir/news/2304075/%DA%AF%D9%81%D8%AA-%D9%88%DA%AF%D9%88%D9%87%D8%A7%DB%8C-%D9%BE%D9%88%D8%AA%DB%8C%D9%86-%D9%88-%D8%B4%DB%8C-%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D9%85%D8%B3%D8%A7%D8%A6%D9%84-%D9%85%D9%86%D8%B7%D9%82%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1-%D8%B4%D8%AF"
-  },
-  {
    "id": "41407e97527ea6c8b3008c6668a5be75dc7fd749",
    "titleKey": "bc09b6718cdfaef16cc9946fa9ca3e319dee9556",
    "source": "Times of India",
@@ -5002,16 +4659,6 @@
    "url": "https://timesofindia.indiatimes.com/technology/tech-news/in-her-first-all-hands-meeting-nvidia-interim-ceo-colette-kress-promises-salary-hikes-to-49000-employees-tells-staff-make-sure-that-you-feel-good-about-this-company-and-you-do-not-worry-about-/articleshow/135971274.cms"
   },
   {
-   "id": "09bddcbb52349c785f8ddb89dc4ca584140d56e2",
-   "titleKey": "cfdd80a7147bef95ac56ac91974ce36ea97ad99d",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "افشای موضوع دیدارهای رئیس موساد در واشنگتن/ حمله مجدد به ایران در راه است؟ به گفته دو فرد مطلع از سفر رئیس سازمان جاسوسی موساد اسرائیل، رومن گوفمن، او هفته گذشته در جریان دیدارهایی با مقام‌های آمریکایی، از انجام حملات مشترک آمریکا و اسرائیل علیه ایران حمایت کرده و برای تحقق آن رایزنی کرده است.",
-   "at": "2026-11-18T20:32:00.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309361-%D8%A7%D9%81%D8%B4%D8%A7%DB%8C-%D9%85%D9%88%D8%B6%D9%88%D8%B9-%D8%AF%DB%8C%D8%AF%D8%A7%D8%B1%D9%87%D8%A7%DB%8C-%D8%B1%D8%A6%DB%8C%D8%B3-%D9%85%D9%88%D8%B3%D8%A7%D8%AF-%D8%AF%D8%B1-%D9%88%D8%A7%D8%B4%D9%86%DA%AF%D8%AA%D9%86-%D8%AD%D9%85%D9%84%D9%87-%D9%85%D8%AC%D8%AF%D8%AF-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%AF%D8%B1-%D8%B1%D8%A7%D9%87-%D8%A7%D8%B3%D8%AA"
-  },
-  {
    "id": "6c38428180203553d1651b5aed1ae58f20d061d6",
    "titleKey": "65a2d0e84c1cbfe3ec4e0df81fdef18f18204459",
    "source": "Al Jazeera English",
@@ -5019,15 +4666,6 @@
    "text": "Pew Research: Islam on track to become world’s largest religion by 2035 The report projects steady increases for both Christianity and Islam from 2020 to 2070.",
    "at": "2026-11-18T20:37:40.000Z",
    "url": "https://www.aljazeera.com/news/2026/11/18/pew-research-islam-on-track-to-become-worlds-largest-religion-by-2035?traffic_source=rss"
-  },
-  {
-   "id": "680a248d873d55924df1b16eed23a3fbb0b381cc",
-   "titleKey": "eb0f2e75c2c4d90b173a71e85e08b1d7c7eb292f",
-   "source": "Times of India",
-   "lang": "en",
-   "text": "Govt hospitals to hike Ayushman packages from 23 to 112 Patients under Ayushman Bharat will soon have access to a broader range of medical treatments and surgical procedures. The government plans to expand packages from 23 to 112, covering various health conditions and treatments. New packages will include procedures like hysterectomy, circumcision, and diabetic-related complications. Community health centres and sub-divisional hospitals will provide these services, depending on available infrastructure and staff.",
-   "at": "2026-11-18T20:42:07.000Z",
-   "url": "https://timesofindia.indiatimes.com/india/govt-hospitals-to-hike-ayushman-packages-from-23-to-112/articleshow/135971407.cms"
   },
   {
    "id": "67e99b3c285fa7b2c8143951c32ec6d481b9bf59",
@@ -5040,16 +4678,6 @@
    "url": "https://www.mehrnews.com/news/7016027/%D9%86%D8%A7%D9%88-%D9%87%D9%88%D8%A7%D9%BE%DB%8C%D9%85%D8%A7%D8%A8%D8%B1-%D8%AC%D9%88%D8%B1%D8%AC-%D9%88%D8%A7%D8%B4%D9%86%DA%AF%D8%AA%D9%86-%D8%AE%D9%84%DB%8C%D8%AC-%D9%81%D8%A7%D8%B1%D8%B3-%D8%B1%D8%A7-%D8%AA%D8%B1%DA%A9-%DA%A9%D8%B1%D8%AF"
   },
   {
-   "id": "4efb4a0842e8d8d569a77c2b4b90ddfe27a4ba3d",
-   "titleKey": "63ee38e48ff223a8b923156fcb9600dd0de6888b",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "جهش کم‌سابقه انرژی خورشیدی در ایران / ظرفیت کشور چقدر افزایش یافت؟ ظرفیت انرژی خورشیدی کشور طی دو سال گذشته رشد چشمگیری داشته است؛ آماری که در نشست وزارتی همکاری‌های اقلیمی کشورهای عضو D۸ اعلام شد.",
-   "at": "2026-11-18T20:45:02.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2176470/جهش-کم-سابقه-انرژی-خورشیدی-در-ایران-ظرفیت-کشور-چقدر-افزایش-یافت"
-  },
-  {
    "id": "7ca7f306043bea1021f5f515f3a83efa4ac25e1d",
    "titleKey": "1260843888d5a03426d463b6fbd7408fcd5eac08",
    "source": "خبرگزاری مهر",
@@ -5058,15 +4686,6 @@
    "text": "پنج اثر طبیعی کردستان در فهرست آثار ملی کشور ثبت شد سنندج- سرپرست اداره‌کل میراث‌فرهنگی کردستان از ثبت پنج اثر طبیعی استان در فهرست آثار ملی کشور با هدف صیانت از میراث طبیعی و حفظ تنوع زیستی خبر داد.",
    "at": "2026-11-18T20:47:37.000Z",
    "url": "https://www.mehrnews.com/news/7016036/%D9%BE%D9%86%D8%AC-%D8%A7%D8%AB%D8%B1-%D8%B7%D8%A8%DB%8C%D8%B9%DB%8C-%DA%A9%D8%B1%D8%AF%D8%B3%D8%AA%D8%A7%D9%86-%D8%AF%D8%B1-%D9%81%D9%87%D8%B1%D8%B3%D8%AA-%D8%A2%D8%AB%D8%A7%D8%B1-%D9%85%D9%84%DB%8C-%DA%A9%D8%B4%D9%88%D8%B1-%D8%AB%D8%A8%D8%AA-%D8%B4%D8%AF"
-  },
-  {
-   "id": "ca50fda84cf716b326d1e9ab49a9afef5f908a08",
-   "titleKey": "2cd2c143be75033d865886032c84f34be5acc106",
-   "source": "The Hill",
-   "lang": "en",
-   "text": "White House tells Democrats investigations must start anew as requests don’t ‘carry over’ White House counsel Will Scharf on Wednesday effectively told incoming Democratic chairs to start over, arguing the executive is under no obligation to respond to letters as part of investigations launched by ranking members. The letter, broadly addressed to “ranking members” of the House and Senate, does not appear to have actually been delivered to…",
-   "at": "2026-11-18T20:47:44.000Z",
-   "url": "https://thehill.com/homenews/administration/6228627-white-house-will-scharf-democrats-oversight-trump-administration-probes/"
   },
   {
    "id": "b5b68734633dad9d3136361a7a1ea880e25d6f4a",
@@ -5079,15 +4698,6 @@
    "url": "https://www.mehrnews.com/news/7016000/%D8%A7%D8%B3%D8%AA%D8%A7%D8%AF%D9%87-%D8%A7%D9%85-%DA%86%D9%88-%D8%B4%D9%85%D8%B9-%D9%BE%D9%86%D8%AC%D9%85%DB%8C%D9%86-%D8%A7%DA%A9%D8%B3%D9%BE%D9%88%DB%8C-%D8%AA%D8%AC%D8%B3%D9%85%DB%8C-%D8%A8%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1-%D9%85%DB%8C-%D8%B4%D9%88%D8%AF"
   },
   {
-   "id": "966e75450038417455ce7e1902c4cdef732ceeee",
-   "titleKey": "e1b435a8431330edfb4e2dfd5d26225c7c8758d5",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "اذعان مقام سابق آمریکایی به مصون نماندن واشنگتن از پیامدهای جنگ علیه ایران نیویورک – ایرنا- «جیک سالیوان» مشاور امنیت ملی پیشین ایالات متحده در دولت جو بایدن، در پی آستانه دیدار روسای جمهوری آمریکا، روسیه و چین با یکدیگر اذعان کرد که واشنگتن از پیامدهای اقتصادی جنگ علیه ایران مصون نمانده است.",
-   "at": "2026-11-18T20:52:05.000Z",
-   "url": "https://www.irna.ir/news/86326292/%D8%A7%D8%B0%D8%B9%D8%A7%D9%86-%D9%85%D9%82%D8%A7%D9%85-%D8%B3%D8%A7%D8%A8%D9%82-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7%DB%8C%DB%8C-%D8%A8%D9%87-%D9%85%D8%B5%D9%88%D9%86-%D9%86%D9%85%D8%A7%D9%86%D8%AF%D9%86-%D9%88%D8%A7%D8%B4%D9%86%DA%AF%D8%AA%D9%86-%D8%A7%D8%B2-%D9%BE%DB%8C%D8%A7%D9%85%D8%AF%D9%87%D8%A7%DB%8C-%D8%AC%D9%86%DA%AF"
-  },
-  {
    "id": "e5b5e5eac8dee608406381ccbea3b1fe3bc83660",
    "titleKey": "bf0421c5a74a29d81c1ad7911063dc1909474e88",
    "source": "TASS English",
@@ -5095,15 +4705,6 @@
    "text": "Muslims to outnumber Christians worldwide by 2035 — Pew Research Center forecast According to the report, the projections assume that most global population growth in the 21st century will occur in Africa",
    "at": "2026-11-18T20:52:55.000Z",
    "url": "https://tass.com/society/2220807"
-  },
-  {
-   "id": "df01046e0a2fc1e0404db58bae341fc6289f7ac2",
-   "titleKey": "9f7b0a7d59ebcd4a85b5ff71fbb1a29f91d7c4bb",
-   "source": "Haaretz English",
-   "lang": "en",
-   "text": "Undoing Netanyahu's Judicial Overhaul: The Legal Hurdles Facing Eisenkot's Bloc - Haaretz Undoing Netanyahu's Judicial Overhaul: The Legal Hurdles Facing Eisenkot's Bloc Haaretz",
-   "at": "2026-11-18T18:43:00.000Z",
-   "url": "https://news.google.com/rss/articles/CBMiogJBVV95cUxOdHpIb2NPcDJJQ3hiOXdfejBsZ2RBSTVmZXhDU0o1Smx6a1lwSG5JWXc0VUhFZXZWZWVLakVVbkYwQ1l6X1RVOXpuMDhiVUxDRjg0dkJtNmROQ2toZ05qMDktdlZBOXBuSVhLNWFpN25OVENyVWFUNi1USGZCcnpxU0hFOE1DWU9aUlZ6eVduanJ3QThwTVlmZzJxSzNEYUViU215YURTaDAwMzZUN3VmeFRoWkttYXVONG5WQ25KcC1wb0Qxak96LW9wcmFHSDV6c2UtaDVoYmZ6Rm43X19CUEROc19NUVBiNWY3VTBYaFZ4R0tOYnptTnNRZFI2VlVnZFItUHVGeWo2ay11OUl0Z0k3UFBpenZRVHFXelBMZlJZQQ?oc=5"
   },
   {
    "id": "30f48ebe1533b54270f0423e8909a0a830bcc0ef",
@@ -5116,15 +4717,6 @@
    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPWER5OVF3LWR5V2NKU2tOd3hwdGd1Zm1fM3NydnZTQWFRVWYzYmMzSjJwUXdIb0xJUlhUdlpjNzl4RVhCR0lCQWFlN29WdmQ2XzFOV0g5LW1EQURLdDB0aHhnTVEyTWZad3NIb3pJZ2RvSDd6THdLV050QXFLMXE3RlNqYlVCQXNFY0NZWGo3SFJQYXZabFdvNw?oc=5"
   },
   {
-   "id": "ee7b14dff8918da33f98c09c38b6ac32f760ec90",
-   "titleKey": "9c10a5dc84367481ff09c418abfdec7206f1fdf6",
-   "source": "Guardian World",
-   "lang": "en",
-   "text": "Hegseth boasts of Maduro’s capture while vowing to deepen US military cooperation with Venezuela The US defense secretary called the former president’s capture the ‘most sophisticated military operation’ in Latin American history Pete Hegseth has used his first visit to Venezuela since US special forces abducted its former president, Nicolás Maduro, to boast of the dictator’s capture during what he called “the single most sophisticated military operation in the history of Latin America”. Maduro was controversially seized by Delta Force operatives in the early hours of 3 January, setting in motion an improbable rapprochement between Washington and Venezuela’s anti-imperialist “Chavista” regime, which has ruled since 1999. Continue reading...",
-   "at": "2026-11-18T20:24:19.000Z",
-   "url": "https://www.theguardian.com/world/2026/nov/18/pete-hegseth-venezuela-nicolas-maduro-military"
-  },
-  {
    "id": "a5b007957a15b763cb0b1ee3478ab1a97b216126",
    "titleKey": "7c769e7aea5e14c1691566f40eb46d77c3cce7bd",
    "source": "خبرگزاری مهر",
@@ -5133,15 +4725,6 @@
    "text": "حضور نواب در تجمع شبانه مردم اصفهان در میدان بزرگمهر اصفهان - حجت‌الاسلام والمسلمین عبدالفتاح نواب، نماینده ولی فقیه در سازمان حج و زیارت در تجمع شبانه مردم اصفهان حضور یافت.",
    "at": "2026-11-18T20:33:06.000Z",
    "url": "https://www.mehrnews.com/news/7016025/%D8%AD%D8%B6%D9%88%D8%B1-%D9%86%D9%88%D8%A7%D8%A8-%D8%AF%D8%B1-%D8%AA%D8%AC%D9%85%D8%B9-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%B1%D8%AF%D9%85-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86-%D8%AF%D8%B1-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D8%A8%D8%B2%D8%B1%DA%AF%D9%85%D9%87%D8%B1"
-  },
-  {
-   "id": "8e97d8bc456b33a0fda1a2e0d9615b2aea1a56a7",
-   "titleKey": "2a294d2f3c464234e61c5016ababed41d8383909",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "ارکستر سمفونیک تهران اجرای اثر سمفونیک «پتروس اِنی» از «آنتونیو پاپالاردو»آهنگساز ایتالیایی شامگاه چهارشنبه (۲۷ آبان ۱۴۰۵) توسط ارکستر سمفونیک تهران به رهبری «نصیر حیدریان» و همراهی گروه کر در تالار وحدت برگزار شد.",
-   "at": "2026-11-18T20:33:32.000Z",
-   "url": "https://www.irna.ir/photo/86326294/%D8%A7%D8%B1%DA%A9%D8%B3%D8%AA%D8%B1-%D8%B3%D9%85%D9%81%D9%88%D9%86%DB%8C%DA%A9-%D8%AA%D9%87%D8%B1%D8%A7%D9%86"
   },
   {
    "id": "ebc1969bb3d6180d36c8421907434fa27a694ff2",
@@ -5154,16 +4737,6 @@
    "url": "https://www.khabaronline.ir/news/2303871/%D8%A7%D8%B2-%D9%BE%DB%8C%D8%A7%D8%AA%D8%B2%D8%A7-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%81%D9%82%D8%B7-%DB%8C%DA%A9-%D8%B1%D8%A7%D8%A8%D8%B7%D9%87-%D8%B9%D8%A7%D8%B4%D9%82%D8%A7%D9%86%D9%87-%D9%85%D8%A7%D9%86%D8%AF-%D9%88-%D8%A8%D8%B3"
   },
   {
-   "id": "028126fa4c07c1948268aded80e4b8245e0ea743",
-   "titleKey": "45feeb53ec516e5a20edfc90479bc53fcffa6096",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مهاجرنیا: ایمان و امید اجتماعی از ارکان قدرت در حکمرانی دینی است قم- رئیس اندیشکده مطالعات انقلاب اسلامی طلوع مهر گفت: عقلانیت دینی با عبور از محاسبات صرفاً مادی، ایمان، امید اجتماعی و اعتماد به نصرت الهی را در تحلیل قدرت و حکمرانی وارد می‌کند.",
-   "at": "2026-11-18T20:37:52.000Z",
-   "url": "https://www.mehrnews.com/news/7016031/%D9%85%D9%87%D8%A7%D8%AC%D8%B1%D9%86%DB%8C%D8%A7-%D8%A7%DB%8C%D9%85%D8%A7%D9%86-%D9%88-%D8%A7%D9%85%DB%8C%D8%AF-%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%DB%8C-%D8%A7%D8%B2-%D8%A7%D8%B1%DA%A9%D8%A7%D9%86-%D9%82%D8%AF%D8%B1%D8%AA-%D8%AF%D8%B1-%D8%AD%DA%A9%D9%85%D8%B1%D8%A7%D9%86%DB%8C-%D8%AF%DB%8C%D9%86%DB%8C"
-  },
-  {
    "id": "d7b8eb3f945dc2e593099b101777a69adf3fa2e8",
    "titleKey": "4c20def549f657d94ca99381202952f4971b5857",
    "source": "مشرق نیوز",
@@ -5171,16 +4744,6 @@
    "text": "رگ‌های حیاتی در تیررس؛ امکان‌سنجی تروریسم اقتصادی صهیونیسم و معماری پدافند اقتصادی ایران لوی در تحلیل خود صریحاً اذعان می‌کند که «شکست نظامی ایران غیرممکن است» و تنها مسیر، «فشار اقتصادی خفقان‌آور» است. او هدف کمی این فشار را «دسترسی ایران به تنها ده سنت از هر دلار درآمد» توصیف می‌کند.",
    "at": "2026-11-18T20:40:00.000Z",
    "url": "https://www.mashreghnews.ir/news/1852073/%D8%B1%DA%AF-%D9%87%D8%A7%DB%8C-%D8%AD%DB%8C%D8%A7%D8%AA%DB%8C-%D8%AF%D8%B1-%D8%AA%DB%8C%D8%B1%D8%B1%D8%B3-%D8%A7%D9%85%DA%A9%D8%A7%D9%86-%D8%B3%D9%86%D8%AC%DB%8C-%D8%AA%D8%B1%D9%88%D8%B1%DB%8C%D8%B3%D9%85-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C-%D8%B5%D9%87%DB%8C%D9%88%D9%86%DB%8C%D8%B3%D9%85-%D9%88"
-  },
-  {
-   "id": "59092cf8bc45dbdb600c7c155eb484487468a74d",
-   "titleKey": "f93ab7a3e1caaf940299dc5ffe1f989e0b1cce6b",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "ایران: جنایت مدرسه میناب نباید بی‌پاسخ بماند نماینده جمهوری اسلامی ایران در سازمان بین‌المللی کار با محکوم کردن جنایت حمله به مدرسه شجره طیبه میناب تأکید کرد: کشتار کودکان میناب جنایتی آشکار است که نباید بی‌پاسخ بماند.",
-   "at": "2026-11-18T20:41:25.000Z",
-   "url": "https://www.mehrnews.com/news/7016028/%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%AC%D9%86%D8%A7%DB%8C%D8%AA-%D9%85%D8%AF%D8%B1%D8%B3%D9%87-%D9%85%DB%8C%D9%86%D8%A7%D8%A8-%D9%86%D8%A8%D8%A7%DB%8C%D8%AF-%D8%A8%DB%8C-%D9%BE%D8%A7%D8%B3%D8%AE-%D8%A8%D9%85%D8%A7%D9%86%D8%AF"
   },
   {
    "id": "ae4a4530a77dc0f679d83709f44f1d6036ccbb77",
@@ -5193,15 +4756,6 @@
    "url": "https://www.khabaronline.ir/news/2303880/%DB%8C%D8%A7%D9%85%D8%A7%D9%84-%D9%85%D8%B1%D8%AF%D9%85-%D9%86%DA%98%D8%A7%D8%AF%D9%BE%D8%B1%D8%B3%D8%AA-%D9%87%D8%B3%D8%AA%D9%86%D8%AF-%D9%88-%D9%86%D9%85%DB%8C-%D8%AF%D8%A7%D9%86%D9%86%D8%AF"
   },
   {
-   "id": "b8d9033d5394309a7c948e543a246bd6bd44c7f6",
-   "titleKey": "c6a4ea1886a14bbc69f699224d5bb5387dd37817",
-   "source": "NYT World",
-   "lang": "en",
-   "text": "Colombia Rejects Joint Plan With U.S. to Target Drug Gangs The Colombian president said his nation would not allow Americans forces to take part in anti-cartel operations on its soil.",
-   "at": "2026-11-18T20:21:11.000Z",
-   "url": "https://www.nytimes.com/2026/11/18/world/americas/colombia-us-joint-military.html"
-  },
-  {
    "id": "25b45d0bca0a49300e5e8840a3108c88121cbe75",
    "titleKey": "77b7d436495eee4acb4c262268e76aa587be24ea",
    "source": "همشهری آنلاین",
@@ -5209,16 +4763,6 @@
    "text": "بقایی: از طرف نیویورک‌تایمز برای مصاحبه دعوت شدم، نپذیرفتم | نیویورک‌تایمز به جای عذرخواهی، در حال توجیه ادعای بی‌اساس خود است سخنگوی وزارت امور خارجه با انتقاد از گزارش نیویورک‌تایمز درباره ارتباط سدهای ایران با تأسیسات نظامی، این روزنامه را متهم کرد که با انتشار ادعاهای بی‌اساس، رسانه را در خدمت توجیه جنگ‌افروزی و نقض حقوق بشردوستانه بین‌المللی قرار داده است.",
    "at": "2026-11-18T20:24:57.000Z",
    "url": "https://www.hamshahrionline.ir/news/1087574/%D8%A8%D9%82%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B2-%D8%B7%D8%B1%D9%81-%D9%86%DB%8C%D9%88%DB%8C%D9%88%D8%B1%DA%A9-%D8%AA%D8%A7%DB%8C%D9%85%D8%B2-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%85%D8%B5%D8%A7%D8%AD%D8%A8%D9%87-%D8%AF%D8%B9%D9%88%D8%AA-%D8%B4%D8%AF%D9%85-%D9%86%D9%BE%D8%B0%DB%8C%D8%B1%D9%81%D8%AA%D9%85"
-  },
-  {
-   "id": "1dbd60dec4ad6f1d7f13ed10f1b337a980934635",
-   "titleKey": "b0942c0c0a58871cbeda38bbff20135ae0e80033",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "واکنش آذری جهرمی به سیاست بنزینی دولت / خدا قوت پهلوان، خسته نباشی جوانمرد! وزیر پیشین ارتباطات با لحنی تند به حاشیه‌های اخیر دولت واکنش نشان داد و این‌بار با طرح موضوع منافع فرزندان برخی مسئولان، سیاست بنزینی دولت را زیر سؤال برد.",
-   "at": "2026-11-18T20:28:15.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2176648/واکنش-آذری-جهرمی-به-سیاست-بنزینی-دولت-خدا-قوت-پهلوان-خسته-نباشی-جوانمرد"
   },
   {
    "id": "ce8efe1e9c384bc93942e7bb28bf4ea852592fb1",
@@ -5231,16 +4775,6 @@
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%DB%8C%D8%A7%D8%B3%D8%AA-%DA%AF%D8%B0%D8%A7%D8%B1%DB%8C-100/4309311-%D9%85%D8%AA%D8%B1-%D8%AC%D8%AF%DB%8C%D8%AF-%D8%A8%DB%8C%DA%A9%D8%A7%D8%B1%DB%8C-%D8%AC%D9%88%D8%A7%D9%86%D8%A7%D9%86"
   },
   {
-   "id": "da297a0cd1423c6f1f54c504c6f8e852d5b3ee1a",
-   "titleKey": "ae570e2ffe17119aa451f630b24d5f6a0ed007ea",
-   "source": "دنیای اقتصاد",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "تهران در معادله قدرت‌های بزرگ نشست سه‌جانبه دونالد ترامپ، شی جین‌پینگ و ولادیمیر پوتین در شنژن، در شرایطی برگزار می‌شود که رقابت قدرت‌های بزرگ بر سر بازتعریف نظم بین‌المللی وارد مرحله تازه‌ای شده است. در این میان، ایران می‌تواند یکی از محورهای رایزنی واشنگتن با مسکو و پکن باشد؛ رایزنی‌ای که هدف احتمالی آن محدودسازی همکاری‌های اقتصادی، نظامی و امنیتی این دو کشور با تهران است. بااین‌حال، عابد اکبری، کارشناس مسائل ژئوپلیتیک در گفت‌وگو با روزنامه «دنیای اقتصاد» توضیح داد که روسیه و چین ممکن است بر سر ایران برخی امتیازها به واشنگتن بدهند اما این به معنای پذیرفتن انزوای کامل ایران نیست. همچنین اکبری تاکید کرد که قدرت واقعی برای تهران زمانی شکل می‌گیرد که بتواند منافع خود را با منافع بلندمدت روسیه و چین پیوند بزند و هزینه کنارگذاشتن را برای آنها افزایش دهد.",
-   "at": "2026-11-18T20:30:00.000Z",
-   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%AE%D8%A8%D8%B1-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%B3%DB%8C-64/4309316-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%AF%D8%B1-%D9%85%D8%B9%D8%A7%D8%AF%D9%84%D9%87-%D9%82%D8%AF%D8%B1%D8%AA-%D9%87%D8%A7%DB%8C-%D8%A8%D8%B2%D8%B1%DA%AF"
-  },
-  {
    "id": "ba41307360649e4f135c7b3901543392dddfd999",
    "titleKey": "f10d5973b328b96c64cfa753fa92989afc6f1e17",
    "source": "دنیای اقتصاد",
@@ -5249,15 +4783,6 @@
    "text": "عوارض ثانویه رکود تورمی مسکن سرمایه سازنده‌های مسکن به جای آنکه بعد از هر «فرآیند شروع و تکمیل سرمایه‌گذاری ساختمانی»، تقویت شود تا قابلیت «تولید بیشتر» فراهم بیاید، آب می‌رود. داده‌های رسمی از تبخیر سرمایه‌های ساختمانی تحت‌تاثیر 2 عامل اقتصادی نشان می‌دهد، سال1403 متوسط قیمت فروش واحدهای تازه‌ساز در شهرها حدود 20درصد از «ارزش جایگزینی» ساختمان‌های تکمیل‌شده، کمتر شد. این وضعیت که احتمالا سال‌های قبل و بعداز آن هم رخ داده است، «سرمایه در گردش» فعالان ساختمانی را محدود کرده یا برای بخشی از آنها به انتها رسانده که نتیجه‌اش، رشد منفی سرمایه‌گذاری واقعی و رسوب نیمه‌کاره‌ها در بازار است.",
    "at": "2026-11-18T20:30:00.000Z",
    "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D9%85%D8%B3%DA%A9%D9%86-%D8%B4%D9%87%D8%B1%DB%8C-18/4309338-%D8%B9%D9%88%D8%A7%D8%B1%D8%B6-%D8%AB%D8%A7%D9%86%D9%88%DB%8C%D9%87-%D8%B1%DA%A9%D9%88%D8%AF-%D8%AA%D9%88%D8%B1%D9%85%DB%8C-%D9%85%D8%B3%DA%A9%D9%86"
-  },
-  {
-   "id": "7029ca4e930e439979b527117ee4c7e173c878df",
-   "titleKey": "f3e217ac4fde1af1d50a5b5a51711e1ccf63491d",
-   "source": "خبرگزاری ایلنا",
-   "lang": "fa",
-   "text": "ساعات سعد و نحس امروز پنجشنبه ۲۸ آبان + جدول",
-   "at": "2026-11-18T20:31:00.000Z",
-   "url": "https://www.ilna.ir/fa/tiny/news-1868170"
   },
   {
    "id": "4d93eae274f051b7d8d89d1f504377f62f2a9a78",
@@ -5270,16 +4795,6 @@
    "url": "https://www.mehrnews.com/news/7015999/%D8%AD%D8%B6%D9%88%D8%B1-%D9%BE%D8%B1%D8%B4%D9%88%D8%B1-%D9%85%D8%B1%D8%AF%D9%85-%D8%AF%D8%B1-%D8%B4%D8%A8-%DB%B6%DB%B2%DB%B3-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D9%87%D9%85%D8%B2%D9%85%D8%A7%D9%86-%D8%A8%D8%A7-%D9%87%D9%81%D8%AA%D9%87-%D8%A8%D8%B3%DB%8C%D8%AC"
   },
   {
-   "id": "6955b52ebc36deebc02c8bd43748c0a0901679d1",
-   "titleKey": "634d7c0eea7200248cbaec7e57b27db148fb21b5",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "آتش‌سوزی سه نفتکش در شرق تنگه هرمز بر اثر برخورد با مین دریایی روابط عمومی نیروی دریایی ارتش از وقوع حادثه برای سه نفتکش در شرق تنگه هرمز خبر داد؛ این شناورها پس از بی‌توجهی به هشدارها و ورود به منطقه ممنوعه، با مین‌های دریایی برخورد کردند و دچار حریق شدند.",
-   "at": "2026-11-18T20:16:44.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2176646/آتش-سوزی-سه-نفتکش-در-شرق-تنگه-هرمز-بر-اثر-برخورد-با-مین-دریایی"
-  },
-  {
    "id": "150e26acf7dc2987544d6c2da7dd099d3aa18548",
    "titleKey": "03d90a97e02bf02484d5ae09311071a4f0a4a720",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -5289,15 +4804,6 @@
    "url": "https://www.irna.ir/news/86326280/%D8%A8%DB%8C%D8%A7%D9%86%DB%8C%D9%87-%D8%B4%D8%A8%D8%A7%D9%86%D9%87-%D9%85%D8%AF%DB%8C%D8%B1%D8%B9%D8%A7%D9%85%D9%84-%D8%A7%D8%B3%D8%AA%D9%82%D9%84%D8%A7%D9%84-%D8%A8%D8%A7-%D8%AA%D9%85%D8%A7%D9%85-%D9%88%D8%AC%D9%88%D8%AF-%D8%AD%D8%A7%D9%85%DB%8C-%D8%A8%D8%AE%D8%AA%DB%8C%D8%A7%D8%B1%DB%8C-%D8%B2%D8%A7%D8%AF%D9%87"
   },
   {
-   "id": "8b58f1f39fee4c86f87639ef35a50f78d4bee43c",
-   "titleKey": "57dcd744906f5f4881a12c11277be6a3c9fd8985",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "برنامه‌های هفته بسیج در کنگاور بامحور خدمت‌رسانی وترویج فرهنگ ایثار برگزار می‌شود کنگاور- ایرنا - فرمانده ناحیه مقاومت بسیج شهرستان کنگاور از اجرای مجموعه‌ای از برنامه‌های فرهنگی، اجتماعی، جهادی و بصیرتی در هفته بسیج خبر داد و گفت: خدمت‌رسانی به مردم، ترویج فرهنگ ایثار و شهادت، تقویت روحیه مقاومت در نسل جوان و حل مسائل محلات از محورهای اصلی برنامه‌های امسال است.",
-   "at": "2026-11-18T20:21:24.000Z",
-   "url": "https://www.irna.ir/news/86325808/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%87%D8%A7%DB%8C-%D9%87%D9%81%D8%AA%D9%87-%D8%A8%D8%B3%DB%8C%D8%AC-%D8%AF%D8%B1-%DA%A9%D9%86%DA%AF%D8%A7%D9%88%D8%B1-%D8%A8%D8%A7%D9%85%D8%AD%D9%88%D8%B1-%D8%AE%D8%AF%D9%85%D8%AA-%D8%B1%D8%B3%D8%A7%D9%86%DB%8C-%D9%88%D8%AA%D8%B1%D9%88%DB%8C%D8%AC-%D9%81%D8%B1%D9%87%D9%86%DA%AF"
-  },
-  {
    "id": "e8e7009f0534d116430f9552f30a868d41d0560e",
    "titleKey": "059f39269909a9a1d30480a24e70bd1a808142a4",
    "source": "Times of India",
@@ -5305,16 +4811,6 @@
    "text": "US man accused of plotting foiled Hindu temple shooting in Illinois faces new charges Alexandros Paporakis, a 19-year-old resident of Palatine, faces severe charges including terrorism and armed violence after allegedly planning a mass shooting targeting a Hindu temple during the Navaratri festival. Reports from his co-workers contributed to his arrest, during which law enforcement discovered weapons and extremist propaganda. This incident has raised alarms within the Hindu community about escalating hate crimes.",
    "at": "2026-11-18T19:55:12.000Z",
    "url": "https://timesofindia.indiatimes.com/world/us/us-man-accused-of-plotting-hindu-temple-shooting-in-illinois-faces-additional-terrorism-and-weapons-charges/articleshow/135970853.cms"
-  },
-  {
-   "id": "4089fc495b6bfa28be689cc4ead706d9aecaa79f",
-   "titleKey": "b4dd30d3cd9d6e5b8ecdfd9ef98df35f3208524d",
-   "source": "خبرگزاری مهر",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "تجمع مردم یاسوج در دویست و شصت و سومین قرار شبانه یاسوج- تجمع مردم یاسوج در دویست و شصت و سومین قرار شبانه برگزار شد.",
-   "at": "2026-11-18T20:07:17.000Z",
-   "url": "https://www.mehrnews.com/news/7015950/%D8%AA%D8%AC%D9%85%D8%B9-%D9%85%D8%B1%D8%AF%D9%85-%DB%8C%D8%A7%D8%B3%D9%88%D8%AC-%D8%AF%D8%B1-%D8%AF%D9%88%DB%8C%D8%B3%D8%AA-%D9%88-%D8%B4%D8%B5%D8%AA-%D9%88-%D8%B3%D9%88%D9%85%DB%8C%D9%86-%D9%82%D8%B1%D8%A7%D8%B1-%D8%B4%D8%A8%D8%A7%D9%86%D9%87"
   },
   {
    "id": "723cc4e9e6d00bda1699d9b14b1947eb2031443c",
@@ -5327,15 +4823,6 @@
    "url": "https://www.isna.ir/news/1405082719413/%D8%AC%D8%B2%DB%8C%DB%8C%D8%A7%D8%AA-%D9%87%D8%AF%DB%8C%D9%87-%D8%B1%D8%A6%DB%8C%D8%B3-%D8%AC%D9%85%D9%87%D9%88%D8%B1-%D9%84%D9%87%D8%B3%D8%AA%D8%A7%D9%86-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D9%88%D9%84%D8%AF-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE-%D9%81%D8%A7%D8%B4-%D8%B4%D8%AF"
   },
   {
-   "id": "33811cf87f022d068b7ef90fdac78c0a6af64929",
-   "titleKey": "08673b4b877113747c0304345dda152d8ebfb6d9",
-   "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
-   "lang": "fa",
-   "text": "نیروی دریایی ارتش: سه نفتکش متخلف در شرق تنگه هرمز دچار آتش سوزی شدند تهران - ایرنا - روابط عمومی نیروی دریایی ارتش جمهوری اسلامی ایران اعلام کرد، از صبح امروز(چهارشنبه) سه نفتکش متخلف در شرق تنگه هرمز دچار آتش سوزی شدند.",
-   "at": "2026-11-18T20:11:59.000Z",
-   "url": "https://www.irna.ir/news/86326286/%D9%86%DB%8C%D8%B1%D9%88%DB%8C-%D8%AF%D8%B1%DB%8C%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B1%D8%AA%D8%B4-%D8%B3%D9%87-%D9%86%D9%81%D8%AA%DA%A9%D8%B4-%D9%85%D8%AA%D8%AE%D9%84%D9%81-%D8%AF%D8%B1-%D8%B4%D8%B1%D9%82-%D8%AA%D9%86%DA%AF%D9%87-%D9%87%D8%B1%D9%85%D8%B2-%D8%AF%DA%86%D8%A7%D8%B1-%D8%A2%D8%AA%D8%B4-%D8%B3%D9%88%D8%B2%DB%8C"
-  },
-  {
    "id": "5f7444c291a1fce2cee06ae3aad43b525a9c9ded",
    "titleKey": "1e0d1f352dadff403718db062fbd3695663c6448",
    "source": "BBC Sport",
@@ -5344,15 +4831,6 @@
    "text": "Ward close to new Republic of Ireland deal as Noonan returns Republic of Ireland manager Carla Ward says she is close to agreeing a new contract as she names her squad for the World Cup play-off final.",
    "at": "2026-11-18T18:06:04.000Z",
    "url": "https://www.bbc.co.uk/sport/football/articles/c6782xedd985o?at_medium=RSS&at_campaign=rss"
-  },
-  {
-   "id": "4bcd4cc915e29230ca72ae4fd2a15f52fa4a79f9",
-   "titleKey": "59caf5ee37bb21c629fb66ec2ba77db817032ae0",
-   "source": "The Hill",
-   "lang": "en",
-   "text": "Underwood defeats Jacobs to be Democratic caucus vice chair Rep. Lauren Underwood (D-Ill.) defeated Rep. Sara Jacobs (D-Calif.) to be the Democratic caucus vice chair in a highly contested race Wednesday. Underwood won by a vote of 143-118. The Illinois Democrat co-chairs the House Democratic Policy and Communications Committee, which helps shape the party’s messaging strategy and develop talking points on key issues. She…",
-   "at": "2026-11-18T19:59:21.000Z",
-   "url": "https://thehill.com/homenews/house/6228515-underwood-beats-jacobs-caucus-vice-chair/"
   },
   {
    "id": "b33ceec96a9689e2045be90b4fa0069f5ab05487",
@@ -5365,16 +4843,6 @@
    "url": "https://www.khabaronline.ir/news/2304049/%D9%BE%DB%8C%D8%A7%D9%85%DB%8C-%D8%A7%D8%B2-%D9%81%D8%A7%D8%B5%D9%84%D9%87-%DB%B2%DB%B5-%DB%B9-%D9%85%DB%8C%D9%84%DB%8C%D8%A7%D8%B1%D8%AF-%DA%A9%DB%8C%D9%84%D9%88%D9%85%D8%AA%D8%B1%DB%8C-%D8%AF%D9%88%D8%B1%D8%AA%D8%B1%DB%8C%D9%86-%D8%B3%D9%81%DB%8C%D8%B1-%D8%A7%D9%86%D8%B3%D8%A7%D9%86-%D8%AF%D8%B1"
   },
   {
-   "id": "23bd504faa0549f4eea776df335974dc97923c61",
-   "titleKey": "9ef56f64f6d99dcc4815247dcbb1f373c61cb521",
-   "source": "خبرآنلاین",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "آداب خوابیدن از نگاه پیامبر اکرم(ص)؛ چهار شیوه خواب در روایتی از رسول خدا خواب و استراحت نیز در آموزه‌های اسلامی آداب ویژه‌ای دارد. پیامبر اکرم(ص) در روایتی خطاب به امام علی(ع)، چهار شیوه خوابیدن را معرفی کرده‌اند و خوابیدن بر پهلوی راست را از ویژگی‌های خواب مؤمنان دانسته‌اند؛ روایتی که نگاهی متفاوت به آداب خواب در سبک زندگی اسلامی دارد.",
-   "at": "2026-11-18T19:50:00.000Z",
-   "url": "https://www.khabaronline.ir/news/2303769/%D8%A2%D8%AF%D8%A7%D8%A8-%D8%AE%D9%88%D8%A7%D8%A8%DB%8C%D8%AF%D9%86-%D8%A7%D8%B2-%D9%86%DA%AF%D8%A7%D9%87-%D9%BE%DB%8C%D8%A7%D9%85%D8%A8%D8%B1-%D8%A7%DA%A9%D8%B1%D9%85-%D8%B5-%DA%86%D9%87%D8%A7%D8%B1-%D8%B4%DB%8C%D9%88%D9%87-%D8%AE%D9%88%D8%A7%D8%A8-%D8%AF%D8%B1-%D8%B1%D9%88%D8%A7%DB%8C%D8%AA%DB%8C"
-  },
-  {
    "id": "9ce3d75dcffe67b640da3c9a00b9d010a5bfd44b",
    "titleKey": "38cb1f263798450c61f3dd24b57a684558f7714c",
    "source": "خبرگزاری مهر",
@@ -5383,16 +4851,6 @@
    "text": "سرودی: دیپلماسی باید از قدرت میدان و اراده ملت ایران پشتیبانی بگیرد بندرعباس - نائب رئیس شورای اسلامی شهر تهران با تأکید بر ضرورت حفظ اقتدار ملی در عرصه‌های بین‌المللی گفت: دیپلماسی باید از قدرت میدان و اراده ملت ایران پشتیبانی بگیرد.",
    "at": "2026-11-18T19:54:26.000Z",
    "url": "https://www.mehrnews.com/news/7015989/%D8%B3%D8%B1%D9%88%D8%AF%DB%8C-%D8%AF%DB%8C%D9%BE%D9%84%D9%85%D8%A7%D8%B3%DB%8C-%D8%A8%D8%A7%DB%8C%D8%AF-%D8%A7%D8%B2-%D9%82%D8%AF%D8%B1%D8%AA-%D9%85%DB%8C%D8%AF%D8%A7%D9%86-%D9%88-%D8%A7%D8%B1%D8%A7%D8%AF%D9%87-%D9%85%D9%84%D8%AA-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%BE%D8%B4%D8%AA%DB%8C%D8%A8%D8%A7%D9%86%DB%8C"
-  },
-  {
-   "id": "5c134a0cb545f16e132afef3cd84de53993771d5",
-   "titleKey": "56bff01a047cf33134ae21a4eeb8c33974319c42",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "مدیرعامل باشگاه ذوب‌آهن: روزهای پرافتخار ذوب‌آهن تکرارشدنی است مدیرعامل باشگاه ذوب‌آهن اصفهان گفت: هدف ما بازگرداندن ذوب‌آهن به جایگاه واقعی خود در ورزش کشور است.",
-   "at": "2026-11-18T19:37:29.000Z",
-   "url": "https://www.isna.ir/news/1405082719401/%D9%85%D8%AF%DB%8C%D8%B1%D8%B9%D8%A7%D9%85%D9%84-%D8%A8%D8%A7%D8%B4%DA%AF%D8%A7%D9%87-%D8%B0%D9%88%D8%A8-%D8%A2%D9%87%D9%86-%D8%B1%D9%88%D8%B2%D9%87%D8%A7%DB%8C-%D9%BE%D8%B1%D8%A7%D9%81%D8%AA%D8%AE%D8%A7%D8%B1-%D8%B0%D9%88%D8%A8-%D8%A2%D9%87%D9%86-%D8%AA%DA%A9%D8%B1%D8%A7%D8%B1%D8%B4%D8%AF%D9%86%DB%8C-%D8%A7%D8%B3%D8%AA"
   },
   {
    "id": "33cc20c6315d9442f111a12fd850b4788cfcc710",
@@ -5404,15 +4862,6 @@
    "url": "https://thehill.com/policy/transportation/6228226-faa-funding-debate-aviation-safety/"
   },
   {
-   "id": "cbf430f8f16c47e79a7e11d35efdbedd6c409141",
-   "titleKey": "21825708454c53bf2365aa9ead28bb50d51a557e",
-   "source": "Press TV (تلگرام)",
-   "lang": "fa",
-   "text": "APEC summit: Xi says China, Russia should ‘lead’ push for multipolar world order Chinese President Xi Jinping tells APEC summit that Beijing and Moscow must “lead and advance the trend towards a multipolar world.” @PressTV",
-   "at": "2026-11-18T19:31:50.000Z",
-   "url": "https://t.me/presstv/215301"
-  },
-  {
    "id": "fb6cca676622001b2601a4cac31a9ae7102c8559",
    "titleKey": "b04460f0df31152a82de3c9b4c034f54d7ff5a7c",
    "source": "خبرگزاری جمهوری اسلامی (ایرنا)",
@@ -5422,16 +4871,6 @@
    "url": "https://www.irna.ir/news/86326214/%D9%88%D8%A7%DA%AF%D8%B0%D8%A7%D8%B1%DB%8C-%D8%A7%D8%B9%D8%AA%D8%A8%D8%A7%D8%B1%D8%A7%D8%AA-%D8%A8%D9%87-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86-%D9%87%D8%A7-%D9%85%DA%A9%D9%85%D9%84-%D8%AA%D9%81%D9%88%DB%8C%D8%B6-%D8%A7%D8%AE%D8%AA%DB%8C%D8%A7%D8%B1%D8%A7%D8%AA-%D8%A8%D9%87-%D9%85%D8%B3%D8%A6%D9%88%D9%84%D8%A7%D9%86-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86%DB%8C"
   },
   {
-   "id": "acf3afac8e0f5f81cf6ae5b995806ec53dd04e45",
-   "titleKey": "7a38a1301edff78e353a2eb02a5feecdd0019ba0",
-   "source": "خبرگزاری ایسنا",
-   "cat": "iran",
-   "lang": "fa",
-   "text": "اشتباه در دریافت سرویس، عامل شکست تیم تهران‌بیشه مقابل استقلال مشهد بود سرمربی تیم والیبال تهران‌بیشه چمستان، دریافت‌های نامناسب در امتیازهای حساس و کاهش قدرت تهاجمی تیمش را از عوامل شکست سه بر یک مقابل استقلال مشهد در هفته پنجم لیگ برتر والیبال باشگاه‌های کشور عنوان کرد.",
-   "at": "2026-11-18T19:14:57.000Z",
-   "url": "https://www.isna.ir/news/1405082719390/%D8%A7%D8%B4%D8%AA%D8%A8%D8%A7%D9%87-%D8%AF%D8%B1-%D8%AF%D8%B1%DB%8C%D8%A7%D9%81%D8%AA-%D8%B3%D8%B1%D9%88%DB%8C%D8%B3-%D8%B9%D8%A7%D9%85%D9%84-%D8%B4%DA%A9%D8%B3%D8%AA-%D8%AA%DB%8C%D9%85-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%A8%DB%8C%D8%B4%D9%87-%D9%85%D9%82%D8%A7%D8%A8%D9%84-%D8%A7%D8%B3%D8%AA%D9%82%D9%84%D8%A7%D9%84"
-  },
-  {
    "id": "88f0362b1f4ad72711da0378b92943c9a9dd0773",
    "titleKey": "025bb4f4dd9aa5386d1e404c491dfce98f199b73",
    "source": "Times of India",
@@ -5439,16 +4878,6 @@
    "text": "Texas homeowners fight 88-acre data centre; $1.9m deal lets project proceed Homeowners in Westlake, Texas, have come to an agreement concerning a proposed data centre that had sparked concerns. The settlement includes a financial contribution from developer PowerHouse earmarked for noise reduction and fire safety measures. Furthermore, the project will adhere to specific operational limits and environmental safeguards to alleviate resident anxieties. Though this venture promises to enhance Westlake's revenue significantly, community opinions remain split regarding the development.",
    "at": "2026-11-18T18:25:00.000Z",
    "url": "https://timesofindia.indiatimes.com/world/us/texas-homeowners-challenged-an-88-acre-data-centre-planned-close-to-their-houses-fearing-noise-and-environmental-effects-a-settlement-offers-nearly-1-9-million-and-protections-but-allows-the-project/articleshow/135966207.cms"
-  },
-  {
-   "id": "c315a1f2897d582f94423be3b29dee284ff3f51e",
-   "titleKey": "752b5ac09d94610d1a9f14ad3ff9db64a5c17acb",
-   "source": "اقتصادآنلاین",
-   "cat": "economy",
-   "lang": "fa",
-   "text": "پوتین و شی جین‌پینگ پشت درهای بسته دیدار کردند دیدار دوجانبه رهبران روسیه و چین در آستانه نشست سه‌جانبه با دونالد ترامپ برگزار شده و موضوعات مهمی در دستور کار رایزنی‌های دو طرف قرار گرفته است.",
-   "at": "2026-11-18T18:15:34.000Z",
-   "url": "https://www.eghtesadonline.com/fa/news/2176632/پوتین-و-شی-جین-پینگ-پشت-درهای-بسته-دیدار-کردند"
   },
   {
    "id": "6cc1850895a6e943bbcae4827273f862a02738e6",
@@ -6121,6 +5550,86 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-18T23:36:56.597Z"
+  },
+  {
+   "kind": "news",
+   "text": "Times of India: شرکت هندی «فول» با بازآفرینی روزانه ۵۰ تن گل‌های معابد به محصولات زیست‌محیطی و جایگزین چرم، ۶ میلیون دلار سرمایه جذب کرد.\n\n🖼 عکس خود خبر: https://static.toiimg.com/photo/msid-135953906,imgsize-88680.cms",
+   "source": "Times of India",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:23.745Z"
+  },
+  {
+   "kind": "news",
+   "text": "BBC World: دادستان‌های آمریکا یک تبعه روسیه را به اتهام جاسوسی از یک شرکت فناوری دفاعیِ حامی اوکراین متهم کردند.\n\n🖼 عکس خود خبر: https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/eb01/live/85dba110-e39d-11f1-a094-5fdc692f3e33.jpg",
+   "source": "BBC World",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:24.446Z"
+  },
+  {
+   "kind": "news",
+   "text": "Fox News World: دادستان‌های آمریکا یک فعال ایرلندی را به اتهام طراحی حمله و انهدام یک هواپیمای نظامی ۶۰ میلیون دلاری متهم کردند.\n\n🖼 عکس خود خبر: https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/11/931/523/C-130-Hercules-aircraft-damage-at-Shannon-Airport.jpg?ve=1&tl=1",
+   "source": "Fox News World",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:25.147Z"
+  },
+  {
+   "kind": "news",
+   "text": "Times of India: فرزندان یک زوج کالیفرنیایی در پی مرگ والدین خود بر اثر نشت گاز منوکسید کربن در خانه ساحلی‌شان، دست به شکایت زدند.\n\n🖼 عکس خود خبر: https://static.toiimg.com/photo/msid-135951944,imgsize-1747519.cms",
+   "source": "Times of India",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:25.848Z"
+  },
+  {
+   "kind": "news",
+   "text": "BBC World: شرکت آنتروپیک، سازنده مدل هوش مصنوعی کلود، آماده عرضه اولیه ۱٫۴ تریلیون دلاری در بازار سهام می‌شود.\n\n🖼 عکس خود خبر: https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/3a11/live/4dfcb420-e37d-11f1-b879-03485a55c082.jpg",
+   "source": "BBC World",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:26.549Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: مشاهده کیف هسته‌ای روسیه در سفر پوتین به چین همزمان با سفر رئیس‌جمهور روسیه به چین برای شرکت در اجلاس اپک، کیف ویژه فرماندهی هسته‌ای این کشور در میان اعضای هیئت همراه ولادیمیر پوتین مشاهده شد.",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-18T23:46:27.250Z"
+  },
+  {
+   "kind": "news",
+   "text": "TASS English: سازمان ملل هشدار داد گروه داعش خراسان در افغانستان به پهپاد مجهز شده و به‌دنبال انجام عملیات داخلی و فرامرزی است.",
+   "source": "TASS English",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-18T23:46:27.951Z"
+  },
+  {
+   "kind": "news",
+   "text": "خبرگزاری ایسنا: دردسر جدید برای ترامپ رابرت گارسیا، نماینده دموکرات مجلس نمایندگان آمریکا که انتظار می‌رود ریاست کمیته نظارت این مجلس را بر عهده بگیرد، از آغاز تحقیقات درباره اتهام‌های فساد در خانواده دونالد ترامپ، پرونده جفری اپستین و سیاست‌های سخت‌گیرانه دولت آمریکا در حوزه مهاجرت خبر داد.\n\n🖼 عکس خود خبر: https://cdn.isna.ir/d/2026/11/19/4/64061202.jpg",
+   "source": "خبرگزاری ایسنا",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "iran",
+   "queuedAt": "2026-11-18T23:46:28.652Z"
   }
  ],
  "tweetQueue": [],
@@ -6298,6 +5807,80 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "b50de17b0e890b7887ce26c4b9b884bab38a7f6d",
+   "titleKey": "46115e4b84fa9b949d91af03d6c7a1a44e9edae9",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "Temple flower waste becomes leather alternative; firm processes 50 tonnes daily Phool aims to revolutionize waste management by repurposing discarded flowers collected from temples into eco-friendly products. Processing about 50 tonnes of floral waste daily across four Indian states, they have garnered $6 million in debt financing for future growth. Their standout items, including a leather alternative crafted from flowers, have received international acclaim. Additionally, Phool empowers marginalized women by creating meaningful job opportunities.",
+   "at": "2026-11-18T23:25:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/life-style/people/a-venture-that-turns-discarded-temple-flowers-into-an-alternative-to-leather-now-processes-50-tonnes-a-day-across-four-indian-states-it-has-secured-6-million-in-debt-financing-from-three-indian-banks/articleshow/135953862.cms"
+  },
+  {
+   "id": "1431aa957fde93a39ec086c2f1a3d38eefa29628",
+   "titleKey": "a643e2e2aa9aa7dff3e325601040c4ffd166eb32",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Russian man accused of spying on US tech defence company that assists Ukraine The suspect followed employees and and was found with fake US ID documents and two Russian passports, US prosecutors say.",
+   "at": "2026-11-18T23:28:03.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "7317b287461b408fbc19bfe65a5a456cd9b3337b",
+   "titleKey": "72cfbfc91fb6edff0573917c94b8c50d577d6f0f",
+   "source": "Fox News World",
+   "lang": "en",
+   "text": "Irish activist indicted in US over alleged destruction of $60M military plane United States prosecutors say Daithi O&apos;Corrain spent months planning the Shannon Airport attack that left a $60 million C-130H Hercules beyond repair",
+   "at": "2026-11-18T23:29:34.000Z",
+   "url": "https://www.foxnews.com/world/irish-activist-indicted-us-alleged-destruction-60m-military-plane"
+  },
+  {
+   "id": "8f3ef3cb7c9a3e04153d0fa02e65efa56cc4d7fa",
+   "titleKey": "6206bffa8ebf98dc765851f51cec26fc7db26a20",
+   "source": "Times of India",
+   "lang": "en",
+   "text": "California couple die at seaside mansion; kids sue alleging carbon monoxide leak In a tragic turn of events, three children are pursuing a wrongful death lawsuit following the passing of their parents, John and Kristen Ruskey, due to carbon monoxide poisoning on February 8, 2026, at their seaside home. The lawsuit claims that a faulty water heater and a malfunctioning carbon monoxide detector were significant factors in their untimely deaths.",
+   "at": "2026-11-18T23:30:00.000Z",
+   "url": "https://timesofindia.indiatimes.com/world/us/a-california-couple-died-after-spending-the-night-at-a-seaside-mansion-months-later-their-three-children-sued-the-homeowners-and-a-water-heater-maker-alleging-a-carbon-monoxide-leak-killed-both-parents/articleshow/135951886.cms"
+  },
+  {
+   "id": "c6d87bb33ae78f6a157f2456468e0cbb016f0185",
+   "titleKey": "f8d495ebe8c9ad89e3a9e6eae3ee7b040066e628",
+   "source": "BBC World",
+   "lang": "en",
+   "text": "Claude-maker Anthropic poised for $1.4tn stock market debut Anthropic started just five years ago an is now one of the biggest names in artificial intelligence.",
+   "at": "2026-11-18T23:36:04.000Z",
+   "url": "https://www.bbc.co.uk/news/articles/c6742m39xgzxo?at_medium=RSS&at_campaign=rss"
+  },
+  {
+   "id": "b6852b66d9608850c5fd514a5515f21ad1bcb712",
+   "titleKey": "8425e44affc215de8b5acb216440c74df5a28d60",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "مشاهده کیف هسته‌ای روسیه در سفر پوتین به چین همزمان با سفر رئیس‌جمهور روسیه به چین برای شرکت در اجلاس اپک، کیف ویژه فرماندهی هسته‌ای این کشور در میان اعضای هیئت همراه ولادیمیر پوتین مشاهده شد.",
+   "at": "2026-11-18T23:36:29.000Z",
+   "url": "https://www.isna.ir/news/1405082819431/%D9%85%D8%B4%D8%A7%D9%87%D8%AF%D9%87-%DA%A9%DB%8C%D9%81-%D9%87%D8%B3%D8%AA%D9%87-%D8%A7%DB%8C-%D8%B1%D9%88%D8%B3%DB%8C%D9%87-%D8%AF%D8%B1-%D8%B3%D9%81%D8%B1-%D9%BE%D9%88%D8%AA%DB%8C%D9%86-%D8%A8%D9%87-%DA%86%DB%8C%D9%86"
+  },
+  {
+   "id": "32ab90b8b377f3578686b4bbcdf30e13f2107770",
+   "titleKey": "398c5da1b46331e52b7f02508b9bec0dffb93c7b",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Terrorists in Afghanistan armed themselves with drones, put pressure on Kabul Acting UN Under-Secretary-General for Counter-Terrorism Alexander Zuev said that the so-called Islamic State - Khorasan Province \"seeks to carry out operations both within the country and beyond its borders\"",
+   "at": "2026-11-18T23:39:07.000Z",
+   "url": "https://tass.com/politics/2220837"
+  },
+  {
+   "id": "24d226cbf61ff022e75d5b2a19702f21dd9e738f",
+   "titleKey": "c71125d46f9ab5f774d3e8f0bac1ca170e3883ef",
+   "source": "خبرگزاری ایسنا",
+   "cat": "iran",
+   "lang": "fa",
+   "text": "دردسر جدید برای ترامپ رابرت گارسیا، نماینده دموکرات مجلس نمایندگان آمریکا که انتظار می‌رود ریاست کمیته نظارت این مجلس را بر عهده بگیرد، از آغاز تحقیقات درباره اتهام‌های فساد در خانواده دونالد ترامپ، پرونده جفری اپستین و سیاست‌های سخت‌گیرانه دولت آمریکا در حوزه مهاجرت خبر داد.",
+   "at": "2026-11-18T23:42:11.000Z",
+   "url": "https://www.isna.ir/news/1405082819432/%D8%AF%D8%B1%D8%AF%D8%B3%D8%B1-%D8%AC%D8%AF%DB%8C%D8%AF-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AA%D8%B1%D8%A7%D9%85%D9%BE"
+  },
   {
    "id": "9cf23ce7db1d853e0c5bfb6df7cf2b2ad84795a5",
    "titleKey": "5f408536a63ac46bb1a04912585e20be2a42c630",
@@ -12311,7 +11894,7 @@
   }
  ],
  "lastGeoKey": "2026-11-19T00:00",
- "aiCursor": 1,
+ "aiCursor": 2,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -12963,20 +12546,20 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8981": 1795045039755,
-  "Akharin_khodro/8984": 1795045039755,
-  "Akharin_khodro/8985": 1795045039755,
-  "Akharin_khodro/8986": 1795045039755,
-  "Akharin_khodro/8987": 1795045039755,
-  "Akharin_khodro/8988": 1795045039755,
-  "Akharin_khodro/8989": 1795045039755,
-  "Akharin_khodro/8990": 1795045039755,
-  "Akharin_khodro/8991": 1795045039755,
-  "Akharin_khodro/8994": 1795045039755,
-  "Akharin_khodro/8995": 1795045039755,
-  "Akharin_khodro/8997": 1795045039755,
-  "Akharin_khodro/8998": 1795045039755,
-  "Akharin_khodro/8999": 1795045039755,
+  "Akharin_khodro/8981": 1795045612943,
+  "Akharin_khodro/8984": 1795045612943,
+  "Akharin_khodro/8985": 1795045612943,
+  "Akharin_khodro/8986": 1795045612943,
+  "Akharin_khodro/8987": 1795045612943,
+  "Akharin_khodro/8988": 1795045612943,
+  "Akharin_khodro/8989": 1795045612943,
+  "Akharin_khodro/8990": 1795045612943,
+  "Akharin_khodro/8991": 1795045612943,
+  "Akharin_khodro/8994": 1795045612943,
+  "Akharin_khodro/8995": 1795045612943,
+  "Akharin_khodro/8997": 1795045612943,
+  "Akharin_khodro/8998": 1795045612943,
+  "Akharin_khodro/8999": 1795045612943,
   "Akharin_khodro/8980": 1795027620874,
   "Akharin_khodro/8979": 1795023829863,
   "Akharin_khodro/8978": 1795023312535,
@@ -14440,85 +14023,85 @@
  },
  "sourceHealth": {
   "lastOkAt": {
-   "BBC Sport": "2026-11-18T23:37:19.760Z",
-   "CGTN": "2026-11-18T23:37:19.760Z",
-   "ESPN": "2026-11-18T23:37:19.760Z",
-   "RT": "2026-11-18T23:37:19.760Z",
-   "TRT Persian": "2026-11-18T23:37:19.760Z",
-   "Press TV (تلگرام)": "2026-11-18T23:37:19.760Z",
-   "AP News": "2026-11-18T23:37:19.760Z",
-   "Anadolu Agency": "2026-11-18T23:37:19.760Z",
-   "Israel National News": "2026-11-18T23:37:19.760Z",
-   "Sputnik": "2026-11-18T23:37:19.760Z",
-   "Sky News World": "2026-11-18T23:37:19.760Z",
-   "اعتمادآنلاین": "2026-11-18T23:37:19.760Z",
-   "اقتصادآنلاین": "2026-11-18T23:37:19.760Z",
-   "Al Jazeera English": "2026-11-18T23:37:19.760Z",
-   "Al Jazeera Arabic": "2026-11-18T23:37:19.760Z",
-   "Alsumaria": "2026-11-18T23:37:19.760Z",
-   "Asharq Al-Awsat": "2026-11-18T23:37:19.760Z",
-   "Al-Araby Al-Jadeed": "2026-11-18T23:37:19.760Z",
-   "Al Arabiya": "2026-11-18T23:37:19.760Z",
-   "Al Masirah": "2026-11-18T23:37:19.760Z",
-   "Al Mayadeen": "2026-11-18T23:37:19.760Z",
-   "MSNBC": "2026-11-18T23:37:19.760Z",
-   "انصاف نیوز": "2026-11-18T23:37:19.760Z",
-   "NPR World": "2026-11-18T23:37:19.760Z",
-   "Iran International": "2026-11-18T23:37:19.760Z",
-   "باشگاه خبرنگاران جوان (YJC)": "2026-11-18T23:37:19.760Z",
-   "Bloomberg": "2026-11-18T23:37:19.760Z",
-   "BBC Persian": "2026-11-18T23:37:19.760Z",
-   "BBC World": "2026-11-18T23:37:19.760Z",
-   "TASS English": "2026-11-18T23:37:19.760Z",
-   "Times of Israel": "2026-11-18T23:37:19.760Z",
-   "Times of India": "2026-11-18T23:37:19.760Z",
-   "تجارت نیوز": "2026-11-18T23:37:19.760Z",
-   "خبرآنلاین": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری ایسنا": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری ایلنا": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری فارس": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری مهر": "2026-11-18T23:37:19.760Z",
-   "The Hill": "2026-11-18T23:37:19.760Z",
-   "The Hindu": "2026-11-18T23:37:19.760Z",
-   "Dawn": "2026-11-18T23:37:19.760Z",
-   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-18T23:37:19.760Z",
-   "دنیای اقتصاد": "2026-11-18T23:37:19.760Z",
-   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-18T23:37:19.760Z",
-   "DW English": "2026-11-18T23:37:19.760Z",
-   "DW Persian": "2026-11-18T23:37:19.760Z",
-   "Radio Zamaneh": "2026-11-18T23:37:19.760Z",
-   "RFI Persian": "2026-11-18T23:37:19.760Z",
-   "Radio Farda": "2026-11-18T23:37:19.760Z",
-   "People's Daily English": "2026-11-18T23:37:19.760Z",
-   "Reuters": "2026-11-18T23:37:19.760Z",
-   "WHO News": "2026-11-18T23:37:19.760Z",
-   "FAO News": "2026-11-18T23:37:19.760Z",
-   "SCMP": "2026-11-18T23:37:19.760Z",
-   "CNN World": "2026-11-18T23:37:19.760Z",
-   "Israel Channel 12": "2026-11-18T23:37:19.760Z",
-   "NOW14 Israel": "2026-11-18T23:37:19.760Z",
-   "Xinhua English": "2026-11-18T23:37:19.760Z",
-   "TOLOnews": "2026-11-18T23:37:19.760Z",
-   "عصر ایران (Asr-e Iran)": "2026-11-18T23:37:19.760Z",
-   "Fox News World": "2026-11-18T23:37:19.760Z",
-   "France 24 English": "2026-11-18T23:37:19.760Z",
-   "مشرق نیوز": "2026-11-18T23:37:19.760Z",
-   "NYT World": "2026-11-18T23:37:19.760Z",
-   "Haaretz English": "2026-11-18T23:37:19.760Z",
-   "Washington Post": "2026-11-18T23:37:19.760Z",
-   "WSJ World": "2026-11-18T23:37:19.760Z",
+   "BBC Sport": "2026-11-18T23:46:52.948Z",
+   "CGTN": "2026-11-18T23:46:52.948Z",
+   "ESPN": "2026-11-18T23:46:52.948Z",
+   "RT": "2026-11-18T23:46:52.948Z",
+   "TRT Persian": "2026-11-18T23:46:52.948Z",
+   "Press TV (تلگرام)": "2026-11-18T23:46:52.948Z",
+   "AP News": "2026-11-18T23:46:52.948Z",
+   "Anadolu Agency": "2026-11-18T23:46:52.948Z",
+   "Israel National News": "2026-11-18T23:46:52.948Z",
+   "Sputnik": "2026-11-18T23:46:52.948Z",
+   "Sky News World": "2026-11-18T23:46:52.948Z",
+   "اعتمادآنلاین": "2026-11-18T23:46:52.948Z",
+   "اقتصادآنلاین": "2026-11-18T23:46:52.948Z",
+   "Al Jazeera English": "2026-11-18T23:46:52.948Z",
+   "Al Jazeera Arabic": "2026-11-18T23:46:52.948Z",
+   "Alsumaria": "2026-11-18T23:46:52.948Z",
+   "Asharq Al-Awsat": "2026-11-18T23:46:52.948Z",
+   "Al-Araby Al-Jadeed": "2026-11-18T23:46:52.948Z",
+   "Al Arabiya": "2026-11-18T23:46:52.948Z",
+   "Al Masirah": "2026-11-18T23:46:52.948Z",
+   "Al Mayadeen": "2026-11-18T23:46:52.948Z",
+   "MSNBC": "2026-11-18T23:46:52.948Z",
+   "انصاف نیوز": "2026-11-18T23:46:52.948Z",
+   "NPR World": "2026-11-18T23:46:52.948Z",
+   "Iran International": "2026-11-18T23:46:52.948Z",
+   "باشگاه خبرنگاران جوان (YJC)": "2026-11-18T23:46:52.948Z",
+   "Bloomberg": "2026-11-18T23:46:52.948Z",
+   "BBC Persian": "2026-11-18T23:46:52.948Z",
+   "BBC World": "2026-11-18T23:46:52.948Z",
+   "TASS English": "2026-11-18T23:46:52.948Z",
+   "Times of Israel": "2026-11-18T23:46:52.948Z",
+   "Times of India": "2026-11-18T23:46:52.948Z",
+   "تجارت نیوز": "2026-11-18T23:46:52.948Z",
+   "خبرآنلاین": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری ایسنا": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری ایلنا": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری فارس": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری مهر": "2026-11-18T23:46:52.948Z",
+   "The Hill": "2026-11-18T23:46:52.948Z",
+   "The Hindu": "2026-11-18T23:46:52.948Z",
+   "Dawn": "2026-11-18T23:46:52.948Z",
+   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-18T23:46:52.948Z",
+   "دنیای اقتصاد": "2026-11-18T23:46:52.948Z",
+   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-18T23:46:52.948Z",
+   "DW English": "2026-11-18T23:46:52.948Z",
+   "DW Persian": "2026-11-18T23:46:52.948Z",
+   "Radio Zamaneh": "2026-11-18T23:46:52.948Z",
+   "RFI Persian": "2026-11-18T23:46:52.948Z",
+   "Radio Farda": "2026-11-18T23:46:52.948Z",
+   "People's Daily English": "2026-11-18T23:46:52.948Z",
+   "Reuters": "2026-11-18T23:46:52.948Z",
+   "WHO News": "2026-11-18T23:46:52.948Z",
+   "FAO News": "2026-11-18T23:46:52.948Z",
+   "SCMP": "2026-11-18T23:46:52.948Z",
+   "CNN World": "2026-11-18T23:46:52.948Z",
+   "Israel Channel 12": "2026-11-18T23:46:52.948Z",
+   "NOW14 Israel": "2026-11-18T23:46:52.948Z",
+   "Xinhua English": "2026-11-18T23:46:52.948Z",
+   "TOLOnews": "2026-11-18T23:46:52.948Z",
+   "عصر ایران (Asr-e Iran)": "2026-11-18T23:46:52.948Z",
+   "Fox News World": "2026-11-18T23:46:52.948Z",
+   "France 24 English": "2026-11-18T23:46:52.948Z",
+   "مشرق نیوز": "2026-11-18T23:46:52.948Z",
+   "NYT World": "2026-11-18T23:46:52.948Z",
+   "Haaretz English": "2026-11-18T23:46:52.948Z",
+   "Washington Post": "2026-11-18T23:46:52.948Z",
+   "WSJ World": "2026-11-18T23:46:52.948Z",
    "ورزش۳": "2026-11-14T19:49:20.670Z",
-   "Press TV": "2026-11-18T23:37:19.760Z",
-   "Politico": "2026-11-18T23:37:19.760Z",
-   "China Daily": "2026-11-18T23:37:19.760Z",
-   "Guardian World": "2026-11-18T23:37:19.760Z",
-   "Guardian Environment": "2026-11-18T23:37:19.760Z",
-   "Global Times": "2026-11-18T23:37:19.760Z",
-   "Euronews Persian": "2026-11-18T23:37:19.760Z",
-   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-18T23:37:19.760Z",
-   "همشهری آنلاین": "2026-11-18T23:37:19.760Z",
-   "انتخاب": "2026-11-18T23:37:19.760Z"
+   "Press TV": "2026-11-18T23:46:52.948Z",
+   "Politico": "2026-11-18T23:46:52.948Z",
+   "China Daily": "2026-11-18T23:46:52.948Z",
+   "Guardian World": "2026-11-18T23:46:52.948Z",
+   "Guardian Environment": "2026-11-18T23:46:52.948Z",
+   "Global Times": "2026-11-18T23:46:52.948Z",
+   "Euronews Persian": "2026-11-18T23:46:52.948Z",
+   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-18T23:46:52.948Z",
+   "همشهری آنلاین": "2026-11-18T23:46:52.948Z",
+   "انتخاب": "2026-11-18T23:46:52.948Z"
   },
   "alertedAt": {
    "ورزش۳": "2026-11-17T19:51:35.389Z"
@@ -14527,27 +14110,27 @@
  "adminHealth": {
   "failStreak": 0
  },
- "tweetCursor": 13,
- "lastRunAt": "2026-11-18T23:37:19.763Z",
+ "tweetCursor": 2,
+ "lastRunAt": "2026-11-18T23:46:52.951Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
   "sourcesFailed": 1,
-  "fetched": 1079,
-  "inWindow": 222,
-  "fresh": 7,
-  "sent": 7,
+  "fetched": 1078,
+  "inWindow": 213,
+  "fresh": 8,
+  "sent": 8,
   "images": 0,
-  "translated": 4,
+  "translated": 6,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 191,
+  "tweetsFetched": 194,
   "tweetsSent": 0,
   "tweetAccountsTried": 10,
   "categoriesConfigured": 0,
   "aiFailed": false,
   "skippedUntranslated": 0,
-  "queued": 7,
+  "queued": 8,
   "tweetRateLimited": false
  }
 }

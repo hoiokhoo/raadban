@@ -57,7 +57,15 @@ import {
 } from './digest';
 import { fetchMarketData, formatMarketMessage, snapshotOf, applyDeltas, type CarStore, type Quote } from './market';
 import { renderMarketCardPng, buildMarketCardCaption } from './market-card';
-import { renderNewsCardPng, buildNewsCardCaption } from './news-card';
+import {
+  renderNewsCardPages,
+  buildNewsCardCaption,
+  renderTweetCardPages,
+  buildTweetCardCaption,
+  NEWS_CARD_MAX_PAGES,
+  NEWS_CARD_ROWS_PER_PAGE,
+  type CardPng,
+} from './news-card';
 import { groundAiBundle, type GroundResult } from './grounding';
 import {
   updateSourceHealth,
@@ -1800,7 +1808,7 @@ export const DEFAULT_NEWS_SUMMARY_PROMPT = `
 مأموریت: برای هر شماره، «خلاصهٔ خبری دوخطی» به فارسیِ روان، سلیس، شکیل و مرتب بنویسید — نه ترجمهٔ لفظ‌به‌لفظ.
 
 قواعد الزامی:
-- هر خلاصه حداکثر حدود ۱۳۰ نویسه است (دو سطر موبایل) — یک جملهٔ خبری کامل و بی‌حاشیه.
+- هر خلاصه «ترجیحاً یک خط» (~۶۰ نویسه) و حداکثر حدود ۱۳۰ نویسه (دو سطر موبایل) است — یک جملهٔ خبری کامل و بی‌حاشیه.
 - جوهرهٔ خبر باید کامل باشد: کنشگر اصلی + مهم‌ترین اقدام/نتیجه + نام و عدد کلیدی (اگر هست).
 - خبرگزاری متن بلند می‌نویسد؛ شما فقط خودِ خبر را برمی‌دارید: تشریفات، پس‌زمینهٔ اضافه،
   تکرار و صفت‌های تبلیغاتی حذف می‌شود؛ هیچ رویداد، نام یا عدد مهمی از قلم نمی‌افتد.
@@ -3801,14 +3809,10 @@ async function main(): Promise<void> {
         }
       }
       console.log(`بستهٔ بازه‌ای هوشمند: ${aiText ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !aiText ? ' (متن مدل اعتبارسنجی نشد — مسیر خام)' : ''}${grounded ? ` — تطبیق منبع: ${grounded.kept}/${grounded.total} نگه داشته، ${grounded.ticked} تیک قطعی` : ''}`);
-      // سربرگ حذف شد — خواستهٔ صریح کاربر ۱۲ نوامبر: «متن 🕒 اخبار 20:30 تا 20:41 رو حذف کن»
-      const chunks = aiText
-        ? chunkHourlyMessage(aiText, 3300)
-        : buildBundleChunks(dedup.kept.map((q) => q.text), { maxLen: 3300 });
-      // ── کارت تصویری بستهٔ خبری — خواستهٔ کاربر ۱۵ نوامبر («زیرساخت هواشناسی») ──
-      // آیتم‌ها همان موارد خاستگاه‌دار با تیک قطعی (مسیر هوشمند) یا خوشه‌های خام با تیک دادهٔ
-      // سامانه (مسیر پشتیبان)؛ شکست رندر/ارسال فقط لاگ می‌شود — متن اصلی هرگز قربانی کارت نمی‌شود.
-      let newsCardSent = false;
+      // ── همهٔ اخبار در قالب تصویر — خواستهٔ کاربر ۱۶ نوامبر: «همه ی اخبار و توییت ها در قالب
+      //    همون عکس و به شکل خلاصه حداکثر دو خطی یا ترجیحا تک خطی و شکیل فرستاده بشن» ──
+      // مسیر اصلی: کارت‌های تصویری پیاپی (۱۲ ردیف هر کارت، سقف ۷ کارت) + پیام متنی «فقط تحلیل».
+      // شکست همهٔ کارت‌ها → بازگشت صادقانه به بست متنی (هیچ خبری از دست نمی‌رود).
       // مسیر خام: متن خام تا دو خط (۵۶×۲ نویسه — هم‌عرض کارت) در مرز واژه بریده می‌شود تا
       // کارت هرگز «ناقص وسط جمله» نگذارد؛ آیتم‌های هوشمند از قبل دوخطی‌اند (۱۶ نوامبر)
       const rawCardText = (t: string): string => {
@@ -3818,46 +3822,69 @@ async function main(): Promise<void> {
       };
       const cardItems = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
-        : mergedItems.slice(0, 10).map((m) => ({ text: rawCardText(m.text), tick: m.verified, source: (m.sources[0] || '').trim() }));
+        : mergedItems.slice(0, NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).map((m) => ({ text: rawCardText(m.text), tick: m.verified, source: (m.sources[0] || '').trim() }));
+      let newsCardSent = false;
+      let newsCardsCount = 0;
       if (cardItems.length >= 3 && !CFG.dryRun) {
         const pCard = tehranParts(Date.now());
         const cardDate = tripleDateOf(pCard.dateKey, 'Asia/Tehran', 'umalqura');
-        const newsCard = await renderNewsCardPng({
+        const pages = await renderNewsCardPages({
           date: cardDate,
-          items: cardItems.slice(0, 10),
+          items: cardItems,
           total: mergedItems.length,
           dropped: grounded?.dropped ?? 0,
-        }).catch(() => null);
-        if (newsCard) {
-          const cap = buildNewsCardCaption({
-            date: cardDate,
-            items: cardItems.slice(0, 10),
-            total: mergedItems.length,
-            dropped: grounded?.dropped ?? 0,
-          });
-          for (const t of CFG.targets) {
-            const s = await sendBalePhotoBytes(CFG.token, t, newsCard.png, 'raadban-news.png', cap);
-            if (s.ok) newsCardSent = true;
-            else console.error(`❌ ارسال کارت بستهٔ خبری به ${t}: ${s.error}`);
-          }
+        }).catch(() => [] as CardPng[]);
+        if (pages.length === 0) {
+          console.warn('⚠️ رندر کارت‌های بستهٔ خبری ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
         } else {
-          console.warn('⚠️ رندر کارت بستهٔ خبری ناموفق بود — فقط پیام متنی ارسال می‌شود (صادقانه)');
+          for (let pi = 0; pi < pages.length; pi++) {
+            const part = { no: pi + 1, of: pages.length };
+            const cap = buildNewsCardCaption({ date: cardDate, items: cardItems, total: mergedItems.length, dropped: grounded?.dropped ?? 0, part });
+            for (const t of CFG.targets) {
+              const s = await sendBalePhotoBytes(CFG.token, t, pages[pi]!.png, `raadban-news-${pi + 1}.png`, cap);
+              if (s.ok) newsCardSent = true;
+              else console.error(`❌ ارسال کارت خبری ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
+            }
+            await sleep(700);
+          }
+          newsCardsCount = pages.length;
         }
-        if (newsCardSent) await sleep(600);
       }
+      // بخش «🔍 تحلیل» از متن هوشمند — تنها پیام متنی پیرو کارت‌ها (فهرست خبرها در کارت‌هاست)
       let ok = false;
-      for (const c of chunks) {
-        for (const t of CFG.targets) {
-          const s = await sendBaleMessage(CFG.token, t, c);
-          if (s.ok) ok = true;
-          else console.error(`❌ ارسال بستهٔ خبری به ${t} ناموفق: ${s.error}`);
+      if (newsCardSent && aiText) {
+        const lines = aiText.split('\n');
+        const ai = lines.findIndex((l) => /^\s*(?:🔍|📊|⚖️|🧭)/.test(l));
+        const analysisBlock = ai >= 0 ? lines.slice(ai).join('\n').trim() : '';
+        if (analysisBlock) {
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, analysisBlock);
+            if (s.ok) ok = true;
+            else console.error(`❌ ارسال تحلیل بسته به ${t} ناموفق: ${s.error}`);
+          }
+          await sleep(600);
+        } else {
+          ok = true; // کارت‌ها ارسال شدند و بخش تحلیل مستقلی نبود — بسته کامل است
         }
-        await sleep(600);
+      }
+      // پشتیبان متن — کارت‌ها ارسال نشدند (یا مسیر خام بدون رندر): بست متنی کامل (خبری از قلم نمی‌افتد)
+      if (!newsCardSent) {
+        const chunks = aiText
+          ? chunkHourlyMessage(aiText, 3300)
+          : buildBundleChunks(dedup.kept.map((q) => q.text), { maxLen: 3300 });
+        for (const c of chunks) {
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, c);
+            if (s.ok) ok = true;
+            else console.error(`❌ ارسال بستهٔ خبری به ${t} ناموفق: ${s.error}`);
+          }
+          await sleep(600);
+        }
       }
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length}) در ${chunks.length} پیام${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${newsCardSent ? ' + کارت تصویری' : ''}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
         // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
           state.hourlyAnalyses = appendAnalysis(history, {
@@ -3924,20 +3951,66 @@ async function main(): Promise<void> {
       ];
       const twDedup = dropAlreadySent(twItems, twSentSets);
       if (twDedup.dropped > 0) console.log(`ضدتکرار بستهٔ توییت: ${twDedup.dropped} توییت با مضمون تکراری حذف شد`);
-      // بدون سربرگ زمانی — خواستهٔ صریح کاربر ۱۳ نوامبر
+      // ── توییت‌ها هم در قالب تصویر — خواستهٔ کاربر ۱۶ نوامبر: «همه ی اخبار و توییت ها در قالب
+      //    همون عکس» — کارت‌های پیاپی (۸ ردیف هر کارت) با «نام فارسی: ترجمه» زیر متن اصلی؛
+      //    شکست همهٔ کارت‌ها → بازگشت صادقانه به بست متنی (هیچ توییتی از دست نمی‌رود) ──
       const twBundle = buildTweetBundleChunks(twDedup.kept, { maxLen: 3300 });
       let twOk = false;
-      for (const c of twBundle.chunks) {
-        for (const t of CFG.targets) {
-          const s = await sendBaleMessage(CFG.token, t, c);
-          if (s.ok) twOk = true;
-          else console.error(`❌ ارسال بستهٔ توییت به ${t} ناموفق: ${s.error}`);
+      let twCardsCount = 0;
+      if (!CFG.dryRun && twBundle.merged.length > 0) {
+        const pTw = tehranParts(Date.now());
+        const twDate = tripleDateOf(pTw.dateKey, 'Asia/Tehran', 'umalqura');
+        const twCardItems = twBundle.merged.map((m) => {
+          if (m.orig) {
+            // توییت خارجی — متن اصلی + «نام فارسی: ترجمه»
+            return {
+              source: m.sources[0] || 'حساب ناشناس',
+              orig: m.orig,
+              fa: m.text,
+              faName: m.faName,
+              verified: m.sources.length >= 2,
+            };
+          }
+          // توییت فارسی — یک خط، بدون ردیف تکراری ترجمه
+          return {
+            source: m.sources[0] || 'حساب ناشناس',
+            orig: m.sources.length > 1 ? `${m.text} (+${enToFaDigits(String(m.sources.length - 1))} بازتاب)` : m.text,
+            fa: '',
+            faName: undefined,
+            verified: m.sources.length >= 2,
+          };
+        });
+        const twPages = await renderTweetCardPages({ date: twDate, items: twCardItems }).catch(() => [] as CardPng[]);
+        if (twPages.length === 0) {
+          console.warn('⚠️ رندر کارت توییت‌ها ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
+        } else {
+          for (let pi = 0; pi < twPages.length; pi++) {
+            const part = { no: pi + 1, of: twPages.length };
+            const cap = buildTweetCardCaption({ date: twDate, items: twCardItems, part });
+            for (const t of CFG.targets) {
+              const s = await sendBalePhotoBytes(CFG.token, t, twPages[pi]!.png, `raadban-tweets-${pi + 1}.png`, cap);
+              if (s.ok) twOk = true;
+              else console.error(`❌ ارسال کارت توییت ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
+            }
+            await sleep(700);
+          }
+          twCardsCount = twPages.length;
         }
-        await sleep(600);
+      }
+      if (!twOk) {
+        // بست متنی — پشتیبان کارت (بدون سربرگ زمانی — خواستهٔ صریح کاربر ۱۳ نوامبر)
+        for (const c of twBundle.chunks) {
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, c);
+            if (s.ok) twOk = true;
+            else console.error(`❌ ارسال بستهٔ توییت به ${t} ناموفق: ${s.error}`);
+          }
+          await sleep(600);
+        }
       }
       if (twOk) {
         summary.tweetsSent = (summary.tweetsSent || 0) + twBundle.merged.length;
-        console.log(`🕒 بستهٔ توییت ارسال شد (اسلات ${tweetSlotKey}) — ${tweetQueue.length} توییت صف (پس از تجمیع: ${twBundle.merged.length}) در ${twBundle.chunks.length} پیام`);
+        console.log(`🕒 بستهٔ توییت ارسال شد (اسلات ${tweetSlotKey}) — ${tweetQueue.length} توییت صف (پس از تجمیع: ${twBundle.merged.length})${twCardsCount > 0 ? ` — ${enToFaDigits(String(twCardsCount))} کارت تصویری` : ` — ${twBundle.chunks.length} پیام متنی (کارت ناموفق)`}`);
         // علامت متن‌های واقعاً ارسال‌شده پس از موفقیت — نه هنگام صف‌گذاری
         for (const m of twBundle.merged) { sentTitleTexts.push(normalizeTitle(m.text).slice(0, 160)); markMsg(m.text); }
         tweetQueue.length = 0;

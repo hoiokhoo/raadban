@@ -47,11 +47,11 @@ import { join } from 'node:path';
 // ---------- (۱) خلاصهٔ دوخطی — پرامپت و اعتبارسنجی ----------
 
 describe('سوپرپرامپت دوخطی (خواستهٔ ۱۶ نوامبر)', () => {
-  test('پرامپت ساعتی قانون «حداکثر دو خط ~۱۱۰ نویسه» و «هیچ رویدادی از قلم نیفتد» را دارد', () => {
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('حداکثر دو خط');
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('۱۱۰');
+  test('پرامپت ساعتی قانون «ترجیح تک‌خط، حداکثر دو خط» و «هیچ رویدادی از قلم نیفتد» را دارد', () => {
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('تک‌خطی');
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('~۱۱۰');
     expect(DEFAULT_SYSTEM_HOURLY).toContain('هیچ رویدادی از قلم نیفتد');
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('خلاصهٔ دوخطی');
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('خلاصهٔ تک‌خطی');
   });
 
   test('پرامپت اصلی (oneshot) قانون خلاصهٔ دو-سه‌خطی به‌جای عین‌نویسی خبرگزاری دارد', () => {
@@ -318,7 +318,7 @@ describe('sendBalePhotoBytes — رفع «چارت‌ها داخل ربات ار
         return new Response(JSON.stringify({ ok: false, error_code: 500, description: 'Internal Error: failed to upload file bytes' }), { status: 500 });
       }
       return new Response(JSON.stringify({ ok: true, result: {} }), { status: 200 });
-    }) as typeof fetch;
+    }) as unknown as typeof fetch;
     try {
       const bytes = new Uint8Array(2000).fill(1);
       const r = await sendBalePhotoBytes('TOKEN', '123', bytes, 'card.png', 'کپشن');
@@ -335,7 +335,7 @@ describe('sendBalePhotoBytes — رفع «چارت‌ها داخل ربات ار
     globalThis.fetch = (async () => {
       calls++;
       return new Response(JSON.stringify({ ok: false, error_code: 400, description: 'Bad Request: chat not found' }), { status: 400 });
-    }) as typeof fetch;
+    }) as unknown as typeof fetch;
     try {
       const r = await sendBalePhotoBytes('TOKEN', '123', new Uint8Array(2000).fill(2), 'card.png');
       expect(r.ok).toBe(false);
@@ -344,5 +344,78 @@ describe('sendBalePhotoBytes — رفع «چارت‌ها داخل ربات ار
     } finally {
       globalThis.fetch = realFetch;
     }
+  });
+});
+
+// ---------- (۷) کارت تصویری همهٔ اخبار/توییت‌ها — خواستهٔ بعدازظهر ۱۶ نوامبر ----------
+
+import {
+  paginateItems,
+  makeNewsCardSvg,
+  makeTweetCardSvg,
+  buildTweetCardCaption,
+  buildNewsCardCaption,
+  NEWS_CARD_ROWS_PER_PAGE,
+  NEWS_CARD_MAX_PAGES,
+  type NewsCardInput,
+  type TweetCardInput,
+} from '../bot/news-card';
+import { tripleDateOf } from '../bot/calendar';
+
+const CARD_DATE = tripleDateOf('2026-11-16', 'Asia/Tehran', 'umalqura');
+
+describe('کارت چندصفحه‌ای — همهٔ اخبار در قالب تصویر', () => {
+  test('صفحه‌بندی خالص — ۱۵ آیتم → ۲ صفحهٔ ۱۲تایی؛ سقف صفحات رعایت می‌شود', () => {
+    const fifteen = Array.from({ length: 15 }, (_, i) => i);
+    const pages = paginateItems(fifteen, 12, 7);
+    expect(pages.length).toBe(2);
+    expect(pages[0]!.length).toBe(12);
+    expect(pages[1]!.length).toBe(3);
+    expect(NEWS_CARD_ROWS_PER_PAGE).toBe(12);
+    expect(NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).toBeGreaterThanOrEqual(84);
+    // سقف صفحات — ۱۰۰ آیتم با maxPages=2 → فقط ۲ صفحه
+    expect(paginateItems(Array.from({ length: 100 }, (_, i) => i), 12, 2).length).toBe(2);
+    expect(paginateItems([], 12, 7)).toEqual([]);
+  });
+
+  test('برچسب «بخش ۱ از ۲» در کارت و کپشن — فقط وقتی چند صفحه است', () => {
+    const input: NewsCardInput = { date: CARD_DATE, items: [{ text: 'خبر نمونه برای کارت', tick: false, source: 'ایسنا' }] };
+    expect(makeNewsCardSvg({ ...input, part: { no: 1, of: 2 } })).toContain('بخش ۱ از ۲');
+    expect(makeNewsCardSvg(input)).not.toContain('بخش');
+    expect(buildNewsCardCaption({ ...input, part: { no: 2, of: 3 } })).toContain('بخش ۲ از ۳');
+  });
+});
+
+describe('کارت توییت‌ها — همان قالب تصویری (خواستهٔ ۱۶ نوامبر)', () => {
+  const twInput: TweetCardInput = {
+    date: CARD_DATE,
+    items: [
+      { source: '🅣 Donald Trump (تروث‌سوشال)', orig: 'Peace through strength!', fa: 'صلح از طریق قدرت!', faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' },
+      { source: '𝕏 mb_ghalibaf', orig: 'Iran is ready.', fa: 'ایران آماده است.', faName: 'محمدباقر قالیباف (رئیس مجلس شورای اسلامی)', verified: true },
+    ],
+  };
+
+  test('ردیف هر توییت: منبع + متن اصلی + «نام فارسی: ترجمه» + تیک دومانبعی', () => {
+    const svg = makeTweetCardSvg(twInput);
+    expect(svg).toContain('Donald Trump (تروث‌سوشال)');
+    expect(svg).toContain('Peace through strength!');
+    expect(svg).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا): صلح از طریق قدرت!');
+    expect(svg).toContain('𝕏 mb_ghalibaf');
+    expect(svg).toContain('✅'); // verified
+    expect(svg).toContain('توییت‌های مقامات تأثیرگذار');
+  });
+
+  test('توییت بدون نام فارسی — خط ترجمه بدون پیشوند نام', () => {
+    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '𝕏 elonmusk', orig: 'Hi', fa: 'سلام' }] });
+    expect(svg).toContain('سلام');
+    expect(svg).not.toContain(': سلام');
+  });
+
+  test('خالی → SVG خالی؛ کپشن با بخش شماره‌دار', () => {
+    expect(makeTweetCardSvg({ date: CARD_DATE, items: [] })).toBe('');
+    const cap = buildTweetCardCaption({ ...twInput, part: { no: 1, of: 2 } });
+    expect(cap).toContain('توییت‌های مقامات تأثیرگذار');
+    expect(cap).toContain('بخش ۱ از ۲');
+    expect(cap.length).toBeLessThanOrEqual(1024);
   });
 });

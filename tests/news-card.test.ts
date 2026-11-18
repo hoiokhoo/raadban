@@ -72,9 +72,9 @@ describe('makeNewsCardSvg', () => {
     expect(makeNewsCardSvg({ ...input(), items: [] })).toBe('');
   });
 
-  test('رویداد بیشتر از کارت → سطر «+N رویداد دیگر در پیام متنی»', () => {
+  test('رویداد بیشتر از کارت → سطر «+N رویداد دیگر در کارت‌های بعدی» (۱۶ نوامبر)', () => {
     const svg = makeNewsCardSvg(input()); // total=12، آیتم=3
-    expect(svg).toContain('+ ۹ رویداد دیگر در پیام متنی');
+    expect(svg).toContain('+ ۹ رویداد دیگر در کارت‌های بعدی');
   });
 
   test('حذفِ بی‌خاستگاهِ صفر → تراشهٔ حذف نمی‌آید', () => {
@@ -106,7 +106,7 @@ describe('buildNewsCardCaption', () => {
     expect(cap).toContain('۱۲ رویداد');
     expect(cap).toContain('۱ مورد تأییدشده');
     expect(cap).toContain('۲ مورد بی‌خاستگاه');
-    expect(cap).toContain('در پیام متنی');
+    expect(cap).toContain('تیک اعتبارسنجی');
   });
 });
 

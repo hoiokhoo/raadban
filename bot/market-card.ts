@@ -12,7 +12,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
-import { formatMoney, type Quote } from './market';
+import { formatMoney, carFactoryDelta, type Quote } from './market';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -46,6 +46,8 @@ const PAD = 36;
 const FOOTER_H = 88;
 const TITLE_MAX_CHARS = 30;
 const MAX_CARS = 10;
+/** ارتفاع ردیف کارخانه‌دار (VIP) — دو خط: بازار + خط کارخانه/اختلاف */
+const VIP_ROW_H = 120;
 
 function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -62,6 +64,9 @@ export interface MarketRow {
   value: string;
   /** درصد تغییر — null یعنی «—» (بدون تغییر/بی‌داده) */
   pct: number | null;
+  /** ستون کارخانه + ما به‌التفاوت — فقط خودروهای VIP (خواستهٔ کاربر ۱۹ نوامبر:
+   *  «جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری، جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت») */
+  factory?: { value: string; diff: string; pct: number | null };
 }
 
 export interface MarketSection {
@@ -76,6 +81,20 @@ export function marketSectionsOf(quotes: Quote[]): { sections: MarketSection[]; 
     value: formatMoney(q.value, q.unit),
     pct: typeof q.changePct === 'number' && Number.isFinite(q.changePct) ? q.changePct : null,
   });
+  const ofCar = (q: Quote): MarketRow => {
+    const row = of(q);
+    if (q.factoryToman) {
+      const fd = carFactoryDelta(q.value, q.factoryToman);
+      if (fd) {
+        row.factory = {
+          value: formatMoney(q.factoryToman, 'toman'),
+          diff: formatMoney(fd.diff, 'toman'),
+          pct: fd.pct,
+        };
+      }
+    }
+    return row;
+  };
   const cars = quotes.filter((q) => q.key.startsWith('car:'));
   const gold = quotes.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));
   const rest = ['usd', 'tedpix', 'btc', 'oil_brent']
@@ -83,7 +102,7 @@ export function marketSectionsOf(quotes: Quote[]): { sections: MarketSection[]; 
     .filter((q): q is Quote => Boolean(q))
     .map(of);
   const sections: MarketSection[] = [];
-  if (cars.length > 0) sections.push({ title: 'خودرو — بازار آزاد', rows: cars.slice(0, MAX_CARS).map(of) });
+  if (cars.length > 0) sections.push({ title: 'خودرو — بازار آزاد', rows: cars.slice(0, MAX_CARS).map(ofCar) });
   if (gold.length > 0) sections.push({ title: 'طلا و سکه', rows: gold.map(of) });
   if (rest.length > 0) sections.push({ title: 'ارز، بورس و کریپتو', rows: rest });
   return { sections, moreCars: Math.max(0, cars.length - MAX_CARS) };
@@ -108,9 +127,12 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
   const up = quotes.filter((q) => typeof q.changePct === 'number' && q.changePct > 0.05).length;
   const down = quotes.filter((q) => typeof q.changePct === 'number' && q.changePct < -0.05).length;
   const flat = quotes.length - up - down;
+  // ارتفاع ردیف متغیر — ردیف کارخانه‌دار (VIP) دو خط دارد
+  const rowH = (r: MarketRow): number => (r.factory ? VIP_ROW_H : ROW_H);
+  const rowsTotalH = sections.reduce((a, s) => a + s.rows.reduce((a2, r) => a2 + rowH(r), 0), 0);
   const rowsTotal = sections.reduce((a, s) => a + s.rows.length, 0);
   const moreH = moreCars > 0 ? 52 : 0;
-  const H = HEADER_H + CHIPS_H + sections.length * SECTION_H + rowsTotal * ROW_H + 24 + moreH + FOOTER_H;
+  const H = HEADER_H + CHIPS_H + sections.length * SECTION_H + rowsTotalH + 24 + moreH + FOOTER_H;
 
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
@@ -143,7 +165,8 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
       y += SECTION_H;
       const rows = sec.rows
         .map((r, i) => {
-          const ry = y + i * ROW_H;
+          const rh = rowH(r);
+          const ry = y + sec.rows.slice(0, i).reduce((a2, r2) => a2 + rowH(r2), 0);
           const bg = i % 2 === 0 ? '#102941' : '#0d2135';
           const title = r.title.length > TITLE_MAX_CHARS ? `${r.title.slice(0, TITLE_MAX_CHARS - 1)}…` : r.title;
           const pctColor = r.pct === null || Math.abs(r.pct) < 0.05 ? '#94a3b8' : r.pct > 0 ? '#4ade80' : '#f87171';
@@ -152,16 +175,21 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
               ? '—'
               : `${faDigits(Math.abs(r.pct).toFixed(1))}٪`;
           const hasArrow = r.pct !== null && Math.abs(r.pct) >= 0.05;
-          const cyText = ry + (ROW_H - 12) / 2 + 9;
+          const cyText = ry + (rh - 12) / 2 + (r.factory ? -6 : 9);
+          const factoryLine = r.factory
+            ? `
+  <text x="${W - PAD - 24}" y="${ry + 74}" font-size="21" fill="#9fc3e8" text-anchor="end">${rtl(`کارخانه: ${esc(r.factory.value)}`)}</text>
+  <text x="${PAD + 190}" y="${ry + 74}" font-size="21" font-weight="700" fill="${r.factory.pct !== null && r.factory.pct > 0.05 ? '#fbbf24' : '#e8f1fa'}" text-anchor="start">${rtl(`اختلاف: ${esc(r.factory.diff)}${r.factory.pct !== null && Math.abs(r.factory.pct) >= 0.05 ? ` (${r.factory.pct > 0 ? '▲' : '▼'}${faDigits(Math.abs(r.factory.pct).toFixed(1))}٪)` : ''}`)}</text>`
+            : '';
           return `
-  <rect x="${PAD}" y="${ry}" width="${W - PAD * 2}" height="${ROW_H - 12}" rx="12" fill="${bg}"/>
+  <rect x="${PAD}" y="${ry}" width="${W - PAD * 2}" height="${rh - 12}" rx="12" fill="${bg}"/>
   <text x="${W - PAD - 24}" y="${cyText}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(esc(title))}</text>
   <text x="${PAD + 190}" y="${cyText}" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">${rtl(esc(r.value))}</text>
   ${hasArrow ? arrowSvg(PAD + 118, cyText - 9, r.pct! > 0, pctColor) : ''}
-  <text x="${PAD + 108}" y="${cyText}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="end">${rtl(pctText)}</text>`;
+  <text x="${PAD + 108}" y="${cyText}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="end">${rtl(pctText)}</text>${factoryLine}`;
         })
         .join('');
-      y += sec.rows.length * ROW_H;
+      y += sec.rows.reduce((a2, r) => a2 + rowH(r), 0);
       return head + rows;
     })
     .join('');

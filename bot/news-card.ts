@@ -2,9 +2,16 @@
  * کارت تصویری بستهٔ خبری — خواستهٔ کاربر (۱۵ نوامبر ۲۰۲۶):
  * «کارت‌سازی بستهٔ خبری و گزارش بازار — همان زیرساخت امروزِ هواشناسی قابل استفادهٔ مجدد است».
  *
+ * خواستهٔ کاربر (۱۹ نوامبر ۲۰۲۶):
+ *  ۱) «فقط عکس حاوی اخبار باشه» — کپشن زیر عکس کامل حذف شد (کارت همهٔ اطلاعات را خودش دارد).
+ *  ۲) «خبرها ترکیبی اند … میخوام هر دسته از اخبار از جنگ گرفته تا سیاست و علمی و ورزشی ،
+ *     تو اون بازه دسته بندی بشن ، اولویت بندی بشن» — بنر دسته (bot/categories.ts) پیش از
+ *     نخستین مورد هر دسته در کارت رندر می‌شود؛ ترتیب دسته‌ها اولویت سردبیری.
+ *  ۳) توییت‌ها «فقط فارسی روان» — متن اصلی حذف؛ نام فارسی توییت‌کننده + ترجمهٔ کامل و
+ *     روان (بدون خلاصه‌سازی، بدون سقف دومخطی) با ارتفاع ردیف متغیر.
+ *
  * همان معماری کارت هواشناسی (bot/weather-card.ts): ساخت SVG با چیدمان راست‌به‌چپ و فونت
  * وزیرمتن → تبدیل به PNG با sharp (libvips/librsvg) — هیچ وابستگی تازه‌ای.
- *
  * صراحت: تیک ✅ این کارت فقط از نتیجهٔ تطبیق اجباری با منبع می‌آید (bot/grounding.ts) —
  * هر مورد تیک‌دار یعنی خاستگاه در خوشهٔ «≥۲ منبع مستقل». شکست رندر → null و فراخواننده
  * فقط پیام متنی می‌فرستد — هیچ کارت نیمه‌ساختگی.
@@ -29,6 +36,8 @@ export interface NewsCardItem {
   tick: boolean;
   /** منبع نمایندهٔ خوشه */
   source: string;
+  /** برچسب دستهٔ خبری («⚔️ جنگ و امنیت») — بنر پیش از نخستین موردِ هر دسته (۱۹ نوامبر) */
+  section?: string;
 }
 
 export interface NewsCardInput {
@@ -54,6 +63,7 @@ const W = 1080;
 const HEADER_H = 240;
 const CHIPS_H = 110;
 const ROW_H = 158;
+const BANNER_H = 62;
 const PAD = 36;
 const FOOTER_H = 88;
 const MAX_CHARS_PER_LINE = 56;
@@ -121,9 +131,16 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   const verified = items.filter((i) => i.tick).length;
   const dropped = input.dropped ?? 0;
   const more = Math.max(0, total - items.length);
-  const rows = items.length;
+  // بنر دسته — پیش از نخستین موردِ هر دسته در این صفحه (اولین مورد صفحه همیشه بنر دارد)
+  const banners = new Map<number, string>();
+  let lastSection = '';
+  items.forEach((it, i) => {
+    const sec = (it.section || '').trim();
+    if (sec && sec !== lastSection) { banners.set(i, sec); lastSection = sec; }
+  });
+  const bannersH = banners.size * BANNER_H;
   const moreH = more > 0 ? 64 : 0;
-  const H = HEADER_H + CHIPS_H + rows * ROW_H + 26 + moreH + FOOTER_H;
+  const H = HEADER_H + CHIPS_H + items.length * ROW_H + bannersH + 26 + moreH + FOOTER_H;
 
   const chips: Array<{ label: string; value: string }> = [
     { label: 'رویدادهای بازه', value: faDigits(String(total)) },
@@ -150,32 +167,42 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
     })
     .join('');
 
-  const rowsSvg = items
-    .map((it, i) => {
-      const yTop = HEADER_H + CHIPS_H + 14 + i * ROW_H;
-      const bg = i % 2 === 0 ? '#102941' : '#0d2135';
-      const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, 2);
-      const cy = yTop + (ROW_H - 12) / 2;
-      const numCx = W - PAD - 34;
-      const textRight = W - PAD - 110;
-      const line1 = esc(lines[0] || '');
-      const line2 = esc(lines[1] || '');
-      const src = it.source ? `<text x="${textRight}" y="${yTop + 128}" font-size="19" fill="#7fa8c9" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
-      const l2 = line2 ? `<text x="${textRight}" y="${yTop + 92}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(line2)}</text>` : '';
-      return `
+  // چیدمان انباشته — هر بنر دقیقاً پیش از ردیف خودش می‌نشیند (بدون حفرهٔ بالای کارت)
+  let rowY = HEADER_H + CHIPS_H + 14;
+  const pieces: string[] = [];
+  items.forEach((it, i) => {
+    const banner = banners.get(i)
+      ? `
+  <rect x="${PAD}" y="${rowY}" width="${W - PAD * 2}" height="${BANNER_H - 10}" rx="12" fill="#16405f"/>
+  <rect x="${W - PAD - 8}" y="${rowY + 6}" width="4" height="${BANNER_H - 22}" rx="2" fill="#ffd75e"/>
+  <text x="${W - PAD - 26}" y="${rowY + 38}" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(banners.get(i)!))}</text>`
+      : '';
+    if (banners.get(i)) rowY += BANNER_H;
+    const yTop = rowY;
+    rowY += ROW_H;
+    const bg = i % 2 === 0 ? '#102941' : '#0d2135';
+    const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, 2);
+    const cy = yTop + (ROW_H - 12) / 2;
+    const numCx = W - PAD - 34;
+    const textRight = W - PAD - 110;
+    const line1 = esc(lines[0] || '');
+    const line2 = esc(lines[1] || '');
+    const src = it.source ? `<text x="${textRight}" y="${yTop + 128}" font-size="19" fill="#7fa8c9" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
+    const l2 = line2 ? `<text x="${textRight}" y="${yTop + 92}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(line2)}</text>` : '';
+    pieces.push(`${banner}
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${ROW_H - 12}" rx="14" fill="${bg}"/>
   <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
   <text x="${numCx}" y="${cy}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">${rtl(faDigits(String(i + 1)))}</text>
   ${it.tick ? tickBadgeSvg(numCx - 46, cy - 8) : ''}
   <text x="${textRight}" y="${yTop + 52}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(line1)}</text>
   ${l2}
-  ${src}`;
-    })
-    .join('');
+  ${src}`);
+  });
+  const rowsSvg = pieces.join('\n');
 
   const moreSvg =
     more > 0
-      ? `<text x="${W / 2}" y="${HEADER_H + CHIPS_H + 14 + rows * ROW_H + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
+      ? `<text x="${W / 2}" y="${HEADER_H + CHIPS_H + 14 + bannersH + items.length * ROW_H + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
       : '';
 
   const footerY = H - 34;
@@ -216,24 +243,6 @@ export async function renderNewsCardPng(input: NewsCardInput): Promise<CardPng |
   }
 }
 
-/** کپشن کوتاه کارت (≤۱۰۲۴ نویسهٔ بله) — خالص و تست‌پذیر.
- *  ۱۶ نوامبر: بخش شماره‌دار + تحلیل پایانی در پیام متنی پیرو کارت‌ها. */
-export function buildNewsCardCaption(input: NewsCardInput): string {
-  const { date, items } = input;
-  const total = input.total ?? items.length;
-  const verified = items.filter((i) => i.tick).length;
-  const dropped = input.dropped ?? 0;
-  const partLabel = input.part && input.part.of > 1 ? ` — بخش ${faDigits(String(input.part.no))} از ${faDigits(String(input.part.of))}` : '';
-  const L: string[] = [
-    `📰 <b>بستهٔ خبری رصدبان</b>${partLabel}`,
-    `📅 ${date.weekdayFa} — ${date.shamsi} • ${date.miladi}`,
-    `📋 ${faDigits(String(total))} رویداد این بازه — ${faDigits(String(verified))} مورد تأییدشدهٔ دومانبعی`,
-  ];
-  if (dropped > 0) L.push(`🛡 ${faDigits(String(dropped))} مورد بی‌خاستگاه در تطبیق با منبع حذف شد`);
-  L.push('📡 رصدبان — تیک اعتبارسنجی قفل‌شده به جمله‌های منبع');
-  return L.join('\n').slice(0, 1024);
-}
-
 // ---------- کارت چندصفحه‌ای — همهٔ اخبار در قالب تصویر (خواستهٔ کاربر ۱۶ نوامبر) ----------
 
 /** صفحه‌بندی + رندر همهٔ موارد در چند کارت پیاپی — خروجی خالی یعنی شکست/بی‌مورد (فراخواننده به متن برمی‌گردد). */
@@ -250,16 +259,14 @@ export async function renderNewsCardPages(input: NewsCardInput, opts: { rowsPerP
   return out;
 }
 
-// ---------- کارت توییت‌ها — همان قالب، برای بستهٔ توییت/تروث‌سوشال (خواستهٔ ۱۶ نوامبر) ----------
+// ---------- کارت توییت‌ها — فقط فارسی روان، کامل (خواستهٔ ۱۹ نوامبر) ----------
 
 export interface TweetCardItem {
   /** برچسب منبع با نشانگر پلتفرم — «𝕏 Donald Trump» یا «🅣 Donald Trump (تروث‌سوشال)» */
   source: string;
-  /** متن اصلی (انگلیسی/هر زبان) — یک خط در کارت */
-  orig: string;
-  /** ترجمهٔ فارسی روان */
+  /** ترجمهٔ فارسی روان و کامل — تنها متن نمایشی (متن اصلی حذف — خواستهٔ ۱۹ نوامبر) */
   fa: string;
-  /** نام فارسی توییت‌کننده + مسئولیت — خط «نام: ترجمه» */
+  /** نام فارسی توییت‌کننده + مسئولیت — خط عنوان ردیف */
   faName?: string;
   /** توییت دومانبعی/تأییدشده (بازتاب هم‌موضوع) */
   verified?: boolean;
@@ -271,19 +278,55 @@ export interface TweetCardInput {
   part?: { no: number; of: number };
 }
 
-/** هندسهٔ ردیف توییت: برچسب + اصلی + حداکثر دو خط ترجمه */
-const TW_ROW_H = 208;
-export const TWEET_CARD_ROWS_PER_PAGE = 8;
-export const TWEET_CARD_MAX_PAGES = 3;
+/** هندسهٔ ردیف توییت — ارتفاع متغیر: عنوان منبع + نام فارسی + همهٔ خطوط ترجمه (کامل، بدون خلاصه‌سازی)
+ *  خواستهٔ ۱۹ نوامبر: «میخوام به شکل کامل ،بدون خلاصه نویسی ، اما به زبان فارسی روان و واضح» */
+const TW_SOURCE_H = 52;
+const TW_NAME_H = 42;
+const TW_LINE_H = 40;
+/** بالشتک پایین ردیف — خط آخر (baseline) با فاصلهٔ امن در پس‌زمینهٔ ردیف می‌ماند */
+const TW_PAD_BOTTOM = 50;
+const TW_CHARS_PER_LINE = 62;
+/** سقف خطوط ترجمه هر توییت — توییت‌های عادی (≤۲۸۰ نویسه) ~۴-۶ خط؛ فراتر صادقانه با «…» */
+export const TW_MAX_LINES = 14;
+/** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها */
+export const TW_PAGE_MAX_HEIGHT = 6400;
+
+/** ارتفاع ردیف یک توییت — خالص و تست‌پذیر (صفحه‌بندی بر پایهٔ آن) */
+export function tweetRowHeight(fa: string): number {
+  const lines = wrapFa(fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES).length;
+  return TW_SOURCE_H + TW_NAME_H + Math.max(1, lines) * TW_LINE_H + TW_PAD_BOTTOM;
+}
+
+/** صفحه‌بندی توییت‌ها بر پایهٔ ارتفاع واقعی — ردیف تا جایی که مجموع ارتفاع از سقف نگذرد؛
+ *  مازاد فراتر از maxPages صادقانه بی‌کارت می‌ماند (فراخواننده به بست متنی می‌رسد) */
+export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): TweetCardItem[][] {
+  if (!items || items.length === 0) return [];
+  const pages: TweetCardItem[][] = [];
+  let cur: TweetCardItem[] = [];
+  let h = HEADER_H + CHIPS_H + FOOTER_H + 26;
+  for (const it of items) {
+    const rh = tweetRowHeight(it.fa);
+    if (cur.length > 0 && h + rh > maxHeight) {
+      pages.push(cur);
+      cur = [];
+      h = HEADER_H + CHIPS_H + FOOTER_H + 26;
+      if (pages.length >= maxPages) return pages;
+    }
+    cur.push(it);
+    h += rh;
+  }
+  if (cur.length > 0) pages.push(cur);
+  return pages;
+}
 
 /** ساخت SVG کارت توییت — خالص و تست‌پذیر */
 export function makeTweetCardSvg(input: TweetCardInput): string {
   const { date, items } = input;
   if (!items || items.length === 0) return '';
-  const rows = items.length;
-  const H = HEADER_H + CHIPS_H + rows * TW_ROW_H + 26 + FOOTER_H;
   const partLabel = input.part && input.part.of > 1 ? ` — بخش ${faDigits(String(input.part.no))} از ${faDigits(String(input.part.of))}` : '';
   const verified = items.filter((i) => i.verified).length;
+  const heights = items.map((it) => tweetRowHeight(it.fa));
+  const H = HEADER_H + CHIPS_H + 14 + heights.reduce((a, b) => a + b, 0) + FOOTER_H;
 
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
@@ -293,6 +336,7 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
 
   const chips: Array<{ label: string; value: string }> = [
     { label: 'پلتفرم', value: '𝕏 ایکس + 🅣 تروث‌سوشال' },
+    { label: 'ترجمه', value: 'کامل و روان — بدون خلاصه‌سازی' },
   ];
   const chipW = (W - PAD * 2 - (chips.length - 1) * 16) / chips.length;
   const chipsSvg = chips
@@ -305,23 +349,26 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
     })
     .join('');
 
+  const textRight = W - PAD - 28;
+  let y = HEADER_H + CHIPS_H + 14;
   const rowsSvg = items
     .map((it, i) => {
-      const yTop = HEADER_H + CHIPS_H + 14 + i * TW_ROW_H;
+      const yTop = y;
+      y += heights[i]!;
       const bg = i % 2 === 0 ? '#102941' : '#0d2135';
-      const textRight = W - PAD - 28;
-      const orig1 = esc(wrapFa(it.orig || '', 62, 1)[0] || '');
-      const faLine1 = it.faName ? `${it.faName}: ` : '';
-      const faLines = wrapFa(`${faLine1}${it.fa || ''}`, MAX_CHARS_PER_LINE, 2);
-      const fa1 = esc(faLines[0] || '');
-      const fa2 = esc(faLines[1] || '');
-      const l2 = fa2 ? `<text x="${textRight}" y="${yTop + 178}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(fa2)}</text>` : '';
+      // نام فارسی توییت‌کننده — خط عنوان؛ نبود آن → «ترجمه فارسی» (سازگاری با دادهٔ قدیمی)
+      const nameLine = (it.faName || 'ترجمه فارسی').replace(/\s+/g, ' ').trim();
+      const nameLines = wrapFa(nameLine, 60, 1);
+      const nameY = yTop + TW_SOURCE_H + 30;
+      const faLines = wrapFa(it.fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES);
+      const faSvg = faLines
+        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(esc(ln))}</text>`)
+        .join('\n');
       return `
-  <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${TW_ROW_H - 12}" rx="14" fill="${bg}"/>
-  <text x="${textRight}" y="${yTop + 46}" font-size="26" font-weight="700" fill="#9fc3e8" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
-  <text x="${textRight}" y="${yTop + 88}" font-size="24" fill="#c7d9ec" text-anchor="end">${rtl(orig1)}</text>
-  <text x="${textRight}" y="${yTop + 136}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(fa1)}</text>
-  ${l2}`;
+  <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${heights[i]! - 12}" rx="14" fill="${bg}"/>
+  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="#9fc3e8" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
+  <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
+  ${faSvg}`;
     })
     .join('');
 
@@ -361,27 +408,12 @@ export async function renderTweetCardPng(input: TweetCardInput): Promise<CardPng
 }
 
 /** همهٔ توییت‌ها در چند کارت پیاپی — خروجی خالی → فراخواننده به بستهٔ متنی برمی‌گردد */
-export async function renderTweetCardPages(input: TweetCardInput, opts: { rowsPerPage?: number; maxPages?: number } = {}): Promise<CardPng[]> {
-  const per = opts.rowsPerPage ?? TWEET_CARD_ROWS_PER_PAGE;
-  const maxPages = opts.maxPages ?? TWEET_CARD_MAX_PAGES;
-  const pages = paginateItems(input.items || [], per, maxPages);
+export async function renderTweetCardPages(input: TweetCardInput): Promise<CardPng[]> {
+  const pages = paginateTweetItems(input.items || []);
   const out: CardPng[] = [];
   for (let p = 0; p < pages.length; p++) {
     const card = await renderTweetCardPng({ ...input, items: pages[p]!, part: { no: p + 1, of: pages.length } });
     if (card) out.push(card);
   }
   return out;
-}
-
-/** کپشن کارت توییت — خالص و تست‌پذیر */
-export function buildTweetCardCaption(input: TweetCardInput): string {
-  const { date, items } = input;
-  const partLabel = input.part && input.part.of > 1 ? ` — بخش ${faDigits(String(input.part.no))} از ${faDigits(String(input.part.of))}` : '';
-  const L: string[] = [
-    `🐦 <b>توییت‌های مقامات تأثیرگذار</b>${partLabel}`,
-    `📅 ${date.weekdayFa} — ${date.shamsi} • ${date.miladi}`,
-    `📋 ${faDigits(String(items.length))} پست — ترجمهٔ وفادار زیر هر متن اصلی`,
-    '📡 رصدبان — ایکس و تروث‌سوشال',
-  ];
-  return L.join('\n').slice(0, 1024);
 }

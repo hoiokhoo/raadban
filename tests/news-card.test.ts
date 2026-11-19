@@ -5,7 +5,8 @@
  * و رندر واقعی PNG با sharp — تیک کارت فقط از grounding می‌آید.
  */
 import { describe, expect, test } from 'bun:test';
-import { makeNewsCardSvg, buildNewsCardCaption, renderNewsCardPng, wrapFa, type NewsCardInput } from '../bot/news-card';
+import { makeNewsCardSvg, renderNewsCardPng, wrapFa, type NewsCardInput } from '../bot/news-card';
+import * as newsCardModule from '../bot/news-card';
 import { tripleDateOf } from '../bot/calendar';
 
 function input(over: Partial<NewsCardInput> = {}): NewsCardInput {
@@ -96,17 +97,39 @@ describe('makeNewsCardSvg', () => {
   });
 });
 
-// ---------- کپشن ----------
+// ---------- کپشن — حذف کامل (خواستهٔ کاربر ۱۹ نوامبر: «فقط عکس حاوی اخبار باشه») ----------
 
-describe('buildNewsCardCaption', () => {
-  test('کپشن کامل زیر سقف ۱۰۲۴ بله — تاریخ، شمار، تیک', () => {
-    const cap = buildNewsCardCaption(input());
-    expect(cap.length).toBeLessThanOrEqual(1024);
-    expect(cap).toContain('<b>بستهٔ خبری رصدبان</b>');
-    expect(cap).toContain('۱۲ رویداد');
-    expect(cap).toContain('۱ مورد تأییدشده');
-    expect(cap).toContain('۲ مورد بی‌خاستگاه');
-    expect(cap).toContain('تیک اعتبارسنجی');
+describe('کپشن حذف‌شده — کارت بدون کپشن ارسال می‌شود', () => {
+  test('سازندهٔ کپشن دیگر وجود ندارد (کاربر خواست متن زیر عکس حذف شود)', () => {
+    // buildNewsCardCaption از bot/news-card.ts حذف شد — کارت همهٔ اطلاعات را خودش دارد
+    const mod = newsCardModule as unknown as Record<string, unknown>;
+    expect(mod.buildNewsCardCaption).toBeUndefined();
+  });
+
+  test('بنر دسته در کارت رندر می‌شود (خواستهٔ ۱۹ نوامبر: دسته‌بندی اخبار)', () => {
+    const svg = makeNewsCardSvg({
+      ...input(),
+      items: [
+        { text: 'حملهٔ موشکی به پایگاه هوایی گزارش شد', tick: true, source: 'ایسنا', section: '⚔️ جنگ و امنیت' },
+        { text: 'شاخص بورس تهران امروز ۹۲۰ واحد رشد کرد', tick: false, source: 'بورس‌نیوز', section: '💰 اقتصادی' },
+        { text: 'تیم ملی فوتبال به مرحلهٔ بعد صعود کرد', tick: false, source: 'ایسنا', section: '⚽ ورزشی' },
+      ],
+    });
+    expect(svg).toContain('جنگ و امنیت');
+    expect(svg).toContain('اقتصادی');
+    expect(svg).toContain('ورزشی');
+  });
+
+  test('دستهٔ تکراری — فقط یک بنر (ادامهٔ همان دسته بنر تکراری نمی‌گیرد)', () => {
+    const svg = makeNewsCardSvg({
+      ...input(),
+      items: [
+        { text: 'حملهٔ موشکی گزارش شد', tick: false, source: 'الف', section: '⚔️ جنگ و امنیت' },
+        { text: 'آتش‌بس امضا شد', tick: false, source: 'ب', section: '⚔️ جنگ و امنیت' },
+        { text: 'بورس رشد کرد', tick: false, source: 'ج', section: '💰 اقتصادی' },
+      ],
+    });
+    expect(svg.split('⚔️ جنگ و امنیت').length - 1).toBe(1);
   });
 });
 

@@ -136,17 +136,14 @@ export interface TweetBundleResult {
   merged: MergedItem[];
 }
 
-/** متن نمایشی یک توییت — خواستهٔ کاربر (۱۳ نوامبر ۲۰۲۶ + ۱۶ نوامبر):
- *  «هم زبان انگلیسی و هم ترجمه فارسی زیرش» + «بجای عبارت ترجمه فارسی، نام توییت‌کننده
- *  به فارسی بیاد» — متن اصلی در خط اول، خط دوم «نام فارسی (مسئولیت): ترجمهٔ فارسی روان».
- *  نبود faName → برچسب قدیمی «🗣 ترجمه فارسی:»؛ توییت فارسی/بدون اصلی → فقط خود متن. خالص تست‌پذیر. */
-export function tweetDisplayBody(orig: string | undefined, fa: string, faName?: string): string {
+/** متن نمایشی یک توییت — خواستهٔ کاربر (۱۹ نوامبر ۲۰۲۶): «میخوام متن زبان اصلی توییت یا
+ *  تروث سوشال رو بزاری فقط فارس روان رو بزار» — متن اصلی حذف؛ فقط «نام فارسی (مسئولیت): ترجمهٔ
+ *  فارسی روان». نبود faName → برچسب «🗣 ترجمه فارسی:». توییت فارسی/بدون ترجمه‌کننده → خود متن. خالص تست‌پذیر. */
+export function tweetDisplayBody(_orig: string | undefined, fa: string, faName?: string): string {
   const one = (s: string) => (s || '').replace(/\s+/g, ' ').trim();
   const t = one(fa);
-  const o = one(orig || '');
-  if (!o || o === t) return t;
-  const label = one(faName || '') || '🗣 ترجمه فارسی';
-  return `${o}\n${label}: ${t}`;
+  const label = one(faName || '');
+  return label ? `${label}: ${t}` : t;
 }
 
 /** بستهٔ توییت‌های افراد مشهور و تأثیرگذار — دستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر.

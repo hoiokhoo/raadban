@@ -222,7 +222,8 @@ export function buildWeatherMessage(input: { city: string; tomorrow: TripleDate;
   for (const h of input.hours) L.push(formatHourLine(h));
   L.push(
     '',
-    `📡 منبع: Open-Meteo — مدل‌های عددی جوّ (به‌روزرسانی خودکار، منطقهٔ زمانی ${esc(city)})`,
+    // «Open-Meteo» حذف شد — خواستهٔ کاربر ۲۰ نوامبر («کلمه open meteo حذف بشه»)
+    `📡 مدل‌های عددی جوّ (به‌روزرسانی خودکار، منطقهٔ زمانی ${esc(city)})`,
     `— رصدبان | پیش‌بینی ساعتی روز بعد، هر شب ساعت ${faDigits(weatherHour)}`,
   );
   return { text: L.join('\n') };

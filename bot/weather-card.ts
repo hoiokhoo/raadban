@@ -212,8 +212,9 @@ export function makeWeatherCardSvg(input: WeatherCardInput, opts: WeatherCardSvg
   <text x="${xRight - colW + 100}" y="${yTop + 48}" font-family="${FONT_FA}" font-size="29" font-weight="700" fill="${tempColor(h.temp)}" text-anchor="start">${rtl(`${faDigits(String(h.temp))}°${feels}`)}</text>`;
   }).join('');
 
+  // «Open-Meteo» حذف شد — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («کلمه open meteo حذف بشه»)
   const footer = `
-  <text x="${W - PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="end">${rtl(`منبع: Open-Meteo — مدل‌های عددی جوّ • منطقهٔ زمانی ${city}`)}</text>
+  <text x="${W - PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="end">${rtl(`مدل‌های عددی جوّ • منطقهٔ زمانی ${city}`)}</text>
   <text x="${PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="start">${rtl(`رصدبان | هر شب ساعت ${faDigits(input.weatherHour)}`)}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
@@ -292,29 +293,6 @@ export async function renderWeatherCardPng(input: WeatherCardInput): Promise<Wea
   }
 }
 
-/** کپشن کوتاه کارت (≤۱۰۲۴ نویسهٔ بله) — خالص و تست‌پذیر */
-export function buildWeatherCardCaption(input: WeatherCardInput): string {
-  const { city, tomorrow, hours } = input;
-  const temps = hours.map((h) => h.temp);
-  const minT = Math.min(...temps);
-  const maxT = Math.max(...temps);
-  const maxPrecip = hours.reduce<{ prob: number; hhmm: string } | null>((acc, h) => {
-    if (h.precipProb === null) return acc;
-    if (!acc || h.precipProb > acc.prob) return { prob: h.precipProb, hhmm: h.hhmm };
-    return acc;
-  }, null);
-  const wetHours = hours.filter((h) => h.precipProb !== null && h.precipProb >= 50).length;
-  const L: string[] = [
-    `🌦️ <b>پیش‌بینی ساعتی فردا — ${city}</b>`,
-    `📅 ${tomorrow.weekdayFa} — ${tomorrow.shamsi} • ${tomorrow.miladi}`,
-    `🌡️ کمینه ${faDigits(String(minT))}° / بیشینه ${faDigits(String(maxT))}°`,
-  ];
-  if (maxPrecip) {
-    L.push(`🌧️ بیشترین بارش: ${faDigits(String(maxPrecip.prob))}٪ حدود ${faDigits(maxPrecip.hhmm)}${wetHours > 0 ? ` — ${faDigits(String(wetHours))} ساعت با بارش ≥۵۰٪` : ''}`);
-  }
-  L.push('📊 جزئیات ۲۴ ساعت در تصویر');
-  L.push(`📡 Open-Meteo — رصدبان | هر شب ساعت ${faDigits(input.weatherHour)}`);
-  return L.join('\n').slice(0, 1024);
-}
-
-
+// کپشن زیر عکس هواشناسی حذف شد — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶:
+// «اینو که زیر عکس به شکل متنی میاد حذف کن چون داخل عکس هست» — کارت همهٔ اطلاعات
+// (شهر، تاریخ، کمینه/بیشینه، بارش، باد) را خودش دارد؛ عکس بدون هیچ کپشن متنی ارسال می‌شود.

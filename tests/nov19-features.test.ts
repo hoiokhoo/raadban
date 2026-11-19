@@ -228,22 +228,21 @@ describe('CAR_VIP — سه‌گانهٔ اول لیست (خواستهٔ ۱۹ ن�
   });
 });
 
-describe('formatMarketMessage — ستون کارخانه و اختلاف در پیام متنی', () => {
+describe('formatMarketMessage — ستون رسمی در پیام متنی (قالب ۴ستونی ۲۰ نوامبر)', () => {
   const quotes: Quote[] = [
     { key: 'car:j4', title: 'جک J4', value: 3600000000, unit: 'toman', srcLabel: 'باما (نت)', factoryToman: 1610000000, factorySrc: 'باما', emoji: '🚗' },
     { key: 'car:پراید', title: 'پراید', value: 890000000, unit: 'toman', srcLabel: 'کانال', emoji: '🚗' },
   ];
 
-  test('خودرو کارخانه‌دار: کارخانه + اختلاف + درصد در سطرش', () => {
+  test('خودرو کارخانه‌دار: قیمت کارخانه در سطرش — بدون ستون اختلاف (حذف‌شده در بازطراحی ۲۰ نوامبر)', () => {
     const msg = formatMarketMessage(quotes, undefined);
     expect(msg).toContain('کارخانه: ');
-    expect(msg).toContain('اختلاف: ');
-    expect(msg).toContain('▲');
-    // درصد = (۳.۶−۱.۶۱)/۱.۶۱ ≈ ۱۲۳٫۶٪
-    expect(msg).toContain('۱۲۳٫۶٪');
+    expect(msg).toContain('۱٫۶۱۰ میلیارد تومان');
+    // ستون «ما به‌التفاوت» حذف شد — ستون چهارم جدول «درصد تغییر روز» است
+    expect(msg).not.toContain('اختلاف');
   });
 
-  test('خودرو بی‌کارخانه: فرمت قدیمی با درصد تغییر گزارش', () => {
+  test('خودرو بی‌کارخانه: بدون بخش رسمی', () => {
     const msg = formatMarketMessage(quotes, undefined);
     const line = msg.split('\n').find((l) => l.includes('پراید'))!;
     expect(line).not.toContain('کارخانه');
@@ -251,17 +250,16 @@ describe('formatMarketMessage — ستون کارخانه و اختلاف در �
   });
 });
 
-describe('marketSectionsOf — ردیف کارخانه‌دار در کارت تصویری', () => {
-  test('ردیف VIP ستون کارخانه دارد؛ بقیه ندارند', () => {
+describe('marketSectionsOf — ستون رسمی یکدست در کارت تصویری', () => {
+  test('ردیف VIP ستون رسمی دارد؛ بقیه null («—» در جدول)', () => {
     const quotes: Quote[] = [
       { key: 'car:j4', title: 'جک J4', value: 3600000000, unit: 'toman', srcLabel: 'باما (نت)', factoryToman: 1610000000, emoji: '🚗' },
       { key: 'car:ساینا', title: 'ساینا', value: 960000000, unit: 'toman', srcLabel: 'کانال', emoji: '🚗' },
     ];
     const { sections } = marketSectionsOf(quotes);
     expect(sections[0]!.title).toContain('خودرو');
-    expect(sections[0]!.rows[0]!.factory).toBeDefined();
-    expect(sections[0]!.rows[0]!.factory!.value).toContain('میلیارد تومان');
-    expect(sections[0]!.rows[1]!.factory).toBeUndefined();
+    expect(sections[0]!.rows[0]!.official).toContain('میلیارد تومان');
+    expect(sections[0]!.rows[1]!.official).toBeNull();
   });
 });
 

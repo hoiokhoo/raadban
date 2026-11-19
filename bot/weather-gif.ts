@@ -171,11 +171,6 @@ export async function renderWeatherGif(kind: string): Promise<WeatherGif | null>
   }
 }
 
-/** کپشن کوتاه گیف — خالص و تست‌پذیر */
-export function buildWeatherGifCaption(city: string, dom: DominantKind, feelsLike?: { minT: number; maxT: number }): string {
-  const fa = (n: number) => String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[Number(d)]);
-  const L = [`🌦️ <b>وضعیت غالب فردا — ${city}: ${dom.label}</b>`];
-  if (feelsLike) L.push(`🌡️ کمینه ${fa(feelsLike.minT)}° / بیشینه ${fa(feelsLike.maxT)}°`);
-  L.push('📡 Open-Meteo — رصدبان');
-  return L.join('\n').slice(0, 1024);
-}
+// کپشن گیف حذف شد — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («زیر عکس به شکل متنی نیاد») —
+// گیف تزئینی است و همهٔ اطلاعات وضعیت غالب در کارت ساعتی بالای آن هست؛
+// همراهش «Open-Meteo» هم حذف شد (خواستهٔ همان روز).

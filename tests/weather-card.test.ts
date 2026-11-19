@@ -7,13 +7,13 @@
 import { describe, expect, test } from 'bun:test';
 import {
   makeWeatherCardSvg,
-  buildWeatherCardCaption,
   renderWeatherCardPng,
   tempColor,
   iconKindOf,
   isNightHour,
   type WeatherCardInput,
 } from '../bot/weather-card';
+import * as weatherCardModule from '../bot/weather-card';
 import { tripleDateOf } from '../bot/calendar';
 import type { HourlyEntry } from '../bot/weather';
 
@@ -106,24 +106,19 @@ describe('iconKindOf / isNightHour / tempColor', () => {
   });
 });
 
-// ---------- کپشن ----------
+// ---------- کپشن حذف‌شده (خواستهٔ کاربر ۲۰ نوامبر: «اینو که زیر عکس به شکل متنی میاد حذف کن چون داخل عکس هست») ----------
 
-describe('buildWeatherCardCaption', () => {
-  test('کپشن کوتاه کامل — تاریخ سه‌گانه، کمینه/بیشینه، منبع — زیر سقف ۱۰۲۴ بله', () => {
-    const cap = buildWeatherCardCaption(cardInput());
-    expect(cap.length).toBeLessThanOrEqual(1024);
-    expect(cap).toContain('<b>پیش‌بینی ساعتی فردا — تهران</b>');
-    expect(cap).toContain('کمینه ۶° / بیشینه ۱۷°');
-    expect(cap).toContain('بیشترین بارش: ۶۵٪');
-    expect(cap).toContain('Open-Meteo');
-    expect(cap).toContain('۲۱:۰۰');
+describe('کپشن حذف‌شده — عکس هواشناسی بدون کپشن ارسال می‌شود', () => {
+  test('سازندهٔ کپشن دیگر وجود ندارد — کارت همهٔ اطلاعات را خودش دارد', () => {
+    const mod = weatherCardModule as unknown as Record<string, unknown>;
+    expect(mod.buildWeatherCardCaption).toBeUndefined();
   });
 
-  test('بدون هیچ بارش ثبت‌شده → خط بارش نمی‌آید (هیچ ساختگی)', () => {
-    const hours = hoursFixture().map((h) => ({ ...h, precipProb: null }));
-    const cap = buildWeatherCardCaption({ ...cardInput(), hours });
-    expect(cap).not.toContain('بیشترین بارش');
-    expect(cap).toContain('کمینه');
+  test('واژهٔ Open-Meteo از کارت حذف شد (خواستهٔ ۲۰ نوامبر: «کلمه open meteo حذف بشه»)', () => {
+    const svg = makeWeatherCardSvg(cardInput());
+    expect(svg).not.toContain('Open-Meteo');
+    expect(svg).not.toContain('open-meteo');
+    expect(svg).toContain('مدل‌های عددی جوّ'); // منبع بدون برند — گزارهٔ صادقانه باقی است
   });
 });
 

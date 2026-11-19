@@ -143,7 +143,10 @@ describe('پیام پیش‌بینی ساعتی', () => {
     expect(msg!.text).toContain('پیش‌بینی ساعتی فردا — تهران');
     expect(msg!.text).toContain('چهارشنبه'); // 2026-11-11
     expect(msg!.text).toContain('آبان');
-    expect(msg!.text).toContain('Open-Meteo');
+    // «Open-Meteo» حذف شد — خواستهٔ کاربر ۲۰ نوامبر («کلمه open meteo حذف بشه»)؛
+    // گزارهٔ صادقانهٔ «مدل‌های عددی جوّ» باقی است
+    expect(msg!.text).not.toContain('Open-Meteo');
+    expect(msg!.text).toContain('مدل‌های عددی جوّ');
   });
   test('هر ۲۴ ساعت با ارقام فارسی — از ۰۰:۰۰ تا ۲۳:۰۰', () => {
     expect(msg!.text).toContain('۰۰:۰۰');

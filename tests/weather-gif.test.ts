@@ -9,10 +9,10 @@ import {
   KIND_LABELS,
   makeWeatherGifFrameSvg,
   renderWeatherGif,
-  buildWeatherGifCaption,
   GIF_FRAMES,
   GIF_SIZE,
 } from '../bot/weather-gif';
+import * as weatherGifModule from '../bot/weather-gif';
 import type { HourlyEntry } from '../bot/weather';
 
 function hoursWith(codes: number[]): HourlyEntry[] {
@@ -87,20 +87,12 @@ describe('makeWeatherGifFrameSvg — فریم برداری', () => {
   });
 });
 
-describe('buildWeatherGifCaption — کپشن', () => {
-  test('شهر + برچسب وضعیت + دما با ارقام فارسی، زیر سقف بله', () => {
-    const cap = buildWeatherGifCaption('تهران', { kind: 'rain', label: 'بارانی' }, { minT: 6, maxT: 17 });
-    expect(cap).toContain('تهران');
-    expect(cap).toContain('بارانی');
-    expect(cap).toContain('۶°');
-    expect(cap).toContain('۱۷°');
-    expect(cap.length).toBeLessThanOrEqual(1024);
-  });
-
-  test('بدون دما هم کپشن کامل می‌شود', () => {
-    const cap = buildWeatherGifCaption('خوانسار', { kind: 'snow', label: 'برفی' });
-    expect(cap).toContain('خوانسار');
-    expect(cap).not.toContain('کمینه');
+// کپشن گیف حذف شد — خواستهٔ کاربر ۲۰ نوامبر («زیر عکس به شکل متنی میاد حذف کن»
+// + حذف واژهٔ Open-Meteo)؛ گیف تزئینی است و کارت ساعتی بالای آن همهٔ اطلاعات را دارد.
+describe('کپشن گیف حذف‌شده', () => {
+  test('سازندهٔ کپشن دیگر وجود ندارد', () => {
+    const mod = weatherGifModule as unknown as Record<string, unknown>;
+    expect(mod.buildWeatherGifCaption).toBeUndefined();
   });
 });
 

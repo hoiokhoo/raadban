@@ -5,7 +5,7 @@
 import { describe, expect, test } from 'bun:test';
 import {
   applyDeltas, deltaPct, faGroup, faToEnDigits, formatMarketMessage, formatMoney, formatPct,
-  normalizeCarModel, num, parseBamaMarketPrice, parseCarLine, parseCarPriceLists, parseNobitexStats, parseTgjuCurrent,
+  normalizeCarModel, num, parseBamaMarketPrice, parseCarLine, parseCarPriceLists, parseNobitexStats, parseTgjuCurrent, tgjuChangePct,
   parseTsetmcMarketTotal, pickFeaturedCars, rialToToman, snapshotOf, xmlEsc,
   CAR_FEATURED,
   type Quote,
@@ -32,6 +32,23 @@ describe('num و faToEnDigits', () => {
     expect(rialToToman(2541710000)).toBe(254171000);
     expect(rialToToman(0)).toBeNull();
     expect(rialToToman(null)).toBeNull();
+  });
+});
+
+describe('tgjuChangePct — فیلد d تغییر مطلق است نه درصد (تصحیح ۲۰ نوامبر)', () => {
+  test('نمونهٔ واقعی طلای ۱۸: d=۱٬۷۲۹٬۰۰۰ ریال بر p=۲۴۲٬۸۶۷٬۰۰۰ → ۰٫۷۱٪ (نه ۱۷۲۹۰۰۰٪!)', () => {
+    expect(tgjuChangePct({ p: '242,867,000', d: '1,729,000' })).toBe(0.71);
+    // دلار آزاد: d=۳۶٬۴۰۰ بر p=۲٬۶۹۹٬۷۰۰ → ۱٫۳۵٪
+    expect(tgjuChangePct({ p: '2,699,700', d: '36,400' })).toBe(1.35);
+    // برنت (دلاری): d=۱٫۳۶۹۹ بر p=۹۲٫۸۹۱۷ → ۱٫۴۷٪
+    expect(tgjuChangePct({ p: '92.8917', d: '1.3699' })).toBe(1.47);
+  });
+
+  test('بی‌تغییر/بی‌داده → undefined (هیچ ساختگی)', () => {
+    expect(tgjuChangePct({ p: '100', d: '0' })).toBeUndefined();
+    expect(tgjuChangePct({ p: '100' })).toBeUndefined();
+    expect(tgjuChangePct(undefined)).toBeUndefined();
+    expect(tgjuChangePct({ d: '5' })).toBeUndefined(); // p غایب
   });
 });
 
@@ -191,7 +208,7 @@ describe('parseCarPriceLists و pickFeaturedCars', () => {
   });
 });
 
-// ---------- درصد تغییر نسبت به گزارش قبلی ----------
+// ---------- درصد تغییر نسبت به روز قبل (خواستهٔ ۲۰ نوامبر) ----------
 
 describe('deltaPct و applyDeltas', () => {
   test('deltaPct محاسبهٔ دقیق', () => {
@@ -204,17 +221,35 @@ describe('deltaPct و applyDeltas', () => {
   const mk = (key: string, value: number, srcPct?: number): Quote =>
     ({ key, title: key, value, unit: 'toman', srcLabel: 'tgju', emoji: '•', ...(srcPct !== undefined ? { changePct: srcPct } : {}) });
 
-  test('اولویت: تغییر نسبت به گزارش قبلی؛ نبود → تغییر روز منبع؛ هیچ → none', () => {
+  test('اولویت تازه: تغییر روزانهٔ منبع > پایهٔ دیروز > آخرین گزارش (۲۰ نوامبر: «درصد تغییر نسبت به روز قبل»)', () => {
     const quotes = [mk('geram18', 10500000, 1.24), mk('usd', 2650000, -0.3), mk('sekee', 2574100000, 1.24), mk('nim', 135000000)];
     const out = applyDeltas(quotes, { geram18: 10000000, usd: 2700000 });
-    expect(out[0].changePct).toBe(5);
-    expect(out[0].changeSrc).toBe('prev');
-    expect(out[1].changePct).toBeCloseTo(-1.85, 2);
-    expect(out[1].changeSrc).toBe('prev');
-    expect(out[2].changePct).toBe(1.24); // بی‌سابقه → تغییر روز منبع
+    // تغییر روزانهٔ خود منبع دقیقاً «نسبت به دیروز» است — بر مقایسهٔ گزارش قبل مقدم شد
+    expect(out[0].changePct).toBe(1.24);
+    expect(out[0].changeSrc).toBe('source');
+    expect(out[1].changePct).toBe(-0.3);
+    expect(out[1].changeSrc).toBe('source');
+    expect(out[2].changePct).toBe(1.24);
     expect(out[2].changeSrc).toBe('source');
     expect(out[3].changePct).toBeUndefined();
     expect(out[3].changeSrc).toBe('none');
+  });
+
+  test('خودرو بی‌تغییر منبع: پایهٔ دیروز مقدم بر آخرین گزارش است', () => {
+    const car = mk('car:پراید', 500e6);
+    const out = applyDeltas([car], { 'car:پراید': 495e6 }, { 'car:پراید': 480e6 });
+    // دیروز ۴۸۰ → امروز ۵۰۰ = +۴٫۱۷٪ (نه مقایسهٔ ظهر امروز: ۴۹۵ → ۵۰۰)
+    expect(out[0].changePct).toBeCloseTo(4.17, 2);
+    expect(out[0].changeSrc).toBe('prev');
+  });
+
+  test('نبود پایهٔ دیروز → آخرین گزارش؛ نبود هر دو → none', () => {
+    const out = applyDeltas([mk('car:x', 200e6)], { 'car:x': 100e6 });
+    expect(out[0].changePct).toBe(100);
+    expect(out[0].changeSrc).toBe('prev');
+    const none = applyDeltas([mk('car:y', 200e6)], undefined);
+    expect(none[0].changePct).toBeUndefined();
+    expect(none[0].changeSrc).toBe('none');
   });
 
   test('snapshotOf فقط مقادیر معتبر', () => {

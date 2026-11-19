@@ -488,6 +488,8 @@ export interface MarketData {
   sources: string[];
   /** انبار به‌روزشدهٔ قیمت خودرو — caller در state ذخیره می‌کند */
   carStore?: CarStore;
+  /** مقادیر زندهٔ tgju (ajax.json) — سوختِ نقطهٔ «امروز» نمودار دارایی‌ها (bot/assets-chart.ts) */
+  tgjuCurrent?: Record<string, TgjuEntry>;
 }
 
 /** واکشی tgju با پشتیبان host دوم (call2) — خواستهٔ کاربر: «قیمت دلار خالی نباشه» */
@@ -740,7 +742,14 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   orderedCarQuotes.push(...pending.values());
   quotes.push(...orderedCarQuotes);
 
-  return { quotes: applyDeltas(quotes, undefined), failures, sources: [...sources], carStore };
+  return {
+    quotes: applyDeltas(quotes, undefined),
+    failures,
+    sources: [...sources],
+    carStore,
+    // مقادیر زندهٔ tgju برای نقطهٔ «امروز» نمودار دارایی‌ها (خواستهٔ ۲۰ نوامبر)
+    tgjuCurrent: Object.keys(tgjuCur).length > 0 ? tgjuCur : undefined,
+  };
 }
 
 // ---------- قالب پیام ----------

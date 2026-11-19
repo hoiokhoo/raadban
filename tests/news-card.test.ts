@@ -90,7 +90,7 @@ describe('makeNewsCardSvg', () => {
     expect(svg).not.toContain('حذفِ بی‌خاستگاه');
   });
 
-  test('متن آیتم خیلی بلند → حداکثر دو خط با «…» (کارت هرگز سرریز نمی‌شود)', () => {
+  test('متن آیتم خیلی بلند → حداکثر سه خط با «…» (کارت هرگز سرریز نمی‌شود — خواستهٔ ۲۰ نوامبر: ۲ـ۳ خط)', () => {
     const long = `${'این خبر بسیار مهم است دربارهٔ تحولات روز. '.repeat(20)}`;
     const svg = makeNewsCardSvg({ ...input(), items: [{ text: long, tick: false, source: 'تست' }] });
     expect(svg).toContain('…');

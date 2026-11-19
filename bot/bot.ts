@@ -55,8 +55,9 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, type CarStore, type Quote } from './market';
+import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
 import { renderMarketCardPng } from './market-card';
+import { CHART_ASSETS, buildChartPanel, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
   renderNewsCardPages,
   renderTweetCardPages,
@@ -656,6 +657,9 @@ export interface BotState {
   priceSnapDay?: string;
   /** پایهٔ «دیروز» درصد تغییر — آخرین snapshot روز پیشین */
   priceSnapPrevDay?: Record<string, number>;
+  /** کش روزانهٔ تاریخچهٔ قیمت نمادها برای «نمودار روند دارایی‌ها» (bot/assets-chart.ts —
+   *  خواستهٔ کاربر ۲۰ نوامبر: «قرار بود چارت نمودار دارایی ها رو هم بزاری») — یک واکشی در روز */
+  chartHist?: { day: string; assets: Record<string, { closes: number[]; dates: string[] }> };
   /** صف بستهٔ خبری — حالت bundle (خواستهٔ ۱۰ نوامبر ۲۰۲۶؛ فقط خبر — توییت‌ها صف جدا دارند) */
   bundleQueue?: BundleItem[];
   /** صف توییت‌های افراد تأثیرگذار — بستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر (خواستهٔ ۱۲ نوامبر ۲۰۲۶) */
@@ -912,6 +916,10 @@ export function loadState(path: string): BotState {
       priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
       priceSnapDay: typeof raw.priceSnapDay === 'string' ? raw.priceSnapDay : undefined,
       priceSnapPrevDay: raw.priceSnapPrevDay && typeof raw.priceSnapPrevDay === 'object' ? (raw.priceSnapPrevDay as Record<string, number>) : undefined,
+      chartHist:
+        raw.chartHist && typeof raw.chartHist === 'object' && typeof (raw.chartHist as { day?: unknown }).day === 'string'
+          ? (raw.chartHist as NonNullable<BotState['chartHist']>)
+          : undefined,
       bundleQueue: Array.isArray(raw.bundleQueue) ? (raw.bundleQueue as BundleItem[]) : [],
       tweetQueue: Array.isArray(raw.tweetQueue) ? (raw.tweetQueue as BundleItem[]) : [],
       lastNewsSlotKey: typeof raw.lastNewsSlotKey === 'string' ? raw.lastNewsSlotKey : undefined,
@@ -982,6 +990,7 @@ export function mergeSentState(
     priceSnap: st.priceSnap,
     priceSnapDay: st.priceSnapDay,
     priceSnapPrevDay: st.priceSnapPrevDay,
+    chartHist: st.chartHist,
     // فیلدهای بست/توییت/خودرو/اطلاعیه/روزانه — دست‌نخورده
     bundleQueue: st.bundleQueue,
     tweetQueue: st.tweetQueue,
@@ -1825,7 +1834,9 @@ export const DEFAULT_NEWS_SUMMARY_PROMPT = `
 مأموریت: برای هر شماره، «خلاصهٔ خبری دوخطی» به فارسیِ روان، سلیس، شکیل و مرتب بنویسید — نه ترجمهٔ لفظ‌به‌لفظ.
 
 قواعد الزامی:
-- هر خلاصه «ترجیحاً یک خط» (~۶۰ نویسه) و حداکثر حدود ۱۳۰ نویسه (دو سطر موبایل) است — یک جملهٔ خبری کامل و بی‌حاشیه.
+- هر خلاصه «ترجیحاً یک خط» (~۶۰ نویسه)، معمولاً دو خط (~۱۱۵ نویسه) است؛ اگر کامل‌بودن معنا
+  با دو خط ممکن نبود، سطر سوم مجاز است (سقف ~۱۶۵ نویسه) — قاعدهٔ طلایی: «معنای کامل مقدم
+  بر کوتاهی»؛ مورد هرگز وسط جمله و ناقص تمام نمی‌شود.
 - جوهرهٔ خبر باید کامل باشد: کنشگر اصلی + مهم‌ترین اقدام/نتیجه + نام و عدد کلیدی (اگر هست).
 - خبرگزاری متن بلند می‌نویسد؛ شما فقط خودِ خبر را برمی‌دارید: تشریفات، پس‌زمینهٔ اضافه،
   تکرار و صفت‌های تبلیغاتی حذف می‌شود؛ هیچ رویداد، نام یا عدد مهمی از قلم نمی‌افتد.
@@ -2436,6 +2447,56 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         state.priceSnap = snapshotOf(md.quotes);
         state.carStore = md.carStore || state.carStore;
         console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+      }
+      // ── نمودار روند دارایی‌ها — خواستهٔ کاربر ۲۰ نوامبر (دومی):
+      //    «قرار بود چارت نمودار دارایی ها رو هم بزاری،اما الآن نیست» — کارت اسپارک‌لاین
+      //    ۳۰روزهٔ شش دارایی شاخص، بلافاصله پس از کارت بازار. تاریخچه یک‌بار در روز کش
+      //    می‌شود (state.chartHist)؛ نقطهٔ امروز از tgjuCurrent زندهٔ همین گزارش ملحق می‌شود.
+      //    شکست هر نماد → پنل همان نماد حذف؛ <۳ پنل یا خطای رندر → بی‌نمودار صادقانه
+      //    (کارت بازار مستقل است و از دست نمی‌رود). فقط عکس — بدون کپشن. ──
+      if (ok) {
+        try {
+          if (!state.chartHist || state.chartHist.day !== pMkt.dateKey) {
+            const assets: Record<string, { closes: number[]; dates: string[] }> = {};
+            for (const a of CHART_ASSETS) {
+              const s = await fetchAssetHistory(a.symbol, a.rial);
+              if (s) assets[a.key] = { closes: s.closes, dates: s.dates };
+            }
+            if (Object.keys(assets).length >= 3) state.chartHist = { day: pMkt.dateKey, assets };
+            else console.warn('⚠️ نمودار دارایی‌ها: تاریخچهٔ کافی دریافت نشد — چرخهٔ بعد دوباره تلاش می‌کند');
+          }
+          if (state.chartHist) {
+            const panels: ChartPanel[] = [];
+            for (const a of CHART_ASSETS) {
+              const raw = state.chartHist.assets[a.key];
+              if (!raw || raw.closes.length < 8) continue;
+              const liveRaw = md.tgjuCurrent?.[a.liveKey]?.p;
+              const live = liveRaw !== undefined ? num(liveRaw) : null;
+              const merged = mergeLivePoint({ closes: raw.closes, dates: raw.dates }, pMkt.dateKey, live, a.rial);
+              const panel = buildChartPanel(a, merged);
+              if (panel) panels.push(panel);
+            }
+            if (panels.length >= 3) {
+              const chartPng = await renderAssetsChartPng({ date: mktDate, panels }).catch(() => null);
+              if (chartPng) {
+                let chartOk = false;
+                for (const t of CFG.targets) {
+                  const s = await sendBalePhotoBytes(CFG.token, t, chartPng.png, 'raadban-assets-chart.png');
+                  if (s.ok) chartOk = true;
+                  else console.error(`❌ ارسال نمودار دارایی‌ها به ${t}: ${s.error}`);
+                }
+                if (chartOk) console.log(`✅ نمودار روند دارایی‌ها ارسال شد — ${panels.length} دارایی، ${chartPng.width}×${chartPng.height}`);
+                else console.warn('⚠️ نمودار دارایی‌ها به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
+              } else {
+                console.warn('⚠️ رندر نمودار دارایی‌ها ناموفق بود — چرخهٔ بعد دوباره تلاش می‌کند');
+              }
+            } else {
+              console.warn(`⚠️ نمودار دارایی‌ها: فقط ${panels.length} پنل معتبر — ارسال نمی‌شود`);
+            }
+          }
+        } catch (e) {
+          console.warn('⚠️ نمودار دارایی‌ها: خطا (کارت بازار مستقل ارسال شده است) —', e instanceof Error ? e.message : e);
+        }
       }
     } else {
       console.warn(`⚠️ گزارش بازار: هیچ قلم قابل‌اعتمادی دریافت نشد (${md.failures.slice(0, 3).join('؛ ')}) — ارسال نمی‌شود (هیچ عدد ساختگی)`);
@@ -3930,12 +3991,12 @@ async function main(): Promise<void> {
       //    همون عکس و به شکل خلاصه حداکثر دو خطی یا ترجیحا تک خطی و شکیل فرستاده بشن» ──
       // مسیر اصلی: کارت‌های تصویری پیاپی (۱۲ ردیف هر کارت، سقف ۷ کارت) + پیام متنی «فقط تحلیل».
       // شکست همهٔ کارت‌ها → بازگشت صادقانه به بست متنی (هیچ خبری از دست نمی‌رود).
-      // مسیر خام: متن خام تا دو خط (۵۶×۲ نویسه — هم‌عرض کارت) در مرز واژه بریده می‌شود تا
-      // کارت هرگز «ناقص وسط جمله» نگذارد؛ آیتم‌های هوشمند از قبل دوخطی‌اند (۱۶ نوامبر)
+      // مسیر خام: متن خام تا سه خط (۵۶×۳ نویسه — هم‌عرض کارت) در مرز واژه بریده می‌شود تا
+      // کارت هرگز «ناقص وسط جمله» نگذارد؛ آیتم‌های هوشمند از قبل دو-سه‌خطی‌اند (۲۰ نوامبر)
       const rawCardText = (t: string): string => {
-        if (t.length <= 112) return t;
-        const cut = t.lastIndexOf(' ', 112);
-        return `${t.slice(0, cut > 60 ? cut : 111).trimEnd()}…`;
+        if (t.length <= 168) return t;
+        const cut = t.lastIndexOf(' ', 168);
+        return `${t.slice(0, cut > 90 ? cut : 167).trimEnd()}…`;
       };
       // دسته‌بندی + اولویت‌بندی — خواستهٔ کاربر ۱۹ نوامبر: «هر دسته از اخبار از جنگ گرفته تا
       //  سیاست و علمی و ورزشی ، تو اون بازه دسته بندی بشن ، اولویت بندی بشن … و بعد در نهایت

@@ -10,6 +10,12 @@
  *  ۳) توییت‌ها «فقط فارسی روان» — متن اصلی حذف؛ نام فارسی توییت‌کننده + ترجمهٔ کامل و
  *     روان (بدون خلاصه‌سازی، بدون سقف دومخطی) با ارتفاع ردیف متغیر.
  *
+ * خواستهٔ کاربر (۲۰ نوامبر ۲۰۲۶ — دومی):
+ *  «هنوز بعضی اخبار به شکل ناقص بعد از دوخط با سه نقطه پایان پیدا میکنند … میخوام کل
+ *  کامل اون خبر در ۲ـ۳ خط خلاصه بشه با معنی کامل نه ناقص» — ردیف‌های خبر اکنون
+ *  هم‌چون کارت توییت ارتفاع متغیر دارند: تا سه خط کامل رندر می‌شود و دیگر خبرِ
+ *  سه‌خطی در خط دوم با «…» بریده نمی‌شود؛ «…» فقط سپر آخرِ متن‌های فراتر از سه خط است.
+ *
  * همان معماری کارت هواشناسی (bot/weather-card.ts): ساخت SVG با چیدمان راست‌به‌چپ و فونت
  * وزیرمتن → تبدیل به PNG با sharp (libvips/librsvg) — هیچ وابستگی تازه‌ای.
  * صراحت: تیک ✅ این کارت فقط از نتیجهٔ تطبیق اجباری با منبع می‌آید (bot/grounding.ts) —
@@ -62,11 +68,25 @@ export interface CardPng {
 const W = 1080;
 /** دو خط سربرگ: عنوان + تاریخ (خط سوم آماری و تراشه‌ها حذف شدند — خواستهٔ ۲۰ نوامبر) */
 const HEADER_H = 190;
-const ROW_H = 158;
 const BANNER_H = 62;
 const PAD = 36;
 const FOOTER_H = 88;
 const MAX_CHARS_PER_LINE = 56;
+
+/** سقف خطوط هر خبر — دو خط معمول + سطر سوم برای کامل‌بودن معنا (خواستهٔ کاربر ۲۰ نوامبر:
+ *  «کل کامل اون خبر در ۲ـ۳ خط خلاصه بشه با معنی کامل نه ناقص») */
+export const NEWS_MAX_LINES = 3;
+/** فاصلهٔ عمودی میان خطوط متن خبر */
+const NEWS_LINE_H = 40;
+
+/** ارتفاع ردیف خبر بر پایهٔ خطوط واقعی متن — ارتفاع متغیر مثل کارت توییت؛
+ *  ۱ خط: ۱۱۸ • ۲ خط: ۱۵۸ • ۳ خط: ۱۹۸ — خالص و تست‌پذیر */
+export function newsRowHeight(text: string): number {
+  const lines = wrapFa(text || '', MAX_CHARS_PER_LINE, NEWS_MAX_LINES).length;
+  if (lines <= 1) return 118;
+  if (lines === 2) return 158;
+  return 198;
+}
 
 /** سقف ردیف هر کارت خبری — کارت بلندتر از این در بله ناخوانا می‌شود (۱۶ نوامبر) */
 export const NEWS_CARD_ROWS_PER_PAGE = 12;
@@ -138,7 +158,10 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   });
   const bannersH = banners.size * BANNER_H;
   const moreH = more > 0 ? 64 : 0;
-  const H = HEADER_H + items.length * ROW_H + bannersH + 26 + moreH + FOOTER_H;
+  // ارتفاع متغیر ردیف‌ها — خبر سه‌خطی بلندتر از دخطی رندر می‌شود (خواستهٔ ۲۰ نوامبر)
+  const heights = items.map((it) => newsRowHeight(it.text || ''));
+  const rowsH = heights.reduce((a, b) => a + b, 0);
+  const H = HEADER_H + rowsH + bannersH + 26 + moreH + FOOTER_H;
 
   // سربرگ — عنوان + تاریخ؛ سربرگ‌های آماریِ دیباگ حذف شدند (خواستهٔ کاربر ۲۰ نوامبر:
   // «عناوین خبرها که برای دیباگ برنامست … و مثه اینها رو حذف کن»)
@@ -160,30 +183,31 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
       : '';
     if (banners.get(i)) rowY += BANNER_H;
     const yTop = rowY;
-    rowY += ROW_H;
+    const rh = heights[i]!;
+    rowY += rh;
     const bg = i % 2 === 0 ? '#102941' : '#0d2135';
-    const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, 2);
-    const cy = yTop + (ROW_H - 12) / 2;
+    // تا سه خط کامل — دیگر خبر سه‌خطی با «…» در خط دوم بریده نمی‌شود (۲۰ نوامبر)
+    const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, NEWS_MAX_LINES);
+    const cy = yTop + (rh - 12) / 2;
     const numCx = W - PAD - 34;
     const textRight = W - PAD - 110;
-    const line1 = esc(lines[0] || '');
-    const line2 = esc(lines[1] || '');
-    const src = it.source ? `<text x="${textRight}" y="${yTop + 128}" font-size="19" fill="#7fa8c9" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
-    const l2 = line2 ? `<text x="${textRight}" y="${yTop + 92}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(line2)}</text>` : '';
+    const src = it.source ? `<text x="${textRight}" y="${yTop + rh - 30}" font-size="19" fill="#7fa8c9" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
+    const bodySvg = lines
+      .map((ln, j) => `<text x="${textRight}" y="${yTop + 52 + j * NEWS_LINE_H}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(esc(ln))}</text>`)
+      .join('\n');
     pieces.push(`${banner}
-  <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${ROW_H - 12}" rx="14" fill="${bg}"/>
+  <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${rh - 12}" rx="14" fill="${bg}"/>
   <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
   <text x="${numCx}" y="${cy}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">${rtl(faDigits(String(i + 1)))}</text>
   ${it.tick ? tickBadgeSvg(numCx - 46, cy - 8) : ''}
-  <text x="${textRight}" y="${yTop + 52}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(line1)}</text>
-  ${l2}
+  ${bodySvg}
   ${src}`);
   });
   const rowsSvg = pieces.join('\n');
 
   const moreSvg =
     more > 0
-      ? `<text x="${W / 2}" y="${HEADER_H + 14 + bannersH + items.length * ROW_H + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
+      ? `<text x="${W / 2}" y="${HEADER_H + 14 + bannersH + rowsH + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
       : '';
 
   const footerY = H - 34;

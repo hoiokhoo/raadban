@@ -47,11 +47,13 @@ import { join } from 'node:path';
 // ---------- (۱) خلاصهٔ دوخطی — پرامپت و اعتبارسنجی ----------
 
 describe('سوپرپرامپت دوخطی (خواستهٔ ۱۶ نوامبر)', () => {
-  test('پرامپت ساعتی قانون «ترجیح تک‌خط، حداکثر دو خط» و «هیچ رویدادی از قلم نیفتد» را دارد', () => {
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('تک‌خطی');
+  test('پرامپت ساعتی قانون «ترجیح یک خط، حداکثر ۲-۳ خط» و «هیچ رویدادی از قلم نیفتد» را دارد (به‌روزشده ۲۰ نوامبر)', () => {
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('در یک خط');
     expect(DEFAULT_SYSTEM_HOURLY).toContain('~۱۱۰');
     expect(DEFAULT_SYSTEM_HOURLY).toContain('هیچ رویدادی از قلم نیفتد');
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('خلاصهٔ تک‌خطی');
+    // ۲۰ نوامبر (دومی): «کل کامل اون خبر در ۲ـ۳ خط خلاصه بشه با معنی کامل نه ناقص»
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('سطر سوم');
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('معنای کامل مقدم بر کوتاهی');
   });
 
   test('پرامپت اصلی (oneshot) قانون خلاصهٔ دو-سه‌خطی به‌جای عین‌نویسی خبرگزاری دارد', () => {

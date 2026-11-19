@@ -6,7 +6,7 @@
  */
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fetchMarketData, applyDeltas } from '../bot/market';
-import { renderMarketCardPng, buildMarketCardCaption } from '../bot/market-card';
+import { renderMarketCardPng } from '../bot/market-card';
 import { tripleDateOf } from '../bot/calendar';
 
 const tz = 'Asia/Tehran';
@@ -32,8 +32,4 @@ if (!card) {
 mkdirSync('download/preview', { recursive: true });
 writeFileSync('download/preview/market-card.png', card.png);
 console.log(`✅ کارت: ${card.width}×${card.height} — ${Math.round(card.png.length / 1024)} کیلوبایت → download/preview/market-card.png`);
-
-const cap = buildMarketCardCaption({ date, slotLabel, quotes: withDelta });
-console.log('--- کپشن (بدون تگ) ---');
-console.log(cap.replace(/<[^>]+>/g, ''));
-console.log(`طول کپشن: ${cap.length} نویسه (سقف ۱۰۲۴)`);
+// کپشن حذف شد — خواستهٔ کاربر ۲۰ نوامبر: عکس بدون هیچ متن زیرش ارسال می‌شود

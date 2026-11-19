@@ -1,163 +1,149 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="3174" viewBox="0 0 1080 3174">
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="3014" viewBox="0 0 1080 3014">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>
     </linearGradient>
   </defs>
-  <rect width="1080" height="3174" fill="#0a1c30"/>
+  <rect width="1080" height="3014" fill="#0a1c30"/>
   
-  <rect width="1080" height="240" fill="url(#hdr)"/>
+  <rect width="1080" height="190" fill="url(#hdr)"/>
   <text x="1044" y="86" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">‫بستهٔ خبری رصدبان‬</text>
   <text x="1044" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">‫پنجشنبه ۲۸ آبان ۱۴۰۵ • ۱۹ نوامبر ۲۰۲۶ — بخش ۱ از ۲‬</text>
-  <text x="1044" y="200" font-size="30" font-weight="500" fill="#ffd75e" text-anchor="end">‫۱۸ رویداد این بازه • ۳ مورد تأییدشده‬</text>
   
-  <rect x="804.0" y="262" width="240.0" height="66" rx="14" fill="#123a5e"/>
-  <text x="924.0" y="292" font-size="20" fill="#8fb8d9" text-anchor="middle">‫رویدادهای بازه‬</text>
-  <text x="924.0" y="326" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">‫۱۸‬</text>
-  <rect x="548.0" y="262" width="240.0" height="66" rx="14" fill="#123a5e"/>
-  <text x="668.0" y="292" font-size="20" fill="#8fb8d9" text-anchor="middle">‫تأییدشدهٔ دومانبعی‬</text>
-  <text x="668.0" y="326" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">‫۳‬</text>
-  <rect x="292.0" y="262" width="240.0" height="66" rx="14" fill="#123a5e"/>
-  <text x="412.0" y="292" font-size="20" fill="#8fb8d9" text-anchor="middle">‫حذفِ بی‌خاستگاه‬</text>
-  <text x="412.0" y="326" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">‫۱‬</text>
-  <rect x="36.0" y="262" width="240.0" height="66" rx="14" fill="#123a5e"/>
-  <text x="156.0" y="292" font-size="20" fill="#8fb8d9" text-anchor="middle">‫در کارت‌های بعدی‬</text>
-  <text x="156.0" y="326" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">‫+۴‬</text>
-  
-  <rect x="36" y="364" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="370" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="402" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫⚔️ جنگ و امنیت‬</text>
-  <rect x="36" y="426" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="491" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="499" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱‬</text>
-  <circle cx="964" cy="491" r="14" fill="#16a34a"/><path d="M 958 491 L 962.5 496 L 970.5 486" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="934" y="478" font-size="27" fill="#e8f1fa" text-anchor="end">‫حملهٔ هوایی به پایگاه هوایی در شرق کشور گزارش شد؛ خسارات‬</text>
-  <text x="934" y="518" font-size="27" fill="#e8f1fa" text-anchor="end">‫در حال ارزیابی است‬</text>
-  <text x="934" y="554" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: رویترز‬</text>
+  <rect x="36" y="204" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="210" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="242" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫⚔️ جنگ و امنیت‬</text>
+  <rect x="36" y="266" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="331" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="339" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱‬</text>
+  <circle cx="964" cy="331" r="14" fill="#16a34a"/><path d="M 958 331 L 962.5 336 L 970.5 326" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="934" y="318" font-size="27" fill="#e8f1fa" text-anchor="end">‫حملهٔ هوایی به پایگاه هوایی در شرق کشور گزارش شد؛ خسارات‬</text>
+  <text x="934" y="358" font-size="27" fill="#e8f1fa" text-anchor="end">‫در حال ارزیابی است‬</text>
+  <text x="934" y="394" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: رویترز‬</text>
 
-  <rect x="36" y="584" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="649" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="657" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۲‬</text>
-  <circle cx="964" cy="649" r="14" fill="#16a34a"/><path d="M 958 649 L 962.5 654 L 970.5 644" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="934" y="636" font-size="27" fill="#e8f1fa" text-anchor="end">‫آتش‌بس میان دو طرف با وساطت قطر امضا شد و از فردا اجرایی‬</text>
-  <text x="934" y="676" font-size="27" fill="#e8f1fa" text-anchor="end">‫می‌شود‬</text>
-  <text x="934" y="712" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: الجزیره‬</text>
+  <rect x="36" y="424" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="489" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="497" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۲‬</text>
+  <circle cx="964" cy="489" r="14" fill="#16a34a"/><path d="M 958 489 L 962.5 494 L 970.5 484" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="934" y="476" font-size="27" fill="#e8f1fa" text-anchor="end">‫آتش‌بس میان دو طرف با وساطت قطر امضا شد و از فردا اجرایی‬</text>
+  <text x="934" y="516" font-size="27" fill="#e8f1fa" text-anchor="end">‫می‌شود‬</text>
+  <text x="934" y="552" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: الجزیره‬</text>
 
-  <rect x="36" y="742" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="748" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="780" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🏛️ سیاسی و دیپلماسی‬</text>
-  <rect x="36" y="804" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="869" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="877" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۳‬</text>
+  <rect x="36" y="582" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="588" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="620" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🏛️ سیاسی و دیپلماسی‬</text>
+  <rect x="36" y="644" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="709" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="717" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۳‬</text>
   
-  <text x="934" y="856" font-size="27" fill="#e8f1fa" text-anchor="end">‫وزیر خارجه برای مذاکرات دیپلماتیک به ژنو سفر کرد‬</text>
+  <text x="934" y="696" font-size="27" fill="#e8f1fa" text-anchor="end">‫وزیر خارجه برای مذاکرات دیپلماتیک به ژنو سفر کرد‬</text>
   
-  <text x="934" y="932" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
+  <text x="934" y="772" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
 
-  <rect x="36" y="962" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="1027" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1035" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۴‬</text>
+  <rect x="36" y="802" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="867" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="875" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۴‬</text>
   
-  <text x="934" y="1014" font-size="27" fill="#e8f1fa" text-anchor="end">‫قطعنامهٔ تازهٔ شورای امنیت با اکثریت آرا تصویب شد‬</text>
+  <text x="934" y="854" font-size="27" fill="#e8f1fa" text-anchor="end">‫قطعنامهٔ تازهٔ شورای امنیت با اکثریت آرا تصویب شد‬</text>
   
-  <text x="934" y="1090" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بی‌بی‌سی‬</text>
+  <text x="934" y="930" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بی‌بی‌سی‬</text>
 
-  <rect x="36" y="1120" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="1126" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="1158" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🚨 حوادث و امداد‬</text>
-  <rect x="36" y="1182" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="1247" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1255" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۵‬</text>
+  <rect x="36" y="960" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="966" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="998" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🚨 حوادث و امداد‬</text>
+  <rect x="36" y="1022" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="1087" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="1095" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۵‬</text>
   
-  <text x="934" y="1234" font-size="27" fill="#e8f1fa" text-anchor="end">‫واژگونی خودرو در جادهٔ چالوس سه مصدوم بر جای گذاشت‬</text>
+  <text x="934" y="1074" font-size="27" fill="#e8f1fa" text-anchor="end">‫واژگونی خودرو در جادهٔ چالوس سه مصدوم بر جای گذاشت‬</text>
   
-  <text x="934" y="1310" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
+  <text x="934" y="1150" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
 
-  <rect x="36" y="1340" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="1405" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1413" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۶‬</text>
+  <rect x="36" y="1180" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="1245" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="1253" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۶‬</text>
   
-  <text x="934" y="1392" font-size="27" fill="#e8f1fa" text-anchor="end">‫آتش‌سوزی گسترده در جنگل‌های شمال کشور مهار شد‬</text>
+  <text x="934" y="1232" font-size="27" fill="#e8f1fa" text-anchor="end">‫آتش‌سوزی گسترده در جنگل‌های شمال کشور مهار شد‬</text>
   
-  <text x="934" y="1468" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
+  <text x="934" y="1308" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایرنا‬</text>
 
-  <rect x="36" y="1498" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="1504" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="1536" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫💰 اقتصادی‬</text>
-  <rect x="36" y="1560" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="1625" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1633" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۷‬</text>
+  <rect x="36" y="1338" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="1344" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="1376" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫💰 اقتصادی‬</text>
+  <rect x="36" y="1400" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="1465" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="1473" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۷‬</text>
   
-  <text x="934" y="1612" font-size="27" fill="#e8f1fa" text-anchor="end">‫شاخص بورس تهران امروز ۹۲۰ واحد رشد کرد و به مرز دو‬</text>
-  <text x="934" y="1652" font-size="27" fill="#e8f1fa" text-anchor="end">‫میلیون واحد رسید‬</text>
-  <text x="934" y="1688" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بورس‌نیوز‬</text>
+  <text x="934" y="1452" font-size="27" fill="#e8f1fa" text-anchor="end">‫شاخص بورس تهران امروز ۹۲۰ واحد رشد کرد و به مرز دو‬</text>
+  <text x="934" y="1492" font-size="27" fill="#e8f1fa" text-anchor="end">‫میلیون واحد رسید‬</text>
+  <text x="934" y="1528" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بورس‌نیوز‬</text>
 
-  <rect x="36" y="1718" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="1783" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1791" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۸‬</text>
+  <rect x="36" y="1558" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="1623" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="1631" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۸‬</text>
   
-  <text x="934" y="1770" font-size="27" fill="#e8f1fa" text-anchor="end">‫قیمت دلار در بازار آزاد با افت ۴۰۰ تومانی معامله شد‬</text>
+  <text x="934" y="1610" font-size="27" fill="#e8f1fa" text-anchor="end">‫قیمت دلار در بازار آزاد با افت ۴۰۰ تومانی معامله شد‬</text>
   
-  <text x="934" y="1846" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: tgju‬</text>
+  <text x="934" y="1686" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: tgju‬</text>
 
-  <rect x="36" y="1876" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="1941" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="1949" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۹‬</text>
+  <rect x="36" y="1716" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="1781" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="1789" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۹‬</text>
   
-  <text x="934" y="1928" font-size="27" fill="#e8f1fa" text-anchor="end">‫نرخ رشد اقتصادی کشور در فصل دوم اعلام شد‬</text>
+  <text x="934" y="1768" font-size="27" fill="#e8f1fa" text-anchor="end">‫نرخ رشد اقتصادی کشور در فصل دوم اعلام شد‬</text>
   
-  <text x="934" y="2004" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بانک مرکزی‬</text>
+  <text x="934" y="1844" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: بانک مرکزی‬</text>
 
-  <rect x="36" y="2034" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="2040" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="2072" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🔬 علمی و فناوری‬</text>
-  <rect x="36" y="2096" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="2161" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="2169" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۰‬</text>
+  <rect x="36" y="1874" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="1880" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="1912" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🔬 علمی و فناوری‬</text>
+  <rect x="36" y="1936" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="2001" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="2009" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۰‬</text>
   
-  <text x="934" y="2148" font-size="27" fill="#e8f1fa" text-anchor="end">‫هوش مصنوعی تازه برای تشخیص زودهنگام سرطان ارائه شد‬</text>
+  <text x="934" y="1988" font-size="27" fill="#e8f1fa" text-anchor="end">‫هوش مصنوعی تازه برای تشخیص زودهنگام سرطان ارائه شد‬</text>
   
-  <text x="934" y="2224" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: سی‌نت‬</text>
+  <text x="934" y="2064" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: سی‌نت‬</text>
 
-  <rect x="36" y="2254" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="2319" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="2327" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۱‬</text>
+  <rect x="36" y="2094" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="2159" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="2167" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۱‬</text>
   
-  <text x="934" y="2306" font-size="27" fill="#e8f1fa" text-anchor="end">‫ناسا فضاپیمای تازه را به مدت ماه پرتاب کرد‬</text>
+  <text x="934" y="2146" font-size="27" fill="#e8f1fa" text-anchor="end">‫ناسا فضاپیمای تازه را به مدت ماه پرتاب کرد‬</text>
   
-  <text x="934" y="2382" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: اسپیس‌دات‌کام‬</text>
+  <text x="934" y="2222" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: اسپیس‌دات‌کام‬</text>
 
-  <rect x="36" y="2412" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="2418" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="2450" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫⚽ ورزشی‬</text>
-  <rect x="36" y="2474" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="2539" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="2547" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۲‬</text>
-  <circle cx="964" cy="2539" r="14" fill="#16a34a"/><path d="M 958 2539 L 962.5 2544 L 970.5 2534" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="934" y="2526" font-size="27" fill="#e8f1fa" text-anchor="end">‫تیم ملی فوتبال با دو گل به مرحلهٔ بعد صعود کرد‬</text>
+  <rect x="36" y="2252" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="2258" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="2290" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫⚽ ورزشی‬</text>
+  <rect x="36" y="2314" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="2379" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="2387" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۲‬</text>
+  <circle cx="964" cy="2379" r="14" fill="#16a34a"/><path d="M 958 2379 L 962.5 2384 L 970.5 2374" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="934" y="2366" font-size="27" fill="#e8f1fa" text-anchor="end">‫تیم ملی فوتبال با دو گل به مرحلهٔ بعد صعود کرد‬</text>
   
-  <text x="934" y="2602" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایسنا‬</text>
+  <text x="934" y="2442" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایسنا‬</text>
 
-  <rect x="36" y="2632" width="1008" height="146" rx="14" fill="#102941"/>
-  <circle cx="1010" cy="2697" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="2705" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۳‬</text>
+  <rect x="36" y="2472" width="1008" height="146" rx="14" fill="#102941"/>
+  <circle cx="1010" cy="2537" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="2545" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۳‬</text>
   
-  <text x="934" y="2684" font-size="27" fill="#e8f1fa" text-anchor="end">‫استقلال در لیگ برتر برابر پرسپولیس به پیروزی رسید‬</text>
+  <text x="934" y="2524" font-size="27" fill="#e8f1fa" text-anchor="end">‫استقلال در لیگ برتر برابر پرسپولیس به پیروزی رسید‬</text>
   
-  <text x="934" y="2760" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایسنا‬</text>
+  <text x="934" y="2600" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: ایسنا‬</text>
 
-  <rect x="36" y="2790" width="1008" height="52" rx="12" fill="#16405f"/>
-  <rect x="1036" y="2796" width="4" height="40" rx="2" fill="#ffd75e"/>
-  <text x="1018" y="2828" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🏘️ اجتماعی‬</text>
-  <rect x="36" y="2852" width="1008" height="146" rx="14" fill="#0d2135"/>
-  <circle cx="1010" cy="2917" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
-  <text x="1010" y="2925" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۴‬</text>
+  <rect x="36" y="2630" width="1008" height="52" rx="12" fill="#16405f"/>
+  <rect x="1036" y="2636" width="4" height="40" rx="2" fill="#ffd75e"/>
+  <text x="1018" y="2668" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">‫🏘️ اجتماعی‬</text>
+  <rect x="36" y="2692" width="1008" height="146" rx="14" fill="#0d2135"/>
+  <circle cx="1010" cy="2757" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  <text x="1010" y="2765" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">‫۱۴‬</text>
   
-  <text x="934" y="2904" font-size="27" fill="#e8f1fa" text-anchor="end">‫آزمون سراسری کنکور در هفتهٔ آینده برگزار می‌شود‬</text>
+  <text x="934" y="2744" font-size="27" fill="#e8f1fa" text-anchor="end">‫آزمون سراسری کنکور در هفتهٔ آینده برگزار می‌شود‬</text>
   
-  <text x="934" y="2980" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: سنجش‬</text>
-  <text x="540" y="3050" font-size="24" fill="#9fc3e8" text-anchor="middle">‫+ ۴ رویداد دیگر در کارت‌های بعدی‬</text>
+  <text x="934" y="2820" font-size="19" fill="#7fa8c9" text-anchor="end">‫منبع: سنجش‬</text>
+  <text x="540" y="2890" font-size="24" fill="#9fc3e8" text-anchor="middle">‫+ ۴ رویداد دیگر در کارت‌های بعدی‬</text>
   
-  <text x="1044" y="3140" font-size="20" fill="#6f93b4" text-anchor="end">‫رصدبان • تیک اعتبارسنجی قفل‌شده به جمله‌های منبع‬</text>
-  <text x="36" y="3140" font-size="20" fill="#6f93b4" text-anchor="start">‫تطبیق اجباری خروجی/منبع انجام شد‬</text>
+  <text x="1044" y="2980" font-size="20" fill="#6f93b4" text-anchor="end">‫رصدبان‬</text>
+  <text x="36" y="2980" font-size="20" fill="#6f93b4" text-anchor="start">‫تیک ✅ = پوشش حداقل دو منبع مستقل‬</text>
 </svg>

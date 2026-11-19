@@ -9,8 +9,9 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fetchHourlyForecast, type HourlyEntry } from '../bot/weather';
 import { tripleDateOf } from '../bot/calendar';
-import { buildWeatherCardCaption, renderWeatherCardPng } from '../bot/weather-card';
-import { dominantKindOf, renderWeatherGif, buildWeatherGifCaption } from '../bot/weather-gif';
+import { renderWeatherCardPng } from '../bot/weather-card';
+import { dominantKindOf, renderWeatherGif } from '../bot/weather-gif';
+import { fetchIranRainMapPng } from '../bot/rain-map';
 
 const tz = 'Asia/Tehran';
 const weatherHour = '21:00';
@@ -46,15 +47,10 @@ for (const c of cities) {
   const out = `download/preview/weather-card-${slug(c.name)}.png`;
   writeFileSync(out, card.png);
   console.log(`✅ کارت ${c.name}: ${card.width}×${card.height} — ${Math.round(card.png.length / 1024)} کیلوبایت → ${out}`);
-  const cap = buildWeatherCardCaption({ city: c.name, tomorrow, weatherHour, hours });
-  if (c === cities[0]) {
-    console.log('--- کپشن تهران (بدون تگ) ---');
-    console.log(cap.replace(/<[^>]+>/g, ''));
-    console.log(`طول کپشن: ${cap.length} نویسه (سقف ۱۰۲۴)`);
-  }
+  // کپشن حذف شد — خواستهٔ کاربر ۲۰ نوامبر: عکس بدون هیچ متن زیرش ارسال می‌شود
 }
 
-// گیف وضعیت غالب — از دادهٔ شهر اصلی
+// گیف وضعیت غالب — از دادهٔ شهر اصلی (بدون کپشن — خواستهٔ ۲۰ نوامبر)
 if (mainHours) {
   const dom = dominantKindOf(mainHours);
   const gif = dom ? await renderWeatherGif(dom.kind) : null;
@@ -64,6 +60,15 @@ if (mainHours) {
   }
   writeFileSync('download/preview/weather-dominant.gif', gif.gif);
   console.log(`✅ گیف وضعیت غالب: ${dom.label} — ${gif.gif.length} بایت (${gif.gif.slice(0, 3).toString('latin1')}) → download/preview/weather-dominant.gif`);
-  console.log('--- کپشن گیف (بدون تگ) ---');
-  console.log(buildWeatherGifCaption('تهران', dom, { minT: Math.min(...mainHours.map((h) => h.temp)), maxT: Math.max(...mainHours.map((h) => h.temp)) }).replace(/<[^>]+>/g, ''));
+}
+
+// نقشهٔ بارشی کشور — خواستهٔ کاربر ۲۰ نوامبر (زیر پیام هواشناسی)
+{
+  const rain = await fetchIranRainMapPng(tripleDateOf(tomorrowKey, tz, 'umalqura'));
+  if (!rain) {
+    console.error('❌ رندر نقشهٔ بارشی ناموفق بود');
+    process.exit(2);
+  }
+  writeFileSync('download/preview/rain-map.png', rain.png);
+  console.log(`✅ نقشهٔ بارشی: ${rain.width}×${rain.height} — ${Math.round(rain.png.length / 1024)} کیلوبایت → download/preview/rain-map.png`);
 }

@@ -205,3 +205,85 @@ describe('پرامپت‌ها — خلاصهٔ بازنویسی‌شده و مم
     expect(o.nightly).toBeUndefined();
   });
 });
+
+// ---------- نقشهٔ بارشی کشور — خواستهٔ ۲۰ نوامبر: «آخرین نقشه بارشی کشور زیر پیام هواشناسی» ----------
+
+import {
+  buildGibsWmsUrl,
+  utcDateOffset,
+  rainDataRangeLabel,
+  compositeMaxRgba,
+  nonTransparentRatio,
+  makeRainMapOverlaySvg,
+  RAIN_MAP_W,
+  RAIN_MAP_H,
+  RAIN_MAP_BBOX,
+  GIBS_DAY_TIMES_UTC,
+} from '../bot/rain-map';
+import { tripleDateOf } from '../bot/calendar';
+
+describe('rain-map — نقشهٔ بارشی کشور (NASA GIBS بدون کلید)', () => {
+  test('URL واکشی WMS — لایه/تاریخ/ساعت/جعبهٔ ایران', () => {
+    const u = buildGibsWmsUrl('IMERG_Precipitation_Rate', '2026-11-18', '12:00', 1100, 890);
+    expect(u).toContain('gibs.earthdata.nasa.gov');
+    expect(u).toContain('LAYERS=IMERG_Precipitation_Rate');
+    expect(u).toContain('TIME=2026-11-18T12%3A00%3A00Z');
+    expect(u).toContain(`BBOX=${encodeURIComponent(RAIN_MAP_BBOX)}`);
+    expect(u).toContain('WIDTH=1100');
+    expect(u).toContain('FORMAT=image%2Fpng');
+    // هندسه: نسبت خطی EPSG:4326 — ۱۷ درجهٔ عرض / ۲۱ درجهٔ طول
+    expect(RAIN_MAP_W).toBe(1100);
+    expect(RAIN_MAP_H).toBe(890);
+    expect(GIBS_DAY_TIMES_UTC).toHaveLength(4);
+  });
+
+  test('utcDateOffset — جابه‌جایی روز و عبور از مرز ماه/سال', () => {
+    expect(utcDateOffset('2026-11-20', -1)).toBe('2026-11-19');
+    expect(utcDateOffset('2026-12-01', -1)).toBe('2026-11-30');
+    expect(utcDateOffset('2027-01-01', -1)).toBe('2026-12-31');
+    expect(utcDateOffset('2026-02-28', 1)).toBe('2026-03-01');
+    expect(utcDateOffset('نامعتبر', 0)).toMatch(/^\d{4}-\d{2}-\d{2}$/); // ورودی خراب → امروز
+  });
+
+  test('rainDataRangeLabel — برچسب فارسی بازهٔ دادهٔ دو روزه', () => {
+    expect(rainDataRangeLabel('2026-11-18', '2026-11-17')).toBe('۱۷–۱۸ نوامبر');
+    expect(rainDataRangeLabel('2026-12-01', '2026-11-30')).toBe('۳۰ نوامبر – ۱ دسامبر');
+    expect(rainDataRangeLabel('bad', 'bad')).toBe('');
+  });
+
+  test('compositeMaxRgba — پربارش‌ترین فریم هر پیکسل می‌ماند', () => {
+    const w = 2, h = 1;
+    const a = Buffer.from([0, 120, 75, 255, 0, 0, 0, 0]); // سبک + شفاف
+    const b = Buffer.from([0, 0, 0, 0, 220, 30, 30, 255]); // شفاف + شدید
+    const out = compositeMaxRgba([a, b], w, h);
+    expect(Array.from(out.slice(0, 4))).toEqual([0, 120, 75, 255]);
+    expect(Array.from(out.slice(4, 8))).toEqual([220, 30, 30, 255]);
+    // آلفای برابر → بیشینهٔ کانال‌ها
+    const c = Buffer.from([10, 10, 10, 255, 0, 0, 0, 0]);
+    const d = Buffer.from([20, 5, 0, 255, 0, 0, 0, 0]);
+    const out2 = compositeMaxRgba([c, d], w, h);
+    expect(Array.from(out2.slice(0, 4))).toEqual([20, 10, 10, 255]);
+  });
+
+  test('nonTransparentRatio — تشخیص فریم خالی/پر', () => {
+    const empty = Buffer.alloc(400, 0);
+    const full = Buffer.alloc(400, 0);
+    full.fill(255, 3, 400); // آلفای همه ۲۵۵
+    expect(nonTransparentRatio(empty)).toBe(0);
+    expect(nonTransparentRatio(full)).toBe(1);
+  });
+
+  test('overlay عنوان/راهنما — تاریخ، برچسب داده، طیف سبک→شدید؛ بدون بارش → یادداشت صادقانه', () => {
+    const date = tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura');
+    const svg = makeRainMapOverlaySvg({ date, dataLabel: '۱۷–۱۸ نوامبر' });
+    expect(svg).toContain('آخرین نقشهٔ بارشی کشور');
+    expect(svg).toContain('۱۷–۱۸ نوامبر');
+    expect(svg).toContain('بارش سبک');
+    expect(svg).toContain('بارش شدید');
+    expect(svg).toContain('GPM/IMERG');
+    expect(svg).not.toContain('NaN');
+    const noRain = makeRainMapOverlaySvg({ date, dataLabel: '۱۷–۱۸ نوامبر', noRain: true });
+    expect(noRain).toContain('بارش معناداری در بازهٔ دادهٔ اخیر ثبت نشده است');
+    expect(noRain).not.toContain('بارش سبک');
+  });
+});

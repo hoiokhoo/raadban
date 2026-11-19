@@ -96,19 +96,33 @@ export interface Quote {
   factoryToman?: number;
   /** منبع قیمت کارخانه — «باما» */
   factorySrc?: string;
+  /** قیمت دولتی/رسمی — ستون سوم جدول یکدست (خواستهٔ کاربر ۲۰ نوامبر:
+   *  «ستون سوم قیمت کارخانه یا دولتی اگر هست … دلار دولتیش باید بشه همون قیمت دلار مرکز مبادله»):
+   *  دلار = نرخ فروش حوالهٔ مرکز مبادلهٔ ارز و طلا (tgju: ice_transfer_usd_sell — همان رقمی که
+   *  اخبار «دلار مرکز مبادله» می‌نامند) • سکه امامی = سکه بهار آزادی طرح بانکی (tgju: sekeb) */
+  officialToman?: number;
+  /** منبع قیمت دولتی — «مرکز مبادله» | «بانکی (بهار آزادی)» */
+  officialSrc?: string;
   emoji: string;
 }
 
 export type PriceSnapshot = Record<string, number>; // key → مقدار گزارش قبل
 
-/** اعمال تغییرات — اولویت: مقایسه با گزارش قبل (خواستهٔ کاربر: «درصد تغییرشون از خبر قبلی»)،
- *  نبودش → تغییر روزِ خود منبع (د); هیچ‌کدام → بدون تغییرات */
-export function applyDeltas(quotes: Quote[], prev: PriceSnapshot | undefined): Quote[] {
+/** اعمال تغییرات — خواستهٔ کاربر ۲۰ نوامبر: «ستون چهارم به شکل درصد تغییر نسبت به روز قبل».
+ *  اولویت: ۱) تغییر روزانهٔ خود منبع (tgju/nobitex/tsetmc — دقیقاً نسبت به دیروز)؛
+ *  ۲) پایهٔ دیروز (prevDay — آخرین گزارش روز پیشین؛ خودروها و اقلام بی‌تغییر منبع)؛
+ *  ۳) آخرین گزارش موجود (prev). هیچ‌کدام → بدون تغییرات. تابع خالص تست‌پذیر. */
+export function applyDeltas(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): Quote[] {
   return quotes.map((q) => {
+    if (q.changePct !== undefined && Number.isFinite(q.changePct)) {
+      return { ...q, changeSrc: 'source' as const };
+    }
+    const pd = prevDay?.[q.key];
+    const dd = pd !== undefined ? deltaPct(pd, q.value) : null;
+    if (dd !== null) return { ...q, changePct: dd, changeSrc: 'prev' as const };
     const pv = prev?.[q.key];
     const d = pv !== undefined ? deltaPct(pv, q.value) : null;
     if (d !== null) return { ...q, changePct: d, changeSrc: 'prev' as const };
-    if (q.changePct !== undefined && Number.isFinite(q.changePct)) return { ...q, changeSrc: 'source' as const };
     return { ...q, changePct: undefined, changeSrc: 'none' as const };
   });
 }
@@ -116,6 +130,17 @@ export function applyDeltas(quotes: Quote[], prev: PriceSnapshot | undefined): Q
 // ---------- tgju (طلا، سکه، دلار پشتیبان، برنت، شاخص پشتیبان، بیت‌کوین پشتیبان) ----------
 
 export interface TgjuEntry { p?: string; h?: string; l?: string; d?: string; dt?: string; t?: string }
+
+/** درصد تغییر روزانهٔ tgju — فیلد «d» تغییر مطلق است (همان واحد p: ریال/دلار)، نه درصد!
+ *  نمونهٔ واقعی: طلای ۱۸ عیار p=۲۴۲٬۸۶۷٬۰۰۰ و d=۱٬۷۲۹٬۰۰۰ → ۰٫۷۱٪ (سایت tgju همان‌جا ۰٫۷۲٪
+ *  می‌نویسد). درصد = d÷p×۱۰۰. تصحیح ۲۰ نوامبر: پیش‌تر d عیناً «درصد» فرض می‌شد و با تغییر
+ *  اولویت به «تغییر روزانهٔ منبع»، عدد مطلق ریالی با علامت ٪ می‌آمد (▲۲۳۰۵۰۰۰٪!). خالص تست‌پذیر. */
+export function tgjuChangePct(e: TgjuEntry | undefined): number | undefined {
+  const p = num(e?.p);
+  const d = num(e?.d);
+  if (p === null || p <= 0 || d === null || d === 0) return undefined;
+  return Math.round((d / p) * 10000) / 100;
+}
 
 /** پارس پاسخ call1.tgju.org/ajax.json — تابع خالص تست‌پذیر */
 export function parseTgjuCurrent(json: string): Record<string, TgjuEntry> {
@@ -135,10 +160,9 @@ export function rialToToman(rial: number | null): number | null {
 
 function tgjuQuote(cur: Record<string, TgjuEntry>, key: string, value: number | null, title: string, unit: QuoteUnit, emoji: string): Quote | null {
   if (value === null) return null;
-  const d = num(cur[key]?.d);
   return {
     key, title, value, unit, srcLabel: 'tgju', emoji,
-    changePct: d !== null && d !== 0 ? d : undefined,
+    changePct: tgjuChangePct(cur[key]),
   };
 }
 
@@ -505,6 +529,16 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   const q24 = tgjuQuote(tgjuCur, 'geram24', g24, 'طلای ۲۴ عیار', 'toman', '🥇');
   const qSek = tgjuQuote(tgjuCur, 'sekee', sek, 'سکه امامی', 'toman', '🪙');
   const qNim = tgjuQuote(tgjuCur, 'nim', nimQ, 'نیم‌سکه', 'toman', '🪙');
+  // قیمت دولتی سکه — بهار آزادی طرح بانکی (tgju: sekeb)؛ ستون «کارخانه/دولتی» (خواستهٔ ۲۰ نوامبر)
+  const sekeBanki = rialToToman(num(tgjuCur.sekeb?.p));
+  if (qSek && sekeBanki && sekeBanki > 0) {
+    qSek.officialToman = sekeBanki;
+    qSek.officialSrc = 'بانکی (بهار آزادی)';
+  }
+  // قیمت دولتی دلار — نرخ فروش حوالهٔ مرکز مبادله (tgju: ice_transfer_usd_sell)؛
+  // همان رقمی که اخبار «دلار مرکز مبادله» می‌نامند (خواستهٔ کاربر ۲۰ نوامبر)
+  const usdIce = rialToToman(num(tgjuCur.ice_transfer_usd_sell?.p));
+  const usdOfficial = usdIce && usdIce > 0 ? usdIce : undefined;
   for (const q of [q18, q24, qSek, qNim]) if (q) quotes.push(q);
 
   const brentUsd = num(tgjuCur.oil_brent?.p);
@@ -526,6 +560,7 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
       quotes.push({
         key: 'usd', title: 'دلار (تتر نوبیتکس)', value: st.usdToman, unit: 'toman',
         srcLabel: 'نوبیتکس', emoji: '💵', changePct: st.usdChangePct,
+        officialToman: usdOfficial, officialSrc: usdOfficial ? 'مرکز مبادله' : undefined,
       });
     } else {
       failures.push('نوبیتکس دلار: پاسخ فاقد قیمت');
@@ -545,17 +580,16 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   if (!nobitexOk || quotes.every((q) => q.key !== 'usd')) {
     // پشتیبان tgju — فقط اگر نوبیتکس دلار نداد
     if (!quotes.some((q) => q.key === 'usd') && usdTgju) {
-      const d = num(tgjuCur.price_dollar_rl?.d);
       quotes.push({
         key: 'usd', title: 'دلار', value: usdTgju, unit: 'toman', srcLabel: 'tgju', emoji: '💵',
-        changePct: d !== null && d !== 0 ? d : undefined,
+        changePct: tgjuChangePct(tgjuCur.price_dollar_rl),
+        officialToman: usdOfficial, officialSrc: usdOfficial ? 'مرکز مبادله' : undefined,
       });
     }
     if (!quotes.some((q) => q.key === 'btc') && btcUsd) {
-      const d = num(tgjuCur['crypto-bitcoin']?.d);
       quotes.push({
         key: 'btc', title: 'بیت‌کوین', value: btcUsd, unit: 'usd', srcLabel: 'tgju', emoji: '₿',
-        changePct: d !== null && d !== 0 ? d : undefined,
+        changePct: tgjuChangePct(tgjuCur['crypto-bitcoin']),
       });
     }
   }
@@ -575,9 +609,8 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   } catch { /* پشتیبان پایین */ }
   if (!tseDone) {
     if (tedpixTgju && tedpixTgju > 1000) {
-      const d = num(tgjuCur.bourse?.d);
       sources.add('tgju');
-      quotes.push({ key: 'tedpix', title: 'شاخص کل بورس', value: tedpixTgju, unit: 'index', srcLabel: 'tgju', emoji: '📈', changePct: d !== null && d !== 0 ? d : undefined });
+      quotes.push({ key: 'tedpix', title: 'شاخص کل بورس', value: tedpixTgju, unit: 'index', srcLabel: 'tgju', emoji: '📈', changePct: tgjuChangePct(tgjuCur.bourse) });
     } else {
       failures.push('شاخص بورس: tsetmc و tgju هر دو در دسترس نبودند');
     }
@@ -720,37 +753,41 @@ export function xmlEsc(s: string): string {
 
 export interface MarketMessageOptsDeprecated { /** حذف شد — امضای تازه: (quotes, prev) */ note?: string }
 
-/** پیام گزارش بازار — خواستهٔ ۱۲ نوامبر ۲۰۲۶: بدون سربرگ «گزارش بازار رصدبان»، بدون بلوک
- *  «⚠️ دریافت نشد» (منبع غایب فقط حذف می‌شود — هیچ سطر شکست در پیام نمی‌آید)، بدون خط راهنمای
- *  «٪ تغییر…» و بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو» (نه کف بازار).
- *  درصد تغییر نسبت به گزارش قبلی حفظ شده است. خودروهای VIP (خواستهٔ ۱۹ نوامبر):
- *  ستون مجاز قیمت کارخانه + ستون مجاز ما به‌التفاوت و درصد تفاوت نسبت به کارخانه. */
-export function formatMarketMessage(quotes: Quote[], prev: PriceSnapshot | undefined): string {
-  const withDelta = applyDeltas(quotes, prev);
+/** برچسب ستون رسمی یک قلم در پیام متنی — دلار: مرکز مبادله؛ سکه: بانکی؛ خودرو: کارخانه */
+export function officialLabelOf(q: Quote): string {
+  if (q.key === 'usd') return 'مرکز مبادله';
+  if (q.key === 'sekee') return 'بانکی (بهار آزادی)';
+  return 'کارخانه';
+}
+
+/** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر):
+ *  «نام: بازار (تغییر روز) | کارخانه/دولتی: قیمت یا —». بدون سربرگ برند، بدون بلوک «دریافت نشد»،
+ *  بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو». */
+export function formatMarketMessage(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): string {
+  const withDelta = applyDeltas(quotes, prev, prevDay);
   const L: string[] = [];
+  const line = (q: Quote): string => {
+    const official = q.officialToman ?? q.factoryToman;
+    const off = official && Number.isFinite(official) && official > 0
+      ? ` | ${officialLabelOf(q)}: ${formatMoney(official, 'toman')}`
+      : '';
+    return `${xmlEsc(q.title)}: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)})${off}`;
+  };
   const cars = withDelta.filter((q) => q.key.startsWith('car:'));
   if (cars.length) {
     L.push('<b>🚗 آخرین قیمت بازار آزاد خودرو:</b>');
-    for (const c of cars) {
-      const base = `${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)}`;
-      const fd = c.factoryToman ? carFactoryDelta(c.value, c.factoryToman) : null;
-      if (fd && c.factoryToman) {
-        L.push(`• ${base} | کارخانه: ${formatMoney(c.factoryToman, 'toman')} | اختلاف: ${formatMoney(fd.diff, 'toman')} (${formatPct(fd.pct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
-      } else {
-        L.push(`• ${base} (${formatPct(c.changePct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
-      }
-    }
+    for (const c of cars) L.push(`• ${line(c)}${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
     L.push('');
   }
   const gold = withDelta.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));
   if (gold.length) {
     L.push('<b>🥇 طلا و سکه:</b>');
-    for (const c of gold) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})`);
+    for (const c of gold) L.push(`• ${line(c)}`);
     L.push('');
   }
   for (const key of ['usd', 'tedpix', 'btc', 'oil_brent']) {
     const q = withDelta.find((x) => x.key === key);
-    if (q) L.push(`${q.emoji} <b>${xmlEsc(q.title)}</b>: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)})`);
+    if (q) L.push(`${q.emoji} <b>${line(q)}</b>`);
   }
   return L.join('\n');
 }

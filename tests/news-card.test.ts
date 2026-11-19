@@ -59,14 +59,21 @@ describe('makeNewsCardSvg', () => {
     const svg = makeNewsCardSvg(input());
     expect(svg.length).toBeGreaterThan(2500);
     expect(svg).toContain('بستهٔ خبری رصدبان');
-    expect(svg).toContain('رویدادهای بازه');
-    expect(svg).toContain('تأییدشدهٔ دومانبعی');
-    expect(svg).toContain('حذفِ بی‌خاستگاه');
     expect(svg).toContain('منبع: ایسنا');
     expect(svg).toContain('توافق آتش‌بس');
     expect(svg).not.toContain('NaN');
     expect(svg).not.toContain('undefined');
     expect(svg).toContain('\u202B'); // RTL صریح
+  });
+
+  test('سربرگ‌های آماری دیباگ حذف شدند (خواستهٔ ۲۰ نوامبر: «عناوین … برای دیباگ برنامست … حذف کن»)', () => {
+    const svg = makeNewsCardSvg(input()); // total=12، dropped=2 — آمار دیگر رندر نمی‌شود
+    expect(svg).not.toContain('رویدادهای بازه');
+    expect(svg).not.toContain('تأییدشدهٔ دومانبعی');
+    expect(svg).not.toContain('حذفِ بی‌خاستگاه');
+    expect(svg).not.toContain('رویداد این بازه');
+    expect(svg).not.toContain('تطبیق اجباری');
+    expect(svg).not.toContain('قفل‌شده به جمله‌های');
   });
 
   test('بدون آیتم → رشتهٔ خالی (هیچ کارت نیمه‌ساختگی)', () => {
@@ -78,7 +85,7 @@ describe('makeNewsCardSvg', () => {
     expect(svg).toContain('+ ۹ رویداد دیگر در کارت‌های بعدی');
   });
 
-  test('حذفِ بی‌خاستگاهِ صفر → تراشهٔ حذف نمی‌آید', () => {
+  test('حذفِ بی‌خاستگاهِ صفر → هیچ تغییری در کارت (چیپ حذف‌شده — ۲۰ نوامبر)', () => {
     const svg = makeNewsCardSvg({ ...input(), dropped: 0 });
     expect(svg).not.toContain('حذفِ بی‌خاستگاه');
   });

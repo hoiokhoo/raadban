@@ -56,7 +56,7 @@ import {
   type PoolItem,
 } from './digest';
 import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, type CarStore, type Quote } from './market';
-import { renderMarketCardPng, buildMarketCardCaption } from './market-card';
+import { renderMarketCardPng } from './market-card';
 import {
   renderNewsCardPages,
   renderTweetCardPages,
@@ -122,9 +122,10 @@ import {
 } from './geo';
 import { dateKeyOf, shiftDateKey, tripleDateOf, weekdayFaOf, type QamariBasis } from './calendar';
 import { fetchHourlyForecast, buildWeatherMessage, type HourlyEntry } from './weather';
-import { buildWeatherCardCaption, renderWeatherCardPng } from './weather-card';
+import { renderWeatherCardPng } from './weather-card';
 import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
-import { dominantKindOf, renderWeatherGif, buildWeatherGifCaption } from './weather-gif';
+import { dominantKindOf, renderWeatherGif } from './weather-gif';
+import { fetchIranRainMapPng } from './rain-map';
 import {
   pickHadith,
   bankStatus,
@@ -649,6 +650,12 @@ export interface BotState {
   lastPriceKey?: string;
   /** قیمت‌های آخرین گزارش بازار — پایهٔ «درصد تغییر از خبر قبلی» (خواستهٔ کاربر) */
   priceSnap?: Record<string, number>;
+  /** تاریخ تهران آخرین گزارش بازار — برای چرخش پایهٔ «دیروز» (خواستهٔ ۲۰ نوامبر:
+   *  درصد تغییر نسبت به روز قبل)؛ نخستین گزارش هر روز، آخرین snapshot روز پیشین را
+   *  به priceSnapPrevDay منتقل می‌کند */
+  priceSnapDay?: string;
+  /** پایهٔ «دیروز» درصد تغییر — آخرین snapshot روز پیشین */
+  priceSnapPrevDay?: Record<string, number>;
   /** صف بستهٔ خبری — حالت bundle (خواستهٔ ۱۰ نوامبر ۲۰۲۶؛ فقط خبر — توییت‌ها صف جدا دارند) */
   bundleQueue?: BundleItem[];
   /** صف توییت‌های افراد تأثیرگذار — بستهٔ جداگانه، یک ساعت بعد از بستهٔ خبر (خواستهٔ ۱۲ نوامبر ۲۰۲۶) */
@@ -717,6 +724,9 @@ export interface DailyBotState {
   lastWeatherKeys?: Record<string, string>;
   /** کلید آخرین ارسال گیف هواشناسی — یک گیف برای کل بخش در شب */
   lastWeatherGifKey?: string;
+  /** کلید آخرین ارسال نقشهٔ بارشی کشور — زیر پیام هواشناسی، یک بار در شب
+   *  (خواستهٔ کاربر ۲۰ نوامبر: «میخوام آخرین نقشه بارشی کشور هم زیر پیام هواشناسی بیاد») */
+  lastRainMapKey?: string;
   /** احادیث استفاده‌شده — هرگز هرس نمی‌شود؛ ضدتکرار مطلق حتی پس از ری‌استارت (کامیت ریپو) */
   usedHadiths: Record<string, HadithUsage>;
   /** نشانگر چرخش چهارده معصوم ۰..۱۳ — انتخاب متعادل */
@@ -900,6 +910,8 @@ export function loadState(path: string): BotState {
       lastDigestKey: typeof raw.lastDigestKey === 'string' ? raw.lastDigestKey : undefined,
       lastPriceKey: typeof raw.lastPriceKey === 'string' ? raw.lastPriceKey : undefined,
       priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
+      priceSnapDay: typeof raw.priceSnapDay === 'string' ? raw.priceSnapDay : undefined,
+      priceSnapPrevDay: raw.priceSnapPrevDay && typeof raw.priceSnapPrevDay === 'object' ? (raw.priceSnapPrevDay as Record<string, number>) : undefined,
       bundleQueue: Array.isArray(raw.bundleQueue) ? (raw.bundleQueue as BundleItem[]) : [],
       tweetQueue: Array.isArray(raw.tweetQueue) ? (raw.tweetQueue as BundleItem[]) : [],
       lastNewsSlotKey: typeof raw.lastNewsSlotKey === 'string' ? raw.lastNewsSlotKey : undefined,
@@ -968,6 +980,8 @@ export function mergeSentState(
     lastDigestKey: st.lastDigestKey,
     lastPriceKey: st.lastPriceKey,
     priceSnap: st.priceSnap,
+    priceSnapDay: st.priceSnapDay,
+    priceSnapPrevDay: st.priceSnapPrevDay,
     // فیلدهای بست/توییت/خودرو/اطلاعیه/روزانه — دست‌نخورده
     bundleQueue: st.bundleQueue,
     tweetQueue: st.tweetQueue,
@@ -2376,24 +2390,31 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
   if (pKey) {
     const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
+    // ── پایهٔ «دیروز» درصد تغییر (خواستهٔ کاربر ۲۰ نوامبر: «درصد تغییر نسبت به روز قبل»):
+    //    نخستین گزارش هر روزِ تازه، آخرین snapshot روز پیشین را به پایهٔ دیروز منتقل می‌کند ──
+    const pMkt = tehranParts(Date.now());
+    if (state.priceSnapDay !== pMkt.dateKey) {
+      if (state.priceSnap) state.priceSnapPrevDay = state.priceSnap;
+      state.priceSnapDay = pMkt.dateKey;
+    }
     if (ctx.dryRun) {
       console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
-      console.log(formatMarketMessage(md.quotes, state.priceSnap));
+      console.log(formatMarketMessage(md.quotes, state.priceSnap, state.priceSnapPrevDay));
       console.log('=== پایان پیش‌نمایش ===');
     } else if (md.quotes.length >= 3) {
       // کارت تصویری اول — خواستهٔ کاربر ۱۵ نوامبر («زیرساخت هواشناسی»)، رندر/ارسال ناموفق →
       // بازگشت صادقانه به پیام متنی کامل (هیچ قلمی از دست نمی‌رود)
-      const pMkt = tehranParts(Date.now());
       const mktDate = tripleDateOf(pMkt.dateKey, 'Asia/Tehran', 'umalqura');
       const mktSlot = pKey.startsWith('force') ? 'گزارش فوری' : pMkt.hhmm < '15:00' ? 'میان‌روز' : 'شب';
-      const withDelta = applyDeltas(md.quotes, state.priceSnap);
+      const withDelta = applyDeltas(md.quotes, state.priceSnap, state.priceSnapPrevDay);
       let ok = false;
       let viaCard = false;
       const card = await renderMarketCardPng({ date: mktDate, slotLabel: mktSlot, quotes: withDelta }).catch(() => null);
       if (card) {
-        const cap = buildMarketCardCaption({ date: mktDate, slotLabel: mktSlot, quotes: withDelta });
+        // فقط عکس — کپشن زیر عکس حذف شد (خواستهٔ کاربر ۲۰ نوامبر: «زیر عکس به شکل متنی میاد حذف کن»)؛
+        // جدول کامل (نام/بازار/کارخانه-دولتی/تغییر روز) خودِ کارت را دارد
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-market.png', cap);
+          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-market.png');
           if (s.ok) { ok = true; viaCard = true; }
           else console.error(`❌ ارسال کارت بازار به ${t}: ${s.error}`);
         }
@@ -2402,7 +2423,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         console.warn('⚠️ رندر کارت بازار ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)');
       }
       if (!ok) {
-        const msg = formatMarketMessage(md.quotes, state.priceSnap);
+        const msg = formatMarketMessage(md.quotes, state.priceSnap, state.priceSnapPrevDay);
         for (const t of CFG.targets) {
           const s = await sendBaleMessage(CFG.token, t, msg);
           if (s.ok) ok = true;
@@ -3049,10 +3070,12 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       let viaCard = false;
       const card = await renderWeatherCardPng({ city: c.name, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] }).catch(() => null);
       if (card) {
-        const cap = buildWeatherCardCaption({ city: c.name, tomorrow, weatherHour: dSettings.weatherHour, hours: hours || [] });
+        // فقط عکس — کپشن زیر عکس حذف شد (خواستهٔ کاربر ۲۰ نوامبر:
+        // «اینو که زیر عکس به شکل متنی میاد حذف کن چون داخل عکس هست») — کارت همهٔ
+        // اطلاعات (شهر، تاریخ، کمینه/بیشینه، بارش، باد) را خودش دارد
         viaCard = true;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png', cap);
+          const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-weather.png');
           if (!s.ok) { lastErr = s.error || 'نامشخص'; console.error(`❌ ارسال کارت هواشناسی ${c.name} به ${t}: ${lastErr}`); continue; }
           ok = true;
         }
@@ -3086,15 +3109,15 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     // ---------- گیف متحرک وضعیت غالب — خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶: «گیف هم به اون بخش اضافه کن» ----------
     // تزئینی و مستقل: دادهٔ شهر اصلی (یا نخستین شهر موفق) → وضعیت غالب → ۱۲ فریم متحرک؛
     // شکست رندر/ارسال فقط تزئین را از دست می‌دهد — کارت‌های شهرها قبلاً مستقل ارسال شده‌اند.
+    // کپشن گیف حذف شد (۲۰ نوامبر: زیر عکس متن نیاید + واژهٔ Open-Meteo حذف)
     const gifKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastWeatherGifKey, pNow);
     if (gifKey && anySent && mainHours) {
       const dom = dominantKindOf(mainHours);
       const gif = dom ? await renderWeatherGif(dom.kind).catch(() => null) : null;
       if (dom && gif) {
-        const cap = buildWeatherGifCaption(cities[0].name, dom, { minT: Math.min(...mainHours.map((h) => h.temp)), maxT: Math.max(...mainHours.map((h) => h.temp)) });
         let gifOk = false;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-weather.gif', cap, 'image/gif');
+          const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-weather.gif', undefined, 'image/gif');
           if (!s.ok) { console.error(`❌ ارسال گیف هواشناسی به ${t}: ${s.error || 'نامشخص'}`); continue; }
           gifOk = true;
         }
@@ -3106,6 +3129,34 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
         }
       } else {
         console.warn('⚠️ رندر گیف هواشناسی ناموفق بود — کارت‌ها مستقل ارسال شده‌اند');
+      }
+      trimDailyState(daily);
+    }
+
+    // ---------- نقشهٔ بارشی کشور — خواستهٔ کاربر ۲۰ نوامبر:
+    // «میخوام آخرین نقشه بارشی کشور هم زیر پیام هواشناسی بیاد، اگر api لازم داری بگو».
+    // منبع: NASA GIBS (WMS عمومی — بدون هیچ کلید API) — بارش ماهواره‌ای IMERG (GPM)
+    // برای دو روزِ اخیرِ دارای داده + مرزها؛ عنوان/راهنمای رنگ فارسی روی خود تصویر.
+    // فقط تصویر بدون کپشن؛ شکست واکشی/رندر → بخش صادقانه حذف (کارت‌ها مستقل‌اند).
+    const rainKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastRainMapKey, pNow);
+    if (rainKey && anySent) {
+      const rainDate = tripleDateOf(pNow.dateKey, dSettings.timezone, dSettings.qamariBasis);
+      const rain = await fetchIranRainMapPng(rainDate).catch(() => null);
+      if (rain) {
+        let rainOk = false;
+        for (const t of CFG.targets) {
+          const s = await sendBalePhotoBytes(CFG.token, t, rain.png, 'raadban-rain-map.png');
+          if (!s.ok) { console.error(`❌ ارسال نقشهٔ بارشی به ${t}: ${s.error || 'نامشخص'}`); continue; }
+          rainOk = true;
+        }
+        if (rainOk) {
+          daily.lastRainMapKey = rainKey;
+          console.log(`✅ آخرین نقشهٔ بارشی کشور ارسال شد — ${rain.width}×${rain.height} (GIBS/IMERG)`);
+        } else {
+          console.warn('⚠️ نقشهٔ بارشی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
+        }
+      } else {
+        console.warn('⚠️ نقشهٔ بارشی کشور ساخته نشد (دادهٔ GIBS نیامد) — بخش تزئینی، کارت‌ها مستقل ارسال شده‌اند');
       }
       trimDailyState(daily);
     }

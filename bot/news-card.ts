@@ -60,8 +60,8 @@ export interface CardPng {
 // ---------- هندسهٔ کارت ----------
 
 const W = 1080;
-const HEADER_H = 240;
-const CHIPS_H = 110;
+/** دو خط سربرگ: عنوان + تاریخ (خط سوم آماری و تراشه‌ها حذف شدند — خواستهٔ ۲۰ نوامبر) */
+const HEADER_H = 190;
 const ROW_H = 158;
 const BANNER_H = 62;
 const PAD = 36;
@@ -128,8 +128,6 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   const { date, items } = input;
   if (!items || items.length === 0) return '';
   const total = input.total ?? items.length;
-  const verified = items.filter((i) => i.tick).length;
-  const dropped = input.dropped ?? 0;
   const more = Math.max(0, total - items.length);
   // بنر دسته — پیش از نخستین موردِ هر دسته در این صفحه (اولین مورد صفحه همیشه بنر دارد)
   const banners = new Map<number, string>();
@@ -140,35 +138,18 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   });
   const bannersH = banners.size * BANNER_H;
   const moreH = more > 0 ? 64 : 0;
-  const H = HEADER_H + CHIPS_H + items.length * ROW_H + bannersH + 26 + moreH + FOOTER_H;
+  const H = HEADER_H + items.length * ROW_H + bannersH + 26 + moreH + FOOTER_H;
 
-  const chips: Array<{ label: string; value: string }> = [
-    { label: 'رویدادهای بازه', value: faDigits(String(total)) },
-    { label: 'تأییدشدهٔ دومانبعی', value: faDigits(String(verified)) },
-  ];
-  if (dropped > 0) chips.push({ label: 'حذفِ بی‌خاستگاه', value: faDigits(String(dropped)) });
-  if (more > 0) chips.push({ label: 'در کارت‌های بعدی', value: `+${faDigits(String(more))}` });
-
+  // سربرگ — عنوان + تاریخ؛ سربرگ‌های آماریِ دیباگ حذف شدند (خواستهٔ کاربر ۲۰ نوامبر:
+  // «عناوین خبرها که برای دیباگ برنامست … و مثه اینها رو حذف کن»)
   const partLabel = input.part && input.part.of > 1 ? ` — بخش ${faDigits(String(input.part.no))} از ${faDigits(String(input.part.of))}` : '';
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
   <text x="${W - PAD}" y="86" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl('بستهٔ خبری رصدبان')}</text>
-  <text x="${W - PAD}" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>
-  <text x="${W - PAD}" y="200" font-size="30" font-weight="500" fill="#ffd75e" text-anchor="end">${rtl(`${faDigits(String(total))} رویداد این بازه • ${faDigits(String(verified))} مورد تأییدشده`)}</text>`;
-
-  const chipW = (W - PAD * 2 - (chips.length - 1) * 16) / chips.length;
-  const chipsSvg = chips
-    .map((c, i) => {
-      const x = W - PAD - chipW - i * (chipW + 16); // راست به چپ
-      return `
-  <rect x="${x.toFixed(1)}" y="${HEADER_H + 22}" width="${chipW.toFixed(1)}" height="${CHIPS_H - 44}" rx="14" fill="#123a5e"/>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 52}" font-size="20" fill="#8fb8d9" text-anchor="middle">${rtl(c.label)}</text>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 86}" font-size="25" font-weight="700" fill="#e8f1fa" text-anchor="middle">${rtl(c.value)}</text>`;
-    })
-    .join('');
+  <text x="${W - PAD}" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>`;
 
   // چیدمان انباشته — هر بنر دقیقاً پیش از ردیف خودش می‌نشیند (بدون حفرهٔ بالای کارت)
-  let rowY = HEADER_H + CHIPS_H + 14;
+  let rowY = HEADER_H + 14;
   const pieces: string[] = [];
   items.forEach((it, i) => {
     const banner = banners.get(i)
@@ -202,13 +183,13 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
 
   const moreSvg =
     more > 0
-      ? `<text x="${W / 2}" y="${HEADER_H + CHIPS_H + 14 + bannersH + items.length * ROW_H + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
+      ? `<text x="${W / 2}" y="${HEADER_H + 14 + bannersH + items.length * ROW_H + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
       : '';
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • تیک اعتبارسنجی قفل‌شده به جمله‌های منبع')}</text>
-  <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('تطبیق اجباری خروجی/منبع انجام شد')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان')}</text>
+  <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('تیک ✅ = پوشش حداقل دو منبع مستقل')}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
@@ -218,7 +199,6 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   </defs>
   <rect width="${W}" height="${H}" fill="#0a1c30"/>
   ${header}
-  ${chipsSvg}
   ${rowsSvg}
   ${moreSvg}
   ${footer}
@@ -303,13 +283,13 @@ export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = T
   if (!items || items.length === 0) return [];
   const pages: TweetCardItem[][] = [];
   let cur: TweetCardItem[] = [];
-  let h = HEADER_H + CHIPS_H + FOOTER_H + 26;
+  let h = HEADER_H + FOOTER_H + 26;
   for (const it of items) {
     const rh = tweetRowHeight(it.fa);
     if (cur.length > 0 && h + rh > maxHeight) {
       pages.push(cur);
       cur = [];
-      h = HEADER_H + CHIPS_H + FOOTER_H + 26;
+      h = HEADER_H + FOOTER_H + 26;
       if (pages.length >= maxPages) return pages;
     }
     cur.push(it);
@@ -319,38 +299,23 @@ export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = T
   return pages;
 }
 
-/** ساخت SVG کارت توییت — خالص و تست‌پذیر */
+/** ساخت SVG کارت توییت — خالص و تست‌پذیر؛ سربرگ فقط عنوان + تاریخ (خط آماری
+ *  «N پست این بازه • N بازتاب چندمنبعی» و تراشه‌های پلتفرم/ترجمه حذف شدند —
+ *  خواستهٔ کاربر ۲۰ نوامبر: «عناوین … که برای دیباگ برنامست … حذف کن») */
 export function makeTweetCardSvg(input: TweetCardInput): string {
   const { date, items } = input;
   if (!items || items.length === 0) return '';
   const partLabel = input.part && input.part.of > 1 ? ` — بخش ${faDigits(String(input.part.no))} از ${faDigits(String(input.part.of))}` : '';
-  const verified = items.filter((i) => i.verified).length;
   const heights = items.map((it) => tweetRowHeight(it.fa));
-  const H = HEADER_H + CHIPS_H + 14 + heights.reduce((a, b) => a + b, 0) + FOOTER_H;
+  const H = HEADER_H + 14 + heights.reduce((a, b) => a + b, 0) + FOOTER_H;
 
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
   <text x="${W - PAD}" y="86" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl('توییت‌های مقامات تأثیرگذار')}</text>
-  <text x="${W - PAD}" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>
-  <text x="${W - PAD}" y="200" font-size="30" font-weight="500" fill="#ffd75e" text-anchor="end">${rtl(`${faDigits(String(items.length))} پست این بازه • ${faDigits(String(verified))} بازتاب چندمنبعی`)}</text>`;
-
-  const chips: Array<{ label: string; value: string }> = [
-    { label: 'پلتفرم', value: '𝕏 ایکس + 🅣 تروث‌سوشال' },
-    { label: 'ترجمه', value: 'کامل و روان — بدون خلاصه‌سازی' },
-  ];
-  const chipW = (W - PAD * 2 - (chips.length - 1) * 16) / chips.length;
-  const chipsSvg = chips
-    .map((c, i) => {
-      const x = W - PAD - chipW - i * (chipW + 16);
-      return `
-  <rect x="${x.toFixed(1)}" y="${HEADER_H + 22}" width="${chipW.toFixed(1)}" height="${CHIPS_H - 44}" rx="14" fill="#123a5e"/>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 52}" font-size="20" fill="#8fb8d9" text-anchor="middle">${rtl(c.label)}</text>
-  <text x="${(x + chipW / 2).toFixed(1)}" y="${HEADER_H + 86}" font-size="23" font-weight="700" fill="#e8f1fa" text-anchor="middle">${rtl(c.value)}</text>`;
-    })
-    .join('');
+  <text x="${W - PAD}" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>`;
 
   const textRight = W - PAD - 28;
-  let y = HEADER_H + CHIPS_H + 14;
+  let y = HEADER_H + 14;
   const rowsSvg = items
     .map((it, i) => {
       const yTop = y;
@@ -374,8 +339,7 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>
-  <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('ترجمهٔ وفادار کامل — بدون خلاصه‌سازی')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
@@ -385,7 +349,6 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
   </defs>
   <rect width="${W}" height="${H}" fill="#0a1c30"/>
   ${header}
-  ${chipsSvg}
   ${rowsSvg}
   ${footer}
 </svg>`;

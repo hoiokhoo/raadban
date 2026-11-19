@@ -132,6 +132,122 @@ export function parseItemBlocks(raw: string): { blocks: ItemBlock[]; isItemLine:
   return { blocks, isItemLine };
 }
 
+// ---------- ضدحلقهٔ تکرار خروجی مدل (خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶) ----------
+// «الآن یه پیام اومده اینطوری!!! اینجوری دیگه نیاد» — مدل ضعیف (pollinations) در تحلیل ۴ساعتهٔ
+// ۱۲:۳۰ یک مورد را ده‌ها بار با نشانهٔ «(تکرار)» بازنویسی کرد و پیام خراب به کانال رفت.
+// این بخش سد قطعی پیش از ارسال است: نشان «(تکرار)» حذف، پیشوند نقل‌سازی («@کانال گزارش کرد که»)
+// برمی‌دارد، موردِ هم‌مضمونِ پیشین حذف و شماره‌ها پیاپی می‌شود؛ حلقهٔ بزرگ → پرچم loop تا فراخواننده
+// از تأمین‌کنندهٔ بعدی زنجیره متن بخواهد. همهٔ توابع خالص و تست‌پذیر — هیچ وابستگی به شبکه/مدل.
+
+/** آستانهٔ «هم‌مضمونی» دو مورد خروجی — پوشش/ژاکارد توکن‌ها ≥ این مقدار یعنی تکرارِ همان رویداد */
+export const DUP_ITEM_SIM = 0.8;
+/** حذف‌های تکراری ≥ این مقدار → حلقهٔ تکرار مدل؛ متن هرچند پاک‌شده، تأمین‌کنندهٔ بعدی بهتر است */
+export const DUP_LOOP_THRESHOLD = 3;
+
+/** افعال نقل‌سازی که مدل ضعیف در آغاز مورد از نام کانال می‌سازد */
+const ATTRIB_VERBS = '(?:گزارش کرد که|اعلام کرد که|نقل کرد که|نوشت که|هشدار داد که|ادعا کرد که|گفت که|گزارش کرد|اعلام کرد|نقل کرد|نوشت|گفت)';
+
+/** برچسب‌های تکرار که مدل خودش کنار مورد می‌نویسد — «… (تکرار)» */
+const DUP_MARKER_RE = /\s*[\(（]\s*(?:تکرار|تکراری|تکرار شد|تکراری است|dup|repeated)\s*[\)）]\s*/gu;
+
+/** پیشوند نقل‌سازی آغاز مورد را برمی‌دارد — «@کانال گزارش کرد که X» → «X»؛ «نام‌منبع: X» → «X».
+ *  محتاطانه: فقط الگوی آغاز سطر — ذکر کانال میان جملهٔ خبر دست نمی‌خورد. تابع خالص تست‌پذیر. */
+export function stripAttributionPrefix(text: string, sources: string[] = []): string {
+  let t = (text || '').trim();
+  if (!t) return t;
+  t = t.replace(new RegExp(`^@[A-Za-z0-9_]{3,64}\\s*${ATTRIB_VERBS}\\s*[:：]?\\s*`, 'u'), '');
+  for (const s of sources) {
+    const name = (s || '').trim().replace(/^[^\p{L}\p{N}@]*/u, '').trim();
+    if (name.length < 3) continue;
+    const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    t = t.replace(new RegExp(`^${esc}\\s*${ATTRIB_VERBS}\\s*[:：]?\\s*`, 'u'), '');
+    t = t.replace(new RegExp(`^${esc}\\s*[:：]\\s*`, 'u'), '');
+  }
+  return t.replace(/\s{2,}/g, ' ').trim();
+}
+
+export interface DigestSanitizeOptions {
+  /** نام منابع شناخته‌شدهٔ بازه — پیشوند «نام‌منبع:»/«نام‌منبع گزارش کرد که» از موارد برداشته می‌شود */
+  sources?: string[];
+  /** آستانهٔ هم‌مضمونی — پیش‌فرض DUP_ITEM_SIM */
+  dupSim?: number;
+  /** آستانهٔ پرچم حلقهٔ تکرار — پیش‌فرض DUP_LOOP_THRESHOLD */
+  loopThreshold?: number;
+}
+
+export interface DigestSanitizeResult {
+  /** متن پاک‌شده — بدون تکرار، با شماره‌گذاری پیاپی؛ بدون مورد → متن اصلی دست‌نخورده */
+  text: string;
+  /** شمار بلوک‌های شماره‌دار خروجی مدل */
+  total: number;
+  /** شمار موارد حذف‌شده به‌دلیل تکرار هم‌مضمون */
+  removed: number;
+  /** حلقهٔ تکرار شناسایی شد؟ (removed ≥ loopThreshold) — فراخواننده از تأمین‌کنندهٔ بعدی می‌خواهد */
+  loop: boolean;
+}
+
+/** ضدحلقهٔ تکرار خروجی مدل — سد قطعی پیش از ارسال (خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶).
+ *  ۱) نشان «(تکرار)» حذف می‌شود؛ ۲) پیشوند نقل‌سازی («@کانال گزارش کرد که») برمی‌دارد؛
+ *  ۳) موردِ شماره‌دارِ هم‌مضمونِ موردِ پیشین (پوشش توکنی ≥ dupSim) حذف می‌شود — فقط نخستین رخداد می‌ماند؛
+ *  ۴) شماره‌های نگه‌داشته‌شده پیاپی می‌شوند (۱،۲،۳…)؛ ۵) حذف‌ها ≥ loopThreshold → پرچم loop.
+ *  سطرهای غیرمورد (سربرگ‌ها/تحلیل/منابع) دست‌نخورده می‌مانند؛ بدون هیچ حذف/تغییر → متن اصلی عیناً.
+ *  تابع خالص تست‌پذیر. */
+export function sanitizeDigestRepetition(raw: string, opts: DigestSanitizeOptions = {}): DigestSanitizeResult {
+  const rawText = raw || '';
+  const empty = { text: rawText, total: 0, removed: 0, loop: false };
+  if (!rawText.trim()) return empty;
+  const { blocks, isItemLine } = parseItemBlocks(rawText);
+  if (blocks.length === 0) return empty;
+  const dupSim = opts.dupSim ?? DUP_ITEM_SIM;
+  const loopThreshold = opts.loopThreshold ?? DUP_LOOP_THRESHOLD;
+  const sources = opts.sources ?? [];
+
+  const lines = rawText.split('\n');
+  const keptSets: Set<string>[] = [];
+  const stateByStart = new Map<number, { kept: boolean; text: string }>();
+  let removed = 0;
+  let edited = false;
+  for (const b of blocks) {
+    let text = b.text.replace(DUP_MARKER_RE, ' ').replace(/\s{2,}/g, ' ').trim();
+    if (text !== b.text.trim()) edited = true;
+    const stripped = stripAttributionPrefix(text, sources);
+    if (stripped !== text) { text = stripped; edited = true; }
+    const tk = tokensFa(text);
+    let dup = false;
+    if (tk.size > 0) {
+      for (const K of keptSets) {
+        if (Math.max(containment(tk, K), containment(K, tk), jaccard(tk, K)) >= dupSim) { dup = true; break; }
+      }
+    }
+    if (dup) { removed++; stateByStart.set(b.startLine, { kept: false, text }); continue; }
+    keptSets.push(tk);
+    stateByStart.set(b.startLine, { kept: true, text });
+  }
+
+  // هیچ تکراری نبود و هیچ متنی هم پاک نشد → متن اصلی عیناً (بدون بازسازی ظاهری)
+  if (removed === 0 && !edited) {
+    return { text: rawText, total: blocks.length, removed: 0, loop: false };
+  }
+
+  const blockByStart = new Map(blocks.map((b) => [b.startLine, b] as const));
+  const out: string[] = [];
+  let n = 0;
+  for (let i = 0; i < lines.length; i++) {
+    if (isItemLine[i]) {
+      const b = blockByStart.get(i);
+      if (!b) continue; // سطر پیوستِ مورد — در متن همان مورد ادغام شده
+      const st = stateByStart.get(b.startLine)!;
+      if (!st.kept) continue;
+      n++;
+      out.push(`${faDigits(String(n))}. ${st.text}`);
+      continue;
+    }
+    out.push(lines[i]);
+  }
+  const text = out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  return { text, total: blocks.length, removed, loop: removed >= loopThreshold };
+}
+
 // ---------- قفل تیک + مقایسهٔ اجباری ----------
 
 export interface GroundedItem {

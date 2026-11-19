@@ -66,7 +66,7 @@ import {
 } from './news-card';
 import { groupByCategory, categorizeFa } from './categories';
 import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel } from './sale-announcement';
-import { groundAiBundle, type GroundResult } from './grounding';
+import { groundAiBundle, sanitizeDigestRepetition, type GroundResult } from './grounding';
 import {
   updateSourceHealth,
   updateFailStreak,
@@ -2492,14 +2492,26 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   ].join('\n');
 
   const t0 = Date.now();
+  // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («اینجوری دیگه نیاد») — همان سد تحلیل ۴ساعته
+  const nightlySources = merged.map((m) => m.sources[0] || '');
+  const sanitizeNightlyCandidate = (content: string | undefined | null): { text: string | null; loop: boolean } => {
+    const v = validateNightlyText(content);
+    if (!v) return { text: null, loop: false };
+    const s = sanitizeDigestRepetition(v, { sources: nightlySources });
+    return { text: s.text || null, loop: s.loop };
+  };
   let r = await chainCall(getNightlyPrompt(), userMsg, { maxTokens: 8000 });
-  let text = r.ok ? validateNightlyText(r.content) : null;
-  // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
-  if (r.ok && !text && r.providerId) {
-    console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+  let cand = r.ok ? sanitizeNightlyCandidate(r.content) : { text: null, loop: false };
+  let text = cand.text;
+  // پاسخ نامعتبر یا با حلقهٔ تکرار از یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
+  if (r.ok && (!text || cand.loop) && r.providerId) {
+    console.log(cand.loop
+      ? `حلقهٔ تکرار در خروجی شبانهٔ ${r.providerId} شناسایی شد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`
+      : `متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
     const r2 = await chainCall(getNightlyPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
-    const t2 = r2.ok ? validateNightlyText(r2.content) : null;
-    if (t2) { r = r2; text = t2; }
+    const cand2 = r2.ok ? sanitizeNightlyCandidate(r2.content) : { text: null, loop: false };
+    if (cand2.text) { r = r2; cand = cand2; text = cand2.text; }
+    else if (text) console.log('تأمین‌کنندهٔ دوم هم متن معتبر نداد — نسخهٔ پاک‌شدهٔ تأمین‌کنندهٔ نخست (بدون تکرار) ارسال می‌شود');
   }
   summary.nightlyProvider = r.providerId;
   // ── قفل تیک به جملهٔ منبع — همان ⑨ برای گزارش شبانه (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶:
@@ -2645,14 +2657,27 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   ].join('\n');
 
   const t0 = Date.now();
+  // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶: «الآن یه پیام اومده اینطوری!!! اینجوری دیگه نیاد» —
+  // نشان «(تکرار)» حذف، پیشوند نقل‌سازی پاک و مورد هم‌مضمون پیشین حذف می‌شود؛ حلقه → تأمین‌کنندهٔ بعدی
+  const geoSources = merged.map((m) => m.sources[0] || '');
+  const sanitizeGeoCandidate = (content: string | undefined | null): { text: string | null; loop: boolean } => {
+    const v = validateGeoText(content);
+    if (!v) return { text: null, loop: false };
+    const s = sanitizeDigestRepetition(v, { sources: geoSources });
+    return { text: s.text || null, loop: s.loop };
+  };
   let r = await chainCall(getGeoPrompt(), userMsg, { maxTokens: 8000 });
-  let text = r.ok ? validateGeoText(r.content) : null;
-  // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
-  if (r.ok && !text && r.providerId) {
-    console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+  let cand = r.ok ? sanitizeGeoCandidate(r.content) : { text: null, loop: false };
+  let text = cand.text;
+  // پاسخ نامعتبر یا با حلقهٔ تکرار از یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره
+  if (r.ok && (!text || cand.loop) && r.providerId) {
+    console.log(cand.loop
+      ? `حلقهٔ تکرار در خروجی ${r.providerId} شناسایی شد — تلاش از تأمین‌کنندهٔ بعدی زنجیره (خواستهٔ ۲۰ نوامبر: «اینجوری دیگه نیاد»)`
+      : `متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
     const r2 = await chainCall(getGeoPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
-    const t2 = r2.ok ? validateGeoText(r2.content) : null;
-    if (t2) { r = r2; text = t2; }
+    const cand2 = r2.ok ? sanitizeGeoCandidate(r2.content) : { text: null, loop: false };
+    if (cand2.text) { r = r2; cand = cand2; text = cand2.text; }
+    else if (text) console.log('تأمین‌کنندهٔ دوم هم متن معتبر نداد — نسخهٔ پاک‌شدهٔ تأمین‌کنندهٔ نخست (بدون تکرار) ارسال می‌شود');
   }
   summary.geoProvider = r.providerId;
   // ── قفل تیک به جملهٔ منبع — مقایسهٔ اجباری خروجی/منبع (رفع ریشه‌ای ⑨؛ خواستهٔ ۱۵ نوامبر) ──
@@ -3806,15 +3831,27 @@ async function main(): Promise<void> {
         buildHourlyCorpus(mergedItems),
       ].join('\n');
       const t0 = Date.now();
+      // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («الآن یه پیام اومده اینطوری!!! اینجوری دیگه نیاد»)
+      const hourlySources = mergedItems.map((m) => m.sources[0] || '');
+      const sanitizeHourlyCandidate = (content: string | undefined | null): { text: string | null; loop: boolean } => {
+        const v = validateHourlyText(content);
+        if (!v) return { text: null, loop: false };
+        const s = sanitizeDigestRepetition(v, { sources: hourlySources });
+        return { text: s.text || null, loop: s.loop };
+      };
       let r = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000 });
-      let aiText = r.ok ? validateHourlyText(r.content) : null;
-      // پاسخ نامعتبر (مثلاً غیرفارسی) یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره؛
+      let cand = r.ok ? sanitizeHourlyCandidate(r.content) : { text: null, loop: false };
+      let aiText = cand.text;
+      // پاسخ نامعتبر یا با حلقهٔ تکرار از یک تأمین‌کننده → تلاش از تأمین‌کنندهٔ بعدی زنجیره؛
       // پیش‌تر چنین پاسخی «موفق» شمرده می‌شد و بسته بدون تحلیل هوشمند به مسیر خام می‌افتاد
-      if (r.ok && !aiText && r.providerId) {
-        console.log(`متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
+      if (r.ok && (!aiText || cand.loop) && r.providerId) {
+        console.log(cand.loop
+          ? `حلقهٔ تکرار در خروجی ${r.providerId} شناسایی شد — تلاش از تأمین‌کنندهٔ بعدی زنجیره (خواستهٔ ۲۰ نوامبر: «اینجوری دیگه نیاد»)`
+          : `متن ${r.providerId} اعتبارسنجی نشد — تلاش از تأمین‌کنندهٔ بعدی زنجیره`);
         const r2 = await chainCall(getHourlyPrompt(), userMsg, { maxTokens: 8000, skipIds: [r.providerId] });
-        const ai2 = r2.ok ? validateHourlyText(r2.content) : null;
-        if (ai2) { r = r2; aiText = ai2; }
+        const cand2 = r2.ok ? sanitizeHourlyCandidate(r2.content) : { text: null, loop: false };
+        if (cand2.text) { r = r2; cand = cand2; aiText = cand2.text; }
+        else if (aiText) console.log('تأمین‌کنندهٔ دوم هم متن معتبر نداد — نسخهٔ پاک‌شدهٔ تأمین‌کنندهٔ نخست (بدون تکرار) ارسال می‌شود');
       }
       summary.hourlyProvider = r.providerId;
       // ── قفل تیک به جملهٔ منبع — مقایسهٔ اجباری خروجی/منبع (رفع ریشه‌ای ⑨؛ خواستهٔ ۱۵ نوامبر) ──

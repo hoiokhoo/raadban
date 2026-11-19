@@ -1,5 +1,13 @@
 {
  "sentIds": {
+  "029cd6df74c49dbda4c95b42dce72f28aa88274b": 1795051967384,
+  "7720994e1a90f3312e364b6a27539cdfb3a61eca": 1795051967384,
+  "06181339fac7ba1a96526b958e19c51a310cd0f0": 1795051967384,
+  "3956ef4e08764bc0f9d311ce70cfd21d115bbd7e": 1795051967384,
+  "1c0cbef62de2900b5dc106bb41589ad95aa69a0e": 1795051967384,
+  "80940bf3b4ffe58c07b0ae0de4c9242c19b73981": 1795051967384,
+  "7b3a9875bad2d058e4b66c5213e273dd46d8864a": 1795051967384,
+  "3531215238ee311780745a5b9427f4724bb76daf": 1795051967384,
   "79e90c1bc3a4ad73c7a28fb00d07f7668438b5d9": 1795051403102,
   "a4637616867a6c6d5b6e2ad1007365ab88ae412c": 1795051403102,
   "d498148cc8823c14b0b298438376becda5908d39": 1795051403102,
@@ -1191,17 +1199,17 @@
   "4b01cd33bf0adfe72ac63c8547956387eb620df6": 1795021144778,
   "fc2b8db9fa7e619547c37b6840b4974bb705a39b": 1795021144778,
   "2727e980a8d80505192677eb119c8cbeafa8c391": 1795021144778,
-  "8b8b943521978748628e1400bf96445722dfb90a": 1795021144778,
-  "de2b7d0fd41aa9f9dfef2c79503b5da592130e3f": 1795021144778,
-  "139f4048f2654422010d09b9de938278a6f766ea": 1795021144778,
-  "54d154c6e41383b8de50258db8f837d1f3252b45": 1795021144778,
-  "3a5b39db92536bcc7d282bf6fe2cffebf3e499ae": 1795021144778,
-  "e4db849facff4b0c546ddbce13374082c3a71935": 1795021144778,
-  "3704564d62bcd1c49326e9cc18415a56a1d21ccd": 1795021144778,
-  "f0afdf80a811fe00e24bf9284a766f25e86d0f89": 1795021144778,
-  "9fd15a722e103885c62d2d8bf675cef58bb72b81": 1795021144778
+  "8b8b943521978748628e1400bf96445722dfb90a": 1795021144778
  },
  "sentTitles": {
+  "236af539775ae0840db4758c70f63f5801817f97": 1795051967384,
+  "1827e38ab60ad0ab1876d4a9007c1b4299502c4b": 1795051967384,
+  "88d939436ae85001180695b171820396cbadfe29": 1795051967384,
+  "3487f9a574f19281a6955a5a9d5c622ceb1a272c": 1795051967384,
+  "c85730fc4416f9045de90929bf0f1131fe0d4cc8": 1795051967384,
+  "bd1bfdc6330fb86b4803f459a450afe8382f507d": 1795051967384,
+  "2f8f0669225023f72417dbb4f393d251a1105fe4": 1795051967384,
+  "6d865b6303df8d83d5b906fbef85629c98ae0f49": 1795051967384,
   "53b438af4de9659393e4997d602730762357f8e0": 1795051403102,
   "2f4921b683ea07cae4b7cf9081e06e34fb249644": 1795051403102,
   "37a9ddd89ee381e50abb652222badbb1ed525049": 1795051403102,
@@ -1793,15 +1801,7 @@
   "afb09669a7dd45438c8a32aefe6655a829bf8d31": 1795030798194,
   "b1b914d6a0401fe5c05ec8b65c2001c476de583d": 1795030798194,
   "36170850440aa9dd34fc8020c3a8a05b82d8bd75": 1795030798194,
-  "fbaedf9790f73f7db41a07aa66b0b958c866c6ae": 1795030798194,
-  "bc95e20d7d8a73442e845daf2064c8104c906418": 1795030798194,
-  "6fe93c19108c43b050ade47c9dae97b2e2547200": 1795030195408,
-  "d5954242b178ac05fd8fb1fb6b333c9c108d5f59": 1795030195408,
-  "5b113962d7043fb7f5ecdd40788cc7ba07c04e5f": 1795030195408,
-  "5958674755fc974f5227f0c01b7b192c87d9a105": 1795030195408,
-  "14fb3b74e7c9f0a287855cf46cbcd92e39035d71": 1795030195408,
-  "506de16b71aaaf84a132a84da66389330ba9adcb": 1795030195408,
-  "f144a4b6ce085eabe5462731544bd5fa249c532c": 1795030195408
+  "fbaedf9790f73f7db41a07aa66b0b958c866c6ae": 1795030798194
  },
  "sentTitleTexts": {
   "فرستادگان امریکایی گفتند که فردا در برلین در جریان نشست هایمان گزارشی از گفتگوهایی که رییس جمهور امریکا هم اکنون در چین در حال انجام ان است به ما ارایه خواهند د": 1795030798194,
@@ -3008,6 +3008,79 @@
   "tass english چک ها برای مسابقه جهانی دختران جوان 2027 در اوستراوا ویزای ورود برای روس ها را رد می کنند مسابقه از 8 تا 16 ژانویه برگزار می شود": 1795034205917
  },
  "pool": [
+  {
+   "id": "029cd6df74c49dbda4c95b42dce72f28aa88274b",
+   "titleKey": "236af539775ae0840db4758c70f63f5801817f97",
+   "source": "Asharq Al-Awsat",
+   "lang": "ar",
+   "text": "لماذا نقدم العقل على النقل؟ مراجعة لجدل قديم - الشرق الأوسط لماذا نقدم العقل على النقل؟ مراجعة لجدل قديم الشرق الأوسط",
+   "at": "2026-11-19T00:05:23.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimwNBVV95cUxNaGtiRUxBODhkcWJuMVBPU0NzWWVNcjhKZnR1ejY2TzJ3bHR4X2F1NlNVaWZCVWFYNmRuem9XNm0zS1RESi1hbG9rcFFFQ1gwb0R1Q0pTR2s0N0JKdXkwQkg2d011TXNtZzhQSjlrc0VXUWcyeG1Ib1ZEeEJDVmJMSWlpUTZ3Z0R5NUZwRy0zS3pTLWlCeFk0aU96ekVXUFEzZTRxZ29BU0ROWW9ZX3lBbjBVWUU1cEhLbU0tV0pWbDY4Rkl6YlZNSUswWVJXV1gtU29VNG90eVBqeFM4QXNpZ25aRXd4dE1HQzNkbGJSNlVuZGlhLS1ISkdLVmlSeXNsT1ZaZzA3X3FMaFFPQWF1Z1c2bG11U3JOd2tFaFlKU3ZoaC1zNkRxMi1GTnNsV1QwcHFaYVJ3ZHB2TUdpSmg5RF9jNXpxVm9jZEdQMmtYdlFWaEIwSVN4cGtraU0wWHNFVGtMcUdRei1YS25yZFNaVW5UbVVMZFFvVHZKVWU2LW5zX0NUbVJTbHJCWHRQOHdBV3pMbEI3M3RDRWc?oc=5"
+  },
+  {
+   "id": "7720994e1a90f3312e364b6a27539cdfb3a61eca",
+   "titleKey": "1827e38ab60ad0ab1876d4a9007c1b4299502c4b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "ضربات إيران تستنزف اقتصاد البحرين... ارتفاع الديون - العربي الجديد ضربات إيران تستنزف اقتصاد البحرين... ارتفاع الديون العربي الجديد",
+   "at": "2026-11-19T01:00:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimgNBVV95cUxPRTJob0lMeVcxaVh2X3RBa211QkV6NjRuY0x0UW9tMzhzYTZZUGlUd2kxLVo5SkRrRzAwQkUzT2RSR05fR1FxakRvdHFrSHBXNGw3U0xyMHhFcURwZWpRTXpwZ3hqb3VFS2NPMzRpMTV2aUFTbHdUUVJ4ODhndEFrTFltcU43T1lDMV9Fc2tqQjN4LXZyLU9LX1hpeWdnY0N6MURFRl8tWUtiMGJxYkpxMlg0VExfeTJRb2llVDBHTUFWWVdfOC1PX3BpSWxBajRoM3lHbXVFUkFvN0p6UmNDdEN5TWdndVFBaXdHcWhhZDhabFF3ajZmdnM5OHJjeW8wVHhFU0J5N01mVmRJMjhTNndoZnR0dGs3VG5pZ0stRlVjWS1aLWRVTFRwZS1BU1BjeUFCbUJuU05rQjIxaGhCZ3JIcVFJQTBlZUVpRWlJRW9QeDBuTU8tY2k2Sm1La0kyc25la01LTU1LQnZLUTM3TWVUNi0xUVFzVURQeVQ5dkRNRjVXdDU3T2drZ2hOTG1pS3VVQkNMcmU2Z9IBnwNBVV95cUxPRVRNMzd3NnVGNm5YVkt5OHk1WFIxOHRQY2JkY0ZHczlUUlJIdUM5VW45ZlcwZXlubks4TW9LZkJNMEZmZW92TllfZGduNU1fWTc3NDBoY0pKYklxeEVISllnMjFpcXlNVmpOLWMwa2lEM1NMVjctTUNWSy1BSXJuSGtoMzhOOXItYnhGTUM2bFNsUEhCbVlIR2tyTWxHcE01QlFxZndZYk1DOVpoSmtTSmliR2pxTmFBUkhVU0c2NVE2X1VBZjJFeV9XWVVaUlN6b0UyVU9ZM1dNQ2d1LS1HaDljS2hOMUQ0cW54eG1xaVlHRTR1RllGYWVTbTBqM2tqVDNLOGJoMEt5OGZ4elRScTNSVHJCTmo2bW9OelhwMDVQdVRsWVlDRDVsSEU3UWxMSGxrX3MtLVRhcVdUNDByNUc0T1l1VmN2alBLZGZ6bHhtR0htSnZYYXB1SzNRemxrd0J2b3c4djZYcUQwQXRhWGhzbndmVG9Fak5zaWtMN19zeWJRektZMWpDRU9rbHNveGl2NVN0Y2QzdWQxaTQ4?oc=5"
+  },
+  {
+   "id": "06181339fac7ba1a96526b958e19c51a310cd0f0",
+   "titleKey": "88d939436ae85001180695b171820396cbadfe29",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Settler rams into Palestinians at multiple locations in central Israel At least eight Palestinians were injured after a settler driver was caught on camera running them over.",
+   "at": "2026-11-19T01:13:45.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/19/settler-rams-into-palestinians-at-multiple-locations-in-central-israel?traffic_source=rss"
+  },
+  {
+   "id": "3956ef4e08764bc0f9d311ce70cfd21d115bbd7e",
+   "titleKey": "3487f9a574f19281a6955a5a9d5c622ceb1a272c",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Trump promises to resolve standoff with Iran soon The US president made this statement in response to a question about whether he intends to keep the troops in the region until an agreement is reached",
+   "at": "2026-11-19T01:23:45.000Z",
+   "url": "https://tass.com/world/2220847"
+  },
+  {
+   "id": "1c0cbef62de2900b5dc106bb41589ad95aa69a0e",
+   "titleKey": "c85730fc4416f9045de90929bf0f1131fe0d4cc8",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Muslims to outnumber Christians by 2035 worldwide: Pew research The absolute number of Hindus in India and worldwide will rise from 1.2 billion in 2020 to 1.4 billion by 2070",
+   "at": "2026-11-19T01:27:12.000Z",
+   "url": "https://www.thehindu.com/news/international/muslims-to-outnumber-christians-by-2035-worldwide-pew-research/article71718507.ece"
+  },
+  {
+   "id": "80940bf3b4ffe58c07b0ae0de4c9242c19b73981",
+   "titleKey": "bd1bfdc6330fb86b4803f459a450afe8382f507d",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "رازهای ترسناک دریای خزر که نگرانتان می‌کند یک متخصص اکوبیولوژی و بوم‌شناسی دریا درباره پیش‌بینی‌هایی که از عقب‌نشینی سالانه ۱۰ تا ۲۵سانتی‌متری آب دریای خزر حکایت دارد، می‌گوید.",
+   "at": "2026-11-19T01:28:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1853672/%D8%B1%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%AA%D8%B1%D8%B3%D9%86%D8%A7%DA%A9-%D8%AF%D8%B1%DB%8C%D8%A7%DB%8C-%D8%AE%D8%B2%D8%B1-%DA%A9%D9%87-%D9%86%DA%AF%D8%B1%D8%A7%D9%86%D8%AA%D8%A7%D9%86-%D9%85%DB%8C-%DA%A9%D9%86%D8%AF"
+  },
+  {
+   "id": "7b3a9875bad2d058e4b66c5213e273dd46d8864a",
+   "titleKey": "2f8f0669225023f72417dbb4f393d251a1105fe4",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "قیمت آپارتمان در۶ منطقه جنوبی تهران+ جدول قیمت آپارتمان در ۶منطقه ۱۵ تا ۲۱ تهران در جدول زیر آمده است.",
+   "at": "2026-11-19T01:30:00.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309365-%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%BE%D8%A7%D8%B1%D8%AA%D9%85%D8%A7%D9%86-%D8%AF%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D9%87-%D8%AC%D9%86%D9%88%D8%A8%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%AC%D8%AF%D9%88%D9%84"
+  },
+  {
+   "id": "3531215238ee311780745a5b9427f4724bb76daf",
+   "titleKey": "6d865b6303df8d83d5b906fbef85629c98ae0f49",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Treason or not, betraying one’s country won’t be tolerated If you ask what constitutes treason, most people would probably answer: treason is assisting an enemy to harm one’s country. If national security laws existed at the time, historical figures like Qin Hui, Wu Sangui and even Wang Jingwei might all have been found guilty of treason. If you further ask whether treason applies only during times of war, the question becomes somewhat complicated. Logically and as a matter of principle, treason is an act of betraying one’s country; the emphasis is on...",
+   "at": "2026-11-19T01:30:06.000Z",
+   "url": "https://www.scmp.com/opinion/hong-kong-opinion/article/3374219/treason-or-not-betraying-ones-country-wont-be-tolerated"
+  },
   {
    "id": "79e90c1bc3a4ad73c7a28fb00d07f7668438b5d9",
    "titleKey": "53b438af4de9659393e4997d602730762357f8e0",
@@ -5823,11 +5896,91 @@
    "titleTexts": [],
    "cat": "iran",
    "queuedAt": "2026-11-19T01:22:59.486Z"
+  },
+  {
+   "kind": "news",
+   "text": "Asharq Al-Awsat: روزنامه الشرق‌الأوسط در یادداشتی به بازخوانی جدل تاریخی تقدم عقل بر نقل پرداخته است.",
+   "source": "Asharq Al-Awsat",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:18.466Z"
+  },
+  {
+   "kind": "news",
+   "text": "Al-Araby Al-Jadeed: روزنامه العربي الجديد از افزایش بدهی‌ها و آسیب به اقتصاد بحرین در پی ضربات ایران خبر داد.",
+   "source": "Al-Araby Al-Jadeed",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:19.167Z"
+  },
+  {
+   "kind": "news",
+   "text": "Al Jazeera English: زیر گرفتن فلسطینیان توسط یک شهرک‌نشین در مرکز اسرائیل، دست‌کم هشت مجروح برجای گذاشت.",
+   "source": "Al Jazeera English",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:19.868Z"
+  },
+  {
+   "kind": "news",
+   "text": "TASS English: ترامپ وعده داد که بن‌بست و تنش موجود با ایران به‌زودی حل‌وفصل خواهد شد.",
+   "source": "TASS English",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:20.568Z"
+  },
+  {
+   "kind": "news",
+   "text": "The Hindu: طبق پژوهش پیو، مسلمانان تا ۲۰۳۵ از مسیحیان پیشی می‌گیرند و هندوها تا ۲۰۷۰ به ۱.۴ میلیارد نفر می‌رسند.\n\n🖼 عکس خود خبر: https://th-i.thgim.com/public/incoming/14yc0v/article71718508.ece/alternates/LANDSCAPE_1200/iStock-153262551.jpg",
+   "source": "The Hindu",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:21.269Z"
+  },
+  {
+   "kind": "news",
+   "text": "مشرق نیوز: رازهای ترسناک دریای خزر که نگرانتان می‌کند یک متخصص اکوبیولوژی و بوم‌شناسی دریا درباره پیش‌بینی‌هایی که از عقب‌نشینی سالانه ۱۰ تا ۲۵سانتی‌متری آب دریای خزر حکایت دارد، می‌گوید.\n\n🖼 عکس خود خبر: https://cdn.mashreghnews.ir/d/2026/11/18/4/4752750.jpg",
+   "source": "مشرق نیوز",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:21.970Z"
+  },
+  {
+   "kind": "news",
+   "text": "دنیای اقتصاد: قیمت آپارتمان در۶ منطقه جنوبی تهران+ جدول قیمت آپارتمان در ۶منطقه ۱۵ تا ۲۱ تهران در جدول زیر آمده است.\n\n🖼 عکس خود خبر: https://cdn.donya-e-eqtesad.com/thumbnail/Zu96TtwdlRd1/l94PPMHdk-vVu9jQkK-rckhaQzj1K4o7H-vGRgSxYnELwgaVTvNfHkvcvEZKWYkry0pzyctNYn5CGASNDPkqSW6LdwtMK1YNTPMXvGqj5GybZ-IPZJ3MYUCoZviBmGfvlzUyS-jx1H4NaWiZYcu1siPoIJmL0AvxValOtC-ZBaST_Q14cziu63udS8fmiGsE/%D9%85%D8%B3%DA%A9%D9%86+%D8%AA%D9%87%D8%B1%D8%A7%D9%86.jpg",
+   "source": "دنیای اقتصاد",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "economy",
+   "queuedAt": "2026-11-19T01:32:22.671Z"
+  },
+  {
+   "kind": "news",
+   "text": "SCMP: یادداشتی تحلیلی با بررسی ابعاد خیانت به وطن تأکید کرد آسیب به امنیت ملی تحت هیچ شرایطی تحمل نمی‌شود.\n\n🖼 عکس خود خبر: https://cdn.i-scmp.com/sites/default/files/styles/1280x720/public/d8/images/canvas/2026/11/17/a59f4558-5927-4b1b-90f3-75029bafa2a2_cf89c5cb.jpg?itok=IkwD-ebE&v=1794901634",
+   "source": "SCMP",
+   "ids": [],
+   "titleKeys": [],
+   "titleTexts": [],
+   "cat": "general",
+   "queuedAt": "2026-11-19T01:32:23.372Z"
   }
  ],
  "tweetQueue": [],
  "lastNewsSlotKey": "2026-11-19T04:00",
- "lastTweetSlotKey": "2026-11-19T03:00",
+ "lastTweetSlotKey": "2026-11-19T05:00",
  "lastBundleAt": "2026-11-11T17:29:35.225Z",
  "hourlyAnalyses": [
   {
@@ -6000,6 +6153,79 @@
   }
  ],
  "dailyPool": [
+  {
+   "id": "029cd6df74c49dbda4c95b42dce72f28aa88274b",
+   "titleKey": "236af539775ae0840db4758c70f63f5801817f97",
+   "source": "Asharq Al-Awsat",
+   "lang": "ar",
+   "text": "لماذا نقدم العقل على النقل؟ مراجعة لجدل قديم - الشرق الأوسط لماذا نقدم العقل على النقل؟ مراجعة لجدل قديم الشرق الأوسط",
+   "at": "2026-11-19T00:05:23.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimwNBVV95cUxNaGtiRUxBODhkcWJuMVBPU0NzWWVNcjhKZnR1ejY2TzJ3bHR4X2F1NlNVaWZCVWFYNmRuem9XNm0zS1RESi1hbG9rcFFFQ1gwb0R1Q0pTR2s0N0JKdXkwQkg2d011TXNtZzhQSjlrc0VXUWcyeG1Ib1ZEeEJDVmJMSWlpUTZ3Z0R5NUZwRy0zS3pTLWlCeFk0aU96ekVXUFEzZTRxZ29BU0ROWW9ZX3lBbjBVWUU1cEhLbU0tV0pWbDY4Rkl6YlZNSUswWVJXV1gtU29VNG90eVBqeFM4QXNpZ25aRXd4dE1HQzNkbGJSNlVuZGlhLS1ISkdLVmlSeXNsT1ZaZzA3X3FMaFFPQWF1Z1c2bG11U3JOd2tFaFlKU3ZoaC1zNkRxMi1GTnNsV1QwcHFaYVJ3ZHB2TUdpSmg5RF9jNXpxVm9jZEdQMmtYdlFWaEIwSVN4cGtraU0wWHNFVGtMcUdRei1YS25yZFNaVW5UbVVMZFFvVHZKVWU2LW5zX0NUbVJTbHJCWHRQOHdBV3pMbEI3M3RDRWc?oc=5"
+  },
+  {
+   "id": "7720994e1a90f3312e364b6a27539cdfb3a61eca",
+   "titleKey": "1827e38ab60ad0ab1876d4a9007c1b4299502c4b",
+   "source": "Al-Araby Al-Jadeed",
+   "lang": "ar",
+   "text": "ضربات إيران تستنزف اقتصاد البحرين... ارتفاع الديون - العربي الجديد ضربات إيران تستنزف اقتصاد البحرين... ارتفاع الديون العربي الجديد",
+   "at": "2026-11-19T01:00:03.000Z",
+   "url": "https://news.google.com/rss/articles/CBMimgNBVV95cUxPRTJob0lMeVcxaVh2X3RBa211QkV6NjRuY0x0UW9tMzhzYTZZUGlUd2kxLVo5SkRrRzAwQkUzT2RSR05fR1FxakRvdHFrSHBXNGw3U0xyMHhFcURwZWpRTXpwZ3hqb3VFS2NPMzRpMTV2aUFTbHdUUVJ4ODhndEFrTFltcU43T1lDMV9Fc2tqQjN4LXZyLU9LX1hpeWdnY0N6MURFRl8tWUtiMGJxYkpxMlg0VExfeTJRb2llVDBHTUFWWVdfOC1PX3BpSWxBajRoM3lHbXVFUkFvN0p6UmNDdEN5TWdndVFBaXdHcWhhZDhabFF3ajZmdnM5OHJjeW8wVHhFU0J5N01mVmRJMjhTNndoZnR0dGs3VG5pZ0stRlVjWS1aLWRVTFRwZS1BU1BjeUFCbUJuU05rQjIxaGhCZ3JIcVFJQTBlZUVpRWlJRW9QeDBuTU8tY2k2Sm1La0kyc25la01LTU1LQnZLUTM3TWVUNi0xUVFzVURQeVQ5dkRNRjVXdDU3T2drZ2hOTG1pS3VVQkNMcmU2Z9IBnwNBVV95cUxPRVRNMzd3NnVGNm5YVkt5OHk1WFIxOHRQY2JkY0ZHczlUUlJIdUM5VW45ZlcwZXlubks4TW9LZkJNMEZmZW92TllfZGduNU1fWTc3NDBoY0pKYklxeEVISllnMjFpcXlNVmpOLWMwa2lEM1NMVjctTUNWSy1BSXJuSGtoMzhOOXItYnhGTUM2bFNsUEhCbVlIR2tyTWxHcE01QlFxZndZYk1DOVpoSmtTSmliR2pxTmFBUkhVU0c2NVE2X1VBZjJFeV9XWVVaUlN6b0UyVU9ZM1dNQ2d1LS1HaDljS2hOMUQ0cW54eG1xaVlHRTR1RllGYWVTbTBqM2tqVDNLOGJoMEt5OGZ4elRScTNSVHJCTmo2bW9OelhwMDVQdVRsWVlDRDVsSEU3UWxMSGxrX3MtLVRhcVdUNDByNUc0T1l1VmN2alBLZGZ6bHhtR0htSnZYYXB1SzNRemxrd0J2b3c4djZYcUQwQXRhWGhzbndmVG9Fak5zaWtMN19zeWJRektZMWpDRU9rbHNveGl2NVN0Y2QzdWQxaTQ4?oc=5"
+  },
+  {
+   "id": "06181339fac7ba1a96526b958e19c51a310cd0f0",
+   "titleKey": "88d939436ae85001180695b171820396cbadfe29",
+   "source": "Al Jazeera English",
+   "lang": "en",
+   "text": "Settler rams into Palestinians at multiple locations in central Israel At least eight Palestinians were injured after a settler driver was caught on camera running them over.",
+   "at": "2026-11-19T01:13:45.000Z",
+   "url": "https://www.aljazeera.com/video/newsfeed/2026/11/19/settler-rams-into-palestinians-at-multiple-locations-in-central-israel?traffic_source=rss"
+  },
+  {
+   "id": "3956ef4e08764bc0f9d311ce70cfd21d115bbd7e",
+   "titleKey": "3487f9a574f19281a6955a5a9d5c622ceb1a272c",
+   "source": "TASS English",
+   "lang": "en",
+   "text": "Trump promises to resolve standoff with Iran soon The US president made this statement in response to a question about whether he intends to keep the troops in the region until an agreement is reached",
+   "at": "2026-11-19T01:23:45.000Z",
+   "url": "https://tass.com/world/2220847"
+  },
+  {
+   "id": "1c0cbef62de2900b5dc106bb41589ad95aa69a0e",
+   "titleKey": "c85730fc4416f9045de90929bf0f1131fe0d4cc8",
+   "source": "The Hindu",
+   "lang": "en",
+   "text": "Muslims to outnumber Christians by 2035 worldwide: Pew research The absolute number of Hindus in India and worldwide will rise from 1.2 billion in 2020 to 1.4 billion by 2070",
+   "at": "2026-11-19T01:27:12.000Z",
+   "url": "https://www.thehindu.com/news/international/muslims-to-outnumber-christians-by-2035-worldwide-pew-research/article71718507.ece"
+  },
+  {
+   "id": "80940bf3b4ffe58c07b0ae0de4c9242c19b73981",
+   "titleKey": "bd1bfdc6330fb86b4803f459a450afe8382f507d",
+   "source": "مشرق نیوز",
+   "lang": "fa",
+   "text": "رازهای ترسناک دریای خزر که نگرانتان می‌کند یک متخصص اکوبیولوژی و بوم‌شناسی دریا درباره پیش‌بینی‌هایی که از عقب‌نشینی سالانه ۱۰ تا ۲۵سانتی‌متری آب دریای خزر حکایت دارد، می‌گوید.",
+   "at": "2026-11-19T01:28:00.000Z",
+   "url": "https://www.mashreghnews.ir/news/1853672/%D8%B1%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%AA%D8%B1%D8%B3%D9%86%D8%A7%DA%A9-%D8%AF%D8%B1%DB%8C%D8%A7%DB%8C-%D8%AE%D8%B2%D8%B1-%DA%A9%D9%87-%D9%86%DA%AF%D8%B1%D8%A7%D9%86%D8%AA%D8%A7%D9%86-%D9%85%DB%8C-%DA%A9%D9%86%D8%AF"
+  },
+  {
+   "id": "7b3a9875bad2d058e4b66c5213e273dd46d8864a",
+   "titleKey": "2f8f0669225023f72417dbb4f393d251a1105fe4",
+   "source": "دنیای اقتصاد",
+   "cat": "economy",
+   "lang": "fa",
+   "text": "قیمت آپارتمان در۶ منطقه جنوبی تهران+ جدول قیمت آپارتمان در ۶منطقه ۱۵ تا ۲۱ تهران در جدول زیر آمده است.",
+   "at": "2026-11-19T01:30:00.000Z",
+   "url": "https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AE%D9%88%D8%A7%D9%86-62/4309365-%D9%82%DB%8C%D9%85%D8%AA-%D8%A2%D9%BE%D8%A7%D8%B1%D8%AA%D9%85%D8%A7%D9%86-%D8%AF%D8%B1-%D9%85%D9%86%D8%B7%D9%82%D9%87-%D8%AC%D9%86%D9%88%D8%A8%DB%8C-%D8%AA%D9%87%D8%B1%D8%A7%D9%86-%D8%AC%D8%AF%D9%88%D9%84"
+  },
+  {
+   "id": "3531215238ee311780745a5b9427f4724bb76daf",
+   "titleKey": "6d865b6303df8d83d5b906fbef85629c98ae0f49",
+   "source": "SCMP",
+   "lang": "en",
+   "text": "Treason or not, betraying one’s country won’t be tolerated If you ask what constitutes treason, most people would probably answer: treason is assisting an enemy to harm one’s country. If national security laws existed at the time, historical figures like Qin Hui, Wu Sangui and even Wang Jingwei might all have been found guilty of treason. If you further ask whether treason applies only during times of war, the question becomes somewhat complicated. Logically and as a matter of principle, treason is an act of betraying one’s country; the emphasis is on...",
+   "at": "2026-11-19T01:30:06.000Z",
+   "url": "https://www.scmp.com/opinion/hong-kong-opinion/article/3374219/treason-or-not-betraying-ones-country-wont-be-tolerated"
+  },
   {
    "id": "79e90c1bc3a4ad73c7a28fb00d07f7668438b5d9",
    "titleKey": "53b438af4de9659393e4997d602730762357f8e0",
@@ -11928,7 +12154,7 @@
   }
  ],
  "lastGeoKey": "2026-11-19T04:00",
- "aiCursor": 5,
+ "aiCursor": 0,
  "carStore": {
   "ساینا": {
    "model": "ساینا",
@@ -12580,20 +12806,20 @@
   }
  },
  "saleAlertIds": {
-  "Akharin_khodro/8981": 1795051403096,
-  "Akharin_khodro/8984": 1795051403096,
-  "Akharin_khodro/8985": 1795051403096,
-  "Akharin_khodro/8986": 1795051403096,
-  "Akharin_khodro/8987": 1795051403096,
-  "Akharin_khodro/8988": 1795051403096,
-  "Akharin_khodro/8989": 1795051403096,
-  "Akharin_khodro/8990": 1795051403096,
-  "Akharin_khodro/8991": 1795051403096,
-  "Akharin_khodro/8994": 1795051403096,
-  "Akharin_khodro/8995": 1795051403096,
-  "Akharin_khodro/8997": 1795051403096,
-  "Akharin_khodro/8998": 1795051403096,
-  "Akharin_khodro/8999": 1795051403096,
+  "Akharin_khodro/8981": 1795051967377,
+  "Akharin_khodro/8984": 1795051967377,
+  "Akharin_khodro/8985": 1795051967377,
+  "Akharin_khodro/8986": 1795051967377,
+  "Akharin_khodro/8987": 1795051967377,
+  "Akharin_khodro/8988": 1795051967377,
+  "Akharin_khodro/8989": 1795051967377,
+  "Akharin_khodro/8990": 1795051967377,
+  "Akharin_khodro/8991": 1795051967377,
+  "Akharin_khodro/8994": 1795051967377,
+  "Akharin_khodro/8995": 1795051967377,
+  "Akharin_khodro/8997": 1795051967377,
+  "Akharin_khodro/8998": 1795051967377,
+  "Akharin_khodro/8999": 1795051967377,
   "Akharin_khodro/8980": 1795027620874,
   "Akharin_khodro/8979": 1795023829863,
   "Akharin_khodro/8978": 1795023312535,
@@ -12756,9 +12982,14 @@
     "id": "hy-02",
     "dateKey": "2026-11-18",
     "kind": "evening"
+   },
+   "sj-02": {
+    "id": "sj-02",
+    "dateKey": "2026-11-19",
+    "kind": "morning"
    }
   },
-  "infallibleCursor": 5,
+  "infallibleCursor": 6,
   "usedImages": {
    "https://upload.wikimedia.org/wikipedia/commons/4/41/Duke_Forest_misty_morning_h.jpg": {
     "dateKey": "2026-11-10",
@@ -12835,6 +13066,10 @@
    "https://upload.wikimedia.org/wikipedia/commons/0/03/Sunset_over_the_Sea_from_Llanddwyn_Island%2C_Anglesey_%E2%80%93_July_2025.jpg": {
     "dateKey": "2026-11-18",
     "kind": "evening"
+   },
+   "https://upload.wikimedia.org/wikipedia/commons/d/d0/Wooden_walkway_leading_to_a_hut_with_straw_roof_in_front_of_karst_mountains_with_mist%2C_at_sunrise%2C_Vang_Vieng%2C_Laos.jpg": {
+    "dateKey": "2026-11-19",
+    "kind": "morning"
    }
   },
   "runs": [
@@ -13194,9 +13429,19 @@
     "isTest": false,
     "imageUrl": "card",
     "at": "2026-11-18T17:33:35.165Z"
+   },
+   {
+    "dateKey": "2026-11-19",
+    "kind": "morning",
+    "slotKey": "2026-11-19T05:00",
+    "status": "sent",
+    "isTest": false,
+    "hadithId": "sj-02",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Wooden_walkway_leading_to_a_hut_with_straw_roof_in_front_of_karst_mountains_with_mist%2C_at_sunrise%2C_Vang_Vieng%2C_Laos.jpg",
+    "at": "2026-11-19T01:30:52.274Z"
    }
   ],
-  "lastMorningKey": "2026-11-18T05:00",
+  "lastMorningKey": "2026-11-19T05:00",
   "lastEveningKey": "2026-11-18T21:00",
   "lastWeatherKey": "2026-11-18T21:00",
   "dayHistoryCache": {
@@ -14046,6 +14291,42 @@
      }
     ],
     "at": "2026-11-18T17:33:02.148Z"
+   },
+   "world:2026-11-19": {
+    "title": "November 19",
+    "entries": [
+     {
+      "year": 2010,
+      "text": "پایگاه اول چهار انفجار در معدن رود پیک در نیوزیلند رخ می‌دهد. بیست و نه نفر در بدترین حادثه معدنی کشور از سال ۱۹۱۴ کشته می‌شوند.",
+      "kind": "event"
+     },
+     {
+      "year": 1999,
+      "text": "شِنزو ۱: جمهوری خلق چین اولین فضاپیمای شِنزو را به فضا می‌فرستد.",
+      "kind": "event"
+     },
+     {
+      "year": 1999,
+      "text": "جان کارپینتر اولین نفری می‌شود که جایزه برتر مسابقه تلویزیونی «کسی می‌خواهد میلیونر شود؟» را برنده می‌شود.",
+      "kind": "event"
+     },
+     {
+      "year": 1979,
+      "text": "بحران گروگانگیری ایران: رهبر ایران، آیت‌الله روح‌الله خمینی، دستور آزادسازی ۱۳ گروگان آمریکایی زن و سیاه‌پوست را صادر می‌کند که در سفارت آمریکا در تهران نگه داشته می‌شوند.",
+      "kind": "event"
+     },
+     {
+      "year": 1816,
+      "text": "دانشگاه ورشو تأسیس می‌شود.",
+      "kind": "event"
+     },
+     {
+      "year": 1808,
+      "text": "جنگ فنلاند: کنوانسیون اولکیکوکی در راهه پایان جنگ در فنلاند را اعلام می‌کند.",
+      "kind": "event"
+     }
+    ],
+    "at": "2026-11-19T01:30:47.834Z"
    }
   },
   "lastWeatherKeys": {
@@ -14057,84 +14338,84 @@
  },
  "sourceHealth": {
   "lastOkAt": {
-   "BBC Sport": "2026-11-19T01:23:23.101Z",
-   "CGTN": "2026-11-19T01:23:23.101Z",
-   "ESPN": "2026-11-19T01:23:23.101Z",
-   "RT": "2026-11-19T01:23:23.101Z",
-   "TRT Persian": "2026-11-19T01:23:23.101Z",
-   "Press TV (تلگرام)": "2026-11-19T01:23:23.101Z",
-   "AP News": "2026-11-19T01:23:23.101Z",
-   "Anadolu Agency": "2026-11-19T01:23:23.101Z",
-   "Israel National News": "2026-11-19T01:23:23.101Z",
-   "Sputnik": "2026-11-19T01:23:23.101Z",
-   "Sky News World": "2026-11-19T01:23:23.101Z",
-   "اعتمادآنلاین": "2026-11-19T01:23:23.101Z",
-   "اقتصادآنلاین": "2026-11-19T01:23:23.101Z",
-   "Al Jazeera English": "2026-11-19T01:23:23.101Z",
-   "Al Jazeera Arabic": "2026-11-19T01:23:23.101Z",
-   "Alsumaria": "2026-11-19T01:23:23.101Z",
-   "Asharq Al-Awsat": "2026-11-19T01:23:23.101Z",
-   "Al-Araby Al-Jadeed": "2026-11-19T01:23:23.101Z",
-   "Al Arabiya": "2026-11-19T01:23:23.101Z",
-   "Al Masirah": "2026-11-19T01:23:23.101Z",
-   "Al Mayadeen": "2026-11-19T01:23:23.101Z",
-   "MSNBC": "2026-11-19T01:23:23.101Z",
-   "انصاف نیوز": "2026-11-19T01:23:23.101Z",
-   "NPR World": "2026-11-19T01:23:23.101Z",
-   "Iran International": "2026-11-19T01:23:23.101Z",
-   "باشگاه خبرنگاران جوان (YJC)": "2026-11-19T01:23:23.101Z",
-   "Bloomberg": "2026-11-19T01:23:23.101Z",
-   "BBC Persian": "2026-11-19T01:23:23.101Z",
-   "BBC World": "2026-11-19T01:23:23.101Z",
-   "TASS English": "2026-11-19T01:23:23.101Z",
-   "Times of Israel": "2026-11-19T01:23:23.101Z",
-   "Times of India": "2026-11-19T01:23:23.101Z",
-   "تجارت نیوز": "2026-11-19T01:23:23.101Z",
-   "خبرآنلاین": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری ایسنا": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری ایلنا": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری فارس": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری مهر": "2026-11-19T01:23:23.101Z",
-   "The Hill": "2026-11-19T01:23:23.101Z",
-   "The Hindu": "2026-11-19T01:23:23.101Z",
-   "Dawn": "2026-11-19T01:23:23.101Z",
-   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-19T01:23:23.101Z",
-   "دنیای اقتصاد": "2026-11-19T01:23:23.101Z",
-   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-19T01:23:23.101Z",
-   "DW English": "2026-11-19T01:23:23.101Z",
-   "DW Persian": "2026-11-19T01:23:23.101Z",
-   "Radio Zamaneh": "2026-11-19T01:23:23.101Z",
-   "RFI Persian": "2026-11-19T01:23:23.101Z",
-   "Radio Farda": "2026-11-19T01:23:23.101Z",
-   "People's Daily English": "2026-11-19T01:23:23.101Z",
+   "BBC Sport": "2026-11-19T01:32:47.383Z",
+   "CGTN": "2026-11-19T01:32:47.383Z",
+   "ESPN": "2026-11-19T01:32:47.383Z",
+   "RT": "2026-11-19T01:32:47.383Z",
+   "TRT Persian": "2026-11-19T01:32:47.383Z",
+   "Press TV (تلگرام)": "2026-11-19T01:32:47.383Z",
+   "AP News": "2026-11-19T01:32:47.383Z",
+   "Anadolu Agency": "2026-11-19T01:32:47.383Z",
+   "Israel National News": "2026-11-19T01:32:47.383Z",
+   "Sputnik": "2026-11-19T01:32:47.383Z",
+   "Sky News World": "2026-11-19T01:32:47.383Z",
+   "اعتمادآنلاین": "2026-11-19T01:32:47.383Z",
+   "اقتصادآنلاین": "2026-11-19T01:32:47.383Z",
+   "Al Jazeera English": "2026-11-19T01:32:47.383Z",
+   "Al Jazeera Arabic": "2026-11-19T01:32:47.383Z",
+   "Alsumaria": "2026-11-19T01:32:47.383Z",
+   "Asharq Al-Awsat": "2026-11-19T01:32:47.383Z",
+   "Al-Araby Al-Jadeed": "2026-11-19T01:32:47.383Z",
+   "Al Arabiya": "2026-11-19T01:32:47.383Z",
+   "Al Masirah": "2026-11-19T01:32:47.383Z",
+   "Al Mayadeen": "2026-11-19T01:32:47.383Z",
+   "MSNBC": "2026-11-19T01:32:47.383Z",
+   "انصاف نیوز": "2026-11-19T01:32:47.383Z",
+   "NPR World": "2026-11-19T01:32:47.383Z",
+   "Iran International": "2026-11-19T01:32:47.383Z",
+   "باشگاه خبرنگاران جوان (YJC)": "2026-11-19T01:32:47.383Z",
+   "Bloomberg": "2026-11-19T01:32:47.383Z",
+   "BBC Persian": "2026-11-19T01:32:47.383Z",
+   "BBC World": "2026-11-19T01:32:47.383Z",
+   "TASS English": "2026-11-19T01:32:47.383Z",
+   "Times of Israel": "2026-11-19T01:32:47.383Z",
+   "Times of India": "2026-11-19T01:32:47.383Z",
+   "تجارت نیوز": "2026-11-19T01:32:47.383Z",
+   "خبرآنلاین": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری ایسنا": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری ایلنا": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری تسنیم (کانال تلگرام)": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری فارس": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری مهر": "2026-11-19T01:32:47.383Z",
+   "The Hill": "2026-11-19T01:32:47.383Z",
+   "The Hindu": "2026-11-19T01:32:47.383Z",
+   "Dawn": "2026-11-19T01:32:47.383Z",
+   "دفتر مقام معظم رهبری (leader.ir)": "2026-11-19T01:32:47.383Z",
+   "دنیای اقتصاد": "2026-11-19T01:32:47.383Z",
+   "دونالد ترامپ — تروث سوشال (بایگانی عمومی)": "2026-11-19T01:32:47.383Z",
+   "DW English": "2026-11-19T01:32:47.383Z",
+   "DW Persian": "2026-11-19T01:32:47.383Z",
+   "Radio Zamaneh": "2026-11-19T01:32:47.383Z",
+   "RFI Persian": "2026-11-19T01:32:47.383Z",
+   "Radio Farda": "2026-11-19T01:32:47.383Z",
+   "People's Daily English": "2026-11-19T01:32:47.383Z",
    "Reuters": "2026-11-19T01:23:23.101Z",
-   "WHO News": "2026-11-19T01:23:23.101Z",
-   "FAO News": "2026-11-19T01:23:23.101Z",
-   "SCMP": "2026-11-19T01:23:23.101Z",
-   "CNN World": "2026-11-19T01:23:23.101Z",
-   "Israel Channel 12": "2026-11-19T01:23:23.101Z",
-   "NOW14 Israel": "2026-11-19T01:23:23.101Z",
-   "Xinhua English": "2026-11-19T01:23:23.101Z",
-   "TOLOnews": "2026-11-19T01:23:23.101Z",
-   "عصر ایران (Asr-e Iran)": "2026-11-19T01:23:23.101Z",
-   "Fox News World": "2026-11-19T01:23:23.101Z",
-   "France 24 English": "2026-11-19T01:23:23.101Z",
-   "مشرق نیوز": "2026-11-19T01:23:23.101Z",
-   "NYT World": "2026-11-19T01:23:23.101Z",
-   "Haaretz English": "2026-11-19T01:23:23.101Z",
-   "Washington Post": "2026-11-19T01:23:23.101Z",
-   "WSJ World": "2026-11-19T01:23:23.101Z",
+   "WHO News": "2026-11-19T01:32:47.383Z",
+   "FAO News": "2026-11-19T01:32:47.383Z",
+   "SCMP": "2026-11-19T01:32:47.383Z",
+   "CNN World": "2026-11-19T01:32:47.383Z",
+   "Israel Channel 12": "2026-11-19T01:32:47.383Z",
+   "NOW14 Israel": "2026-11-19T01:32:47.383Z",
+   "Xinhua English": "2026-11-19T01:32:47.383Z",
+   "TOLOnews": "2026-11-19T01:32:47.383Z",
+   "عصر ایران (Asr-e Iran)": "2026-11-19T01:32:47.383Z",
+   "Fox News World": "2026-11-19T01:32:47.383Z",
+   "France 24 English": "2026-11-19T01:32:47.383Z",
+   "مشرق نیوز": "2026-11-19T01:32:47.383Z",
+   "NYT World": "2026-11-19T01:32:47.383Z",
+   "Haaretz English": "2026-11-19T01:32:47.383Z",
+   "Washington Post": "2026-11-19T01:32:47.383Z",
+   "WSJ World": "2026-11-19T01:32:47.383Z",
    "ورزش۳": "2026-11-14T19:49:20.670Z",
-   "Press TV": "2026-11-19T01:23:23.101Z",
-   "Politico": "2026-11-19T01:23:23.101Z",
-   "China Daily": "2026-11-19T01:23:23.101Z",
-   "Guardian World": "2026-11-19T01:23:23.101Z",
-   "Guardian Environment": "2026-11-19T01:23:23.101Z",
+   "Press TV": "2026-11-19T01:32:47.383Z",
+   "Politico": "2026-11-19T01:32:47.383Z",
+   "China Daily": "2026-11-19T01:32:47.383Z",
+   "Guardian World": "2026-11-19T01:32:47.383Z",
+   "Guardian Environment": "2026-11-19T01:32:47.383Z",
    "Global Times": "2026-11-19T01:23:23.101Z",
-   "Euronews Persian": "2026-11-19T01:23:23.101Z",
-   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-19T01:23:23.101Z",
-   "همشهری آنلاین": "2026-11-19T01:23:23.101Z",
+   "Euronews Persian": "2026-11-19T01:32:47.383Z",
+   "خبرگزاری جمهوری اسلامی (ایرنا)": "2026-11-19T01:32:47.383Z",
+   "همشهری آنلاین": "2026-11-19T01:32:47.383Z",
    "انتخاب": "2026-11-19T01:23:23.101Z"
   },
   "alertedAt": {
@@ -14144,27 +14425,28 @@
  "adminHealth": {
   "failStreak": 0
  },
- "tweetCursor": 18,
- "lastRunAt": "2026-11-19T01:23:23.103Z",
+ "tweetCursor": 7,
+ "lastRunAt": "2026-11-19T01:32:47.387Z",
  "lastRun": {
   "ran": true,
   "sources": 79,
-  "sourcesFailed": 1,
-  "fetched": 1080,
-  "inWindow": 182,
-  "fresh": 17,
-  "sent": 17,
+  "sourcesFailed": 4,
+  "fetched": 1035,
+  "inWindow": 164,
+  "fresh": 8,
+  "sent": 8,
   "images": 0,
-  "translated": 13,
+  "translated": 6,
   "searches": 0,
   "dryRun": false,
-  "tweetsFetched": 187,
+  "tweetsFetched": 198,
   "tweetsSent": 0,
   "tweetAccountsTried": 10,
   "categoriesConfigured": 0,
+  "dailySent": "morning",
   "aiFailed": false,
   "skippedUntranslated": 0,
-  "queued": 17,
+  "queued": 8,
   "tweetRateLimited": false
  }
 }

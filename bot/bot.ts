@@ -55,17 +55,17 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, snapshotOf, applyDeltas, type CarStore, type Quote } from './market';
+import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, type CarStore, type Quote } from './market';
 import { renderMarketCardPng, buildMarketCardCaption } from './market-card';
 import {
   renderNewsCardPages,
-  buildNewsCardCaption,
   renderTweetCardPages,
-  buildTweetCardCaption,
   NEWS_CARD_MAX_PAGES,
   NEWS_CARD_ROWS_PER_PAGE,
   type CardPng,
 } from './news-card';
+import { groupByCategory, categorizeFa } from './categories';
+import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel } from './sale-announcement';
 import { groundAiBundle, type GroundResult } from './grounding';
 import {
   updateSourceHealth,
@@ -1685,16 +1685,19 @@ export async function translateOne(text: string): Promise<string | null> {
  *  ۲) JSON بریده → نجات مدخل‌های سالم (salvageBatchTranslations)؛
  *  ۳) پاسخ تجزیه‌ناپذیر → یک تلاش با تأمین‌کنندهٔ بعدی زنجیره.
  *  خروجی: آرایه هم‌طول ورودی — رشتهٔ خالی یعنی آن مورد این بار ترجمه نشد (چرخهٔ بعد دوباره).
- *  faithful=true → ترجمهٔ وفادار کامل (توییت‌ها)؛ پیش‌فرض → خلاصهٔ دوخطی خبر (خواستهٔ کاربر ۱۶ نوامبر). */
+ *  faithful=true → ترجمهٔ وفادار «کامل» توییت‌ها — خواستهٔ کاربر ۱۹ نوامبر: «به شکل کامل ،بدون
+ *  خلاصه نویسی» — بچ کوچک‌تر ۵تایی × ≤۲۴۰۰ نویسه تا توییت‌های بلند تروث‌سوشال هرگز بریده نشوند
+ *  (قبلاً سقف ۹۰۰ نویسه توییت‌های کامل را می‌برید و «توییت‌ها کامل نمی‌آمدند»). */
 export async function summarizeBatchFa(
   texts: string[],
   opts: { faithful?: boolean; maxPerItem?: number; maxTokens?: number } = {}
 ): Promise<{ fa: string[]; translated: number; provider?: string }> {
   const out: string[] = texts.map(() => '');
   if (!texts || texts.length === 0) return { fa: out, translated: 0 };
-  const prompt = opts.faithful ? getTranslatePrompt() : getNewsSummaryPrompt();
-  const perItem = Math.max(120, Math.min(1200, opts.maxPerItem ?? 900));
-  const BATCH = 8;
+  const faithful = opts.faithful === true;
+  const prompt = faithful ? getTranslatePrompt() : getNewsSummaryPrompt();
+  const perItem = Math.max(120, Math.min(faithful ? 2400 : 1200, opts.maxPerItem ?? (faithful ? 2400 : 900)));
+  const BATCH = faithful ? 5 : 8;
   let translated = 0;
   let lastProvider: string | undefined;
   for (let base = 0; base < texts.length; base += BATCH) {
@@ -1703,7 +1706,7 @@ export async function summarizeBatchFa(
     if (!corpus.trim()) continue;
     let entries: BatchTranslationEntry[] | null = null;
     for (let tryIdx = 0; tryIdx < 2 && !entries; tryIdx++) {
-      const r = await chainCall(prompt, corpus, { maxTokens: opts.maxTokens ?? 5000, skipIds: tryIdx > 0 && lastProvider ? [lastProvider] : ['openrouter'] });
+      const r = await chainCall(prompt, corpus, { maxTokens: opts.maxTokens ?? (faithful ? 8000 : 5000), skipIds: tryIdx > 0 && lastProvider ? [lastProvider] : ['openrouter'] });
       if (!r.ok || !r.content) continue;
       lastProvider = r.providerId;
       entries = extractJson(r.content, validateBatchTranslation) ?? salvageBatchTranslations(r.content);
@@ -2765,7 +2768,8 @@ export async function runAdminAlerts(state: BotState, summary: RunSummary, perSo
   }
 }
 
-// ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ----------
+// ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶؛
+//  بازطراحی ۱۹ نوامبر: حذف آدرس/اسم کانال + لینک فروش خودروساز + قیمت کارخانه + قیمت بازار آزاد) ----------
 
 const SALE_KEYWORDS = ['پیش‌فروش', 'پیش فروش', 'پیشفروش', 'اطلاعیه فروش', 'اطلاعیه‌ی فروش', 'شرایط فروش', 'شروع فروش', 'فروش اقساطی', 'عرضه خودرو', 'قرعه‌کشی', 'زمان فروش'];
 
@@ -2786,7 +2790,10 @@ export function parseSaleAnnouncements(posts: ParsedTgPost[], seen: Record<strin
   return { fresh, seen: Object.fromEntries(entries) };
 }
 
-/** بررسی هر چرخه — اطلاعیهٔ تازه فوراً اعلام می‌شود (سقف ۲ در هر چرخه — بدون اسپم) */
+/** بررسی هر چرخه — اطلاعیهٔ تازه فوراً اعلام می‌شود (سقف ۲ در هر چرخه — بدون اسپم).
+ *  قالب تازه (خواستهٔ کاربر ۱۹ نوامبر): «آدرس و اسم آخرین خودرو» (امضای کانال) حذف؛
+ *  بجاش زیر خبر: ۱) لینک سامانهٔ فروش خودروساز مرتبط ۲) قیمت فروش کارخانه (اعلامی اطلاعیه)
+ *  ۳) قیمت بازار آزاد مدل از باما — هر کدام نبود، صادقانه «ذکر نشد/یافت نشد». */
 export async function runSaleAlerts(state: BotState, summary: RunSummary): Promise<void> {
   if (CFG.saleChannels.length === 0) return;
   const posts: ParsedTgPost[] = [];
@@ -2799,20 +2806,42 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
   const res = parseSaleAnnouncements(posts, state.saleAlertIds || {});
   state.saleAlertIds = res.seen;
   for (const p of res.fresh.slice(0, 2)) {
-    const src = p.dataPost.split('/')[0] || CFG.saleChannels[0];
+    // حذف امضای کانال («@akharin_khodro | Akharinkhodro.ir») و تبلیغ‌هایش — خواستهٔ صریح کاربر
+    const clean = cleanSaleAnnouncementText(p.text);
+    if (!clean) continue;
+    const portal = matchSalePortal(clean);
+    const factoryPrice = extractSaleFactoryPrice(clean);
+    const model = matchSaleCarModel(clean);
+    // قیمت بازار آزاد مدل — فقط اسلاگ‌های بامای تأییدشده؛ نبود مدل/شکست واکشی → صادقانه غایب
+    let marketLine = '📈 قیمت بازار آزاد: مدل در اطلاعیه مشخص نبود';
+    if (model) {
+      const r = await fetchText(model.bamaUrl, 12_000);
+      const bp = r.ok && r.text ? parseBamaPrices(r.text) : { market: null, factory: null };
+      marketLine = bp.market
+        ? `📈 قیمت بازار آزاد (${model.label}): ${formatMoney(bp.market, 'toman')}`
+        : '📈 قیمت بازار آزاد: از باما دریافت نشد';
+    }
+    const factoryLine = factoryPrice
+      ? `🏭 قیمت فروش کارخانه: ${formatMoney(factoryPrice, 'toman')}`
+      : '🏭 قیمت فروش کارخانه: در اطلاعیه ذکر نشده';
+    const linkLine = portal
+      ? `🛒 <a href="${portal.url}">${portal.label}</a> — ${portal.url}`
+      : '🛒 سایت فروش خودروساز: در اطلاعیه ذکر نشده بود';
     const msg = [
       '🚗 <b>اطلاعیه فروش/پیش‌فروش خودرو</b>',
       '',
-      esc(p.text.slice(0, 3200)),
+      esc(clean.slice(0, 3200)),
       '',
-      `🔗 منبع: t.me/${src}`,
+      linkLine,
+      factoryLine,
+      marketLine,
     ].join('\n');
     for (const t of CFG.targets) {
       const s = await sendBaleMessage(CFG.token, t, msg);
       if (!s.ok) console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
     }
     summary.saleAlertsSent = (summary.saleAlertsSent || 0) + 1;
-    console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}`);
+    console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}${portal ? ` — لینک: ${portal.label}` : ''}${model ? ` — مدل: ${model.label}` : ''}`);
     await sleep(700);
   }
   if (res.fresh.length > 2) console.log(`${res.fresh.length - 2} اطلاعیهٔ دیگر به چرخهٔ بعد ماند (سقف هر چرخه ۲)`);
@@ -3307,7 +3336,7 @@ async function main(): Promise<void> {
       }));
       if (twItems.length > 0) {
         // ترجمهٔ وفادار کامل توییت‌ها (نمایش دوخطی: اصلی + نام فارسی: ترجمه) — بچ‌بندی ضد بن‌بست
-        const res = await summarizeBatchFa(twItems.map((p) => p.text), { faithful: true, maxPerItem: 900 });
+        const res = await summarizeBatchFa(twItems.map((p) => p.text), { faithful: true });
         let tr = 0;
         res.fa.forEach((fa, i) => {
           if (fa) { twItems[i]!.fa = fa; tr++; }
@@ -3654,7 +3683,7 @@ async function main(): Promise<void> {
       // متن کامل توییت (تا ۹۰۰ نویسه — سقف واقعی ایکس) به مدل می‌رود — ترجمهٔ تمام‌وکمال بدون خلاصه‌سازی
       const needIdx = toSend.map((c, i) => ({ c, i })).filter(({ c }) => needsTranslation(c.tweet.text));
       if (needIdx.length > 0) {
-        const res = await summarizeBatchFa(needIdx.map(({ c }) => c.tweet.text), { faithful: true, maxPerItem: 900 });
+        const res = await summarizeBatchFa(needIdx.map(({ c }) => c.tweet.text), { faithful: true });
         let tr = 0;
         res.fa.forEach((fa, j) => {
           if (fa) { needIdx[j]!.c.tweet.text = fa; tr++; } // فقط ترجمهٔ واقعاً فارسی
@@ -3820,9 +3849,14 @@ async function main(): Promise<void> {
         const cut = t.lastIndexOf(' ', 112);
         return `${t.slice(0, cut > 60 ? cut : 111).trimEnd()}…`;
       };
-      const cardItems = grounded
+      // دسته‌بندی + اولویت‌بندی — خواستهٔ کاربر ۱۹ نوامبر: «هر دسته از اخبار از جنگ گرفته تا
+      //  سیاست و علمی و ورزشی ، تو اون بازه دسته بندی بشن ، اولویت بندی بشن … و بعد در نهایت
+      //  در دسته اون خبر منتشر بشن» — دسته‌بندی واژه‌محور قطعی و بدون مدل (bot/categories.ts)،
+      //  درون هر دسته ترتیب اهمیت از تحلیل هوشمند حفظ می‌شود (مرتب‌سازی پایدار).
+      const rawCardItems: Array<{ text: string; tick: boolean; source: string }> = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
         : mergedItems.slice(0, NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).map((m) => ({ text: rawCardText(m.text), tick: m.verified, source: (m.sources[0] || '').trim() }));
+      const cardItems = groupByCategory(rawCardItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
       let newsCardSent = false;
       let newsCardsCount = 0;
       if (cardItems.length >= 3 && !CFG.dryRun) {
@@ -3838,10 +3872,10 @@ async function main(): Promise<void> {
           console.warn('⚠️ رندر کارت‌های بستهٔ خبری ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
         } else {
           for (let pi = 0; pi < pages.length; pi++) {
-            const part = { no: pi + 1, of: pages.length };
-            const cap = buildNewsCardCaption({ date: cardDate, items: cardItems, total: mergedItems.length, dropped: grounded?.dropped ?? 0, part });
+            // فقط عکس — کپشن زیر عکس کامل حذف شد (خواستهٔ صریح کاربر ۱۹ نوامبر:
+            // «میخوام کل متن زیر عکس حذف بشه فقط عکس حاوی اخبار باشه»)
             for (const t of CFG.targets) {
-              const s = await sendBalePhotoBytes(CFG.token, t, pages[pi]!.png, `raadban-news-${pi + 1}.png`, cap);
+              const s = await sendBalePhotoBytes(CFG.token, t, pages[pi]!.png, `raadban-news-${pi + 1}.png`);
               if (s.ok) newsCardSent = true;
               else console.error(`❌ ارسال کارت خبری ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
             }
@@ -3960,35 +3994,22 @@ async function main(): Promise<void> {
       if (!CFG.dryRun && twBundle.merged.length > 0) {
         const pTw = tehranParts(Date.now());
         const twDate = tripleDateOf(pTw.dateKey, 'Asia/Tehran', 'umalqura');
-        const twCardItems = twBundle.merged.map((m) => {
-          if (m.orig) {
-            // توییت خارجی — متن اصلی + «نام فارسی: ترجمه»
-            return {
-              source: m.sources[0] || 'حساب ناشناس',
-              orig: m.orig,
-              fa: m.text,
-              faName: m.faName,
-              verified: m.sources.length >= 2,
-            };
-          }
-          // توییت فارسی — یک خط، بدون ردیف تکراری ترجمه
-          return {
-            source: m.sources[0] || 'حساب ناشناس',
-            orig: m.sources.length > 1 ? `${m.text} (+${enToFaDigits(String(m.sources.length - 1))} بازتاب)` : m.text,
-            fa: '',
-            faName: undefined,
-            verified: m.sources.length >= 2,
-          };
-        });
+        // فقط فارسی روان — خواستهٔ کاربر ۱۹ نوامبر: «میخوام متن زبان اصلی توییت یا تروث سوشال
+        //  رو بزاری فقط فارس روان رو بزار» — متن اصلی حذف؛ نام فارسی توییت‌کننده + ترجمهٔ کامل.
+        const twCardItems = twBundle.merged.map((m) => ({
+          source: m.sources[0] || 'حساب ناشناس',
+          fa: m.text,
+          faName: m.faName,
+          verified: m.sources.length >= 2,
+        }));
         const twPages = await renderTweetCardPages({ date: twDate, items: twCardItems }).catch(() => [] as CardPng[]);
         if (twPages.length === 0) {
           console.warn('⚠️ رندر کارت توییت‌ها ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
         } else {
           for (let pi = 0; pi < twPages.length; pi++) {
-            const part = { no: pi + 1, of: twPages.length };
-            const cap = buildTweetCardCaption({ date: twDate, items: twCardItems, part });
+            // فقط عکس — کپشن زیر عکس کامل حذف شد (خواستهٔ صریح کاربر ۱۹ نوامبر)
             for (const t of CFG.targets) {
-              const s = await sendBalePhotoBytes(CFG.token, t, twPages[pi]!.png, `raadban-tweets-${pi + 1}.png`, cap);
+              const s = await sendBalePhotoBytes(CFG.token, t, twPages[pi]!.png, `raadban-tweets-${pi + 1}.png`);
               if (s.ok) twOk = true;
               else console.error(`❌ ارسال کارت توییت ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
             }

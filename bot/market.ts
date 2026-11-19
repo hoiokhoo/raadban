@@ -91,6 +91,11 @@ export interface Quote {
   display?: string;
   /** یادداشت صادقانه — مثلاً کهنگی قیمت خودرو */
   note?: string;
+  /** قیمت کارخانه (نمایندگی) باما — فقط برای مدل‌های VIP (خواستهٔ کاربر ۱۹ نوامبر:
+   *  «جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری») */
+  factoryToman?: number;
+  /** منبع قیمت کارخانه — «باما» */
+  factorySrc?: string;
   emoji: string;
 }
 
@@ -264,7 +269,7 @@ export const CAR_FEATURED: Array<{ match: string; label: string }> = [
   { match: 'j4', label: 'جک J4' },
   { match: 'j7', label: 'جک J7' },
   { match: 't9', label: 'جک T9' },
-  { match: 'الیت', label: 'الیت ۷' },
+  // «الیت» از فهرست عادی حذف شد — فیدلیتی الیت ۷نفره اکنون در سه‌گانهٔ VIP اول لیست است (۱۹ نوامبر)
   { match: 'فید', label: 'فیدلیتی' },
   { match: 'لاماری', label: 'لاماری' },
   { match: 'اتلس', label: 'اتلس اس' },
@@ -283,6 +288,21 @@ export const CAR_WEB_SOURCES: CarWebSource[] = [
   { match: 'sr3', label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter', hostLabel: 'باما' },
 ];
 
+// ---------- خودروهای VIP — سه‌گانهٔ اول لیست با ستون کارخانه و اختلاف (خواستهٔ کاربر ۱۹ نوامبر) ----------
+// «الآن در بخش خودروها j4 و sr3 و فیدلیتی الیت ۷ نفره وجود نداره ، اولا میخوام این سه خودرو رو
+//  حتما در لیست به شکل مجزا اول لیست بزاری دوما میخوام جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری،
+//  جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت رو بزار»
+// قیمت کارخانه = «قیمت نمایندگی» باما (قیمت رسمی اعلامی کارخانه در نمایندگی‌ها) — جست‌وجوی ۲۰ نوامبر:
+//   jac_j4: بازار ۳٬۶۰۰ میلیارد/نمایندگی ۱٬۶۱۰ میلیارد • kmc_sr3_1.6liter: ۵٬۵۵۰/۳٬۱۴۱ •
+//   fidelity_elite_7seater: ۸٬۰۰۰/۶٬۴۵۸ (میلیارد تومان)
+export interface CarVip { match: string; label: string; url: string }
+
+export const CAR_VIP: CarVip[] = [
+  { match: 'j4', label: 'جک J4', url: 'https://bama.ir/price/jac_j4' },
+  { match: 'sr3', label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter' },
+  { match: 'الیت', label: 'فیدلیتی الیت ۷نفره', url: 'https://bama.ir/price/fidelity_elite_7seater' },
+];
+
 /** نخستین «قیمت بازار X,X…X تومان» صفحهٔ قیمت باما — تیپ مدل‌سال جدیدتر اول می‌آید.
  *  تابع خالص تست‌پذیر؛ نامعتبر → null. */
 export function parseBamaMarketPrice(html: string): number | null {
@@ -293,6 +313,30 @@ export function parseBamaMarketPrice(html: string): number | null {
   } catch {
     return null;
   }
+}
+
+/** قیمت بازار + قیمت کارخانه (نمایندگی) یک صفحهٔ باما — خواستهٔ کاربر ۱۹ نوامبر:
+ *  ستون مجاز قیمت کارخانه و اختلاف بازار/کارخانه. نخستین تطبیق = مدل‌سال جدیدتر.
+ *  تابع خالص تست‌پذیر؛ هر عدد نامعتبر → null مستقل. */
+export function parseBamaPrices(html: string): { market: number | null; factory: number | null } {
+  try {
+    const t = (html || '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const mkt = t.match(/قیمت بازار\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
+    const fct = t.match(/قیمت نمایندگی\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
+    return { market: mkt ? num(mkt[1]) : null, factory: fct ? num(fct[1]) : null };
+  } catch {
+    return { market: null, factory: null };
+  }
+}
+
+/** ما به‌التفاوت بازار نسبت به کارخانه — عدد و درصد در یک جا (خواستهٔ کاربر ۱۹ نوامبر:
+ *  «جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت رو بزار»). کارخانه نامعتبر → null. تابع خالص. */
+export function carFactoryDelta(market: number, factory: number | undefined): { diff: number; pct: number } | null {
+  if (!factory || !Number.isFinite(factory) || factory <= 0 || !Number.isFinite(market)) return null;
+  return {
+    diff: Math.round(market - factory),
+    pct: Math.round(((market - factory) / factory) * 10000) / 100,
+  };
 }
 
 // ---------- انبار ماندگار قیمت خودرو — همیشه پرتیراژها در فهرست ----------
@@ -589,12 +633,9 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   const carStore = mergeCarStore(opts.carStore, cars, new Date().toISOString());
   const featured = featuredCarsFromStore(carStore, new Date().toISOString(), 18);
   const carQuotes: Quote[] = [];
-  const usedCarKeys = new Set<string>();
   for (const c of featured) {
-    const k = `car:${normalizeCarModel(c.model)}`;
-    usedCarKeys.add(k);
     carQuotes.push({
-      key: k,
+      key: `car:${normalizeCarModel(c.model)}`,
       title: c.model,
       value: c.valueToman,
       unit: 'toman',
@@ -603,17 +644,48 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
       emoji: '🚗',
     });
   }
+  // ── خودروهای VIP — سه‌گانهٔ اول لیست با ستون کارخانه/اختلاف (خواستهٔ کاربر ۱۹ نوامبر):
+  //  «ج4 و sr3 و فیدلیتی الیت ۷ نفره … اول لیست بزاری … جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری،
+  //  جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت» — بازار: تازه‌ترین کانال/انبار، نبود →
+  //  باما؛ کارخانه: «قیمت نمایندگی» باما (همیشه واکشی می‌شود). هیچ عدد ساختگی. ──
+  const vipQuotes: Quote[] = [];
+  for (const v of CAR_VIP) {
+    const norm = normalizeCarModel(v.match);
+    const chan = carQuotes.find((q) => q.key.slice(4).includes(norm));
+    const r = await get(v.url, timeoutMs);
+    const bp = r.ok && r.text ? parseBamaPrices(r.text) : { market: null, factory: null };
+    const bamaOk = bp.market !== null && bp.market >= 1e9 && bp.market <= 3e10;
+    const value = chan ? chan.value : bamaOk ? bp.market! : null;
+    if (value === null) {
+      failures.push(`خودرو ${v.label}: بازار در کانال و باما هر دو یافت نشد`);
+      continue;
+    }
+    vipQuotes.push({
+      key: `car:${norm}`,
+      title: v.label,
+      value,
+      unit: 'toman',
+      srcLabel: chan ? chan.srcLabel : 'باما (نت)',
+      note: chan?.note,
+      factoryToman: bp.factory !== null && bp.factory >= 1e8 && bp.factory <= 5e10 ? bp.factory : undefined,
+      factorySrc: bp.factory !== null ? 'باما' : undefined,
+      emoji: '🚗',
+    });
+  }
+  // VIPها از فهرست عادی حذف — تکراری نمی‌آیند (الیت/فیدلیتی/J4/SR3 فقط در سه‌گانهٔ اول)
+  const vipMatches = CAR_VIP.map((v) => normalizeCarModel(v.match));
+  const carRest = carQuotes.filter((q) => !vipMatches.some((vm) => q.key.slice(4).includes(vm)));
   // پشتیبان «از نت» — فقط مدل‌های غایب در کانال/انبار (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶);
   // شکست وب → صادقانه غایب. انبار ماندگار آلوده نمی‌شود (منبع قیمت = وب، نه کانال).
   const storeKeys = Object.keys(carStore);
   for (const w of CAR_WEB_SOURCES) {
     const norm = normalizeCarModel(w.match);
-    if (usedCarKeys.has(`car:${norm}`) || storeKeys.some((k) => k.includes(norm))) continue;
+    if (carRest.some((q) => q.key.slice(4).includes(norm)) || storeKeys.some((k) => k.includes(norm))) continue;
     const r = await get(w.url, timeoutMs);
     if (!r.ok || !r.text) continue;
     const price = parseBamaMarketPrice(r.text);
     if (price && price >= 1e9 && price <= 3e10) {
-      carQuotes.push({
+      carRest.push({
         key: `car:${norm}`,
         title: w.label,
         value: price,
@@ -623,9 +695,9 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
       });
     }
   }
-  // ترتیب نمایش بر پایهٔ فهرست پرتقاضا — SR3 «از نت» هم کنار خانوادهٔ کرمان می‌نشیند
-  const orderedCarQuotes: Quote[] = [];
-  const pending = new Map(carQuotes.map((q) => [q.key, q] as const));
+  // ترتیب نمایش: سه‌گانهٔ VIP اول لیست (خواستهٔ ۱۹ نوامبر) — بعد فهرست پرتقاضا — بعد بقیه
+  const orderedCarQuotes: Quote[] = [...vipQuotes];
+  const pending = new Map(carRest.map((q) => [q.key, q] as const));
   for (const f of CAR_FEATURED) {
     const fm = normalizeCarModel(f.match);
     for (const [k, q] of pending) {
@@ -651,14 +723,23 @@ export interface MarketMessageOptsDeprecated { /** حذف شد — امضای ت
 /** پیام گزارش بازار — خواستهٔ ۱۲ نوامبر ۲۰۲۶: بدون سربرگ «گزارش بازار رصدبان»، بدون بلوک
  *  «⚠️ دریافت نشد» (منبع غایب فقط حذف می‌شود — هیچ سطر شکست در پیام نمی‌آید)، بدون خط راهنمای
  *  «٪ تغییر…» و بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو» (نه کف بازار).
- *  درصد تغییر نسبت به گزارش قبلی حفظ شده است. */
+ *  درصد تغییر نسبت به گزارش قبلی حفظ شده است. خودروهای VIP (خواستهٔ ۱۹ نوامبر):
+ *  ستون مجاز قیمت کارخانه + ستون مجاز ما به‌التفاوت و درصد تفاوت نسبت به کارخانه. */
 export function formatMarketMessage(quotes: Quote[], prev: PriceSnapshot | undefined): string {
   const withDelta = applyDeltas(quotes, prev);
   const L: string[] = [];
   const cars = withDelta.filter((q) => q.key.startsWith('car:'));
   if (cars.length) {
     L.push('<b>🚗 آخرین قیمت بازار آزاد خودرو:</b>');
-    for (const c of cars) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
+    for (const c of cars) {
+      const base = `${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)}`;
+      const fd = c.factoryToman ? carFactoryDelta(c.value, c.factoryToman) : null;
+      if (fd && c.factoryToman) {
+        L.push(`• ${base} | کارخانه: ${formatMoney(c.factoryToman, 'toman')} | اختلاف: ${formatMoney(fd.diff, 'toman')} (${formatPct(fd.pct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
+      } else {
+        L.push(`• ${base} (${formatPct(c.changePct)})${c.note ? ` — ${xmlEsc(c.note)}` : ''}`);
+      }
+    }
     L.push('');
   }
   const gold = withDelta.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));

@@ -8,7 +8,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fetchAllSources, type BotSource, type BotItem } from '../bot/bot';
 import { mergeSimilarItems, type HourlyItem } from '../bot/hourly';
 import { tripleDateOf } from '../bot/calendar';
-import { renderNewsCardPng, buildNewsCardCaption } from '../bot/news-card';
+import { renderNewsCardPng } from '../bot/news-card';
+import { categorizeFa, groupByCategory } from '../bot/categories';
 
 const tz = 'Asia/Tehran';
 
@@ -53,11 +54,13 @@ if (merged.length < 3) {
 
 const todayKey = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const date = tripleDateOf(todayKey, tz, 'umalqura');
-const cardItems = merged.slice(0, 10).map((m) => ({
+// دسته‌بندی + اولویت‌بندی همان مسیر ربات (خواستهٔ ۱۹ نوامبر)
+const rawItems = merged.slice(0, 10).map((m) => ({
   text: m.text.slice(0, 170),
   tick: m.verified, // تیک کارت فقط از دادهٔ خوشه — نه از مدل
   source: (m.sources[0] || '').trim(),
 }));
+const cardItems = groupByCategory(rawItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
 const card = await renderNewsCardPng({ date, items: cardItems, total: merged.length, dropped: 0 });
 if (!card) {
   console.error('❌ رندر کارت ناموفق بود');
@@ -66,8 +69,4 @@ if (!card) {
 mkdirSync('download/preview', { recursive: true });
 writeFileSync('download/preview/news-card.png', card.png);
 console.log(`✅ کارت: ${card.width}×${card.height} — ${Math.round(card.png.length / 1024)} کیلوبایت → download/preview/news-card.png`);
-
-const cap = buildNewsCardCaption({ date, items: cardItems, total: merged.length, dropped: 0 });
-console.log('--- کپشن (بدون تگ) ---');
-console.log(cap.replace(/<[^>]+>/g, ''));
-console.log(`طول کپشن: ${cap.length} نویسه (سقف ۱۰۲۴)`);
+// کپشن حذف شد — خواستهٔ کاربر ۱۹ نوامبر: «فقط عکس حاوی اخبار باشه»

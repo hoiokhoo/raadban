@@ -142,23 +142,22 @@ describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ه
     expect(res.merged.length).toBe(2);
   });
 
-  test('توییت انگلیسی — متن اصلی + نام فارسی توییت‌کننده: ترجمه (خواستهٔ ۱۶ نوامبر)', () => {
+  test('توییت انگلیسی — فقط نام فارسی توییت‌کننده: ترجمهٔ کامل (خواستهٔ ۱۹ نوامبر)', () => {
     const res = buildTweetBundleChunks([
       tw('1', '𝕏 Donald Trump', 'دولت آمریکا تازه مجوزهای جدید صادر کرد', 'We have just authorized the deployment', 'دونالد ترامپ (رئیس‌جمهور آمریکا)'),
     ]);
-    expect(res.chunks[0]).toContain('𝕏 Donald Trump: We have just authorized the deployment');
     expect(res.chunks[0]).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا): دولت آمریکا تازه مجوزهای جدید صادر کرد');
+    expect(res.chunks[0]).not.toContain('We have just authorized'); // متن اصلی حذف — خواستهٔ صریح کاربر
     expect(res.chunks[0]).not.toContain('ترجمه فارسی');
-    // ترجمه زیر متن اصلی است، نه بالای آن
-    const body = res.chunks[0];
-    expect(body.indexOf('We have just authorized')).toBeLessThan(body.indexOf('دونالد ترامپ (رئیس‌جمهور آمریکا):'));
   });
 
-  test('توییت انگلیسی بدون faName — برچسب پیش‌فرض «🗣 ترجمه فارسی» می‌ماند (سازگاری)', () => {
+  test('توییت انگلیسی بدون faName — فقط ترجمهٔ فارسی (بدون برچسب و بدون متن اصلی)', () => {
     const res = buildTweetBundleChunks([
       tw('1', '𝕏 Donald Trump', 'دولت آمریکا تازه مجوزهای جدید صادر کرد', 'We have just authorized the deployment'),
     ]);
-    expect(res.chunks[0]).toContain('🗣 ترجمه فارسی: دولت آمریکا تازه مجوزهای جدید صادر کرد');
+    expect(res.chunks[0]).toContain('𝕏 Donald Trump: دولت آمریکا تازه مجوزهای جدید صادر کرد');
+    expect(res.chunks[0]).not.toContain('We have just authorized');
+    expect(res.chunks[0]).not.toContain('🗣 ترجمه فارسی');
   });
 
   test('توییت فارسی — فقط خود متن، بدون برچسب ترجمه', () => {
@@ -188,9 +187,9 @@ describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ه
     expect(res.chunks[1]).toContain('— ادامه');
   });
 
-  test('صف خام BundleItem توییت → آیتم ساعتی با نشانگر پلتفرم و نام حساب (قرارداد ۱۶ نوامبر)', () => {
-    // قرارداد صف: text = ترجمهٔ فارسی، orig = متن اصلی انگلیسی، faName = نام فارسی،
-    // source = برچسب کامل با نشانگر پلتفرم («𝕏 …» / «🅣 … (تروث‌سوشال)»)
+  test('صف خام BundleItem توییت → آیتم ساعتی با نشانگر پلتفرم و نام فارسی (قرارداد ۱۹ نوامبر)', () => {
+    // قرارداد صف: text = ترجمهٔ فارسی کامل، orig = متن اصلی (فقط نگه‌داری — در نمایش حذف)،
+    // faName = نام فارسی، source = برچسب کامل با نشانگر پلتفرم («𝕏 …» / «🅣 … (تروث‌سوشال)»)
     const q: BundleItem = {
       kind: 'tweet',
       text: 'بازار نفت امروز نوسان داشت',
@@ -211,11 +210,10 @@ describe('buildTweetBundleChunks — دستهٔ جداگانهٔ توییت‌ه
       at: q.queuedAt,
     };
     const res = buildTweetBundleChunks([mapped]);
-    expect(res.chunks[0]).toContain('Oil market fluctuated today');
     expect(res.chunks[0]).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا): بازار نفت امروز نوسان داشت');
     expect(res.chunks[0]).toContain('𝕏 Donald Trump:');
-    expect(res.chunks[0]).not.toContain('𝕏 𝕏');
-    expect(res.chunks[0]).not.toContain('Donald Trump: Donald Trump');
+    expect(res.chunks[0]).not.toContain('Oil market fluctuated today'); // متن اصلی حذف — خواستهٔ ۱۹ نوامبر
+    expect(res.chunks[0]).not.toContain('🗣 ترجمه فارسی');
   });
 });
 

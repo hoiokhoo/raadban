@@ -109,17 +109,18 @@ describe('salvageBatchTranslations — نجات مدخل‌های JSON برید�
   });
 });
 
-// ---------- (۳) نمایش توییت با نام فارسی ----------
+// ---------- (۳) نمایش توییت با نام فارسی — فقط فارسی روان (خواستهٔ ۱۹ نوامبر) ----------
 
-describe('tweetDisplayBody — نام فارسی توییت‌کننده بجای «ترجمه فارسی»', () => {
-  test('خط دوم = «نام فارسی (مسئولیت): ترجمه» — بدون برچسب قدیمی', () => {
+describe('tweetDisplayBody — فقط فارسی روان، بدون متن اصلی (خواستهٔ ۱۹ نوامبر)', () => {
+  test('متن اصلی حذف — فقط «نام فارسی (مسئولیت): ترجمهٔ کامل»', () => {
     const body = tweetDisplayBody('Peace through strength!', 'صلح از طریق قدرت!', 'دونالد ترامپ (رئیس‌جمهور آمریکا)');
-    expect(body).toBe('Peace through strength!\nدونالد ترامپ (رئیس‌جمهور آمریکا): صلح از طریق قدرت!');
+    expect(body).toBe('دونالد ترامپ (رئیس‌جمهور آمریکا): صلح از طریق قدرت!');
+    expect(body).not.toContain('Peace');
     expect(body).not.toContain('ترجمه فارسی');
   });
 
-  test('نبود faName → برچسب پیش‌فرض می‌ماند (سازگاری حساب‌های قدیمی)', () => {
-    expect(tweetDisplayBody('Hello', 'سلام')).toContain('🗣 ترجمه فارسی: سلام');
+  test('نبود faName → فقط ترجمهٔ فارسی (بدون برچسب)', () => {
+    expect(tweetDisplayBody('Hello', 'سلام')).toBe('سلام');
   });
 
   test('توییت فارسی/بدون اصلی → فقط متن', () => {
@@ -284,7 +285,7 @@ describe('وقایع جهانی امروز — ویکی‌پدیای انگلی�
 // ---------- (۶) یکپارچگی — بستهٔ توییت با نام فارسی ----------
 
 describe('بستهٔ توییت — یکپارچگی پلتفرم/نام فارسی', () => {
-  test('توییت تروث‌سوشال ترامپ: نشانگر 🅣 + متن اصلی + نام فارسی: ترجمه', () => {
+  test('توییت تروث‌سوشال ترامپ: نشانگر 🅣 + نام فارسی: ترجمهٔ کامل — بدون متن اصلی', () => {
     const res = buildTweetBundleChunks([
       {
         id: 'ts-1',
@@ -295,8 +296,8 @@ describe('بستهٔ توییت — یکپارچگی پلتفرم/نام فار�
         at: '2026-11-16T02:00:00.000Z',
       },
     ]);
-    expect(res.chunks[0]).toContain('🅣 Donald Trump (تروث‌سوشال): Peace through strength!');
     expect(res.chunks[0]).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا): صلح از طریق قدرت!');
+    expect(res.chunks[0]).not.toContain('Peace through strength!'); // متن اصلی حذف — خواستهٔ ۱۹ نوامبر
     expect(res.chunks[0]).not.toContain('🗣 ترجمه فارسی');
   });
 
@@ -347,19 +348,21 @@ describe('sendBalePhotoBytes — رفع «چارت‌ها داخل ربات ار
   });
 });
 
-// ---------- (۷) کارت تصویری همهٔ اخبار/توییت‌ها — خواستهٔ بعدازظهر ۱۶ نوامبر ----------
+// ---------- (۷) کارت تصویری همهٔ اخبار/توییت‌ها — خواستهٔ ۱۶ نوامبر + بازطراحی ۱۹ نوامبر ----------
 
 import {
   paginateItems,
   makeNewsCardSvg,
   makeTweetCardSvg,
-  buildTweetCardCaption,
-  buildNewsCardCaption,
+  paginateTweetItems,
+  tweetRowHeight,
+  TW_MAX_LINES,
   NEWS_CARD_ROWS_PER_PAGE,
   NEWS_CARD_MAX_PAGES,
   type NewsCardInput,
   type TweetCardInput,
 } from '../bot/news-card';
+import * as newsCardModule from '../bot/news-card';
 import { tripleDateOf } from '../bot/calendar';
 
 const CARD_DATE = tripleDateOf('2026-11-16', 'Asia/Tehran', 'umalqura');
@@ -378,44 +381,62 @@ describe('کارت چندصفحه‌ای — همهٔ اخبار در قالب �
     expect(paginateItems([], 12, 7)).toEqual([]);
   });
 
-  test('برچسب «بخش ۱ از ۲» در کارت و کپشن — فقط وقتی چند صفحه است', () => {
+  test('برچسب «بخش ۱ از ۲» در کارت — سازندهٔ کپشن حذف شد (فقط عکس — خواستهٔ ۱۹ نوامبر)', () => {
     const input: NewsCardInput = { date: CARD_DATE, items: [{ text: 'خبر نمونه برای کارت', tick: false, source: 'ایسنا' }] };
     expect(makeNewsCardSvg({ ...input, part: { no: 1, of: 2 } })).toContain('بخش ۱ از ۲');
     expect(makeNewsCardSvg(input)).not.toContain('بخش');
-    expect(buildNewsCardCaption({ ...input, part: { no: 2, of: 3 } })).toContain('بخش ۲ از ۳');
+    const mod = newsCardModule as unknown as Record<string, unknown>;
+    expect(mod.buildNewsCardCaption).toBeUndefined();
+    expect(mod.buildTweetCardCaption).toBeUndefined();
   });
 });
 
-describe('کارت توییت‌ها — همان قالب تصویری (خواستهٔ ۱۶ نوامبر)', () => {
+describe('کارت توییت‌ها — فقط فارسی روان کامل (خواستهٔ ۱۹ نوامبر)', () => {
   const twInput: TweetCardInput = {
     date: CARD_DATE,
     items: [
-      { source: '🅣 Donald Trump (تروث‌سوشال)', orig: 'Peace through strength!', fa: 'صلح از طریق قدرت!', faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' },
-      { source: '𝕏 mb_ghalibaf', orig: 'Iran is ready.', fa: 'ایران آماده است.', faName: 'محمدباقر قالیباف (رئیس مجلس شورای اسلامی)', verified: true },
+      { source: '🅣 Donald Trump (تروث‌سوشال)', fa: 'صلح از طریق قدرت!', faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' },
+      { source: '𝕏 mb_ghalibaf', fa: 'ایران آماده است.', faName: 'محمدباقر قالیباف (رئیس مجلس شورای اسلامی)', verified: true },
     ],
   };
 
-  test('ردیف هر توییت: منبع + متن اصلی + «نام فارسی: ترجمه» + تیک دومانبعی', () => {
+  test('ردیف هر توییت: منبع + نام فارسی (خط عنوان) + ترجمهٔ کامل — بدون متن اصلی', () => {
     const svg = makeTweetCardSvg(twInput);
     expect(svg).toContain('Donald Trump (تروث‌سوشال)');
-    expect(svg).toContain('Peace through strength!');
-    expect(svg).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا): صلح از طریق قدرت!');
+    expect(svg).not.toContain('Peace through strength!'); // متن اصلی حذف — خواستهٔ صریح کاربر
+    expect(svg).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا)');
+    expect(svg).toContain('صلح از طریق قدرت!');
     expect(svg).toContain('𝕏 mb_ghalibaf');
     expect(svg).toContain('✅'); // verified
     expect(svg).toContain('توییت‌های مقامات تأثیرگذار');
   });
 
-  test('توییت بدون نام فارسی — خط ترجمه بدون پیشوند نام', () => {
-    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '𝕏 elonmusk', orig: 'Hi', fa: 'سلام' }] });
-    expect(svg).toContain('سلام');
-    expect(svg).not.toContain(': سلام');
+  test('ترجمهٔ کامل بدون خلاصه‌سازی — توییت بلند چندخطی رندر می‌شود (ریشهٔ «توییت‌ها کامل نیومدن»)', () => {
+    const long = 'این متن آزمونی طولانی برای بررسی کامل بودن ترجمه در کارت تصویری است. '.repeat(12);
+    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 Donald Trump (تروث‌سوشال)', fa: long, faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' }] });
+    const faLines = svg.split('\n').filter((l) => l.includes('fill="#e8f1fa"') && l.includes('font-size="26"')).length;
+    expect(faLines).toBeGreaterThan(4); // چندین خط ترجمه — نه سقف دوخطی قدیمی
+    expect(TW_MAX_LINES).toBe(14);
+    // متن فوق‌بلند → بریده با «…» (کارت هرگز سرریز نمی‌کند — صادقانه)
+    const overflow = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 x', fa: 'کلمه '.repeat(2000), faName: 'نام' }] });
+    expect(overflow).toContain('…');
   });
 
-  test('خالی → SVG خالی؛ کپشن با بخش شماره‌دار', () => {
+  test('ارتفاع ردیف متغیر و صفحه‌بندی بر پایهٔ ارتفاع واقعی', () => {
+    const short = tweetRowHeight('سلام');
+    const long = tweetRowHeight('کلمه '.repeat(400));
+    expect(long).toBeGreaterThan(short);
+    const items = Array.from({ length: 30 }, (_, i) => ({ source: `𝕏 a${i}`, fa: `توییت آزمونی شمارهٔ ${i} با متن نسبتاً بلند برای پر شدن ارتفاع صفحه. `.repeat(2) }));
+    const pages = paginateTweetItems(items);
+    expect(pages.length).toBeGreaterThan(1);
+    for (const p of pages) expect(p.length).toBeGreaterThan(0);
+    expect(paginateTweetItems([])).toEqual([]);
+  });
+
+  test('توییت بدون نام فارسی — خط عنوان «ترجمه فارسی»؛ خالی → SVG خالی', () => {
+    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '𝕏 elonmusk', fa: 'سلام' }] });
+    expect(svg).toContain('سلام');
+    expect(svg).toContain('ترجمه فارسی');
     expect(makeTweetCardSvg({ date: CARD_DATE, items: [] })).toBe('');
-    const cap = buildTweetCardCaption({ ...twInput, part: { no: 1, of: 2 } });
-    expect(cap).toContain('توییت‌های مقامات تأثیرگذار');
-    expect(cap).toContain('بخش ۱ از ۲');
-    expect(cap.length).toBeLessThanOrEqual(1024);
   });
 });

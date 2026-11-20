@@ -229,6 +229,10 @@ export function parseBotConfig(raw: string): BotConfigFile {
   } catch { return empty; }
 }
 
+/** سقف حساب‌های سرِ فهرست که در «هر» چرخه همیشه چک می‌شوند — ۲۰ نوامبر نهم: ۸→۱۰
+ *  (سنتکام و ستاد کل ارتش رژیم صهیونیستی به سرِ اولویت اضافه شدند — خواستهٔ کاربر) */
+export const BREAKING_PRIORITY_DEFAULT = 10;
+
 const CFG = {
   token: process.env.BALE_BOT_TOKEN?.trim() || '',
   targets: parseTargets(process.env.BALE_CHAT_ID, process.env.BALE_CHANNEL_ID),
@@ -257,7 +261,11 @@ const CFG = {
   tweetWindowHours: Math.max(1, Math.min(24, Number(process.env.TWEET_WINDOW_HOURS || 5) || 5)),
   // حساب‌های اولویت‌دار خبر فوری — هر چرخهٔ ~۱۰ دقیقه‌ای همیشه از ابتدای فهرست چک می‌شوند
   // (خواستهٔ کاربر ۲۰ نوامبر: «ربات هر ۱۰ دقیقه توییتها رو چک کنه» — ترامپ/قالیباف/رهبری/…)
-  breakingPriorityPerCycle: Math.max(0, Math.min(20, Number(process.env.BREAKING_PRIORITY_PER_CYCLE || 8) || 8)),
+  // ۲۰ نوامبر نهم: ۸→۱۰ — سنتکام و ستاد کل ارتش رژیم صهیونیستی هم به سرِ اولویت اضافه شدند
+  // (خواستهٔ کاربر: «توییتر سخنگوی سنتکام، رئیس ستاد ارتش رژیم صهیونیستی و … اضافه کن») —
+  // بیانیه‌های جنگی این دو دقیقاً همان خبر فوری ایران‌دارِ خط لولهٔ فوری‌اند؛ بدون حذف هیچ
+  // حساب اولویت‌دار قبلی از سرِ فهرست.
+  breakingPriorityPerCycle: Math.max(0, Math.min(20, Number(process.env.BREAKING_PRIORITY_PER_CYCLE || BREAKING_PRIORITY_DEFAULT) || BREAKING_PRIORITY_DEFAULT)),
   dryRun: process.env.DRY_RUN === '1',
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',

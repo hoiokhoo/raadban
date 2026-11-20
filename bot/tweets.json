@@ -7,6 +7,8 @@
   {"handle": "araghchi", "name": "Seyed Abbas Araghchi", "faName": "سید عباس عراقچی (وزیر امور خارجهٔ ایران)", "platform": "x"},
   {"handle": "netanyahu", "name": "Benjamin Netanyahu", "faName": "بنیامین نتانیاهو (نخست‌وزیر رژیم صهیونیستی)", "platform": "x"},
   {"handle": "elonmusk", "name": "Elon Musk", "faName": "ایلان ماسک (مدیر اجرایی تسلا و ایکس)", "platform": "x"},
+  {"handle": "CENTCOM", "name": "U.S. Central Command", "faName": "سخنگوی سنتکام (فرماندهی مرکزی آمریکا)", "platform": "x"},
+  {"handle": "IDF", "name": "Israel Defense Forces", "faName": "ستاد کل ارتش رژیم صهیونیستی — بیانیه‌های رئیس ستاد و ارتش", "platform": "x"},
   {"handle": "JDVance", "name": "JD Vance", "faName": "جی‌دی ونس (معاون رئیس‌جمهور آمریکا)", "platform": "x"},
   {"handle": "SecRubio", "name": "Secretary Marco Rubio", "faName": "مارکو روبیو (وزیر خارجهٔ آمریکا)", "platform": "x"},
   {"handle": "ZelenskyyUa", "name": "Volodymyr Zelenskyy", "faName": "ولودیمیر زلنسکی (رئیس‌جمهور اوکراین)", "platform": "x"},
@@ -19,5 +21,9 @@
   {"handle": "SpeakerJohnson", "name": "Mike Johnson", "faName": "مایک جانسون (رئیس مجلس نمایندگان آمریکا)", "platform": "x"},
   {"handle": "TuckerCarlson", "name": "Tucker Carlson", "faName": "تاکر کارلسون (تحلیلگر و روزنامه‌نگار آمریکایی)", "platform": "x"},
   {"handle": "sama", "name": "Sam Altman", "faName": "سم آلتمن (مدیر اجرایی OpenAI)", "platform": "x"},
-  {"handle": "BillGates", "name": "Bill Gates", "faName": "بیل گیتس (بنیان‌گذار مایکروسافت)", "platform": "x"}
+  {"handle": "BillGates", "name": "Bill Gates", "faName": "بیل گیتس (بنیان‌گذار مایکروسافت)", "platform": "x"},
+  {"handle": "IDFSpokesperson", "name": "IDF Spokesperson", "faName": "سخنگوی ارتش رژیم صهیونیستی", "platform": "x"},
+  {"handle": "AvichayAdraee", "name": "Avichay Adraee", "faName": "آویخای ادرایی (سخنگوی ارتش رژیم صهیونیستی به عربی)", "platform": "x"},
+  {"handle": "SecDef", "name": "Secretary of Defense", "faName": "وزیر دفاع آمریکا (بیانیه‌های رسمی پنتاگون)", "platform": "x"},
+  {"handle": "Israel_katz", "name": "Israel Katz", "faName": "اسرائیل کاتز (وزیر دفاع رژیم صهیونیستی)", "platform": "x"}
 ]

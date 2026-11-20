@@ -23,7 +23,7 @@ import {
   type TweetCardItem,
 } from '../bot/news-card';
 import { tripleDateOf } from '../bot/calendar';
-import { DEFAULT_SYSTEM_BOT_TRANSLATE } from '../bot/bot';
+import { DEFAULT_SYSTEM_BOT_TRANSLATE, BREAKING_PRIORITY_DEFAULT, pickTweetAccountsForCycle } from '../bot/bot';
 
 const DATE = tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura');
 
@@ -103,5 +103,25 @@ describe('لایهٔ منبع — پرامپت ترجمه دیگر ایموجی 
   test('DEFAULT_SYSTEM_BOT_TRANSLATE قاعدهٔ ممنوعیت ایموجی دارد', () => {
     expect(DEFAULT_SYSTEM_BOT_TRANSLATE).toContain('ایموجی');
     expect(DEFAULT_SYSTEM_BOT_TRANSLATE).toContain('پرچم');
+  });
+});
+
+describe('حساب‌های نظامی تازه — سنتکام و ستاد کل ارتش رژیم صهیونیستی در سرِ اولویت', () => {
+  test('اولویت پیش‌فرض ۸→۱۰ — بدون حذف هیچ حساب قبلی از سرِ فهرست', () => {
+    expect(BREAKING_PRIORITY_DEFAULT).toBe(10);
+  });
+
+  test('با ۱۰ حساب اولویت، سنتکام و ستاد کل هر چرخه چک می‌شوند و ترامپ/رهبری دست‌نخورده می‌مانند', () => {
+    const accs = [
+      'realDonaldTrump', 'realDonaldTrump-truth', 'mb_ghalibaf', 'khamenei_ir', 'drpezeshkian',
+      'araghchi', 'netanyahu', 'elonmusk', 'CENTCOM', 'IDF', 'JDVance', 'SecRubio',
+    ].map((h) => ({ handle: h, name: h, faName: h, platform: 'x' as const }));
+    const { picked } = pickTweetAccountsForCycle(accs, 10, 6, BREAKING_PRIORITY_DEFAULT); // چرخش از بیرون سرِ فهرست
+    const handles = new Set(picked.map((a) => a.handle));
+    // سرِ اولویت — هر چرخه
+    for (const h of ['realDonaldTrump', 'khamenei_ir', 'araghchi', 'netanyahu', 'CENTCOM', 'IDF']) {
+      expect(handles.has(h)).toBe(true);
+    }
+    expect(picked.length).toBe(BREAKING_PRIORITY_DEFAULT + 2); // ۱۰ اولویت + ۲ چرخشی متمایز (JDVance, SecRubio)
   });
 });

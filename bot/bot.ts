@@ -44,7 +44,7 @@
  */
 
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, renameSync, copyFileSync } from 'node:fs';
 import {
   DEFAULT_SYSTEM_BOT_DIGEST,
   addToPool,
@@ -62,10 +62,12 @@ import { renderMarketCardPng } from './market-card';
 import { CHART_ASSETS, buildChartPanel, chartWindow, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
   renderNewsCardPages,
-  renderTweetCardPages,
+  renderTweetCardPng,
   renderBreakingCardPng,
   renderBreakingCardGif,
   finalizeNewsCardText,
+  splitTweetItemsByLineCap,
+  splitTweetItemsForCards,
   NEWS_CARD_MAX_PAGES,
   NEWS_CARD_ROWS_PER_PAGE,
   type CardPng,
@@ -83,7 +85,7 @@ import {
   type AdminHealth,
 } from './admin-alerts';
 import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, tweetDisplayBody, type BundleItem } from './bundle';
-import { needsTranslationLang } from './lang';
+import { cutAtSentence, needsTranslationLang } from './lang';
 import {
   DEFAULT_SYSTEM_HOURLY,
   mergeSimilarItems,
@@ -377,6 +379,12 @@ export function isLikelyForeign(s: string): boolean {
  *  «فارسی» تلقی می‌شد و بی‌ترجمه می‌گذشت. حالا هر خط بیگانه با سهم معنادار → ترجمه.
  *  تضمین خواستهٔ کاربر: هیچ خبر/توییت غیرفارسی بدون ترجمه به بله نمی‌رود. */
 export function needsTranslation(s: string): boolean {
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: هشتگ/منشن/لینکِ عیناً-حفظ‌شده در ترجمه («#MAGA @POTUS…» —
+  // قاعدهٔ صریح پرامپت) سهم لاتین را بالای ۳۵٪ می‌برد و ترجمهٔ «درست» را پس می‌زد — توییت
+  // در حلقهٔ بی‌پایان بی‌ترجمه می‌ماند. سهم خط فقط روی «متن واقعی» (بدون هشتگ/منشن/لینک) سنجیده
+  // می‌شود؛ اگر متنِ مانده هیچ حرفی ندارد (فقط هشتگ بود)، سنجش روی متن خام می‌ماند.
+  const stripped = (s || '').replace(/\bhttps?:\/\/\S+/gi, ' ').replace(/[#@][^\s\u200c]+/g, ' ');
+  if (stripped.trim() && /\p{L}/u.test(stripped)) return needsTranslationLang(stripped);
   return needsTranslationLang(s);
 }
 
@@ -872,7 +880,15 @@ export function loadDailySettings(file: string): DailySettingsFile {
     if (!HHMM_RE.test(out.morningHour)) out.morningHour = DAILY_SETTINGS_DEFAULTS.morningHour;
     if (!HHMM_RE.test(out.eveningHour)) out.eveningHour = DAILY_SETTINGS_DEFAULTS.eveningHour;
     if (!HHMM_RE.test(out.weatherHour)) out.weatherHour = DAILY_SETTINGS_DEFAULTS.weatherHour;
-    if (out.timezone && !/^[\w\-+/]+$/.test(out.timezone)) out.timezone = DAILY_SETTINGS_DEFAULTS.timezone;
+    // نقد سخت‌گیرانهٔ ۲۱ نوامبر: regex قبلی مقدار بی‌معنایی مثل Foo/Bar را پاس می‌کرد و بعد
+    // Intl در tzPartsOf خطای مهلک می‌داد که کل چرخه (حتی قبل از ذخیرهٔ state) می‌مُرد.
+    // حالا خود Intl محک می‌زند؛ نامعتبر → تهران.
+    try {
+      void new Intl.DateTimeFormat("en-GB", { timeZone: out.timezone, hour: "2-digit" });
+    } catch {
+      console.warn(`⚠️ منطقهٔ زمانی نامعتبر «${out.timezone}» — به پیش‌فرض برمی‌گردد`);
+      out.timezone = DAILY_SETTINGS_DEFAULTS.timezone;
+    }
     if (!Number.isFinite(out.lat) || Math.abs(out.lat) > 90) out.lat = DAILY_SETTINGS_DEFAULTS.lat;
     if (!Number.isFinite(out.lon) || Math.abs(out.lon) > 180) out.lon = DAILY_SETTINGS_DEFAULTS.lon;
     // شهرهای اضافهٔ هواشناسی — نامعتبرها حذف؛ سقف رعایت؛ نامعتبر → پیش‌فرض‌ها
@@ -929,6 +945,13 @@ export function tzPartsOf(now: number, tz: string): TehranParts {
 
 // نگه‌داشت ۳۶ ساعته (پنجرهٔ خبر ۳ ساعت است + حاشیهٔ امن) — حجم state و رشد ریپو گیت‌هاب کنترل می‌شود
 const STATE_KEEP_MS = 36 * 3600_000;
+
+/** مهلت چرخه — نقد سخت‌گیرانهٔ ۲۱ نوامبر: زنجیرهٔ مرده (تأمین‌کنندگان × ۹۰s × ۲ دور +
+ *  خواب‌های ۶۰s) می‌توانست کل بودجهٔ ۳۰ دقیقه‌ای رانر را بخورد و کشتنِ میانهٔ کار، state را
+ *  ذخیره‌نشده می‌گذاشت → ارسال دوبارهٔ کل بازه. فازهای سنگین پیش از اجرا مهلت را می‌سنجند؛
+ *  گذشته → پرش صادقانه (اسلات علامت نمی‌خورد؛ چرخهٔ بعد همان اسلات را دوباره می‌گیرد).
+ *  ۲۵ دقیقه: حاشیهٔ ۵ دقیقه‌ای برای ذخیرهٔ state + کامیت گیت. */
+export const CYCLE_BUDGET_MS = 25 * 60_000;
 const STATE_MAX_IDS = 1200;
 const STATE_MAX_TITLES = 600;
 const STATE_MAX_TEXTS = 600;
@@ -937,10 +960,30 @@ export function emptyState(): BotState {
   return { sentIds: {}, sentTitles: {}, sentTitleTexts: {}, sentMsgTexts: {} };
 }
 
+/** خواندن state با بازیابی پشتیبان — نقد سخت‌گیرانهٔ ۲۱ نوامبر: نوشتنِ مستقیم روی
+ *  state.json بدون انتقال اتمیک بود؛ کشتنِ فرایند در میانهٔ نوشتن (مهلت ۳۰ دقیقه‌ای رانر)
+ *  فایل را نیم‌کاره می‌گذاشت و loadState بی‌صدا به emptyState ریست می‌شد — یعنی از دست
+ *  رفتن «همهٔ» علامت‌های ضدتکرار و ارسال دوبارهٔ کل بازه. حالا: پوستهٔ خراب → پشتیبان
+ *  غلتان (.bak نوشته‌شده در هر saveState موفق) → نبود، فقط آن‌گاه از صفر — با خطای بلند. */
 export function loadState(path: string): BotState {
+  const readStateFile = (fp: string): Partial<BotState> | null => {
+    try {
+      return JSON.parse(readFileSync(fp, 'utf8')) as Partial<BotState>;
+    } catch {
+      return null;
+    }
+  };
   try {
     if (!existsSync(path)) return emptyState();
-    const raw = JSON.parse(readFileSync(path, 'utf8')) as Partial<BotState>;
+    let raw = readStateFile(path);
+    if (!raw) {
+      console.error(`❌ state.json خراب بود — بازیابی از پشتیبان ${path}.bak (نقد ۲۱ نوامبر)`);
+      raw = readStateFile(`${path}.bak`);
+    }
+    if (!raw) {
+      console.error('❌ پشتیبان state هم در دسترس نیست — شروع از صفر؛ ضدتکرار عنوان درون‌بازه همچنان کار می‌کند');
+      return emptyState();
+    }
     return {
       sentIds: raw.sentIds && typeof raw.sentIds === 'object' ? raw.sentIds : {},
       sentTitles: raw.sentTitles && typeof raw.sentTitles === 'object' ? raw.sentTitles : {},
@@ -979,14 +1022,20 @@ export function loadState(path: string): BotState {
       lastRunAt: typeof raw.lastRunAt === 'string' ? raw.lastRunAt : undefined,
       lastRun: raw.lastRun,
     };
-  } catch {
-    return emptyState(); // state خراب → از صفر؛ ضدتکرار عنوان درون‌بازه همچنان کار می‌کند
+  } catch (e) {
+    console.error('❌ خواندن state ناموفق بود:', e instanceof Error ? e.message : e);
+    return emptyState(); // آخرین سپر — ضدتکرار عنوان درون‌بازه همچنان کار می‌کند
   }
 }
 
+/** ثبت اتمیک state — نوشتن در فایل موقت + rename (یا هیچ‌چیز عوض نمی‌شود) + پشتیبان غلتان.
+ *  نقد سخت‌گیرانهٔ ۲۱ نوامبر: writeFileSync مستقیم در میانهٔ کشتنِ فرایند JSON نیم‌کاره می‌گذاشت. */
 export function saveState(path: string, s: BotState): void {
   try {
-    writeFileSync(path, JSON.stringify(s, null, 1), 'utf8');
+    const tmp = `${path}.tmp`;
+    writeFileSync(tmp, JSON.stringify(s, null, 1), 'utf8');
+    renameSync(tmp, path); // اتمیک در سطح فایل‌سیستم — خواننده یا کل فایل تازه را می‌بیند یا قدیم را
+    try { copyFileSync(path, `${path}.bak`); } catch { /* پشتیبان بهترین‌تلاش است */ }
   } catch (e) {
     console.error('ثبت state ناموفق بود:', e instanceof Error ? e.message : e);
   }
@@ -1140,7 +1189,10 @@ export function verdictToEmoji(verdict: string | undefined | null): string {
  *  و ایموجی حکم هرگز به‌تنهایی در پیام جدایی نمی‌افتد. */
 export function composeNewsMessage(input: { sourceName: string; text: string; verdict?: string }, textLimit = 3400): string {
   const src = (input.sourceName || '').trim() || 'منبع ناشناس';
-  const L: string[] = [`${esc(src)}: ${esc(trimFa(input.text, textLimit))}`];
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: trimFa متنِ بلندتر از سقف را «میان‌واژه» با «…» می‌بُرید —
+  // حالا برش در مرز جمله است (پایان پیام همیشه جملهٔ کامل)؛ فقط متنِ بی‌هر مرزِ جمله
+  // در مرز واژه + «…» می‌ایستد.
+  const L: string[] = [`${esc(src)}: ${esc(cutAtSentence(input.text, textLimit))}`];
   const em = verdictToEmoji(input.verdict);
   if (em) L.push('', em);
   return L.join('\n');
@@ -1309,8 +1361,28 @@ export async function sendBaleMessage(token: string, chatId: string, text: strin
   return { ok: true, chunks: sent };
 }
 
-/** دانلود امن باینری تصویر — پشتیبان ارسال با URL (سرور بله گاهی به منبع عکس دسترسی ندارد) */
+/** ردیابی نوع واقعی تصویر از بایت‌های آغازین (magic bytes) — نقد سخت‌گیرانهٔ ۲۱ نوامبر:
+ *  فیدهای بی‌اعتماد گاهی صفحهٔ HTML خطا با Content-Type: image/jpeg می‌دهند؛ تلاش آپلودش
+ *  به بله یک چرخه تلف می‌کرد و بعد پیام متنی می‌آمد. حالا فقط PNG/JPEG/GIF/WEBP/BMP/AVIF
+ *  می‌گذرد. تابع خالص و تست‌پذیر. */
+export function sniffImageMime(b: Uint8Array): string | null {
+  const h = (i: number) => b[i] ?? 0;
+  const ascii = (i: number, len: number) => String.fromCharCode(...b.slice(i, i + len));
+  if (b.length >= 8 && h(0) === 0x89 && ascii(1, 3) === 'PNG') return 'image/png';
+  if (b.length >= 3 && h(0) === 0xff && h(1) === 0xd8 && h(2) === 0xff) return 'image/jpeg';
+  if (b.length >= 6 && (ascii(0, 3) === 'GIF')) return 'image/gif';
+  if (b.length >= 12 && ascii(0, 4) === 'RIFF' && ascii(8, 4) === 'WEBP') return 'image/webp';
+  if (b.length >= 2 && ascii(0, 2) === 'BM') return 'image/bmp';
+  if (b.length >= 12 && ascii(4, 4) === 'ftyp' && ascii(8, 4).startsWith('avif')) return 'image/avif';
+  return null;
+}
+
+/** دانلود امن باینری تصویر — پشتیبان ارسال با URL (سرور بله گاهی به منبع عکس دسترسی ندارد).
+ *  نقد سخت‌گیرانهٔ ۲۱ نوامبر: سقف ۱۰MB «پس از» دانلود کامل بررسی می‌شد — تصویرِ عظیمِ فیدِ
+ *  بی‌اعتماد تا آخرین بایت بافر می‌شد و بعد دور ریخته می‌شد. حالا: پیش‌بررسی Content-Length
+ *  + قطع جریان در همان لحظهٔ عبور از سقف + ردیابی magic bytes (پاسخِ HTML-به‌جای-عکس رد). */
 export async function fetchImageBytes(url: string, timeoutMs = 15_000): Promise<{ ok: boolean; bytes?: Uint8Array; contentType?: string; error?: string }> {
+  const MAX_IMG_BYTES = 10 * 1024 * 1024;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -1320,10 +1392,41 @@ export async function fetchImageBytes(url: string, timeoutMs = 15_000): Promise<
       redirect: 'follow',
     });
     if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
-    const buf = new Uint8Array(await res.arrayBuffer());
+    const lenHeader = Number(res.headers.get('content-length') || '0');
+    if (lenHeader > MAX_IMG_BYTES) return { ok: false, error: 'عکس بزرگ‌تر از ۱۰ مگابایت است (پیش‌بررسی)' };
+    let buf: Uint8Array;
+    const reader = res.body?.getReader();
+    if (reader) {
+      // خواندن جریانی با سقف — عبور از ۱۰MB همان لحظه قطع می‌شود (بدون بافر کامل)
+      const chunks: Uint8Array[] = [];
+      let total = 0;
+      let over = false;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) {
+          chunks.push(value);
+          total += value.length;
+          if (total > MAX_IMG_BYTES) { over = true; break; }
+        }
+      }
+      if (over) {
+        try { await reader.cancel(); } catch { /* بی‌اهمیت */ }
+        controller.abort();
+        return { ok: false, error: 'عکس بزرگ‌تر از ۱۰ مگابایت است (قطع جریان)' };
+      }
+      const joined = new Uint8Array(total);
+      let off = 0;
+      for (const c of chunks) { joined.set(c, off); off += c.length; }
+      buf = joined;
+    } else {
+      buf = new Uint8Array(await res.arrayBuffer());
+      if (buf.length > MAX_IMG_BYTES) return { ok: false, error: 'عکس بزرگ‌تر از ۱۰ مگابایت است' };
+    }
     if (buf.length < 1000) return { ok: false, error: `پاسخ خیلی کوچک بود (${buf.length} بایت) — تصویر نیست` };
-    if (buf.length > 10 * 1024 * 1024) return { ok: false, error: 'عکس بزرگ‌تر از ۱۰ مگابایت است' };
-    return { ok: true, bytes: buf, contentType: res.headers.get('content-type') || 'image/jpeg' };
+    const sniffed = sniffImageMime(buf);
+    if (!sniffed) return { ok: false, error: 'پاسخ تصویر نبود (امضای بایتی PNG/JPEG/GIF/WEBP ندارد — احتمالاً صفحهٔ خطا)' };
+    return { ok: true, bytes: buf, contentType: sniffed };
   } catch (e) {
     const msg = e instanceof Error ? (e.name === 'AbortError' ? `timeout پس از ${timeoutMs}ms` : e.message) : 'خطای ناشناخته';
     return { ok: false, error: msg };
@@ -1364,24 +1467,34 @@ export async function sendBalePhotoLadder(token: string, chatId: string, imageUr
   if (!dl.ok || !dl.bytes) {
     return { ok: false, error: `ارسال با URL ناموفق (${byUrl.error}) و دریافت تصویر هم ناموفق: ${dl.error || 'نامشخص'}` };
   }
-  const form = new FormData();
-  form.append('chat_id', chatId);
-  const cap = (caption || '').trim().slice(0, 1024);
-  if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
-  form.append('photo', new Blob([dl.bytes as BlobPart], { type: dl.contentType || 'image/jpeg' }), 'photo.jpg');
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30_000);
-  try {
-    const res = await fetch(`${BALES_API_BASE}/bot${token}/sendPhoto`, { method: 'POST', body: form, signal: controller.signal });
-    const text = await res.text().catch(() => '');
-    if (!res.ok) return { ok: false, error: `آپلود عکس ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}` };
-    return { ok: true, mode: 'upload' };
-  } catch (e) {
-    const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود عکس' : e.message) : 'خطای ناشناخته';
-    return { ok: false, error: msg };
-  } finally {
-    clearTimeout(timer);
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: این پله تک‌تلاش بود در حالی که sendBalePhotoBytes برای
+  // همین مسیر ۳تلاشی با backoff شده بود (یافتهٔ ۱۶ نوامبر: ۵۰۰ گذرای آپلود) — حالا هم‌الگو.
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const form = new FormData();
+    form.append('chat_id', chatId);
+    const cap = (caption || '').trim().slice(0, 1024);
+    if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
+    form.append('photo', new Blob([dl.bytes as BlobPart], { type: dl.contentType || 'image/jpeg' }), 'photo.jpg');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30_000);
+    try {
+      const res = await fetch(`${BALES_API_BASE}/bot${token}/sendPhoto`, { method: 'POST', body: form, signal: controller.signal });
+      const text = await res.text().catch(() => '');
+      if (res.ok) return { ok: true, mode: 'upload' };
+      let retryAfterSec: number | undefined;
+      try { retryAfterSec = (JSON.parse(text) as { parameters?: { retry_after?: number } })?.parameters?.retry_after; } catch { /* بدون JSON */ }
+      if (retryAfterSec && attempt < 3) { await sleep(Math.min(retryAfterSec, 30) * 1000); continue; }
+      if (res.status >= 500 && attempt < 3) { await sleep(attempt * 2500); continue; } // ۵xx گذرای سرور آپلود
+      return { ok: false, error: `آپلود عکس ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}` };
+    } catch (e) {
+      const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود عکس' : e.message) : 'خطای ناشناخته';
+      if (attempt < 3) { await sleep(2000 * attempt); continue; } // خطای شبکه — تلاش مجدد
+      return { ok: false, error: msg };
+    } finally {
+      clearTimeout(timer);
+    }
   }
+  return { ok: false, error: 'آپلود عکس پس از ۳ تلاش ناموفق بود' };
 }
 
 /** آپلود مستقیم بایت‌های تصویر (کارت رندرشدهٔ محلی) به sendPhoto بله —
@@ -1453,19 +1566,27 @@ async function sendBreakingNow(source: string, faText: string, faName?: string):
     renderBreakingCardPng({ source, text, faName, date }).catch(() => null),
   ]);
   let anyOk = false;
-  if (gifCard || card) {
-    // تک‌پیام: کارت متحرک (ترجیح) یا PNG ثابت — متن کامل داخل خود کارت است
-    const media = gifCard ?? card!;
-    const filename = gifCard ? 'raadban-breaking-card.gif' : 'raadban-breaking-card.png';
-    const mime = gifCard ? 'image/gif' : undefined;
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: کامنت «۴ پله» ادعا می‌کرد اما PNG ثابت فقط وقتی چرخ می‌آمد که
+  // «رندرِ» گیف شکست بخورد نه وقتی «آپلودش»؛ گیف مستقل هم در else گیر کرده بود. نردبان واقعی:
+  // کارت گیف → کارت PNG → گیف مستقل + کپشن کامل → پیام متنی کامل. هیچ خبر فوری‌ای گم نمی‌شود.
+  const sendMediaToAll = async (bytes: Uint8Array, filename: string, capText: string, mime?: string): Promise<boolean> => {
+    let ok = false;
     for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, media.png, filename, caption, mime);
-      if (s.ok) anyOk = true;
+      const s = await sendBalePhotoBytes(CFG.token, t, bytes, filename, capText, mime);
+      if (s.ok) ok = true;
       else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
     }
-    if (anyOk && gifCard) console.log('🚨 کارت فوری متحرک ارسال شد — چراغ گردان داخل خود خبر، تک‌پیام');
-  } else {
-    // هیچ کارتی رندر نشد → گیف چراغ گردان مستقل + کپشن متن کامل (باز هم تک‌پیام)
+    return ok;
+  };
+  if (gifCard) {
+    anyOk = await sendMediaToAll(gifCard.png, 'raadban-breaking-card.gif', caption, 'image/gif');
+    if (anyOk) console.log('🚨 کارت فوری متحرک ارسال شد — چراغ گردان داخل خود خبر، تک‌پیام');
+    if (!anyOk && card) anyOk = await sendMediaToAll(card.png, 'raadban-breaking-card.png', caption); // آپلود گیف نشد → PNG ثابت
+  } else if (card) {
+    anyOk = await sendMediaToAll(card.png, 'raadban-breaking-card.png', caption);
+  }
+  if (!anyOk) {
+    // هیچ کارتی نرسید (رندر نشد یا آپلود هر دو نشد) → گیف چراغ گردان مستقل + کپشن متن کامل
     const gif = await renderBreakingGif().catch(() => null);
     if (gif) {
       const cap = splitPhotoCaption(fullCaption, 1024);
@@ -1613,19 +1734,24 @@ async function rawZaiCall(systemPrompt: string, userContent: string, timeoutMs: 
   ok: boolean; content?: string; error?: string;
 }> {
   try {
-    const { default: ZAI } = await import('z-ai-web-dev-sdk');
-    const zai = await ZAI.create();
     let rejectTimeout!: (e: Error) => void;
     const timer = setTimeout(() => rejectTimeout(new Error(`timeout پس از ${timeoutMs} میلی‌ثانیه`)), timeoutMs);
     try {
+      // نقد سخت‌گیرانهٔ ۲۱ نوامبر: ZAI.create بیرون از مسابقهٔ timeout بود — اگر init شبکه‌ای
+      // معلق می‌شد، آخرین تأمین‌کنندهٔ زنجیره چرخه را بی‌سقف قفل می‌کرد. حالا ساختِ خودِ
+      // کلاینت هم زیر همان مهلت است.
       const completion = await Promise.race([
-        zai.chat.completions.create({
-          messages: [
-            { role: 'assistant', content: systemPrompt },
-            { role: 'user', content: userContent },
-          ],
-          thinking: { type: 'disabled' },
-        }),
+        (async () => {
+          const { default: ZAI } = await import('z-ai-web-dev-sdk');
+          const zai = await ZAI.create();
+          return zai.chat.completions.create({
+            messages: [
+              { role: 'assistant', content: systemPrompt },
+              { role: 'user', content: userContent },
+            ],
+            thinking: { type: 'disabled' },
+          });
+        })(),
         new Promise<never>((_, reject) => { rejectTimeout = reject; }),
       ]);
       const content = (completion as { choices?: Array<{ message?: { content?: string } }> })?.choices?.[0]?.message?.content || '';
@@ -1796,7 +1922,10 @@ export async function gateFa(text: string): Promise<string | null> {
 export async function translateOne(text: string): Promise<string | null> {
   const r = await chainCall(getTranslatePrompt(), `[1] ${text.slice(0, 12000)}`, { maxTokens: 5000 });
   if (!r.ok || !r.content) return null;
-  const entries = extractJson(r.content, validateBatchTranslation);
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: ورودی تا ۱۲۰۰۰ نویسه ولی maxTokens ۵۰۰۰ — پاسخِ بلند
+  // می‌توانست میانِ رشته بریده شود؛ extractJson null می‌داد و فوری بی‌ترجمه می‌ماند.
+  // حالا مدخل‌های سالمِ پاسخ بریده نجات داده می‌شوند (هم‌الگوی مسیر دسته‌ای).
+  const entries = extractJson(r.content, validateBatchTranslation) ?? salvageBatchTranslations(r.content);
   return entries?.find((e) => e.n === 1)?.fa || null;
 }
 
@@ -2301,10 +2430,20 @@ export async function collectFreshTweets(
   titleSets: Set<string>[]
 ): Promise<{ candidates: TweetCandidate[]; nextCursor: number; rateLimited: boolean; fetched: number; tried: number }> {
   const cursor = Number(st.tweetCursor) || 0;
+  const rot = rotateAccounts(accounts, cursor, CFG.tweetAccountsPerCycle); // پنجرهٔ چرخشی خام — برای نگاشت ایندکس
+  const rotIdxOf = new Map<TweetAccount, number>();
+  rot.picked.forEach((a, i) => rotIdxOf.set(a, i));
   const { picked, nextCursor } = pickTweetAccountsForCycle(accounts, cursor, CFG.tweetAccountsPerCycle, CFG.breakingPriorityPerCycle);
   const candidates: TweetCandidate[] = [];
   let rateLimited = false;
   let fetched = 0;
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: در ۴۲۹ِ ایکس حلقه می‌شکست اما مکان‌نما از کل پنجره (+۸ حساب)
+  // می‌گذشت — حساب‌های «هرگز-امتحان‌نشده» یک دور کامل (~۵۰ دقیقه) صبر می‌کردند و با ۴۲۹ِ
+  // پیاپیِ IP گیت‌هاب از پنجرهٔ تازگی ۵ ساعته می‌افتادند و «برای همیشه» از دست می‌رفتند.
+  // حالا مکان‌نما فقط تا آخرین حسابِ واقعاً-امتحان‌شدهٔ پنجرهٔ چرخشی جلو می‌رود؛ حساب‌های
+  // ردشده نخستِ پنجرهٔ چرخهٔ بعد می‌آیند.
+  let lastAttemptedRotIdx = -1;
+  let effCursor = nextCursor;
   for (const acc of picked) {
     const isTruth = acc.platform === 'truth';
     const dedupHandle = isTruth ? `truth/${acc.handle.toLowerCase()}` : acc.handle;
@@ -2321,9 +2460,15 @@ export async function collectFreshTweets(
           t.ok ? { ok: true, tweets: t.posts.map((p: TruthPost) => ({ id: p.id, text: p.text, createdAt: p.createdAt })) } : { ok: false, tweets: [], error: t.error })
       : await fetchTweetTimeline(acc.handle);
     if (r.ok) fetched += r.tweets.length;
+    const accRotIdx = rotIdxOf.get(acc);
+    if (accRotIdx !== undefined) lastAttemptedRotIdx = Math.max(lastAttemptedRotIdx, accRotIdx);
     if (r.rateLimited) {
       rateLimited = true;
-      console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیهٔ حساب‌ها به چرخهٔ بعد می‌روند`);
+      // مکان‌نما از حساب‌های امتحان‌نشده نمی‌گذرد — پنجرهٔ بعدی از همین حسابِ ۴۲۹‌شده آغاز می‌شود
+      effCursor = lastAttemptedRotIdx >= 0
+        ? (cursor + lastAttemptedRotIdx) % Math.max(1, accounts.length)
+        : cursor; // قطع در سرِ اولویت — هیچ حساب چرخشی امتحان نشد؛ همان پنجره دوباره
+      console.warn(`⚠️ ایکس ۴۲۹ برای @${acc.handle} — بقیهٔ حساب‌ها به چرخهٔ بعد می‌روند (مکان‌نما از ردشده‌ها نمی‌گذرد)`);
       break;
     }
     if (!r.ok) {
@@ -2337,7 +2482,7 @@ export async function collectFreshTweets(
     }
     await sleep(CFG.tweetFetchGapMs);
   }
-  return { candidates, nextCursor, rateLimited, fetched, tried: picked.length };
+  return { candidates, nextCursor: effCursor, rateLimited, fetched, tried: picked.length };
 }
 
 // ---------- اجرای چرخه ----------
@@ -3127,12 +3272,46 @@ export async function runAdminAlerts(state: BotState, summary: RunSummary, perSo
     summary.adminAlerts = sent;
     console.log(`🔔 اعلان مدیر ارسال شد (${sent} پیام) — منابع خاموش: ${sh.alerts.map((a) => a.name).join('، ') || '—'}؛ زنجیرهٔ شکست: ${fh.health.failStreak || 0} چرخه`);
   }
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: اعلانی که «ارسال نشد» نباید دفعهٔ بعد «قبلاً اعلان شده»
+  // تلقی شود (مهر alertedAt از پیش در state نشسته بود) — مهرهای تازهٔ همین لحظه برداشته
+  // می‌شوند تا چرخهٔ بعد دوباره تلاش کند؛ خودِ شمارش شکست/خاموشی دست‌نخورده می‌ماند.
+  if (sent < texts.length && (state.sourceHealth || state.adminHealth)) {
+    const nowIso = now.toISOString();
+    const marks = state.sourceHealth?.alertedAt;
+    if (marks) for (const [k, v] of Object.entries(marks)) if (v === nowIso) delete marks[k];
+    if (state.adminHealth?.streakAlertedAt === nowIso) delete state.adminHealth.streakAlertedAt;
+  }
 }
 
 // ---------- اطلاعیه‌های فروش/پیش‌فروش خودرو — کانال آخرین خودرو (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶؛
 //  بازطراحی ۱۹ نوامبر: حذف آدرس/اسم کانال + لینک فروش خودروساز + قیمت کارخانه + قیمت بازار آزاد) ----------
 
 const SALE_KEYWORDS = ['پیش‌فروش', 'پیش فروش', 'پیشفروش', 'اطلاعیه فروش', 'اطلاعیه‌ی فروش', 'شرایط فروش', 'شروع فروش', 'فروش اقساطی', 'عرضه خودرو', 'قرعه‌کشی', 'زمان فروش'];
+
+/** اسلات‌کلید به این «روز» تعلق دارد؟ — گارد هم‌روز پیام‌های روزانه (نقد ۲۱ نوامبر):
+ *  تغییر ساعتِ تنظیمات در میانهٔ روز، کلیدِ HH:MM-دارِ متفاوت می‌ساخت و پیام همان روز
+ *  «دوباره» می‌رفت (نمونهٔ واقعی: صبحگاهی ۲۰ نوامبر دو بار). خالص و تست‌پذیر. */
+export function isSlotKeyOfDate(slotKey: string | undefined, dateKey: string): boolean {
+  return Boolean(slotKey && dateKey && slotKey.startsWith(`${dateKey}T`));
+}
+
+/** علامت‌گذاری «دیده‌شده» اطلاعیه‌های فروش فقط پس از ارسال موفق — نقد ۲۱ نوامبر:
+ *  پیش‌تر همهٔ پست‌های تازه پیش از ارسال علامت می‌خوردند؛ شکست بله یعنی اطلاعیه برای همیشه
+ *  خاموش. این تابع خالص: موارد fresh از seen خارج می‌شوند و فقط sentIds دوباره علامت
+ *  می‌خورند (بقیه چرخهٔ بعد دوباره t.me/s می‌آیند). تست‌پذیر. */
+export function saleSeenAfterSend(
+  parsed: { fresh: Array<{ dataPost: string }>; seen: Record<string, number> },
+  sentIds: string[],
+  now = Date.now()
+): Record<string, number> {
+  const freshIds = new Set(parsed.fresh.map((p) => p.dataPost));
+  const out: Record<string, number> = {};
+  for (const [k, ts] of Object.entries(parsed.seen || {})) {
+    if (!freshIds.has(k)) out[k] = ts; // غیرتازه‌ها دست‌نخورده
+  }
+  for (const id of sentIds) out[id] = now; // فقط واقعاً-ارسال‌شده‌ها
+  return out;
+}
 
 export function parseSaleAnnouncements(posts: ParsedTgPost[], seen: Record<string, number>, now = Date.now()): { fresh: ParsedTgPost[]; seen: Record<string, number> } {
   const out: Record<string, number> = {};
@@ -3165,7 +3344,11 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
   }
   if (posts.length === 0) return;
   const res = parseSaleAnnouncements(posts, state.saleAlertIds || {});
-  state.saleAlertIds = res.seen;
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: علامتِ «دیده‌شده» «پیش از» ارسال در state می‌نشست — شکست بله
+  // یعنی اطلاعیه برای همیشه خاموش (پنجرهٔ t.me/s کوتاه است)؛ «سقف ۲ در چرخه» هم مازاد را
+  // برای همیشه می‌بلعید در حالی که لاگ ادعا می‌کرد «به چرخهٔ بعد ماند». حالا فقط موارد
+  // «واقعاً ارسال‌شده» علامت می‌خورند و بقیه صادقانه چرخهٔ بعد دوباره دیده می‌شوند.
+  state.saleAlertIds = saleSeenAfterSend(res, []); // ارسال‌نشده‌ها علامت نمی‌خورند — فقط پس از ارسال موفق افزوده می‌شوند
   for (const p of res.fresh.slice(0, 2)) {
     // حذف امضای کانال («@akharin_khodro | Akharinkhodro.ir») و تبلیغ‌هایش — خواستهٔ صریح کاربر
     const clean = cleanSaleAnnouncementText(p.text);
@@ -3197,15 +3380,22 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
       factoryLine,
       marketLine,
     ].join('\n');
+    let sentOk = false;
     for (const t of CFG.targets) {
       const s = await sendBaleMessage(CFG.token, t, msg);
-      if (!s.ok) console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
+      if (s.ok) sentOk = true;
+      else console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
     }
-    summary.saleAlertsSent = (summary.saleAlertsSent || 0) + 1;
-    console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}${portal ? ` — لینک: ${portal.label}` : ''}${model ? ` — مدل: ${model.label}` : ''}`);
+    if (sentOk) {
+      state.saleAlertIds[p.dataPost] = Date.now(); // فقط حالا «دیده‌شده» است — چرخهٔ دیگر تکرارش نمی‌کند
+      summary.saleAlertsSent = (summary.saleAlertsSent || 0) + 1;
+      console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}${portal ? ` — لینک: ${portal.label}` : ''}${model ? ` — مدل: ${model.label}` : ''}`);
+    } else {
+      console.warn(`⚠️ اطلاعیه ${p.dataPost} ارسال نشد — علامت نمی‌خورد و چرخهٔ بعد دوباره تلاش می‌کند`);
+    }
     await sleep(700);
   }
-  if (res.fresh.length > 2) console.log(`${res.fresh.length - 2} اطلاعیهٔ دیگر به چرخهٔ بعد ماند (سقف هر چرخه ۲)`);
+  if (res.fresh.length > 2) console.log(`${res.fresh.length - 2} اطلاعیهٔ دیگر به چرخهٔ بعد ماند (سقف هر چرخه ۲ — علامت نمی‌خورند تا واقعاً ارسال شوند)`);
 }
 
 // ---------- پیام‌های روزانه — صبحگاهی ۰۵:۴۵ و شبانگاهی ۲۱:۰۰ به وقت کانال ----------
@@ -3221,6 +3411,10 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     const slot = kind === 'morning' ? dSettings.morningHour : dSettings.eveningHour;
     if (!enabled) continue;
     const lastKey = kind === 'morning' ? daily.lastMorningKey : daily.lastEveningKey;
+    // نقد سخت‌گیرانهٔ ۲۱ نوامبر — نمونهٔ واقعی در state: ۲۰ نوامبر پیام صبحگاهی «دو بار»
+    // رفت (اسلات 05:00 و 05:45) چون ساعتِ تنظیمات همان روز عوض شد و کلیدِ اسلات حاوی
+    // HH:MM است (05:00 ≠ 05:45 → دوباره due). گارد هم‌روز: از هر «نوع» در هر روز فقط یک بار.
+    if (isSlotKeyOfDate(lastKey, pNow.dateKey)) continue; // امروز قبلاً ارسال شده است — گارد هم‌روز (نقد ۲۱ نوامبر)
     const dKey = dueSlotKey(Date.now(), [slot], lastKey, pNow);
     if (!dKey) continue;
     const label = kind === 'morning' ? 'صبحگاهی' : 'شبانگاهی';
@@ -3537,6 +3731,11 @@ async function main(): Promise<void> {
     console.log(`دسته‌های با توکن اختصاصی: ${enToFaDigits(String(summary.categoriesConfigured))}${CFG.categories && summary.categoriesConfigured ? ` (${Object.keys(CFG.categories).map((c) => catTitles.get(c) || c).join('، ')})` : ''}`);
   }
 
+  // نقد سخت‌گیرانهٔ ۲۱ نوامبر: هدفِ خالی + دسته‌های توکن‌دار یعنی اسلات‌های تحلیل/بازار/
+  // روزانه بی‌صدا هیچ‌جا نمی‌روند و اعلانی هم نیست — حالا همان اول بلند هشدار داده می‌شود.
+  if (CFG.targets.length === 0 && summary.categoriesConfigured > 0 && !CFG.dryRun) {
+    console.error('⚠️ BALE_CHAT_ID خالی است — اسلات‌های تحلیل جامع/بازار/روزانه/هواشناسی مقصدی ندارند و بی‌صدا ارسال نمی‌شوند؛ خبرها فقط به بات‌های دسته‌ای می‌روند که توکن دارند');
+  }
   if (CFG.targets.length === 0 && summary.categoriesConfigured === 0) {
     if (CFG.dryRun) {
       console.warn('⚠️ DRY_RUN بدون BALE_BOT_TOKEN/BALE_CHAT_ID — پیش‌نمایش بدون ارسال انجام می‌شود');
@@ -3589,15 +3788,36 @@ async function main(): Promise<void> {
   // نشانگر چرخش تأمین‌کنندگان مدل — از state بازیابی می‌شود (پس از ری‌استارت ادامه می‌یابد)
   if (typeof state.aiCursor === 'number') setAiCursor(state.aiCursor);
 
+  // ── نقد سخت‌گیرانهٔ ۲۱ نوامبر — سه سپر ساختاری چرخه:
+  //  ۱) مهلت چرخه: فازهای سنگین قبل از اجرا بودجه می‌سنجند (توضیح CYCLE_BUDGET_MS).
+  //  ۲) ایزوله‌سازی فازها: استثنای هر فاز فقط همان فاز را می‌کشد؛ بقیهٔ چرخه ادامه می‌یابد
+  //     (پیش‌تر مثلاً JSON خراب sources.json «کل» چرخه را پیش از ذخیرهٔ state می‌کشت).
+  //  ۳) ذخیرهٔ تضمینی: ثبت state در finally — هر اتفاقی بیفتد علامت‌های ارسالِ انجام‌شده
+  //     نمی‌پرند (پیش‌تر هر throw، همهٔ ضدتکرارهای چرخه را بی‌صدا دور می‌ریخت). ──
+  const cycleStartMs = Date.now();
+  const overBudget = (): boolean => Date.now() - cycleStartMs > CYCLE_BUDGET_MS;
+  const sentIds: string[] = [];
+  const sentTitles: string[] = [];
+  const sentTitleTexts: string[] = [];
+  const sentMsgTexts: string[] = [];
+  let tweetNextCursor: number | null = null;
+  try {
   // ── پیام‌های روزانه: صبحگاهی ۰۵:۴۵ / شبانگاهی ۲۱:۰۰ به وقت کانال (خواستهٔ ۱۰ نوامبر +
   //  ۲۰ نوامبر ششم: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح») ──
   //  پیش از جمع‌آوری خبر اجرا می‌شود تا پیام صبحگاهی با تأخیر جمع‌آوری معوق نماند؛
   //  ضدتکرار مطلق احادیث در state.daily (کامیت ریپو) — پس از ری‌استارت هم می‌ماند.
   await runDailyMessages(state, summary);
 
-  // ۱) منابع
-  const srcs = (JSON.parse(readFileSync(CFG.sourcesFile, 'utf8')) as BotSource[])
-    .filter((s) => s.platform === 'rss' || s.platform === 'telegram');
+  // ۱) منابع — محافظت‌شده (نقد ۲۱ نوامبر): JSON خراب پیش‌تر «کل» چرخه را می‌کشت؛ حالا خطا
+  //    ثبت می‌شود و بقیهٔ چرخه (توییت/اسلات‌ها/روزانه) سالم ادامه می‌یابد.
+  let srcs: BotSource[] = [];
+  try {
+    srcs = (JSON.parse(readFileSync(CFG.sourcesFile, 'utf8')) as BotSource[])
+      .filter((s) => s.platform === 'rss' || s.platform === 'telegram');
+  } catch (e) {
+    summary.error = `sources.json: ${e instanceof Error ? e.message : String(e)}`;
+    console.error(`❌ خواندن ${CFG.sourcesFile} ناموفق — چرخهٔ خبر این بار تعطیل؛ توییت/اسلات‌ها/روزانه ادامه می‌یابند:`, summary.error);
+  }
   summary.sources = srcs.length;
   console.log(`منابع قابل دریافت: ${srcs.length}`);
 
@@ -3670,9 +3890,6 @@ async function main(): Promise<void> {
   // «هیچ خبر مستقیمی» ارسال نمی‌شود. در اسلات‌های تهران یک پیام تحلیل جامع و در اسلات‌های
   // بازار یک پیام گزارش قیمت ارسال و پس از موفقیت استخر خالی و رویدادها علامت ارسال می‌خورند.
   if (CFG.channelMode === 'analysis') {
-    const sentIds: string[] = [];
-    const sentTitles: string[] = [];
-    const sentTitleTexts: string[] = [];
     const pool: PoolItem[] = Array.isArray(state.pool) ? state.pool : [];
     state.pool = pool;
 
@@ -3707,7 +3924,6 @@ async function main(): Promise<void> {
     console.log(`استخر تحلیل: +${poolRes.added} (${poolRes.droppedDup} تکراری) — کل ${enToFaDigits(String(state.pool.length))}`);
 
     // ۳) توییت/پست‌های مقامات → استخر تحلیل (بدون ارسال مستقیم — عیناً «هیچ خبری ارسال نشه»)
-    let tweetNextCursor: number | null = null;
     const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
     if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
       const collected = await collectFreshTweets(state, tweetAccounts, titleSets);
@@ -3739,6 +3955,15 @@ async function main(): Promise<void> {
       //    حتی در حالت تحلیل هم بلافاصله با کارت متحرک (چراغ گردان داخل خود خبر) ارسال
       //    می‌شود (مقدم بر «فقط تحلیل»). فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند. ──
       const brSentIds = new Set<string>();
+      // نقد سخت‌گیرانهٔ ۲۱ نوامبر (دو اصلاح):
+      // ۱) خام‌ارسالی — «آخرین سپر» متن خامِ خارجی را عیناً می‌فرستاد (نقض «فقط فارسی
+      //    روان»); حالا فوریِ بی‌ترجمه ارسال نمی‌شود و چرخهٔ بعد دوباره تلاش می‌کند (توییت
+      //    تا ۵ ساعت تازه می‌ماند و از دست نمی‌رود).
+      // ۲) پژواک هم‌چرخه‌ای — ترامپ هر پست را هم‌زمان در ایکس و تروث‌سوشال می‌گذارد و RTِ
+      //    مقامات دیگر هم همان متن را تکرار می‌کند؛ هر دو در «همین چرخه» فوری می‌شدند و
+      //    کاربر ۲-۳ کارت یکسان پشت‌سرهم می‌دید. حالا شباهت متن با فوری‌های همین چرخه سنجیده
+      //    می‌شود (آستانهٔ ۰٫۵۵ — همان ضدتکرار توییت) و پژواک فقط «علامت» می‌خورد.
+      const brCycleSets: Set<string>[] = [];
       for (const p of twItems) {
         if (!isBreakingTweetText(p.text || '') && !isBreakingTweetText((p.fa || '').trim())) continue;
         // ترجمهٔ کاملِ اختصاصی فوری (خواستهٔ کاربر ۲۰ نوامبر هشتم: «توییتهای فوری … اصلا خلاصه نکن
@@ -3749,14 +3974,23 @@ async function main(): Promise<void> {
           const one = await translateOne(p.text || '');
           if (one && !needsTranslation(one)) faText = one.trim();
         }
-        if (!faText) faText = (p.text || '').trim(); // آخرین سپر — خبر فوری هرگز گم نمی‌شود
-        if (!faText) continue;
+        if (!faText) {
+          console.warn(`⚠️ فوریِ ${p.source}: ترجمه ننشست — خام ارسال نمی‌شود؛ چرخهٔ بعد دوباره (فقط فارسی روان)`);
+          continue;
+        }
+        if (brCycleSets.length > 0 && isSimilarToAny(faText, brCycleSets, 0.55)) {
+          console.log(`↩️ پژواک هم‌چرخه‌ای فوری (هم‌متنِ ارسال‌شدهٔ همین چرخه) — ارسال دوباره نشد: ${p.source}`);
+          brSentIds.add(p.id);
+          sentIds.push(p.id);
+          continue;
+        }
         const brOk = await sendBreakingNow(p.source || 'توییت رصدشده', faText);
         if (brOk) {
           summary.breakingSent = (summary.breakingSent || 0) + 1;
           brSentIds.add(p.id);
           sentIds.push(p.id);
           sentTitleTexts.push(normalizeTitle(faText).slice(0, 160));
+          brCycleSets.push(tokensOf(faText));
           console.log(`🚨 فوری ارسال شد — ${p.source} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
         }
       }
@@ -3771,24 +4005,22 @@ async function main(): Promise<void> {
       }
     }
 
-    await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: CFG.dryRun });
+    if (overBudget()) console.warn(`⏱️ مهلت چرخه تمام شد — اسلات‌های تحلیل/بازار به چرخهٔ بعد می‌مانند (state سالم ذخیره می‌شود)`);
+    else await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: CFG.dryRun });
 
     // اطلاعیه‌های فروش/پیش‌فروش خودرو — حالت تحلیل هم فعال است (خواسته‌ی کاربر)
-    await runSaleAlerts(state, summary);
+    if (!overBudget()) await runSaleAlerts(state, summary);
+    else console.warn('⏱️ مهلت چرخه — اطلاعیه‌های فروش به چرخهٔ بعد');
 
     // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶؛ ۲۰ نوامبر: ۴→۸ساعته)
-    await runGeoAnalysis({ state, summary, dryRun: CFG.dryRun });
+    if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل جامع به چرخهٔ بعد می‌ماند (اسلات علامت نمی‌خورد)');
+    else await runGeoAnalysis({ state, summary, dryRun: CFG.dryRun });
 
     // تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت تحلیل هم فعال است (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
-    await runNightlyAnalysis({ state, summary, dryRun: CFG.dryRun });
+    if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل شبانه به چرخهٔ بعد می‌ماند');
+    else await runNightlyAnalysis({ state, summary, dryRun: CFG.dryRun });
 
-    // ۶) ثبت state و خلاصه
-    const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts });
-    if (tweetNextCursor !== null) merged.tweetCursor = tweetNextCursor;
-    merged.aiCursor = getAiCursor(); // چرخش یکی‌یکی تأمین‌کنندگان — بقای نشانگر
-    merged.lastRunAt = new Date().toISOString();
-    merged.lastRun = { ...summary };
-    saveState(CFG.stateFile, merged);
+    // ۶) ثبت state در finally مشترک انجام می‌شود (سپر ۲۱ نوامبر) — اینجا فقط خلاصه
     console.log('=== خلاصهٔ چرخه (حالت تحلیل جامع) ===');
     console.log(JSON.stringify(summary, null, 2));
     return;
@@ -4000,10 +4232,6 @@ async function main(): Promise<void> {
     return anyOk;
   };
 
-  const sentIds: string[] = [];
-  const sentTitles: string[] = [];
-  const sentTitleTexts: string[] = [];
-  const sentMsgTexts: string[] = [];
   const mark = (g: ItemGroup) => {
     for (const m of g.members) {
       sentIds.push(m.id);
@@ -4089,7 +4317,6 @@ async function main(): Promise<void> {
   //  نمایش «متن اصلی + ترجمهٔ فارسی زیرش»؛ اگر توییت تازه نبود بستهٔ توییت کلاً ارسال نمی‌شود.
   //  حالت بست: به صف جداگانه می‌روند و در اسلات فرد (یک ساعت بعد از بستهٔ خبر) در یک دستهٔ مستقل ارسال می‌شوند؛
   //  حالت news: ارسال بلافاصله ──
-  let tweetNextCursor: number | null = null;
   const tweetAccounts = readTweetAccounts(CFG.tweetsFile);
   if (CFG.maxTweets > 0 && CFG.tweetAccountsPerCycle > 0 && tweetAccounts.length > 0) {
     // واکشی پلتفرم‌آگاه (ایکس + تروث‌سوشال ترامپ) + پنجرهٔ تازگی مستقل توییت — خواستهٔ کاربر ۱۶ نوامبر:
@@ -4131,6 +4358,11 @@ async function main(): Promise<void> {
         state.dailyPool = twDaily.pool;
         if (twDaily.added > 0) console.log(`توییت‌ها به آرشیو روزانهٔ تحلیل شبانه اضافه شد: +${twDaily.added}`);
       }
+      // نقد سخت‌گیرانهٔ ۲۱ نوامبر: پژواک هم‌چرخه‌ای — ترامپ پست‌هایش را هم‌زمان در ایکس و
+      // تروث‌سوشال می‌گذارد (هر دو در سرِ اولویت، پشت‌سرهم واکشی می‌شوند) و RTِ مقامات دیگر
+      // هم همان متن را تکرار می‌کند؛ نتیجهٔ آزموده: ۲-۳ کارت فوری یکسان در چند ثانیه.
+      // حالا شباهت متن با فوری‌های همین چرخه سنجیده می‌شود (۰٫۵۵ — همان ضدتکرار توییت).
+      const brCycleSets: Set<string>[] = [];
       for (const c of toSend) {
         // گیت بازرسی نهایی — هیچ توییت غیرفارسی ارسال نمی‌شود؛ نشد → چرخهٔ بعد تلاش می‌کند
         const fa = await gateFa(c.tweet.text);
@@ -4150,12 +4382,19 @@ async function main(): Promise<void> {
         //    همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
         if (isBreakingTweetText(fa) || (orig ? isBreakingTweetText(orig) : false)) {
           const idKey = `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`;
+          if (brCycleSets.length > 0 && isSimilarToAny(fa, brCycleSets, 0.55)) {
+            console.log(`↩️ پژواک هم‌چرخه‌ای فوری (هم‌متنِ ارسال‌شدهٔ همین چرخه) — ارسال دوباره نشد: ${c.label}`);
+            sentIds.push(idKey);
+            markMsg(fa);
+            continue; // پژواک — اصلش همین چرخه مخابره شد؛ صف هم نرود
+          }
           const brOk = await sendBreakingNow(c.label, fa, c.faName);
           if (brOk) {
             summary.breakingSent = (summary.breakingSent || 0) + 1;
             sentIds.push(idKey);
             sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
             markMsg(fa);
+            brCycleSets.push(tokensOf(fa));
             console.log(`🚨 فوری ارسال شد — ${c.label} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
             continue; // به صف بستهٔ توییت نمی‌رود — بلافاصله مخابره شد
           }
@@ -4222,18 +4461,63 @@ async function main(): Promise<void> {
 
     // ── بستهٔ خبری — اسلات‌های زوج؛ «خبری از قلم نیفته»: صف تا ارسال موفق می‌ماند و
     //  ضدتکرار معناییِ زمان جمع‌بندی، خبرِ هم‌مضمونِ ارسال‌شده‌های قبلی را از صف حذف می‌کند ──
+    // ── گیت زبان صف خبری (نقد سخت‌گیرانهٔ ۲۱ نوامبر) — خبرهای RSS از gateFa گذر کرده‌اند
+    //    اما پست‌های کانال‌های ژئو «خام» به صف می‌آیند و مسیر پشتیبانِ بی‌مدل متنشان را
+    //    عیناً می‌فرستاد (نشت عربی/انگلیسی خام به کانال فارسی). هم‌الگوی بستهٔ توییت:
+    //    غیرفارسی‌ها ترجمهٔ دسته‌ای می‌گیرند (سقف ۲۴ مورد در چرخه)؛ ترجمه‌نشده در صف
+    //    می‌مانند و اسلات بعد دوباره — نه متن خام، نه خبر گم‌شده. فقط وقتی اسلات «واقعاً»
+    //    فرا رسیده ترجمه می‌کنیم (ترجمهٔ بی‌ارسال، هر ۱۰ دقیقه تکرار نمی‌شود). ──
     const newsSlotKey = dueBundleSlotKey(Date.now(), 0, periodMin, state.lastNewsSlotKey, pSlot);
-    if (newsSlotKey && queue.length > 0) {
+    const newsGate = Boolean(newsSlotKey) && queue.length > 0;
+    const items: HourlyItem[] = [];
+    const newsRetryQueue: BundleItem[] = [];
+    if (newsGate) {
+      const foreignQ: Array<{ q: BundleItem; text: string }> = [];
+      for (const q of queue) {
+        const text = q.text.replace(/\n?🖼 عکس خود خبر: \S+/g, '').replace(/^✅$|^⚠️$/gm, '').trim();
+        if (needsTranslation(text)) { foreignQ.push({ q, text }); continue; }
+        items.push({
+          id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
+          source: (q.source || '').trim(),
+          text,
+          // برچسب دستهٔ خبری — به پیکرهٔ تحلیل می‌رود تا مدل محوربندی درست کند (۱۵ نوامبر)
+          cat: q.cat ? (catTitles.get(q.cat) || undefined) : undefined,
+          at: q.queuedAt,
+        });
+      }
+      if (foreignQ.length > 0) {
+        const batch = foreignQ.slice(0, 24); // سقف توان ترجمهٔ هر چرخه — مازاد به اسلات بعد
+        const res = await summarizeBatchFa(batch.map((f) => f.text), { maxPerItem: 900 });
+        let trN = 0;
+        res.fa.forEach((fa, j) => {
+          if (!fa) return;
+          trN++;
+          const b = batch[j]!;
+          items.push({
+            id: b.q.ids?.[0] || `${b.q.queuedAt}|${(b.q.source || 'منبع ناشناس').trim()}`,
+            source: (b.q.source || '').trim(),
+            text: fa,
+            cat: b.q.cat ? (catTitles.get(b.q.cat) || undefined) : undefined,
+            at: b.q.queuedAt,
+          });
+        });
+        summary.translated += trN;
+        for (let fi = 0; fi < foreignQ.length; fi++) {
+          const fa = fi < batch.length ? res.fa[fi] : '';
+          if (!fa) newsRetryQueue.push(foreignQ[fi]!.q); // ترجمه‌نشده — در صف می‌ماند
+        }
+        const stuck = foreignQ.length - trN;
+        if (stuck > 0) {
+          summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
+          console.warn(`⚠️ ${enToFaDigits(String(stuck))} مورد غیرفارسیِ صف ترجمه نشد — در صف می‌مانند و چرخهٔ بعد دوباره (هیچ خام‌ارسالی)`);
+        }
+      }
+    }
+    if (newsGate && items.length === 0) {
+      console.warn(`⚠️ اسلات بستهٔ خبری ${newsSlotKey}: صف ${enToFaDigits(String(queue.length))} مورد دارد اما همهٔ غیرفارسیِ هنوز-ترجمه‌نشده‌اند — اسلات علامت نمی‌خورد و چرخهٔ بعد دوباره تلاش می‌کند (هیچ خام‌ارسالی/بستهٔ خالی)`);
+    } else if (newsSlotKey && queue.length > 0 && !overBudget()) {
       // رویدادهای بازه — ضدتکرار معنایی با تاریخچهٔ ارسال‌شده‌ها (خواستهٔ ۱۲ نوامبر) +
       // تجمیع مشابه‌ها + شمار منابع مستقل (تیک اعتبارسنجی قطعی از دادهٔ سامانه، نه حدس مدل)
-      const items: HourlyItem[] = queue.map((q) => ({
-        id: q.ids?.[0] || `${q.queuedAt}|${(q.source || q.text.slice(0, 40)).trim()}`,
-        source: (q.source || '').trim(),
-        text: q.text.replace(/\n?🖼 عکس خود خبر: \S+/g, '').replace(/^✅$|^⚠️$/gm, '').trim(),
-        // برچسب دستهٔ خبری — به پیکرهٔ تحلیل می‌رود تا مدل محوربندی درست کند (۱۵ نوامبر)
-        cat: q.cat ? (catTitles.get(q.cat) || undefined) : undefined,
-        at: q.queuedAt,
-      }));
       // ضدتکرار با تاریخچه + علامت‌های همین چرخه (بستهٔ توییت همین چرخه ممکن است پیش از این
       // اسلات اجرا شده باشد) — قبلاً فقط state پیشین دیده می‌شد
       const sentMsgSets = Object.keys(state.sentMsgTexts).map((t) => tokensOf(t));
@@ -4307,18 +4591,25 @@ async function main(): Promise<void> {
       //  سیاست و علمی و ورزشی ، تو اون بازه دسته بندی بشن ، اولویت بندی بشن … و بعد در نهایت
       //  در دسته اون خبر منتشر بشن» — دسته‌بندی واژه‌محور قطعی و بدون مدل (bot/categories.ts)،
       //  درون هر دسته ترتیب اهمیت از تحلیل هوشمند حفظ می‌شود (مرتب‌سازی پایدار).
+      // ── نقد سخت‌گیرانهٔ ۲۱ نوامبر (سپر سرریز ظرفیت کارت): مسیر خام فقط ۸۴ ردیفِ نخست را
+      //    کارت می‌کرد و بقیه «بی‌صدا حذف + علامت ارسال‌شده» می‌شدند (نقض «خبری از قلم
+      //    نمی‌افتد» — صف زندهٔ ۲۸۳تایی یعنی عملاً بیش از ۱۰۰ مورد). مازاد حالا به همان
+      //    پیام‌های متنی مکمل سپر «…» می‌رود — متن کامل، هرگز بریده. ──
+      const NEWS_CARD_ROW_CAP = NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE;
+      const beyondCardItems = grounded ? [] : mergedItems.slice(NEWS_CARD_ROW_CAP); // مازاد ظرفیت کارت
       const rawCardItems: Array<{ text: string; tick: boolean; source: string }> = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
-        : mergedItems.slice(0, NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).map((m) => ({ text: m.text, tick: m.verified, source: (m.sources[0] || '').trim() }));
+        : mergedItems.slice(0, NEWS_CARD_ROW_CAP).map((m) => ({ text: m.text, tick: m.verified, source: (m.sources[0] || '').trim() }));
       // تفکیک جاشونده/سرریز — کارت فقط جمله‌های کامل می‌گیرد؛ سرریزها متن کامل در پیام متنی
-      const overflowTexts: string[] = [];
+      const overflowTexts: string[] = beyondCardItems.map((m) => m.text);
       const fittedItems: Array<{ text: string; tick: boolean; source: string }> = [];
       for (const it of rawCardItems) {
         const fitted = finalizeNewsCardText(it.text);
         if (fitted === null) overflowTexts.push(it.text);
         else fittedItems.push({ ...it, text: fitted });
       }
-      if (overflowTexts.length > 0) console.log(`سپر «…»: ${enToFaDigits(String(overflowTexts.length))} مورد بلندتر از سه خطِ کامل — متن کامل در پیام متنی جداگانه (هرگز بریده نمی‌شود)`);
+      if (beyondCardItems.length > 0) console.log(`سپر ظرفیت کارت: ${enToFaDigits(String(beyondCardItems.length))} مورد فراتر از ${enToFaDigits(String(NEWS_CARD_ROW_CAP))} ردیفِ کارت‌ها — متن کامل در پیام متنی جداگانه (نقد ۲۱ نوامبر)`);
+      if (overflowTexts.length > 0) console.log(`سپر «…» و ظرفیت: ${enToFaDigits(String(overflowTexts.length))} مورد — متن کامل در پیام متنی جداگانه (هرگز بریده نمی‌شود)`);
       const cardItems = groupByCategory(fittedItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
       let newsCardSent = false;
       let newsCardsCount = 0;
@@ -4416,10 +4707,15 @@ async function main(): Promise<void> {
         if (aiText) markMsg(aiText);
         for (const m of mergedItems) markMsg(m.text);
         queue.length = 0;
+        // غیرفارسی‌های بی‌ترجمه به صف برمی‌گردند — اسلات بعد دوباره ترجمه/ارسال (نقد ۲۱ نوامبر)
+        for (const r of newsRetryQueue) queue.push(r);
         state.lastNewsSlotKey = newsSlotKey;
       } else {
         console.warn('⚠️ ارسال بستهٔ خبری ناموفق — اسلات علامت نمی‌خورد تا چرخهٔ بعدِ همین اسلات دوباره تلاش کند (خبری از قلم نمی‌افتد)');
       }
+    } else if (newsSlotKey && queue.length > 0) {
+      // مهلت چرخه تمام شده — اسلات علامت نمی‌خورد؛ چرخهٔ بعدِ همین اسلات دوباره می‌گیرد
+      console.warn(`⏱️ مهلت چرخه (${Math.round(CYCLE_BUDGET_MS / 60_000)} دقیقه) تمام شد — بستهٔ خبری اسلات ${newsSlotKey} به چرخهٔ بعد می‌ماند؛ state سالم ذخیره می‌شود (نقد ۲۱ نوامبر)`);
     } else if (newsSlotKey) {
       state.lastNewsSlotKey = newsSlotKey; // صف خالی — سکوت؛ خبرهای تازه در اسلات بعدی می‌آیند
       console.log(`اسلات بستهٔ خبری ${newsSlotKey} — صف خالی بود، پیامی فرستاده نمی‌شود`);
@@ -4484,7 +4780,21 @@ async function main(): Promise<void> {
           faName: m.faName,
           verified: m.sources.length >= 2,
         }));
-        const twPages = await renderTweetCardPages({ date: twDate, items: twCardItems }).catch(() => [] as CardPng[]);
+        // ── سپر سرریز توییت (نقد سخت‌گیرانهٔ ۲۱ نوامبر) — دو لایهٔ بی‌صدا حذف می‌شدند و
+        //    «ارسال‌شده» علامت می‌خوردند (نقض «خبری از قلم نمی‌افتد»):
+        //    (۱) ترجمهٔ بلندتر از ۳۲ خطِ کارت به‌جای بریدگی «…» کامل در پیام متنی جداگانه؛
+        //    (۲) مازادِ بیش از ۵ کارت هم همین‌طور — هم‌الگوی سپر سرریز کارت خبر. ──
+        const twLineSplit = splitTweetItemsByLineCap(twCardItems);
+        const twPageSplit = splitTweetItemsForCards(twLineSplit.card);
+        const twOverflowItems = [...twLineSplit.overflow, ...twPageSplit.overflow];
+        if (twOverflowItems.length > 0) {
+          console.log(`سپر سرریز توییت: ${enToFaDigits(String(twOverflowItems.length))} مورد بلندتر از ظرفیت کارت — متن کامل در پیام متنی جداگانه (هرگز بریده نمی‌شود)`);
+        }
+        const twPages: CardPng[] = [];
+        for (let tp = 0; tp < twPageSplit.paged.length; tp++) {
+          const card = await renderTweetCardPng({ date: twDate, items: twPageSplit.paged[tp]!, part: { no: tp + 1, of: twPageSplit.paged.length } }).catch(() => null);
+          if (card) twPages.push(card);
+        }
         if (twPages.length === 0) {
           console.warn('⚠️ رندر کارت توییت‌ها ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
         } else {
@@ -4498,6 +4808,18 @@ async function main(): Promise<void> {
             await sleep(700);
           }
           twCardsCount = twPages.length;
+          // متن کامل موارد سرریز — پیام متنی مکمل پس از کارت‌ها (خبر کامل، هرگز بریده)
+          if (twOverflowItems.length > 0) {
+            const ovChunks = buildBundleChunks(twOverflowItems.map((o) => (isIranRelated(o.fa) ? `<b>${o.fa}</b>` : o.fa)), { maxLen: 3300 });
+            for (const c of ovChunks) {
+              for (const t of CFG.targets) {
+                const s = await sendBaleMessage(CFG.token, t, c);
+                if (s.ok) twOk = true;
+                else console.error(`❌ ارسال متن کامل توییت بلند به ${t} ناموفق: ${s.error}`);
+              }
+              await sleep(600);
+            }
+          }
         }
       }
       if (!twOk) {
@@ -4521,34 +4843,47 @@ async function main(): Promise<void> {
       } else {
         console.warn('⚠️ ارسال بستهٔ توییت ناموفق — صف برای چرخهٔ بعد می‌ماند');
       }
+    } else if (tweetSlotKey && tweetQueue.length > 0) {
+      // مهلت چرخه — اسلات علامت نمی‌خورد؛ چرخهٔ بعدِ همین اسلات دوباره می‌گیرد (نقد ۲۱ نوامبر)
+      console.warn(`⏱️ مهلت چرخه تمام شد — بستهٔ توییت اسلات ${tweetSlotKey} به چرخهٔ بعد می‌ماند؛ state سالم ذخیره می‌شود`);
     } else if (tweetSlotKey) {
       state.lastTweetSlotKey = tweetSlotKey;
       console.log(`اسلات بستهٔ توییت ${tweetSlotKey} — توییت تازه‌ای نبود، طبق خواستهٔ کاربر هیچ متنی فرستاده نمی‌شود`);
     }
-    // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند
-    await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
+    // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند (با مهلت‌سنجی — نقد ۲۱ نوامبر)
+    if (overBudget()) console.warn('⏱️ مهلت چرخه — اسلات‌های تحلیل/بازار به چرخهٔ بعد می‌مانند (اسلات علامت نمی‌خورد)');
+    else await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
 
   // ── تحلیل جامع ۸ساعتهٔ یکپارچه — خواستهٔ کاربر ۲۰ نوامبر (سوم): تنها بستهٔ تحلیلی روز،
   //    اسلات‌های ۰۶/۱۴/۲۲ با وزن ۶۰/۳۰/۱۰؛ تحلیل جامع ۰۸/۱۴/۲۰ و شبانهٔ ۲۲:۳۰ در آن ادغام شدند ──
-  await runGeoAnalysis({ state, summary, dryRun: false, sentIds, sentTitles, sentTitleTexts, sentMsgTexts });
+  if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل جامع ۸ساعته به چرخهٔ بعد می‌ماند (اسلات علامت نمی‌خورد؛ state سالم ذخیره می‌شود)');
+  else await runGeoAnalysis({ state, summary, dryRun: false, sentIds, sentTitles, sentTitleTexts, sentMsgTexts });
 
   // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — خاموش (NIGHTLY_HOURS='none'): در بستهٔ شبانگاهی ۲۲:۰۰ ادغام شد ──
-  await runNightlyAnalysis({ state, summary, dryRun: false });
+  if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل شبانه به چرخهٔ بعد می‌ماند');
+  else await runNightlyAnalysis({ state, summary, dryRun: false });
 
   // ── اعلان‌های خودکار مدیر — N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه (خواستهٔ ۱۵ نوامبر) ──
   await runAdminAlerts(state, summary, perSource);
+  } catch (e) {
+    // ایزوله‌سازی فازها (نقد ۲۱ نوامبر): استثنای هر فاز فقط همان فاز؛ بقیهٔ چرخه و «ذخیرهٔ
+    // state» در finally حتماً اجرا می‌شوند — علامت‌های ارسالِ انجام‌شده هرگز بی‌صدا نمی‌پرند.
+    summary.error = `${summary.error ? `${summary.error} | ` : ''}خطای چرخه: ${e instanceof Error ? e.message : String(e)}`;
+    console.error('❌ خطای چرخه (بقیهٔ فازها رد شد؛ state در finally ذخیره می‌شود):', e instanceof Error ? e.stack || e.message : e);
+    process.exitCode = 1;
+  } finally {
+    // ۱۰) ثبت state و خلاصه — همیشه، حتی پس از خطا (سپر ۲۱ نوامبر)
+    const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });
+    if (tweetNextCursor !== null) merged.tweetCursor = tweetNextCursor;
+    merged.aiCursor = getAiCursor(); // چرخش یکی‌یکی تأمین‌کنندگان — بقای نشانگر پس از ری‌استارت
+    merged.lastRunAt = new Date().toISOString();
+    merged.lastRun = { ...summary };
+    saveState(CFG.stateFile, merged);
 
-  // ۱۰) ثبت state و خلاصه — متن‌های عنوان/پیام هم برای ضدتکرار شباهتی چرخه‌های بعد
-  const merged = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });
-  if (tweetNextCursor !== null) merged.tweetCursor = tweetNextCursor;
-  merged.aiCursor = getAiCursor(); // چرخش یکی‌یکی تأمین‌کنندگان — بقای نشانگر پس از ری‌استارت
-  merged.lastRunAt = new Date().toISOString();
-  merged.lastRun = { ...summary };
-  saveState(CFG.stateFile, merged);
-
-  console.log('=== خلاصهٔ چرخه ===');
-  console.log(JSON.stringify(summary, null, 2));
+    console.log('=== خلاصهٔ چرخه ===');
+    console.log(JSON.stringify(summary, null, 2));
+  }
 }
 
 // فقط اجرای مستقیم («bun bot/bot.ts») چرخه را می‌چرخاند — import برای تست/ابزارها بی‌اثر است

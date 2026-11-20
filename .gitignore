@@ -57,3 +57,7 @@ server.log
 /tool-results/
 /upload/
 .fc-cache/
+
+# فایل‌های موقت state — ذخیرهٔ اتمیک (نقد ۲۱ نوامبر)
+bot/state.json.tmp
+bot/state.json.bak

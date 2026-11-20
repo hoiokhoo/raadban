@@ -124,9 +124,14 @@ describe('tokensOf/tokensFa — توکنایزر یکپارچهٔ معنایی',
     for (const stop of ['از', 'که', 'را', 'این', 'برای', 'شد']) expect(t.has(stop)).toBe(false);
     expect(t.has('وزیر')).toBe(true);
   });
-  test('جداکنندهٔ هزارگان حذف می‌شود — «۱۲٬۵۰۰» و «12500» یک توکن', () => {
-    expect(tokensFa('دلار به ۱۲٬۵۰۰ تومان رسید').has('۱۲۵۰۰')).toBe(true);
+  test('جداکنندهٔ هزارگان حذف و ارقام فارسی/عربی/لاتین یک توکن — «۱۲٬۵۰۰» == «12500» (نقد ۲۱ نوامبر)', () => {
+    // یکسان‌سازی ارقام: ۱۲٬۵۰۰ فارسی، ۱۲٥٠٠ عربی و 12500 لاتین هم‌اکنون یک توکن‌اند —
+    // پیش‌تر فقط جداکننده حذف می‌شد و دو رسم‌الخطِ همان عدد دو توکنِ بی‌همریخت می‌ساختند
+    expect(tokensFa('دلار به ۱۲٬۵۰۰ تومان رسید').has('12500')).toBe(true);
     expect(tokensFa('dollar reached 2,500 toman').has('2500')).toBe(true);
+    expect(tokensFa('دلار به ۱۲۵۰۰ تومان رسید').has('12500')).toBe(true);
+    expect(tokensFa('الدولار ١٢٬٥٠٠ ريال').has('12500')).toBe(true);
+    expect(tokensFa('دلار به ۱۲٬۵۰۰ تومان رسید').has('۱۲۵۰۰')).toBe(false); // دیگر توکن فارسی‌رقم جدا نیست
   });
   test('حروف لاتین کوچک می‌شوند — Trump/trump یکی', () => {
     expect(tokensFa('Trump said').has('trump')).toBe(true);
@@ -139,9 +144,9 @@ describe('strongAnchors — لنگر قوی فقط عدد ≥۳رقمی یا ن�
   test('عدد بلند و نام لاتین لنگرند؛ درصد دونقمی و واژهٔ فارسی نیستند', () => {
     const t = tokensFa('دلار ۱۲٬۵۰۰ تومان؛ تعرفه ۲۵ درصدی ترامپ؛ بیانیه Biden منتشر شد');
     const a = strongAnchors(t);
-    expect(a.has('۱۲۵۰۰')).toBe(true);
+    expect(a.has('12500')).toBe(true); // ارقام یکدست لاتین (نقد ۲۱ نوامبر)
     expect(a.has('biden')).toBe(true);
-    expect(a.has('۲۵')).toBe(false);
+    expect(a.has('25')).toBe(false);
     expect(a.has('ترامپ')).toBe(false);
   });
 });

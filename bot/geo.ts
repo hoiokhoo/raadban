@@ -21,7 +21,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { mergeSimilarItems, buildHourlyCorpus, type HourlyItem, type MergedItem } from './hourly';
-import { isPureArabic } from './lang';
+import { cutAtSentence, isPureArabic, needsTranslationLang } from './lang';
 
 // ---------- سوپرپرامپت تحلیل جامع ۸ساعتهٔ یکپارچه (پیش‌فرض؛ قابل بازنویسی از bot/prompts.json با کلید «geo») ----------
 // خواستهٔ کاربر ۲۰ نوامبر (سوم): «اگر تحلیل‌های جامع دوبار زمان‌بندی شدن ادغامشون کن — کلا در
@@ -441,7 +441,11 @@ export function geoReportableEventCount(text: string): number {
 /** برش پیام‌های پنجرهٔ بازه + به‌روزرسانی دفتر «دیده‌شده‌ها» (هرس ۷ روزه — سقف ۴۰۰۰).
  *  پیام بی‌زمان معتبر فقط با ضدتکرار شناسه کنترل می‌شود (صادقانه، نه حدس زمانی).
  *  دفترِ برگشتی را فقط پس از «ارسال موفق» به state بدهید. تابع خالص تست‌پذیر.
- *  سقف ۱۸۰ پیام در هر بازه — پنجرهٔ ۸ساعته دو برابر پیامِ پنجرهٔ ۴ساعتهٔ قبلی دارد. */
+ *  سقف ۱۸۰ پیام در هر بازه — پنجرهٔ ۸ساعته دو برابر پیامِ پنجرهٔ ۴ساعتهٔ قبلی دارد.
+ *  نقد سخت‌گیرانهٔ ۲۱ نوامبر: «سقف ۴۰۰۰» در کامنت ادعا شده بود ولی پیاده‌سازی نشده بود —
+ *  دفتر فقط هرس ۷روزه داشت و بی‌سقف می‌توانست رشد کند (میکروفون‌های پرکار ~۱۸۰/۸ساعت ≈
+ *  ۴۷۰/روز). حالا پس از هرس زمانی، قدیمی‌ترین‌های فراتر از GEO_SEEN_CAP حذف می‌شوند. */
+export const GEO_SEEN_CAP = 4000;
 export function windowGeoPosts(
   posts: GeoPost[],
   sinceMs: number,
@@ -449,9 +453,15 @@ export function windowGeoPosts(
   now = Date.now(),
   cap = 180
 ): { picked: GeoPost[]; seen: Record<string, number> } {
-  const kept: Record<string, number> = {};
+  let kept: Record<string, number> = {};
   for (const [k, ts] of Object.entries(seen || {})) {
     if (typeof ts === 'number' && now - ts < 7 * 86_400_000) kept[k] = ts;
+  }
+  // سقف شمار — تازه‌ترین‌ها می‌مانند (نقد ۲۱ نوامبر: کامنتِ «سقف ۴۰۰۰» سرانجام واقعی شد)
+  if (Object.keys(kept).length > GEO_SEEN_CAP) {
+    kept = Object.fromEntries(
+      Object.entries(kept).sort((a, b) => b[1] - a[1]).slice(0, GEO_SEEN_CAP)
+    );
   }
   const inWin = (posts || []).filter((p) => {
     if (!p?.id || !p?.text?.trim()) return false;
@@ -629,14 +639,12 @@ export function validateGeoText(raw: string | undefined | null, maxLen = 5200): 
   t = t.replace(URL_RE, '').replace(/[ \t]{2,}/g, ' ');
   t = t.replace(/\n{3,}/g, '\n\n').trim();
   if (t.length < 300) return null;
-  if (t.length > maxLen) {
-    const cut = t.lastIndexOf('\n', maxLen);
-    t = t.slice(0, cut > maxLen * 0.5 ? cut : maxLen).trimEnd() + '\n…';
-  }
+  if (t.length > maxLen) t = cutAtSentence(t, maxLen); // برش در مرز جمله — پایان پیام جملهٔ کامل است (نقد ۲۱ نوامبر)
   const letters = t.match(/\p{L}/gu) || [];
   if (letters.length < 150) return null;
   const fa = letters.filter((c) => /[\u0600-\u06FF]/.test(c)).length;
   if (fa / letters.length < 0.5) return null; // پیام غیرفارسی مطلقاً ارسال نمی‌شود
   if (isPureArabic(t)) return null; // عربیِ خالص هم ارسال نمی‌شود — کانال فارسی است (۱۵ نوامبر)
+  if (needsTranslationLang(t)) return null; // هم‌استاندارد گیت توییت (نقد ۲۱ نوامبر)
   return t;
 }

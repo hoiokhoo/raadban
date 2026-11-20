@@ -17,8 +17,12 @@ on:
   # چرخهٔ خودادامه: هر اجرا پس از خواب کوتاه، اجرای بعدی را خودش dispatch می‌کند (پایین)
 
 concurrency:
-  # ران فوری (force_digest) گروه مستقل دارد — پشت ران‌های زنجیره صف نمی‌شود و کنسل نمی‌شود
-  group: ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && 'bale-bot-force' || 'bale-bot' }}
+  # نقد سخت‌گیرانهٔ ۲۱ نوامبر: گروهِ جدا برای force_digest یعنی اجرای هم‌زمان دو چرخه با دو
+  # نسخهٔ fork‌شدهٔ state.json — هر دو ارسال می‌کنند، بازندهٔ push علامت‌های ضدتکرارش را از دست
+  # می‌دهد و چرخهٔ بعد «همهٔ بازه را دوباره» می‌فرستد (ارسال دوباره). حالا «همهٔ» اجراها
+  # (زنجیره + cron + force) در یک گروه صف می‌شوند — سریال یعنی state تک‌خطی و بی‌تصادم؛
+  # هزینه: ران فوری حداکثر ~۱۰ دقیقه پشت صف می‌ماند (اشتباه تکرارِ خبر از تأخیر بدتر است).
+  group: bale-bot
   cancel-in-progress: false # اجراها پشت‌سرهم صف می‌شوند؛ ضدتکرار state مانع ارسال دوبارهٔ همان خبر می‌شود
 
 permissions:
@@ -89,7 +93,14 @@ jobs:
             echo "state تغییری نکرد — کامیت لازم نیست"
           else
             git commit -m "وضعیت ضدتکرار ربات: $(date -u +'%Y-%m-%dT%H:%MZ')"
-            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            # نقد ۲۱ نوامبر: «|| true» شکستِ rebase را می‌بلعید و از دست رفتن علامت‌های
+            # ضدتکرار (ارسال دوبارهٔ خبر) بی‌صدا می‌گذاشت — حالا تلاش دوم با بازنشانی
+            # صادقانه انجام می‌شود و شکست نهایی به‌عنوان خطای ران دیده می‌شود.
+            if ! git pull --rebase origin "${GITHUB_REF_NAME}"; then
+              echo "::warning::rebase ناموفق — تلاش دوم پس از هم‌ترازی مجدد"
+              git rebase --abort || true
+              git pull --rebase origin "${GITHUB_REF_NAME}"
+            fi
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
 

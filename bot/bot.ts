@@ -62,6 +62,8 @@ import { CHART_ASSETS, buildChartPanel, fetchAssetHistory, mergeLivePoint, rende
 import {
   renderNewsCardPages,
   renderTweetCardPages,
+  renderBreakingCardPng,
+  finalizeNewsCardText,
   NEWS_CARD_MAX_PAGES,
   NEWS_CARD_ROWS_PER_PAGE,
   type CardPng,
@@ -93,6 +95,7 @@ import {
   appendAnalysis,
   type HourlyAnalysis,
   type HourlyItem,
+  type MergedItem,
 } from './hourly';
 import {
   DEFAULT_SYSTEM_NIGHTLY,
@@ -110,6 +113,7 @@ import {
   appendGeoAnalysis,
   buildGeoCorpus,
   buildGeoMemoryBlock,
+  buildGeoWeightedMemory,
   buildNightlyGeoBlock,
   fetchAllGeoChannels,
   filterGeoGeopolitical,
@@ -132,7 +136,7 @@ import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif } from './weather-gif';
 import { fetchIranRadarPng } from './iran-radar';
 import { highlightIranItemsHtml, isIranRelated } from './iran';
-import { isBreakingTweetText, renderBreakingGif } from './breaking';
+import { isBreakingTweetText, isBreakingNewsText, renderBreakingGif } from './breaking';
 import {
   pickHadith,
   bankStatus,
@@ -1399,6 +1403,59 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
     }
   }
   return { ok: false, error: lastErr || 'نامشخص' };
+}
+
+// ---------- ارسال فوری — گیف چراغ گردان + کارت متن «قرمز کم‌رنگ» ----------
+// خواستهٔ کاربر ۲۰ نوامبر (سوم): «تویی‌ها و اخبار فوری قرمز کم‌رنگ» — ارسال فوری =
+// گیف چراغ گردان متحرک (پس‌زمینهٔ قرمز کم‌رنگ — bot/breaking.ts) + کارت متن کامل با
+// همان پالت (bot/news-card.ts renderBreakingCardPng). پله‌های بازگشت صادقانه:
+// هر دو موفق → گیف اول (جلب توجه) بعد کارت متن؛ کارت ناموفق → گیف + کپشن متن؛
+// گیف ناموفق → فقط کارت؛ هر دو ناموفق → پیام متنی کامل — خبر فوری هرگز گم نمی‌شود.
+async function sendBreakingNow(source: string, faText: string, faName?: string): Promise<boolean> {
+  const text = (faText || '').trim();
+  if (!text) return false;
+  const caption = [`🚨 فوری — ${source}`, faName ? `${faName}:` : '', text]
+    .filter(Boolean).join('\n').slice(0, 1000);
+  const date = tripleDateOf(tehranParts(Date.now()).dateKey, 'Asia/Tehran', 'umalqura');
+  const [gif, card] = await Promise.all([
+    renderBreakingGif().catch(() => null),
+    renderBreakingCardPng({ source, text, faName, date }).catch(() => null),
+  ]);
+  let anyOk = false;
+  if (gif && card) {
+    for (const t of CFG.targets) {
+      const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', undefined, 'image/gif');
+      if (s.ok) anyOk = true;
+      else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
+    }
+    for (const t of CFG.targets) {
+      const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-breaking-card.png');
+      if (s.ok) anyOk = true;
+      else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
+    }
+  } else if (gif) {
+    // کارت رندر نشد — متن به‌صورت کپشن روی همان گیف (سقف ۱۰۲۴؛ سرریز پیام جداگانه)
+    const cap = splitPhotoCaption(caption, 1024);
+    for (const t of CFG.targets) {
+      const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
+      if (s.ok) { anyOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
+      else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
+    }
+  } else if (card) {
+    for (const t of CFG.targets) {
+      const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-breaking-card.png');
+      if (s.ok) anyOk = true;
+      else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
+    }
+  }
+  if (anyOk) return true;
+  // هیچ تصویری نشد — پیام متنی کامل (خبر فوری هرگز گم نمی‌شود)
+  for (const t of CFG.targets) {
+    const s = await sendBaleMessage(CFG.token, t, `🚨 <b>فوری</b> — ${esc(source)}\n${faName ? `<b>${esc(faName)}:</b> ` : ''}${esc(text)}`);
+    if (s.ok) anyOk = true;
+    else console.error(`❌ ارسال فوری متنی به ${t}: ${s.error}`);
+  }
+  return anyOk;
 }
 
 // ---------- زنجیرهٔ مدل (رایگان‌محور — فراوان و چرخشی) ----------
@@ -2689,17 +2746,29 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   console.log(`🌙 تحلیل جامع شبانه ارسال و ذخیره شد (${todayKey}) — ${merged.length} رویداد، حافظه: ${state.nightlyAnalyses.length} روز، ${chunks.length} پیام`);
 }
 
-// ---------- تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶) ----------
-// «کانال‌های چپ و راست ایتا و تلگرام در بخش مجزا؛ اخبارشان تجمیع و اعتبارسنجی شود و هر ۴ ساعت
-//  یک تحلیل به رصدبان اضافه شود؛ تحلیل ذخیره شود و برای تحلیل جامع ۲۲:۳۰ هم منبع باشد».
-// (خواستهٔ ۲۰ نوامبر: «تحلیل ۴ ساعته باید بشه ۸ ساعتی — ۱۰ هر شب شبانگاهی، ۶ هر صبح صبحگاهی،
-//  ۲ هر ظهر ظهرگاهی» → اسلات‌های ۰۶/۱۴/۲۲ تهران + GEO_WINDOW_HOURS=8 + عنوان روزانه)
-// واکشی صفحهٔ عمومی کانال‌ها (bot/geo-channels.json) → فیلتر تبلیغ/نوفه → پنجرهٔ ۸ساعته با
-// ضدتکرار شناسه (state.geoSeenIds) → تجمیع چندکاناله (تیک قطعی ≥۲ منبع مستقل) → سوپرپرامپت
-// (مقایسهٔ روایت دو طیف) → ارسال + ذخیره در state.geoAnalyses (حافظهٔ ۲۱ تحلیل ≈ ۷ روز)؛
-// رویدادهای این بخش به آرشیو شبانه (state.dailyPool) هم می‌رود تا تحلیل ۲۲:۳۰ از همین منابع تغذیه شود.
+// ---------- تحلیل جامع ۸ساعتهٔ یکپارچه — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ (سوم) ----------
+// «اگر تحلیل‌های جامع دوبار زمان‌بندی شدن ادغامشون کن — کلا در طی روز یه بستهٔ سه‌تایی
+//  هشت‌ساعتهٔ تحلیل جامع داشته باشیم که ۶۰٪ وزنش اخبار ۸ ساعت گذشته باشه، ۳۰٪ ۲۴ ساعت
+//  قبلتر و ۱۰٪ یک هفته قبل» — این بخش اکنون تنها تحلیل جامع روز است: تحلیل جامع ۰۸/۱۴/۲۰
+//  (DIGEST_HOURS) و شبانهٔ ۲۲:۳۰ (NIGHTLY_HOURS) با «none» خاموش و در این بسته ادغام شدند.
+// سوخت پیکره: پیام‌های کانال‌های چپ و راست (پنجرهٔ ۸ساعته + ضدتکرار شناسه) + رویدادهای
+// ۸ ساعت اخیر از آرشیو روزانه (خبر + توییت — state.dailyPool) + حافظهٔ وزنی ۲۴ساعت/۷روز
+// از دفتر تحلیل‌ها (buildGeoWeightedMemory). + خواستهٔ دوم همین روز: «اخبار کانال‌ها همگی
+// پس از ادغام و حذف تکراری و چک تاریخچه با هوش مصنوعی راستی‌آزمایی بشن و بعد دسته‌بندی و
+// صف‌بندی و ارسال» — رویدادهای صافی‌شدهٔ کانال‌ها به صف بستهٔ خبری می‌روند (تحلیل+تطبیق
+// اجباری همان راستی‌آزمایی است) و پست تازهٔ فوری (نشان‌های سخت جنگ/حمله، ≤۴۵ دقیقه)
+// بلافاصله با گیف/کارت قرمز کم‌رنگ مخابره می‌شود.
 
-export interface GeoCtx { state: BotState; summary: RunSummary; dryRun: boolean }
+export interface GeoCtx {
+  state: BotState;
+  summary: RunSummary;
+  dryRun: boolean;
+  /** علامت‌های ضدتکرار چرخهٔ جاری — برای خبر فوریِ ارسال‌شده از کانال‌ها (اختیاری) */
+  sentIds?: string[];
+  sentTitles?: string[];
+  sentTitleTexts?: string[];
+  sentMsgTexts?: string[];
+}
 
 export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   const { state, summary } = ctx;
@@ -2710,14 +2779,14 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   if (!dKey) return;
   const channels = loadGeoChannels(CFG.geoChannelsFile);
   if (channels.length === 0) {
-    console.warn(`⚠️ تحلیل ژئوپلیتیک: فهرست کانال‌ها در ${CFG.geoChannelsFile} خالی/نامعتبر است — بخش غیرفعال`);
+    console.warn(`⚠️ تحلیل جامع: فهرست کانال‌ها در ${CFG.geoChannelsFile} خالی/نامعتبر است — بخش غیرفعال`);
     return;
   }
   const p = tehranParts(Date.now());
   const { posts, failed } = await fetchAllGeoChannels(channels, CFG.fetchTimeoutMs);
   if (failed.length > 0) console.warn(`⚠️ کانال‌های بی‌خروجی: ${failed.join('، ')} (صادقانه)`);
   if (failed.length === channels.length) {
-    console.error('❌ تحلیل ژئوپلیتیک: هیچ کانالی خروجی نداد — اسلات علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
+    console.error('❌ تحلیل جامع: هیچ کانالی خروجی نداد — اسلات علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
     summary.aiFailed = true;
     return;
   }
@@ -2733,24 +2802,102 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   if (ritualDropped > 0) console.log(`پالایهٔ مناسکتی: ${enToFaDigits(String(ritualDropped))} پیام صرفاً دینی/یادبودی از ورودی تحلیل حذف شد`);
   const filtered = geopolitical;
   const merged = mergeSimilarItems(geoItemsForMerge(filtered));
-  console.log(`بخش چپ و راست: ${posts.length} پیام خام → پنجره/ضدتکرار: ${win.picked.length} → پس از فیلتر تبلیغ/مناسکت: ${filtered.length} → تجمیع: ${merged.length} رویداد`);
+  // ── رویدادهای ۸ ساعت اخیر از آرشیو روزانه (خبر + توییت) — سوخت ۶۰٪ پیکرهٔ یکپارچه ──
+  const catTitles = new Map<string, string>(loadBotConfig().categories.map((c) => [c.slug, c.title]));
+  const poolSince = Date.now() - GEO_WINDOW_HOURS * 3600_000;
+  const pool8 = (Array.isArray(state.dailyPool) ? state.dailyPool : [])
+    .filter((it) => {
+      const t = Date.parse(it.at || '');
+      return Number.isFinite(t) && t >= poolSince;
+    })
+    .map((it) => ({
+      id: it.id,
+      source: it.source || 'رصدبان',
+      text: ((it.fa || '').trim() || it.text || '').slice(0, 380),
+      cat: it.cat ? (catTitles.get(it.cat) || undefined) : undefined,
+      at: it.at,
+      ids: [it.id],
+      sources: [it.source || 'رصدبان'],
+      verified: false,
+    })) as MergedItem[];
+  const combined = [...merged, ...pool8].sort((a, b) => Date.parse(b.at || '') - Date.parse(a.at || ''));
+  console.log(`تحلیل جامع ۸ساعته: کانال‌ها ${posts.length} پیام خام → پنجره/ضدتکرار ${win.picked.length} → پس از فیلتر ${filtered.length} → تجمیع ${merged.length} رویداد؛ آرشیو ۸ساعت اخیر: ${pool8.length} — پیکرهٔ یکپارچه: ${combined.length}`);
   const history = Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [];
+  const wm = buildGeoWeightedMemory(history, Date.now());
   if (ctx.dryRun) {
-    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل ۸ساعتهٔ ژئوپلیتیک (اسلات ${dKey} — ${geoDaypartLabel(dKey)}) ===`);
-    console.log(`کانال‌ها: ${channels.length} — پیام تازه: ${filtered.length} — پس از تجمیع: ${merged.length} — حافظه: ${history.length} بازه`);
+    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل جامع ۸ساعتهٔ یکپارچه (اسلات ${dKey} — ${geoDaypartLabel(dKey)}) ===`);
+    console.log(`کانال‌ها: ${channels.length} — رویداد کانالی: ${merged.length} — آرشیو ۸ساعته: ${pool8.length} — حافظهٔ ۲۴ساعت: ${wm.dayCount} / هفته: ${wm.weekCount}`);
     console.log('···');
-    console.log(buildGeoMemoryBlock(history).slice(0, 800));
+    console.log(wm.day.slice(0, 600));
     console.log('···');
-    console.log(buildGeoCorpus(merged).slice(0, 2200));
+    console.log(buildGeoCorpus(combined).slice(0, 2200));
     console.log('=== پایان پیش‌نمایش ===');
     return;
   }
-  if (merged.length < 2 && !forceGeo) {
-    state.lastGeoKey = dKey; // رویداد تازه نبود — سکوت (عین الگوی بستهٔ توییت)؛ اسلات می‌خورد تا پنجرهٔ بعد تازه باشد
-    console.log(`اسلات تحلیل ژئوپلیتیک ${dKey} — رویداد تازهٔ کافی نبود؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
+
+  // ── اخبار کانال‌ها به خط لولهٔ خبر — خواستهٔ کاربر ۲۰ نوامبر (سوم): «اخبار کانال‌ها همگی
+  //    پس از ادغام و حذف تکراری و چک تاریخچه یکبار با هوش مصنوعی راستی آزمایی بشن و بعد
+  //    دسته بندی و صف بندی و ارسال بشن» — رویدادهای صافی‌شدهٔ کانال‌ها به صف بستهٔ خبری
+  //    می‌روند؛ راستی‌آزمایی و دسته‌بندی همان جا (اسلات بسته: سوپرپرامپت + تطبیق اجباری
+  //    با منبع + بنر دسته) انجام می‌شود. سقف ۱۶ رویداد در هر اسلات (تیک‌دارها اول) —
+  //    مازاد فقط در همین تحلیل می‌آید (سیل‌آب کانال نمی‌شود). پست تازهٔ فوریِ (≤۴۵ دقیقه)
+  //    حاوی نشان‌های سخت جنگ/حمله بلافاصله با گیف/کارت قرمز مخابره می‌شود و صف نمی‌شود. ──
+  if (CFG.channelMode === 'bundle') {
+    const queue = Array.isArray(state.bundleQueue) ? state.bundleQueue : [];
+    state.bundleQueue = queue;
+    const BREAKING_FRESH_MS = 45 * 60_000;
+    const nowMs = Date.now();
+    const toQueue = merged
+      .filter((m) => {
+        const atMs = Date.parse(m.at || '');
+        return Number.isFinite(atMs) && nowMs - atMs <= BREAKING_FRESH_MS && isBreakingNewsText(m.text);
+      });
+    let breakingFromGeo = 0;
+    for (const m of toQueue) {
+      // گیت فارسی — پست غیرفارسی فوری هم باید ترجمه شود؛ نشد → مسیر عادی صف (چرخهٔ بعد)
+      const fa = await gateFa(m.text);
+      if (!fa) continue;
+      const brOk = await sendBreakingNow(m.sources[0] || 'کانال رصدشده', fa);
+      if (brOk) {
+        breakingFromGeo++;
+        summary.breakingSent = (summary.breakingSent || 0) + 1;
+        ctx.sentIds?.push(m.id);
+        ctx.sentTitleTexts?.push(normalizeTitle(fa).slice(0, 160));
+        ctx.sentMsgTexts?.push(normalizeTitle(fa).slice(0, 160));
+        console.log(`🚨 فوری کانالی ارسال شد — ${m.sources[0]}${' (گیف + کارت قرمز کم‌رنگ)'}`);
+      }
+    }
+    const queuedList = merged
+      .filter((m) => !toQueue.some((b) => b.id === m.id))
+      .sort((a, b) => (b.verified ? 1 : 0) - (a.verified ? 1 : 0))
+      .slice(0, 16);
+    for (const m of queuedList) {
+      queue.push({
+        kind: 'news',
+        text: m.text,
+        source: (m.sources[0] || '').trim() || undefined,
+        ids: m.ids,
+        titleKeys: [],
+        titleTexts: [normalizeTitle(m.text).slice(0, 160)],
+        cat: 'general',
+        queuedAt: new Date().toISOString(),
+      });
+    }
+    if (queue.length > 600) {
+      const dropped = queue.splice(0, queue.length - 600);
+      console.warn(`⚠️ سرریز صف بستهٔ خبری — ${dropped.length} مورد قدیمی‌تر حذف شد`);
+    }
+    if (queuedList.length > 0) console.log(`اخبار کانال‌ها به صف بستهٔ خبری: +${queuedList.length} (راستی‌آزمایی و دسته‌بندی در اسلات بسته)${breakingFromGeo > 0 ? ` — ${enToFaDigits(String(breakingFromGeo))} مورد فوری بلافاصله ارسال شد` : ''}`);
+  }
+
+  // ── گیت سکوت — خواستهٔ کاربر ۲۰ نوامبر: «اگر خبر مهمی نبود اصلا چیزی ارسال نشه» ──
+  //    ملاک: کل رویدادهای پیکره (کانالی + آرشیو) — کمتر از ۳ یعنی بازهٔ بی‌خبر.
+  if (combined.length < 3 && !forceGeo) {
+    state.lastGeoKey = dKey; // سکوت (عین الگوی بستهٔ توییت)؛ اسلات می‌خورد تا پنجرهٔ بعد تازه باشد
+    console.log(`اسلات تحلیل جامع ${dKey} — رویداد تازهٔ کافی نبود (${combined.length})؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
     return;
   }
-  // رویدادهای این بخش به آرشیو روزانهٔ تحلیل شبانه هم می‌روند — «جامع‌تر شدن به منابعش» (خواستهٔ صریح)
+  // رویدادهای این بخش به آرشیو روزانه هم می‌روند — سوخت پنجره‌ٔ ۸ساعتهٔ اسلات‌های بعد
   if (merged.length > 0) {
     const geoPool: PoolItem[] = merged.map((m) => ({
       id: m.id,
@@ -2758,30 +2905,33 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
       source: m.sources[0] || 'بخش چپ و راست',
       cat: 'geo',
       lang: 'fa',
-      text: m.text,
+      text: (m.text || '').slice(0, 600), // پیکره ۳۸۰ می‌خواند — آرشیو سبک (نقد ۲۰ نوامبر چهارم)
       at: m.at,
     }));
     const dp = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], geoPool, CFG.dailyPoolCap);
     state.dailyPool = dp.pool;
-    if (dp.added > 0) console.log(`آرشیو شبانهٔ ۲۲:۳۰ از بخش چپ و راست: +${dp.added} — کل ${dp.pool.length}`);
+    if (dp.added > 0) console.log(`آرشیو روزانه از بخش چپ و راست: +${dp.added} — کل ${dp.pool.length}`);
   }
-  const memory = buildGeoMemoryBlock(history);
-  const corpus = buildGeoCorpus(merged);
+  const corpus = buildGeoCorpus(combined, 48, 380);
   const weekday = weekdayFaOf(p.dateKey, 'Asia/Tehran');
+  // ── ورودی سه‌بخشی با وزن ۶۰/۳۰/۱۰ (خواستهٔ صریح کاربر ۲۰ نوامبر سوم) ──
   const userMsg = [
     `تاریخ: ${weekday} ${p.dateFa} (${p.dateKey}) — ساعت ${p.hhmm}`,
     '',
-    'حافظهٔ تحلیل‌های پیشین این بخش (تازه‌ترین اول — برای پیوستگی روایت بخوانید):',
-    memory,
+    'مرور ۲۴ ساعت گذشته (خلاصهٔ تحلیل‌های قبلی — تازه‌ترین اول؛ وزن ~۳۰٪):',
+    wm.day,
     '',
-    `پیام‌های این بازه (${enToFaDigits(String(merged.length))} رویداد پس از تجمیع اولیهٔ سامانه — هر سطر: شماره — کانال (+n منبع دیگر) — متن):`,
+    'چشم‌انداز یک‌هفته‌ای (فشرده — وزن ~۱۰٪):',
+    wm.week,
+    '',
+    `رویدادهای ۸ ساعت گذشته (${enToFaDigits(String(combined.length))} رویداد پس از تجمیع اولیهٔ سامانه — کانال‌های چپ و راست + خبرگزاری‌ها و توییت‌ها؛ وزن ~۶۰٪ — هر سطر: شماره — منبع (+n منبع دیگر) — متن):`,
     corpus,
   ].join('\n');
 
   const t0 = Date.now();
   // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶: «الآن یه پیام اومده اینطوری!!! اینجوری دیگه نیاد» —
   // نشان «(تکرار)» حذف، پیشوند نقل‌سازی پاک و مورد هم‌مضمون پیشین حذف می‌شود؛ حلقه → تأمین‌کنندهٔ بعدی
-  const geoSources = merged.map((m) => m.sources[0] || '');
+  const geoSources = combined.map((m) => m.sources[0] || '');
   const sanitizeGeoCandidate = (content: string | undefined | null): { text: string | null; loop: boolean } => {
     const v = validateGeoText(content);
     if (!v) return { text: null, loop: false };
@@ -2803,12 +2953,12 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   }
   summary.geoProvider = r.providerId;
   // ── قفل تیک به جملهٔ منبع — مقایسهٔ اجباری خروجی/منبع (رفع ریشه‌ای ⑨؛ خواستهٔ ۱۵ نوامبر) ──
-  // تیک مدل حذف؛ هر مورد با خوشهٔ کانالی تطبیق؛ بی‌خاستگاه/عددساختگی حذف؛ تیک فقط از
-  // دادهٔ «≥۲ کانال مستقل» همان خوشه. همهٔ موارد حذف شوند → اسلات علامت نمی‌خورد (چرخهٔ بعد).
+  // تیک مدل حذف؛ هر مورد با خوشهٔ منبع (کانال + آرشیو) تطبیق؛ بی‌خاستگاه/عددساختگی حذف؛
+  // تیک فقط از دادهٔ «≥۲ منبع مستقل» همان خوشه. همهٔ موارد حذف شوند → اسلات علامت نمی‌خورد.
   if (text) {
-    const g = groundAiBundle(text, merged);
+    const g = groundAiBundle(text, combined);
     if (!g.text) {
-      console.warn(`⚠️ تحلیل ژئوپلیتیک: هر ${enToFaDigits(String(g.total))} مورد خروجی در تطبیق اجباری با منبع رد شد — اسلات علامت نمی‌خورد`);
+      console.warn(`⚠️ تحلیل جامع: هر ${enToFaDigits(String(g.total))} مورد خروجی در تطبیق اجباری با منبع رد شد — اسلات علامت نمی‌خورد`);
       summary.aiFailed = true;
       summary.groundDropped = g.dropped;
       return;
@@ -2816,13 +2966,13 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     text = g.text;
     if (g.dropped > 0) {
       summary.groundDropped = g.dropped;
-      console.warn(`🛡 قفل تیک به منبع (چپ و راست): ${g.dropped} مورد از ${g.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${g.droppedSamples.join(' | ')}`);
+      console.warn(`🛡 قفل تیک به منبع (تحلیل جامع): ${g.dropped} مورد از ${g.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${g.droppedSamples.join(' | ')}`);
     }
   }
-  console.log(`تحلیل ۸ساعتهٔ ژئوپلیتیک: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+  console.log(`تحلیل جامع ۸ساعته: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
   if (!text) {
     summary.aiFailed = true;
-    if (r.error) console.error(`❌ زنجیرهٔ تحلیل ژئوپلیتیک ناموفق: ${r.error}`);
+    if (r.error) console.error(`❌ زنجیرهٔ تحلیل جامع ناموفق: ${r.error}`);
     return;
   }
   // پانوشت «🧷» جدا می‌شود: بدنه = پیام کانال؛ خلاصه = حافظهٔ بازه‌های بعد (هرگز در پیام نمی‌آید)
@@ -2836,15 +2986,13 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   if (realEvents === 0) {
     state.lastGeoKey = dKey;
     state.geoSeenIds = win.seen;
-    console.log(`اسلات تحلیل ژئوپلیتیک ${dKey} — رویداد واقعی قابل‌گزارشی در خروجی نبود؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
+    console.log(`اسلات تحلیل جامع ${dKey} — رویداد واقعی قابل‌گزارشی در خروجی نبود؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
     return;
   }
   const memSummary = split.body.length >= 300 ? split.summary : '';
-  // عنوان روزانه — خواستهٔ کاربر ۲۰ نوامبر: «ساعت ده هر شب با عنوان تحلیل شبانگاهی، ۶ هر صبح
-  // با عنوان تحلیل صبحگاهی، ۲ هر ظهر با عنوان تحلیل ظهرگاهی» (geoDaypartLabel از کلید اسلات)
-  const header = `🌐 <b>تحلیل ${geoDaypartLabel(dKey)} ژئوپلیتیک رصدبان</b> — بخش چپ و راست — ${esc(weekday)} ${esc(p.dateFa)}`;
+  // عنوان روزانهٔ بستهٔ سه‌تایی — خواستهٔ کاربر: صبحگاهی/ظهرگاهی/شبانگاهی (geoDaypartLabel)
+  const header = `🧭 <b>تحلیل جامع ${geoDaypartLabel(dKey)} رصدبان</b> — ${esc(weekday)} ${esc(p.dateFa)}`;
   // مورد ایران‌مرتبط بولد — خواستهٔ کاربر ۲۰ نوامبر: «اخبار مرتبط با ایران ... بولدتر»
-  // (HTML بله رنگ ندارد؛ در کارت‌های تصویری رنگ کهربایی هم هست)
   const bodyHighlighted = highlightIranItemsHtml(finalBody);
   const chunks = chunkHourlyMessage(`${header}\n\n${bodyHighlighted}`, 3300);
   let ok = false;
@@ -2852,16 +3000,16 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     for (const t of CFG.targets) {
       const s = await sendBaleMessage(CFG.token, t, c);
       if (s.ok) ok = true;
-      else console.error(`❌ ارسال تحلیل ژئوپلیتیک به ${t} ناموفق: ${s.error}`);
+      else console.error(`❌ ارسال تحلیل جامع به ${t} ناموفق: ${s.error}`);
     }
     await sleep(600);
   }
   if (!ok) {
-    console.warn('⚠️ ارسال تحلیل ژئوپلیتیک ناموفق — اسلات و دفتر علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
+    console.warn('⚠️ ارسال تحلیل جامع ناموفق — اسلات و دفتر علامت نمی‌خورد تا چرخهٔ بعد تلاش کند');
     return;
   }
   summary.geoSent = true;
-  summary.geoItems = merged.length;
+  summary.geoItems = combined.length;
   state.lastGeoKey = dKey;
   state.geoSeenIds = win.seen; // فقط پس از ارسال موفق — شکست → بازهٔ بعد همان پیام‌ها را می‌بیند
   // ذخیرهٔ تحلیل بازه در حافظهٔ پایدار — بازهٔ بعد خلاصهٔ تاریخ‌دار همین متن به مدل می‌رود؛
@@ -2872,10 +3020,17 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     text: finalBody,
     summary: memSummary || geoSummaryOf(finalBody),
     provider: r.providerId,
-    items: merged.length,
+    items: combined.length,
     channels: channels.length,
   });
-  console.log(`🌐 تحلیل ${geoDaypartLabel(dKey)} ژئوپلیتیک (۸ساعته) ارسال و ذخیره شد (${dKey}) — ${merged.length} رویداد از ${channels.length} کانال، حافظه: ${state.geoAnalyses.length} بازه، ${chunks.length} پیام`);
+  // ── بستهٔ شبانگاهی = پایان روز تحلیلی — آرشیو روزانه مصرف می‌شود (میراث تحلیل شبانهٔ ۲۲:۳۰
+  //    که در این بسته ادغام شد؛ رویدادهای پس از ۲۲ امروز آرشیو فردا می‌شوند) ──
+  const slotHour = Number((dKey.split('T')[1] || '').split(':')[0]);
+  if (slotHour >= 17 && Array.isArray(state.dailyPool) && state.dailyPool.length > 0) {
+    console.log(`آرشیو روزانهٔ تحلیل مصرف شد (${enToFaDigits(String(state.dailyPool.length))} رویداد) — بستهٔ شبانگاهی پایانِ روز تحلیلی است`);
+    state.dailyPool = [];
+  }
+  console.log(`🧭 تحلیل جامع ${geoDaypartLabel(dKey)} (۸ساعته — وزن ۶۰/۳۰/۱۰) ارسال و ذخیره شد (${dKey}) — ${combined.length} رویداد (${merged.length} کانالی + ${pool8.length} آرشیو)، حافظه: ۲۴ساعت ${wm.dayCount} / هفته ${wm.weekCount}، ${chunks.length} پیام`);
 }
 
 // ---------- اعلان‌های خودکار مدیر (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶) ----------
@@ -3380,6 +3535,12 @@ async function main(): Promise<void> {
   // بارگذاری state یک‌بار در ابتدای چرخه — پیام‌های روزانه و ضدتکرار همه از همین
   const state = loadState(CFG.stateFile);
   ensureDaily(state);
+  // ── پاک‌سازی یک‌بارهٔ استخر تحلیل مرده (نقد ۲۰ نوامبر چهارم) — DIGEST_HOURS خاموش شد و
+  //    state.pool دیگر مصرف نمی‌شود؛ ۲۲۰ موردِ مانده (۱۹۹KB) از state کامیت‌شونده حذف می‌شود ──
+  if (CFG.channelMode === 'bundle' && Array.isArray(state.pool) && state.pool.length > 0) {
+    console.log(`پاک‌سازی استخر تحلیل قدیم: ${enToFaDigits(String(state.pool.length))} مورد مرده (DIGEST_HOURS=none) — سوخت تحلیل اکنون آرشیو روزانه است`);
+    state.pool = [];
+  }
   // نشانگر چرخش تأمین‌کنندگان مدل — از state بازیابی می‌شود (پس از ری‌استارت ادامه می‌یابد)
   if (typeof state.aiCursor === 'number') setAiCursor(state.aiCursor);
 
@@ -3425,9 +3586,10 @@ async function main(): Promise<void> {
   const groups = clusterItems(fresh);
   console.log(`پس از تجمیع درون‌بازه: ${groups.length} رویداد`);
 
-  // ── آرشیو روزانهٔ رویدادها — سوخت تحلیل جامع شبانهٔ ۲۲:۳۰ (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶):
-  //  «تمامی اخبار و وقایع اون روز تحلیل بشه و تحلیل‌ها ذخیره بشن تا روزهای آتی حافظه ریست نشه» —
-  //  در همهٔ حالت‌ها هر رویداد تازهٔ امروز به آرشیو می‌رود؛ شب در اسلات ۲۲:۳۰ مصرف و خالی می‌شود ──
+  // ── آرشیو روزانهٔ رویدادها — سوخت پیکرهٔ ۶۰٪ بستهٔ تحلیل جامع ۸ساعته (خواستهٔ ۱۳ نوامبر +
+  //  ادغام ۲۰ نوامبر سوم): در همهٔ حالت‌ها هر رویداد تازهٔ امروز به آرشیو می‌رود؛ بستهٔ شبانگاهی
+  //  ۲۲:۰۰ روز را مصرف و خالی می‌کند. متن‌ها به ۶۰۰ نویسه بریده می‌شوند — پیکره فقط ۳۸۰ می‌خواند
+  //  (نقد ۲۰ نوامبر چهارم: state.json ۱٫۷MB بود؛ آرشیو ۴۲۹KB سنگین‌ترین بخشش) ──
   if (groups.length > 0) {
     const dpRes = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], groups.map((g) => ({
       id: g.primary.id,
@@ -3435,13 +3597,13 @@ async function main(): Promise<void> {
       source: g.primary.sourceName,
       cat: g.primary.category,
       lang: g.primary.language,
-      text: g.primary.content,
-      fa: g.primary.translationFa,
+      text: (g.primary.content || '').slice(0, 600),
+      fa: (g.primary.translationFa || '').slice(0, 600),
       at: (g.primary.publishedAt || new Date()).toISOString(),
       url: g.primary.url,
     })), CFG.dailyPoolCap);
     state.dailyPool = dpRes.pool;
-    if (dpRes.added > 0) console.log(`آرشیو روزانهٔ تحلیل شبانه: +${dpRes.added} — کل ${enToFaDigits(String(dpRes.pool.length))}`);
+    if (dpRes.added > 0) console.log(`آرشیو روزانهٔ تحلیل جامع: +${dpRes.added} — کل ${enToFaDigits(String(dpRes.pool.length))}`);
   }
 
   // ── حالت بستهٔ دوره‌ای هوشمند (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶): «هر ۲ ساعت — تجمیع + تحلیل؛
@@ -3452,22 +3614,9 @@ async function main(): Promise<void> {
   state.bundleQueue = queue;
   const tweetQueue = Array.isArray(state.tweetQueue) ? state.tweetQueue : [];
   state.tweetQueue = tweetQueue;
-  if (bundleMode && groups.length > 0) {
-    // رویدادها برای اسلات‌های تحلیل جامع هم در استخر می‌مانند (بست و تحلیل مستقل‌اند)
-    const poolRes = addToPool(Array.isArray(state.pool) ? state.pool : [], groups.map((g) => ({
-      id: g.primary.id,
-      titleKey: g.primary.titleKey,
-      source: g.primary.sourceName,
-      cat: g.primary.category,
-      lang: g.primary.language,
-      text: g.primary.content,
-      fa: g.primary.translationFa,
-      at: (g.primary.publishedAt || new Date()).toISOString(),
-      url: g.primary.url,
-    })), CFG.poolCap);
-    state.pool = poolRes.pool;
-    console.log(`استخر تحلیل (حالت بست): +${poolRes.added} — کل ${enToFaDigits(String(state.pool.length))}`);
-  }
+  // ── استخر تحلیل قدیم (state.pool) در بستهٔ یکپارچه ادغام و با DIGEST_HOURS='none' خاموش شد
+  //  (نقد ۲۰ نوامبر چهارم: ۲۲۰ مورد مرده = ۱۹۹KB در هر کامیت state) — سوخت پیکرهٔ ۶۰٪ اکنون
+  //  آرشیو روزانه + رویدادهای کانالی است؛ بازگرداندن DIGEST_HOURS استخر را دوباره می‌سازد ──
 
   // ── حالت «تحلیل جامع» (خواستهٔ صریح کاربر ۹ نوامبر ۲۰۲۶): «هیچ خبری داخل کانال ارسال نشه —
   //  فقط همین تحلیل جامع ارسال بشه» + گزارش بازار ظهر و شب ──
@@ -3539,38 +3688,21 @@ async function main(): Promise<void> {
         summary.translated += tr;
         if (tr) console.log(`ترجمهٔ توییت‌ها: ${tr} مورد از ${twItems.length}${res.provider ? ` (${res.provider})` : ''}`);
       }
-      // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم): توییت/تروث‌سوشال حاوی «ایران/جنگ» حتی در
-      //    حالت تحلیل هم بلافاصله با گیف چراغ گردان «فوری» ارسال می‌شود (مقدم بر «فقط تحلیل»).
-      //    فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند تا دوبار نیایند. ──
+      // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم): توییت/تروث‌سوشال حاوی «ایران/جنگ»
+      //    حتی در حالت تحلیل هم بلافاصله با گیف چراغ گردان + کارت متن «قرمز کم‌رنگ» ارسال
+      //    می‌شود (مقدم بر «فقط تحلیل»). فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند. ──
       const brSentIds = new Set<string>();
       for (const p of twItems) {
         const faText = (p.fa || '').trim() || (p.text || '').trim();
         if (!faText) continue;
         if (!isBreakingTweetText(faText) && !isBreakingTweetText(p.text || '')) continue;
-        const brText = `🚨 <b>فوری</b> — ${esc(p.source || '')}\n${faText}`;
-        let brOk = false;
-        const gif = await renderBreakingGif().catch(() => null);
-        if (gif) {
-          const cap = splitPhotoCaption(brText, 1024);
-          for (const t of CFG.targets) {
-            const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
-            if (!s.ok) console.error(`❌ ارسال گیف فوری به ${t}: ${s.error} — پشتیبان متنی`);
-            else { brOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
-          }
-        }
-        if (!brOk) {
-          for (const t of CFG.targets) {
-            const s = await sendBaleMessage(CFG.token, t, brText);
-            if (!s.ok) console.error(`❌ ارسال فوری متنی به ${t}: ${s.error}`);
-            else brOk = true;
-          }
-        }
+        const brOk = await sendBreakingNow(p.source || 'توییت رصدشده', faText);
         if (brOk) {
           summary.breakingSent = (summary.breakingSent || 0) + 1;
           brSentIds.add(p.id);
           sentIds.push(p.id);
           sentTitleTexts.push(normalizeTitle(faText).slice(0, 160));
-          console.log(`🚨 فوری ارسال شد — ${p.source}${gif ? ' (با گیف چراغ گردان)' : ' (متنی — گیف ناموفق)'}`);
+          console.log(`🚨 فوری ارسال شد — ${p.source} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
         }
       }
       const twRemaining = twItems.filter((p) => !brSentIds.has(p.id));
@@ -3836,12 +3968,39 @@ async function main(): Promise<void> {
     const k = normalizeTitle(text).slice(0, 160);
     if (k) sentMsgTexts.push(k);
   };
+
+  // ── خبر فوریِ منابع خبری — خواستهٔ کاربر ۲۰ نوامبر (سوم): «تویی‌ها و اخبار فوری قرمز
+  //    کم‌رنگ» — خبر حاوی نشان‌های سخت جنگ/حمله/ترور (isBreakingNewsText — آستانهٔ سخت‌گیرانه
+  //    تا هر خبرِ صرفاً ایران‌دار فوری نشود و کانال سیل‌آب نگردد) بلافاصله با گیف چراغ گردان
+  //    + کارت قرمز کم‌رنگ ارسال می‌شود و به صف بسته نمی‌رود؛ ترجمه هم همین‌جا گیت می‌شود.
+  //    ارسال ناموفق → مسیر عادی صف (چرخهٔ بعد ضدتکرار دوباره می‌سنجد). ──
+  const breakingDone = new Set<ItemGroup>();
+  if (bundleMode && !CFG.dryRun && ordered.length > 0) {
+    for (const g of ordered) {
+      const faStored = (g.primary.translationFa || '').trim();
+      const raw = g.primary.content || '';
+      if (!isBreakingNewsText(faStored) && !isBreakingNewsText(raw)) continue;
+      const fa = faStored || await gateFa(raw);
+      if (!fa) continue; // غیرفارسی و ترجمه نشد → مسیر عادی صف؛ چرخهٔ بعد دوباره می‌سنجد
+      const srcLabel = aggregateSourceLabel(g.members.map((m) => m.sourceName));
+      const brOk = await sendBreakingNow(srcLabel, fa);
+      if (brOk) {
+        summary.breakingSent = (summary.breakingSent || 0) + 1;
+        breakingDone.add(g);
+        mark(g);
+        markMsg(fa);
+        console.log(`🚨 خبر فوری ارسال شد — ${srcLabel} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
+      }
+    }
+  }
   if (one && one.items.length > 0) {
     const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
     if (skippedBadRef || skippedDupGroup || skippedDupText) {
       console.log(`فیلتر خروجی مدل: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه حذف شد`);
     }
     for (const s of sends) {
+      // فوری‌ماندهٔ همین چرخه — بلافاصله ارسال شده؛ دوباره به صف نمی‌رود
+      if (breakingDone.has(s.g)) continue;
       // ── گیت بازرسی و ترجمه: متن لاتین/عربی/روسی → ترجمه؛ نشد → ارسال نمی‌شود تا چرخهٔ بعد
       let text = await gateFa(s.text);
       if (!text) {
@@ -3869,8 +4028,8 @@ async function main(): Promise<void> {
   } else {
     // مسیر شکست مدل (در حالت بست: مسیر صف‌گذاری مستقیم همهٔ رویدادها) —
     // فقط خبرهای فارسیِ روان می‌روند؛ غیرفارسی بدون ترجمه هرگز نمی‌رود (چرخهٔ بعد دوباره تلاش می‌کند)
-    const fluent = ordered.filter((g) => fluentFaText(g) !== null);
-    const stuck = ordered.length - fluent.length;
+    const fluent = ordered.filter((g) => fluentFaText(g) !== null && !breakingDone.has(g));
+    const stuck = ordered.length - fluent.length - breakingDone.size;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
     if (!bundleMode) {
       for (const t of CFG.targets) {
@@ -3931,7 +4090,7 @@ async function main(): Promise<void> {
           source: c.label,
           cat: 'general',
           lang: 'en',
-          text: c.tweet.text,
+          text: (c.tweet.text || '').slice(0, 600), // پیکره ۳۸۰ می‌خواند — آرشیو سبک
           at: (c.tweet.createdAt || new Date()).toISOString(),
         }));
         const twDaily = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], candPool, CFG.dailyPoolCap);
@@ -3949,40 +4108,21 @@ async function main(): Promise<void> {
         if (fa !== c.tweet.text) c.tweet.text = fa;
         // متن اصلی فقط وقتی با ترجمه فرق دارد نگه داشته می‌شود (توییت فارسی = تک‌متن)
         const orig = c.orig && c.orig !== fa ? c.orig : undefined;
-        // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم): «هر توییت یا تروث سوشالی حاوی کلمهٔ
-        //    ایران یا جنگ بود به شکل فوری با یه گیف چراغ گردان متحرک با عنوان فوری نمایش
-        //    داده بشه … بلافاصله بدون وقفه اونو ارسال کنه و اگر نبود ذخیره بشه برای بستهٔ
-        //    توییت بعدی» — فوری‌ها هرگز به صف نمی‌روند؛ بلافاصله با گیف ارسال می‌شوند.
-        //    ضدتکرار: هش شناسه + شباهت با ارسال‌های ۳۶ ساعت اخیر (freshTweets) + علامت
-        //    همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
+        // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم): «هر توییت یا تروث سوشالی حاوی
+        //    کلمهٔ ایران یا جنگ بود به شکل فوری با یه گیف چراغ گردان متحرک با عنوان فوری
+        //    نمایش داده بشه … بلافاصله بدون وقفه اونو ارسال کنه» + «تویی‌ها و اخبار فوری
+        //    قرمز کم‌رنگ» — فوری‌ها هرگز به صف نمی‌روند؛ بلافاصله با گیف + کارت متن
+        //    «قرمز کم‌رنگ» ارسال می‌شوند. ضدتکرار: هش شناسه + شباهت با ارسال‌های ۳۶ ساعت
+        //    اخیر + علامت همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
         if (isBreakingTweetText(fa) || (orig ? isBreakingTweetText(orig) : false)) {
           const idKey = `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`;
-          const body = tweetDisplayBody(orig, fa, c.faName);
-          const brText = `🚨 <b>فوری</b> — ${esc(c.label)}\n${body}`;
-          let brOk = false;
-          const gif = await renderBreakingGif().catch(() => null);
-          if (gif) {
-            const cap = splitPhotoCaption(brText, 1024);
-            for (const t of CFG.targets) {
-              const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
-              if (!s.ok) console.error(`❌ ارسال گیف فوری به ${t}: ${s.error} — پشتیبان متنی`);
-              else { brOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
-            }
-          }
-          if (!brOk) {
-            // پشتیبان — خبر فوری هرگز گم نمی‌شود: پیام متنی بدون گیف
-            for (const t of CFG.targets) {
-              const s = await sendBaleMessage(CFG.token, t, brText);
-              if (!s.ok) console.error(`❌ ارسال فوری متنی به ${t}: ${s.error}`);
-              else brOk = true;
-            }
-          }
+          const brOk = await sendBreakingNow(c.label, fa, c.faName);
           if (brOk) {
             summary.breakingSent = (summary.breakingSent || 0) + 1;
             sentIds.push(idKey);
             sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
             markMsg(fa);
-            console.log(`🚨 فوری ارسال شد — ${c.label}${gif ? ' (با گیف چراغ گردان)' : ' (متنی — گیف ناموفق)'}`);
+            console.log(`🚨 فوری ارسال شد — ${c.label} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
             continue; // به صف بستهٔ توییت نمی‌رود — بلافاصله مخابره شد
           }
           // ارسال فوری ناموفق → همان مسیر عادی صف (چرخهٔ بعد ضدتکرار دوباره می‌سنجد)
@@ -4123,21 +4263,29 @@ async function main(): Promise<void> {
       //    همون عکس و به شکل خلاصه حداکثر دو خطی یا ترجیحا تک خطی و شکیل فرستاده بشن» ──
       // مسیر اصلی: کارت‌های تصویری پیاپی (۱۲ ردیف هر کارت، سقف ۷ کارت) + پیام متنی «فقط تحلیل».
       // شکست همهٔ کارت‌ها → بازگشت صادقانه به بست متنی (هیچ خبری از دست نمی‌رود).
-      // مسیر خام: متن خام تا سه خط (۵۶×۳ نویسه — هم‌عرض کارت) در مرز واژه بریده می‌شود تا
-      // کارت هرگز «ناقص وسط جمله» نگذارد؛ آیتم‌های هوشمند از قبل دو-سه‌خطی‌اند (۲۰ نوامبر)
-      const rawCardText = (t: string): string => {
-        if (t.length <= 168) return t;
-        const cut = t.lastIndexOf(' ', 168);
-        return `${t.slice(0, cut > 90 ? cut : 167).trimEnd()}…`;
-      };
+      // ── ریشه‌کن «…» — خواستهٔ کاربر ۲۰ نوامبر (سوم): «بعضی اخبار بسته‌های خبری ناقص و با …
+      //    ادامش اومدن — کل هر متن خبر رو هوش مصنوعی بخونه و خلاصه کنه و در حداکثر سه خط با
+      //    پایان‌بندی و متن روان ارسال کنه»: هر مورد از مسیر نهایی‌ساز می‌گذرد (finalizeNewsCardText)
+      //    — متنِ جاشونده در ۳ خطِ ۵۶نویسه‌ای عیناً؛ بلندتر → بلندترین «جملهٔ کامل» جاشونده؛
+      //    هیچ جملهٔ کاملِ جاشونده‌ای نبود → سرریز: متن «کامل» در پیام متنی جداگانه پس از
+      //    کارت‌ها (هرگز بریده با «…»). این سپر هم برای مسیر خام و هم برای موارد هوشمند است. ──
       // دسته‌بندی + اولویت‌بندی — خواستهٔ کاربر ۱۹ نوامبر: «هر دسته از اخبار از جنگ گرفته تا
       //  سیاست و علمی و ورزشی ، تو اون بازه دسته بندی بشن ، اولویت بندی بشن … و بعد در نهایت
       //  در دسته اون خبر منتشر بشن» — دسته‌بندی واژه‌محور قطعی و بدون مدل (bot/categories.ts)،
       //  درون هر دسته ترتیب اهمیت از تحلیل هوشمند حفظ می‌شود (مرتب‌سازی پایدار).
       const rawCardItems: Array<{ text: string; tick: boolean; source: string }> = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
-        : mergedItems.slice(0, NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).map((m) => ({ text: rawCardText(m.text), tick: m.verified, source: (m.sources[0] || '').trim() }));
-      const cardItems = groupByCategory(rawCardItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
+        : mergedItems.slice(0, NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).map((m) => ({ text: m.text, tick: m.verified, source: (m.sources[0] || '').trim() }));
+      // تفکیک جاشونده/سرریز — کارت فقط جمله‌های کامل می‌گیرد؛ سرریزها متن کامل در پیام متنی
+      const overflowTexts: string[] = [];
+      const fittedItems: Array<{ text: string; tick: boolean; source: string }> = [];
+      for (const it of rawCardItems) {
+        const fitted = finalizeNewsCardText(it.text);
+        if (fitted === null) overflowTexts.push(it.text);
+        else fittedItems.push({ ...it, text: fitted });
+      }
+      if (overflowTexts.length > 0) console.log(`سپر «…»: ${enToFaDigits(String(overflowTexts.length))} مورد بلندتر از سه خطِ کامل — متن کامل در پیام متنی جداگانه (هرگز بریده نمی‌شود)`);
+      const cardItems = groupByCategory(fittedItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
       let newsCardSent = false;
       let newsCardsCount = 0;
       if (cardItems.length >= 3 && !CFG.dryRun) {
@@ -4182,6 +4330,24 @@ async function main(): Promise<void> {
           ok = true; // کارت‌ها ارسال شدند و بخش تحلیل مستقلی نبود — بسته کامل است
         }
       }
+      // ── سرریز «…» — خواستهٔ کاربر ۲۰ نوامبر (سوم): موردِ بلندتر از سه خطِ کامل در کارت
+      //    نیامد تا با «…» بریده شود؛ متن «کامل» همین‌جا در پیام متنی جداگانه می‌آید —
+      //    خبر کامل، هرگز ناقص (کارت‌ها مستقل ارسال شده‌اند؛ این پیام مکمل است). ──
+      let overflowSent = 0;
+      if (newsCardSent && overflowTexts.length > 0 && !CFG.dryRun) {
+        const ovChunks = buildBundleChunks(overflowTexts.map((t) => (isIranRelated(t) ? `<b>${t}</b>` : t)), { maxLen: 3300 });
+        for (const c of ovChunks) {
+          let cOk = false;
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, c);
+            if (s.ok) cOk = true;
+            else console.error(`❌ ارسال متن کامل موارد بلند به ${t} ناموفق: ${s.error}`);
+          }
+          if (cOk) { overflowSent++; ok = true; }
+          await sleep(600);
+        }
+        if (overflowSent > 0) console.log(`📎 متن کامل ${enToFaDigits(String(overflowTexts.length))} مورد بلند (بیش از سه خط) در ${enToFaDigits(String(overflowSent))} پیام متنی جداگانه ارسال شد — بدون هیچ بریدگی «…»`);
+      }
       // پشتیبان متن — کارت‌ها ارسال نشدند (یا مسیر خام بدون رندر): بست متنی کامل (خبری از قلم نمی‌افتد)
       // مورد ایران‌مرتبط بولد — خواستهٔ ۲۰ نوامبر (کارت تصویری رنگ کهربایی هم دارد)
       if (!newsCardSent) {
@@ -4200,7 +4366,7 @@ async function main(): Promise<void> {
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)${overflowTexts.length > 0 ? ` + متن کامل ${enToFaDigits(String(overflowTexts.length))} مورد بلند در پیام جداگانه` : ''}` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
         // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
           state.hourlyAnalyses = appendAnalysis(history, {
@@ -4329,10 +4495,11 @@ async function main(): Promise<void> {
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
 
-  // ── تحلیل ۸ساعتهٔ ژئوپلیتیک — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶؛ ۲۰ نوامبر: ۴→۸ساعته) ──
-  await runGeoAnalysis({ state, summary, dryRun: false });
+  // ── تحلیل جامع ۸ساعتهٔ یکپارچه — خواستهٔ کاربر ۲۰ نوامبر (سوم): تنها بستهٔ تحلیلی روز،
+  //    اسلات‌های ۰۶/۱۴/۲۲ با وزن ۶۰/۳۰/۱۰؛ تحلیل جامع ۰۸/۱۴/۲۰ و شبانهٔ ۲۲:۳۰ در آن ادغام شدند ──
+  await runGeoAnalysis({ state, summary, dryRun: false, sentIds, sentTitles, sentTitleTexts, sentMsgTexts });
 
-  // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
+  // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — خاموش (NIGHTLY_HOURS='none'): در بستهٔ شبانگاهی ۲۲:۰۰ ادغام شد ──
   await runNightlyAnalysis({ state, summary, dryRun: false });
 
   // ── اعلان‌های خودکار مدیر — N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه (خواستهٔ ۱۵ نوامبر) ──

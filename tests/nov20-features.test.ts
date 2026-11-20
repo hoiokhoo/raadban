@@ -175,15 +175,15 @@ describe('یکپارچگی: پاک‌سازی → اعتبارسنجی → قف�
 });
 
 describe('پرامپت‌ها — خلاصهٔ بازنویسی‌شده و ممنوعیت عین‌نویسی/تکرار (خواستهٔ ۲۰ نوامبر)', () => {
-  test('پرامپت ۴ساعتهٔ ژئوپلیتیک: بخوان و در دو خط خلاصه کن (تا سه خط در موارد پیچیده)', () => {
+  test('پرامپت تحلیل جامع ۸ساعتهٔ یکپارچه: بخوان و در دو خط خلاصه کن (تا سه خط در موارد پیچیده — ۲۰ نوامبر سوم)', () => {
     expect(DEFAULT_SYSTEM_GEO).toContain('خلاصهٔ بازنویسی‌شده');
     expect(DEFAULT_SYSTEM_GEO).toContain('بخوانید، بفهمید و بازنویسی کنید');
     expect(DEFAULT_SYSTEM_GEO).toContain('حداکثر دو خط');
     expect(DEFAULT_SYSTEM_GEO).toContain('حداکثر سه خط مجاز');
-    // ممنوعیت عین‌نویسی و عبارت نقل‌سازی
-    expect(DEFAULT_SYSTEM_GEO).toContain('هرگز متن کانال را عیناً کپی نکنید');
+    // ممنوعیت عین‌نویسی و عبارت نقل‌سازی (منبع = کانال + خبرگزاری — بستهٔ یکپارچه)
+    expect(DEFAULT_SYSTEM_GEO).toContain('هرگز متن منبع را عیناً کپی نکنید');
     expect(DEFAULT_SYSTEM_GEO).toContain('«گزارش کرد که»');
-    expect(DEFAULT_SYSTEM_GEO).toContain('نام کانال‌ها فقط در بخش');
+    expect(DEFAULT_SYSTEM_GEO).toContain('نام منبع‌ها فقط در بخش');
   });
 
   test('پرامپت بازه‌ای: ممنوعیت عین‌نویسی و تکرار سطر', () => {

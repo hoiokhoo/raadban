@@ -57,16 +57,20 @@ const FA_EVENT = 'روسیه و اوکراین پس از دو روز مذاکر�
 // ---------- سوپرپرامپت ----------
 
 describe('DEFAULT_SYSTEM_GEO — سوپرپرامپت تحلیل ۸ساعته (خواستهٔ کاربر)', () => {
-  test('ساختار الزامی کامل — همهٔ بخش‌ها و ایموجی‌ها', () => {
+  test('ساختار الزامی کامل — همهٔ بخش‌ها و ایموجی‌ها (بستهٔ یکپارچه ۶۰/۳۰/۱۰ — ۲۰ نوامبر سوم)', () => {
     expect(DEFAULT_SYSTEM_GEO.length).toBeGreaterThan(1500);
-    for (const marker of ['🧭', '🗂 رویدادهای کلیدی بازه', '📊 روایت‌های دو طیف', '⚖️ اعتبارسنجی', '🔍 تحلیل', '🔮 نتیجه‌گیری', '🗞 منابع', GEO_MEMORY_TAG]) {
+    for (const marker of ['🧭', '🗂 رویدادهای کلیدی بازه', '🗓 پیوند با ۲۴ ساعت گذشته', '📆 چشم‌انداز یک‌هفته‌ای', '📊 روایت‌های دو طیف', '⚖️ اعتبارسنجی', '🔍 تحلیل', '🔮 نتیجه‌گیری', '🗞 منابع', GEO_MEMORY_TAG]) {
       expect(DEFAULT_SYSTEM_GEO).toContain(marker);
     }
   });
 
-  test('تیک اعتبارسنجی، حافظهٔ پایدار و بی‌طرفی دو طیف صریح است', () => {
+  test('وزن‌دهی ۶۰/۳۰/۱۰ و تیک اعتبارسنجی و بی‌طرفی دو طیف صریح است (خواستهٔ ۲۰ نوامبر سوم)', () => {
+    expect(DEFAULT_SYSTEM_GEO).toContain('~۶۰٪');
+    expect(DEFAULT_SYSTEM_GEO).toContain('~۳۰٪');
+    expect(DEFAULT_SYSTEM_GEO).toContain('~۱۰٪');
+    expect(DEFAULT_SYSTEM_GEO).toContain('مرور ۲۴ ساعت گذشته');
+    expect(DEFAULT_SYSTEM_GEO).toContain('چشم‌انداز یک‌هفته‌ای');
     expect(DEFAULT_SYSTEM_GEO).toContain('۲ منبع مستقل');
-    expect(DEFAULT_SYSTEM_GEO).toContain('حافظهٔ پایدار');
     expect(DEFAULT_SYSTEM_GEO).toContain('بی‌طرفی مطلق');
     expect(DEFAULT_SYSTEM_GEO).toContain('هیچ خبر، عدد، نام، نقل‌قول یا تاریخ از حافظهٔ خودتان اضافه نکنید');
   });

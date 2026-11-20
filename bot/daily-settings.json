@@ -1,29 +1,29 @@
 {
-  "morningEnabled": true,
-  "eveningEnabled": true,
-  "morningHour": "05:00",
-  "eveningHour": "21:00",
-  "weatherEnabled": true,
-  "weatherHour": "21:00",
-  "timezone": "Asia/Tehran",
-  "city": "تهران",
-  "lat": 35.6892,
-  "lon": 51.389,
-  "prayerMethod": "tehran",
-  "fajrAngle": 17.7,
-  "ishaAngle": 14,
-  "maghribMinutes": 15,
-  "qamariBasis": "umalqura",
-  "extraWeatherCities": [
-    {
-      "name": "خوانسار",
-      "lat": 33.2205,
-      "lon": 50.315
-    },
-    {
-      "name": "افجه لواسان",
-      "lat": 35.85,
-      "lon": 51.6833
-    }
-  ]
+ "morningEnabled": true,
+ "eveningEnabled": true,
+ "morningHour": "05:00",
+ "eveningHour": "21:00",
+ "weatherEnabled": true,
+ "weatherHour": "21:30",
+ "timezone": "Asia/Tehran",
+ "city": "تهران",
+ "lat": 35.6892,
+ "lon": 51.389,
+ "prayerMethod": "tehran",
+ "fajrAngle": 17.7,
+ "ishaAngle": 14,
+ "maghribMinutes": 15,
+ "qamariBasis": "umalqura",
+ "extraWeatherCities": [
+  {
+   "name": "خوانسار",
+   "lat": 33.2205,
+   "lon": 50.315
+  },
+  {
+   "name": "افجه لواسان",
+   "lat": 35.85,
+   "lon": 51.6833
+  }
+ ]
 }

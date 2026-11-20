@@ -16,6 +16,11 @@
  *  هم‌چون کارت توییت ارتفاع متغیر دارند: تا سه خط کامل رندر می‌شود و دیگر خبرِ
  *  سه‌خطی در خط دوم با «…» بریده نمی‌شود؛ «…» فقط سپر آخرِ متن‌های فراتر از سه خط است.
  *
+ * خواستهٔ کاربر (۲۰ نوامبر ۲۰۲۶ — سوم): «پس زمینهٔ بستهٔ توییت‌های عادی سبز کم‌رنگ باشه،
+ *  تویی‌ها و اخبار فوری قرمز کم‌رنگ» — کارت توییت‌ها به پالت سبز کم‌رنگ روشن رفت و
+ *  کارت خبر فوری (renderBreakingCardPng) با پالت قرمز کم‌رنگ ساخته شد (گیف چراغ گردان
+ *  هم‌زمان در bot/breaking.ts قرمز کم‌رنگ شد).
+ *
  * همان معماری کارت هواشناسی (bot/weather-card.ts): ساخت SVG با چیدمان راست‌به‌چپ و فونت
  * وزیرمتن → تبدیل به PNG با sharp (libvips/librsvg) — هیچ وابستگی تازه‌ای.
  * صراحت: تیک ✅ این کارت فقط از نتیجهٔ تطبیق اجباری با منبع می‌آید (bot/grounding.ts) —
@@ -127,6 +132,53 @@ export function wrapFa(text: string, maxChars: number, maxLines: number): string
   const last = kept[maxLines - 1] || '';
   kept[maxLines - 1] = last.length >= maxChars ? `${last.slice(0, maxChars - 1)}…` : `${last}…`;
   return kept;
+}
+
+// ---------- نهایی‌ساز متن کارت خبر — ریشه‌کن «…» (خواستهٔ کاربر ۲۰ نوامبر سوم) ----------
+// «بعضی اخبار بسته‌های خبری ناقص و با … ادامش اومدن — کل هر متن خبر رو هوش مصنوعی بخونه
+//  و خلاصه کنه و در حداکثر سه خط با پایان‌بندی و متن روان ارسال کنه» — دو نشتِ «…»:
+//  ۱) متنِ حتی ≤۱۶۵ نویسه که به‌خاطر مرز واژه در شکستن خط به خط چهارم می‌رسد (wrapFa
+//     سپرِ «…» می‌زد)؛ ۲) مسیر خام. نهایی‌ساز: متنِ جا‌شونده در ۳ خطِ ۵۶نویسه‌ای ← عیناً؛
+//  وگرنه بلندترین پیشوندِ «جملهٔ کامل» (پایان با . ! ؟ …) که در ۳ خط جا شود؛ نبود ← null
+//  (مورد به پیام متنی جداگانه می‌رود — متن کامل، هرگز بریده). تابع خالص و تست‌پذیر. */
+
+const SENT_END_RE = /[.!؟…]/;
+
+/** پایان‌جمله بودن نویسهٔ i — بعدش فاصله/پایان متن؛ یا حرفِ فارسی (نقطه‌چین بی‌فاصلهٔ
+ *  فارسی «داد.جزئیات»)؛ رقم دو طرف («۱۲.۵») هرگز پایان جمله نیست. */
+function isSentBoundary(flat: string, i: number): boolean {
+  const next = flat[i + 1] || '';
+  if (next === '' || /\s/.test(next)) return true;
+  const digit = /[\d۰-۹٠-٩]/;
+  if (digit.test(flat[i - 1] || '') || digit.test(next)) return false;
+  return /\p{L}/u.test(next);
+}
+
+/** جا شدن متن در سقف خطوط کارت خبر — با همان منطق wrapFa (مرز واژه) */
+export function fitsNewsLines(text: string, maxLines = NEWS_MAX_LINES): boolean {
+  return wrapFa(text || '', MAX_CHARS_PER_LINE, maxLines + 1).length <= maxLines;
+}
+
+/** نهایی‌ساز متن ردیف کارت خبر — «جملهٔ کامل در ≤۳ خط» یا null (سرریز → پیام متنی).
+ *  خروجی هیچ‌گاه با «…» تمام نمی‌شود. تابع خالص و تست‌پذیر. */
+export function finalizeNewsCardText(text: string, maxLines = NEWS_MAX_LINES): string | null {
+  const flat = (text || '').replace(/\s+/g, ' ').trim();
+  if (!flat) return null;
+  if (fitsNewsLines(flat, maxLines)) return flat;
+  // بلندترین پیشوند جملهٔ کامل که در maxLines خط بگنجد
+  let best: string | null = null;
+  let from = 0;
+  while (from < flat.length) {
+    const rel = flat.slice(from).search(SENT_END_RE);
+    if (rel < 0) break;
+    const idx = from + rel;
+    if (isSentBoundary(flat, idx)) {
+      const cand = flat.slice(0, idx + 1).trim();
+      if (cand.length >= 40 && fitsNewsLines(cand, maxLines)) best = cand; // کامل‌ترین جاشونده
+    }
+    from = idx + 1;
+  }
+  return best;
 }
 
 function esc(s: string): string {
@@ -297,8 +349,9 @@ const TW_LINE_H = 40;
 /** بالشتک پایین ردیف — خط آخر (baseline) با فاصلهٔ امن در پس‌زمینهٔ ردیف می‌ماند */
 const TW_PAD_BOTTOM = 50;
 const TW_CHARS_PER_LINE = 62;
-/** سقف خطوط ترجمه هر توییت — توییت‌های عادی (≤۲۸۰ نویسه) ~۴-۶ خط؛ فراتر صادقانه با «…» */
-export const TW_MAX_LINES = 14;
+/** سقف خطوط ترجمه هر توییت — توییت‌های عادی (≤۲۸۰ نویسه) ~۴-۶ خط؛ بلندترین ترجمهٔ
+ *  کامل (~۹۰۰ نویسه ÷ ۶۲) تا ~۱۵ خط — سقف ۱۶ یعنی هیچ ترجمهٔ کاملایی با «…» بریده نمی‌شود */
+export const TW_MAX_LINES = 16;
 /** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها */
 export const TW_PAGE_MAX_HEIGHT = 6400;
 
@@ -343,7 +396,7 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)"/>
   <text x="${W - PAD}" y="86" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl('توییت‌های مقامات تأثیرگذار')}</text>
-  <text x="${W - PAD}" y="140" font-size="26" fill="#9fc3e8" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>`;
+  <text x="${W - PAD}" y="140" font-size="26" fill="#d3ead9" text-anchor="end">${rtl(`${date.weekdayFa} ${date.shamsi} • ${date.miladi}${partLabel}`)}</text>`;
 
   const textRight = W - PAD - 28;
   let y = HEADER_H + 14;
@@ -351,37 +404,40 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
     .map((it, i) => {
       const yTop = y;
       y += heights[i]!;
-      const bg = i % 2 === 0 ? '#102941' : '#0d2135';
-      // توییت ایران‌مرتبط — متن کهربایی و بولد (خواستهٔ کاربر ۲۰ نوامبر: اخبار ایران متمایز)
+      // پالت «سبز کم‌رنگ» — خواستهٔ کاربر ۲۰ نوامبر (سوم): پس‌زمینهٔ بستهٔ توییت‌های عادی؛
+      // توییت ایران‌مرتبط همان تمایز کهربایی را روی زمینهٔ روشن حفظ می‌کند (ردیف کهرباییِ کم‌رنگ)
       const iran = isIranRelated(`${it.faName || ''} ${it.fa || ''}`);
+      const bg = iran
+        ? (i % 2 === 0 ? '#faf2da' : '#f6ecd0')
+        : i % 2 === 0 ? '#e7f3e9' : '#def0e2';
       // نام فارسی توییت‌کننده — خط عنوان؛ نبود آن → «ترجمه فارسی» (سازگاری با دادهٔ قدیمی)
       const nameLine = (it.faName || 'ترجمه فارسی').replace(/\s+/g, ' ').trim();
       const nameLines = wrapFa(nameLine, 60, 1);
       const nameY = yTop + TW_SOURCE_H + 30;
       const faLines = wrapFa(it.fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES);
       const faSvg = faLines
-        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#ffd75e' : '#e8f1fa'}" text-anchor="end">${rtl(esc(ln))}</text>`)
+        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#8a5a12' : '#22432f'}" text-anchor="end">${rtl(esc(ln))}</text>`)
         .join('\n');
       return `
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${heights[i]! - 12}" rx="14" fill="${bg}"/>
-  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#ffd75e"/>` : ''}
-  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${iran ? '#d9b96a' : '#9fc3e8'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
-  <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
+  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#d9a441"/>` : ''}
+  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${iran ? '#a1762a' : '#4e7d61'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
+  <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#1c5f38" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
   ${faSvg}`;
     })
     .join('');
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#5f8870" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>
+      <stop offset="0" stop-color="#14532d"/><stop offset="1" stop-color="#227a44"/>
     </linearGradient>
   </defs>
-  <rect width="${W}" height="${H}" fill="#0a1c30"/>
+  <rect width="${W}" height="${H}" fill="#eef6ee"/>
   ${header}
   ${rowsSvg}
   ${footer}
@@ -413,4 +469,114 @@ export async function renderTweetCardPages(input: TweetCardInput): Promise<CardP
     if (card) out.push(card);
   }
   return out;
+}
+
+// ---------- کارت خبر/توییت «فوری» — پالت قرمز کم‌رنگ (خواستهٔ کاربر ۲۰ نوامبر سوم) ----------
+// «تویی‌ها و اخبار فوری قرمز کم‌رنگ» — پس‌زمینهٔ قرمز کم‌رنگ روشن + سربرگ سرخِ اشباع با
+// گنبد چراغ گردان برداری (نسخهٔ متحرک همان گنبد در bot/breaking.ts). تک‌موردی: منبع +
+// (نام فارسی) + متن کامل — هیچ خلاصه‌سازی؛ متن در ≤۱۶ خطِ ۶۲نویسه‌ای کامل می‌آید.
+
+export interface BreakingCardInput {
+  /** منبع — «𝕏 Donald Trump» یا «خبرگزاری تسنیم» یا نام کانال */
+  source: string;
+  /** متن فارسی کامل مورد فوری */
+  text: string;
+  /** نام فارسی توییت‌کننده + مسئولیت (توییت‌ها) — خط عنوان */
+  faName?: string;
+  /** تاریخ سه‌گانه — خط دوم سربرگ؛ اختیاری (فوری می‌تواند بی‌تاریخ باشد) */
+  date?: TripleDate;
+}
+
+const BR_HEADER_H = 170;
+const BR_SOURCE_H = 56;
+const BR_NAME_H = 46;
+const BR_LINE_H = 42;
+const BR_PAD_BOTTOM = 54;
+const BR_CHARS_PER_LINE = 60;
+const BR_MAX_LINES = 16;
+
+/** ارتفاع کارت فوری — خالص و تست‌پذیر */
+export function breakingCardHeight(text: string, hasName: boolean): number {
+  const lines = wrapFa(text || '', BR_CHARS_PER_LINE, BR_MAX_LINES).length;
+  return BR_HEADER_H + 14 + BR_SOURCE_H + (hasName ? BR_NAME_H : 0) + Math.max(1, lines) * BR_LINE_H + BR_PAD_BOTTOM + FOOTER_H;
+}
+
+/** گنبد چراغ گردان برداری سربرگ — قرمز اشباع + بازوی نور (نسخهٔ ثابتِ گیف فوری) */
+function sirenSvg(cx: number, cy: number): string {
+  const r = 34;
+  return `
+  <path d="M ${cx - 4} ${cy} L ${cx - 96} ${cy - 40} L ${cx - 96} ${cy - 14} L ${cx - 4} ${cy + 12} Z" fill="#ff4438" opacity="0.55"/>
+  <path d="M ${cx + 4} ${cy} L ${cx + 96} ${cy - 40} L ${cx + 96} ${cy - 14} L ${cx + 4} ${cy + 12} Z" fill="#ffb03a" opacity="0.4"/>
+  <ellipse cx="${cx}" cy="${cy + 16}" rx="${r * 1.25}" ry="7" fill="#e3b0aa"/>
+  <rect x="${cx - r * 0.9}" y="${cy + 8}" width="${r * 1.8}" height="16" rx="6" fill="#f3d2cc" stroke="#d0968d" stroke-width="2"/>
+  <radialGradient id="dome2" cx="0.5" cy="0.35" r="0.9">
+    <stop offset="0" stop-color="#ff8a80"/><stop offset="0.45" stop-color="#ff3b30"/><stop offset="1" stop-color="#a01015"/>
+  </radialGradient>
+  <circle cx="${cx}" cy="${cy - 8}" r="${r}" fill="url(#dome2)"/>
+  <ellipse cx="${cx - 10}" cy="${cy - 18}" rx="9" ry="5" fill="#ffe3e0" opacity="0.75"/>`;
+}
+
+/** ساخت SVG کارت فوری — خالص و تست‌پذیر */
+export function makeBreakingCardSvg(input: BreakingCardInput): string {
+  const text = (input.text || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  const hasName = Boolean((input.faName || '').trim());
+  const H = breakingCardHeight(text, hasName);
+  const dateLine = input.date ? `${input.date.weekdayFa} ${input.date.shamsi} • ${input.date.miladi}` : '';
+  const sirenCx = W - PAD - 40;
+  const sirenCy = 82;
+
+  const header = `
+  <rect width="${W}" height="${BR_HEADER_H}" fill="url(#hdr)"/>
+  <text x="${W - PAD - 110}" y="76" font-size="46" font-weight="700" fill="#ffffff" text-anchor="end">${rtl('فوری')}</text>
+  <text x="${W - PAD - 110}" y="124" font-size="24" fill="#ffd9d5" text-anchor="end">${rtl(dateLine || 'رصدبان — خبر فوری')}</text>
+  ${sirenSvg(sirenCx, sirenCy)}`;
+
+  const textRight = W - PAD - 28;
+  let y = BR_HEADER_H + 14;
+  const bodyH = H - BR_HEADER_H - 14 - FOOTER_H;
+  const nameLine = (input.faName || '').replace(/\s+/g, ' ').trim();
+  const nameLines = hasName ? wrapFa(nameLine, 60, 1) : [];
+  const faLines = wrapFa(text, BR_CHARS_PER_LINE, BR_MAX_LINES);
+  const nameY = y + BR_SOURCE_H + 34;
+  const faSvg = faLines
+    .map((ln, j) => `<text x="${textRight}" y="${nameY + (hasName ? 38 : 6) + (j + 1) * BR_LINE_H}" font-size="27" fill="#571416" text-anchor="end">${rtl(esc(ln))}</text>`)
+    .join('\n');
+  const rowsSvg = `
+  <rect x="${PAD}" y="${y}" width="${W - PAD * 2}" height="${bodyH - 12}" rx="14" fill="#fbdedb"/>
+  <rect x="${PAD + 8}" y="${y + 10}" width="5" height="${bodyH - 32}" rx="2.5" fill="#e5484d"/>
+  <text x="${textRight}" y="${y + 40}" font-size="24" font-weight="700" fill="#a75d55" text-anchor="end">${rtl(esc(input.source || 'منبع ناشناس'))}</text>
+  ${hasName ? `<text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#8f1420" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>` : ''}
+  ${faSvg}`;
+
+  const footerY = H - 34;
+  const footer = `
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#a3736c" text-anchor="end">${rtl('رصدبان • ارسال فوری بدون وقفه')}</text>`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8f1420"/><stop offset="1" stop-color="#c62b3a"/>
+    </linearGradient>
+  </defs>
+  <rect width="${W}" height="${H}" fill="#fdf1f0"/>
+  ${header}
+  ${rowsSvg}
+  ${footer}
+</svg>`;
+}
+
+/** رندر کارت فوری به PNG — شکست هر مرحله → null (فراخواننده به گیف+کپشن برمی‌گردد) */
+export async function renderBreakingCardPng(input: BreakingCardInput): Promise<CardPng | null> {
+  try {
+    const svg = makeBreakingCardSvg(input);
+    if (!svg) return null;
+    const sharp = (await import('sharp')).default;
+    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const meta = await sharp(png).metadata();
+    if (!meta.width || !meta.height || png.length < 5000) return null;
+    return { png, width: meta.width, height: meta.height };
+  } catch {
+    return null;
+  }
 }

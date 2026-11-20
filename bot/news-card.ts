@@ -494,6 +494,9 @@ const BR_LINE_H = 42;
 const BR_PAD_BOTTOM = 54;
 const BR_CHARS_PER_LINE = 60;
 const BR_MAX_LINES = 16;
+/** فریم‌های گیف کارت فوری — چراغ گردان سربرگ یک دور کامل می‌چرخد (کارت متحرک) */
+export const BREAKING_CARD_GIF_FRAMES = 12;
+export const BREAKING_CARD_GIF_DELAY_MS = 110;
 
 /** ارتفاع کارت فوری — خالص و تست‌پذیر */
 export function breakingCardHeight(text: string, hasName: boolean): number {
@@ -501,36 +504,57 @@ export function breakingCardHeight(text: string, hasName: boolean): number {
   return BR_HEADER_H + 14 + BR_SOURCE_H + (hasName ? BR_NAME_H : 0) + Math.max(1, lines) * BR_LINE_H + BR_PAD_BOTTOM + FOOTER_H;
 }
 
-/** گنبد چراغ گردان برداری سربرگ — قرمز اشباع + بازوی نور (نسخهٔ ثابتِ گیف فوری) */
-function sirenSvg(cx: number, cy: number): string {
+/** گنبد چراغ گردان برداری سربرگ — قرمز اشباع + پرتوهای نور چرخان.
+ *  phase = ۰..۱ (اختیاری): زاویهٔ چرخش پرتو + تپش گنبد/هاله — برای کارت فوری «متحرک»
+ *  (خواستهٔ کاربر ۲۰ نوامبر پنجم: «چراغ گردون رو داخل همون خبر بزار متحرک نه پیام جدا»). */
+function sirenSvg(cx: number, cy: number, phase = 0): string {
   const r = 34;
+  const domeCy = cy - 8;
+  const rot = phase * 360; // چرخش پرتو — یک دور کامل در هر لوپ
+  const pulse = 0.5 + 0.5 * Math.sin(phase * Math.PI * 2); // تپش گنبد
+  // پرتو دو بازوی روبه‌رو — هم‌الگوی گیف مستقل (bot/breaking.ts) جمع‌شده برای سربرگ کارت
+  const beam = (deg: number) => {
+    const a = (deg * Math.PI) / 180;
+    const spread = 0.22; // نیم‌زاویهٔ بازشدگی
+    const r0 = r * 1.02;
+    const len = 58;
+    const pt = (ang: number, rad: number) => `${(cx + Math.cos(ang) * rad).toFixed(1)} ${(domeCy + Math.sin(ang) * rad).toFixed(1)}`;
+    return `<path d="M ${pt(a - spread, r0)} L ${pt(a - spread, len)} L ${pt(a + spread, len)} L ${pt(a + spread, r0)} Z" fill="#ff4438" opacity="${(0.32 + 0.16 * pulse).toFixed(2)}"/>`;
+  };
+  const ringPhase = phase;
+  const ringR = r * (1.12 + ringPhase * 0.72);
+  const ringOp = 0.42 * (1 - ringPhase);
   return `
-  <path d="M ${cx - 4} ${cy} L ${cx - 96} ${cy - 40} L ${cx - 96} ${cy - 14} L ${cx - 4} ${cy + 12} Z" fill="#ff4438" opacity="0.55"/>
-  <path d="M ${cx + 4} ${cy} L ${cx + 96} ${cy - 40} L ${cx + 96} ${cy - 14} L ${cx + 4} ${cy + 12} Z" fill="#ffb03a" opacity="0.4"/>
+  ${beam(rot)}${beam(rot + 180)}
+  <circle cx="${cx}" cy="${domeCy}" r="${(r * 1.55).toFixed(1)}" fill="#ff3b30" opacity="${(0.05 + 0.07 * pulse).toFixed(2)}"/>
+  <circle cx="${cx}" cy="${domeCy}" r="${ringR.toFixed(1)}" fill="none" stroke="#ff6b6b" stroke-width="3" opacity="${ringOp.toFixed(2)}"/>
   <ellipse cx="${cx}" cy="${cy + 16}" rx="${r * 1.25}" ry="7" fill="#e3b0aa"/>
   <rect x="${cx - r * 0.9}" y="${cy + 8}" width="${r * 1.8}" height="16" rx="6" fill="#f3d2cc" stroke="#d0968d" stroke-width="2"/>
   <radialGradient id="dome2" cx="0.5" cy="0.35" r="0.9">
     <stop offset="0" stop-color="#ff8a80"/><stop offset="0.45" stop-color="#ff3b30"/><stop offset="1" stop-color="#a01015"/>
   </radialGradient>
-  <circle cx="${cx}" cy="${cy - 8}" r="${r}" fill="url(#dome2)"/>
+  <circle cx="${cx}" cy="${domeCy}" r="${r}" fill="url(#dome2)" opacity="${(0.85 + 0.15 * pulse).toFixed(2)}"/>
   <ellipse cx="${cx - 10}" cy="${cy - 18}" rx="9" ry="5" fill="#ffe3e0" opacity="0.75"/>`;
 }
 
-/** ساخت SVG کارت فوری — خالص و تست‌پذیر */
-export function makeBreakingCardSvg(input: BreakingCardInput): string {
+/** ساخت SVG کارت فوری — خالص و تست‌پذیر.
+ *  animFrame (اختیاری): شمارهٔ فریم ۰..BREAKING_CARD_GIF_FRAMES−۱ → چراغ گردان سربرگ
+ *  می‌چرخد/می‌تپد (کارت متحرک). بدون آن → چراغ در حالت ساکن (فاز صفر). */
+export function makeBreakingCardSvg(input: BreakingCardInput, animFrame?: number): string {
   const text = (input.text || '').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   const hasName = Boolean((input.faName || '').trim());
   const H = breakingCardHeight(text, hasName);
   const dateLine = input.date ? `${input.date.weekdayFa} ${input.date.shamsi} • ${input.date.miladi}` : '';
-  const sirenCx = W - PAD - 40;
+  const sirenCx = W - PAD - 50; // حاشیهٔ راحت از لبهٔ کارت + بدون تصادم با عنوان «فوری»
   const sirenCy = 82;
+  const phase = animFrame === undefined ? 0 : ((animFrame % BREAKING_CARD_GIF_FRAMES) + BREAKING_CARD_GIF_FRAMES) % BREAKING_CARD_GIF_FRAMES / BREAKING_CARD_GIF_FRAMES;
 
   const header = `
   <rect width="${W}" height="${BR_HEADER_H}" fill="url(#hdr)"/>
   <text x="${W - PAD - 110}" y="76" font-size="46" font-weight="700" fill="#ffffff" text-anchor="end">${rtl('فوری')}</text>
   <text x="${W - PAD - 110}" y="124" font-size="24" fill="#ffd9d5" text-anchor="end">${rtl(dateLine || 'رصدبان — خبر فوری')}</text>
-  ${sirenSvg(sirenCx, sirenCy)}`;
+  ${sirenSvg(sirenCx, sirenCy, phase)}`;
 
   const textRight = W - PAD - 28;
   let y = BR_HEADER_H + 14;
@@ -576,6 +600,41 @@ export async function renderBreakingCardPng(input: BreakingCardInput): Promise<C
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;
     return { png, width: meta.width, height: meta.height };
+  } catch {
+    return null;
+  }
+}
+
+// ---------- کارت فوری متحرک — چراغ گردان «داخل خودِ خبر» (تک‌پیام) ----------
+
+/** سقف حجم گیف کارت — بزرگ‌تر از این → null (فراخواننده به PNG ثابت برمی‌گردد) */
+export const BREAKING_CARD_GIF_MAX_BYTES = 8_000_000;
+
+/** رندر کارت فوری به GIF متحرک — خود کارت (متن + سربرگ قرمز کم‌رنگ + چراغ گردان چرخان)
+ *  در «یک» پیام ارسال می‌شود؛ دیگر گیفِ جدا + کارتِ جدا نیست (خواستهٔ کاربر ۲۰ نوامبر پنجم).
+ *  هم‌الگوی renderBreakingGif (sharp خام + gifenc). شکست هر مرحله → null صادقانه. */
+export async function renderBreakingCardGif(input: BreakingCardInput): Promise<CardPng | null> {
+  try {
+    const svg0 = makeBreakingCardSvg(input);
+    if (!svg0) return null;
+    const sharp = (await import('sharp')).default;
+    const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
+    const meta = await sharp(Buffer.from(svg0), { density: 72 }).metadata();
+    if (!meta.width || !meta.height) return null;
+    const encoder = GIFEncoder();
+    for (let i = 0; i < BREAKING_CARD_GIF_FRAMES; i++) {
+      const svg = makeBreakingCardSvg(input, i);
+      const { data } = await sharp(Buffer.from(svg), { density: 72 }).raw().toBuffer({ resolveWithObject: true });
+      const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+      const palette = quantize(u8, 128);
+      const index = applyPalette(u8, palette);
+      encoder.writeFrame(index, meta.width, meta.height, { palette, delay: BREAKING_CARD_GIF_DELAY_MS });
+    }
+    encoder.finish();
+    const gif = Buffer.from(encoder.bytes());
+    if (gif.length < 5000 || gif.length > BREAKING_CARD_GIF_MAX_BYTES) return null;
+    if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
+    return { png: gif, width: meta.width, height: meta.height };
   } catch {
     return null;
   }

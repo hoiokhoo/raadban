@@ -290,12 +290,19 @@ describe('شناسایی و برجسته‌سازی اخبار ایران — خ
 
 // ---------- ۵) خبر فوری ----------
 
-describe('تشخیص خبر فوری — ایران/جنگ (خواستهٔ ۲۰ نوامبر)', () => {
-  test('فارسی و انگلیسی', () => {
+describe('تشخیص خبر فوری — فقط توییت‌های حاوی «ایران» (خواستهٔ ۲۰ نوامبر پنجم)', () => {
+  test('فارسی و انگلیسی — حاوی ایران', () => {
     expect(isBreakingTweetText('آمریکا تحریم‌های تازهٔ ایران را اعلام کرد')).toBe(true);
-    expect(isBreakingTweetText('جنگ در خاورمیانه گسترش یافت')).toBe(true);
-    expect(isBreakingTweetText('Trump: We are ready for war')).toBe(true);
     expect(isBreakingTweetText('Iran rejects negotiations')).toBe(true);
+    expect(isBreakingTweetText('Persia has a long history')).toBe(true);
+  });
+  test('جنگ بدون ایران دیگر فوری نیست (تنگهٔ آستانه ۲۰ نوامبر پنجم)', () => {
+    expect(isBreakingTweetText('جنگ در خاورمیانه گسترش یافت')).toBe(false); // جنگِ بدون ایران
+    expect(isBreakingTweetText('Trump: We are ready for war')).toBe(false); // war بدون Iran
+    expect(isBreakingTweetText('جنگ داخلی سودان شدت گرفت')).toBe(false);
+    // جنگ + ایران → همچنان فوری
+    expect(isBreakingTweetText('جنگ علیه ایران گسترش یافت')).toBe(true);
+    expect(isBreakingTweetText('Iran is ready for war')).toBe(true);
   });
   test('غیرفوری', () => {
     expect(isBreakingTweetText('قیمت بیت‌کوین رکورد زد')).toBe(false);

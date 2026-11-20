@@ -215,6 +215,19 @@ describe('readTweetAccounts — پلتفرم و نام فارسی (قالیبا�
     // همهٔ حساب‌های تأثیرگذار نام فارسی دارند (خط دوم نمایش)
     expect(accs.filter((a) => !a.faName).length).toBe(0);
   });
+
+  test('حساب‌های نظامی تازه — سنتکام و ستاد کل ارتش رژیم صهیونیستی (خواستهٔ ۲۰ نوامبر نهم)', () => {
+    const accs = readTweetAccounts('bot/tweets.json');
+    // دو حسابِ سرِ اولویت — جایگاه ۹ و ۱۰ فهرست (در هر چرخه همیشه چک می‌شوند)
+    expect(accs[8]!.handle).toBe('CENTCOM');
+    expect(accs[8]!.faName).toContain('سنتکام');
+    expect(accs[9]!.handle).toBe('IDF');
+    expect(accs[9]!.faName).toContain('رئیس ستاد');
+    // چهار حساب تکمیلی چرخشی
+    for (const h of ['idfspokesperson', 'avichayadraee', 'secdef', 'israel_katz']) {
+      expect(accs.some((a) => a.handle.toLowerCase() === h)).toBe(true);
+    }
+  });
 });
 
 // ---------- (۵) وقایع روز — قالب کامل + پالایش نام‌ها + وقایع جهانی ----------

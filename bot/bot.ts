@@ -57,7 +57,7 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, snapshotBaseOf, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
+import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, snapshotBaseOf, repairSnapshotAt, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
 import { renderMarketCardPng } from './market-card';
 import { CHART_ASSETS, buildChartPanel, chartWindow, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
@@ -2511,6 +2511,14 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     if (state.priceSnapDay !== pMkt.dateKey) {
       if (state.priceSnap) state.priceSnapPrevDay = state.priceSnap;
       state.priceSnapDay = pMkt.dateKey;
+    }
+    // ترمیم یک‌بارهٔ priceSnapAt — snapshot نسخه‌های پیش از گزارش ۰۳:۰۰ مهر زمان نداشتند
+    // و گارد تازگی آن‌ها را بی‌پایه می‌گذاشت (ستون «تغییر نسبت به روز قبل» خالی می‌ماند).
+    // lastPriceKey کلید اسلات تهران است = دقیقاً زمان آخرین گزارش — خواستهٔ ۲۰ نوامبر هفتم.
+    const repairedSnapAt = repairSnapshotAt(state.priceSnap, state.priceSnapAt, state.lastPriceKey);
+    if (repairedSnapAt) {
+      state.priceSnapAt = repairedSnapAt;
+      console.log(`priceSnapAt از lastPriceKey ترمیم شد → ${repairedSnapAt}`);
     }
     // گارد تازگی snapshot — گزارش دیروز ناموفق بوده و پایه کهنه (>۳۶ ساعت) است؟
     // پس «دیروز ساعت ۳» واقعی نداریم: درصد بر پایهٔ کهنه نشان داده نمی‌شود (applyDeltas

@@ -111,13 +111,13 @@ describe('makeMarketCardSvg — جدول یکدست بدون سربرگ دیبا
     expect(svg).toContain('\u202B');
   });
 
-  test('سطر عنوان ستون‌ها: نام | قیمت بازار | کارخانه / دولتی | تغییر ۲۴ساعته (دیروز ساعت ۳)', () => {
+  test('سطر عنوان ستون‌ها: نام | قیمت بازار | کارخانه / دولتی | تغییر نسبت به روز قبل (خواستهٔ هفتم)', () => {
     const svg = makeMarketCardSvg(input());
     expect(svg).toContain('قیمت بازار');
     expect(svg).toContain('کارخانه / دولتی');
-    expect(svg).toContain('تغییر ۲۴ساعته');
+    expect(svg).toContain('تغییر نسبت به روز قبل');
     expect(svg).not.toContain('تغییر روز'); // برچسب کهنه — پایه تازه «دیروز ساعت ۳» است
-    expect(svg).toContain('درصد تغییر نسبت به دیروز ساعت ۳'); // پانوشت کارت
+    expect(svg).toContain('تغییر نسبت به روز قبل (دیروز ساعت ۳)'); // پانوشت کارت
   });
 
   test('سربرگ‌های آماری دیباگ حذف شدند (خواستهٔ ۲۰ نوامبر: «عناوین … برای دیباگ برنامست … حذف کن»)', () => {
@@ -133,7 +133,29 @@ describe('makeMarketCardSvg — جدول یکدست بدون سربرگ دیبا
     // ارتفاع ثابت ردیف: هر rect ردیف height="68" (ROW_H-12) دارد — نه ۱۲۰ قدیمی VIP
     const rowRects = svg.match(/height="68" rx="12"/g) || [];
     expect(rowRects.length).toBe(9); // ۹ قلم فیکسچر
-    expect(svg).not.toContain('اختلاف'); // ستون اختلاف حذف شد — ستون چهارم درصد تغییر روز است
+  });
+
+  test('ستون سوم با اختلاف — کنار قیمت رسمی، مبلغ و درصد فاصلهٔ بازار از رسمی (خواستهٔ هفتم)', () => {
+    const svg = makeMarketCardSvg(input());
+    // J4: بازار ۳٫۶ میلیارد، کارخانه ۱٫۶۱ → اختلاف ۱٫۹۹۰ میلیارد (۱۲۳٫۶٪)
+    expect(svg).toContain('اختلاف ۱٫۹۹۰ میلیارد (۱۲۳٫۶٪)');
+    // دلار: بازار ۲۶۹٫۹۷۰، مرکز مبادله ۱۹۳٫۶۳۳ → اختلاف ۷۶٫۳۳۷ (۳۹٫۴٪)
+    expect(svg).toContain('اختلاف ۷۶٬۳۳۷ (۳۹٫۴٪)');
+    // سکه: بازار ۲۴۹٫۵۹۰٬۰۰۰، بانکی ۲۳۹٫۸۴۰٬۰۰۰ → اختلاف ۹٫۷۵۰ میلیون (۴٫۱٪)
+    expect(svg).toContain('اختلاف ۹٫۷۵۰ میلیون (۴٫۱٪)');
+  });
+
+  test('ستون چهارم — درصد تغییر با مبلغ اختلاف زیر آن (وقتی پایهٔ عددی هست)', () => {
+    const withBase = applyDeltas(
+      [q('usd', 'دلار آزاد', 269_970, 'toman', undefined, { officialToman: 193_633 })],
+      { usd: 263_970 },
+    );
+    const svg = makeMarketCardSvg({ ...input(), quotes: withBase });
+    expect(svg).toContain('۶٬۰۰۰ تومان'); // مبلغ اختلاف نسبت به پایه
+    expect(svg).toContain('#4ade80'); // صعودی
+    // بی‌پایه → فقط «—»، هیچ مبلغ ساختگی (خط کوچک ۱۶px مبلغ اختلاف نمی‌آید)
+    const svgNoBase = makeMarketCardSvg(input());
+    expect(svgNoBase).not.toContain('font-size="16"');
   });
 
   test('قیمت‌های رسمی در ستون سوم: کارخانهٔ J4، مرکز مبادلهٔ دلار، بانکی سکه', () => {

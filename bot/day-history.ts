@@ -236,28 +236,46 @@ export function filterDayHistoryEntries(entries: DayHistoryEntry[]): DayHistoryE
 
 // ---------- فرمت‌کنندهٔ بلوک پیام (خالص) ----------
 
-const CAPS: Record<DayHistoryKind, number> = { event: 10, birth: 5, death: 5 };
+// خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ (دوم): «در مورد حوادث و وقایع تاریخی میخوام حداکثر ۵ واقعهٔ
+// خیلی مهم‌تر تاریخی مثه شروع یا پایان فلان جنگ تاریخی، یا امثالهم باشه، اصلاً تولد و فوت
+// شاعران و بازیگران و هنرمندان و ... نمیخوام باشه» — زادروز/درگذشت کامل حذف؛ فقط رویدادهای
+// بسیار مهم (جنگ/پیمان/انقلاب/کودتا/استقلال/ترور/بزرگ‌ترین بلأها/سقوط و فتح/...) حداکثر ۵ مورد.
+
+/** نشان‌های واقعهٔ تاریخی «بسیار مهم» — جنگ، پیمان، انقلاب، کودتا، استقلال، اشغال،
+ *  ترور/اعدام سیاسی، بمب/هسته‌ای، بلأهای بزرگ، سقوط/فتح، صلح/آتش‌بس و تأسیس نهادهای جهانی.
+ *  زادروز/درگذشت چهره‌ها از همین فهرست جدا است و اصلاً نمایش داده نمی‌شود. تابع خالص. */
+export const MAJOR_EVENT_RE = /جنگ|پیمان|معاهده|قرارداد|قطعنامه|انقلاب|کودتا|استقلال|اشغال|تجاوز|تهاجم|حمله|ترور|اعدام|انفجار|بمب|هسته[\s\u200c]*ای|زلزله|زمین[\s\u200c]*لرزه|سیل|قحطی|طوفان|سقوط|فتح|صلح|آتش[\s\u200c]*بس|اعلام جمهوری|اعلام موجودیت|تسخیر|سازمان ملل|جامعه ملل|اوپک|ناتو|یونسکو|محاصره|پیروزی|شکست نظامی|استعفای دولت|ترک مخاصمه|الحاق/i;
+
+/** واقعهٔ تاریخی «خیلی مهم» است؟ — آستانهٔ خواستهٔ کاربر ۲۰ نوامبر. تابع خالص تست‌پذیر. */
+export function isMajorHistoricalEvent(text: string): boolean {
+  const t = (text || '').replace(/[\u200f\u200e]/g, ' ');
+  if (!t.trim()) return false;
+  return MAJOR_EVENT_RE.test(t);
+}
+
+/** سقف رویدادهای بسیار مهم هر روز — «حداکثر ۵ واقعهٔ خیلی مهم‌تر» (خواستهٔ ۲۰ نوامبر) */
+export const DAY_HISTORY_EVENT_CAP = 5;
+
 const MAX_TEXT = 160;
 
 function truncate(s: string, n: number): string {
   return s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`;
 }
 
-/** بلوک «وقایع امروز/فردا» — قالب نمونهٔ کاربر (۱۶ نوامبر ۲۰۲۶):
- *  «۲۵ آبان ۱۲۹۳؛ درگذشت ستارخان.» — تاریخ کامل (روز ماه سال) در هر سطر.
- *  dayMonth = عنوان روز («۲۵ آبان»)؛ نبود → قالب قدیمی فقط با سال (سازگاری).
- *  ترتیب: رویدادها، سپس زادروزها، سپس درگذشت‌ها. خالی → رشتهٔ خالی؛ کل بخش از پیام حذف می‌شود. */
+/** بلوک «وقایع امروز/فردا» — قالب «۲۵ آبان ۱۲۹۳؛ …» (تاریخ کامل در هر سطر).
+ *  ۲۰ نوامبر (دوم): فقط «رویدادهای بسیار مهم» (جنگ/پیمان/انقلاب/...) حداکثر ۵ مورد —
+ *  زادروز و درگذشت (شاعران/بازیگران/هنرمندان/…) کاملاً حذف شد (خواستهٔ صریح کاربر).
+ *  dayMonth = عنوان روز («۲۵ آبان»). خالی → رشتهٔ خالی؛ کل بخش از پیام حذف می‌شود. */
 export function formatDayHistoryBlock(entries: DayHistoryEntry[], dayLabel: 'امروز' | 'فردا', dayMonth?: string): string {
   if (!entries || entries.length === 0) return '';
   const dm = (dayMonth || '').replace(/[؛;.,]\s*$/, '').trim();
   const L: string[] = [`<b>📜 وقایع ${dayLabel} در تاریخ</b>`];
-  for (const kind of ['event', 'birth', 'death'] as const) {
-    const list = entries.filter((e) => e.kind === kind).slice(0, CAPS[kind]);
-    const prefix = kind === 'birth' ? 'زادروز ' : kind === 'death' ? 'درگذشت ' : '';
-    for (const e of list) {
-      const when = dm ? `${dm} ${faNum(e.year)}` : faNum(e.year);
-      L.push(`• ${when}؛ ${prefix}${truncate(e.text, MAX_TEXT)}`);
-    }
+  for (const e of entries) {
+    if (e.kind !== 'event') continue; // زادروز/درگذشت هرگز (خواستهٔ ۲۰ نوامبر)
+    if (!isMajorHistoricalEvent(e.text)) continue; // فقط رویدادهای بسیار مهم
+    if (L.length - 1 >= DAY_HISTORY_EVENT_CAP) break; // حداکثر ۵ مورد
+    const when = dm ? `${dm} ${faNum(e.year)}` : faNum(e.year);
+    L.push(`• ${when}؛ ${truncate(e.text, MAX_TEXT)}`);
   }
   return L.length > 1 ? L.join('\n') : '';
 }
@@ -292,7 +310,7 @@ export function isSignificantWorldEvent(text: string): boolean {
  *  دارد و جداکنندهٔ سال گاهی موجودیت HTML «&ndash;» است — هر دو پوشش داده می‌شوند:
  *  فقط سربرگ سطح‌۲ بخش را عوض می‌کند؛ زیرمجموعه‌ها (===) بخش جاری را نگه می‌دارند.
  *  خروجی: مدخل‌های مهم (پالایندهٔ اهمیت)، حداکثر limit مورد، تازه‌ترین اول. خالص و تست‌پذیر. */
-export function parseEnWikiDayWikitext(wt: string, limit = 6): DayHistoryEntry[] {
+export function parseEnWikiDayWikitext(wt: string, limit = 5): DayHistoryEntry[] {
   if (!wt) return [];
   let inEvents = false;
   const raw: Array<{ year: number; text: string }> = [];

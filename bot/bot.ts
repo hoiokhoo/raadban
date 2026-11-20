@@ -111,8 +111,10 @@ import {
   buildGeoMemoryBlock,
   buildNightlyGeoBlock,
   fetchAllGeoChannels,
+  filterGeoGeopolitical,
   filterGeoPosts,
   geoItemsForMerge,
+  geoReportableEventCount,
   geoSummaryOf,
   loadGeoChannels,
   splitGeoFooter,
@@ -126,7 +128,9 @@ import { fetchHourlyForecast, buildWeatherMessage, type HourlyEntry } from './we
 import { renderWeatherCardPng } from './weather-card';
 import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif } from './weather-gif';
-import { fetchIranRainMapPng } from './rain-map';
+import { fetchIranRadarPng } from './iran-radar';
+import { highlightIranItemsHtml, isIranRelated } from './iran';
+import { isBreakingTweetText, renderBreakingGif } from './breaking';
 import {
   pickHadith,
   bankStatus,
@@ -243,6 +247,9 @@ const CFG = {
   // پنجرهٔ تازگی توییت‌ها — مستقل از پنجرهٔ خبر (خواستهٔ کاربر ۱۶ نوامبر: مقامات هر روز
   // چند پست می‌گذارند؛ پنجرهٔ ۵ ساعته با چرخش ~۱۰ دقیقه‌ای هیچ پستی را از قلم نمی‌اندازد)
   tweetWindowHours: Math.max(1, Math.min(24, Number(process.env.TWEET_WINDOW_HOURS || 5) || 5)),
+  // حساب‌های اولویت‌دار خبر فوری — هر چرخهٔ ~۱۰ دقیقه‌ای همیشه از ابتدای فهرست چک می‌شوند
+  // (خواستهٔ کاربر ۲۰ نوامبر: «ربات هر ۱۰ دقیقه توییتها رو چک کنه» — ترامپ/قالیباف/رهبری/…)
+  breakingPriorityPerCycle: Math.max(0, Math.min(20, Number(process.env.BREAKING_PRIORITY_PER_CYCLE || 8) || 8)),
   dryRun: process.env.DRY_RUN === '1',
   sourcesFile: process.env.BOT_SOURCES_FILE || 'bot/sources.json',
   stateFile: process.env.BOT_STATE_FILE || 'bot/state.json',
@@ -2135,6 +2142,26 @@ export function rotateAccounts(accounts: TweetAccount[], start: number, count: n
   return { picked, nextCursor: (safeStart + picked.length) % accounts.length };
 }
 
+/** گزینش حساب‌های هر چرخه با سرِ اولویت‌دار — خواستهٔ کاربر ۲۰ نوامبر (دوم):
+ *  «ربات هر ۱۰ دقیقه توییتها رو چک کنه» — head حساب‌های اول (ترامپ ایکس+تروث، قالیباف،
+ *  رهبری، رئیس‌جمهور، وزیر خارجه…) در «هر» چرخه چک می‌شوند و پنجرهٔ چرخشی هم روی بقیه
+ *  می‌چرخد؛ تکراری‌ها (ارجاع یکسان) فقط یک‌بار می‌مانند. تابع خالص تست‌پذیر. */
+export function pickTweetAccountsForCycle(
+  accounts: TweetAccount[],
+  start: number,
+  count: number,
+  priorityCount = 0
+): { picked: TweetAccount[]; nextCursor: number } {
+  const rot = rotateAccounts(accounts, start, count);
+  if (priorityCount <= 0 || accounts.length === 0) return rot;
+  const head = accounts.slice(0, Math.min(priorityCount, accounts.length));
+  const picked = [...head];
+  for (const acc of rot.picked) {
+    if (!picked.includes(acc)) picked.push(acc); // ارجاع یکسان — عضو سرِ اولویت‌دار فقط یک‌بار
+  }
+  return { picked, nextCursor: rot.nextCursor };
+}
+
 /** فیلتر توییت‌های تازه — ضدتکرار: هش «tw-<handle>-<id>» در sentIds + شباهت متن با ارسال‌های ۳۶ ساعت اخیر.
  *  توییت بی‌تاریخ: رد (هیچ توییت قدیمی بی‌علامت ارسال نمی‌شود). تابع خالص تست‌پذیر. */
 export function freshTweets(
@@ -2180,7 +2207,7 @@ export async function collectFreshTweets(
   titleSets: Set<string>[]
 ): Promise<{ candidates: TweetCandidate[]; nextCursor: number; rateLimited: boolean; fetched: number; tried: number }> {
   const cursor = Number(st.tweetCursor) || 0;
-  const { picked, nextCursor } = rotateAccounts(accounts, cursor, CFG.tweetAccountsPerCycle);
+  const { picked, nextCursor } = pickTweetAccountsForCycle(accounts, cursor, CFG.tweetAccountsPerCycle, CFG.breakingPriorityPerCycle);
   const candidates: TweetCandidate[] = [];
   let rateLimited = false;
   let fetched = 0;
@@ -2242,6 +2269,8 @@ export interface RunSummary {
   // توییت‌ها
   tweetsFetched?: number;
   tweetsSent?: number;
+  /** توییت‌های فوری ایران/جنگ ارسال‌شده با گیف چراغ گردان (خواستهٔ ۲۰ نوامبر) */
+  breakingSent?: number;
   /** توییت‌های صف‌شده برای بستهٔ جداگانهٔ توییت (حالت بست) */
   tweetsQueued?: number;
   tweetAccountsTried?: number;
@@ -2691,9 +2720,15 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   // پنجرهٔ ۴ساعته + حاشیهٔ ۳۰ دقیقه — ضدتکرار شناسه با state.geoSeenIds (هرس ۷ روزه در خود تابع)
   const since = Date.now() - (GEO_WINDOW_HOURS * 3600_000 + 30 * 60_000);
   const win = windowGeoPosts(posts, since, state.geoSeenIds || {});
-  const filtered = filterGeoPosts(win.picked);
+  // پالایهٔ تبلیغ + پالایهٔ محتوای صرفاً دینی/مناسکتی (خواستهٔ کاربر ۲۰ نوامبر:
+  // «اگر خبر مهمی نبود اصلا چیزی ارسال نشه که کانال شلوغ بشه» — قرائت قرآن/زیارت/دعا خبر نیست)
+  const noAds = filterGeoPosts(win.picked);
+  const geopolitical = filterGeoGeopolitical(noAds);
+  const ritualDropped = noAds.length - geopolitical.length;
+  if (ritualDropped > 0) console.log(`پالایهٔ مناسکتی: ${enToFaDigits(String(ritualDropped))} پیام صرفاً دینی/یادبودی از ورودی تحلیل حذف شد`);
+  const filtered = geopolitical;
   const merged = mergeSimilarItems(geoItemsForMerge(filtered));
-  console.log(`بخش چپ و راست: ${posts.length} پیام خام → پنجره/ضدتکرار: ${win.picked.length} → پس از فیلتر تبلیغ: ${filtered.length} → تجمیع: ${merged.length} رویداد`);
+  console.log(`بخش چپ و راست: ${posts.length} پیام خام → پنجره/ضدتکرار: ${win.picked.length} → پس از فیلتر تبلیغ/مناسکت: ${filtered.length} → تجمیع: ${merged.length} رویداد`);
   const history = Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [];
   if (ctx.dryRun) {
     console.log(`=== DRY_RUN — پیش‌نمایش تحلیل ۴ساعتهٔ ژئوپلیتیک (اسلات ${dKey}) ===`);
@@ -2788,9 +2823,23 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   // پانوشت «🧷» جدا می‌شود: بدنه = پیام کانال؛ خلاصه = حافظهٔ بازه‌های بعد (هرگز در پیام نمی‌آید)
   const split = splitGeoFooter(text);
   const finalBody = split.body.length >= 300 ? split.body : text.trim();
+  // ── گیت «دیجست خالی» — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶: «اگر خبر مهمی نبود اصلا چیزی ارسال
+  //    نشه که کانال شلوغ بشه … ننویسه خبر مهمی نبود و دعا بود و ...» — تحلیلی که هیچ رویداد
+  //    واقعی‌ای در بخش «🗂 رویدادهای کلیدی» ندارد (همه‌اش «ثبت نشد/وجود ندارد/محتوای دینی بود»)
+  //    هرگز ارسال نمی‌شود؛ اسلات می‌خورد و پیام‌های همین بازه دیده‌شده می‌مانند.
+  const realEvents = geoReportableEventCount(finalBody);
+  if (realEvents === 0) {
+    state.lastGeoKey = dKey;
+    state.geoSeenIds = win.seen;
+    console.log(`اسلات تحلیل ژئوپلیتیک ${dKey} — رویداد واقعی قابل‌گزارشی در خروجی نبود؛ طبق خواستهٔ کاربر هیچ پیامی فرستاده نمی‌شود`);
+    return;
+  }
   const memSummary = split.body.length >= 300 ? split.summary : '';
   const header = `🌐 <b>تحلیل ۴ساعتهٔ ژئوپلیتیک رصدبان</b> — بخش چپ و راست — ${esc(weekday)} ${esc(p.dateFa)}`;
-  const chunks = chunkHourlyMessage(`${header}\n\n${finalBody}`, 3300);
+  // مورد ایران‌مرتبط بولد — خواستهٔ کاربر ۲۰ نوامبر: «اخبار مرتبط با ایران ... بولدتر»
+  // (HTML بله رنگ ندارد؛ در کارت‌های تصویری رنگ کهربایی هم هست)
+  const bodyHighlighted = highlightIranItemsHtml(finalBody);
+  const chunks = chunkHourlyMessage(`${header}\n\n${bodyHighlighted}`, 3300);
   let ok = false;
   for (const c of chunks) {
     for (const t of CFG.targets) {
@@ -3194,30 +3243,32 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       trimDailyState(daily);
     }
 
-    // ---------- نقشهٔ بارشی کشور — خواستهٔ کاربر ۲۰ نوامبر:
-    // «میخوام آخرین نقشه بارشی کشور هم زیر پیام هواشناسی بیاد، اگر api لازم داری بگو».
-    // منبع: NASA GIBS (WMS عمومی — بدون هیچ کلید API) — بارش ماهواره‌ای IMERG (GPM)
-    // برای دو روزِ اخیرِ دارای داده + مرزها؛ عنوان/راهنمای رنگ فارسی روی خود تصویر.
-    // فقط تصویر بدون کپشن؛ شکست واکشی/رندر → بخش صادقانه حذف (کارت‌ها مستقل‌اند).
+    // ---------- رادار هواشناسی بارشی ایران — خواستهٔ کاربر ۲۰ نوامبر (دوم):
+    // «عکس رادار هواشناسی بارشی میخوام فقط ایران رو نشون بده و داخل عکس هم وضعیت فعلی و هم
+    //  به شکل سایه مانند روش وضعیت چند ساعت آینده نمایش داده بشه به شکل رنگی که مثلا آبی
+    //  برفه، نارنجی باران، بیرنگ آفتابی و... دقیقا مانند نقشه های حرفه ای هواشناسی اما فقط روی
+    //  ایران» — جایگزین نقشهٔ ماهواره‌ای GIBS (که همسایه‌ها را هم نشان می‌داد و پیش‌بینی نداشت).
+    // منبع: Open-Meteo روی گرید ~۰٫۷° داخل مرز ایران (بدون کلید) — نشان‌های رنگی وضعیت فعلی +
+    // سایهٔ محوِ پیش‌بینی ۳ ساعت آینده. فقط تصویر بدون کپشن؛ شکست واکشی/رندر → بخش صادقانه حذف.
     const rainKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastRainMapKey, pNow);
     if (rainKey && anySent) {
       const rainDate = tripleDateOf(pNow.dateKey, dSettings.timezone, dSettings.qamariBasis);
-      const rain = await fetchIranRainMapPng(rainDate).catch(() => null);
+      const rain = await fetchIranRadarPng(rainDate).catch(() => null);
       if (rain) {
         let rainOk = false;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, rain.png, 'raadban-rain-map.png');
-          if (!s.ok) { console.error(`❌ ارسال نقشهٔ بارشی به ${t}: ${s.error || 'نامشخص'}`); continue; }
+          const s = await sendBalePhotoBytes(CFG.token, t, rain.png, 'raadban-iran-radar.png');
+          if (!s.ok) { console.error(`❌ ارسال رادار بارشی ایران به ${t}: ${s.error || 'نامشخص'}`); continue; }
           rainOk = true;
         }
         if (rainOk) {
           daily.lastRainMapKey = rainKey;
-          console.log(`✅ آخرین نقشهٔ بارشی کشور ارسال شد — ${rain.width}×${rain.height} (GIBS/IMERG)`);
+          console.log(`✅ رادار بارشی ایران ارسال شد — ${rain.width}×${rain.height} (وضعیت فعلی + سایهٔ پیش‌بینی ۳ ساعت آینده)`);
         } else {
-          console.warn('⚠️ نقشهٔ بارشی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
+          console.warn('⚠️ رادار بارشی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
         }
       } else {
-        console.warn('⚠️ نقشهٔ بارشی کشور ساخته نشد (دادهٔ GIBS نیامد) — بخش تزئینی، کارت‌ها مستقل ارسال شده‌اند');
+        console.warn('⚠️ رادار بارشی ایران ساخته نشد (دادهٔ Open-Meteo نیامد) — بخش تزئینی، کارت‌ها مستقل ارسال شده‌اند');
       }
       trimDailyState(daily);
     }
@@ -3481,12 +3532,47 @@ async function main(): Promise<void> {
         summary.translated += tr;
         if (tr) console.log(`ترجمهٔ توییت‌ها: ${tr} مورد از ${twItems.length}${res.provider ? ` (${res.provider})` : ''}`);
       }
-      const twRes = addToPool(state.pool, twItems, CFG.poolCap);
+      // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم): توییت/تروث‌سوشال حاوی «ایران/جنگ» حتی در
+      //    حالت تحلیل هم بلافاصله با گیف چراغ گردان «فوری» ارسال می‌شود (مقدم بر «فقط تحلیل»).
+      //    فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند تا دوبار نیایند. ──
+      const brSentIds = new Set<string>();
+      for (const p of twItems) {
+        const faText = (p.fa || '').trim() || (p.text || '').trim();
+        if (!faText) continue;
+        if (!isBreakingTweetText(faText) && !isBreakingTweetText(p.text || '')) continue;
+        const brText = `🚨 <b>فوری</b> — ${esc(p.source || '')}\n${faText}`;
+        let brOk = false;
+        const gif = await renderBreakingGif().catch(() => null);
+        if (gif) {
+          const cap = splitPhotoCaption(brText, 1024);
+          for (const t of CFG.targets) {
+            const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
+            if (!s.ok) console.error(`❌ ارسال گیف فوری به ${t}: ${s.error} — پشتیبان متنی`);
+            else { brOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
+          }
+        }
+        if (!brOk) {
+          for (const t of CFG.targets) {
+            const s = await sendBaleMessage(CFG.token, t, brText);
+            if (!s.ok) console.error(`❌ ارسال فوری متنی به ${t}: ${s.error}`);
+            else brOk = true;
+          }
+        }
+        if (brOk) {
+          summary.breakingSent = (summary.breakingSent || 0) + 1;
+          brSentIds.add(p.id);
+          sentIds.push(p.id);
+          sentTitleTexts.push(normalizeTitle(faText).slice(0, 160));
+          console.log(`🚨 فوری ارسال شد — ${p.source}${gif ? ' (با گیف چراغ گردان)' : ' (متنی — گیف ناموفق)'}`);
+        }
+      }
+      const twRemaining = twItems.filter((p) => !brSentIds.has(p.id));
+      const twRes = addToPool(state.pool, twRemaining, CFG.poolCap);
       state.pool = twRes.pool;
       if (twRes.added > 0) console.log(`توییت‌ها به استخر تحلیل اضافه شد: +${twRes.added}`);
       // توییت‌ها به آرشیو روزانهٔ تحلیل شبانه هم می‌روند (خواستهٔ ۱۳ نوامبر: «تمامی اخبار و وقایع اون روز»)
-      if (twItems.length > 0) {
-        const twDaily = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], twItems, CFG.dailyPoolCap);
+      if (twRemaining.length > 0) {
+        const twDaily = addToPool(Array.isArray(state.dailyPool) ? state.dailyPool : [], twRemaining, CFG.dailyPoolCap);
         state.dailyPool = twDaily.pool;
       }
     }
@@ -3856,6 +3942,45 @@ async function main(): Promise<void> {
         if (fa !== c.tweet.text) c.tweet.text = fa;
         // متن اصلی فقط وقتی با ترجمه فرق دارد نگه داشته می‌شود (توییت فارسی = تک‌متن)
         const orig = c.orig && c.orig !== fa ? c.orig : undefined;
+        // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم): «هر توییت یا تروث سوشالی حاوی کلمهٔ
+        //    ایران یا جنگ بود به شکل فوری با یه گیف چراغ گردان متحرک با عنوان فوری نمایش
+        //    داده بشه … بلافاصله بدون وقفه اونو ارسال کنه و اگر نبود ذخیره بشه برای بستهٔ
+        //    توییت بعدی» — فوری‌ها هرگز به صف نمی‌روند؛ بلافاصله با گیف ارسال می‌شوند.
+        //    ضدتکرار: هش شناسه + شباهت با ارسال‌های ۳۶ ساعت اخیر (freshTweets) + علامت
+        //    همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
+        if (isBreakingTweetText(fa) || (orig ? isBreakingTweetText(orig) : false)) {
+          const idKey = `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`;
+          const body = tweetDisplayBody(orig, fa, c.faName);
+          const brText = `🚨 <b>فوری</b> — ${esc(c.label)}\n${body}`;
+          let brOk = false;
+          const gif = await renderBreakingGif().catch(() => null);
+          if (gif) {
+            const cap = splitPhotoCaption(brText, 1024);
+            for (const t of CFG.targets) {
+              const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
+              if (!s.ok) console.error(`❌ ارسال گیف فوری به ${t}: ${s.error} — پشتیبان متنی`);
+              else { brOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
+            }
+          }
+          if (!brOk) {
+            // پشتیبان — خبر فوری هرگز گم نمی‌شود: پیام متنی بدون گیف
+            for (const t of CFG.targets) {
+              const s = await sendBaleMessage(CFG.token, t, brText);
+              if (!s.ok) console.error(`❌ ارسال فوری متنی به ${t}: ${s.error}`);
+              else brOk = true;
+            }
+          }
+          if (brOk) {
+            summary.breakingSent = (summary.breakingSent || 0) + 1;
+            sentIds.push(idKey);
+            sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
+            markMsg(fa);
+            console.log(`🚨 فوری ارسال شد — ${c.label}${gif ? ' (با گیف چراغ گردان)' : ' (متنی — گیف ناموفق)'}`);
+            continue; // به صف بستهٔ توییت نمی‌رود — بلافاصله مخابره شد
+          }
+          // ارسال فوری ناموفق → همان مسیر عادی صف (چرخهٔ بعد ضدتکرار دوباره می‌سنجد)
+          console.warn(`⚠️ ارسال فوری ${c.label} ناموفق — به مسیر عادی صف برمی‌گردد`);
+        }
         // قانون عکس: توییت بدون عکسِ خودش، بدون تصویر ارسال می‌شود (بدون آواتار — خواستهٔ کاربر)
         if (bundleMode) {
           // صف جداگانهٔ توییت — بستهٔ مستقل در اسلات فرد (یک ساعت بعد از بستهٔ خبر)؛
@@ -4051,10 +4176,11 @@ async function main(): Promise<void> {
         }
       }
       // پشتیبان متن — کارت‌ها ارسال نشدند (یا مسیر خام بدون رندر): بست متنی کامل (خبری از قلم نمی‌افتد)
+      // مورد ایران‌مرتبط بولد — خواستهٔ ۲۰ نوامبر (کارت تصویری رنگ کهربایی هم دارد)
       if (!newsCardSent) {
         const chunks = aiText
-          ? chunkHourlyMessage(aiText, 3300)
-          : buildBundleChunks(dedup.kept.map((q) => q.text), { maxLen: 3300 });
+          ? chunkHourlyMessage(highlightIranItemsHtml(aiText), 3300)
+          : buildBundleChunks(dedup.kept.map((q) => (isIranRelated(q.text) ? `<b>${q.text}</b>` : q.text)), { maxLen: 3300 });
         for (const c of chunks) {
           for (const t of CFG.targets) {
             const s = await sendBaleMessage(CFG.token, t, c);

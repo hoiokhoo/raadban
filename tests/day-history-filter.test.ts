@@ -81,10 +81,16 @@ describe('filterDayHistoryEntries — پالایش فهرست', () => {
     expect(filterDayHistoryEntries(undefined as unknown as DayHistoryEntry[])).toEqual([]);
   });
 
-  test('یکپارچگی با بلوک پیام — مدخل حذف‌شده در پیام نمی‌آید', () => {
-    const list = [entry('زادروز نیما یوشیج', 1276, 'birth'), entry('خیزش ۱۴۰۱', 1401, 'event')];
+  test('یکپارچگی با بلوک پیام — مدخل حذف‌شده و زادروز در پیام نمی‌آید', () => {
+    const list = [
+      entry('زادروز نیما یوشیج', 1276, 'birth'),
+      entry('خیزش ۱۴۰۱', 1401, 'event'),
+      entry('آغاز جنگ تحمیلی عراق علیه ایران', 1359, 'event'),
+    ];
     const block = formatDayHistoryBlock(filterDayHistoryEntries(list), 'امروز');
-    expect(block).toContain('نیما یوشیج');
+    expect(block).toContain('۱۳۵۹؛ آغاز جنگ تحمیلی');
     expect(block).not.toContain('خیزش');
+    // زادروز چهره‌ها هرگز (خواستهٔ کاربر ۲۰ نوامبر)
+    expect(block).not.toContain('نیما یوشیج');
   });
 });

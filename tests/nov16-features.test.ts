@@ -219,24 +219,31 @@ describe('readTweetAccounts — پلتفرم و نام فارسی (قالیبا�
 
 // ---------- (۵) وقایع روز — قالب کامل + پالایش نام‌ها + وقایع جهانی ----------
 
-describe('وقایع روز — قالب «۲۵ آبان ۱۲۹۳؛ …» و پالایش چهره‌های ۱۴۰۱', () => {
+describe('وقایع روز — قالب «۲۵ آبان ۱۲۹۳؛ …» + فقط رویدادهای بسیار مهم (خواستهٔ ۲۰ نوامبر)', () => {
   const entries = [
-    { year: 1293, text: 'درگذشت ستارخان، سردار ملی ایران', kind: 'event' as const },
-      { year: 1377, text: 'علامه محمدتقی جعفری، فیلسوف و مفسر قرآن', kind: 'death' as const },
+    { year: 1320, text: 'اشغال ایران توسط متفقین در جنگ جهانی دوم', kind: 'event' as const },
+    { year: 1293, text: 'انعقاد قرارداد ایران با آمریکا به منظور خرید ذرت', kind: 'event' as const },
+    { year: 1377, text: 'علامه محمدتقی جعفری، فیلسوف و مفسر قرآن', kind: 'death' as const },
     { year: 1376, text: 'آغاز پخش رسمی شبکه جهانی سحر', kind: 'event' as const },
+    { year: 1349, text: 'زادروز خوانندهٔ مشهور', kind: 'birth' as const },
   ];
 
-  test('قالب کامل روز/ماه/سال — مثل نمونهٔ کاربر «۲۵ آبان ۱۲۹۳؛ درگذشت ستارخان.»', () => {
+  test('قالب کامل روز/ماه/سال — فقط رویدادهای بسیار مهم؛ زادروز/درگذشت هرگز', () => {
     const block = formatDayHistoryBlock(entries, 'امروز', '۲۵ آبان');
-    expect(block).toContain('۲۵ آبان ۱۲۹۳؛ درگذشت ستارخان');
-    expect(block).toContain('۲۵ آبان ۱۳۷۷؛ درگذشت علامه محمدتقی جعفری، فیلسوف و مفسر قرآن');
+    expect(block).toContain('۲۵ آبان ۱۳۲۰؛ اشغال ایران توسط متفقین در جنگ جهانی دوم');
+    expect(block).toContain('۲۵ آبان ۱۲۹۳؛ انعقاد قرارداد ایران با آمریکا به منظور خرید ذرت');
     expect(block).toContain('📜 وقایع امروز در تاریخ');
+    // زادروز/درگذشت چهره‌ها و رویدادهای عادی هرگز (خواستهٔ کاربر ۲۰ نوامبر)
+    expect(block).not.toContain('جعفری');
+    expect(block).not.toContain('سحر');
+    expect(block).not.toContain('زادروز');
+    expect(block).not.toContain('درگذشت');
   });
 
   test('نبود عنوان روز → قالب سال‌تنهای قبلی (سازگاری)', () => {
     const block = formatDayHistoryBlock(entries, 'امروز');
-    expect(block).toContain('۱۲۹۳؛ درگذشت ستارخان');
-    expect(block).not.toContain('۲۵ آبان ۱۲۹۳');
+    expect(block).toContain('۱۳۲۰؛ اشغال ایران');
+    expect(block).not.toContain('۲۵ آبان ۱۳۲۰');
   });
 
   test('کیان پیرفلک و چهره‌های ماجرای ۱۴۰۱ — حتی بی‌واژهٔ «اعتراض» — مسدود می‌شوند', () => {

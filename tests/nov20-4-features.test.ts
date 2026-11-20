@@ -108,7 +108,7 @@ describe('خبر کانال/خبرگزاری هرگز فوری نمی‌شود (
     expect(svg).toContain('#14532d'); // سربرگ سبز تیره
     expect(svg).toContain('#e7f3e9'); // ردیف سبزفام روشن
     expect(svg).not.toContain('#0a1c30'); // زمینهٔ سرمه‌ای قدیمی حذف شد
-    expect(TW_MAX_LINES).toBe(16);
+    expect(TW_MAX_LINES).toBe(32); // ۲۰ نوامبر هشتم: ۱۶→۳۲ — ترجمهٔ بلند تروث‌سوشال هم کامل جا می‌شود
   });
 });
 

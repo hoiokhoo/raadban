@@ -134,6 +134,31 @@ export function wrapFa(text: string, maxChars: number, maxLines: number): string
   return kept;
 }
 
+/** شکستن کامل بدون هیچ بریدگی — برای کارت فوری (خواستهٔ کاربر ۲۰ نوامبر هشتم:
+ *  «توییتهای فوری شامل ایران یا جنگ رو اصلا خلاصه نکن … کامل باشه فقط فارسی روان و کامل» —
+ *  توییت ترامپ با «…» در خط آخر رسید چون wrapFa در سقف خط می‌برید). همان الگوریتم واژه‌محور،
+ *  اما بی‌سقف خط: هر متن فارسی، هر چقدر بلند، «همه» خطوطش برمی‌گردد و ارتفاع کارت با همان
+ *  شمارش رشد می‌کند. خروجی با متن ورودیِ نرمال‌شده رشته‌به‌رشته برابر است. خالص و تست‌پذیر. */
+export function wrapFaFull(text: string, maxChars: number): string[] {
+  const words = (text || '').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  if (words.length === 0) return [];
+  const lines: string[] = [];
+  let cur = '';
+  for (const w of words) {
+    if (w.length > maxChars) {
+      // واژهٔ فوق‌بلند (مثلاً لینک پاک‌نشده) — شکستن سخت
+      if (cur) { lines.push(cur); cur = ''; }
+      for (let i = 0; i < w.length; i += maxChars) lines.push(w.slice(i, i + maxChars));
+      continue;
+    }
+    const cand = cur ? `${cur} ${w}` : w;
+    if (cand.length <= maxChars) cur = cand;
+    else { lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
 // ---------- نهایی‌ساز متن کارت خبر — ریشه‌کن «…» (خواستهٔ کاربر ۲۰ نوامبر سوم) ----------
 // «بعضی اخبار بسته‌های خبری ناقص و با … ادامش اومدن — کل هر متن خبر رو هوش مصنوعی بخونه
 //  و خلاصه کنه و در حداکثر سه خط با پایان‌بندی و متن روان ارسال کنه» — دو نشتِ «…»:
@@ -349,9 +374,10 @@ const TW_LINE_H = 40;
 /** بالشتک پایین ردیف — خط آخر (baseline) با فاصلهٔ امن در پس‌زمینهٔ ردیف می‌ماند */
 const TW_PAD_BOTTOM = 50;
 const TW_CHARS_PER_LINE = 62;
-/** سقف خطوط ترجمه هر توییت — توییت‌های عادی (≤۲۸۰ نویسه) ~۴-۶ خط؛ بلندترین ترجمهٔ
- *  کامل (~۹۰۰ نویسه ÷ ۶۲) تا ~۱۵ خط — سقف ۱۶ یعنی هیچ ترجمهٔ کاملایی با «…» بریده نمی‌شود */
-export const TW_MAX_LINES = 16;
+/** سقف خطوط ترجمه هر توییت در بستهٔ عادی — توییت‌های عادی (≤۲۸۰ نویسه) ~۴-۶ خط؛
+ *  پست‌های بلند تروث‌سوشال تا ~۱۹۸۰ نویسه ÷ ۶۲ → سقف ۳۲ خط (۲۰ نوامبر هشتم: بالاتر رفت از ۱۶ —
+ *  هیچ ترجمهٔ کامل توییت دیگر با «…» بریده نمی‌شود؛ ردیف بلندتر، صفحه‌بندی ارتفاعی جای آن می‌دهد) */
+export const TW_MAX_LINES = 32;
 /** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها */
 export const TW_PAGE_MAX_HEIGHT = 6400;
 
@@ -493,14 +519,16 @@ const BR_NAME_H = 46;
 const BR_LINE_H = 42;
 const BR_PAD_BOTTOM = 54;
 const BR_CHARS_PER_LINE = 60;
-const BR_MAX_LINES = 16;
+/** (منسوخ — نگه‌داشته برای سازگاری) کارت فوری دیگر سقف خط ندارد — wrapFaFull همهٔ متن را کامل نمایش می‌دهد */
+export const BR_MAX_LINES = 16;
 /** فریم‌های گیف کارت فوری — چراغ گردان سربرگ یک دور کامل می‌چرخد (کارت متحرک) */
 export const BREAKING_CARD_GIF_FRAMES = 12;
 export const BREAKING_CARD_GIF_DELAY_MS = 110;
 
-/** ارتفاع کارت فوری — خالص و تست‌پذیر */
+/** ارتفاع کارت فوری — با شمارش کامل wrapFaFull؛ هر متن بلند، کارت بلندتر می‌سازد و هیچ‌گاه
+ *  با «…» بریده نمی‌شود (خواستهٔ کاربر ۲۰ نوامبر هشتم). خالص و تست‌پذیر. */
 export function breakingCardHeight(text: string, hasName: boolean): number {
-  const lines = wrapFa(text || '', BR_CHARS_PER_LINE, BR_MAX_LINES).length;
+  const lines = wrapFaFull(text || '', BR_CHARS_PER_LINE).length;
   return BR_HEADER_H + 14 + BR_SOURCE_H + (hasName ? BR_NAME_H : 0) + Math.max(1, lines) * BR_LINE_H + BR_PAD_BOTTOM + FOOTER_H;
 }
 
@@ -561,7 +589,9 @@ export function makeBreakingCardSvg(input: BreakingCardInput, animFrame?: number
   const bodyH = H - BR_HEADER_H - 14 - FOOTER_H;
   const nameLine = (input.faName || '').replace(/\s+/g, ' ').trim();
   const nameLines = hasName ? wrapFa(nameLine, 60, 1) : [];
-  const faLines = wrapFa(text, BR_CHARS_PER_LINE, BR_MAX_LINES);
+  // متن کامل بدون هیچ بریدگی — wrapFaFull همهٔ خطوط را می‌دهد؛ ارتفاع کارت از همین شمارش است
+  // (خواستهٔ کاربر ۲۰ نوامبر هشتم: توییت فوری «کامل باشه فقط فارسی روان و کامل»)
+  const faLines = wrapFaFull(text, BR_CHARS_PER_LINE);
   const nameY = y + BR_SOURCE_H + 34;
   const faSvg = faLines
     .map((ln, j) => `<text x="${textRight}" y="${nameY + (hasName ? 38 : 6) + (j + 1) * BR_LINE_H}" font-size="27" fill="#571416" text-anchor="end">${rtl(esc(ln))}</text>`)
@@ -610,13 +640,20 @@ export async function renderBreakingCardPng(input: BreakingCardInput): Promise<C
 /** سقف حجم گیف کارت — بزرگ‌تر از این → null (فراخواننده به PNG ثابت برمی‌گردد) */
 export const BREAKING_CARD_GIF_MAX_BYTES = 8_000_000;
 
+/** سقف ارتفاع کارت برای نسخهٔ گیف متحرک — کارت بلندتر از این به PNG ثابت می‌رود
+ *  (انکود گیف ۱۲فریمی از کارت خیلی بلند، سنگین و پُرحجم است؛ PNG همان متن کامل را در یک پیام می‌دهد) */
+export const BREAKING_GIF_MAX_HEIGHT = 6000;
+
 /** رندر کارت فوری به GIF متحرک — خود کارت (متن + سربرگ قرمز کم‌رنگ + چراغ گردان چرخان)
  *  در «یک» پیام ارسال می‌شود؛ دیگر گیفِ جدا + کارتِ جدا نیست (خواستهٔ کاربر ۲۰ نوامبر پنجم).
- *  هم‌الگوی renderBreakingGif (sharp خام + gifenc). شکست هر مرحله → null صادقانه. */
+ *  هم‌الگوی renderBreakingGif (sharp خام + gifenc). شکست هر مرحله → null صادقانه.
+ *  کارت خیلی بلند (متن کامل تروث‌سوشال چندصفحه‌ای) → null سریع → فراخواننده به PNG ثابت می‌رود. */
 export async function renderBreakingCardGif(input: BreakingCardInput): Promise<CardPng | null> {
   try {
     const svg0 = makeBreakingCardSvg(input);
     if (!svg0) return null;
+    const hasName = Boolean((input.faName || '').trim());
+    if (breakingCardHeight(input.text || '', hasName) > BREAKING_GIF_MAX_HEIGHT) return null;
     const sharp = (await import('sharp')).default;
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
     const meta = await sharp(Buffer.from(svg0), { density: 72 }).metadata();

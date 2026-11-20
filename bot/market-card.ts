@@ -1,15 +1,13 @@
 /**
- * کارت تصویری گزارش بازار — خواستهٔ کاربر (۱۵ نوامبر ۲۰۲۶):
- * «کارت‌سازی بستهٔ خبری و گزارش بازار — همان زیرساخت امروزِ هواشناسی قابل استفادهٔ مجدد است».
+ * کارت تصویری گزارش بازار — زیرساخت هواشناسی قابل استفادهٔ مجدد (خواستهٔ ۱۵ نوامبر ۲۰۲۶).
  *
- * بازطراحی یکدست ۲۰ نوامبر ۲۰۲۶ (خواستهٔ کاربر):
- * «کل آیتمها به یه شکل — ستون اول اسم ماشین/سکه/دلار، ستون دوم قیمت بازار،
- *  ستون سوم قیمت کارخانه یا دولتی اگر هست، ستون چهارم درصد تغییر نسبت به دیروز ساعت ۳
- *  (خواستهٔ ۲۰ نوامبر ششم: «تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن»).
- *  الآن سه تا ماشین اول لیست یه کلن بقیه لیست یه شکل دیگه!» —
- * همهٔ ردیف‌ها (خودرو/طلا/سکه/ارز/بورس) اکنون یک جدول یکدست ۴ستونی‌اند؛
- * ستون «کارخانه/دولتی» برای اقلام بی‌قیمت رسمی «—» می‌آید (هیچ عدد ساختگی).
- * سربرگ‌های آماریِ دیباگ (صعودی/نزولی/بدون تغییر، «N قلم قیمت‌گذاری‌شده») حذف شدند.
+ * بازطراحی ۲۰ نوامبر هفتم (خواستهٔ کاربر):
+ * «ستون سوم یا بدون قیمت بود یا نادرست بود، میخوام ستون سوم رو با دقت همراه با
+ *  درصد و مبلغ اختلاف کنارش بروز کنی — ستون چهارم هم بشه تغییرات نسبت به روز قبل»
+ * → ستون سوم = قیمت دولتی/کارخانهٔ واقعی (مرکز مبادله/بهار آزادی بانکی/باما) و کنارش
+ *   زیرخط «اختلاف» فاصلهٔ بازار تا همان قیمت رسمی — هم مبلغ و هم درصد؛
+ * → ستون چهارم = «تغییر نسبت به روز قبل» (پایهٔ دیروز ساعت ۳) با درصد و مبلغ اختلاف؛
+ * → ردیف‌های بی‌قیمت رسمی صادقانه «—» می‌آیند (هیچ عدد ساختگی).
  *
  * همان معماری کارت هواشناسی: SVG راست‌به‌چپ با فونت وزیرمتن → PNG با sharp.
  * شکست رندر → null و فراخواننده پیام متنی کامل می‌فرستد — هیچ کارت نیمه‌ساختگی.
@@ -19,7 +17,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
-import { formatMoney, type Quote } from './market';
+import { compactNum, faGroup, formatMoney, officialDeltaOf, type Quote } from './market';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -30,7 +28,7 @@ if (!process.env.FONTCONFIG_FILE) {
 
 export interface MarketCardInput {
   date: TripleDate;
-  /** برچسب اسلات — «میان‌روز» | «شب» | «گزارش فوری» */
+  /** برچسب اسلات — «بامداد (ساعت ۳)» | «شب» | «گزارش فوری» */
   slotLabel: string;
   /** اقلام با درصد تغییر اعمال‌شده (applyDeltas) */
   quotes: Quote[];
@@ -42,27 +40,27 @@ export interface CardPng {
   height: number;
 }
 
-// ---------- هندسهٔ کارت — جدول یکدست ۴ستونی (۲۰ نوامبر) ----------
+// ---------- هندسهٔ کارت — جدول یکدست ۴ستونی با دو خط در ستون‌های سوم/چهارم ----------
 
 const W = 1080;
 const HEADER_H = 170;
-/** سطر عنوان ستون‌ها — «نام | قیمت بازار | کارخانه/دولتی | تغییر ۲۴ساعته» */
+/** سطر عنوان ستون‌ها — «نام | قیمت بازار | کارخانه / دولتی (+اختلاف) | تغییر نسبت به روز قبل» */
 const COLHDR_H = 62;
 const SECTION_H = 58;
-/** همهٔ ردیف‌ها هم‌قد و هم‌شکل (خودرو VIP هم مثل بقیه تک‌خطی) */
+/** همهٔ ردیف‌ها هم‌قد — دو خط در ستون‌های سوم/چهارم (خط ۱ قیمت/درصد، خط ۲ اختلاف/مبلغ) */
 const ROW_H = 80;
 const PAD = 36;
 const FOOTER_H = 84;
 const TITLE_MAX_CHARS = 26;
 const MAX_CARS = 10;
 
-/** لنگرهای افقی ستون‌ها (راست→چپ): نام | بازار | کارخانه/دولتی | تغییر
- *  هندسهٔ بدون‌هم‌پوشانی: نام ≤۳۰۰px (۷۲۰–۱۰۲۰) • بازار ≤۲۱۰px (۴۴۵–۶۵۵) •
- *  رسمی ≤۲۰۵px (۱۵۵–۳۶۰) • تغییر ۳۶–۱۲۰ (چپ‌چین) — حاشیهٔ امن ≥۴۰px میان ستون‌ها */
+/** لنگرهای افقی ستون‌ها (راست→چپ): نام | بازار | رسمی+اختلاف | تغییر
+ *  نام ≤۳۰۰px (۷۲۰–۱۰۲۰) • بازار ≤۲۱۰px (۴۷۰–۶۹۰) • رسمی ≤۲۶۰px (۱۷۰–۴۳۰) •
+ *  تغییر از ۶۶ (چپ‌چین، ≤۱۹۰px) — حاشیهٔ امن میان ستون‌ها ≥۳۰px در بدترین رشته */
 const X_NAME_R = W - PAD - 24; // لبهٔ راست ستون نام
-const X_MKT_R = 655; // لبهٔ راست ستون قیمت بازار
-const X_OFF_R = 360; // لبهٔ راست ستون کارخانه/دولتی
-/** ستون تغییر ۲۴ساعته (دیروز ساعت ۳ → امروز ساعت ۳) — چپ‌چین از لبهٔ کارت: فلش ۳۶–۵۷، درصد از ۶۶ */
+const X_MKT_R = 690; // لبهٔ راست ستون قیمت بازار
+const X_OFF_R = 430; // لبهٔ راست ستون کارخانه/دولتی
+/** ستون تغییر نسبت به روز قبل — چپ‌چین از لبهٔ کارت: فلش ۳۶–۵۷، متن از ۶۶ */
 const X_PCT_L = PAD + 30;
 
 function esc(s: string): string {
@@ -79,10 +77,18 @@ export interface MarketRow {
   title: string;
   /** قیمت بازار — قالب‌بندی‌شده */
   value: string;
-  /** درصد تغییر نسبت به دیروز ساعت ۳ — null یعنی «—» (بی‌داده) */
+  /** درصد تغییر نسبت به روز قبل — null یعنی «—» (بی‌داده) */
   pct: number | null;
+  /** مبلغ اختلاف نسبت به روز قبل — قالب‌بندی‌شده با واحد؛ null یعنی پایهٔ عددی نبود */
+  chgAbs: string | null;
   /** قیمت کارخانه/دولتی قالب‌بندی‌شده — null یعنی «—» (این قلم قیمت رسمی ندارد) */
   official: string | null;
+  /** اختلاف بازار از قیمت رسمی — «۱٫۹۳۰ میلیارد» قالب‌بندی‌شده؛ null یعنی بی‌معنا */
+  gapAbs: string | null;
+  /** درصد همان اختلاف — «۱۱۹٫۹٪» */
+  gapPct: string | null;
+  /** جهت اختلاف: true = بازار بالاتر از رسمی (صورت مثبت)؛ null = بی‌معنا */
+  gapUp: boolean | null;
 }
 
 export interface MarketSection {
@@ -97,23 +103,37 @@ export function officialOf(q: Quote): string | null {
   return null;
 }
 
-/** گروه‌بندی همان قالب پیام متنی گزارش بازار — خودرو (سقف ۱۰) / طلا و سکه / ارز و شاخص‌ها */
-export function marketSectionsOf(quotes: Quote[]): { sections: MarketSection[]; moreCars: number } {
-  const of = (q: Quote): MarketRow => ({
+/** ردیف جدول از یک Quote — اختلاف رسمی و مبلغ تغییر اینجا قالب‌بندی می‌شوند (خالص) */
+export function marketRowOf(q: Quote): MarketRow {
+  const pct = typeof q.changePct === 'number' && Number.isFinite(q.changePct) ? q.changePct : null;
+  const abs = typeof q.changeAbs === 'number' && Number.isFinite(q.changeAbs) ? q.changeAbs : null;
+  const gap = officialDeltaOf(q);
+  const gapMeaningful = gap !== null && Math.abs(gap.diff) >= 1;
+  return {
     title: q.title,
     value: formatMoney(q.value, q.unit),
-    pct: typeof q.changePct === 'number' && Number.isFinite(q.changePct) ? q.changePct : null,
+    pct,
+    chgAbs: abs !== null && Math.abs(abs) >= 1
+      ? `${compactNum(abs, q.unit)}${q.unit === 'usd' ? ' دلار' : q.unit === 'index' ? '' : ' تومان'}`
+      : null,
     official: officialOf(q),
-  });
+    gapAbs: gapMeaningful ? compactNum(gap.diff, 'toman') : null,
+    gapPct: gapMeaningful ? `${faGroup(Math.abs(gap.pct), 1)}٪` : null,
+    gapUp: gapMeaningful ? gap.diff > 0 : null,
+  };
+}
+
+/** گروه‌بندی همان قالب پیام متنی گزارش بازار — خودرو (سقف ۱۰) / طلا و سکه / ارز و شاخص‌ها */
+export function marketSectionsOf(quotes: Quote[]): { sections: MarketSection[]; moreCars: number } {
   const cars = quotes.filter((q) => q.key.startsWith('car:'));
   const gold = quotes.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));
   const rest = ['usd', 'tedpix', 'btc', 'oil_brent']
     .map((k) => quotes.find((q) => q.key === k))
     .filter((q): q is Quote => Boolean(q))
-    .map(of);
+    .map(marketRowOf);
   const sections: MarketSection[] = [];
-  if (cars.length > 0) sections.push({ title: 'خودرو — بازار آزاد', rows: cars.slice(0, MAX_CARS).map(of) });
-  if (gold.length > 0) sections.push({ title: 'طلا و سکه', rows: gold.map(of) });
+  if (cars.length > 0) sections.push({ title: 'خودرو — بازار آزاد', rows: cars.slice(0, MAX_CARS).map(marketRowOf) });
+  if (gold.length > 0) sections.push({ title: 'طلا و سکه', rows: gold.map(marketRowOf) });
   if (rest.length > 0) sections.push({ title: 'ارز، بورس و کریپتو', rows: rest });
   return { sections, moreCars: Math.max(0, cars.length - MAX_CARS) };
 }
@@ -150,7 +170,7 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
   <text x="${X_NAME_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('نام')}</text>
   <text x="${X_MKT_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('قیمت بازار')}</text>
   <text x="${X_OFF_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('کارخانه / دولتی')}</text>
-  <text x="${PAD}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="start">${rtl('تغییر ۲۴ساعته')}</text>`;
+  <text x="${PAD}" y="${HEADER_H + 42}" font-size="19" font-weight="700" fill="#ffd75e" text-anchor="start">${rtl('تغییر نسبت به روز قبل')}</text>`;
 
   let y = HEADER_H + COLHDR_H;
   const bodySvg = sections
@@ -164,20 +184,26 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
           const ry = y + i * ROW_H;
           const bg = i % 2 === 0 ? '#102941' : '#0d2135';
           const title = r.title.length > TITLE_MAX_CHARS ? `${r.title.slice(0, TITLE_MAX_CHARS - 1)}…` : r.title;
-          const pctColor = r.pct === null || Math.abs(r.pct) < 0.05 ? '#94a3b8' : r.pct > 0 ? '#4ade80' : '#f87171';
-          const pctText =
-            r.pct === null || Math.abs(r.pct) < 0.05
-              ? '—'
-              : `${faDigits(Math.abs(r.pct).toFixed(1))}٪`;
-          const hasArrow = r.pct !== null && Math.abs(r.pct) >= 0.05;
           const cyText = ry + 50;
+          // ستون چهارم — تغییر نسبت به روز قبل (درصد + مبلغ اختلاف)
+          const pctColor = r.pct === null || Math.abs(r.pct) < 0.05 ? '#94a3b8' : r.pct > 0 ? '#4ade80' : '#f87171';
+          const hasPct = r.pct !== null && Math.abs(r.pct) >= 0.05;
+          const pctText = hasPct ? `${faDigits(Math.abs(r.pct!).toFixed(1))}٪` : null;
+          const pctY = r.chgAbs && hasPct ? ry + 40 : cyText;
+          const chgY = ry + 64;
+          // ستون سوم — قیمت رسمی + اختلاف بازار از رسمی (مبلغ و درصد)
+          // بازار بالاتر از رسمی → کهربایی؛ پایین‌تر → سبز (ارزان‌تر از رسمی)
+          const gapColor = r.gapUp === null || r.gapUp ? '#fbbf24' : '#4ade80';
           return `
   <rect x="${PAD}" y="${ry}" width="${W - PAD * 2}" height="${ROW_H - 12}" rx="12" fill="${bg}"/>
   <text x="${X_NAME_R}" y="${cyText}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(esc(title))}</text>
   <text x="${X_MKT_R}" y="${cyText}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(esc(r.value))}</text>
-  <text x="${X_OFF_R}" y="${cyText}" font-size="24" fill="${r.official ? '#9fc3e8' : '#5b7f9e'}" text-anchor="end">${rtl(r.official ? esc(r.official) : '—')}</text>
-  ${hasArrow ? arrowSvg(PAD, cyText - 9, r.pct! > 0, pctColor) : ''}
-  <text x="${X_PCT_L}" y="${cyText}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="start">${rtl(pctText)}</text>`;
+  ${r.official
+    ? `<text x="${X_OFF_R}" y="${ry + 34}" font-size="23" fill="#9fc3e8" text-anchor="end">${rtl(esc(r.official))}</text>${r.gapAbs && r.gapPct && r.gapUp !== null ? `<text x="${X_OFF_R}" y="${ry + 62}" font-size="17" fill="${gapColor}" text-anchor="end">${rtl(`اختلاف ${esc(r.gapAbs)} (${esc(r.gapPct)})`)}</text>` : ''}`
+    : `<text x="${X_OFF_R}" y="${cyText}" font-size="24" fill="#5b7f9e" text-anchor="end">${rtl('—')}</text>`}
+  ${hasPct ? `${arrowSvg(PAD, pctY - 9, r.pct! > 0, pctColor)}
+  <text x="${X_PCT_L}" y="${pctY}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="start">${rtl(pctText!)}</text>` : `<text x="${X_PCT_L}" y="${cyText}" font-size="24" fill="#5b7f9e" text-anchor="start">${rtl('—')}</text>`}
+  ${hasPct && r.chgAbs ? `<text x="${X_PCT_L}" y="${chgY}" font-size="16" fill="${pctColor}" text-anchor="start">${rtl(esc(r.chgAbs))}</text>` : ''}`;
         })
         .join('');
       y += sec.rows.length * ROW_H;
@@ -192,7 +218,7 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
 
   const footerY = H - 32;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • درصد تغییر نسبت به دیروز ساعت ۳')}</text>
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • تغییر نسبت به روز قبل (دیروز ساعت ۳)')}</text>
   <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('دولتی: مرکز مبادله/بانکی — کارخانه: باما')}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">

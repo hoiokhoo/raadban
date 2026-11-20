@@ -86,6 +86,9 @@ export interface Quote {
   srcLabel: string;
   /** درصد تغییر: پایهٔ «دیروز ساعت ۳» (snapshot گزارش روزانهٔ ۰۳:۰۰)؛ نبود → تغییر روز منبع */
   changePct?: number;
+  /** مبلغ اختلاف نسبت به همان پایهٔ درصد — همان واحد value (خواستهٔ کاربر ۲۰ نوامبر
+   *  هفتم: «درصد و مبلغ اختلاف کنارش»). پایهٔ عددی نبود → undefined (هیچ عدد ساختگی) */
+  changeAbs?: number;
   changeSrc?: 'prev' | 'source' | 'none';
   /** نمایش آمادهٔ مقدار */
   display?: string;
@@ -118,15 +121,20 @@ export type PriceSnapshot = Record<string, number>; // key → مقدار گزا
 export function applyDeltas(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): Quote[] {
   return quotes.map((q) => {
     const pd = prevDay?.[q.key];
-    const dd = pd !== undefined ? deltaPct(pd, q.value) : null;
-    if (dd !== null) return { ...q, changePct: dd, changeSrc: 'prev' as const };
-    const pv = prev?.[q.key];
-    const d = pv !== undefined ? deltaPct(pv, q.value) : null;
-    if (d !== null) return { ...q, changePct: d, changeSrc: 'prev' as const };
-    if (q.changePct !== undefined && Number.isFinite(q.changePct)) {
-      return { ...q, changeSrc: 'source' as const };
+    if (pd !== undefined) {
+      const dd = deltaPct(pd, q.value);
+      if (dd !== null) return { ...q, changePct: dd, changeAbs: q.value - pd, changeSrc: 'prev' as const };
     }
-    return { ...q, changePct: undefined, changeSrc: 'none' as const };
+    const pv = prev?.[q.key];
+    if (pv !== undefined) {
+      const d = deltaPct(pv, q.value);
+      if (d !== null) return { ...q, changePct: d, changeAbs: q.value - pv, changeSrc: 'prev' as const };
+    }
+    if (q.changePct !== undefined && Number.isFinite(q.changePct)) {
+      // پایهٔ عددی ما نیست (تغییر روز خود منبع) → درصد هست، مبلغ اختلاف ساختگی نمی‌شود
+      return { ...q, changeAbs: undefined, changeSrc: 'source' as const };
+    }
+    return { ...q, changePct: undefined, changeAbs: undefined, changeSrc: 'none' as const };
   });
 }
 
@@ -306,14 +314,13 @@ export const CAR_FEATURED: Array<{ match: string; label: string }> = [
 ];
 
 // ---------- پشتیبان «از نت» برای مدل‌های غایب در کانال — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶ ----------
-
-/** منبع وب قیمت بازار آزاد — باما (مرجع قیمت روز خودرو). فقط وقتی مدل در کانال/انبار نبود
- *  واکشی می‌شود؛ شکست وب → صادقانه غایب (هیچ عدد ساختگی). انبار ماندگار آلوده نمی‌شود. */
+// خالی — SR3 که سابقاً اینجا بود اکنون در سه‌گانهٔ VIP با قیمت کارخانهٔ باما همیشه
+// می‌آید (بازار: کانال/انبار → باما) و پشتیبانِ دوبارش، ردیف تکراری «SR3 بی‌کارخانه»
+// می‌ساخت (خواستهٔ ۲۰ نوامبر هفتم: ستون سوم دقیق). سازوکار برای مدل‌های آینده می‌ماند؛
+// حلقهٔ واکشی مدلِ تحت‌پوشش VIP را هم نادیده می‌گیرد (سپر دوم پیکربندی).
 export interface CarWebSource { match: string; label: string; url: string; hostLabel: string }
 
-export const CAR_WEB_SOURCES: CarWebSource[] = [
-  { match: 'sr3', label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter', hostLabel: 'باما' },
-];
+export const CAR_WEB_SOURCES: CarWebSource[] = [];
 
 // ---------- خودروهای VIP — سه‌گانهٔ اول لیست با ستون کارخانه و اختلاف (خواستهٔ کاربر ۱۹ نوامبر) ----------
 // «الآن در بخش خودروها j4 و sr3 و فیدلیتی الیت ۷ نفره وجود نداره ، اولا میخوام این سه خودرو رو
@@ -364,6 +371,33 @@ export function carFactoryDelta(market: number, factory: number | undefined): { 
     diff: Math.round(market - factory),
     pct: Math.round(((market - factory) / factory) * 10000) / 100,
   };
+}
+
+/** اختلاف قیمت بازار از قیمت رسمی (دولتی/کارخانه) — خواستهٔ کاربر ۲۰ نوامبر هفتم:
+ *  «ستون سوم رو با دقت همراه با درصد و مبلغ اختلاف کنارش بروز کنی» — کنار هر قیمت
+ *  رسمی، فاصله‌اش تا بازار هم به مبلغ و هم به درصد می‌آید. قیمت رسمی نامعتبر → null.
+ *  تابع خالص تست‌پذیر. */
+export function officialDeltaOf(q: Quote): { diff: number; pct: number } | null {
+  return carFactoryDelta(q.value, q.officialToman ?? q.factoryToman);
+}
+
+/** عدد فشردهٔ خوانا بدون واحد پایه (تومان/دلار) ولی با واژهٔ مقیاس — «۱٫۹۳۰ میلیارد»
+ *  | «۹٫۷۵۰ میلیون» | «۷۶٬۳۳۷» | دلار/شاخص بی‌مقیاس. علامت ندارد (جهت را فلش/رنگ
+ *  نشان می‌دهد). تابع خالص. */
+export function compactNum(v: number, unit: QuoteUnit): string {
+  const a = Math.abs(v);
+  if (unit === 'usd') return faGroup(a, a >= 100 ? 0 : 2);
+  if (unit === 'index') return faGroup(a, 0);
+  if (a >= 1e9) return `${faGroup(a / 1e9, 3)} میلیارد`;
+  if (a >= 1e6) return `${faGroup(a / 1e6, a / 1e6 >= 100 ? 0 : 3)} میلیون`;
+  return faGroup(a, 0);
+}
+
+/** مبلغ اختلاف فشرده با واحد — «۱٫۹۳۰ میلیارد تومان» | «۹٫۷۵۰ میلیون تومان» | «۷۶٬۳۳۷ تومان»
+ *  | «۱٬۴۵۰ دلار». تابع خالص. */
+export function compactDelta(v: number, unit: QuoteUnit): string {
+  const word = unit === 'usd' ? ' دلار' : unit === 'index' ? '' : ' تومان';
+  return `${compactNum(v, unit)}${word}`;
 }
 
 // ---------- انبار ماندگار قیمت خودرو — همیشه پرتیراژها در فهرست ----------
@@ -718,6 +752,9 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
   const storeKeys = Object.keys(carStore);
   for (const w of CAR_WEB_SOURCES) {
     const norm = normalizeCarModel(w.match);
+    // مدل تحت پوشش سه‌گانهٔ VIP (با قیمت کارخانهٔ باما) از پشتیبان وب مستثناست —
+    // وگرنه SR3 دوبار می‌آمد: بار با کارخانه (VIP) و بار بی‌کارخانه (وب) — تکرار ردیف
+    if (vipMatches.includes(norm)) continue;
     if (carRest.some((q) => q.key.slice(4).includes(norm)) || storeKeys.some((k) => k.includes(norm))) continue;
     const r = await get(w.url, timeoutMs);
     if (!r.ok || !r.text) continue;
@@ -772,18 +809,26 @@ export function officialLabelOf(q: Quote): string {
   return 'کارخانه';
 }
 
-/** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر ششم):
- *  «نام: بازار (تغییر نسبت به دیروز ساعت ۳) | کارخانه/دولتی: قیمت یا —». بدون سربرگ برند،
- *  بدون بلوک «دریافت نشد»، بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو». */
+/** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر ششم و هفتم):
+ *  «نام: بازار (تغییر نسبت به دیروز ساعت ۳ با مبلغ اختلاف) | کارخانه/دولتی: قیمت (اختلاف مبلغ/درصد
+ *  با بازار)». بدون سربرگ برند، بدون بلوک «دریافت نشد»، بدون خط «منابع». خودرو با عنوان
+ *  «آخرین قیمت بازار آزاد خودرو». */
 export function formatMarketMessage(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): string {
   const withDelta = applyDeltas(quotes, prev, prevDay);
   const L: string[] = [];
   const line = (q: Quote): string => {
     const official = q.officialToman ?? q.factoryToman;
+    const abs = q.changeAbs !== undefined && Number.isFinite(q.changeAbs) && q.changeAbs !== 0
+      ? ` | ${compactDelta(q.changeAbs, q.unit)}`
+      : '';
     const off = official && Number.isFinite(official) && official > 0
       ? ` | ${officialLabelOf(q)}: ${formatMoney(official, 'toman')}`
       : '';
-    return `${xmlEsc(q.title)}: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)})${off}`;
+    const gap = officialDeltaOf(q);
+    const gapText = gap && Math.abs(gap.diff) > 0
+      ? ` (اختلاف ${compactDelta(gap.diff, 'toman')} / ${faGroup(Math.abs(gap.pct), 1)}٪)`
+      : '';
+    return `${xmlEsc(q.title)}: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)}${abs})${off}${gapText}`;
   };
   const cars = withDelta.filter((q) => q.key.startsWith('car:'));
   if (cars.length) {
@@ -831,4 +876,16 @@ export function snapshotBaseOf(
   const fresh = Number.isFinite(at) && nowMs - at <= staleMs && nowMs >= at;
   if (!fresh) return { fresh: false };
   return { prev: snap, prevDay, fresh: true };
+}
+
+/** ترمیم مهر زمان snapshot بی‌مهر — snapshot نسخه‌های پیش از گزارش ۰۳:۰۰ priceSnapAt
+ *  نداشتند و گارد تازگی آن‌ها را بی‌پایه می‌گذاشت (ستون «تغییر نسبت به روز قبل» خالی
+ *  می‌ماند — خواستهٔ ۲۰ نوامبر هفتم). lastPriceKey کلید اسلات تهران «YYYY-MM-DDTHH:MM»
+ *  است = زمان واقعی آخرین گزارش → مهر معتبر می‌سازد. بی‌snapshot/مهدار/کلید نامعتبر →
+ *  undefined (هیچ مهر ساختگی). تابع خالص تست‌پذیر. */
+export function repairSnapshotAt(snap?: PriceSnapshot, snapAt?: string, lastPriceKey?: string): string | undefined {
+  if (!snap || snapAt) return undefined;
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(lastPriceKey || '')) return undefined;
+  const iso = new Date(`${lastPriceKey}:00+03:30`).toISOString();
+  return Number.isFinite(Date.parse(iso)) ? iso : undefined;
 }

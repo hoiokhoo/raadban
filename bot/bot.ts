@@ -13,9 +13,10 @@
  *  خبر + توییت، در همهٔ حالت‌ها) و هر تحلیل با خلاصهٔ تاریخ‌دار روزهای قبل ذخیره می‌شود
  *  (state.nightlyAnalyses — حافظهٔ پایدار ۶۰ روز که با state در ریپو کامیت می‌شود تا هرگز ریست نشود))
  * (به‌روزرسانی ۱۳ نوامبر ۲۰۲۶ — بخش مجزای رصد کانال‌های چپ و راست (bot/geo.ts + bot/geo-channels.json):
- *  کانال‌های ایتا/تلگرام هر ۴ ساعت واکشی و تجمیع و اعتبارسنجی چندمنبعی می‌شوند و یک «تحلیل ۴ساعتهٔ
+ *  کانال‌های ایتا/تلگرام هر ۸ ساعت واکشی و تجمیع و اعتبارسنجی چندمنبعی می‌شوند و یک «تحلیل ۸ساعتهٔ
  *  ژئوپلیتیک» با مقایسهٔ روایت دو طیف ارسال و در state.geoAnalyses ذخیره می‌شود؛ همین تحلیل‌ها و
- *  رویدادهایش به منابع تحلیل جامع شبانهٔ ۲۲:۳۰ هم اضافه می‌شوند تا گزارش شبانه جامع‌تر باشد)
+ *  رویدادهایش به منابع تحلیل جامع شبانهٔ ۲۲:۳۰ هم اضافه می‌شوند تا گزارش شبانه جامع‌تر باشد.
+ *  خواستهٔ ۲۰ نوامبر: اسلات‌های ۰۶ صبحگاهی / ۱۴ ظهرگاهی / ۲۲ شبانگاهی تهران + عنوان روزانه)
  *
  * سه حالت کانال (CHANNEL_MODE):
  *  - bundle: هر چرخه همهٔ خبرهای تازه به صف می‌روند و در اسلات‌های زوج تهران (۰۰، ۰۲، …)
@@ -113,6 +114,7 @@ import {
   fetchAllGeoChannels,
   filterGeoGeopolitical,
   filterGeoPosts,
+  geoDaypartLabel,
   geoItemsForMerge,
   geoReportableEventCount,
   geoSummaryOf,
@@ -272,8 +274,9 @@ const CFG = {
   priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
   // تحلیل جامع شبانه — هر شب ۲۲:۳۰ تهران (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با NIGHTLY_HOURS
   nightlySlots: parseSlots(process.env.NIGHTLY_HOURS, '22:30'),
-  // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با GEO_HOURS
-  geoSlots: parseSlots(process.env.GEO_HOURS, '0,4,8,12,16,20'),
+  // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر؛ ۲۰ نوامبر: ۴→۸ساعته)؛
+  // اسلات‌های ۰۶/۱۴/۲۲ تهران با عنوان صبحگاهی/ظهرگاهی/شبانگاهی (geoDaypartLabel)؛ قابل تغییر با GEO_HOURS
+  geoSlots: parseSlots(process.env.GEO_HOURS, '6,14,22'),
   geoChannelsFile: process.env.BOT_GEO_CHANNELS_FILE || 'bot/geo-channels.json',
   // اعلان‌های مدیر (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶): N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه
   adminChat: process.env.BALE_ADMIN_CHAT?.trim() || '',
@@ -690,9 +693,9 @@ export interface BotState {
   nightlyAnalyses?: NightlyAnalysis[];
   /** بخش مجزای چپ و راست — پیام‌های دیده‌شدهٔ کانال‌ها (ضدتکرار ۷ روزه؛ هرس در windowGeoPosts) */
   geoSeenIds?: Record<string, number>;
-  /** حافظهٔ تحلیل‌های ۴ساعتهٔ ژئوپلیتیک — سقف ۴۲ تحلیل ≈ ۷ روز (خواستهٔ کاربر: ذخیرهٔ تحلیل‌ها) */
+  /** حافظهٔ تحلیل‌های ۸ساعتهٔ ژئوپلیتیک — سقف ۲۱ تحلیل ≈ ۷ روز (خواستهٔ کاربر: ذخیرهٔ تحلیل‌ها) */
   geoAnalyses?: GeoAnalysis[];
-  /** کلید آخرین اسلات تحلیل ژئوپلیتیک («2026-11-13T04:00») — ضدتکرار ۴ساعته */
+  /** کلید آخرین اسلات تحلیل ژئوپلیتیک («2026-11-20T06:00») — ضدتکرار ۸ساعته */
   lastGeoKey?: string;
   /** نشانگر چرخش تأمین‌کنندگان مدل — یکی‌یکی (آینهٔ aiRotateCursor برای بقای پس از ری‌استارت) */
   aiCursor?: number;
@@ -2285,7 +2288,7 @@ export interface RunSummary {
   nightlySent?: boolean;
   nightlyProvider?: string;
   nightlyItems?: number;
-  // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+  // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶؛ ۲۰ نوامبر: ۴→۸ساعته)
   geoSent?: boolean;
   geoProvider?: string;
   geoItems?: number;
@@ -2573,7 +2576,7 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   const corpus = buildHourlyCorpus(merged, 60, 380);
   const history = Array.isArray(state.nightlyAnalyses) ? state.nightlyAnalyses : [];
   const memory = buildNightlyMemoryBlock(history);
-  // منبع تکمیلی — تحلیل‌های ۴ساعتهٔ امروز بخش چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶:
+  // منبع تکمیلی — تحلیل‌های ۸ساعتهٔ امروز بخش چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶:
   // «برای تحلیل‌های هوش مصنوعی ساعت ۲۲:۳۰ و جامع‌تر شدنش به منابعش اضافه بشه»)
   const geoToday = todayGeoSlice(Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [], todayKey);
   const geoBlock = buildNightlyGeoBlock(geoToday);
@@ -2595,7 +2598,7 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
     'حافظهٔ روزهای پیشین (به ترتیب زمانی — برای پیوستگی روایت بخوانید):',
     memory,
     '',
-    'تحلیل‌های ۴ساعتهٔ امروز — بخش رصد کانال‌های چپ و راست (منبع تکمیلی برای جامع‌تر شدن گزارش):',
+    'تحلیل‌های ۸ساعتهٔ امروز — بخش رصد کانال‌های چپ و راست (منبع تکمیلی برای جامع‌تر شدن گزارش):',
     geoBlock,
     '',
     `رویدادهای امروز (${enToFaDigits(String(merged.length))} رویداد پس از تجمیع اولیهٔ سامانه — هر سطر: شماره — منبع (+n منبع دیگر) — متن):`,
@@ -2603,7 +2606,7 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   ].join('\n');
 
   const t0 = Date.now();
-  // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («اینجوری دیگه نیاد») — همان سد تحلیل ۴ساعته
+  // ضدحلقهٔ تکرار — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («اینجوری دیگه نیاد») — همان سد تحلیل ۸ساعته
   const nightlySources = merged.map((m) => m.sources[0] || '');
   const sanitizeNightlyCandidate = (content: string | undefined | null): { text: string | null; loop: boolean } => {
     const v = validateNightlyText(content);
@@ -2686,12 +2689,14 @@ export async function runNightlyAnalysis(ctx: NightlyCtx): Promise<void> {
   console.log(`🌙 تحلیل جامع شبانه ارسال و ذخیره شد (${todayKey}) — ${merged.length} رویداد، حافظه: ${state.nightlyAnalyses.length} روز، ${chunks.length} پیام`);
 }
 
-// ---------- تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶) ----------
+// ---------- تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶) ----------
 // «کانال‌های چپ و راست ایتا و تلگرام در بخش مجزا؛ اخبارشان تجمیع و اعتبارسنجی شود و هر ۴ ساعت
 //  یک تحلیل به رصدبان اضافه شود؛ تحلیل ذخیره شود و برای تحلیل جامع ۲۲:۳۰ هم منبع باشد».
-// واکشی صفحهٔ عمومی کانال‌ها (bot/geo-channels.json) → فیلتر تبلیغ/نوفه → پنجرهٔ ۴ساعته با
+// (خواستهٔ ۲۰ نوامبر: «تحلیل ۴ ساعته باید بشه ۸ ساعتی — ۱۰ هر شب شبانگاهی، ۶ هر صبح صبحگاهی،
+//  ۲ هر ظهر ظهرگاهی» → اسلات‌های ۰۶/۱۴/۲۲ تهران + GEO_WINDOW_HOURS=8 + عنوان روزانه)
+// واکشی صفحهٔ عمومی کانال‌ها (bot/geo-channels.json) → فیلتر تبلیغ/نوفه → پنجرهٔ ۸ساعته با
 // ضدتکرار شناسه (state.geoSeenIds) → تجمیع چندکاناله (تیک قطعی ≥۲ منبع مستقل) → سوپرپرامپت
-// (مقایسهٔ روایت دو طیف) → ارسال + ذخیره در state.geoAnalyses (حافظهٔ ۴۲ تحلیل ≈ ۷ روز)؛
+// (مقایسهٔ روایت دو طیف) → ارسال + ذخیره در state.geoAnalyses (حافظهٔ ۲۱ تحلیل ≈ ۷ روز)؛
 // رویدادهای این بخش به آرشیو شبانه (state.dailyPool) هم می‌رود تا تحلیل ۲۲:۳۰ از همین منابع تغذیه شود.
 
 export interface GeoCtx { state: BotState; summary: RunSummary; dryRun: boolean }
@@ -2717,7 +2722,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     return;
   }
   summary.geoChannels = channels.length;
-  // پنجرهٔ ۴ساعته + حاشیهٔ ۳۰ دقیقه — ضدتکرار شناسه با state.geoSeenIds (هرس ۷ روزه در خود تابع)
+  // پنجرهٔ ۸ساعته + حاشیهٔ ۳۰ دقیقه — ضدتکرار شناسه با state.geoSeenIds (هرس ۷ روزه در خود تابع)
   const since = Date.now() - (GEO_WINDOW_HOURS * 3600_000 + 30 * 60_000);
   const win = windowGeoPosts(posts, since, state.geoSeenIds || {});
   // پالایهٔ تبلیغ + پالایهٔ محتوای صرفاً دینی/مناسکتی (خواستهٔ کاربر ۲۰ نوامبر:
@@ -2731,7 +2736,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   console.log(`بخش چپ و راست: ${posts.length} پیام خام → پنجره/ضدتکرار: ${win.picked.length} → پس از فیلتر تبلیغ/مناسکت: ${filtered.length} → تجمیع: ${merged.length} رویداد`);
   const history = Array.isArray(state.geoAnalyses) ? state.geoAnalyses : [];
   if (ctx.dryRun) {
-    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل ۴ساعتهٔ ژئوپلیتیک (اسلات ${dKey}) ===`);
+    console.log(`=== DRY_RUN — پیش‌نمایش تحلیل ۸ساعتهٔ ژئوپلیتیک (اسلات ${dKey} — ${geoDaypartLabel(dKey)}) ===`);
     console.log(`کانال‌ها: ${channels.length} — پیام تازه: ${filtered.length} — پس از تجمیع: ${merged.length} — حافظه: ${history.length} بازه`);
     console.log('···');
     console.log(buildGeoMemoryBlock(history).slice(0, 800));
@@ -2814,7 +2819,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
       console.warn(`🛡 قفل تیک به منبع (چپ و راست): ${g.dropped} مورد از ${g.total} حذف شد (بی‌خاستگاه/عدد بیگانه) — نمونه: ${g.droppedSamples.join(' | ')}`);
     }
   }
-  console.log(`تحلیل ۴ساعتهٔ ژئوپلیتیک: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
+  console.log(`تحلیل ۸ساعتهٔ ژئوپلیتیک: ${text ? 'موفق' : 'ناموفق'} — ${((Date.now() - t0) / 1000).toFixed(1)}s${r.ok && !text ? ' (متن مدل اعتبارسنجی نشد — چرخهٔ بعد)' : ''}`);
   if (!text) {
     summary.aiFailed = true;
     if (r.error) console.error(`❌ زنجیرهٔ تحلیل ژئوپلیتیک ناموفق: ${r.error}`);
@@ -2835,7 +2840,9 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     return;
   }
   const memSummary = split.body.length >= 300 ? split.summary : '';
-  const header = `🌐 <b>تحلیل ۴ساعتهٔ ژئوپلیتیک رصدبان</b> — بخش چپ و راست — ${esc(weekday)} ${esc(p.dateFa)}`;
+  // عنوان روزانه — خواستهٔ کاربر ۲۰ نوامبر: «ساعت ده هر شب با عنوان تحلیل شبانگاهی، ۶ هر صبح
+  // با عنوان تحلیل صبحگاهی، ۲ هر ظهر با عنوان تحلیل ظهرگاهی» (geoDaypartLabel از کلید اسلات)
+  const header = `🌐 <b>تحلیل ${geoDaypartLabel(dKey)} ژئوپلیتیک رصدبان</b> — بخش چپ و راست — ${esc(weekday)} ${esc(p.dateFa)}`;
   // مورد ایران‌مرتبط بولد — خواستهٔ کاربر ۲۰ نوامبر: «اخبار مرتبط با ایران ... بولدتر»
   // (HTML بله رنگ ندارد؛ در کارت‌های تصویری رنگ کهربایی هم هست)
   const bodyHighlighted = highlightIranItemsHtml(finalBody);
@@ -2868,7 +2875,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
     items: merged.length,
     channels: channels.length,
   });
-  console.log(`🌐 تحلیل ۴ساعتهٔ ژئوپلیتیک ارسال و ذخیره شد (${dKey}) — ${merged.length} رویداد از ${channels.length} کانال، حافظه: ${state.geoAnalyses.length} بازه، ${chunks.length} پیام`);
+  console.log(`🌐 تحلیل ${geoDaypartLabel(dKey)} ژئوپلیتیک (۸ساعته) ارسال و ذخیره شد (${dKey}) — ${merged.length} رویداد از ${channels.length} کانال، حافظه: ${state.geoAnalyses.length} بازه، ${chunks.length} پیام`);
 }
 
 // ---------- اعلان‌های خودکار مدیر (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶) ----------
@@ -3582,7 +3589,7 @@ async function main(): Promise<void> {
     // اطلاعیه‌های فروش/پیش‌فروش خودرو — حالت تحلیل هم فعال است (خواسته‌ی کاربر)
     await runSaleAlerts(state, summary);
 
-    // تحلیل ۴ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
+    // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر ۲۰۲۶؛ ۲۰ نوامبر: ۴→۸ساعته)
     await runGeoAnalysis({ state, summary, dryRun: CFG.dryRun });
 
     // تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت تحلیل هم فعال است (خواستهٔ ۱۳ نوامبر ۲۰۲۶)
@@ -4322,7 +4329,7 @@ async function main(): Promise<void> {
     await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
   }
 
-  // ── تحلیل ۴ساعتهٔ ژئوپلیتیک — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──
+  // ── تحلیل ۸ساعتهٔ ژئوپلیتیک — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶؛ ۲۰ نوامبر: ۴→۸ساعته) ──
   await runGeoAnalysis({ state, summary, dryRun: false });
 
   // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — در حالت بست و news هم فعال (خواستهٔ ۱۳ نوامبر ۲۰۲۶) ──

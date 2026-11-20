@@ -1,10 +1,12 @@
 /**
- * تست‌های واحد بخش مجزای رصد کانال‌های چپ و راست و تحلیل ۴ساعتهٔ ژئوپلیتیک (bot/geo.ts)
+ * تست‌های واحد بخش مجزای رصد کانال‌های چپ و راست و تحلیل ۸ساعتهٔ ژئوپلیتیک (bot/geo.ts)
  * — خواستهٔ کاربر (۱۳ نوامبر ۲۰۲۶):
  * «کانال‌های چپ و راست ایتا و تلگرام در بخش مجزا؛ اخبارشان تجمیع و اعتبارسنجی شود و هر ۴ ساعت
  *  یک تحلیل به رصدبان اضافه شود؛ تحلیل ذخیره شود و برای تحلیل ساعت ۲۲:۳۰ هم منبع باشد»
+ * — خواستهٔ کاربر (۲۰ نوامبر ۲۰۲۶): «تحلیل ۴ ساعته باید بشه ۸ ساعتی — ۱۰ هر شب شبانگاهی،
+ *  ۶ هر صبح صبحگاهی، ۲ هر ظهر ظهرگاهی» → اسلات‌های ۰۶/۱۴/۲۲ + عنوان روزانه + پنجرهٔ ۸ساعته.
  * پوشش: سوپرپرامپت، فهرست کانال‌ها، پارس صفحات ایتا/تلگرام، فیلتر تبلیغ، پنجرهٔ زمانی +
- * ضدتکرار شناسه، تجمیع چندکاناله (تیک ≥۲ منبع)، دفتر حافظه (ضدتکرار اسلات + سقف ۴۲)،
+ * ضدتکرار شناسه، تجمیع چندکاناله (تیک ≥۲ منبع)، دفتر حافظه (ضدتکرار اسلات + سقف ۲۱)،
  * بلوک حافظهٔ بازه‌ها، برش امروز و بلوک شبانه، اعتبارسنجی متن و بازنویسی پرامپت «geo».
  * اجرا: bun test tests/geo.test.ts
  */
@@ -19,6 +21,7 @@ import {
   buildGeoMemoryBlock,
   buildNightlyGeoBlock,
   filterGeoPosts,
+  geoDaypartLabel,
   geoItemsForMerge,
   geoSummaryOf,
   isGeoNoise,
@@ -35,6 +38,7 @@ import {
   type GeoPost,
 } from '../bot/geo';
 import { mergeSimilarItems } from '../bot/hourly';
+import { parseSlots } from '../bot/digest';
 import { DEFAULT_SYSTEM_NIGHTLY, MEMORY_FOOTER_TAG } from '../bot/nightly';
 import { applyPromptOverrides, parsePromptFile, getGeoPrompt } from '../bot/bot';
 
@@ -52,7 +56,7 @@ const FA_EVENT = 'روسیه و اوکراین پس از دو روز مذاکر�
 
 // ---------- سوپرپرامپت ----------
 
-describe('DEFAULT_SYSTEM_GEO — سوپرپرامپت تحلیل ۴ساعته (خواستهٔ کاربر)', () => {
+describe('DEFAULT_SYSTEM_GEO — سوپرپرامپت تحلیل ۸ساعته (خواستهٔ کاربر)', () => {
   test('ساختار الزامی کامل — همهٔ بخش‌ها و ایموجی‌ها', () => {
     expect(DEFAULT_SYSTEM_GEO.length).toBeGreaterThan(1500);
     for (const marker of ['🧭', '🗂 رویدادهای کلیدی بازه', '📊 روایت‌های دو طیف', '⚖️ اعتبارسنجی', '🔍 تحلیل', '🔮 نتیجه‌گیری', '🗞 منابع', GEO_MEMORY_TAG]) {
@@ -179,9 +183,40 @@ describe('isGeoNoise و filterGeoPosts — اعتبارسنجی خام پیش ا
   });
 });
 
+// ---------- زمان‌بندی ۸ساعته — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ ----------
+
+describe('زمان‌بندی ۸ساعتهٔ ژئوپلیتیک — ۰۶ صبحگاهی / ۱۴ ظهرگاهی / ۲۲ شبانگاهی', () => {
+  test('پنجرهٔ هر تحلیل ۸ ساعت است و حافظه ۲۱ تحلیل ≈ ۷ روز (۳ تحلیل در شبانه‌روز)', () => {
+    expect(GEO_WINDOW_HOURS).toBe(8);
+    expect(GEO_HISTORY_CAP).toBe(21);
+  });
+
+  test('geoDaypartLabel — عنوان روزانهٔ هر اسلات (خواستهٔ ۲۰ نوامبر)', () => {
+    expect(geoDaypartLabel('2026-11-20T06:00')).toBe('صبحگاهی');
+    expect(geoDaypartLabel('2026-11-20T14:00')).toBe('ظهرگاهی');
+    expect(geoDaypartLabel('2026-11-20T22:00')).toBe('شبانگاهی');
+  });
+
+  test('geoDaypartLabel — پوشش ساعات دیگر شبانه‌روز و کلید force', () => {
+    expect(geoDaypartLabel('2026-11-20T04:00')).toBe('صبحگاهی');
+    expect(geoDaypartLabel('2026-11-20T10:59')).toBe('صبحگاهی');
+    expect(geoDaypartLabel('2026-11-20T11:00')).toBe('ظهرگاهی');
+    expect(geoDaypartLabel('2026-11-20T16:59')).toBe('ظهرگاهی');
+    expect(geoDaypartLabel('2026-11-20T17:00')).toBe('شبانگاهی');
+    expect(geoDaypartLabel('2026-11-20T03:00')).toBe('شبانگاهی');
+    expect(geoDaypartLabel('force-2026-11-20T22:40')).toBe('شبانگاهی');
+  });
+
+  test('parseSlots پیش‌فرض ژئو — اسلات‌های ۰۶/۱۴/۲۲ تهران', () => {
+    expect(parseSlots(undefined, '6,14,22')).toEqual(['06:00', '14:00', '22:00']);
+    expect(parseSlots('22,6,14')).toEqual(['06:00', '14:00', '22:00']);
+    expect(parseSlots('', '6,14,22')).toEqual(['06:00', '14:00', '22:00']);
+  });
+});
+
 // ---------- پنجرهٔ زمانی + ضدتکرار ----------
 
-describe('windowGeoPosts — پنجرهٔ ۴ساعته و دفتر دیده‌شده‌ها', () => {
+describe('windowGeoPosts — پنجرهٔ ۸ساعته و دفتر دیده‌شده‌ها', () => {
   const now = Date.parse('2026-11-13T08:00:00.000Z');
   const since = now - (GEO_WINDOW_HOURS * 3600_000 + 30 * 60_000);
 
@@ -199,16 +234,16 @@ describe('windowGeoPosts — پنجرهٔ ۴ساعته و دفتر دیده‌ش
     expect(r.seen['eitaa:westanews:a']).toBe(now);
   });
 
-  test('هرس ۷ روزهٔ دفتر و سقف ۱۲۰ پیام', () => {
+  test('هرس ۷ روزهٔ دفتر و سقف ۱۸۰ پیام (پنجرهٔ ۸ساعته)', () => {
     const oldSeen: Record<string, number> = { 'eitaa:x:1': now - 8 * 86_400_000, 'eitaa:x:2': now - 6 * 86_400_000 };
     const r = windowGeoPosts([], since, oldSeen, now);
     expect(r.seen['eitaa:x:1']).toBeUndefined();
     expect(r.seen['eitaa:x:2']).toBe(now - 6 * 86_400_000);
 
     const many: GeoPost[] = [];
-    for (let i = 0; i < 150; i++) many.push(post(`m${i}`, `خبر شماره ${i} درون پنجره`, '2026-11-13T07:00:00.000Z'));
+    for (let i = 0; i < 250; i++) many.push(post(`m${i}`, `خبر شماره ${i} درون پنجره`, '2026-11-13T07:00:00.000Z'));
     const r2 = windowGeoPosts(many, since, {}, now);
-    expect(r2.picked.length).toBe(120);
+    expect(r2.picked.length).toBe(180);
   });
 
   test('بدون ورودی معتبر → خالی', () => {
@@ -242,7 +277,7 @@ describe('geoItemsForMerge + buildGeoCorpus — تجمیع و پیکره', () =>
 
 // ---------- دفتر حافظهٔ بازه‌ها ----------
 
-describe('appendGeoAnalysis — دفتر تحلیل‌های ۴ساعته', () => {
+describe('appendGeoAnalysis — دفتر تحلیل‌های ۸ساعته', () => {
   test('تحلیل دوبارهٔ همان اسلات جایگزین می‌شود (ضدتکرار slotKey)', () => {
     let list: GeoAnalysis[] = [analysis('2026-11-13T00:00', 'بازهٔ نیمه‌شب')];
     list = appendGeoAnalysis(list, analysis('2026-11-13T04:00', 'بازهٔ بامداد'));
@@ -340,7 +375,7 @@ describe('buildGeoMemoryBlock و todayGeoSlice و buildNightlyGeoBlock', () => {
 
 // ---------- اعتبارسنجی متن ----------
 
-describe('validateGeoText — اعتبارسنجی متن تحلیل ۴ساعته', () => {
+describe('validateGeoText — اعتبارسنجی متن تحلیل ۸ساعته', () => {
   const GOOD = `🧭 تنش دریایی و مذاکرات موازی\n\n${FA_EVENT}\n\n🗂 رویدادهای کلیدی بازه\n۱. ${FA_EVENT}\n\n🔍 تحلیل\n• روند دیروز ادامه یافت.\n\n🔮 نتیجه‌گیری\n• پیام اصلی: تنش دریایی؛ فردا واکنش‌ها.\n\n🗞 منابع: وستانیوز، غرب آسیا`;
 
   test('متن معتبر فارسی پاس می‌شود', () => {
@@ -396,9 +431,9 @@ describe('پرامپت geo — بازنویسی از اپلیکیشن', () => {
 // ---------- پیوند با تحلیل جامع شبانهٔ ۲۲:۳۰ ----------
 
 describe('تحلیل شبانه — بخش چپ و راست به‌عنوان منبع تکمیلی (خواستهٔ کاربر)', () => {
-  test('سوپرپرامپت شبانه بخش ۴ساعته‌ها را به‌عنوان ورودی می‌شناسد', () => {
+  test('سوپرپرامپت شبانه بخش ۸ساعته‌ها را به‌عنوان ورودی می‌شناسد', () => {
     expect(DEFAULT_SYSTEM_NIGHTLY).toContain('ورودی شما سه بخش است');
-    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('تحلیل‌های ۴ساعتهٔ امروز — بخش رصد کانال‌های چپ و راست');
+    expect(DEFAULT_SYSTEM_NIGHTLY).toContain('تحلیل‌های ۸ساعتهٔ امروز — بخش رصد کانال‌های چپ و راست');
     expect(DEFAULT_SYSTEM_NIGHTLY).toContain('(ج)');
   });
 });

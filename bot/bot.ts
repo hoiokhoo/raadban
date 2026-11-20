@@ -233,6 +233,11 @@ export function parseBotConfig(raw: string): BotConfigFile {
  *  (سنتکام و ستاد کل ارتش رژیم صهیونیستی به سرِ اولویت اضافه شدند — خواستهٔ کاربر) */
 export const BREAKING_PRIORITY_DEFAULT = 10;
 
+/** پنجرهٔ چرخش حساب‌های غیراولویت‌دار در هر چرخه — ۲۱ نوامبر: ۶→۸. فهرست ۲۷→۳۹ حساب
+ *  رشد کرد (مقامات عربی اردن/امارات/عربستان/قطر/مصر/عراق)؛ با ۶ دورِ کامل ۷ چرخه (~۷۰
+ *  دقیقه) می‌شد؛ با ۸ همان ~۵ چرخهٔ سابق (~۵۰ دقیقه) می‌ماند. خالص و تست‌پذیر. */
+export const TWEET_ACCOUNTS_PER_CYCLE_DEFAULT = 8;
+
 const CFG = {
   token: process.env.BALE_BOT_TOKEN?.trim() || '',
   targets: parseTargets(process.env.BALE_CHAT_ID, process.env.BALE_CHANNEL_ID),
@@ -254,7 +259,9 @@ const CFG = {
   // توییت‌ها — ترجمهٔ روان کامل و ارسال بلافاصله پس از دریافت (خواستهٔ کاربر)
   tweetsFile: process.env.BOT_TWEETS_FILE || 'bot/tweets.json',
   maxTweets: Math.max(0, Math.min(12, Number(process.env.MAX_TWEETS || 6) || 6)),
-  tweetAccountsPerCycle: Math.max(0, Math.min(20, Number(process.env.TWEET_ACCOUNTS_PER_CYCLE || 6) || 6)),
+  // پنجرهٔ چرخش حساب‌های غیراولویت‌دار — ۲۱ نوامبر: ۶→۸ (مقامات عربی؛ توضیح کامل روی
+  // TWEET_ACCOUNTS_PER_CYCLE_DEFAULT). سرِ اولویت (۱۰ حساب) هر چرخه ثابت است.
+  tweetAccountsPerCycle: Math.max(0, Math.min(20, Number(process.env.TWEET_ACCOUNTS_PER_CYCLE || TWEET_ACCOUNTS_PER_CYCLE_DEFAULT) || TWEET_ACCOUNTS_PER_CYCLE_DEFAULT)),
   tweetFetchGapMs: Math.max(500, Math.min(15_000, Number(process.env.TWEET_FETCH_GAP_MS || 2000) || 2000)),
   // پنجرهٔ تازگی توییت‌ها — مستقل از پنجرهٔ خبر (خواستهٔ کاربر ۱۶ نوامبر: مقامات هر روز
   // چند پست می‌گذارند؛ پنجرهٔ ۵ ساعته با چرخش ~۱۰ دقیقه‌ای هیچ پستی را از قلم نمی‌اندازد)

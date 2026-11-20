@@ -25,5 +25,17 @@
   {"handle": "IDFSpokesperson", "name": "IDF Spokesperson", "faName": "سخنگوی ارتش رژیم صهیونیستی", "platform": "x"},
   {"handle": "AvichayAdraee", "name": "Avichay Adraee", "faName": "آویخای ادرایی (سخنگوی ارتش رژیم صهیونیستی به عربی)", "platform": "x"},
   {"handle": "SecDef", "name": "Secretary of Defense", "faName": "وزیر دفاع آمریکا (بیانیه‌های رسمی پنتاگون)", "platform": "x"},
-  {"handle": "Israel_katz", "name": "Israel Katz", "faName": "اسرائیل کاتز (وزیر دفاع رژیم صهیونیستی)", "platform": "x"}
+  {"handle": "Israel_katz", "name": "Israel Katz", "faName": "اسرائیل کاتز (وزیر دفاع رژیم صهیونیستی)", "platform": "x"},
+  {"handle": "KingAbdullahII", "name": "King Abdullah II", "faName": "عبدالله دوم (پادشاه اردن)", "platform": "x"},
+  {"handle": "RHCJO", "name": "The Royal Hashemite Court", "faName": "دربار هاشمی اردن — بیانیه‌های رسمی پادشاه و ولیعهد", "platform": "x"},
+  {"handle": "AymanHsafadi", "name": "Ayman Safadi", "faName": "ایمن صفدی (معاون نخست‌وزیر و وزیر امور خارجهٔ اردن)", "platform": "x"},
+  {"handle": "MohamedBinZayed", "name": "Mohamed bin Zayed", "faName": "محمد بن زاید (رئیس‌جمهور امارات و حاکم ابوظبی)", "platform": "x"},
+  {"handle": "HHShkMohd", "name": "Mohammed bin Rashid Al Maktoum", "faName": "محمد بن راشد (معاون رئیس‌جمهور و نخست‌وزیر امارات، حاکم دبی)", "platform": "x"},
+  {"handle": "ABZayed", "name": "Sheikh Abdullah bin Zayed", "faName": "عبدالله بن زاید (معاون نخست‌وزیر و وزیر امور خارجهٔ امارات)", "platform": "x"},
+  {"handle": "FaisalbinFarhan", "name": "Prince Faisal bin Farhan", "faName": "شاهزاده فیصل بن فرحان (وزیر امور خارجهٔ عربستان)", "platform": "x"},
+  {"handle": "KSAMOFA", "name": "Saudi Ministry of Foreign Affairs", "faName": "وزارت امور خارجهٔ عربستان — بیانیه‌های رسمی", "platform": "x"},
+  {"handle": "MBA_AlThani_", "name": "Mohammed bin Abdulrahman Al Thani", "faName": "محمد بن عبدالرحمن آل ثانی (نخست‌وزیر و وزیر خارجهٔ قطر)", "platform": "x"},
+  {"handle": "MofaQatar_AR", "name": "Qatar Ministry of Foreign Affairs", "faName": "وزارت امور خارجهٔ قطر — بیانیه‌های رسمی", "platform": "x"},
+  {"handle": "MFAEgOfficial", "name": "Egypt Ministry of Foreign Affairs", "faName": "وزارت امور خارجهٔ مصر — بیانیه‌های رسمی", "platform": "x"},
+  {"handle": "IraqiPMO", "name": "Iraqi Prime Minister Media Office", "faName": "دفتر نخست‌وزیر عراق — بیانیه‌های رسمی محمد شیاع السودانی", "platform": "x"}
 ]

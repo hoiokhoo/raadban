@@ -1,35 +1,32 @@
 /**
- * پیش‌نمایش کارت گزارش بازار با دادهٔ واقعی — دقیقاً همان مسیر اسلات ظهر/شب ربات:
- * fetchMarketData (نوبیتکس/tgju/بورس/کانال خودرو) → applyDeltas → کارت PNG.
- * شکست هر مرحله → exit(2) (هیچ عدد ساختگی).
+ * پیش‌نمایش کارت بازار با دادهٔ واقعی — برای دیدن همان چیزی که کاربر می‌بیند.
  * اجرا: bun scripts/preview-market-card.ts
  */
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { fetchMarketData, applyDeltas } from '../bot/market';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { fetchMarketData, applyDeltas, formatMarketMessage } from '../bot/market';
 import { renderMarketCardPng } from '../bot/market-card';
 import { tripleDateOf } from '../bot/calendar';
+import { tehranParts } from '../bot/digest';
 
-const tz = 'Asia/Tehran';
+const state = JSON.parse(readFileSync('bot/state.json', 'utf8')) as {
+  priceSnap?: Record<string, number>;
+  priceSnapAt?: string | null;
+  priceSnapPrevDay?: Record<string, number>;
+  carStore?: unknown;
+};
 
-const md = await fetchMarketData({});
-console.log(`اقلام: ${md.quotes.length} — دریافت‌نشده (صادقانه): ${md.failures.length ? md.failures.join('؛ ') : '—'}`);
-if (md.quotes.length < 3) {
-  console.error('❌ قلم قابل‌اعتماد کافی نیست — پیش‌نمایش صادقانه انجام نمی‌شود (هیچ عدد ساختگی)');
-  process.exit(2);
+const md = await fetchMarketData({ carStore: state.carStore as never });
+const withDelta = applyDeltas(md.quotes, state.priceSnapPrevDay, state.priceSnapPrevDay);
+const now = tehranParts(Date.now());
+const date = tripleDateOf(now.dateKey, 'Asia/Tehran', 'umalqura');
+const card = await renderMarketCardPng({ date, slotLabel: 'بامداد (ساعت ۳)', quotes: withDelta });
+if (card) writeFileSync('/tmp/market-card-current.png', card.png);
+console.log('card:', card ? `${card.width}x${card.height} → /tmp/market-card-current.png` : 'render failed');
+console.log('failures:', md.failures);
+for (const q of withDelta) {
+  console.log(
+    `${q.emoji} ${q.key} | value=${q.value} | official=${q.officialToman ?? '-'} factory=${q.factoryToman ?? '-'} | pct=${q.changePct ?? '-'} src=${q.changeSrc ?? '-'}`,
+  );
 }
-
-const withDelta = applyDeltas(md.quotes, undefined);
-const todayKey = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-const date = tripleDateOf(todayKey, tz, 'umalqura');
-const hour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', hour12: false }).format(new Date()));
-const slotLabel = hour < 15 ? 'میان‌روز' : 'شب';
-
-const card = await renderMarketCardPng({ date, slotLabel, quotes: withDelta });
-if (!card) {
-  console.error('❌ رندر کارت ناموفق بود');
-  process.exit(2);
-}
-mkdirSync('download/preview', { recursive: true });
-writeFileSync('download/preview/market-card.png', card.png);
-console.log(`✅ کارت: ${card.width}×${card.height} — ${Math.round(card.png.length / 1024)} کیلوبایت → download/preview/market-card.png`);
-// کپشن حذف شد — خواستهٔ کاربر ۲۰ نوامبر: عکس بدون هیچ متن زیرش ارسال می‌شود
+console.log('--- text message ---');
+console.log(formatMarketMessage(md.quotes, state.priceSnapPrevDay, state.priceSnapPrevDay));

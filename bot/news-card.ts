@@ -26,6 +26,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
+import { isIranRelated } from './iran';
 import { type TripleDate } from './calendar';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
@@ -185,19 +186,25 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
     const yTop = rowY;
     const rh = heights[i]!;
     rowY += rh;
-    const bg = i % 2 === 0 ? '#102941' : '#0d2135';
+    // مورد ایران‌مرتبط — خواستهٔ کاربر ۲۰ نوامبر (دوم): «اخبار مرتبط با ایران به رنگ متفاوت و
+    // کمی بولدتر» — متن کهربایی + وزن بولد + نوار لبهٔ کهربایی و زمینهٔ کمی گرم‌تر ردیف
+    const iran = isIranRelated(it.text || '');
+    const bg = iran
+      ? (i % 2 === 0 ? '#1b3350' : '#162b45')
+      : i % 2 === 0 ? '#102941' : '#0d2135';
     // تا سه خط کامل — دیگر خبر سه‌خطی با «…» در خط دوم بریده نمی‌شود (۲۰ نوامبر)
     const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, NEWS_MAX_LINES);
     const cy = yTop + (rh - 12) / 2;
     const numCx = W - PAD - 34;
     const textRight = W - PAD - 110;
-    const src = it.source ? `<text x="${textRight}" y="${yTop + rh - 30}" font-size="19" fill="#7fa8c9" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
+    const src = it.source ? `<text x="${textRight}" y="${yTop + rh - 30}" font-size="19" fill="${iran ? '#d9b96a' : '#7fa8c9'}" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
     const bodySvg = lines
-      .map((ln, j) => `<text x="${textRight}" y="${yTop + 52 + j * NEWS_LINE_H}" font-size="27" fill="#e8f1fa" text-anchor="end">${rtl(esc(ln))}</text>`)
+      .map((ln, j) => `<text x="${textRight}" y="${yTop + 52 + j * NEWS_LINE_H}" font-size="27"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#ffd75e' : '#e8f1fa'}" text-anchor="end">${rtl(esc(ln))}</text>`)
       .join('\n');
     pieces.push(`${banner}
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${rh - 12}" rx="14" fill="${bg}"/>
-  <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="#16405f" stroke="#2c6ea5" stroke-width="1.5"/>
+  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${rh - 32}" rx="2.5" fill="#ffd75e"/>` : ''}
+  <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="${iran ? '#3d4a1e' : '#16405f'}" stroke="${iran ? '#ffd75e' : '#2c6ea5'}" stroke-width="1.5"/>
   <text x="${numCx}" y="${cy}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">${rtl(faDigits(String(i + 1)))}</text>
   ${it.tick ? tickBadgeSvg(numCx - 46, cy - 8) : ''}
   ${bodySvg}
@@ -345,17 +352,20 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
       const yTop = y;
       y += heights[i]!;
       const bg = i % 2 === 0 ? '#102941' : '#0d2135';
+      // توییت ایران‌مرتبط — متن کهربایی و بولد (خواستهٔ کاربر ۲۰ نوامبر: اخبار ایران متمایز)
+      const iran = isIranRelated(`${it.faName || ''} ${it.fa || ''}`);
       // نام فارسی توییت‌کننده — خط عنوان؛ نبود آن → «ترجمه فارسی» (سازگاری با دادهٔ قدیمی)
       const nameLine = (it.faName || 'ترجمه فارسی').replace(/\s+/g, ' ').trim();
       const nameLines = wrapFa(nameLine, 60, 1);
       const nameY = yTop + TW_SOURCE_H + 30;
       const faLines = wrapFa(it.fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES);
       const faSvg = faLines
-        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26" fill="#e8f1fa" text-anchor="end">${rtl(esc(ln))}</text>`)
+        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#ffd75e' : '#e8f1fa'}" text-anchor="end">${rtl(esc(ln))}</text>`)
         .join('\n');
       return `
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${heights[i]! - 12}" rx="14" fill="${bg}"/>
-  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="#9fc3e8" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
+  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#ffd75e"/>` : ''}
+  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${iran ? '#d9b96a' : '#9fc3e8'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
   <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
   ${faSvg}`;
     })

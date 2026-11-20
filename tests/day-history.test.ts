@@ -149,45 +149,49 @@ describe('پارسر متن ویکی صفحهٔ روز', () => {
   });
 });
 
-describe('فرمت‌کنندهٔ بلوک وقایع', () => {
+describe('فرمت‌کنندهٔ بلوک وقایع — فقط رویدادهای بسیار مهم، حداکثر ۵ (خواستهٔ ۲۰ نوامبر)', () => {
   const entries: DayHistoryEntry[] = [
-    { year: 977, text: 'انتخاب اصفهان به عنوان پایتخت ایران', kind: 'event' },
+    { year: 977, text: 'آغاز جنگ ایران و روم بر سر قفقاز', kind: 'event' },
     { year: 1276, text: 'نیما یوشیج، پدر شعر نوی فارسی', kind: 'birth' },
-    { year: 1390, text: 'حسن طهرانی مقدم، نظامی', kind: 'death' },
+    { year: 1390, text: 'انفجار بیدگنه و شهادت تهرانی مقدم', kind: 'event' },
+    { year: 1357, text: 'وقوع انقلاب اسلامی ایران', kind: 'event' },
+    { year: 1398, text: 'راه‌اندازی خط جدید مترو', kind: 'event' },
   ];
-  test('قالب مثل نمونهٔ کاربر — سال؛ متن + پیشوند زادروز/درگذشت', () => {
+  test('قالب سال؛ متن — فقط رویدادهای بسیار مهم؛ زادروز/درگذشت هرگز', () => {
     const b = formatDayHistoryBlock(entries, 'امروز');
     expect(b).toContain('📜 وقایع امروز در تاریخ');
-    expect(b).toContain('• ۹۷۷؛ انتخاب اصفهان به عنوان پایتخت ایران');
-    expect(b).toContain('• ۱۲۷۶؛ زادروز نیما یوشیج، پدر شعر نوی فارسی');
-    expect(b).toContain('• ۱۳۹۰؛ درگذشت حسن طهرانی مقدم، نظامی');
-    // ترتیب: رویدادها قبل از زادروزها قبل از درگذشت‌ها
-    expect(b.indexOf('۹۷۷')).toBeLessThan(b.indexOf('۱۲۷۶'));
-    expect(b.indexOf('۱۲۷۶')).toBeLessThan(b.indexOf('۱۳۹۰'));
+    expect(b).toContain('• ۹۷۷؛ آغاز جنگ ایران و روم بر سر قفقاز');
+    expect(b).toContain('• ۱۳۹۰؛ انفجار بیدگنه');
+    expect(b).toContain('• ۱۳۵۷؛ وقوع انقلاب اسلامی ایران');
+    // زادروز/درگذشت چهره‌ها و رویدادهای عادی هرگز (خواستهٔ کاربر ۲۰ نوامبر)
+    expect(b).not.toContain('نیما یوشیج');
+    expect(b).not.toContain('مترو');
   });
   test('خالی → رشتهٔ خالی (کل بخش از پیام حذف — هیچ ساختگی)', () => {
     expect(formatDayHistoryBlock([], 'امروز')).toBe('');
     expect(formatDayHistoryBlock(null as unknown as DayHistoryEntry[], 'فردا')).toBe('');
+    // فقط زادروز/درگذشت بدون رویداد مهم → بخش حذف
+    expect(formatDayHistoryBlock([
+      { year: 1276, text: 'نیما یوشیج، پدر شعر نوی فارسی', kind: 'birth' },
+      { year: 1377, text: 'فیلسوف و مفسر', kind: 'death' },
+    ], 'امروز')).toBe('');
   });
   test('برچسب فردا', () => {
     expect(formatDayHistoryBlock(entries, 'فردا')).toContain('📜 وقایع فردا در تاریخ');
   });
-  test('سقف‌ها — بیش از ۱۰ رویداد/۵ زادروز/۵ درگذشت نمایش داده نمی‌شود', () => {
-    const many: DayHistoryEntry[] = [
-      ...Array.from({ length: 14 }, (_, i) => ({ year: 1300 + i, text: `واقعهٔ شماره ${i}`, kind: 'event' as const })),
-      ...Array.from({ length: 8 }, (_, i) => ({ year: 1300 + i, text: `چهرهٔ شماره ${i}`, kind: 'birth' as const })),
-      ...Array.from({ length: 7 }, (_, i) => ({ year: 1300 + i, text: `درگذشتهٔ شماره ${i}`, kind: 'death' as const })),
-    ];
+  test('سقف ۵ رویداد بسیار مهم — ششمین نمایش داده نمی‌شود', () => {
+    const many: DayHistoryEntry[] = Array.from({ length: 9 }, (_, i) => ({
+      year: 1300 + i,
+      text: `آغاز جنگ شماره ${i} بر سر مرزها`,
+      kind: 'event' as const,
+    }));
     const b = formatDayHistoryBlock(many, 'امروز');
-    expect(b).toContain('واقعهٔ شماره 9'); // دهمین رویداد
-    expect(b).not.toContain('واقعهٔ شماره 10'); // یازدهمین نمایش داده نمی‌شود
-    expect(b).toContain('چهرهٔ شماره 4');
-    expect(b).not.toContain('چهرهٔ شماره 5');
-    expect(b).toContain('درگذشتهٔ شماره 4');
-    expect(b).not.toContain('درگذشتهٔ شماره 5');
+    expect(b).toContain('جنگ شماره 4'); // پنجمین رویداد
+    expect(b).not.toContain('جنگ شماره 5'); // ششمین نمایش داده نمی‌شود
+    expect(b).not.toContain('جنگ شماره 8');
   });
   test('متن بلند کوتاه می‌شود (حداکثر ۱۶۰ نویسه)', () => {
-    const b = formatDayHistoryBlock([{ year: 1400, text: 'م'.repeat(400), kind: 'event' }], 'امروز');
+    const b = formatDayHistoryBlock([{ year: 1400, text: `انفجار بزرگ ${'م'.repeat(400)}`, kind: 'event' }], 'امروز');
     const line = b.split('\n').find((l) => l.includes('۱۴۰۰'))!;
     expect(line.length).toBeLessThan(180);
     expect(line.endsWith('…')).toBe(true);
@@ -233,12 +237,17 @@ describe('پیوند وقایع با پیام صبحگاهی/شبانگاهی', 
     const msg = await buildDailyMessage({
       ...base,
       kind: 'morning',
-      dayHistory: [{ year: 1276, text: 'نیما یوشیج، پدر شعر نوی فارسی', kind: 'birth' }],
+      dayHistory: [
+        { year: 1320, text: 'اشغال ایران توسط متفقین در جنگ جهانی دوم', kind: 'event' },
+        { year: 1276, text: 'نیما یوشیج، پدر شعر نوی فارسی', kind: 'birth' },
+      ],
     });
     expect(msg.text.startsWith(`<b>${BISMILLAH}</b>`)).toBe(true);
     expect(msg.text).toContain('📜 وقایع امروز در تاریخ');
-    expect(msg.text).toContain('• ۱۲۷۶؛ زادروز نیما یوشیج، پدر شعر نوی فارسی');
-    expect(msg.text.indexOf('امروز')).toBeLessThan(msg.text.indexOf('زادروز نیما'));
+    expect(msg.text).toContain('• ۱۳۲۰؛ اشغال ایران توسط متفقین در جنگ جهانی دوم');
+    // زادروز چهره‌ها هرگز (خواستهٔ ۲۰ نوامبر)
+    expect(msg.text).not.toContain('نیما یوشیج');
+    expect(msg.text.indexOf('امروز')).toBeLessThan(msg.text.indexOf('اشغال ایران'));
   });
   test('پیام صبحگاهی بدون وقایع — بلوک کلًا حذف می‌شود (خواستهٔ کاربر: نبود → بخش ارسال نشود)', async () => {
     const msg = await buildDailyMessage({ ...base, kind: 'morning' });
@@ -257,7 +266,8 @@ describe('پیوند وقایع با پیام صبحگاهی/شبانگاهی', 
     expect(msg.text).toContain('فردا: جمعه');
     expect(msg.text).toContain('📜 وقایع فردا در تاریخ');
     expect(msg.text).toContain('• ۱۳۹۶؛ زمین‌لرزه ازگله');
-    expect(msg.text).toContain('• ۱۳۸۱؛ زادروز مهدی باقری، بازیکن');
+    // زادروز بازیکنان هرگز (خواستهٔ ۲۰ نوامبر: «اصلا تولد و فوت شاعران و بازیگران و هنرمندان و ... نمیخوام»)
+    expect(msg.text).not.toContain('مهدی باقری');
     expect(msg.text).toContain('اوقات شرعی فردا');
   });
 });

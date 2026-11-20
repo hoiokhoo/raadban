@@ -59,32 +59,24 @@ describe('منبع @khabarnamehir + خط لولهٔ راستی‌آزمایی (�
   });
 });
 
-// ---------- (۲) رنگ‌ها: سبز کم‌رنگ توییت، قرمز کم‌رنگ فوری + خبر فوری ----------
+// ---------- (۲) رنگ‌ها: سبز کم‌رنگ توییت، قرمز کم‌رنگ فوری ----------
 
-describe('خبر فوری — آستانهٔ سخت جنگ/حمله (خواستهٔ ۲۰ نوامبر چهارم)', () => {
-  test('نشان‌های سخت فارسی — جنگ/بمباران/حملهٔ موشکی/ترور/اعدام فوری‌اند', () => {
-    expect(isBreakingNewsText('ارتش اسرائیل به تهران حمله موشکی کرد')).toBe(true);
-    expect(isBreakingNewsText('بمباران گسترده غزه ادامه دارد')).toBe(true);
-    expect(isBreakingNewsText('دو نفر در جنگ داخلی سودان کشته شدند')).toBe(true);
-    expect(isBreakingNewsText('ترور فرمانده نیروی قدس تأیید شد')).toBe(true);
-  });
-
-  test('حملهٔ ورزشی/شهری و خبر صرفاً ایران‌دار فوری نیست (ضد سیل‌آب کانال)', () => {
+describe('خبر کانال/خبرگزاری هرگز فوری نمی‌شود (خواستهٔ ۲۰ نوامبر ششم: «نه خبرهای کانالها یا خبرگزاریها»)', () => {
+  test('isBreakingNewsText همیشه false — حتی حملهٔ موشکی/بمباران/ترور/جنگ', () => {
+    expect(isBreakingNewsText('ارتش اسرائیل به تهران حمله موشکی کرد')).toBe(false);
+    expect(isBreakingNewsText('بمباران گسترده غزه ادامه دارد')).toBe(false);
+    expect(isBreakingNewsText('دو نفر در جنگ داخلی سودان کشته شدند')).toBe(false);
+    expect(isBreakingNewsText('ترور فرمانده نیروی قدس تأیید شد')).toBe(false);
+    expect(isBreakingNewsText('Israel launches missile strike on Iran')).toBe(false);
     expect(isBreakingNewsText('حملهٔ تیم فوتبال استقلال در نیمهٔ دوم بازی')).toBe(false);
-    expect(isBreakingNewsText('رئیس‌جمهور در دیدار مقامات ایران سخن گفت')).toBe(false);
-    expect(isBreakingNewsText('قیمت دلار در بازار تهران امروز کاهش یافت')).toBe(false);
     expect(isBreakingNewsText('')).toBe(false);
   });
 
-  test('نشان‌های انگلیسی — war/missile strike/airstrike فوری‌اند', () => {
-    expect(isBreakingNewsText('Israel launches missile strike on Iran')).toBe(true);
-    expect(isBreakingNewsText('Airstrike hits eastern Syria')).toBe(true);
-    expect(isBreakingNewsText('The economy grew 2% this quarter')).toBe(false);
-  });
-
-  test('توییت فوری همچنان ایران/جنگ را می‌گیرد (آستانهٔ توییت جدا از خبر است)', () => {
+  test('فوری فقط توییت/تروث‌سوشال — جنگ/ایرا(ن)/جمهوری اسلامی (isBreakingTweetText)', () => {
     expect(isBreakingTweetText('Trump posts about Iran nuclear talks')).toBe(true);
-    expect(isBreakingNewsText('Trump posts about Iran nuclear talks')).toBe(false); // خبر نیست — واژهٔ جنگ/حمله ندارد
+    expect(isBreakingTweetText('جنگ تازه‌ای در آستانهٔ آغاز است')).toBe(true);
+    expect(isBreakingTweetText('سخنرانی رهبر جمهوری اسلامی')).toBe(true);
+    expect(isBreakingTweetText('The economy grew 2% this quarter')).toBe(false);
   });
 
   test('گیف چراغ گردان — پس‌زمینهٔ «قرمز کم‌رنگ» روشن (نه تیرهٔ قدیم)', () => {
@@ -180,13 +172,13 @@ describe('خاموشی صریح اسلات‌ها و حافظهٔ وزنی (خو
     expect(yml).toContain("GEO_HOURS: '6,14,22'");
   });
 
-  test('نقد زمان‌بندی — پخش بار ساعت ۲۱: بازار شب ۲۰:۳۰، هواشناسی ۲۱:۳۰ (حداکثر ~۳ پیام در هر اسلات)', () => {
+  test('نقد زمان‌بندی — بازار و نمودار فقط یکبار در روز ساعت ۳؛ صبح ۰۵:۴۵؛ هواشناسی ۲۱:۳۰', () => {
     const yml = readFileSync(resolve(import.meta.dir, '../.github/workflows/bale-bot.yml'), 'utf8');
-    expect(yml).toContain("PRICE_HOURS: '12:30,20:30'");
+    expect(yml).toContain("PRICE_HOURS: '03:00'");
     expect(yml).toContain("BOT_DAILY_POOL_CAP: '260'"); // آرشیو سبک — نقد state.json
     const ds = JSON.parse(readFileSync(resolve(import.meta.dir, '../bot/daily-settings.json'), 'utf8')) as { weatherHour: string; morningHour: string; eveningHour: string };
     expect(ds.weatherHour).toBe('21:30');
-    expect(ds.morningHour).toBe('05:00');
+    expect(ds.morningHour).toBe('05:45');
     expect(ds.eveningHour).toBe('21:00');
   });
 });

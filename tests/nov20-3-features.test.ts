@@ -8,7 +8,8 @@
  *  ۳) رادار هواشناسی بارشی فقط ایران — هندسه، دسته‌بندی رنگ (آبی برف/نارنجی باران/بی‌رنگ آفتابی)،
  *     سایهٔ پیش‌بینی، SVG و رندر واقعی PNG.
  *  ۴) اخبار ایران متمایز — isIranRelated (بدون ایرانسل) + بولد موارد در متن HTML.
- *  ۵) خبر فوری — isBreakingTweetText (ایران/جنگ) + گیف چراغ گردان چندفریمی «فوری».
+ *  ۵) خبر فوری — isBreakingTweetText (ایران/جنگ؛ به‌روزشده ۲۰ نوامبر ششم:
+ *     جنگ | ایرا(ن) | جمهوری اسلامی — فقط توییت/تروث‌سوشال) + گیف چراغ گردان چندفریمی «فوری».
  *  ۶) حساب‌های اولویت‌دار توییت — pickTweetAccountsForCycle (هر چرخه چک شوند).
  */
 import { describe, expect, test } from 'bun:test';
@@ -290,24 +291,36 @@ describe('شناسایی و برجسته‌سازی اخبار ایران — خ
 
 // ---------- ۵) خبر فوری ----------
 
-describe('تشخیص خبر فوری — فقط توییت‌های حاوی «ایران» (خواستهٔ ۲۰ نوامبر پنجم)', () => {
+describe('تشخیص خبر فوری توییت/تروث‌سوشال — جنگ | ایرا(ن) | جمهوری اسلامی (خواستهٔ ۲۰ نوامبر ششم)', () => {
   test('فارسی و انگلیسی — حاوی ایران', () => {
     expect(isBreakingTweetText('آمریکا تحریم‌های تازهٔ ایران را اعلام کرد')).toBe(true);
     expect(isBreakingTweetText('Iran rejects negotiations')).toBe(true);
     expect(isBreakingTweetText('Persia has a long history')).toBe(true);
   });
-  test('جنگ بدون ایران دیگر فوری نیست (تنگهٔ آستانه ۲۰ نوامبر پنجم)', () => {
-    expect(isBreakingTweetText('جنگ در خاورمیانه گسترش یافت')).toBe(false); // جنگِ بدون ایران
-    expect(isBreakingTweetText('Trump: We are ready for war')).toBe(false); // war بدون Iran
-    expect(isBreakingTweetText('جنگ داخلی سودان شدت گرفت')).toBe(false);
+  test('«جنگ» و «war» به‌تنهایی هم فوری‌اند (خواستهٔ ششم: کلیدواژهٔ جنگ برگشت)', () => {
+    expect(isBreakingTweetText('جنگ در خاورمیانه گسترش یافت')).toBe(true); // جنگ — حتی بدون ایران
+    expect(isBreakingTweetText('Trump: We are ready for war')).toBe(true); // war بدون Iran
+    expect(isBreakingTweetText('جنگ داخلی سودان شدت گرفت')).toBe(true);
     // جنگ + ایران → همچنان فوری
     expect(isBreakingTweetText('جنگ علیه ایران گسترش یافت')).toBe(true);
     expect(isBreakingTweetText('Iran is ready for war')).toBe(true);
+  });
+  test('«جمهوری اسلامی» — فارسی و انگلیسی (کلیدواژهٔ سوم خواستهٔ ششم)', () => {
+    expect(isBreakingTweetText('رهبر جمهوری اسلامی دربارهٔ آیندهٔ کشور سخن گفتند')).toBe(true);
+    expect(isBreakingTweetText('The Islamic Republic responded firmly to threats')).toBe(true);
+  });
+  test('«ایراد» واژهٔ نقد است نه ایران — فوری نمی‌کند (نقد ششم: پیشوند عریان «ایرا» حذف شد)', () => {
+    expect(isBreakingTweetText('نمایندگان به لایحهٔ بودجه ایراد کردند و آن را به کمیسیون برگرداندند')).toBe(false);
+    expect(isBreakingTweetText('ایرادهای قانونی مطرح‌شده بررسی شد')).toBe(false);
+    // ولی ایران/ایرانی/ایرانیان می‌گیرد
+    expect(isBreakingTweetText('ایرانیان در سراسر جهان نوروز را گرامی می‌دارند')).toBe(true);
   });
   test('غیرفوری', () => {
     expect(isBreakingTweetText('قیمت بیت‌کوین رکورد زد')).toBe(false);
     expect(isBreakingTweetText('جام جهانی شروع شد')).toBe(false);
     expect(isBreakingTweetText('ایرانسل پلن جدید برداشت')).toBe(false); // برند — نه ایران
+    expect(isBreakingTweetText('قیمت دلار امروز افزایش یافت')).toBe(false);
+    expect(isBreakingTweetText('The economy grew 2% this quarter')).toBe(false);
     expect(isBreakingTweetText('')).toBe(false);
   });
 });

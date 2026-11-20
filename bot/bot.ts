@@ -32,10 +32,11 @@
  * GitHub Models، Groq، Cerebras، Mistral، Cohere، Together، NVIDIA، Pollinations (بی‌کلید) و
  * GLM داخلی (z-ai) به‌عنوان آخرین پشتیبان؛ اگر همه شکست خوردند یا ظرفیتشان پر شد.
  *
- * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۱:۰۰ به وقت کانال
- * با بسم‌الله، حدیث چهارده معصوم (بانک مستند + ضدتکرار دائمی)، تصویر طبیعت ویکی‌مدیا که عیناً
- * با کپشن خودِ پیام می‌چسبد (نه پیام جداگانه)، تاریخ سه‌گانه (شمسی/قمری/میلادی)، مناسبت‌ها و
- * اوقات شرعی فردا (کتابخانه adhan).
+ * پیام‌های روزانه (بخش مستقل — bot/daily.ts): صبحگاهی ۰۵:۴۵ و شبانگاهی ۲۱:۰۰ به وقت کانال
+ * با بسم‌الله (صبح) / صلوت (شب — خواستهٔ ۲۰ نوامبر ششم)، حدیث چهارده معصوم (بانک مستند +
+ * ضدتکرار دائمی)، ذکر روزِ هفته پس از حدیثِ صبح (خواستهٔ ۲۰ نوامبر ششم)، تصویر طبیعت
+ * ویکی‌مدیا که عیناً با کپشن خودِ پیام می‌چسبد (نه پیام جداگانه)، تاریخ سه‌گانه
+ * (شمسی/قمری/میلادی)، مناسبت‌ها و اوقات شرعی فردا (کتابخانه adhan).
  * + پیام پیش‌بینی ساعتی فردا (bot/weather.ts — Open-Meteo) ساعت ۲۱:۰۰ به وقت کانال
  * (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶: «شب ساعت ۹ پیش‌بینی ساعتی فردای تهران از ۱۲ شب تا فردا»).
  *
@@ -56,7 +57,7 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
+import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, snapshotBaseOf, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
 import { renderMarketCardPng } from './market-card';
 import { CHART_ASSETS, buildChartPanel, chartWindow, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
@@ -137,7 +138,7 @@ import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif } from './weather-gif';
 import { fetchIranRadarPng } from './iran-radar';
 import { highlightIranItemsHtml, isIranRelated } from './iran';
-import { isBreakingTweetText, isBreakingNewsText, renderBreakingGif } from './breaking';
+import { isBreakingTweetText, renderBreakingGif } from './breaking';
 import {
   pickHadith,
   bankStatus,
@@ -274,9 +275,11 @@ const CFG = {
   saleChannels: (process.env.SALE_CHANNELS || 'Akharin_khodro').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
   // تنظیمات پیام‌های روزانه (صبحگاهی/شبانگاهی) — فایل مدیریت‌شدهٔ اپلیکیشن، در ریپو کامیت می‌شود
   dailySettingsFile: process.env.BOT_DAILY_SETTINGS_FILE || 'bot/daily-settings.json',
-  // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار (پیش‌فرض ظهر ۱۲:۳۰ و شب ۲۱)
+  // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار — خواستهٔ کاربر
+  // ۲۰ نوامبر (ششم): «بخش قیمتها و نمودار قیمت کلا دیگه فقط یکبار در ساعت ۳ ارسال بشن» —
+  // اسلات واحد ۰۳:۰۰ بامداد تهران (قیمت‌ها + نمودار دارایی‌ها با هم)
   digestSlots: parseSlots(process.env.DIGEST_HOURS, '8,14,20'),
-  priceSlots: parseSlots(process.env.PRICE_HOURS, '12:30,21:00'),
+  priceSlots: parseSlots(process.env.PRICE_HOURS, '03:00'),
   // تحلیل جامع شبانه — هر شب ۲۲:۳۰ تهران (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با NIGHTLY_HOURS
   nightlySlots: parseSlots(process.env.NIGHTLY_HOURS, '22:30'),
   // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر؛ ۲۰ نوامبر: ۴→۸ساعته)؛
@@ -664,13 +667,16 @@ export interface BotState {
   /** آخرین اسلات انجام‌شدهٔ تحلیل/بازار — کلید «<تاریخ تهران>T<HH:MM>» (ضدتکرار روزانه) */
   lastDigestKey?: string;
   lastPriceKey?: string;
-  /** قیمت‌های آخرین گزارش بازار — پایهٔ «درصد تغییر از خبر قبلی» (خواستهٔ کاربر) */
+  /** قیمت‌های آخرین گزارش بازار — پایهٔ درصد تغییر؛ با گزارش روزانهٔ ۰۳:۰۰ یعنی
+   *  دقیقاً «دیروز ساعت ۳» (خواستهٔ کاربر ۲۰ نوامبر ششم: «تغییرات نسبت به ساعت ۳ روز قبل») */
   priceSnap?: Record<string, number>;
-  /** تاریخ تهران آخرین گزارش بازار — برای چرخش پایهٔ «دیروز» (خواستهٔ ۲۰ نوامبر:
-   *  درصد تغییر نسبت به روز قبل)؛ نخستین گزارش هر روز، آخرین snapshot روز پیشین را
-   *  به priceSnapPrevDay منتقل می‌کند */
+  /** زمان ISO آخرین snapshot موفق — گارد تازگی: snapshot قدیمی‌تر از ~۳۶ ساعت پایهٔ
+   *  «دیروز ساعت ۳» نیست (گزارش دیروز ناموفق بوده — درصد بر پایهٔ کهنه نشان داده نمی‌شود) */
+  priceSnapAt?: string;
+  /** تاریخ تهران آخرین گزارش بازار — برای چرخش پایهٔ «دیروز»؛ نخستین گزارش هر روز،
+   *  آخرین snapshot روز پیشین را به priceSnapPrevDay منتقل می‌کند */
   priceSnapDay?: string;
-  /** پایهٔ «دیروز» درصد تغییر — آخرین snapshot روز پیشین */
+  /** پایهٔ «دیروز ساعت ۳» درصد تغییر — آخرین snapshot روز پیشین (گزارش روزانهٔ ۰۳:۰۰) */
   priceSnapPrevDay?: Record<string, number>;
   /** کش روزانهٔ تاریخچهٔ قیمت نمادها برای «نمودار روند دارایی‌ها» (bot/assets-chart.ts —
    *  خواستهٔ کاربر ۲۰ نوامبر: «قرار بود چارت نمودار دارایی ها رو هم بزاری») — یک واکشی در روز */
@@ -790,7 +796,8 @@ export interface DailySettingsFile {
 export const DAILY_SETTINGS_DEFAULTS: DailySettingsFile = {
   morningEnabled: true,
   eveningEnabled: true,
-  morningHour: '05:00',
+  // خواستهٔ کاربر ۲۰ نوامبر (ششم): «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح»
+  morningHour: '05:45',
   eveningHour: '21:00',
   weatherEnabled: true,
   weatherHour: '21:00',
@@ -929,6 +936,7 @@ export function loadState(path: string): BotState {
       lastDigestKey: typeof raw.lastDigestKey === 'string' ? raw.lastDigestKey : undefined,
       lastPriceKey: typeof raw.lastPriceKey === 'string' ? raw.lastPriceKey : undefined,
       priceSnap: raw.priceSnap && typeof raw.priceSnap === 'object' ? (raw.priceSnap as Record<string, number>) : undefined,
+      priceSnapAt: typeof raw.priceSnapAt === 'string' ? raw.priceSnapAt : undefined,
       priceSnapDay: typeof raw.priceSnapDay === 'string' ? raw.priceSnapDay : undefined,
       priceSnapPrevDay: raw.priceSnapPrevDay && typeof raw.priceSnapPrevDay === 'object' ? (raw.priceSnapPrevDay as Record<string, number>) : undefined,
       chartHist:
@@ -1003,6 +1011,7 @@ export function mergeSentState(
     lastDigestKey: st.lastDigestKey,
     lastPriceKey: st.lastPriceKey,
     priceSnap: st.priceSnap,
+    priceSnapAt: st.priceSnapAt,
     priceSnapDay: st.priceSnapDay,
     priceSnapPrevDay: st.priceSnapPrevDay,
     chartHist: st.chartHist,
@@ -1413,6 +1422,8 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
 // و «یک» پیام با کپشن کوتاه ارسال می‌شود. پله‌های بازگشت صادقانه: گیف کارت ناموفق →
 // کارت PNG ثابت (باز هم تک‌پیام) → گیف چراغ مستقل + کپشن متن کامل → پیام متنی کامل.
 // خبر فوری هرگز گم نمی‌شود.
+// (ششم): فراخوانندهٔ این تابع فقط خط لولهٔ توییت/تروث‌سوشال است (isBreakingTweetText —
+// جنگ/ایرا(ن)/جمهوری اسلامی)؛ خبر کانال/خبرگزاری هرگز به اینجا نمی‌رسد.
 async function sendBreakingNow(source: string, faText: string, faName?: string): Promise<boolean> {
   const text = (faText || '').trim();
   if (!text) return false;
@@ -2481,38 +2492,55 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     console.log(`اسلات تحلیل جامع رسید ولی استخر کوچک است (${pool.length}) — چرخهٔ بعد تلاش می‌کند`);
   }
 
-  // ۵) گزارش بازار — اسلات ظهر/شب (پیش‌فرض ۱۲:۳۰ و ۲۱ — PRICE_HOURS)
+  // ۵) گزارش بازار + نمودار دارایی‌ها — اسلات واحد بامداد ۰۳:۰۰ تهران (PRICE_HOURS؛
+  //    خواستهٔ کاربر ۲۰ نوامبر ششم: «بخش قیمتها و نمودار قیمت کلا دیگه فقط یکبار در
+  //    ساعت ۳ ارسال بشن و تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن»)
   //    خودرو (انبار ماندگار — پرتیراژها همیشه) + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju)
-  //    + شاخص بورس (تستمسن → tgju) + برنت — درصد تغییر هر قلم نسبت به گزارش قبلی (state.priceSnap)
+  //    + شاخص بورس (تستمسن → tgju) + برنت — درصد تغییر هر قلم نسبت به «دیروز ساعت ۳»
+  //    (state.priceSnapPrevDay — snapshot گزارش ۰۳:۰۰ روز پیشین؛ گزارش روزانه یعنی همان ساعت ۳)
   const forcePrice = process.argv.includes('--force-digest') || process.env.FORCE_PRICE === '1';
   const pKey = forcePrice
     ? `force-price-${new Date().toISOString().slice(0, 16)}`
     : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
   if (pKey) {
     const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
-    // ── پایهٔ «دیروز» درصد تغییر (خواستهٔ کاربر ۲۰ نوامبر: «درصد تغییر نسبت به روز قبل»):
-    //    نخستین گزارش هر روزِ تازه، آخرین snapshot روز پیشین را به پایهٔ دیروز منتقل می‌کند ──
+    // ── پایهٔ «دیروز ساعت ۳» درصد تغییر (خواستهٔ کاربر ۲۰ نوامبر ششم) — با گزارش
+    //    روزانهٔ ۰۳:۰۰، نخستین (و تنها) گزارش هر روز، snapshot روز پیشین را به پایهٔ
+    //    دیروز منتقل می‌کند؛ یعنی دقیقاً «ساعت ۳ روز قبل». ──
     const pMkt = tehranParts(Date.now());
     if (state.priceSnapDay !== pMkt.dateKey) {
       if (state.priceSnap) state.priceSnapPrevDay = state.priceSnap;
       state.priceSnapDay = pMkt.dateKey;
     }
+    // گارد تازگی snapshot — گزارش دیروز ناموفق بوده و پایه کهنه (>۳۶ ساعت) است؟
+    // پس «دیروز ساعت ۳» واقعی نداریم: درصد بر پایهٔ کهنه نشان داده نمی‌شود (applyDeltas
+    // به تغییر روزانهٔ خود منبع یا «—» برمی‌گردد — هیچ درصد گمراه‌کننده‌ای نیست)
+    const base = snapshotBaseOf(state.priceSnap, state.priceSnapAt, state.priceSnapPrevDay);
+    const snapFresh = base.fresh;
+    const snapPrev = base.prev;
+    const snapPrevDay = base.prevDay;
+    if (!snapFresh && state.priceSnap) {
+      console.warn(`⚠️ پایهٔ درصد بازار کهنه است (${state.priceSnapAt || 'بدون زمان'}) — درصد از تغییر روزانهٔ منبع/«—» می‌آید، نه مقایسهٔ گمراه‌کنندهٔ چندروزه`);
+    }
     if (ctx.dryRun) {
-      console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey}) ===`);
-      console.log(formatMarketMessage(md.quotes, state.priceSnap, state.priceSnapPrevDay));
+      console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey} — پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۳' : 'تغییر روزانهٔ منبع'}) ===`);
+      console.log(formatMarketMessage(md.quotes, snapPrev, snapPrevDay));
       console.log('=== پایان پیش‌نمایش ===');
     } else if (md.quotes.length >= 3) {
       // کارت تصویری اول — خواستهٔ کاربر ۱۵ نوامبر («زیرساخت هواشناسی»)، رندر/ارسال ناموفق →
       // بازگشت صادقانه به پیام متنی کامل (هیچ قلمی از دست نمی‌رود)
       const mktDate = tripleDateOf(pMkt.dateKey, 'Asia/Tehran', 'umalqura');
-      const mktSlot = pKey.startsWith('force') ? 'گزارش فوری' : pMkt.hhmm < '15:00' ? 'میان‌روز' : 'شب';
-      const withDelta = applyDeltas(md.quotes, state.priceSnap, state.priceSnapPrevDay);
+      const mktHour = pMkt.hhmm.slice(0, 2);
+      const mktSlot = pKey.startsWith('force')
+        ? 'گزارش فوری'
+        : mktHour < '05' ? 'بامداد (ساعت ۳)' : mktHour < '12' ? 'صبح' : mktHour < '17' ? 'میان‌روز' : 'شب';
+      const withDelta = applyDeltas(md.quotes, snapPrev, snapPrevDay);
       let ok = false;
       let viaCard = false;
       const card = await renderMarketCardPng({ date: mktDate, slotLabel: mktSlot, quotes: withDelta }).catch(() => null);
       if (card) {
         // فقط عکس — کپشن زیر عکس حذف شد (خواستهٔ کاربر ۲۰ نوامبر: «زیر عکس به شکل متنی میاد حذف کن»)؛
-        // جدول کامل (نام/بازار/کارخانه-دولتی/تغییر روز) خودِ کارت را دارد
+        // جدول کامل (نام/بازار/کارخانه-دولتی/تغییر ۲۴ساعته) خودِ کارت را دارد
         for (const t of CFG.targets) {
           const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-market.png');
           if (s.ok) { ok = true; viaCard = true; }
@@ -2523,7 +2551,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         console.warn('⚠️ رندر کارت بازار ناموفق بود — پیام متنی کامل ارسال می‌شود (صادقانه)');
       }
       if (!ok) {
-        const msg = formatMarketMessage(md.quotes, state.priceSnap, state.priceSnapPrevDay);
+        const msg = formatMarketMessage(md.quotes, snapPrev, snapPrevDay);
         for (const t of CFG.targets) {
           const s = await sendBaleMessage(CFG.token, t, msg);
           if (s.ok) ok = true;
@@ -2534,12 +2562,14 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         summary.priceSent = true;
         state.lastPriceKey = pKey;
         state.priceSnap = snapshotOf(md.quotes);
+        state.priceSnapAt = new Date().toISOString(); // گارد تازگی پایهٔ «دیروز ساعت ۳»
         state.carStore = md.carStore || state.carStore;
-        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۳' : 'تغییر روزانهٔ منبع'}، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
       }
-      // ── نمودار روند دارایی‌ها — خواستهٔ کاربر ۲۰ نوامبر (دومی):
-      //    «قرار بود چارت نمودار دارایی ها رو هم بزاری،اما الآن نیست» — کارت اسپارک‌لاین
-      //    ۳۰روزهٔ شش دارایی شاخص، بلافاصله پس از کارت بازار. تاریخچه یک‌بار در روز کش
+      // ── نمودار روند دارایی‌ها — خواستهٔ کاربر ۲۰ نوامبر (دومی + ششم):
+      //    «قرار بود چارت نمودار دارایی ها رو هم بزاری،اما الآن نیست» + «نمودار قیمت کلا
+      //    دیگه فقط یکبار در ساعت ۳» — کارت اسپارک‌لاین ۳۰روزهٔ شش دارایی شاخص، بلافاصله
+      //    پس از کارت بازار در همان اسلات واحد ۰۳:۰۰. تاریخچه یک‌بار در روز کش
       //    می‌شود (state.chartHist)؛ نقطهٔ امروز از tgjuCurrent زندهٔ همین گزارش ملحق می‌شود.
       //    شکست هر نماد → پنل همان نماد حذف؛ <۳ پنل یا خطای رندر → بی‌نمودار صادقانه
       //    (کارت بازار مستقل است و از دست نمی‌رود). فقط عکس — بدون کپشن. ──
@@ -2844,35 +2874,13 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   //    دسته بندی و صف بندی و ارسال بشن» — رویدادهای صافی‌شدهٔ کانال‌ها به صف بستهٔ خبری
   //    می‌روند؛ راستی‌آزمایی و دسته‌بندی همان جا (اسلات بسته: سوپرپرامپت + تطبیق اجباری
   //    با منبع + بنر دسته) انجام می‌شود. سقف ۱۶ رویداد در هر اسلات (تیک‌دارها اول) —
-  //    مازاد فقط در همین تحلیل می‌آید (سیل‌آب کانال نمی‌شود). پست تازهٔ فوریِ (≤۴۵ دقیقه)
-  //    حاوی نشان‌های سخت جنگ/حمله بلافاصله با گیف/کارت قرمز مخابره می‌شود و صف نمی‌شود. ──
+  //    مازاد فقط در همین تحلیل می‌آید (سیل‌آب کانال نمی‌شود).
+  //    (ششم — «نه خبرهای کانالها یا خبرگزاریها»): مسیر فوریِ خبر کانالی کلاً حذف شد؛
+  //    فوری فقط توییت/تروث‌سوشال حاوی جنگ/ایرا(ن)/جمهوری اسلامی است (breaking.ts). ──
   if (CFG.channelMode === 'bundle') {
     const queue = Array.isArray(state.bundleQueue) ? state.bundleQueue : [];
     state.bundleQueue = queue;
-    const BREAKING_FRESH_MS = 45 * 60_000;
-    const nowMs = Date.now();
-    const toQueue = merged
-      .filter((m) => {
-        const atMs = Date.parse(m.at || '');
-        return Number.isFinite(atMs) && nowMs - atMs <= BREAKING_FRESH_MS && isBreakingNewsText(m.text);
-      });
-    let breakingFromGeo = 0;
-    for (const m of toQueue) {
-      // گیت فارسی — پست غیرفارسی فوری هم باید ترجمه شود؛ نشد → مسیر عادی صف (چرخهٔ بعد)
-      const fa = await gateFa(m.text);
-      if (!fa) continue;
-      const brOk = await sendBreakingNow(m.sources[0] || 'کانال رصدشده', fa);
-      if (brOk) {
-        breakingFromGeo++;
-        summary.breakingSent = (summary.breakingSent || 0) + 1;
-        ctx.sentIds?.push(m.id);
-        ctx.sentTitleTexts?.push(normalizeTitle(fa).slice(0, 160));
-        ctx.sentMsgTexts?.push(normalizeTitle(fa).slice(0, 160));
-        console.log(`🚨 فوری کانالی ارسال شد — ${m.sources[0]}${' (کارت متحرک — چراغ گردان داخل خبر)'}`);
-      }
-    }
     const queuedList = merged
-      .filter((m) => !toQueue.some((b) => b.id === m.id))
       .sort((a, b) => (b.verified ? 1 : 0) - (a.verified ? 1 : 0))
       .slice(0, 16);
     for (const m of queuedList) {
@@ -2891,7 +2899,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
       const dropped = queue.splice(0, queue.length - 600);
       console.warn(`⚠️ سرریز صف بستهٔ خبری — ${dropped.length} مورد قدیمی‌تر حذف شد`);
     }
-    if (queuedList.length > 0) console.log(`اخبار کانال‌ها به صف بستهٔ خبری: +${queuedList.length} (راستی‌آزمایی و دسته‌بندی در اسلات بسته)${breakingFromGeo > 0 ? ` — ${enToFaDigits(String(breakingFromGeo))} مورد فوری بلافاصله ارسال شد` : ''}`);
+    if (queuedList.length > 0) console.log(`اخبار کانال‌ها به صف بستهٔ خبری: +${queuedList.length} (راستی‌آزمایی و دسته‌بندی در اسلات بسته — خبر کانالی هرگز فوری نمی‌شود)`);
   }
 
   // ── گیت سکوت — خواستهٔ کاربر ۲۰ نوامبر: «اگر خبر مهمی نبود اصلا چیزی ارسال نشه» ──
@@ -3169,7 +3177,9 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
   if (res.fresh.length > 2) console.log(`${res.fresh.length - 2} اطلاعیهٔ دیگر به چرخهٔ بعد ماند (سقف هر چرخه ۲)`);
 }
 
-// ---------- پیام‌های روزانه — صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰ به وقت کانال ----------
+// ---------- پیام‌های روزانه — صبحگاهی ۰۵:۴۵ و شبانگاهی ۲۱:۰۰ به وقت کانال ----------
+// (خواستهٔ کاربر ۲۰ نوامبر ششم: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح»)؛ صبح بعد از حدیث
+// «ذکر روز» می‌آید (dayDhikr — bot/daily.ts) و شب با صلوت آغاز می‌شود، نه بسم‌الله.
 
 export async function runDailyMessages(state: BotState, summary: RunSummary): Promise<void> {
   const dSettings = loadDailySettings(CFG.dailySettingsFile);
@@ -3548,8 +3558,9 @@ async function main(): Promise<void> {
   // نشانگر چرخش تأمین‌کنندگان مدل — از state بازیابی می‌شود (پس از ری‌استارت ادامه می‌یابد)
   if (typeof state.aiCursor === 'number') setAiCursor(state.aiCursor);
 
-  // ── پیام‌های روزانه: صبحگاهی ۰۵:۰۰ / شبانگاهی ۲۰:۰۰ به وقت کانال (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ──
-  //  پیش از جمع‌آوری خبر اجرا می‌شود تا پیام ۰۵:۰۰ با تأخیر جمع‌آوری معوق نماند؛
+  // ── پیام‌های روزانه: صبحگاهی ۰۵:۴۵ / شبانگاهی ۲۱:۰۰ به وقت کانال (خواستهٔ ۱۰ نوامبر +
+  //  ۲۰ نوامبر ششم: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح») ──
+  //  پیش از جمع‌آوری خبر اجرا می‌شود تا پیام صبحگاهی با تأخیر جمع‌آوری معوق نماند؛
   //  ضدتکرار مطلق احادیث در state.daily (کامیت ریپو) — پس از ری‌استارت هم می‌ماند.
   await runDailyMessages(state, summary);
 
@@ -3974,38 +3985,17 @@ async function main(): Promise<void> {
     if (k) sentMsgTexts.push(k);
   };
 
-  // ── خبر فوریِ منابع خبری — خواستهٔ کاربر ۲۰ نوامبر (سوم): «تویی‌ها و اخبار فوری قرمز
-  //    کم‌رنگ» — خبر حاوی نشان‌های سخت جنگ/حمله/ترور (isBreakingNewsText — آستانهٔ سخت‌گیرانه
-  //    تا هر خبرِ صرفاً ایران‌دار فوری نشود و کانال سیل‌آب نگردد) بلافاصله با گیف چراغ گردان
-  //    + کارت قرمز کم‌رنگ ارسال می‌شود و به صف بسته نمی‌رود؛ ترجمه هم همین‌جا گیت می‌شود.
-  //    ارسال ناموفق → مسیر عادی صف (چرخهٔ بعد ضدتکرار دوباره می‌سنجد). ──
-  const breakingDone = new Set<ItemGroup>();
-  if (bundleMode && !CFG.dryRun && ordered.length > 0) {
-    for (const g of ordered) {
-      const faStored = (g.primary.translationFa || '').trim();
-      const raw = g.primary.content || '';
-      if (!isBreakingNewsText(faStored) && !isBreakingNewsText(raw)) continue;
-      const fa = faStored || await gateFa(raw);
-      if (!fa) continue; // غیرفارسی و ترجمه نشد → مسیر عادی صف؛ چرخهٔ بعد دوباره می‌سنجد
-      const srcLabel = aggregateSourceLabel(g.members.map((m) => m.sourceName));
-      const brOk = await sendBreakingNow(srcLabel, fa);
-      if (brOk) {
-        summary.breakingSent = (summary.breakingSent || 0) + 1;
-        breakingDone.add(g);
-        mark(g);
-        markMsg(fa);
-        console.log(`🚨 خبر فوری ارسال شد — ${srcLabel} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
-      }
-    }
-  }
+  // ── خبر کانال/خبرگزاری هرگز فوری نمی‌شود — خواستهٔ کاربر ۲۰ نوامبر (ششم): «گفتم فقط
+  //    توییتها یا تروث سوشال های حاوی کلمه جنگ یا ایرا یا جمهوری اسلامی به شکل خبر فوری
+  //    ارسال بشن نه خبرهای کانالها یا خبرگزاریها» — مسیر فوریِ اخبار منابع (isBreakingNewsText)
+  //    کلاً حذف شد؛ همهٔ اخبار از همان صف بستهٔ خبری (راستی‌آزمایی + دسته‌بندی + اسلات زوج)
+  //    می‌روند. فوری فقط در خط لولهٔ توییت رخ می‌دهد (isBreakingTweetText). ──
   if (one && one.items.length > 0) {
     const { sends, skippedBadRef, skippedDupGroup, skippedDupText } = planBotSends(one.items, ordered, { priorTexts: priorMsgTexts });
     if (skippedBadRef || skippedDupGroup || skippedDupText) {
       console.log(`فیلتر خروجی مدل: ${skippedBadRef} نامرجع، ${skippedDupGroup} رویداد تکراری، ${skippedDupText} متن مشابه حذف شد`);
     }
     for (const s of sends) {
-      // فوری‌ماندهٔ همین چرخه — بلافاصله ارسال شده؛ دوباره به صف نمی‌رود
-      if (breakingDone.has(s.g)) continue;
       // ── گیت بازرسی و ترجمه: متن لاتین/عربی/روسی → ترجمه؛ نشد → ارسال نمی‌شود تا چرخهٔ بعد
       let text = await gateFa(s.text);
       if (!text) {
@@ -4033,8 +4023,8 @@ async function main(): Promise<void> {
   } else {
     // مسیر شکست مدل (در حالت بست: مسیر صف‌گذاری مستقیم همهٔ رویدادها) —
     // فقط خبرهای فارسیِ روان می‌روند؛ غیرفارسی بدون ترجمه هرگز نمی‌رود (چرخهٔ بعد دوباره تلاش می‌کند)
-    const fluent = ordered.filter((g) => fluentFaText(g) !== null && !breakingDone.has(g));
-    const stuck = ordered.length - fluent.length - breakingDone.size;
+    const fluent = ordered.filter((g) => fluentFaText(g) !== null);
+    const stuck = ordered.length - fluent.length;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
     if (!bundleMode) {
       for (const t of CFG.targets) {

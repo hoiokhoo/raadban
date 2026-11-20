@@ -1428,8 +1428,10 @@ async function sendBreakingNow(source: string, faText: string, faName?: string):
   const text = (faText || '').trim();
   if (!text) return false;
   const caption = `🚨 فوری — ${source}${faName ? ` • ${faName}` : ''}`.slice(0, 200);
+  // کپشن کامل بدون بریدن خاموش — مسیر گیفِ بازگشتی خودش با splitPhotoCaption می‌شکند و
+  // مازاد را به‌صورت پیام متنی کامل می‌فرستد (هیچ دنباله‌ای گم نمی‌شود)
   const fullCaption = [`🚨 فوری — ${source}`, faName ? `${faName}:` : '', text]
-    .filter(Boolean).join('\n').slice(0, 1000);
+    .filter(Boolean).join('\n');
   const date = tripleDateOf(tehranParts(Date.now()).dateKey, 'Asia/Tehran', 'umalqura');
   const [gifCard, card] = await Promise.all([
     renderBreakingCardGif({ source, text, faName, date }).catch(() => null),
@@ -1730,7 +1732,9 @@ export function salvageBatchTranslations(raw: string): BatchTranslationEntry[] |
     if (!Number.isInteger(n) || n < 1 || n > 200 || fa.trim().length < 2) continue;
     if (seen.has(n)) continue;
     seen.add(n);
-    out.push({ n, fa: fa.trim().slice(0, 3500) });
+    // سقف ۱۰۰۰۰ نویسه — فقط سپر ضدِ پاسخ دیوانه‌وار؛ ترجمهٔ کامل هر توییت/تروث بلند دست‌نخورده می‌ماند
+    // (خواستهٔ کاربر ۲۰ نوامبر هشتم: ترجمهٔ فوری «کامل باشه فقط فارسی روان و کامل»)
+    out.push({ n, fa: fa.trim().slice(0, 10000) });
   }
   return out.length > 0 ? out : null;
 }
@@ -1748,10 +1752,11 @@ export function validateBatchTranslation(x: unknown): BatchTranslationEntry[] | 
     if (typeof raw !== 'object' || raw === null) continue;
     const e = raw as Record<string, unknown>;
     const n = Number(e.n);
-    // سقف ۳۵۰۰ نویسه — خواستهٔ کاربر: ترجمهٔ کامل، بدون بریدن (خبر بلند کامل می‌آید)
+    // سقف ۱۰۰۰۰ نویسه — فقط سپر ضدِ پاسخ دیوانه‌وار؛ ترجمهٔ کامل بدون بریدن می‌آید
+    // (سقف ۳۵۰۰ قبلی دنبالهٔ پست‌های بلند تروث‌سوشال را خاموش می‌برید)
     const fa = typeof e.fa === 'string'
-      ? e.fa.trim().slice(0, 3500)
-      : typeof e.translation === 'string' ? e.translation.trim().slice(0, 3500) : '';
+      ? e.fa.trim().slice(0, 10000)
+      : typeof e.translation === 'string' ? e.translation.trim().slice(0, 10000) : '';
     if (!Number.isInteger(n) || n < 1 || n > 200 || fa.length < 2) continue;
     out.push({ n, fa });
   }
@@ -1771,9 +1776,10 @@ export async function gateFa(text: string): Promise<string | null> {
 }
 
 /** ترجمهٔ تک‌موردی روان با کل زنجیرهٔ مدل — سپر ضدِ انگلیسی قبل از ارسال.
- *  ورودی تا ۳۰۰۰ نویسه (قبلاً ۶۰۰ بود که عامل اصلی «ترجمهٔ ناقص» بود — نقد ۶ نوامبر ۲۰۲۶). */
+ *  ورودی تا ۱۲۰۰۰ نویسه (۶۰۰←۳۰۰۰←۱۲۰۰۰؛ سقف ۳۰۰۰ دنبالهٔ پست‌های بلند تروث‌سوشال را
+ *  خاموش می‌برید — خواستهٔ کاربر ۲۰ نوامبر هشتم: ترجمهٔ فوری کامل، بدون هیچ بریدگی). */
 export async function translateOne(text: string): Promise<string | null> {
-  const r = await chainCall(getTranslatePrompt(), `[1] ${text.slice(0, 3000)}`, { maxTokens: 2200 });
+  const r = await chainCall(getTranslatePrompt(), `[1] ${text.slice(0, 12000)}`, { maxTokens: 5000 });
   if (!r.ok || !r.content) return null;
   const entries = extractJson(r.content, validateBatchTranslation);
   return entries?.find((e) => e.n === 1)?.fa || null;
@@ -1787,8 +1793,9 @@ export async function translateOne(text: string): Promise<string | null> {
  *  ۳) پاسخ تجزیه‌ناپذیر → یک تلاش با تأمین‌کنندهٔ بعدی زنجیره.
  *  خروجی: آرایه هم‌طول ورودی — رشتهٔ خالی یعنی آن مورد این بار ترجمه نشد (چرخهٔ بعد دوباره).
  *  faithful=true → ترجمهٔ وفادار «کامل» توییت‌ها — خواستهٔ کاربر ۱۹ نوامبر: «به شکل کامل ،بدون
- *  خلاصه نویسی» — بچ کوچک‌تر ۵تایی × ≤۲۴۰۰ نویسه تا توییت‌های بلند تروث‌سوشال هرگز بریده نشوند
- *  (قبلاً سقف ۹۰۰ نویسه توییت‌های کامل را می‌برید و «توییت‌ها کامل نمی‌آمدند»). */
+ *  خلاصه نویسی» + ۲۰ نوامبر هشتم («کامل باشه فقط فارسی روان و کامل»): بچ ۳تایی × ≤۶۰۰۰ نویسه —
+ *  سقف قبلی ۲۴۰۰ دنبالهٔ پست‌های بلند تروث‌سوشال را پیش از رسیدن به مدل می‌برید؛ اکنون کل متن تا
+ *  ۶۰۰۰ نویسه به مدل می‌رسد و maxTokens ۱۰۰۰۰ خروجی کامل را جا می‌دهد. */
 export async function summarizeBatchFa(
   texts: string[],
   opts: { faithful?: boolean; maxPerItem?: number; maxTokens?: number } = {}
@@ -1797,8 +1804,8 @@ export async function summarizeBatchFa(
   if (!texts || texts.length === 0) return { fa: out, translated: 0 };
   const faithful = opts.faithful === true;
   const prompt = faithful ? getTranslatePrompt() : getNewsSummaryPrompt();
-  const perItem = Math.max(120, Math.min(faithful ? 2400 : 1200, opts.maxPerItem ?? (faithful ? 2400 : 900)));
-  const BATCH = faithful ? 5 : 8;
+  const perItem = Math.max(120, Math.min(faithful ? 6000 : 1200, opts.maxPerItem ?? (faithful ? 6000 : 900)));
+  const BATCH = faithful ? 3 : 8;
   let translated = 0;
   let lastProvider: string | undefined;
   for (let base = 0; base < texts.length; base += BATCH) {
@@ -1807,7 +1814,7 @@ export async function summarizeBatchFa(
     if (!corpus.trim()) continue;
     let entries: BatchTranslationEntry[] | null = null;
     for (let tryIdx = 0; tryIdx < 2 && !entries; tryIdx++) {
-      const r = await chainCall(prompt, corpus, { maxTokens: opts.maxTokens ?? (faithful ? 8000 : 5000), skipIds: tryIdx > 0 && lastProvider ? [lastProvider] : ['openrouter'] });
+      const r = await chainCall(prompt, corpus, { maxTokens: opts.maxTokens ?? (faithful ? 10000 : 5000), skipIds: tryIdx > 0 && lastProvider ? [lastProvider] : ['openrouter'] });
       if (!r.ok || !r.content) continue;
       lastProvider = r.providerId;
       entries = extractJson(r.content, validateBatchTranslation) ?? salvageBatchTranslations(r.content);
@@ -3717,9 +3724,17 @@ async function main(): Promise<void> {
       //    می‌شود (مقدم بر «فقط تحلیل»). فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند. ──
       const brSentIds = new Set<string>();
       for (const p of twItems) {
-        const faText = (p.fa || '').trim() || (p.text || '').trim();
+        if (!isBreakingTweetText(p.text || '') && !isBreakingTweetText((p.fa || '').trim())) continue;
+        // ترجمهٔ کاملِ اختصاصی فوری (خواستهٔ کاربر ۲۰ نوامبر هشتم: «توییتهای فوری … اصلا خلاصه نکن
+        // … کامل باشه فقط فارسی روان و کامل») — اگر ترجمهٔ دستهٔ وفادار غایب بود، یک فراخوان
+        // تک‌موردی کامل (تا ۱۲۰۰۰ نویسه) قبل از ارسال؛ فوری هرگز با متن ناقص می‌رود.
+        let faText = (p.fa || '').trim();
+        if (!faText) {
+          const one = await translateOne(p.text || '');
+          if (one && !needsTranslation(one)) faText = one.trim();
+        }
+        if (!faText) faText = (p.text || '').trim(); // آخرین سپر — خبر فوری هرگز گم نمی‌شود
         if (!faText) continue;
-        if (!isBreakingTweetText(faText) && !isBreakingTweetText(p.text || '')) continue;
         const brOk = await sendBreakingNow(p.source || 'توییت رصدشده', faText);
         if (brOk) {
           summary.breakingSent = (summary.breakingSent || 0) + 1;

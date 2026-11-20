@@ -426,8 +426,9 @@ describe('کارت توییت‌ها — فقط فارسی روان کامل (خ
     const faLines = svg.split('\n').filter((l) => l.includes('fill="#22432f"') && l.includes('font-size="26"')).length;
     expect(faLines).toBeGreaterThan(4); // چندین خط ترجمه — نه سقف دوخطی قدیمی
     expect(svg).toContain('#eef6ee'); // پس‌زمینهٔ سبز کم‌رنگ کارت توییت — خواستهٔ ۲۰ نوامبر سوم
-    expect(TW_MAX_LINES).toBe(16); // بلندترین ترجمهٔ کامل (~۹۰۰ نویسه) بدون «…» جا می‌شود
-    // متن فوق‌بلند (فراتر از حتی ۱۶ خط) → بریده با «…» (کارت هرگز سرریز نمی‌کند — صادقانه)
+    expect(TW_MAX_LINES).toBe(32); // ۲۰ نوامبر هشتم: ۱۶→۳۲ — پست‌های بلند تروث‌سوشال (تا ~۱۹۸۰ نویسه) کامل جا می‌شوند
+    // متن فوق‌بلند (فراتر از حتی ۳۲ خط) → بریده با «…» در بستهٔ عادی (کارت هرگز سرریز نمی‌کند — صادقانه؛
+    // کارت فوری بیرون از بسته، خودش بی‌سقف است و هرگز بریده نمی‌شود)
     const overflow = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 x', fa: 'کلمه '.repeat(2000), faName: 'نام' }] });
     expect(overflow).toContain('…');
   });

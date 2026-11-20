@@ -136,9 +136,14 @@ export function validateDigestText(raw: string | undefined | null, maxLen = 3400
 
 /** پارس اسلات‌ها — «8,14,20» یا «12:30,21:00» → «HH:MM» مرتب و معتبر؛ بی‌ورودی → پیش‌فرض */
 export function parseSlots(raw: string | undefined, fallback = '8,14,20'): string[] {
-  const s = (raw || '').trim() || fallback;
+  const s = (raw || '').trim();
+  // خاموشی صریح اسلات‌ها — خواستهٔ کاربر ۲۰ نوامبر (سوم): ادغام تحلیل‌های جامع در بستهٔ
+  // سه‌تایی ۸ساعته (۰۶/۱۴/۲۲) — DIGEST_HOURS/NIGHTLY_HOURS='none' یعنی آن اسلات غیرفعال
+  // (fallback هم به کار نمی‌افتد — نبودِ env هنوز fallback می‌گیرد، «none» ارادهٔ صریح است)
+  if (/^(none|off|-|disabled|خاموش)$/i.test(s)) return [];
+  const src = s || fallback;
   const out = new Set<string>();
-  for (const part of s.split(/[,\s]+/)) {
+  for (const part of src.split(/[,\s]+/)) {
     const m = part.trim().match(/^(\d{1,2})(?::(\d{1,2}))?$/);
     if (!m) continue;
     const h = Number(m[1]);

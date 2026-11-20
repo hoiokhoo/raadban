@@ -420,13 +420,14 @@ describe('کارت توییت‌ها — فقط فارسی روان کامل (خ
     expect(svg).toContain('توییت‌های مقامات تأثیرگذار');
   });
 
-  test('ترجمهٔ کامل بدون خلاصه‌سازی — توییت بلند چندخطی رندر می‌شود (ریشهٔ «توییت‌ها کامل نیومدن»)', () => {
+  test('ترجمهٔ کامل بدون خلاصه‌سازی — توییت بلند چندخطی رندر می‌شود (ریشهٔ «توییت‌ها کامل نیومدن»؛ پالت سبز کم‌رنگ — ۲۰ نوامبر سوم)', () => {
     const long = 'این متن آزمونی طولانی برای بررسی کامل بودن ترجمه در کارت تصویری است. '.repeat(12);
     const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 Donald Trump (تروث‌سوشال)', fa: long, faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' }] });
-    const faLines = svg.split('\n').filter((l) => l.includes('fill="#e8f1fa"') && l.includes('font-size="26"')).length;
+    const faLines = svg.split('\n').filter((l) => l.includes('fill="#22432f"') && l.includes('font-size="26"')).length;
     expect(faLines).toBeGreaterThan(4); // چندین خط ترجمه — نه سقف دوخطی قدیمی
-    expect(TW_MAX_LINES).toBe(14);
-    // متن فوق‌بلند → بریده با «…» (کارت هرگز سرریز نمی‌کند — صادقانه)
+    expect(svg).toContain('#eef6ee'); // پس‌زمینهٔ سبز کم‌رنگ کارت توییت — خواستهٔ ۲۰ نوامبر سوم
+    expect(TW_MAX_LINES).toBe(16); // بلندترین ترجمهٔ کامل (~۹۰۰ نویسه) بدون «…» جا می‌شود
+    // متن فوق‌بلند (فراتر از حتی ۱۶ خط) → بریده با «…» (کارت هرگز سرریز نمی‌کند — صادقانه)
     const overflow = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 x', fa: 'کلمه '.repeat(2000), faName: 'نام' }] });
     expect(overflow).toContain('…');
   });

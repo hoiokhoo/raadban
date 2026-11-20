@@ -92,11 +92,12 @@ describe('کارت خبر — خلاصهٔ کامل ۲ـ۳خطی (خواستهٔ
 // ---------- (۲) پرامپت‌ها — سطر سوم مجاز، معنای کامل مقدم بر کوتاهی ----------
 
 describe('پرامپت‌ها — سطر سوم مجاز و «معنای کامل مقدم بر کوتاهی» (۲۰ نوامبر دومی)', () => {
-  test('پرامپت ساعتی: سقف سه خط ~۱۶۵ نویسه + قاعدهٔ طلایی؛ «سطر سوم مطلقاً نیست» حذف شد', async () => {
+  test('پرامپت ساعتی: سقف سه خط ~۱۶۰ نویسه (سقفِ سخت — ۲۰ نوامبر سوم) + پایان‌بندی الزامی؛ «سطر سوم مطلقاً نیست» حذف شد', async () => {
     const { DEFAULT_SYSTEM_HOURLY } = await import('../bot/hourly');
     expect(DEFAULT_SYSTEM_HOURLY).toContain('سطر سوم');
-    expect(DEFAULT_SYSTEM_HOURLY).toContain('۱۶۵');
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('۱۶۰');
     expect(DEFAULT_SYSTEM_HOURLY).toContain('معنای کامل مقدم بر کوتاهی');
+    expect(DEFAULT_SYSTEM_HOURLY).toContain('پایان‌بندی الزامی'); // ریشه‌کن «…» — ۲۰ نوامبر سوم
     expect(DEFAULT_SYSTEM_HOURLY).not.toContain('مطلقاً نیست');
   });
 

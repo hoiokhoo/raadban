@@ -731,5 +731,15 @@
   "language": "fa",
   "region": "ایران",
   "priority": "عادی"
+ },
+ {
+  "name": "خبرنامه ایران (کانال تلگرام)",
+  "platform": "telegram",
+  "identifier": "khabarnamehir",
+  "url": "https://t.me/khabarnamehir",
+  "language": "fa",
+  "region": "ایران",
+  "priority": "عادی",
+  "category": "iran"
  }
 ]

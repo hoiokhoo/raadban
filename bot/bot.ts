@@ -58,11 +58,12 @@ import {
 } from './digest';
 import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
 import { renderMarketCardPng } from './market-card';
-import { CHART_ASSETS, buildChartPanel, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
+import { CHART_ASSETS, buildChartPanel, chartWindow, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
   renderNewsCardPages,
   renderTweetCardPages,
   renderBreakingCardPng,
+  renderBreakingCardGif,
   finalizeNewsCardText,
   NEWS_CARD_MAX_PAGES,
   NEWS_CARD_ROWS_PER_PAGE,
@@ -1405,47 +1406,46 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
   return { ok: false, error: lastErr || 'نامشخص' };
 }
 
-// ---------- ارسال فوری — گیف چراغ گردان + کارت متن «قرمز کم‌رنگ» ----------
-// خواستهٔ کاربر ۲۰ نوامبر (سوم): «تویی‌ها و اخبار فوری قرمز کم‌رنگ» — ارسال فوری =
-// گیف چراغ گردان متحرک (پس‌زمینهٔ قرمز کم‌رنگ — bot/breaking.ts) + کارت متن کامل با
-// همان پالت (bot/news-card.ts renderBreakingCardPng). پله‌های بازگشت صادقانه:
-// هر دو موفق → گیف اول (جلب توجه) بعد کارت متن؛ کارت ناموفق → گیف + کپشن متن؛
-// گیف ناموفق → فقط کارت؛ هر دو ناموفق → پیام متنی کامل — خبر فوری هرگز گم نمی‌شود.
+// ---------- ارسال فوری — تک‌پیام: کارتِ متحرک، چراغ گردان «داخل خودِ خبر» ----------
+// خواستهٔ کاربر ۲۰ نوامبر (پنجم): «چراغ گردون رو داخل همون خبر بزار متحرک نه پیام جدا» —
+// دیگر گیف جدا + کارت جدا (دو پیام) نیست؛ خودِ کارت فوری به GIF متحرک رندر می‌شود
+// (چراغ گردان چرخان/تپنده در سربرگ همان کارت — bot/news-card.ts renderBreakingCardGif)
+// و «یک» پیام با کپشن کوتاه ارسال می‌شود. پله‌های بازگشت صادقانه: گیف کارت ناموفق →
+// کارت PNG ثابت (باز هم تک‌پیام) → گیف چراغ مستقل + کپشن متن کامل → پیام متنی کامل.
+// خبر فوری هرگز گم نمی‌شود.
 async function sendBreakingNow(source: string, faText: string, faName?: string): Promise<boolean> {
   const text = (faText || '').trim();
   if (!text) return false;
-  const caption = [`🚨 فوری — ${source}`, faName ? `${faName}:` : '', text]
+  const caption = `🚨 فوری — ${source}${faName ? ` • ${faName}` : ''}`.slice(0, 200);
+  const fullCaption = [`🚨 فوری — ${source}`, faName ? `${faName}:` : '', text]
     .filter(Boolean).join('\n').slice(0, 1000);
   const date = tripleDateOf(tehranParts(Date.now()).dateKey, 'Asia/Tehran', 'umalqura');
-  const [gif, card] = await Promise.all([
-    renderBreakingGif().catch(() => null),
+  const [gifCard, card] = await Promise.all([
+    renderBreakingCardGif({ source, text, faName, date }).catch(() => null),
     renderBreakingCardPng({ source, text, faName, date }).catch(() => null),
   ]);
   let anyOk = false;
-  if (gif && card) {
+  if (gifCard || card) {
+    // تک‌پیام: کارت متحرک (ترجیح) یا PNG ثابت — متن کامل داخل خود کارت است
+    const media = gifCard ?? card!;
+    const filename = gifCard ? 'raadban-breaking-card.gif' : 'raadban-breaking-card.png';
+    const mime = gifCard ? 'image/gif' : undefined;
     for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', undefined, 'image/gif');
-      if (s.ok) anyOk = true;
-      else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
-    }
-    for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-breaking-card.png');
-      if (s.ok) anyOk = true;
-      else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
-    }
-  } else if (gif) {
-    // کارت رندر نشد — متن به‌صورت کپشن روی همان گیف (سقف ۱۰۲۴؛ سرریز پیام جداگانه)
-    const cap = splitPhotoCaption(caption, 1024);
-    for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
-      if (s.ok) { anyOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
-      else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
-    }
-  } else if (card) {
-    for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, card.png, 'raadban-breaking-card.png');
+      const s = await sendBalePhotoBytes(CFG.token, t, media.png, filename, caption, mime);
       if (s.ok) anyOk = true;
       else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
+    }
+    if (anyOk && gifCard) console.log('🚨 کارت فوری متحرک ارسال شد — چراغ گردان داخل خود خبر، تک‌پیام');
+  } else {
+    // هیچ کارتی رندر نشد → گیف چراغ گردان مستقل + کپشن متن کامل (باز هم تک‌پیام)
+    const gif = await renderBreakingGif().catch(() => null);
+    if (gif) {
+      const cap = splitPhotoCaption(fullCaption, 1024);
+      for (const t of CFG.targets) {
+        const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
+        if (s.ok) { anyOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
+        else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
+      }
     }
   }
   if (anyOk) return true;
@@ -2329,7 +2329,7 @@ export interface RunSummary {
   // توییت‌ها
   tweetsFetched?: number;
   tweetsSent?: number;
-  /** توییت‌های فوری ایران/جنگ ارسال‌شده با گیف چراغ گردان (خواستهٔ ۲۰ نوامبر) */
+  /** توییت‌های فوری ایران‌دار ارسال‌شده با کارت متحرک (خواستهٔ ۲۰ نوامبر — پنجم: فقط ایران) */
   breakingSent?: number;
   /** توییت‌های صف‌شده برای بستهٔ جداگانهٔ توییت (حالت بست) */
   tweetsQueued?: number;
@@ -2555,6 +2555,10 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
             else console.warn('⚠️ نمودار دارایی‌ها: تاریخچهٔ کافی دریافت نشد — چرخهٔ بعد دوباره تلاش می‌کند');
           }
           if (state.chartHist) {
+            // ممیزی ۲۰ نوامبر (پنجم): پنجرهٔ تقویمی یکسان [امروز−۲۹، امروز] برای همهٔ دارایی‌ها —
+            // دیگر «۳۰ ردیف معاملاتی» با بازه‌های ناهمگون نیست؛ درصد/رنگ/نمودار هر پنل از همان
+            // سریِ بریده‌شده در همین پنجره ساخته می‌شود و جهت محور چپ→راست است (قدیم=چپ).
+            const win = chartWindow(pMkt.dateKey);
             const panels: ChartPanel[] = [];
             for (const a of CHART_ASSETS) {
               const raw = state.chartHist.assets[a.key];
@@ -2562,7 +2566,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
               const liveRaw = md.tgjuCurrent?.[a.liveKey]?.p;
               const live = liveRaw !== undefined ? num(liveRaw) : null;
               const merged = mergeLivePoint({ closes: raw.closes, dates: raw.dates }, pMkt.dateKey, live, a.rial);
-              const panel = buildChartPanel(a, merged);
+              const panel = buildChartPanel(a, merged, win);
               if (panel) panels.push(panel);
             }
             if (panels.length >= 3) {
@@ -2864,7 +2868,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
         ctx.sentIds?.push(m.id);
         ctx.sentTitleTexts?.push(normalizeTitle(fa).slice(0, 160));
         ctx.sentMsgTexts?.push(normalizeTitle(fa).slice(0, 160));
-        console.log(`🚨 فوری کانالی ارسال شد — ${m.sources[0]}${' (گیف + کارت قرمز کم‌رنگ)'}`);
+        console.log(`🚨 فوری کانالی ارسال شد — ${m.sources[0]}${' (کارت متحرک — چراغ گردان داخل خبر)'}`);
       }
     }
     const queuedList = merged
@@ -3688,8 +3692,9 @@ async function main(): Promise<void> {
         summary.translated += tr;
         if (tr) console.log(`ترجمهٔ توییت‌ها: ${tr} مورد از ${twItems.length}${res.provider ? ` (${res.provider})` : ''}`);
       }
-      // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم): توییت/تروث‌سوشال حاوی «ایران/جنگ»
-      //    حتی در حالت تحلیل هم بلافاصله با گیف چراغ گردان + کارت متن «قرمز کم‌رنگ» ارسال
+      // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم + پنجم): توییت/تروث‌سوشال حاوی «ایران»
+      //    (تنگهٔ پنجم: فقط توییت‌های ایران‌دار فوری‌اند — جنگِ بدون ایران دیگر فوری نیست)
+      //    حتی در حالت تحلیل هم بلافاصله با کارت متحرک (چراغ گردان داخل خود خبر) ارسال
       //    می‌شود (مقدم بر «فقط تحلیل»). فوری‌های ارسال‌شده از استخر تحلیل حذف می‌شوند. ──
       const brSentIds = new Set<string>();
       for (const p of twItems) {
@@ -3702,7 +3707,7 @@ async function main(): Promise<void> {
           brSentIds.add(p.id);
           sentIds.push(p.id);
           sentTitleTexts.push(normalizeTitle(faText).slice(0, 160));
-          console.log(`🚨 فوری ارسال شد — ${p.source} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
+          console.log(`🚨 فوری ارسال شد — ${p.source} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
         }
       }
       const twRemaining = twItems.filter((p) => !brSentIds.has(p.id));
@@ -3989,7 +3994,7 @@ async function main(): Promise<void> {
         breakingDone.add(g);
         mark(g);
         markMsg(fa);
-        console.log(`🚨 خبر فوری ارسال شد — ${srcLabel} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
+        console.log(`🚨 خبر فوری ارسال شد — ${srcLabel} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
       }
     }
   }
@@ -4108,12 +4113,12 @@ async function main(): Promise<void> {
         if (fa !== c.tweet.text) c.tweet.text = fa;
         // متن اصلی فقط وقتی با ترجمه فرق دارد نگه داشته می‌شود (توییت فارسی = تک‌متن)
         const orig = c.orig && c.orig !== fa ? c.orig : undefined;
-        // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم): «هر توییت یا تروث سوشالی حاوی
-        //    کلمهٔ ایران یا جنگ بود به شکل فوری با یه گیف چراغ گردان متحرک با عنوان فوری
-        //    نمایش داده بشه … بلافاصله بدون وقفه اونو ارسال کنه» + «تویی‌ها و اخبار فوری
-        //    قرمز کم‌رنگ» — فوری‌ها هرگز به صف نمی‌روند؛ بلافاصله با گیف + کارت متن
-        //    «قرمز کم‌رنگ» ارسال می‌شوند. ضدتکرار: هش شناسه + شباهت با ارسال‌های ۳۶ ساعت
-        //    اخیر + علامت همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
+        // ── خبر فوری — خواستهٔ کاربر ۲۰ نوامبر (دوم + سوم + پنجم): «هر توییت یا تروث سوشالی
+        //    حاوی کلمهٔ ایران … به شکل فوری … بلافاصله بدون وقفه اونو ارسال کنه» + «تویی‌ها و
+        //    اخبار فوری قرمز کم‌رنگ» + «برای فوری ها فقط توییتهای حاوی ایران رو بزار» — فوری‌ها
+        //    هرگز به صف نمی‌روند؛ بلافاصله با «کارت متحرک» (چراغ گردان داخل خود خبر، تک‌پیام)
+        //    ارسال می‌شوند. ضدتکرار: هش شناسه + شباهت با ارسال‌های ۳۶ ساعت اخیر + علامت
+        //    همین‌جا → در هیچ بسته/فوری بعدی تکرار نمی‌شوند. ──
         if (isBreakingTweetText(fa) || (orig ? isBreakingTweetText(orig) : false)) {
           const idKey = `tw-${c.dedupHandle.toLowerCase()}-${c.tweet.id}`;
           const brOk = await sendBreakingNow(c.label, fa, c.faName);
@@ -4122,7 +4127,7 @@ async function main(): Promise<void> {
             sentIds.push(idKey);
             sentTitleTexts.push(normalizeTitle(fa).slice(0, 160));
             markMsg(fa);
-            console.log(`🚨 فوری ارسال شد — ${c.label} (گیف چراغ گردان + کارت قرمز کم‌رنگ)`);
+            console.log(`🚨 فوری ارسال شد — ${c.label} (کارت متحرک — چراغ گردان داخل خبر، تک‌پیام)`);
             continue; // به صف بستهٔ توییت نمی‌رود — بلافاصله مخابره شد
           }
           // ارسال فوری ناموفق → همان مسیر عادی صف (چرخهٔ بعد ضدتکرار دوباره می‌سنجد)

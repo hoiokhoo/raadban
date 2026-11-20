@@ -20,6 +20,7 @@ import { faDigits } from '../bot/daily';
 import {
   CHART_ASSETS,
   CHART_DAYS,
+  HIST_KEEP_ROWS,
   parseHistorySeries,
   mergeLivePoint,
   buildChartPanel,
@@ -27,6 +28,11 @@ import {
   makeAssetsChartSvg,
   renderAssetsChartPng,
   historyUrl,
+  panelMatchesPct,
+  chartWindow,
+  clipSeriesToWindow,
+  daysBetweenIso,
+  isoAddDays,
   type HistSeries,
   type ChartPanel,
 } from '../bot/assets-chart';
@@ -133,15 +139,43 @@ function histFixture(count: number, basePrice: number): string {
   return JSON.stringify({ draw: 1, recordsTotal: count, recordsFiltered: count, data: rows });
 }
 
-describe('assets-chart — پارس تاریخچهٔ tgju (خالص)', () => {
-  test('ردیف‌های جدید→قدیم به قدیم→جدید وارونه و به ۳۰ نقطهٔ آخر بریده می‌شود', () => {
+describe('assets-chart — پارس تاریخچهٔ tgju (خالص — ممیزی ۲۰ نوامبر پنجم: مرتب‌سازی + حذف تکرار)', () => {
+  test('ردیف‌های جدید→قدیم؛ خروجی همیشه قدیم→جدید مرتب‌شده؛ سقف نگه‌داری HIST_KEEP_ROWS', () => {
     const s = parseHistorySeries(histFixture(45, 1_000_000), { rial: true });
     expect(s).not.toBeNull();
-    expect(s!.closes.length).toBe(30);
-    // جدیدترین ردیف (قیمت پایه) باید آخرین نقطه باشد؛ قدیمی‌ترینِ ۳۰تایی نخست
+    expect(s!.closes.length).toBe(45); // دیگر «۳۰ ردیف» نیست — سقف ۴۵ برای پنجرهٔ تقویمی ۳۰روزه
+    // جدیدترین ردیف (قیمت پایه) باید آخرین نقطه باشد؛ قدیمی‌ترینِ مجموعه نخست
     expect(s!.closes[0]).toBeGreaterThan(s!.closes[s!.closes.length - 1]!);
-    expect(s!.dates[0]).toBe('2026-10-22');
+    expect(s!.dates[0]).toBe('2026-10-07');
     expect(s!.dates[s!.dates.length - 1]).toBe('2026-11-20');
+    // ترتیب تاریخ‌ها صعودی است (خواستهٔ ممیزی: «داده‌ها به ترتیب زمانی صعودی مرتب شوند»)
+    const sorted = [...s!.dates].sort();
+    expect(s!.dates).toEqual(sorted);
+  });
+
+  test('ورودی با ترتیب معکوس (قدیم→جدید) هم به خروجی مرتب‌شدهٔ صعودی می‌رسد', () => {
+    const rows: string[][] = [];
+    for (let i = 9; i >= 0; i--) { // قدیم→جدید — ترتیب خراب عمدی
+      const iso = `2026/11/${String(10 + (9 - i) + 1).padStart(2, '0')}`;
+      rows.push(['100', '100', '100', String(100 + (9 - i)), '<span>1</span>', '1%', iso, '—']);
+    }
+    const s = parseHistorySeries(JSON.stringify({ data: rows }), { rial: false });
+    expect(s!.dates).toEqual(Array.from({ length: 10 }, (_, i) => `2026-11-${String(11 + i).padStart(2, '0')}`));
+    expect(s!.closes).toEqual(Array.from({ length: 10 }, (_, i) => 100 + i));
+  });
+
+  test('تاریخ تکراری → حذف (نخستین رخدادِ پیمایش جدید→قدیم می‌ماند)', () => {
+    const rows: string[][] = [
+      ['100', '100', '100', '130', 'x', 'x', '2026/11/19', '—'],
+      ['100', '100', '100', '125', 'x', 'x', '2026/11/18', '—'],
+      ['100', '100', '100', '999', 'x', 'x', '2026/11/18', '—'], // تکراری — کنار گذاشته می‌شود
+      ['100', '100', '100', '120', 'x', 'x', '2026/11/17', '—'],
+    ];
+    const s = parseHistorySeries(JSON.stringify({ data: [...rows, ...Array.from({ length: 8 }, (_, i) => ['1', '1', '1', String(10 + i), 'x', 'x', `2026/11/${String(16 - i).padStart(2, '0')}`, '—'])] }), { rial: false });
+    const idx18 = s!.dates.indexOf('2026-11-18');
+    expect(idx18).toBeGreaterThanOrEqual(0);
+    expect(s!.closes[idx18]).toBe(125); // نه ۹۹۹ — تکراری حذف شد
+    expect(s!.dates.filter((d) => d === '2026-11-18').length).toBe(1);
   });
 
   test('پرچم ریالی → تقسیم بر ۱۰ (تومان)؛ نماد دلاری دست‌نخورده', () => {
@@ -163,29 +197,38 @@ describe('assets-chart — پارس تاریخچهٔ tgju (خالص)', () => {
   });
 });
 
-describe('assets-chart — الحاق نقطهٔ زندهٔ امروز (خالص)', () => {
-  const series: HistSeries = { closes: [100, 110, 120], dates: ['2026-11-17', '2026-11-18', '2026-11-19'] };
+describe('assets-chart — الحاق نقطهٔ زندهٔ امروز (خالص — با گارد هم‌مقیاسی)', () => {
+  const series: HistSeries = { closes: [100_000, 110_000, 120_000], dates: ['2026-11-17', '2026-11-18', '2026-11-19'] };
 
   test('آخرین نقطه امروز نیست → نقطهٔ زنده الحاق می‌شود', () => {
-    const m = mergeLivePoint(series, '2026-11-20', 130, false);
-    expect(m.closes).toEqual([100, 110, 120, 130]);
+    const m = mergeLivePoint(series, '2026-11-20', 130_000, false);
+    expect(m.closes).toEqual([100_000, 110_000, 120_000, 130_000]);
     expect(m.dates).toEqual(['2026-11-17', '2026-11-18', '2026-11-19', '2026-11-20']);
     expect(series.closes.length).toBe(3); // ورودی دست‌نخورده
   });
 
   test('آخرین نقطه امروز است → جایگزین می‌شود (نه الحاق دوباره)', () => {
-    const m = mergeLivePoint(series, '2026-11-19', 125, false);
-    expect(m.closes).toEqual([100, 110, 125]);
+    const m = mergeLivePoint(series, '2026-11-19', 125_000, false);
+    expect(m.closes).toEqual([100_000, 110_000, 125_000]);
     expect(m.dates.length).toBe(3);
   });
 
   test('قیمت ریالی زنده → تقسیم بر ۱۰؛ زندهٔ نامعتبر → سری دست‌نخورده', () => {
     const m = mergeLivePoint(series, '2026-11-20', 2_600_000, true);
-    expect(m.closes[3]).toBe(260_000);
+    expect(m.closes[3]).toBe(260_000); // ۲٬۶۰۰٬۰۰۰ ریال → ۲۶۰٬۰۰۰ تومان — هم‌مقیاس با سری
     const none = mergeLivePoint(series, '2026-11-20', null, false);
     expect(none).toBe(series);
     const bad = mergeLivePoint(series, '2026-11-20', Number.NaN, false);
     expect(bad).toBe(series);
+  });
+
+  test('گارد هم‌مقیاسی: زندهٔ ۱۰ برابر (ریال↔تومان/دلار) یا ۰٫۰۱ برابر → رد می‌شود', () => {
+    const big = mergeLivePoint(series, '2026-11-20', 1_200_000, false); // ۱۰× آخرین قیمت
+    expect(big).toBe(series); // دست‌نخورده — نقطهٔ پرت ناهم‌مقیاس رد شد
+    const tiny = mergeLivePoint(series, '2026-11-20', 1_200, false); // ۰٫۰۱×
+    expect(tiny).toBe(series);
+    const stale = mergeLivePoint(series, '2026-11-16', 130_000, false); // تاریخ قدیمی‌تر از آخرین نقطه
+    expect(stale).toBe(series);
   });
 });
 
@@ -211,23 +254,33 @@ describe('assets-chart — پنل و اسپارک‌لاین (خالص)', () => 
     expect(p!.title).toBe('دلار آزاد');
     expect(p!.firstDate).toBe('2026-11-11');
     expect(p!.lastDate).toBe('2026-11-20');
+    expect(p!.points).toBe(10);
+    expect(p!.spanDays).toBe(9);
     expect(buildChartPanel(asset, null)).toBeNull();
     expect(buildChartPanel(asset, { closes: [1, 2], dates: ['a', 'b'] })).toBeNull();
   });
 
-  test('sparklinePoints — راست‌به‌چپ: قدیم در راست، جدید در چپ؛ بیشینه بالا/کمینه پایین', () => {
+  test('buildChartPanel — نخستِ صفر/منفی → null (خطای محاسباتی کنترل‌شده، نه NaN)', () => {
+    const bad: HistSeries = { closes: [0, 10, 20, 30, 40, 50, 60, 70], dates: Array.from({ length: 8 }, (_, i) => `2026-11-${11 + i}`) };
+    expect(buildChartPanel(asset, bad)).toBeNull();
+    const neg: HistSeries = { closes: [-5, 10, 20, 30, 40, 50, 60, 70], dates: bad.dates };
+    expect(buildChartPanel(asset, neg)).toBeNull();
+  });
+
+  test('sparklinePoints — چپ‌به‌راست: قدیم در چپ، جدید در راست؛ بیشینه بالا/کمینه پایین', () => {
     const values = [10, 30, 20, 50, 40]; // نخست=۱۰ (قدیم)، آخر=۴۰ (جدید)
     const sp = sparklinePoints(values, 0, 0, 100, 50);
     const [x0] = sp.pts.split(' ')[0]!.split(',').map(Number);
     const [xLast, yLast] = sp.pts.split(' ')[4]!.split(',').map(Number);
-    expect(x0).toBeCloseTo(100, 0); // قدیم‌ترین → راست
-    expect(xLast).toBeCloseTo(0, 0); // جدیدترین → چپ
+    expect(x0).toBeCloseTo(0, 0); // قدیم‌ترین → چپ (ممیزی ۲۰ نوامبر: جهت محور مانند قرارداد جهانی)
+    expect(xLast).toBeCloseTo(100, 0); // جدیدترین → راست
     // بیشینه (۵۰) → کمترین y (بالا)
     const [xMax, yMax] = sp.pts.split(' ')[3]!.split(',').map(Number);
-    expect(xMax).toBeCloseTo(25, 0);
+    expect(xMax).toBeCloseTo(75, 0);
     expect(yMax).toBeCloseTo(0, 0);
     expect(yLast).toBeGreaterThan(0); // ۴۰ بین بالا و پایین
-    expect(sp.area.startsWith('100.0,50.0')).toBe(true); // ناحیه از پایینِ راست شروع می‌شود
+    expect(sp.area.startsWith('0.0,50.0')).toBe(true); // ناحیه از پایینِ چپ شروع می‌شود
+    expect(sp.lastX).toBeCloseTo(100, 0); // نقطهٔ پایان (جدید) در لبهٔ راست
   });
 
   test('سری ثابت (بدون نوسان) → خط وسط، بدون NaN', () => {
@@ -243,13 +296,14 @@ describe('assets-chart — SVG و رندر PNG', () => {
     const panels: ChartPanel[] = CHART_ASSETS.map((a, ai) => {
       const up = ai % 2 === 0;
       const closes = Array.from({ length: 30 }, (_, i) => 1000 + (up ? i : -i) * (ai + 1));
-      const dates = Array.from({ length: 30 }, (_, i) => `2026-10-${String(22 + i).padStart(2, '0')}`);
+      const dates = Array.from({ length: 30 }, (_, i) => new Date(Date.UTC(2026, 9, 22 + i)).toISOString().slice(0, 10));
       return buildChartPanel(a, { closes, dates })!;
     }).filter((p): p is ChartPanel => Boolean(p));
     return { date: CARD_DATE, panels };
   }
 
-  test('SVG کامل — هر شش عنوان، نشان درصد فارسی، بدون NaN/undefined', () => {
+  test('SVG کامل — هر شش عنوان، نشان درصد فارسی، برچسب تاریخ دو سر هر پنل، بدون NaN/undefined', () => {
+    const { panels } = panelsFixture();
     const svg = makeAssetsChartSvg(panelsFixture());
     expect(svg.length).toBeGreaterThan(3000);
     for (const a of CHART_ASSETS) expect(svg).toContain(a.title);
@@ -259,6 +313,44 @@ describe('assets-chart — SVG و رندر PNG', () => {
     expect(svg).toContain('▼');
     expect(svg).not.toContain('NaN');
     expect(svg).not.toContain('undefined');
+    // ممیزی ۲۰ نوامبر پنجم: جهت محور برای خواننده صریح است — تاریخ آغاز و پایان زیر دو سر پنل + پانوشت
+    expect(svg).toContain('چپ: آغاز بازه — راست: امروز');
+    expect(svg).toContain('۳۰ مهر'); // برچسب تاریخ آغاز (لبهٔ چپ) پنل‌ها — ۲۰۲۶-۱۰-۲۲
+    expect(svg).toContain('۲۹ آبان'); // برچسب تاریخ پایان (لبهٔ راست، امروز) — ۲۰۲۶-۱۱-۲۰
+    for (const p of panels) {
+      expect(panelMatchesPct(p)).toBe(true); // ناگزیر: جهت/درصد/مقدار هم‌خوان
+    }
+  });
+
+  test('پنل خنثی (قیمت ثابت) → فلش «—» و رنگ خنثی، نه سبز/قرمز گمراه‌کننده', () => {
+    const asset = CHART_ASSETS.find((a) => a.key === 'btc')!;
+    const flat = buildChartPanel(asset, {
+      closes: Array.from({ length: 12 }, () => 61_000),
+      dates: Array.from({ length: 12 }, (_, i) => new Date(Date.UTC(2026, 10, 9 + i)).toISOString().slice(0, 10)),
+    })!;
+    expect(flat.pct).toBe(0);
+    const svg = makeAssetsChartSvg({ date: CARD_DATE, panels: [flat, ...panelsFixture().panels.slice(0, 2)] });
+    expect(svg).toContain('—'); // فلش خنثی
+    expect(svg).toContain('#cbd5e1'); // رنگ خنثی
+    expect(panelMatchesPct(flat)).toBe(true);
+  });
+
+  test('ناگزیر ممیزی: پنل ناسازگار (نمودار صعودی + درصد منفی) توسط panelMatchesPct رد می‌شود', () => {
+    const asset = CHART_ASSETS.find((a) => a.key === 'btc')!;
+    const honest = buildChartPanel(asset, {
+      closes: [80_000, 79_000, 78_000, 77_000, 62_000], // نزولی واقعی
+      dates: Array.from({ length: 5 }, (_, i) => `2026-11-${11 + i}`),
+    });
+    expect(honest).toBeNull(); // کمتر از ۸ نقطه → null صادقانه (بدون درصد جعلی)
+    // پنل جعلیِ دست‌ساز: values صعودی ولی pct منفی — ناگزیر باید آن را بگیرد
+    const fake: ChartPanel = {
+      key: 'btc', title: 'بیت‌کوین', unit: 'usd',
+      values: [60_000, 62_000, 64_000, 66_000, 68_000, 70_000, 72_000, 74_000],
+      pct: -27, firstDate: '2026-10-22', lastDate: '2026-11-20', points: 8, spanDays: 30,
+    };
+    expect(panelMatchesPct(fake)).toBe(false); // «نمودار صعودی با درصد منفی → تست باید شکست بخورد»
+    const fakeUp: ChartPanel = { ...fake, values: [...fake.values].reverse(), pct: 14.7 };
+    expect(panelMatchesPct(fakeUp)).toBe(false); // «نمودار نزولی با درصد مثبت» هم رد می‌شود
   });
 
   test('کمتر از ۳ پنل → SVG خالی (هیچ نیم‌نموداری ارسال نمی‌شود)', () => {

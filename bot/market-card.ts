@@ -4,7 +4,8 @@
  *
  * بازطراحی یکدست ۲۰ نوامبر ۲۰۲۶ (خواستهٔ کاربر):
  * «کل آیتمها به یه شکل — ستون اول اسم ماشین/سکه/دلار، ستون دوم قیمت بازار،
- *  ستون سوم قیمت کارخانه یا دولتی اگر هست، ستون چهارم درصد تغییر نسبت به روز قبل.
+ *  ستون سوم قیمت کارخانه یا دولتی اگر هست، ستون چهارم درصد تغییر نسبت به دیروز ساعت ۳
+ *  (خواستهٔ ۲۰ نوامبر ششم: «تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن»).
  *  الآن سه تا ماشین اول لیست یه کلن بقیه لیست یه شکل دیگه!» —
  * همهٔ ردیف‌ها (خودرو/طلا/سکه/ارز/بورس) اکنون یک جدول یکدست ۴ستونی‌اند؛
  * ستون «کارخانه/دولتی» برای اقلام بی‌قیمت رسمی «—» می‌آید (هیچ عدد ساختگی).
@@ -45,7 +46,7 @@ export interface CardPng {
 
 const W = 1080;
 const HEADER_H = 170;
-/** سطر عنوان ستون‌ها — «نام | قیمت بازار | کارخانه/دولتی | تغییر روز» */
+/** سطر عنوان ستون‌ها — «نام | قیمت بازار | کارخانه/دولتی | تغییر ۲۴ساعته» */
 const COLHDR_H = 62;
 const SECTION_H = 58;
 /** همهٔ ردیف‌ها هم‌قد و هم‌شکل (خودرو VIP هم مثل بقیه تک‌خطی) */
@@ -61,7 +62,7 @@ const MAX_CARS = 10;
 const X_NAME_R = W - PAD - 24; // لبهٔ راست ستون نام
 const X_MKT_R = 655; // لبهٔ راست ستون قیمت بازار
 const X_OFF_R = 360; // لبهٔ راست ستون کارخانه/دولتی
-/** ستون تغییر روز — چپ‌چین از لبهٔ کارت: فلش ۳۶–۵۷، درصد از ۶۶ */
+/** ستون تغییر ۲۴ساعته (دیروز ساعت ۳ → امروز ساعت ۳) — چپ‌چین از لبهٔ کارت: فلش ۳۶–۵۷، درصد از ۶۶ */
 const X_PCT_L = PAD + 30;
 
 function esc(s: string): string {
@@ -78,7 +79,7 @@ export interface MarketRow {
   title: string;
   /** قیمت بازار — قالب‌بندی‌شده */
   value: string;
-  /** درصد تغییر نسبت به روز قبل — null یعنی «—» (بی‌داده) */
+  /** درصد تغییر نسبت به دیروز ساعت ۳ — null یعنی «—» (بی‌داده) */
   pct: number | null;
   /** قیمت کارخانه/دولتی قالب‌بندی‌شده — null یعنی «—» (این قلم قیمت رسمی ندارد) */
   official: string | null;
@@ -149,7 +150,7 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
   <text x="${X_NAME_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('نام')}</text>
   <text x="${X_MKT_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('قیمت بازار')}</text>
   <text x="${X_OFF_R}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl('کارخانه / دولتی')}</text>
-  <text x="${PAD}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="start">${rtl('تغییر روز')}</text>`;
+  <text x="${PAD}" y="${HEADER_H + 42}" font-size="24" font-weight="700" fill="#ffd75e" text-anchor="start">${rtl('تغییر ۲۴ساعته')}</text>`;
 
   let y = HEADER_H + COLHDR_H;
   const bodySvg = sections
@@ -191,7 +192,7 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
 
   const footerY = H - 32;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • درصد تغییر نسبت به روز قبل')}</text>
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • درصد تغییر نسبت به دیروز ساعت ۳')}</text>
   <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('دولتی: مرکز مبادله/بانکی — کارخانه: باما')}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">

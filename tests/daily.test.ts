@@ -7,7 +7,7 @@ import { describe, expect, test } from 'bun:test';
 import { tripleDateOf, shiftDateKey, dateKeyOf, weekdayFaOf } from '../bot/calendar';
 import { HADITH_BANK, INFALLIBLES } from '../bot/hadiths-data';
 import { OCCASIONS } from '../bot/occasions-data';
-import { pickHadith, isSemanticDuplicate, normalizeHadithArabic, bankStatus, matchOccasions, formatOccasionsBlock, pickNatureFromCommons, buildDailyMessage, BISMILLAH, faDigits, type HadithUsage } from '../bot/daily';
+import { pickHadith, isSemanticDuplicate, normalizeHadithArabic, bankStatus, matchOccasions, formatOccasionsBlock, pickNatureFromCommons, buildDailyMessage, BISMILLAH, SALAWAT, DAILY_DHIKR, dayDhikr, faDigits, type HadithUsage } from '../bot/daily';
 import { computePrayerTimes, validatePrayerTimes, faClock, type PrayerTimesDay } from '../bot/prayer';
 import { shouldFlushBundle, buildBundleChunks, type BundleItem } from '../bot/bundle';
 import { mergeCarStore, featuredCarsFromStore, CAR_FEATURED } from '../bot/market';
@@ -377,15 +377,63 @@ describe('اطلاعیهٔ فروش خودرو (Akharin_khodro)', () => {
 // ---------- تنظیمات روزانه ----------
 
 describe('تنظیمات پیام‌های روزانه', () => {
-  test('پیش‌فرض‌ها — ۰۵:۰۰ صبح و ۲۱:۰۰ شب تهران (خواستهٔ کاربر: شب ساعت ۹)', () => {
-    expect(DAILY_SETTINGS_DEFAULTS.morningHour).toBe('05:00');
+  test('پیش‌فرض‌ها — ۰۵:۴۵ صبح (خواستهٔ ۲۰ نوامبر ششم: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح») و ۲۱:۰۰ شب تهران', () => {
+    expect(DAILY_SETTINGS_DEFAULTS.morningHour).toBe('05:45');
     expect(DAILY_SETTINGS_DEFAULTS.eveningHour).toBe('21:00');
     expect(DAILY_SETTINGS_DEFAULTS.timezone).toBe('Asia/Tehran');
     expect(DAILY_SETTINGS_DEFAULTS.prayerMethod).toBe('tehran');
   });
   test('فایل خراب/نابود → پیش‌فرض (هیچ خطای مهلک)', () => {
     const s = loadDailySettings('/nonexistent/daily-settings.json');
-    expect(s.morningHour).toBe('05:00');
+    expect(s.morningHour).toBe('05:45');
     expect(s.city).toBe('تهران');
+  });
+});
+
+// ---------- صلوت شب + ذکر روز صبح (خواستهٔ ۲۰ نوامبر ششم) ----------
+
+describe('سربرگ شب = صلوت و ذکر روز پس از حدیث صبح', () => {
+  const bank = { morning: HADITH_BANK[0], evening: HADITH_BANK[HADITH_BANK.length - 1] };
+  const prayer = { lat: 35.6892, lon: 51.389, method: 'tehran' as const, fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, tz: 'Asia/Tehran' };
+  const base = { dateKey: '2026-11-10', tz: 'Asia/Tehran', qamariBasis: 'umalqura' as const, city: 'تهران', image: null, prayer, hadith: bank.morning };
+
+  test('پیام شبانگاهی با صلوت آغاز می‌شود — بسم‌الله حذف شد (۲۰ نوامبر ششم)', async () => {
+    const msg = await buildDailyMessage({ ...base, kind: 'evening', hadith: bank.evening });
+    expect(msg.text.startsWith(`<b>${SALAWAT}</b>`)).toBe(true);
+    expect(msg.text).not.toContain(BISMILLAH);
+    expect(msg.text).toContain(`<b>${bank.evening.narrator}:</b>`); // حدیث بلافاصله پس از صلوت
+  });
+
+  test('پیام صبحگاهی همچنان با بسم‌الله آغاز می‌شود (تغییر فقط برای شب بود)', async () => {
+    const msg = await buildDailyMessage({ ...base, kind: 'morning' });
+    expect(msg.text.startsWith(`<b>${BISMILLAH}</b>`)).toBe(true);
+    expect(msg.text).not.toContain(SALAWAT);
+  });
+
+  test('ذکر روز — بلافاصله پس از حدیث صبح، تنها و بدون پیشوند/پسوند (۲۰ نوامبر ششم)', async () => {
+    const msg = await buildDailyMessage({ ...base, kind: 'morning' }); // ۲۰۲۶-۱۱-۱۰ = سه‌شنبه
+    expect(msg.text).toContain(`<b>سبحان الله</b>`); // ذکر سه‌شنبه
+    const hadithEnd = msg.text.indexOf(bank.morning.source);
+    const dhikrAt = msg.text.indexOf('<b>سبحان الله</b>');
+    expect(dhikrAt).toBeGreaterThan(hadithEnd); // بعد از حدیث (منبع)
+    expect(msg.text.indexOf('📅')).toBeGreaterThan(dhikrAt); // و پیش از تاریخ
+    // بدون هیچ برچسب اضافه — فقط خود ذکر
+    expect(msg.text).not.toContain('ذکر روز');
+    expect(msg.text).not.toContain('ذکر امروز');
+  });
+
+  test('dayDhikr — چرخش هفت‌تایی شنبه تا جمعه؛ تاریخ نامعتبر → بدون ذکر', () => {
+    expect(dayDhikr('2026-11-14')).toBe('یا ارحم الراحمین'); // شنبه
+    expect(dayDhikr('2026-11-15')).toBe('لا اله الا الله'); // یکشنبه
+    expect(dayDhikr('2026-11-16')).toBe('یا الله'); // دوشنبه
+    expect(dayDhikr('2026-11-17')).toBe('سبحان الله'); // سه‌شنبه
+    expect(dayDhikr('2026-11-18')).toBe('الحمد لله'); // چهارشنبه
+    expect(dayDhikr('2026-11-19')).toBe('اللهم صل علی محمد و آل محمد'); // پنج‌شنبه
+    expect(dayDhikr('2026-11-20')).toBe('لا حول و لا قوة الا بالله'); // جمعه
+    expect(dayDhikr('2026-11-21')).toBe('یا ارحم الراحمین'); // شنبهٔ هفتهٔ بعد
+    expect(dayDhikr('')).toBe('');
+    expect(dayDhikr('garbage')).toBe('');
+    expect(DAILY_DHIKR.length).toBe(7);
+    for (const d of DAILY_DHIKR) expect(d.trim().length).toBeGreaterThan(3);
   });
 });

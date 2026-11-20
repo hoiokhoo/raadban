@@ -1,8 +1,15 @@
 /**
- * پیام‌های روزانهٔ رصدبان — صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۱:۰۰ (به وقت کانال — ساعت‌ها تنظیمی است)
+ * پیام‌های روزانهٔ رصدبان — صبحگاهی ۰۵:۴۵ و شبانگاهی ۲۱:۰۰ (به وقت کانال — ساعت‌ها تنظیمی است)
  * خواستهٔ کاربر (۱۰ نوامبر ۲۰۲۶): بسم‌الله + حدیث چهارده معصوم + تصویر طبیعت + تاریخ
  * سه‌گانه + مناسبت‌ها (+ اوقات شرعی فردا در پیام شبانگاهی). «صحت و اعتبار محتوا بر سرعت
  * انتشار اولویت دارد» — هیچ حدیث/مناسبت/زمان ساختگی تولید نمی‌شود.
+ *
+ * خواستهٔ کاربر ۲۰ نوامبر (ششم):
+ *  • شب: «بسم الله الرحمن الرحیم در بالای حدیث ارسالی شب رو حذف کن بجاش بزار
+ *    اللهم صل علی محمد و آل محمد و عجل فرجهم» — پیام شبانگاهی با صلوت آغاز می‌شود.
+ *  • صبح: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح و هر صبح بعد از حدیث بدون قبل و بعد
+ *    ذکر روز رو بزار مثلا یا ارحم الراحمین یا لا اله الا الله یا ...» — ذکر روزِ هفته
+ *    (چرخش هفت‌تایی ذکرهای مشهور) بلافاصله پس از حدیث، تنها و بی‌پیشوند می‌آید.
  *
  * معماری: توابع خالص و تست‌پذیر + دو واکشی شبکه‌ای (تصویر ویکی‌مدیا). دفتر کل ربات =
  * فیلد daily از bot/state.json (هر چرخه در ریپو کامیت می‌شود — پس از ری‌استارت هم می‌ماند)؛
@@ -47,6 +54,36 @@ export function faHhmm(hhmm: string): string {
 }
 
 export const BISMILLAH = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+
+/** صلوت — سربرگ پیام شبانگاهی (خواستهٔ کاربر ۲۰ نوامبر ششم: «بسم الله … رو حذف کن بجاش
+ *  بزار اللهم صل علی محمد و آل محمد و عجل فرجهم» — به‌جای بسم‌الله، بالای حدیث شب) */
+export const SALAWAT = 'اللهم صل علی محمد و آل محمد و عجل فرجهم';
+
+/** ذکرهای مشهور روزهای هفته — چرخش هفت‌تایی (شنبه تا جمعه؛ خواستهٔ کاربر ۲۰ نوامبر ششم:
+ *  «هر صبح بعد از حدیث بدون قبل و بعد ذکر روز رو بزار مثلا یا ارحم الراحمین یا
+ *  لا اله الا الله یا ...» — ذکرهای مشهور و مورد اتفاق؛ هیچ ذکر ساختگی نیست).
+ *  ایندکس‌ها: ۰=شنبه … ۶=جمعه */
+export const DAILY_DHIKR: string[] = [
+  'یا ارحم الراحمین', // شنبه — نمونهٔ خود کاربر
+  'لا اله الا الله', // یکشنبه — نمونهٔ خود کاربر
+  'یا الله', // دوشنبه
+  'سبحان الله', // سه‌شنبه
+  'الحمد لله', // چهارشنبه
+  'اللهم صل علی محمد و آل محمد', // پنج‌شنبه — روز صلوت
+  'لا حول و لا قوة الا بالله', // جمعه
+];
+
+/** ذکر روزِ یک تاریخ «YYYY-MM-DD» — خالص و تست‌پذیر؛ تاریخ نامعتبر → '' (بدون ذکر،
+ *  هیچ ذکرِ روزِ غلطی نشان داده نمی‌شود) */
+export function dayDhikr(dateKey: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((dateKey || '').trim());
+  if (!m) return '';
+  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  if (Number.isNaN(d.getTime())) return '';
+  const dow = d.getUTCDay(); // ۰=یکشنبه … ۵=جمعه، ۶=شنبه
+  const idx = dow === 6 ? 0 : dow + 1; // شنبه→۰، یکشنبه→۱، … جمعه→۶
+  return DAILY_DHIKR[idx] || '';
+}
 
 // ---------- ضدتکرار حدیث (شناسه‌ای + معنایی) ----------
 
@@ -380,16 +417,24 @@ function hadithBlock(h: HadithEntry): string {
  *  (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: «عکس صبحگاهی بدون توضیحات اضافه فقط به همون متن صبحگاهی
  *  اضافه بشه نه خبر جداگانه»). خواستهٔ ۱۲ نوامبر: سربرگ «پیام صبحگاهی رصدبان»، خط پایانی برند
  *  و خط منبع تصویر از پیام حذف شد — پیام مستقیم با بسم‌الله آغاز می‌شود و ثبت منبع/مجوز
- *  تصویر فقط در لاگ و state انجام می‌شود. مناسبت نبود → بخش مناسبت‌ها کلًا نمی‌آید. */
+ *  تصویر فقط در لاگ و state انجام می‌شود. مناسبت نبود → بخش مناسبت‌ها کلًا نمی‌آید.
+ *  خواستهٔ ۲۰ نوامبر (ششم): بلافاصله پس از حدیث، «ذکر روز» — تنها، بدون هیچ پیشوند/پسوندی
+ *  («بدون قبل و بعد») — می‌آید؛ چرخش هفت‌تایی (dayDhikr). */
 export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occasions: OccasionHit[]; dayHistory?: DayHistoryEntry[] | null; dayHistoryTitle?: string; worldHistory?: DayHistoryEntry[] | null; worldDayMonth?: string }): DailyMessage {
-  const { today, occasions, hadith, image, dayHistory, dayHistoryTitle, worldHistory, worldDayMonth } = ctx;
+  const { today, occasions, hadith, image, dayHistory, dayHistoryTitle, worldHistory, worldDayMonth, dateKey } = ctx;
   const L: string[] = [
     `<b>${BISMILLAH}</b>`,
     '',
     hadithBlock(hadith),
+  ];
+  // ذکر روز — تنها و بی‌پیشوند، بلافاصله پس از حدیث (خواستهٔ ۲۰ نوامبر ششم)؛
+  // تاریخ نامعتبر → بدون ذکر (هیچ ذکر روزِ غلطی نشان داده نمی‌شود)
+  const dhikr = dayDhikr(dateKey);
+  if (dhikr) L.push('', `<b>${xmlEsc(dhikr)}</b>`);
+  L.push(
     '',
     datesBlock(today, 'امروز'),
-  ];
+  );
   const occ = formatOccasionsBlock(occasions, 'امروز');
   if (occ) L.push('', occ);
   // وقایع روز در تاریخ (ویکی‌پدیا) — خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶: جامع‌سازی بخش وقایع روز؛
@@ -409,11 +454,13 @@ export function buildMorningMessage(ctx: DailyContext & { today: TripleDate; occ
 }
 
 /** پیام شبانگاهی — تاریخِ «فردا» + مناسبت‌های فردا + اوقات شرعی فردا؛
- *  عکس شبانه به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶) */
+ *  عکس شبانه به‌صورت «کپشن همین پیام» می‌چسبد نه خبر جداگانه (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶).
+ *  خواستهٔ ۲۰ نوامبر (ششم): «بسم الله الرحمن الرحیم در بالای حدیث ارسالی شب رو حذف کن بجاش
+ *  بزار اللهم صل علی محمد و آل محمد و عجل فرجهم» — سربرگ شب صلوت است، نه بسم‌الله. */
 export function buildEveningMessage(ctx: DailyContext & { tomorrow: TripleDate; tomorrowOccasions: OccasionHit[]; dayHistory?: DayHistoryEntry[] | null; dayHistoryTitle?: string; worldHistory?: DayHistoryEntry[] | null; worldDayMonth?: string; prayerTimes: PrayerTimesDay | null }): DailyMessage {
   const { tomorrow, tomorrowOccasions, hadith, image, prayerTimes, city, dayHistory, dayHistoryTitle, worldHistory, worldDayMonth } = ctx;
   const L: string[] = [
-    `<b>${BISMILLAH}</b>`,
+    `<b>${SALAWAT}</b>`,
     '',
     hadithBlock(hadith),
     '',

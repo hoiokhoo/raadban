@@ -536,15 +536,15 @@ model PostReference {
   @@index([verdict])
 }
 
-// ---------- پیام‌های روزانه (صبحگاهی ۰۵:۰۰ و شبانگاهی ۲۰:۰۰) — خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶ ----------
+// ---------- پیام‌های روزانه (صبحگاهی ۰۵:۴۵ — خواستهٔ ۲۰ نوامبر ششم — و شبانگاهی ۲۱:۰۰) ----------
 // تنظیمات کانال: ساعت ارسال، منطقه زمانی، شهر و مختصات اوقات شرعی، روش محاسبه
 // دفتر کل واقعی ربات = bot/daily-settings.json + bot/state.json (در ریپو کامیت می‌شود)؛ این جدول آینهٔ پنل است
 model DailySettings {
   id             String   @id @default("singleton")
   morningEnabled Boolean  @default(true)
   eveningEnabled Boolean  @default(true)
-  morningHour    String   @default("05:00")
-  eveningHour    String   @default("20:00")
+  morningHour    String   @default("05:45")
+  eveningHour    String   @default("21:00")
   // پیام پیش‌بینی ساعتی فردا (خواستهٔ کاربر: شب ساعت ۹)
   weatherEnabled Boolean  @default(true)
   weatherHour    String   @default("21:00")

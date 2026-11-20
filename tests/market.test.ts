@@ -6,7 +6,7 @@ import { describe, expect, test } from 'bun:test';
 import {
   applyDeltas, deltaPct, faGroup, faToEnDigits, formatMarketMessage, formatMoney, formatPct,
   normalizeCarModel, num, parseBamaMarketPrice, parseCarLine, parseCarPriceLists, parseNobitexStats, parseTgjuCurrent, tgjuChangePct,
-  parseTsetmcMarketTotal, pickFeaturedCars, rialToToman, snapshotOf, xmlEsc,
+  parseTsetmcMarketTotal, pickFeaturedCars, rialToToman, snapshotOf, snapshotBaseOf, xmlEsc,
   CAR_FEATURED,
   type Quote,
 } from '../bot/market';
@@ -208,7 +208,7 @@ describe('parseCarPriceLists و pickFeaturedCars', () => {
   });
 });
 
-// ---------- درصد تغییر نسبت به روز قبل (خواستهٔ ۲۰ نوامبر) ----------
+// ---------- درصد تغییر نسبت به دیروز ساعت ۳ (خواستهٔ ۲۰ نوامبر ششم) ----------
 
 describe('deltaPct و applyDeltas', () => {
   test('deltaPct محاسبهٔ دقیق', () => {
@@ -221,14 +221,16 @@ describe('deltaPct و applyDeltas', () => {
   const mk = (key: string, value: number, srcPct?: number): Quote =>
     ({ key, title: key, value, unit: 'toman', srcLabel: 'tgju', emoji: '•', ...(srcPct !== undefined ? { changePct: srcPct } : {}) });
 
-  test('اولویت تازه: تغییر روزانهٔ منبع > پایهٔ دیروز > آخرین گزارش (۲۰ نوامبر: «درصد تغییر نسبت به روز قبل»)', () => {
+  test('اولویت تازه: پایهٔ دیروزِ ساعت ۳ > آخرین گزارش > تغییر روزانهٔ منبع (۲۰ نوامبر ششم: «تغییرات نسبت به ساعت ۳ روز قبل»)', () => {
     const quotes = [mk('geram18', 10500000, 1.24), mk('usd', 2650000, -0.3), mk('sekee', 2574100000, 1.24), mk('nim', 135000000)];
-    const out = applyDeltas(quotes, { geram18: 10000000, usd: 2700000 });
-    // تغییر روزانهٔ خود منبع دقیقاً «نسبت به دیروز» است — بر مقایسهٔ گزارش قبل مقدم شد
-    expect(out[0].changePct).toBe(1.24);
-    expect(out[0].changeSrc).toBe('source');
-    expect(out[1].changePct).toBe(-0.3);
-    expect(out[1].changeSrc).toBe('source');
+    // geram18: پایهٔ دیروز ۱۰M (گزارش ۰۳:۰۰ روز پیشین) → ‎+۵٪ — نه ۱٫۲٪ منبع
+    // usd: پایهٔ دیروز ندارد؛ آخرین گزارش ۲.۷M → ‎−۱٫۸۵٪ — نه ‎−۰٫۳ منبع
+    const out = applyDeltas(quotes, { geram18: 10500000, usd: 2700000 }, { geram18: 10000000 });
+    expect(out[0].changePct).toBe(5);
+    expect(out[0].changeSrc).toBe('prev');
+    expect(out[1].changePct).toBeCloseTo(-1.85, 2);
+    expect(out[1].changeSrc).toBe('prev');
+    // sekee: هیچ snapshot ما نیست → تغییر روزانهٔ خود منبع؛ nim: هیچ → «—»
     expect(out[2].changePct).toBe(1.24);
     expect(out[2].changeSrc).toBe('source');
     expect(out[3].changePct).toBeUndefined();
@@ -255,6 +257,33 @@ describe('deltaPct و applyDeltas', () => {
   test('snapshotOf فقط مقادیر معتبر', () => {
     const snap = snapshotOf([mk('a', 100), mk('b', 0)]);
     expect(snap).toEqual({ a: 100 });
+  });
+});
+
+
+describe('snapshotBaseOf - freshness guard for yesterday-3am base', () => {
+  const now = Date.parse('2026-11-21T00:00:00Z'); // ~03:30 Tehran, 21 Nov (03:00 slot)
+  test('fresh snapshot (~24h old - yesterday 03:00 report succeeded) -> bases valid', () => {
+    const at = new Date(now - 24 * 3_600_000).toISOString();
+    const b = snapshotBaseOf({ usd: 100 }, at, { usd: 90 }, now);
+    expect(b.fresh).toBe(true);
+    expect(b.prev).toEqual({ usd: 100 });
+    expect(b.prevDay).toEqual({ usd: 90 });
+  });
+  test('stale snapshot (>36h - yesterday report failed) -> no base; no misleading multi-day pct', () => {
+    const at = new Date(now - 60 * 3_600_000).toISOString();
+    const b = snapshotBaseOf({ usd: 100 }, at, { usd: 90 }, now);
+    expect(b.fresh).toBe(false);
+    expect(b.prev).toBeUndefined();
+    expect(b.prevDay).toBeUndefined();
+  });
+  test('missing timestamp -> no base (first run)', () => {
+    const b = snapshotBaseOf({ usd: 100 }, undefined, undefined, now);
+    expect(b.fresh).toBe(false);
+  });
+  test('future/garbage timestamp -> no base', () => {
+    expect(snapshotBaseOf({ a: 1 }, new Date(now + 3_600_000).toISOString(), undefined, now).fresh).toBe(false);
+    expect(snapshotBaseOf({ a: 1 }, 'garbage', undefined, now).fresh).toBe(false);
   });
 });
 

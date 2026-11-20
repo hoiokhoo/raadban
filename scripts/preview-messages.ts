@@ -49,7 +49,7 @@ const state = readJson<BotStateLike>('bot/state.json', {});
 const ds = readJson<DailySettings>('bot/daily-settings.json', {
   timezone: 'Asia/Tehran', city: 'تهران', lat: 35.6892, lon: 51.389,
   prayerMethod: 'tehran', fajrAngle: 17.7, ishaAngle: 14, maghribMinutes: 15, qamariBasis: 'umalqura',
-  morningHour: '05:00', eveningHour: '21:00', weatherHour: '21:00',
+  morningHour: '05:45', eveningHour: '21:00', weatherHour: '21:00',
 });
 
 const now = Date.now();

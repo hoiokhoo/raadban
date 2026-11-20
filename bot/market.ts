@@ -84,7 +84,7 @@ export interface Quote {
   unit: QuoteUnit;
   /** منبع واقعی این عدد — در پیام می‌آید (نوبیتکس | tgju | بورس تهران | کانال خودرو) */
   srcLabel: string;
-  /** درصد تغییر: اولویت با مقایسه به گزارش قبل؛ نبود → تغییر روز منبع */
+  /** درصد تغییر: پایهٔ «دیروز ساعت ۳» (snapshot گزارش روزانهٔ ۰۳:۰۰)؛ نبود → تغییر روز منبع */
   changePct?: number;
   changeSrc?: 'prev' | 'source' | 'none';
   /** نمایش آمادهٔ مقدار */
@@ -108,21 +108,24 @@ export interface Quote {
 
 export type PriceSnapshot = Record<string, number>; // key → مقدار گزارش قبل
 
-/** اعمال تغییرات — خواستهٔ کاربر ۲۰ نوامبر: «ستون چهارم به شکل درصد تغییر نسبت به روز قبل».
- *  اولویت: ۱) تغییر روزانهٔ خود منبع (tgju/nobitex/tsetmc — دقیقاً نسبت به دیروز)؛
- *  ۲) پایهٔ دیروز (prevDay — آخرین گزارش روز پیشین؛ خودروها و اقلام بی‌تغییر منبع)؛
- *  ۳) آخرین گزارش موجود (prev). هیچ‌کدام → بدون تغییرات. تابع خالص تست‌پذیر. */
+/** اعمال تغییرات — خواستهٔ کاربر ۲۰ نوامبر (ششم): «تغییرات نسبت به ساعت ۳ روز قبل
+ *  محاسبه بشن» — گزارش بازار روزانهٔ ۰۳:۰۰ است، پس پایهٔ «دیروز ساعت ۳» = snapshot
+ *  گزارش روز پیشین. اولویت: ۱) پایهٔ دیروز (prevDay — دقیقاً گزارش ۰۳:۰۰ دیروز)؛
+ *  ۲) آخرین گزارش موجود (prev — در گزارش روزانه همان ۳ دیروز است)؛
+ *  ۳) تغییر روزانهٔ خود منبع (tgju/nobitex/tsetmc — فقط وقتی snapshot ما نیست؛
+ *  پایه‌اش بسته‌شدن دیروزِ منبع است نه ساعت ۳). هیچ‌کدام → بدون تغییرات («—»).
+ *  تابع خالص تست‌پذیر. */
 export function applyDeltas(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): Quote[] {
   return quotes.map((q) => {
-    if (q.changePct !== undefined && Number.isFinite(q.changePct)) {
-      return { ...q, changeSrc: 'source' as const };
-    }
     const pd = prevDay?.[q.key];
     const dd = pd !== undefined ? deltaPct(pd, q.value) : null;
     if (dd !== null) return { ...q, changePct: dd, changeSrc: 'prev' as const };
     const pv = prev?.[q.key];
     const d = pv !== undefined ? deltaPct(pv, q.value) : null;
     if (d !== null) return { ...q, changePct: d, changeSrc: 'prev' as const };
+    if (q.changePct !== undefined && Number.isFinite(q.changePct)) {
+      return { ...q, changeSrc: 'source' as const };
+    }
     return { ...q, changePct: undefined, changeSrc: 'none' as const };
   });
 }
@@ -769,9 +772,9 @@ export function officialLabelOf(q: Quote): string {
   return 'کارخانه';
 }
 
-/** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر):
- *  «نام: بازار (تغییر روز) | کارخانه/دولتی: قیمت یا —». بدون سربرگ برند، بدون بلوک «دریافت نشد»،
- *  بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو». */
+/** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر ششم):
+ *  «نام: بازار (تغییر نسبت به دیروز ساعت ۳) | کارخانه/دولتی: قیمت یا —». بدون سربرگ برند،
+ *  بدون بلوک «دریافت نشد»، بدون خط «منابع». خودرو با عنوان «آخرین قیمت بازار آزاد خودرو». */
 export function formatMarketMessage(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): string {
   const withDelta = applyDeltas(quotes, prev, prevDay);
   const L: string[] = [];
@@ -806,4 +809,26 @@ export function snapshotOf(quotes: Quote[]): PriceSnapshot {
   const out: PriceSnapshot = {};
   for (const q of quotes) if (Number.isFinite(q.value) && q.value > 0) out[q.key] = q.value;
   return out;
+}
+
+/** سقف کهنگی پایهٔ درصد — گزارش ۰۳:۰۰ روزانه؛ بیشتر از ~۳۶ ساعت یعنی گزارش دیروز ناموفق بوده
+ *  و پایهٔ موجود متعلق به «دیروز ساعت ۳» نیست (دو شب قبل است) */
+export const SNAPSHOT_STALE_MS = 36 * 3_600_000;
+
+/** انتخاب پایهٔ درصد بر اساس تازگی snapshot — خواستهٔ کاربر ۲۰ نوامبر (ششم):
+ *  «تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن». snapshot تازه (≤۳۶ ساعت) → پایهٔ
+ *  «دیروز ساعت ۳» معتبر است (prevDay مقدم، سپس prev). کهنه/ناموجود → پایه‌ها کنار
+ *  می‌روند (درصد از تغییر روزانهٔ خود منبع یا «—» می‌آید؛ هیچ درصد چندروزهٔ
+ *  گمراه‌کننده‌ای نشان داده نمی‌شود). تابع خالص تست‌پذیر. */
+export function snapshotBaseOf(
+  snap?: PriceSnapshot,
+  snapAt?: string,
+  prevDay?: PriceSnapshot,
+  nowMs: number = Date.now(),
+  staleMs: number = SNAPSHOT_STALE_MS,
+): { prev?: PriceSnapshot; prevDay?: PriceSnapshot; fresh: boolean } {
+  const at = snapAt ? Date.parse(snapAt) : NaN;
+  const fresh = Number.isFinite(at) && nowMs - at <= staleMs && nowMs >= at;
+  if (!fresh) return { fresh: false };
+  return { prev: snap, prevDay, fresh: true };
 }

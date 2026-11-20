@@ -88,7 +88,7 @@ const NEWS_LINE_H = 40;
 /** ارتفاع ردیف خبر بر پایهٔ خطوط واقعی متن — ارتفاع متغیر مثل کارت توییت؛
  *  ۱ خط: ۱۱۸ • ۲ خط: ۱۵۸ • ۳ خط: ۱۹۸ — خالص و تست‌پذیر */
 export function newsRowHeight(text: string): number {
-  const lines = wrapFa(text || '', MAX_CHARS_PER_LINE, NEWS_MAX_LINES).length;
+  const lines = wrapFa(stripCardEmoji(text || ''), MAX_CHARS_PER_LINE, NEWS_MAX_LINES).length;
   if (lines <= 1) return 118;
   if (lines === 2) return 158;
   return 198;
@@ -107,6 +107,23 @@ export function paginateItems<T>(items: T[], per: number, maxPages: number): T[]
     pages.push(items.slice(i, i + per));
   }
   return pages;
+}
+
+// ---------- پالایش ایموجی متنِ روی کارت — خواستهٔ کاربر ۲۰ نوامبر (نهم) ----------
+// «یه تیکه پرچم آمریکا افتاده روی توییت!!! اینجور علامتها دیگه نیاد رو عکس» —
+// فونت سرور گلیف رنگیِ ایموجی ندارد؛ پرچم 🇺🇸 به قطعهٔ بزرگِ سیاهِ روی‌متن تبدیل می‌شد
+// و روی چند خط توییت می‌افتاد. همهٔ ایموجی‌ها و نمادهای تزئینی از «متنِ روی تصویر» حذف
+// می‌شوند — پرچم‌ها (Regional Indicator)، صورتک‌ها، نمادها، انتخاب‌گر نمایش (FE0F)،
+// ZWJ، کی‌کپ و رنگ پوست. حروف/اعداد/علائم نگارشی فارسی و لاتین دست‌نخورده می‌مانند.
+// فقط لایهٔ تصویر — پیام متنی بله ایموجی را سالم نشان می‌دهد و دست نمی‌خورد. خالص و تست‌پذیر.
+const CARD_EMOJI_RE = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}\u{231A}\u{231B}\u{23CF}\u{23E9}-\u{23FA}]/gu;
+
+/** حذف ایموجی و نمادهای تزئینی از متنِ روی کارت — هم‌یشه پیش از wrapFa/ارتفاع، در هر سه کارت */
+export function stripCardEmoji(text: string): string {
+  return (text || '')
+    .replace(CARD_EMOJI_RE, ' ')
+    .replace(/ {2,}/g, ' ')
+    .trim();
 }
 
 /** شکستن متن فارسی به خطوط با سقف نویسه — واژه‌محور؛ سرریز → «…» در خط آخر. خالص و تست‌پذیر. */
@@ -270,7 +287,8 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
       ? (i % 2 === 0 ? '#1b3350' : '#162b45')
       : i % 2 === 0 ? '#102941' : '#0d2135';
     // تا سه خط کامل — دیگر خبر سه‌خطی با «…» در خط دوم بریده نمی‌شود (۲۰ نوامبر)
-    const lines = wrapFa(it.text || '', MAX_CHARS_PER_LINE, NEWS_MAX_LINES);
+    // متن روی کارت بدون ایموجی — پرچم/نماد هرگز روی خطوط نمی‌افتد (۲۰ نوامبر نهم)
+    const lines = wrapFa(stripCardEmoji(it.text || ''), MAX_CHARS_PER_LINE, NEWS_MAX_LINES);
     const cy = yTop + (rh - 12) / 2;
     const numCx = W - PAD - 34;
     const textRight = W - PAD - 110;
@@ -381,9 +399,9 @@ export const TW_MAX_LINES = 32;
 /** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها */
 export const TW_PAGE_MAX_HEIGHT = 6400;
 
-/** ارتفاع ردیف یک توییت — خالص و تست‌پذیر (صفحه‌بندی بر پایهٔ آن) */
+/** ارتفاع ردیف یک توییت — خالص و تست‌پذیر (صفحه‌بندی بر پایهٔ آن) — متن بدون ایموجی */
 export function tweetRowHeight(fa: string): number {
-  const lines = wrapFa(fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES).length;
+  const lines = wrapFa(stripCardEmoji(fa || ''), TW_CHARS_PER_LINE, TW_MAX_LINES).length;
   return TW_SOURCE_H + TW_NAME_H + Math.max(1, lines) * TW_LINE_H + TW_PAD_BOTTOM;
 }
 
@@ -440,7 +458,7 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
       const nameLine = (it.faName || 'ترجمه فارسی').replace(/\s+/g, ' ').trim();
       const nameLines = wrapFa(nameLine, 60, 1);
       const nameY = yTop + TW_SOURCE_H + 30;
-      const faLines = wrapFa(it.fa || '', TW_CHARS_PER_LINE, TW_MAX_LINES);
+      const faLines = wrapFa(stripCardEmoji(it.fa || ''), TW_CHARS_PER_LINE, TW_MAX_LINES);
       const faSvg = faLines
         .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#8a5a12' : '#22432f'}" text-anchor="end">${rtl(esc(ln))}</text>`)
         .join('\n');
@@ -528,7 +546,7 @@ export const BREAKING_CARD_GIF_DELAY_MS = 110;
 /** ارتفاع کارت فوری — با شمارش کامل wrapFaFull؛ هر متن بلند، کارت بلندتر می‌سازد و هیچ‌گاه
  *  با «…» بریده نمی‌شود (خواستهٔ کاربر ۲۰ نوامبر هشتم). خالص و تست‌پذیر. */
 export function breakingCardHeight(text: string, hasName: boolean): number {
-  const lines = wrapFaFull(text || '', BR_CHARS_PER_LINE).length;
+  const lines = wrapFaFull(stripCardEmoji(text || ''), BR_CHARS_PER_LINE).length;
   return BR_HEADER_H + 14 + BR_SOURCE_H + (hasName ? BR_NAME_H : 0) + Math.max(1, lines) * BR_LINE_H + BR_PAD_BOTTOM + FOOTER_H;
 }
 
@@ -569,7 +587,8 @@ function sirenSvg(cx: number, cy: number, phase = 0): string {
  *  animFrame (اختیاری): شمارهٔ فریم ۰..BREAKING_CARD_GIF_FRAMES−۱ → چراغ گردان سربرگ
  *  می‌چرخد/می‌تپد (کارت متحرک). بدون آن → چراغ در حالت ساکن (فاز صفر). */
 export function makeBreakingCardSvg(input: BreakingCardInput, animFrame?: number): string {
-  const text = (input.text || '').replace(/\s+/g, ' ').trim();
+  // متن روی کارت بدون ایموجی — پرچم/نماد هرگز روی خطوط نمی‌افتد (خواستهٔ ۲۰ نوامبر نهم)
+  const text = stripCardEmoji((input.text || '').replace(/\s+/g, ' ').trim());
   if (!text) return '';
   const hasName = Boolean((input.faName || '').trim());
   const H = breakingCardHeight(text, hasName);

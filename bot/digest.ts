@@ -7,6 +7,7 @@
  * یک پیام «تحلیل جامع» با مدل ساخته و ارسال می‌شود — پس استخر خالی و رویدادها علامت ارسال می‌خورند.
  * ساعت‌های تحلیل و قیمت با env قابل تغییر است؛ صفر وابستگی، پارسرها خالص و تست‌پذیر.
  */
+import { cutAtSentence, isPureArabic, needsTranslationLang } from './lang';
 
 // ---------- پرامپت جامع تحلیل (پیش‌فرض؛ قابل بازنویسی از bot/prompts.json با کلید «digest») ----------
 
@@ -121,14 +122,13 @@ export function validateDigestText(raw: string | undefined | null, maxLen = 3400
   t = t.replace(URL_RE, '').replace(/[ \t]{2,}/g, ' ');
   t = t.replace(/\n{3,}/g, '\n\n').trim();
   if (t.length < 400) return null;
-  if (t.length > maxLen) {
-    const cut = t.lastIndexOf('\n', maxLen);
-    t = t.slice(0, cut > maxLen * 0.5 ? cut : maxLen).trimEnd() + '\n…';
-  }
+  if (t.length > maxLen) t = cutAtSentence(t, maxLen); // برش در مرز جمله — پایان پیام جملهٔ کامل است (نقد ۲۱ نوامبر)
   const letters = t.match(/\p{L}/gu) || [];
   if (letters.length < 200) return null;
   const fa = letters.filter((c) => /[\u0600-\u06FF]/.test(c)).length;
   if (fa / letters.length < 0.5) return null; // پیام غیرفارسی مطلقاً ارسال نمی‌شود
+  if (isPureArabic(t)) return null; // عربیِ خالص هم ارسال نمی‌شود — کانال فارسی است (نقد ۲۱ نوامبر)
+  if (needsTranslationLang(t)) return null; // هم‌استاندارد گیت توییت (نقد ۲۱ نوامبر)
   return t;
 }
 

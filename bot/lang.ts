@@ -110,3 +110,21 @@ export function isPersianEnough(s: string): boolean {
   if (isPureArabic(s)) return false;
   return true;
 }
+
+/** برش متن بلند در «مرز جمله» — نقد سخت‌گیرانهٔ ۲۱ نوامبر: چهار اعتبارسنج تحلیل
+ *  (ساعتی/دیجست/ژئو/شبانه) متنِ بلندتر از سقف را میان‌جمله با «\n…» می‌برید —
+ *  خلاف خواستهٔ بارز کاربر («دیگه … نیاد»). اینجا: آخرین پایانِ جملهٔ کامل درون سقف
+ *  (نقطه/؟/!/سه‌نقطه که بعدش فاصله یا پایان بیاید)؛ نبود → مرز واژه + «…» (سپر آخر
+ *  فقط برای متنِ بی‌هر مرز). خروجی هرگز میان‌جمله تمام نمی‌شود. تابع خالص. */
+export function cutAtSentence(text: string, maxLen: number): string {
+  const t = (text || '').trim();
+  if (t.length <= maxLen) return t;
+  const win = t.slice(0, maxLen);
+  let cut = -1;
+  const re = /[.!؟…](?=\s|$)/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(win)) !== null) cut = m.index + 1;
+  if (cut >= Math.floor(maxLen * 0.4)) return t.slice(0, cut).trimEnd();
+  const sp = win.lastIndexOf(' ');
+  return (sp > maxLen * 0.6 ? t.slice(0, sp) : win).trimEnd() + '…';
+}

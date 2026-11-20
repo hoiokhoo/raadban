@@ -406,25 +406,49 @@ export function tweetRowHeight(fa: string): number {
 }
 
 /** صفحه‌بندی توییت‌ها بر پایهٔ ارتفاع واقعی — ردیف تا جایی که مجموع ارتفاع از سقف نگذرد؛
- *  مازاد فراتر از maxPages صادقانه بی‌کارت می‌ماند (فراخواننده به بست متنی می‌رسد) */
-export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): TweetCardItem[][] {
-  if (!items || items.length === 0) return [];
+ *  مازاد فراتر از maxPages صادقانه در «overflow» برمی‌گردد تا فراخواننده متن کاملش را
+ *  در پیام متنی جداگانه بفرستد (نقد سخت‌گیرانهٔ ۲۱ نوامبر: پیش‌تر بی‌صدا حذف و «ارسال‌شده»
+ *  علامت می‌خورد — نقض «خبری از قلم نمی‌افتد») */
+export function splitTweetItemsForCards(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): { paged: TweetCardItem[][]; overflow: TweetCardItem[] } {
+  if (!items || items.length === 0) return { paged: [], overflow: [] };
   const pages: TweetCardItem[][] = [];
   let cur: TweetCardItem[] = [];
   let h = HEADER_H + FOOTER_H + 26;
-  for (const it of items) {
+  for (let k = 0; k < items.length; k++) {
+    const it = items[k]!;
     const rh = tweetRowHeight(it.fa);
     if (cur.length > 0 && h + rh > maxHeight) {
       pages.push(cur);
       cur = [];
       h = HEADER_H + FOOTER_H + 26;
-      if (pages.length >= maxPages) return pages;
+      if (pages.length >= maxPages) return { paged: pages, overflow: items.slice(k) };
     }
     cur.push(it);
     h += rh;
   }
   if (cur.length > 0) pages.push(cur);
-  return pages;
+  return { paged: pages, overflow: [] };
+}
+
+/** صفحه‌بندی توییت‌ها — پوشش سازگاری روی splitTweetItemsForCards (تست‌های موجود) */
+export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): TweetCardItem[][] {
+  return splitTweetItemsForCards(items, maxHeight, maxPages).paged;
+}
+
+/** تفکیک توییت‌های جاشونده در کارت از سرریزهای خطی — نقد سخت‌گیرانهٔ ۲۱ نوامبر:
+ *  wrapFa در سقف TW_MAX_LINES (۳۲×۶۲ ≈ ۱۹۸۴ نویسه) ترجمهٔ بلندتر را با «…» می‌بُرید و
+ *  توییت‌ها برخلاف اخبار «پیام نجات متن کامل» نداشتند — ترجمهٔ بلندتر از سقف حالا
+ *  کلاً به سرریز می‌رود و متن «کامل» در پیام متنی جداگانه می‌آید (هرگز بریده).
+ *  هم‌الگوی سپر سرریز کارت خبر (finalizeNewsCardText + overflowTexts). خالص. */
+export function splitTweetItemsByLineCap(items: TweetCardItem[]): { card: TweetCardItem[]; overflow: TweetCardItem[] } {
+  const card: TweetCardItem[] = [];
+  const overflow: TweetCardItem[] = [];
+  for (const it of items || []) {
+    const lines = wrapFaFull(stripCardEmoji(it.fa || ''), TW_CHARS_PER_LINE).length;
+    if (lines > TW_MAX_LINES) overflow.push(it);
+    else card.push(it);
+  }
+  return { card, overflow };
 }
 
 /** ساخت SVG کارت توییت — خالص و تست‌پذیر؛ سربرگ فقط عنوان + تاریخ (خط آماری
@@ -644,6 +668,8 @@ export async function renderBreakingCardPng(input: BreakingCardInput): Promise<C
   try {
     const svg = makeBreakingCardSvg(input);
     if (!svg) return null;
+    // سقف ارتفاع PNG — بلندتر از این بله رد می‌کند؛ متن کامل از مسیر گیف/متن می‌رود (نقد ۲۱ نوامبر)
+    if (breakingPngTooTall(input.text || '', Boolean((input.faName || '').trim()))) return null;
     const sharp = (await import('sharp')).default;
     const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
     const meta = await sharp(png).metadata();
@@ -662,6 +688,18 @@ export const BREAKING_CARD_GIF_MAX_BYTES = 8_000_000;
 /** سقف ارتفاع کارت برای نسخهٔ گیف متحرک — کارت بلندتر از این به PNG ثابت می‌رود
  *  (انکود گیف ۱۲فریمی از کارت خیلی بلند، سنگین و پُرحجم است؛ PNG همان متن کامل را در یک پیام می‌دهد) */
 export const BREAKING_GIF_MAX_HEIGHT = 6000;
+
+/** سقف ارتفاع PNG کارت فوری — نقد سخت‌گیرانهٔ ۲۱ نوامبر: سقف مجموع عرض+ارتفاع
+ *  عکس بله (خانوادهٔ تلگرام) ~۱۰۰۰۰px است؛ کارت ۱۰۸۰پیکسلی یعنی PNG بلندتر از
+ *  ~۸۸۰۰px توسط بله رد می‌شد و تلاش آپلود تلف می‌شد. بلندتر از این → null →
+ *  فراخواننده به گیف مستقل + کپشن کامل (splitPhotoCaption) و سپس متن کامل می‌رود —
+ *  هیچ متنی گم نمی‌شود. */
+export const BREAKING_PNG_MAX_HEIGHT = 8800;
+
+/** کارت PNG فوری برای این متن بیش از حد بلند است؟ — خالص و تست‌پذیر */
+export function breakingPngTooTall(text: string, hasName: boolean): boolean {
+  return breakingCardHeight(text || '', hasName) > BREAKING_PNG_MAX_HEIGHT;
+}
 
 /** رندر کارت فوری به GIF متحرک — خود کارت (متن + سربرگ قرمز کم‌رنگ + چراغ گردان چرخان)
  *  در «یک» پیام ارسال می‌شود؛ دیگر گیفِ جدا + کارتِ جدا نیست (خواستهٔ کاربر ۲۰ نوامبر پنجم).

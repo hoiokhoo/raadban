@@ -20,7 +20,7 @@
  */
 
 import { dateKeyOf, weekdayFaOf } from './calendar';
-import { isPureArabic } from './lang';
+import { cutAtSentence, isPureArabic, needsTranslationLang } from './lang';
 import type { PoolItem } from './digest';
 
 // ---------- سوپرپرامپت تحلیل جامع شبانه (پیش‌فرض؛ قابل بازنویسی از bot/prompts.json با کلید «nightly») ----------
@@ -233,14 +233,12 @@ export function validateNightlyText(raw: string | undefined | null, maxLen = 600
   t = t.replace(URL_RE, '').replace(/[ \t]{2,}/g, ' ');
   t = t.replace(/\n{3,}/g, '\n\n').trim();
   if (t.length < 400) return null;
-  if (t.length > maxLen) {
-    const cut = t.lastIndexOf('\n', maxLen);
-    t = t.slice(0, cut > maxLen * 0.5 ? cut : maxLen).trimEnd() + '\n…';
-  }
+  if (t.length > maxLen) t = cutAtSentence(t, maxLen); // برش در مرز جمله — پایان پیام جملهٔ کامل است (نقد ۲۱ نوامبر)
   const letters = t.match(/\p{L}/gu) || [];
   if (letters.length < 250) return null;
   const fa = letters.filter((c) => /[\u0600-\u06FF]/.test(c)).length;
   if (fa / letters.length < 0.5) return null; // پیام غیرفارسی مطلقاً ارسال نمی‌شود
   if (isPureArabic(t)) return null; // عربیِ خالص هم ارسال نمی‌شود — کانال فارسی است (۱۵ نوامبر)
+  if (needsTranslationLang(t)) return null; // هم‌استاندارد گیت توییت (نقد ۲۱ نوامبر)
   return t;
 }

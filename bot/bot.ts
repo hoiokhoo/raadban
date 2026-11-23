@@ -57,8 +57,9 @@ import {
   type TehranParts,
   type PoolItem,
 } from './digest';
-import { fetchMarketData, formatMarketMessage, formatMoney, snapshotOf, snapshotBaseOf, repairSnapshotAt, applyDeltas, parseBamaPrices, num, type CarStore, type Quote } from './market';
+import { fetchMarketData, formatMarketMessage, formatAssetsMessage, formatMoney, snapshotOf, snapshotBaseOf, repairSnapshotAt, applyDeltas, parseBamaPrices, fetchMacroStats, num, type CarStore, type Quote } from './market';
 import { renderMarketCardPng } from './market-card';
+import { renderAssetsCardPng } from './assets-card';
 import { CHART_ASSETS, buildChartPanel, chartWindow, fetchAssetHistory, mergeLivePoint, renderAssetsChartPng, type ChartPanel } from './assets-chart';
 import {
   renderNewsCardPages,
@@ -73,7 +74,7 @@ import {
   type CardPng,
 } from './news-card';
 import { groupByCategory, categorizeFa } from './categories';
-import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel } from './sale-announcement';
+import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel, buildSaleAiUserPrompt, parseSaleAiDraft, resolveSaleAiDraft, SALE_AI_SYSTEM_PROMPT } from './sale-announcement';
 import { groundAiBundle, sanitizeDigestRepetition, type GroundResult } from './grounding';
 import {
   updateSourceHealth,
@@ -138,7 +139,8 @@ import { fetchHourlyForecast, buildWeatherMessage, type HourlyEntry } from './we
 import { renderWeatherCardPng } from './weather-card';
 import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif } from './weather-gif';
-import { fetchIranRadarPng } from './iran-radar';
+import { fetchRadarGif } from './radar-gif';
+import { fetchForecastGif } from './forecast-gif';
 import { highlightIranItemsHtml, isIranRelated } from './iran';
 import { isBreakingTweetText, renderBreakingGif } from './breaking';
 import {
@@ -774,8 +776,11 @@ export interface DailyBotState {
   /** کلید آخرین ارسال گیف هواشناسی — یک گیف برای کل بخش در شب */
   lastWeatherGifKey?: string;
   /** کلید آخرین ارسال نقشهٔ بارشی کشور — زیر پیام هواشناسی، یک بار در شب
-   *  (خواستهٔ کاربر ۲۰ نوامبر: «میخوام آخرین نقشه بارشی کشور هم زیر پیام هواشناسی بیاد») */
+   *  (خواستهٔ کاربر ۲۰ نوامبر: «میخوام آخرین نقشه بارشی کشور هم زیر پیام هواشناسی بیاد»)
+   *  اکنون گیف رادار RainViewer (۲۴ نوامبر) */
   lastRainMapKey?: string;
+  /** کلید آخرین ارسال گیف پیش‌بینی ۲۴ساعتهٔ بارش — مستقل از رادار تا شکست یکی، دوباره‌فرستِ دیگری نسازد (۲۴ نوامبر) */
+  lastForecastMapKey?: string;
   /** احادیث استفاده‌شده — هرگز هرس نمی‌شود؛ ضدتکرار مطلق حتی پس از ری‌استارت (کامیت ریپو) */
   usedHadiths: Record<string, HadithUsage>;
   /** نشانگر چرخش چهارده معصوم ۰..۱۳ — انتخاب متعادل */
@@ -2743,6 +2748,38 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         state.carStore = md.carStore || state.carStore;
         console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۱۵' : 'تغییر روزانهٔ منبع'}، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
       }
+      // ── کارت مجزای «دارایی‌ها و تورم» — خواستهٔ کاربر ۲۴ نوامبر:
+      //    «برای بخش طلا و دلار و بیتکوین و غیر ماشین، آمار تورم نقطه به نقطه سالانه
+      //    و ماهانه بانک مرمزی رو هم وارد کن و کلا بکنش یه عکس جدا، اگر برای مسکن
+      //    تهران هم شاخصی هست بزن توش» — طلا/سکه + ارز/بورس/کریپتو + تورم + مسکن؛
+      //    شکست رندر → پیام متنی همان بخش (هیچ قلمی از دست نمی‌رود). ──
+      {
+        const macro = await fetchMacroStats(15_000).catch(() => ({}) as import('./market').MacroStats);
+        const macroOk = [macro.inflationYoy, macro.inflationMom, macro.housingTehran].filter(Boolean).length;
+        if (macroOk === 0) console.warn('⚠️ آمار کلان (تورم/مسکن) از هیچ منبعی دریافت نشد — کارت دارایی‌ها بدون بخش تورم/مسکن (صادقانه)');
+        const aCard = await renderAssetsCardPng({ date: mktDate, slotLabel: mktSlot, quotes: withDelta, macro }).catch(() => null);
+        let aOk = false;
+        if (aCard) {
+          for (const t of CFG.targets) {
+            const s = await sendBalePhotoBytes(CFG.token, t, aCard.png, 'raadban-assets.png');
+            if (s.ok) aOk = true;
+            else console.error(`❌ ارسال کارت دارایی‌ها به ${t}: ${s.error}`);
+          }
+          if (aOk) console.log(`کارت دارایی‌ها و تورم ارسال شد — ${aCard.width}×${aCard.height} (تورم/مسکن: ${macroOk}/۳ ردیف)`);
+        } else {
+          console.warn('⚠️ رندر کارت دارایی‌ها ناموفق بود — پیام متنی جایگزین می‌شود (صادقانه)');
+        }
+        if (!aOk) {
+          const aMsg = formatAssetsMessage(md.quotes, snapPrev, snapPrevDay, macro);
+          if (aMsg.trim()) {
+            for (const t of CFG.targets) {
+              const s = await sendBaleMessage(CFG.token, t, aMsg);
+              if (s.ok) aOk = true;
+              else console.error(`❌ ارسال پیام دارایی‌ها به ${t}: ${s.error}`);
+            }
+          }
+        }
+      }
       // ── نمودار روند دارایی‌ها — خواستهٔ کاربر ۲۰ نوامبر (دومی + ششم):
       //    «قرار بود چارت نمودار دارایی ها رو هم بزاری،اما الآن نیست» + «نمودار قیمت کلا
       //    دیگه فقط یکبار در روز (۱۵:۰۰ — خواستهٔ ۲۳ نوامبر)» — کارت اسپارک‌لاین ۳۰روزهٔ
@@ -3354,9 +3391,30 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
     // حذف امضای کانال («@akharin_khodro | Akharinkhodro.ir») و تبلیغ‌هایش — خواستهٔ صریح کاربر
     const clean = cleanSaleAnnouncementText(p.text);
     if (!clean) continue;
-    const portal = matchSalePortal(clean);
-    const factoryPrice = extractSaleFactoryPrice(clean);
-    const model = matchSaleCarModel(clean);
+    let portal = matchSalePortal(clean);
+    let factoryPrice = extractSaleFactoryPrice(clean);
+    let model = matchSaleCarModel(clean);
+    let aiUsed = false;
+    // ── غنی‌سازی هوشمند — خواستهٔ کاربر ۲۴ نوامبر: «آدرس سایت و قیمت و ... رو اگر در
+    //    خبر نبود با هوش مصنوعی دربیاری و داخل خبر ذکر کنی حتما» — AI فقط از فهرست‌های
+    //    تأییدشده انتخاب می‌کند و قیمت فقط از متنِ خود اطلاعیه (resolveSaleAiDraft)؛
+    //    شکست زنجیره → همان پیام صادقانهٔ قبلی (هیچ ساختگی). ──
+    if (!portal || factoryPrice === null || !model) {
+      try {
+        const ai = await chainCall(SALE_AI_SYSTEM_PROMPT, buildSaleAiUserPrompt(clean), { timeoutMs: 60_000, maxTokens: 700 });
+        if (ai.ok && ai.content) {
+          const fill = resolveSaleAiDraft(parseSaleAiDraft(ai.content), clean);
+          if (!portal && fill.portal) { portal = fill.portal; aiUsed = true; }
+          if (factoryPrice === null && fill.factoryToman !== undefined) { factoryPrice = fill.factoryToman; aiUsed = true; }
+          if (!model && fill.model) { model = { label: fill.model.label, bamaUrl: fill.model.bamaUrl }; aiUsed = true; }
+          console.log(`غنی‌سازی AI اطلاعیهٔ ${p.dataPost}: ${fill.portal ? 'لینک ' : ''}${fill.factoryToman !== undefined ? 'قیمت ' : ''}${fill.model ? 'مدل' : ''}${aiUsed ? ' — تکمیل شد' : ' — چیزی نیافت (صادقانه)'}`);
+        } else if (ai.error) {
+          console.warn(`⚠️ غنی‌سازی AI اطلاعیهٔ ${p.dataPost} ناموفق: ${ai.error} — پیام صادقانهٔ پایه ارسال می‌شود`);
+        }
+      } catch (e) {
+        console.warn(`⚠️ غنی‌سازی AI اطلاعیهٔ ${p.dataPost} خطا خورد: ${e instanceof Error ? e.message : e}`);
+      }
+    }
     // قیمت بازار آزاد مدل — فقط اسلاگ‌های بامای تأییدشده؛ نبود مدل/شکست واکشی → صادقانه غایب
     let marketLine = '📈 قیمت بازار آزاد: مدل در اطلاعیه مشخص نبود';
     if (model) {
@@ -3367,7 +3425,7 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
         : '📈 قیمت بازار آزاد: از باما دریافت نشد';
     }
     const factoryLine = factoryPrice
-      ? `🏭 قیمت فروش کارخانه: ${formatMoney(factoryPrice, 'toman')}`
+      ? `🏭 قیمت فروش کارخانه: ${formatMoney(factoryPrice, 'toman')}${aiUsed && extractSaleFactoryPrice(clean) === null ? ' (استخراج هوشمند از متن اطلاعیه)' : ''}`
       : '🏭 قیمت فروش کارخانه: در اطلاعیه ذکر نشده';
     const linkLine = portal
       ? `🛒 <a href="${portal.url}">${portal.label}</a> — ${portal.url}`
@@ -3390,7 +3448,7 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
     if (sentOk) {
       state.saleAlertIds[p.dataPost] = Date.now(); // فقط حالا «دیده‌شده» است — چرخهٔ دیگر تکرارش نمی‌کند
       summary.saleAlertsSent = (summary.saleAlertsSent || 0) + 1;
-      console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}${portal ? ` — لینک: ${portal.label}` : ''}${model ? ` — مدل: ${model.label}` : ''}`);
+      console.log(`اطلاعیه فروش ارسال شد: ${p.dataPost}${portal ? ` — لینک: ${portal.label}` : ''}${model ? ` — مدل: ${model.label}` : ''}${aiUsed ? ' — با تکمیل هوشمند' : ''}`);
     } else {
       console.warn(`⚠️ اطلاعیه ${p.dataPost} ارسال نشد — علامت نمی‌خورد و چرخهٔ بعد دوباره تلاش می‌کند`);
     }
@@ -3645,32 +3703,55 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       trimDailyState(daily);
     }
 
-    // ---------- رادار هواشناسی بارشی ایران — خواستهٔ کاربر ۲۰ نوامبر (دوم):
-    // «عکس رادار هواشناسی بارشی میخوام فقط ایران رو نشون بده و داخل عکس هم وضعیت فعلی و هم
-    //  به شکل سایه مانند روش وضعیت چند ساعت آینده نمایش داده بشه به شکل رنگی که مثلا آبی
-    //  برفه، نارنجی باران، بیرنگ آفتابی و... دقیقا مانند نقشه های حرفه ای هواشناسی اما فقط روی
-    //  ایران» — جایگزین نقشهٔ ماهواره‌ای GIBS (که همسایه‌ها را هم نشان می‌داد و پیش‌بینی نداشت).
-    // منبع: Open-Meteo روی گرید ~۰٫۷° داخل مرز ایران (بدون کلید) — نشان‌های رنگی وضعیت فعلی +
-    // سایهٔ محوِ پیش‌بینی ۳ ساعت آینده. فقط تصویر بدون کپشن؛ شکست واکشی/رندر → بخش صادقانه حذف.
+    // ---------- گیف رادار واقعی + گیف پیش‌بینی ۲۴ساعته — خواستهٔ کاربر ۲۴ نوامبر:
+    // «از یه سایت هواشناسی که مدل پیشبینی ۲۴ ساعته رو داده کپیش کنی یا گیف متحرکش رو
+    //  بزاری که بهتره نه اینکه نقشه رو خودت بسازی» + «اسامی مرکز شهرها داخل حیطهٔ هر
+    //  استان قرار داده بشه طوری که بهم نخورن» —
+    // ۱) گیف رادار بارشی: تصویر رادار «عیناً» از RainViewer (سرویس حرفه‌ای، API عمومی)
+    //    روی نقشهٔ استان‌ها با مراکز استان؛ ۲) گیف پیش‌بینی ۲۴ساعته: مدل عددی Open-Meteo
+    //    (۹ فریم ۳ساعته) به همان سبک حرفه‌ای. هر دو مستقل؛ شکست هر کدام فقط خودش را
+    //    می‌اندازد (کارت‌های شهرها قبلاً مستقل رفته‌اند). جایگزین نقشهٔ ایستای خودساخته.
     const rainKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastRainMapKey, pNow);
     if (rainKey && anySent) {
       const rainDate = tripleDateOf(pNow.dateKey, dSettings.timezone, dSettings.qamariBasis);
-      const rain = await fetchIranRadarPng(rainDate).catch(() => null);
-      if (rain) {
-        let rainOk = false;
+      // ۱) رادار واقعی RainViewer — گیف متحرک ۲ ساعت گذشته + پیش‌بینی ۳۰ دقیقه
+      const radar = await fetchRadarGif(rainDate).catch(() => null);
+      if (radar) {
+        let radarOk = false;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, rain.png, 'raadban-iran-radar.png');
-          if (!s.ok) { console.error(`❌ ارسال رادار بارشی ایران به ${t}: ${s.error || 'نامشخص'}`); continue; }
-          rainOk = true;
+          const s = await sendBalePhotoBytes(CFG.token, t, radar.gif, 'raadban-iran-radar.gif', undefined, 'image/gif');
+          if (!s.ok) { console.error(`❌ ارسال گیف رادار ایران به ${t}: ${s.error || 'نامشخص'}`); continue; }
+          radarOk = true;
         }
-        if (rainOk) {
-          daily.lastRainMapKey = rainKey;
-          console.log(`✅ رادار بارشی ایران ارسال شد — ${rain.width}×${rain.height} (وضعیت فعلی + سایهٔ پیش‌بینی ۳ ساعت آینده)`);
+        if (radarOk) {
+          daily.lastRainMapKey = rainKey; // مستقل از گیف پیش‌بینی — شکست آن، دوباره‌فرستِ رادار نمی‌سازد
+          console.log(`✅ گیف رادار بارشی ایران (RainViewer) ارسال شد — ${radar.width}×${radar.height}`);
         } else {
-          console.warn('⚠️ رادار بارشی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
+          console.warn('⚠️ گیف رادار به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
         }
       } else {
-        console.warn('⚠️ رادار بارشی ایران ساخته نشد (دادهٔ Open-Meteo نیامد) — بخش تزئینی، کارت‌ها مستقل ارسال شده‌اند');
+        console.warn('⚠️ گیف رادار RainViewer ساخته نشد (API/کاشی/رندر) — گیف پیش‌بینی ۲۴ساعته مستقل می‌رود');
+      }
+      // ۲) پیش‌بینی ۲۴ ساعته — مدل عددی Open-Meteo، ۹ فریم ۳ساعته (اسلات ضدتکرار خودش)
+      const fcKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastForecastMapKey, pNow);
+      if (fcKey) {
+        const fc = await fetchForecastGif(rainDate).catch(() => null);
+        if (fc) {
+          let fcOk = false;
+          for (const t of CFG.targets) {
+            const s = await sendBalePhotoBytes(CFG.token, t, fc.gif, 'raadban-iran-forecast.gif', undefined, 'image/gif');
+            if (!s.ok) { console.error(`❌ ارسال گیف پیش‌بینی ۲۴ساعته به ${t}: ${s.error || 'نامشخص'}`); continue; }
+            fcOk = true;
+          }
+          if (fcOk) {
+            daily.lastForecastMapKey = fcKey;
+            console.log(`✅ گیف پیش‌بینی ۲۴ساعتهٔ بارش ایران ارسال شد — ${fc.width}×${fc.height}`);
+          } else {
+            console.warn('⚠️ گیف پیش‌بینی به هیچ مقصدی نرسید — چرخهٔ بعد دوباره تلاش می‌کند');
+          }
+        } else {
+          console.warn('⚠️ گیف پیش‌بینی ۲۴ساعته ساخته نشد (دادهٔ Open-Meteo نیامد) — بخش مستقل، کارت‌ها رفته‌اند');
+        }
       }
       trimDailyState(daily);
     }

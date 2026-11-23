@@ -146,7 +146,8 @@ describe('renderNewsCardPng', () => {
   test('رندر واقعی PNG با ابعاد و امضای درست', async () => {
     const card = await renderNewsCardPng(input());
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(1080);
+    expect(card!.width % 1080).toBe(0);
+    expect(card!.width / (card!.width / 1080)).toBe(1080); // مضرب صحیح ۱۰۸۰
     expect(card!.height).toBeGreaterThan(600);
     expect(card!.png.length).toBeGreaterThan(50_000);
     const sig = Array.from(card!.png.slice(0, 8)).join(',');

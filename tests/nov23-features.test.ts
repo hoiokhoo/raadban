@@ -19,7 +19,7 @@ import {
   type BamaCarResult,
   type Quote,
 } from '../bot/market';
-import { makeMarketCardSvg, marketSectionsOf } from '../bot/market-card';
+import { makeMarketCardSvg, carTableBlocks } from '../bot/market-card';
 
 // ---------- (۱) پارسر باما — هر دو برچسب رسمی ----------
 
@@ -139,18 +139,16 @@ describe('کارت بازار — سقف ردیف خودرو ۴۰ (کاملتر 
     key: `car:m${i}`, title: `مدل ${i}`, value: 1e9 + i * 1e8, unit: 'toman', srcLabel: 'باما (نت)', emoji: '🚗',
   });
 
-  test('۱۲ ردیف خودرو همه در بخش خودرو می‌آیند — بدون «مدل دیگر»', () => {
-    const { sections, moreCars } = marketSectionsOf(Array.from({ length: 12 }, (_, i) => mk(i)));
-    const cars = sections.find((s) => s.title.includes('خودرو'));
-    expect(cars?.rows.length).toBe(12);
-    expect(moreCars).toBe(0);
+  test('۱۲ ردیف خودرو همه در دو بلوک سه‌ستونی می‌آیند — بدون «مدل دیگر»', () => {
+    const { right, left, more } = carTableBlocks(Array.from({ length: 12 }, (_, i) => mk(i)));
+    expect(right.length + left.length).toBe(12);
+    expect(more).toBe(0);
   });
 
   test('مازاد واقعی فقط با ۴۰+ ردیف — یادداشت «مدل دیگر»', () => {
-    const { sections, moreCars } = marketSectionsOf(Array.from({ length: 43 }, (_, i) => mk(i)));
-    const cars = sections.find((s) => s.title.includes('خودرو'));
-    expect(cars?.rows.length).toBe(40);
-    expect(moreCars).toBe(3);
+    const { right, left, more } = carTableBlocks(Array.from({ length: 43 }, (_, i) => mk(i)));
+    expect(right.length + left.length).toBe(40);
+    expect(more).toBe(3);
   });
 
   test('SVG با ۱۲ خودرو رندر می‌شود و پانوشت «دیروز ساعت ۱۵» دارد', () => {

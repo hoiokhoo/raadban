@@ -33,6 +33,7 @@ import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { isIranRelated } from './iran';
 import { type TripleDate } from './calendar';
+import { renderDensityFor } from './render-scale';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -333,14 +334,23 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
 
 // ---------- رندر PNG ----------
 
-/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت خراب ارسال نمی‌شود) */
+/** ابعاد width/height رشتهٔ SVG رندرشونده — برای انتخاب تراکم. خالص. */
+function svgDimsOf(svg: string): { w: number; h: number } | null {
+  const m = svg.match(/width="(\d+)" height="(\d+)"/);
+  return m ? { w: Number(m[1]), h: Number(m[2]) } : null;
+}
+
+/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت خراب ارسال نمی‌شود).
+ *  تراکم ۲× در حد سقف ابعاد بله — خواستهٔ کاربر ۲۴ نوامبر: «کیفیت عکسها بیشتر بشه که
+ *  تار نشه با زوم کردن»؛ کارت خیلی بلند به همان ۱× برمی‌گردد تا بله ردش نکند. */
 export async function renderNewsCardPng(input: NewsCardInput): Promise<CardPng | null> {
   try {
     if (!input.items || input.items.length === 0) return null;
     const svg = makeNewsCardSvg(input);
     if (!svg) return null;
     const sharp = (await import('sharp')).default;
-    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const d = svgDimsOf(svg);
+    const png = await sharp(Buffer.from(svg), { density: d ? renderDensityFor(d.w, d.h) : 72 }).png().toBuffer();
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;
     return { png, width: meta.width, height: meta.height };
@@ -512,14 +522,15 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
 </svg>`;
 }
 
-/** رندر کارت توییت به PNG — شکست هر مرحله → null */
+/** رندر کارت توییت به PNG — شکست هر مرحله → null؛ تراکم ۲× در حد بله (خواستهٔ ۲۴ نوامبر) */
 export async function renderTweetCardPng(input: TweetCardInput): Promise<CardPng | null> {
   try {
     if (!input.items || input.items.length === 0) return null;
     const svg = makeTweetCardSvg(input);
     if (!svg) return null;
     const sharp = (await import('sharp')).default;
-    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const d = svgDimsOf(svg);
+    const png = await sharp(Buffer.from(svg), { density: d ? renderDensityFor(d.w, d.h) : 72 }).png().toBuffer();
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;
     return { png, width: meta.width, height: meta.height };
@@ -671,7 +682,7 @@ export async function renderBreakingCardPng(input: BreakingCardInput): Promise<C
     // سقف ارتفاع PNG — بلندتر از این بله رد می‌کند؛ متن کامل از مسیر گیف/متن می‌رود (نقد ۲۱ نوامبر)
     if (breakingPngTooTall(input.text || '', Boolean((input.faName || '').trim()))) return null;
     const sharp = (await import('sharp')).default;
-    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const png = await sharp(Buffer.from(svg), { density: renderDensityFor(W, breakingCardHeight(input.text || '', Boolean((input.faName || '').trim()))) }).png().toBuffer();
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;
     return { png, width: meta.width, height: meta.height };
@@ -713,12 +724,14 @@ export async function renderBreakingCardGif(input: BreakingCardInput): Promise<C
     if (breakingCardHeight(input.text || '', hasName) > BREAKING_GIF_MAX_HEIGHT) return null;
     const sharp = (await import('sharp')).default;
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
-    const meta = await sharp(Buffer.from(svg0), { density: 72 }).metadata();
+    const h0 = breakingCardHeight(input.text || '', hasName);
+    const density = renderDensityFor(W, h0); // فریم‌های گیف هم ۲× در حد بله — کارت بلند → ۱×
+    const meta = await sharp(Buffer.from(svg0), { density }).metadata();
     if (!meta.width || !meta.height) return null;
     const encoder = GIFEncoder();
     for (let i = 0; i < BREAKING_CARD_GIF_FRAMES; i++) {
       const svg = makeBreakingCardSvg(input, i);
-      const { data } = await sharp(Buffer.from(svg), { density: 72 }).raw().toBuffer({ resolveWithObject: true });
+      const { data } = await sharp(Buffer.from(svg), { density }).raw().toBuffer({ resolveWithObject: true });
       const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const palette = quantize(u8, 128);
       const index = applyPalette(u8, palette);

@@ -42,6 +42,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { type TripleDate, tripleDateOf } from './calendar';
+import { renderDensityFor } from './render-scale';
 import { formatMoney } from './market';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
@@ -377,14 +378,18 @@ export interface CardPng {
   height: number;
 }
 
-/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت نیمه‌ساختگی ارسال نمی‌شود) */
+/** رندر کارت به PNG — شکست هر مرحله → null (هیچ کارت نیمه‌ساختگی ارسال نمی‌شود).
+ *  تراکم ۲× (در حد سقف ابعاد بله) — خواستهٔ کاربر ۲۴ نوامبر: «کیفیت عکسها بیشتر بشه
+ *  که تار نشه با زوم کردن». */
 export async function renderAssetsChartPng(input: AssetsChartInput): Promise<CardPng | null> {
   try {
     if (!input.panels || input.panels.length < 3) return null;
     const svg = makeAssetsChartSvg(input);
     if (!svg) return null;
     const sharp = (await import('sharp')).default;
-    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const dims = svg.match(/width="(\d+)" height="(\d+)"/);
+    const density = dims ? renderDensityFor(Number(dims[1]), Number(dims[2])) : 72;
+    const png = await sharp(Buffer.from(svg), { density }).png().toBuffer();
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;
     return { png, width: meta.width, height: meta.height };

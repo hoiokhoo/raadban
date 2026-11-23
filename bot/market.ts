@@ -910,6 +910,36 @@ export function formatMarketMessage(quotes: Quote[], prev?: PriceSnapshot, prevD
   return L.join('\n');
 }
 
+/** پیام متنی دارایی‌ها و تورم — پشتیبان کارت مجزای bot/assets-card.ts (خواستهٔ ۲۴ نوامبر):
+ *  طلا/سکه + ارز/بورس/کریپتو + تورم نقطه‌به‌نقطهٔ سالانه/ماهانهٔ بانک مرکزی + مسکن تهران.
+ *  ردیف غایب صادقانه نمی‌آید (هیچ عدد ساختگی). */
+export function formatAssetsMessage(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot, macro?: MacroStats): string {
+  const withDelta = applyDeltas(quotes, prev, prevDay);
+  const L: string[] = [];
+  const gold = withDelta.filter((q) => ['geram18', 'geram24', 'sekee', 'nim'].includes(q.key));
+  if (gold.length) {
+    L.push('<b>🥇 طلا و سکه:</b>');
+    for (const c of gold) L.push(`• ${xmlEsc(c.title)}: ${formatMoney(c.value, c.unit)} (${formatPct(c.changePct)})${c.officialToman ? ` | بانکی (بهار آزادی): ${formatMoney(c.officialToman, 'toman')}` : ''}`);
+    L.push('');
+  }
+  for (const key of ['usd', 'tedpix', 'btc', 'oil_brent']) {
+    const q = withDelta.find((x) => x.key === key);
+    if (q) L.push(`${q.emoji} <b>${xmlEsc(q.title)}: ${formatMoney(q.value, q.unit)} (${formatPct(q.changePct)})</b>${q.officialToman ? ` — مرکز مبادله: ${formatMoney(q.officialToman, 'toman')}` : ''}`);
+  }
+  const m = macro || {};
+  if (m.inflationYoy || m.inflationMom) {
+    L.push('');
+    L.push('<b>📊 تورم نقطه‌به‌نقطه (بانک مرکزی):</b>');
+    if (m.inflationYoy) L.push(`• سالانه: ${faGroup(m.inflationYoy.pct, 1)}٪ (${m.inflationYoy.periodFa})`);
+    if (m.inflationMom) L.push(`• ماهانه: ${faGroup(m.inflationMom.pct, 1)}٪ (${m.inflationMom.periodFa})`);
+  }
+  if (m.housingTehran) {
+    L.push('');
+    L.push(`<b>🏠 مسکن تهران — میانهٔ هر متر: ${formatMoney(m.housingTehran.tomanPerM2, 'toman')} (${m.housingTehran.periodFa} — کیلید)</b>`);
+  }
+  return L.join('\n');
+}
+
 /** عکس‌برداری مقادیر برای گزارش بعدی (پایهٔ درصد تغییر) */
 export function snapshotOf(quotes: Quote[]): PriceSnapshot {
   const out: PriceSnapshot = {};
@@ -949,4 +979,117 @@ export function repairSnapshotAt(snap?: PriceSnapshot, snapAt?: string, lastPric
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(lastPriceKey || '')) return undefined;
   const iso = new Date(`${lastPriceKey}:00+03:30`).toISOString();
   return Number.isFinite(Date.parse(iso)) ? iso : undefined;
+}
+
+// ---------- آمار کلان: تورم بانک مرکزی + مسکن تهران (خواستهٔ ۲۴ نوامبر) ----------
+// «برای بخش طلا و دلار و بیتکوین و غیر ماشین، آمار تورم نقطه به نقطه سالانه و ماهانه
+//  بانک مرمزی رو هم وارد کن … اگر برای مسکن تهران هم شاخصی هست بزن توش».
+// منابع (۲۴ نوامبر راستی‌آزمایی شد):
+//   تورم نقطه‌به‌نقطه (سالانه/ماهانه): صفحهٔ ایران TradingEconomics — منتشرکنندهٔ
+//     ارقام CPI ایران بر پایهٔ دادهٔ بانک مرکزی؛ HTML عمومی، پارس جملهٔ توصیفی ثابت.
+//   مسکن تهران: کیلید — «میانهٔ قیمت هر متر آپارتمان در تهران در <ماه>، <عدد> میلیون
+//     تومان است» (متای صفحه، ماه‌به‌ماه به‌روز). هیچ عدد ساختگی؛ شکست هر منبع → همان
+//     ردیف صادقانه غایب می‌ماند.
+
+export interface MacroInflation {
+  /** درصد تورم نقطه‌به‌نقطه */
+  pct: number;
+  /** برچسب دورهٔ شمسی — «تیر ۱۴۰۵» */
+  periodFa: string;
+  /** مقدار دورهٔ قبل (درصد) — نبود → undefined */
+  prevPct?: number;
+}
+
+export interface MacroHousing {
+  /** میانهٔ قیمت هر متر مربع آپارتمان تهران — تومان */
+  tomanPerM2: number;
+  /** برچسب دوره — «آبان ۱۴۰۵» */
+  periodFa: string;
+}
+
+export interface MacroStats {
+  inflationYoy?: MacroInflation;
+  inflationMom?: MacroInflation;
+  housingTehran?: MacroHousing;
+}
+
+const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
+
+/** نام ماه میلادی + سال → برچسب ماه شمسی «تیر ۱۴۰۵» (نیمهٔ ماه مبنای تعلق است).
+ *  نامعتبر → null. خالص تست‌پذیر. */
+export function gregMonthToShamsiFa(monthEn: string, year: number): string | null {
+  const m = MONTHS_EN.findIndex((x) => x.toLowerCase() === (monthEn || '').toLowerCase());
+  if (m < 0 || !Number.isFinite(year) || year < 1990 || year > 2100) return null;
+  const mid = new Date(Date.UTC(year, m, 15));
+  try {
+    // Intl فارسی سال را پیش از ماه می‌دهد («۱۴۰۵ تیر») — ماه و سال جدا قالب‌بندی و جابه‌جا می‌شوند
+    const monthName = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { month: 'long' }).format(mid);
+    const yearFa = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { year: 'numeric' }).format(mid);
+    const out = `${monthName} ${yearFa}`.replace(/\s+/g, ' ').trim();
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
+/** پارس صفحهٔ تورم سالانهٔ ایرانِ TradingEconomics — جملهٔ ثابت:
+ *  «Inflation Rate in Iran decreased to 87.90 percent in July from 88.60 percent in June of 2026.»
+ *  خالص تست‌پذیر؛ نامعتبر → null. */
+export function parseTeInflationYoy(html: string): MacroInflation | null {
+  const flat = (html || '').replace(/\s+/g, ' ');
+  const m = flat.match(/Inflation Rate in Iran (?:decreased|increased) to ([\d.]+) percent in (\w+) from ([\d.]+) percent in \w+ of (\d{4})/);
+  if (!m) return null;
+  const pct = Number(m[1]);
+  const prev = Number(m[3]);
+  const periodFa = gregMonthToShamsiFa(m[2]!, Number(m[4]));
+  if (!Number.isFinite(pct) || pct < 0 || pct > 500 || !periodFa) return null;
+  return { pct: Math.round(pct * 10) / 10, periodFa, prevPct: Number.isFinite(prev) ? prev : undefined };
+}
+
+/** پارس صفحهٔ تورم ماهانهٔ ایرانِ TradingEconomics — جملهٔ ثابت:
+ *  «The Consumer Price Index in Iran increased 9.50 percent in June of 2026 over the previous month.»
+ *  خالص تست‌پذیر؛ نامعتبر → null. */
+export function parseTeInflationMom(html: string): MacroInflation | null {
+  const flat = (html || '').replace(/\s+/g, ' ');
+  const m = flat.match(/Consumer Price Index in Iran (?:increased|decreased) ([\d.]+) percent in (\w+) of (\d{4}) over the previous month/);
+  if (!m) return null;
+  const pct = Number(m[1]);
+  const periodFa = gregMonthToShamsiFa(m[2]!, Number(m[3]));
+  if (!Number.isFinite(pct) || pct < 0 || pct > 100 || !periodFa) return null;
+  return { pct: Math.round(pct * 10) / 10, periodFa };
+}
+
+/** پارس صفحهٔ بازار مسکن تهرانِ کیلید — متای توصیفی ثابت:
+ *  «میانهٔ قیمت هر متر آپارتمان در تهران در آبان ۱۴۰۵، ۲۳۷٫۲ میلیون تومان است.»
+ *  خالص تست‌پذیر؛ نامعتبر → null. */
+export function parseKilidTehranPrice(html: string): MacroHousing | null {
+  const flat = (html || '').replace(/\s+/g, ' ');
+  const m = flat.match(/میانهٔ? قیمت هر متر آپارتمان در تهران در ([^،,.]{3,20}?)[،,]\s*([۰-۹٠-٩\d][۰-۹٠-٩\d٫٬.,]*) میلیون تومان/);
+  if (!m) return null;
+  const periodFa = m[1]!.trim();
+  const numEn = faToEnDigits(m[2]!).replace(/[٫]/g, '.').replace(/[٬,]/g, '');
+  const vMillion = Number(numEn);
+  // واحدِ صفحه «میلیون تومان» است → تومان = ×۱میلیون؛ بازهٔ معقول تهران: ۲۰ تا ۲٬۰۰۰ میلیون
+  if (!Number.isFinite(vMillion) || vMillion < 20 || vMillion > 2000) return null;
+  if (!/^(فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند)\s*\d{2,4}$/.test(faToEnDigits(periodFa).replace(/\u200c/g, ' '))) return null;
+  return { tomanPerM2: Math.round(vMillion * 1e6), periodFa: periodFa.replace(/\u200c/g, ' ') };
+}
+
+/** واکشی آمار کلان — هر منبع مستقل؛ شکست هر کدام فقط همان ردیف را غایب می‌کند.
+ *  زنده و شبکه‌ای؛ برای تست، پارسرهای خالص بالا. */
+export async function fetchMacroStats(timeoutMs = 15_000): Promise<MacroStats> {
+  const out: MacroStats = {};
+  try {
+    const r = await get('https://tradingeconomics.com/iran/inflation-cpi', timeoutMs);
+    if (r.ok && r.text) out.inflationYoy = parseTeInflationYoy(r.text) ?? undefined;
+  } catch { /* صادقانه غایب */ }
+  try {
+    const r = await get('https://tradingeconomics.com/iran/inflation-rate-mom', timeoutMs);
+    if (r.ok && r.text) out.inflationMom = parseTeInflationMom(r.text) ?? undefined;
+  } catch { /* صادقانه غایب */ }
+  try {
+    const r = await get('https://kilid.com/house-prices/tehran', timeoutMs);
+    if (r.ok && r.text) out.housingTehran = parseKilidTehranPrice(r.text) ?? undefined;
+  } catch { /* صادقانه غایب */ }
+  return out;
 }

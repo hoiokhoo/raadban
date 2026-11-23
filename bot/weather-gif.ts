@@ -50,7 +50,7 @@ export function dominantKindOf(hours: HourlyEntry[]): DominantKind | null {
 
 // ---------- ساخت فریم‌های SVG — خالص و تست‌پذیر ----------
 
-export const GIF_SIZE = 480;
+export const GIF_SIZE = 720; // ۴۸۰→۷۲۰ — کیفیت بالاتر در زوم (خواستهٔ ۲۴ نوامبر)
 export const GIF_FRAMES = 12;
 export const GIF_DELAY_MS = 90;
 

@@ -11,7 +11,7 @@ import { describe, expect, test } from 'bun:test';
 import { categorizeFa, groupByCategory, CAT_LABELS, CAT_ORDER, type CatKey } from '../bot/categories';
 import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel, SALE_PORTALS } from '../bot/sale-announcement';
 import { parseBamaPrices, parseBamaMarketPrice, carFactoryDelta, formatMarketMessage, CAR_BAMA_MODELS, CAR_FEATURED } from '../bot/market';
-import { marketSectionsOf } from '../bot/market-card';
+import { carRowOf } from '../bot/market-card';
 import type { Quote } from '../bot/market';
 
 // ---------- (۱) دسته‌بندی ----------
@@ -254,16 +254,12 @@ describe('formatMarketMessage — ستون رسمی در پیام متنی (قا
   });
 });
 
-describe('marketSectionsOf — ستون رسمی یکدست در کارت تصویری', () => {
-  test('ردیف VIP ستون رسمی دارد؛ بقیه null («—» در جدول)', () => {
-    const quotes: Quote[] = [
-      { key: 'car:j4', title: 'جک J4', value: 3600000000, unit: 'toman', srcLabel: 'باما (نت)', factoryToman: 1610000000, emoji: '🚗' },
-      { key: 'car:ساینا', title: 'ساینا', value: 960000000, unit: 'toman', srcLabel: 'کانال', emoji: '🚗' },
-    ];
-    const { sections } = marketSectionsOf(quotes);
-    expect(sections[0]!.title).toContain('خودرو');
-    expect(sections[0]!.rows[0]!.official).toContain('میلیارد تومان');
-    expect(sections[0]!.rows[1]!.official).toBeNull();
+describe('carRowOf — ستون کارخانهٔ فشرده در کارت خودروی شش‌ستونی (۲۴ نوامبر)', () => {
+  test('ردیف کارخانه‌دار ستون کارخانه دارد؛ بقیه null («—» در جدول)', () => {
+    const j4 = carRowOf({ key: 'car:j4', title: 'جک J4', value: 3600000000, unit: 'toman', srcLabel: 'باما (نت)', factoryToman: 1610000000, emoji: '🚗' });
+    const saina = carRowOf({ key: 'car:ساینا', title: 'ساینا', value: 960000000, unit: 'toman', srcLabel: 'کانال', emoji: '🚗' });
+    expect(j4.official).toContain('میلیارد');
+    expect(saina.official).toBeNull();
   });
 });
 

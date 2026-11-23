@@ -337,7 +337,7 @@ describe('گیف چراغ گردان «فوری»', () => {
     const g = await renderBreakingGif();
     expect(g).not.toBeNull();
     expect(g!.gif.slice(0, 3).toString('latin1')).toBe('GIF');
-    expect(g!.width).toBe(560);
+    expect(g!.width).toBe(800); // ۵۶۰→۸۰۰ — کیفیت زوم (خواستهٔ ۲۴ نوامبر)
     // چندفریمی بودن با sharp
     const sharp = (await import('sharp')).default;
     const meta = await sharp(g!.gif, { pages: -1 }).metadata();

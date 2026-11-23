@@ -20,6 +20,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
+import { renderDensityFor } from './render-scale';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -260,18 +261,21 @@ export async function renderWeatherCardPng(input: WeatherCardInput): Promise<Wea
       return { png, width: meta.width, height: meta.height };
     };
 
-    // ۱) مسیر پس‌زمینهٔ تصویر طبیعت — عکس تیره‌شده زیر، لایهٔ کارت (بدون کف تخت) روی آن
+    // ۱) مسیر پس‌زمینهٔ تصویر طبیعت — عکس تیره‌شده زیر، لایهٔ کارت (بدون کف تخت) روی آن.
+    //    همهٔ لایه‌ها با همان مقیاس تراکم (۲× در حد بله — خواستهٔ ۲۴ نوامبر) بزرگ می‌شوند.
     const bgBuf = loadNatureBg();
     if (bgBuf) {
       try {
         const svgOverlay = makeWeatherCardSvg(input, { photoBg: true });
         if (!svgOverlay) return null;
-        const overlayPng = await sharp(Buffer.from(svgOverlay), { density: 72 }).png().toBuffer();
+        const density = renderDensityFor(W, H);
+        const scale = density / 72;
+        const overlayPng = await sharp(Buffer.from(svgOverlay), { density }).png().toBuffer();
         const darkSvg = Buffer.from(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#04101d" fill-opacity="${BG_DARKEN}"/></svg>`,
+          `<svg xmlns="http://www.w3.org/2000/svg" width="${W * scale}" height="${H * scale}"><rect width="${W * scale}" height="${H * scale}" fill="#04101d" fill-opacity="${BG_DARKEN}"/></svg>`,
         );
         const base = await sharp(bgBuf)
-          .resize(W, H, { fit: 'cover', position: 'attention' })
+          .resize(Math.round(W * scale), Math.round(H * scale), { fit: 'cover', position: 'attention' })
           .composite([{ input: darkSvg }])
           .png()
           .toBuffer();
@@ -286,7 +290,7 @@ export async function renderWeatherCardPng(input: WeatherCardInput): Promise<Wea
     // ۲) مسیر تخت — همان ظاهر پایدار قبلی
     const svg = makeWeatherCardSvg(input);
     if (!svg) return null;
-    const png = await sharp(Buffer.from(svg), { density: 72 }).png().toBuffer();
+    const png = await sharp(Buffer.from(svg), { density: renderDensityFor(W, H) }).png().toBuffer();
     return await finish(png);
   } catch {
     return null;

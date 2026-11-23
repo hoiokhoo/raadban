@@ -20,7 +20,7 @@ import {
   normalizeCarModel,
   type Quote,
 } from '../bot/market';
-import { marketRowOf, makeMarketCardSvg } from '../bot/market-card';
+import { assetsRowOf, makeAssetsCardSvg } from '../bot/assets-card';
 import { tripleDateOf } from '../bot/calendar';
 
 function q(key: string, title: string, value: number, unit: Quote['unit'], extra: Partial<Quote> = {}): Quote {
@@ -109,7 +109,7 @@ describe('compactNum/compactDelta — مبلغ فشردهٔ خوانا با وا
   });
 });
 
-describe('marketRowOf و کارت — ستون‌های سوم/چهارم تازه', () => {
+describe('assetsRowOf و کارت دارایی‌ها — ستون‌های سوم/چهارم (میراث ۲۰ نوامبر؛ جدایی ۲۴ نوامبر)', () => {
   const usd = applyDeltas(
     [q('usd', 'دلار آزاد', 269_970, 'toman', { officialToman: 193_633, officialSrc: 'مرکز مبادله' })],
     undefined,
@@ -118,7 +118,7 @@ describe('marketRowOf و کارت — ستون‌های سوم/چهارم تاز
   const bare = applyDeltas([q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman')])[0]!;
 
   test('ردیف دلار: رسمی + اختلاف + مبلغ تغییر نسبت به پایه', () => {
-    const r = marketRowOf(usd);
+    const r = assetsRowOf(usd);
     expect(r.official).toBe('۱۹۳٬۶۳۳ تومان');
     expect(r.gapAbs).toBe('۷۶٬۳۳۷');
     expect(r.gapPct).toBe('۳۹٫۴٪');
@@ -127,7 +127,7 @@ describe('marketRowOf و کارت — ستون‌های سوم/چهارم تاز
   });
 
   test('ردیف بی‌رسمی/بی‌پایه: «—» صادقانه، هیچ ساختگی', () => {
-    const r = marketRowOf(bare);
+    const r = assetsRowOf(bare);
     expect(r.official).toBeNull();
     expect(r.gapAbs).toBeNull();
     expect(r.gapPct).toBeNull();
@@ -135,13 +135,14 @@ describe('marketRowOf و کارت — ستون‌های سوم/چهارم تاز
     expect(r.chgAbs).toBeNull();
   });
 
-  test('SVG — سربرگ تازهٔ ستون چهارم و زیرخط اختلاف ستون سوم', () => {
-    const svg = makeMarketCardSvg({
+  test('SVG کارت دارایی‌ها — سربرگ ستون چهارم و زیرخط اختلاف ستون سوم', () => {
+    const svg = makeAssetsCardSvg({
       date: tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura'),
-      slotLabel: 'بامداد (ساعت ۳)',
+      slotLabel: 'گزارش روزانه (ساعت ۱۵)',
       quotes: [usd, bare],
+      macro: {},
     });
-    expect(svg).toContain('تغییر نسبت به روز قبل');
+    expect(svg).toContain('تغییر نسبت به دیروز ساعت ۱۵');
     expect(svg).toContain('اختلاف ۷۶٬۳۳۷ (۳۹٫۴٪)');
     expect(svg).toContain('۶٬۰۰۰ تومان');
     expect(svg).not.toContain('NaN');
@@ -149,14 +150,15 @@ describe('marketRowOf و کارت — ستون‌های سوم/چهارم تاز
   });
 
   test('جهت اختلاف در رنگ می‌آید — بازار زیر رسمی سبز، بالای رسمی کهربایی', () => {
-    const below = marketRowOf(
+    const below = assetsRowOf(
       applyDeltas([q('usd', 'دلار', 150_000, 'toman', { officialToman: 193_633 })])[0]!,
     );
     expect(below.gapUp).toBe(false);
-    const svgBelow = makeMarketCardSvg({
+    const svgBelow = makeAssetsCardSvg({
       date: tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura'),
-      slotLabel: 'بامداد (ساعت ۳)',
+      slotLabel: 'گزارش روزانه (ساعت ۱۵)',
       quotes: [q('usd', 'دلار', 150_000, 'toman', { officialToman: 193_633 })],
+      macro: {},
     });
     expect(svgBelow).toContain('#4ade80'); // سبز — ارزان‌تر از رسمی
   });

@@ -24,6 +24,7 @@ import {
   BR_MAX_LINES,
 } from '../bot/news-card';
 import { tripleDateOf } from '../bot/calendar';
+import { renderDensityFor } from '../bot/render-scale';
 import { validateBatchTranslation, salvageBatchTranslations } from '../bot/bot';
 
 const DATE = tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura');
@@ -103,7 +104,10 @@ describe('کارت فوری بی‌سقف — هیچ متنی با «…» بر�
     const t = faText(220); // ~۱۶۰۰ نویسه → ~۲۷ خط
     const card = await renderBreakingCardPng({ source: '🅣 Donald Trump (تروث‌سوشال)', text: t, date: DATE });
     expect(card).not.toBeNull();
-    expect(card!.height).toBe(breakingCardHeight(t, false));
+    // ارتفاع = ارتفاع SVG × مقیاس تراکم (۲× تا سقف بله — خواستهٔ ۲۴ نوامبر)
+    const scale = renderDensityFor(1080, breakingCardHeight(t, false)) / 72;
+    expect(card!.height).toBe(Math.round(breakingCardHeight(t, false) * scale));
+    expect(card!.width).toBe(Math.round(1080 * scale));
     expect(card!.png.length).toBeGreaterThan(5000);
   });
 

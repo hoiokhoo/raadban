@@ -203,7 +203,7 @@ describe('کارت فوری متحرک — چراغ گردان داخل خود �
     const gif = await renderBreakingCardGif(input);
     expect(gif).not.toBeNull();
     expect(gif!.png.slice(0, 3).toString('latin1')).toBe('GIF');
-    expect(gif!.width).toBe(1080);
+    expect(gif!.width % 1080).toBe(0); // ۱× یا ۲× بر پایهٔ سقف بله
     expect(gif!.height).toBeGreaterThan(400);
     expect(gif!.png.length).toBeGreaterThan(20_000);
     expect(gif!.png.length).toBeLessThan(8_000_000);
@@ -231,6 +231,6 @@ describe('ممیزی ۴ — رندر نهایی کارت شش‌دارایی ب�
     expect(svg).not.toContain('NaN');
     const card = await renderAssetsChartPng({ date: CARD_DATE, panels });
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(1080);
+    expect(card!.width).toBe(2160); // ۲× — کیفیت زوم (خواستهٔ ۲۴ نوامبر)
   }, 30_000);
 });

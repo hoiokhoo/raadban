@@ -102,7 +102,7 @@ export function isBreakingNewsText(_text: string): boolean {
 
 // ---------- فریم‌های چراغ گردان — خالص و تست‌پذیر ----------
 
-export const BREAKING_GIF_SIZE = 560;
+export const BREAKING_GIF_SIZE = 800; // ۵۶۰→۸۰۰ — کیفیت بالاتر در زوم (خواستهٔ ۲۴ نوامبر)
 export const BREAKING_GIF_FRAMES = 14;
 export const BREAKING_GIF_DELAY_MS = 90;
 const FONT_FA = "'B Nazanin', Vazirmatn, sans-serif";

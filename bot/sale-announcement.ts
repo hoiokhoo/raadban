@@ -130,3 +130,134 @@ export function cleanSaleAnnouncementText(text: string): string {
   }
   return out.join('\n').trim();
 }
+
+// ---------- غنی‌سازی هوشمند با AI — خواستهٔ کاربر ۲۴ نوامبر ۲۰۲۶ ----------
+// «برای اطلاعیه فروش خودرو یا پیش‌فروش و ... میخوام آدرس سایت و قیمت و ... رو اگر در
+//  خبر نبود با هوش مصنوعی دربیاری و داخل خبر ذکر کنی حتما».
+//
+// اصل آهنی حفظ می‌شود: هوش مصنوعی هرگز نشانی یا عدد نمی‌سازد — فقط از میان دو فهرستِ
+// «راستی‌آزمایی‌شده» (سامانه‌های فروش با URL تأییدشده + مدل‌های بامای اسلاگ تأییدشده)
+// گزینه را «انتخاب» می‌کند و قیمت را فقط از خودِ متن اطلاعیه «بیرون می‌کشد»؛ اعتبارسنجی
+// سخت (تطبیق برچسب + بازهٔ معقول + حضور عدد در متن) پیش از پذیرش. پاسخ نامعتبر → همان
+// پیام صادقانهٔ قبلی.
+
+import { CAR_BAMA_MODELS, faToEnDigits } from './market';
+
+/** کاندیداهای معتبر مدل باما برای اعلانِ AI — برچسب‌های فهرست CAR_BAMA_MODELS */
+export function saleAiModelLabels(): string[] {
+  return CAR_BAMA_MODELS.map((m) => m.label);
+}
+
+/** کاندیداهای معتبر خودروساز — برچسب‌های SALE_PORTALS */
+export function saleAiPortalLabels(): string[] {
+  return SALE_PORTALS.map((p) => p.label);
+}
+
+/** اعلان کاربر برای زنجیرهٔ AI — متن اطلاعیه + دو فهرست مجاز + قالب پاسخ JSON. خالص. */
+export function buildSaleAiUserPrompt(clean: string): string {
+  const portals = saleAiPortalLabels().join(' | ');
+  const models = saleAiModelLabels().join(' | ');
+  return [
+    'متن اطلاعیهٔ فروش/پیش‌فروش خودرو زیر را تحلیل کن.',
+    '',
+    '---',
+    clean.slice(0, 2500),
+    '---',
+    '',
+    'وظایف:',
+    '۱) خودروساز/نمایندگی فروشنده را از میان این فهرست انتخاب کن (اگر هیچ‌کدام نیست: null):',
+    portals,
+    '۲) مدل عرضه‌شده را از میان مدل‌های این فهرست انتخاب کن (اگر هیچ‌کدام نیست: null):',
+    models,
+    '۳) قیمت کارخانه‌ای که در متن اطلاعیه نوشته شده را به «تومان» عددی دربیاور (فقط از خود متن؛ فرمت‌هایی مثل «۱٬۶۱۰٬۰۰۰٬۰۰۰ ریال» یا «۱٫۶۱ میلیارد تومان» را تبدیل کن. عددی در متن نیست: null).',
+    '',
+    'فقط این JSON را بدون هیچ توضیحی برگردان:',
+    '{"automaker": "برچسب دقیق از فهرست یا null", "model": "برچسب دقیق از فهرست یا null", "factory_price_toman": عدد یا null}',
+  ].join('\n');
+}
+
+/** پرامپت سیستمی غنی‌سازی اطلاعیه — خالص */
+export const SALE_AI_SYSTEM_PROMPT =
+  'تو دستیار تحلیل اطلاعیه‌های فروش خودروی کانال خبری فارسی هستی. فقط از داده‌های متن و فهرست‌های مجاز استفاده می‌کنی؛ هیچ نشانی، برند، مدل یا عددی خارج از آن‌ها نمی‌سازی. پاسخ همیشه فقط JSON خالص است.';
+
+export interface SaleAiDraft {
+  automaker?: string | null;
+  model?: string | null;
+  factory_price_toman?: number | null;
+}
+
+/** پارس پاسخ JSON مدل — شکیبای fenced/متن اضافه. خالص تست‌پذیر؛ نامعتبر → null. */
+export function parseSaleAiDraft(raw: string): SaleAiDraft | null {
+  if (!raw) return null;
+  const candidates: string[] = [];
+  const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenced) candidates.push(fenced[1]!);
+  candidates.push(raw);
+  const s = raw.indexOf('{');
+  const e = raw.lastIndexOf('}');
+  if (s >= 0 && e > s) candidates.push(raw.slice(s, e + 1));
+  for (const c of candidates) {
+    try {
+      const o = JSON.parse(c.trim()) as Record<string, unknown>;
+      if (!o || typeof o !== 'object') continue;
+      const out: SaleAiDraft = {};
+      if (typeof o.automaker === 'string' && o.automaker.trim() && o.automaker.trim().toLowerCase() !== 'null') out.automaker = o.automaker.trim();
+      if (typeof o.model === 'string' && o.model.trim() && o.model.trim().toLowerCase() !== 'null') out.model = o.model.trim();
+      const p = Number(o.factory_price_toman);
+      if (Number.isFinite(p) && p > 0) out.factory_price_toman = Math.round(p);
+      return out;
+    } catch { /* کاندید بعدی */ }
+  }
+  return null;
+}
+
+/** آیا قیمت تومنی به یکی از شکل‌های رایج در متن حضور دارد؟ (پایست‌بندی هوش مصنوعی به متن)
+ *  اشکال: عدد کامل تومان یا ریال (×۱۰)، «X میلیارد»، «Y میلیون» — همیشه چسبیده به واژهٔ مقیاس.
+ *  خالص تست‌پذیر. */
+export function priceGroundedInText(toman: number, text: string): boolean {
+  if (!Number.isFinite(toman) || toman <= 0) return false;
+  // نرمال: ارقام فارسی→لاتین، اعشار ٫→.، حذف جداکنندهٔ هزارگان و فاصله‌ها
+  const tn = faToEnDigits(text || '').replace(/٫/g, '.').replace(/[٬,\u200c]/g, '');
+  const digitsOnly = tn.replace(/[^\d.]/g, '');
+  if (digitsOnly.includes(String(Math.round(toman)))) return true; // عدد کامل تومانی
+  if (digitsOnly.includes(String(Math.round(toman * 10)))) return true; // عدد کامل ریالی
+  if (toman >= 1e9 && tn.includes('میلیارد')) {
+    const b = Math.round((toman / 1e9) * 100) / 100; // «1.61»
+    if (new RegExp(`${String(b).replace('.', '\\.')}\\s*میلیارد`).test(tn)) return true;
+  }
+  if (toman >= 1e6 && tn.includes('میلیون')) {
+    const m = Math.round(toman / 1e6);
+    if (new RegExp(`${m}\\s*میلیون`).test(tn)) return true;
+  }
+  return false;
+}
+
+export interface SaleAiFill {
+  /** سامانهٔ فروش تأییدشده — همیشه URL از فهرست خودمان */
+  portal?: SalePortal;
+  /** مدل بامای تأییدشده — همیشه اسلاگ از فهرست خودمان */
+  model?: { label: string; bamaUrl: string };
+  /** قیمت کارخانه — فقط اگر در متن اطلاعیه حضور داشته باشد */
+  factoryToman?: number;
+}
+
+/** اعتبارسنجی سخت پاسخ AI — برچسب باید با فهرست‌های تأییدشده تطبیق شود؛ قیمت باید
+ *  معقول و «در متن» باشد. هر فیلد نامعتبر ساکت حذف می‌شود (نه خطا، نه ساختگی). خالص. */
+export function resolveSaleAiDraft(draft: SaleAiDraft | null, clean: string): SaleAiFill {
+  const out: SaleAiFill = {};
+  if (!draft) return out;
+  if (draft.automaker) {
+    const t = normSaleText(draft.automaker);
+    const hit = SALE_PORTALS.find((p) => normSaleText(p.label) === t || normSaleText(p.label).includes(t) || t.includes(normSaleText(p.label)));
+    if (hit) out.portal = hit;
+  }
+  if (draft.model) {
+    const t = normSaleText(draft.model);
+    const hit = CAR_BAMA_MODELS.find((m) => normSaleText(m.label) === t || normSaleText(m.label).includes(t) || t.includes(normSaleText(m.label)));
+    if (hit) out.model = { label: hit.label, bamaUrl: hit.url };
+  }
+  if (draft.factory_price_toman && draft.factory_price_toman >= 1e8 && draft.factory_price_toman <= 5e10 && priceGroundedInText(draft.factory_price_toman, clean)) {
+    out.factoryToman = draft.factory_price_toman;
+  }
+  return out;
+}

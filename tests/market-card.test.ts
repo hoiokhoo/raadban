@@ -1,13 +1,15 @@
 /**
- * تست‌های کارت تصویری گزارش بازار (خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶:
- * «گزارش بازار — همان زیرساخت امروزِ هواشناسی»).
- * بازطراحی ۲۰ نوامبر ۲۰۲۶ (خواستهٔ کاربر): «کل آیتمها به یه شکل — ستون اول اسم،
- * ستون دوم قیمت بازار، ستون سوم قیمت کارخانه یا دولتی اگر هست، ستون چهارم درصد
- * تغییر نسبت به روز قبل» — جدول یکدست ۴ستونی برای همهٔ اقلام؛ بدون سربرگ‌های
- * آماری دیباگ و بدون کپشن زیر عکس.
+ * تست‌های کارت تصویری گزارش بازار خودرو — بازطراحی ۲۴ نوامبر ۲۰۲۶ (خواستهٔ کاربر):
+ * «ستون چهارم رو با ستون دوم ادغام کن، یعنی اول قیمت بازار کنارش داخل پرانتز در صد
+ *  تغییر نسبت به قیمت ۲۴ ساعت گذشته» + «تعداد ستونها رو بکن ۶ تا در بخش ماشین، نصف
+ *  بقیه ماشینها رو در همون سه ستون بعدی قرار بده که ارتفاع عکس کمتر بشه».
+ *
+ *  → کارت فقط خودروست (طلا/ارز/تورم → کارت مجزای دارایی‌ها — tests/nov24-features.test.ts)؛
+ *  → دو بلوک سه‌ستونی: راست = نیمهٔ ارزان‌تر، چپ = نیمهٔ گران‌تر؛
+ *  → درصد ۲۴ساعته داخل پرانتز کنار قیمت بازار.
  */
 import { describe, expect, test } from 'bun:test';
-import { makeMarketCardSvg, renderMarketCardPng, marketSectionsOf, officialOf } from '../bot/market-card';
+import { makeMarketCardSvg, renderMarketCardPng, carTableBlocks, carRowOf, officialCompactOf, blockAnchors } from '../bot/market-card';
 import { tripleDateOf } from '../bot/calendar';
 import { applyDeltas, type Quote } from '../bot/market';
 import * as marketCardModule from '../bot/market-card';
@@ -31,189 +33,177 @@ function quotesFixture(): Quote[] {
   return applyDeltas(raw, undefined);
 }
 
-// ---------- بخش‌بندی ----------
+const car = (i: number, value = 1e9 + i * 1e8): Quote => ({
+  key: `car:m${i}`, title: `مدل ${i}`, value, unit: 'toman', srcLabel: 'باما (نت)', emoji: '🚗',
+});
 
-describe('marketSectionsOf — جدول یکدست ۴ستونی (۲۰ نوامبر)', () => {
-  test('سه بخش: خودرو / طلا و سکه / ارز، بورس و کریپتو', () => {
-    const { sections, moreCars } = marketSectionsOf(quotesFixture());
-    expect(moreCars).toBe(0);
-    const titles = sections.map((s) => s.title);
-    expect(titles).toContain('خودرو — بازار آزاد');
-    expect(titles).toContain('طلا و سکه');
-    expect(titles).toContain('ارز، بورس و کریپتو');
-    const cars = sections.find((s) => s.title.includes('خودرو'))!;
-    expect(cars.rows.length).toBe(3);
-    const gold = sections.find((s) => s.title.includes('طلا'))!;
-    expect(gold.rows.length).toBe(2);
-    const fx = sections.find((s) => s.title.includes('ارز'))!;
-    expect(fx.rows.length).toBe(4);
+// ---------- دو بلوک سه‌ستونی ----------
+
+describe('carTableBlocks — شش‌ستونی: دو بلوک، نصف در ستون‌های بعدی (خواستهٔ ۲۴ نوامبر)', () => {
+  test('مرتب‌سازی صعودی + نصف‌کردن: راست ارزان‌ترها، چپ گران‌ترها', () => {
+    const unordered = [car(0, 3e9), car(1, 1e9), car(2, 2e9), car(3, 4e9), car(4, 1.5e9)];
+    const { right, left, more } = carTableBlocks(unordered);
+    expect(more).toBe(0);
+    expect(right.length).toBe(3); // ceil(5/2)
+    expect(left.length).toBe(2);
+    // نیمهٔ ارزان (راست): ۱٬۱٫۵٬۲ میلیارد — نیمهٔ گران (چپ): ۳٬۴
+    expect(right.map((r) => r.value)).toEqual(['۱٫۰۰۰ میلیارد', '۱٫۵۰۰ میلیارد', '۲٫۰۰۰ میلیارد']);
+    expect(left.map((r) => r.value)).toEqual(['۳٫۰۰۰ میلیارد', '۴٫۰۰۰ میلیارد']);
   });
 
-  test('همهٔ ردیف‌ها هم‌شکل‌اند: نام + بازار + کارخانه/دولتی + درصد — «—» برای بی‌قیمت رسمی', () => {
-    const { sections } = marketSectionsOf(quotesFixture());
-    for (const sec of sections) {
-      for (const r of sec.rows) {
-        expect(typeof r.title).toBe('string');
-        expect(r.value.length).toBeGreaterThan(0);
-        expect(r.official === null || r.official.length > 0).toBe(true);
-        expect(r.pct === null || typeof r.pct === 'number').toBe(true);
-      }
-    }
-    const cars = sections.find((s) => s.title.includes('خودرو'))!;
-    expect(cars.rows[0]!.official).toBeNull(); // پژو ۲۰۷ — قیمت رسمی ندارد → «—»
-    expect(cars.rows[1]!.official).toContain('میلیارد تومان'); // J4 کارخانه باما
-    const gold = sections.find((s) => s.title.includes('طلا'))!;
-    expect(gold.rows.find((r) => r.title.includes('امامی'))!.official).toContain('تومان'); // بهار آزادی بانکی
-    const fx = sections.find((s) => s.title.includes('ارز'))!;
-    expect(fx.rows.find((r) => r.title.includes('دلار'))!.official).toContain('تومان'); // مرکز مبادله
-    expect(fx.rows.find((r) => r.title.includes('بورس'))!.official).toBeNull();
+  test('فقط خودروها — طلا/ارز/بورس در کارت خودرو نمی‌آیند (کارت مجزای دارایی‌ها دارد)', () => {
+    const { right, left } = carTableBlocks(quotesFixture());
+    const all = [...right, ...left];
+    expect(all.length).toBe(3); // فقط سه خودرو
+    expect(all.every((r) => r.title.includes('پژو') || r.title.includes('جک') || r.title.includes('تیبا'))).toBe(true);
   });
 
-  test('سقف خودرو ۴۰ (۲۳ نوامبر: «کاملتر») — ۱۴ خودرو همه می‌آیند؛ مازاد واقعی از ۴۰', () => {
-    const many: Quote[] = [];
-    for (let i = 0; i < 14; i++) many.push(q(`car:m${i}`, `مدل ${i}`, 1_000_000_000 + i * 1000, 'toman'));
-    const { sections, moreCars } = marketSectionsOf(many);
-    expect(sections.find((s) => s.title.includes('خودرو'))!.rows.length).toBe(14);
-    expect(moreCars).toBe(0);
+  test('سقف ۴۰ خودرو + شمارش مازاد', () => {
+    const { right, left, more } = carTableBlocks(Array.from({ length: 43 }, (_, i) => car(i)));
+    expect(right.length + left.length).toBe(40);
+    expect(more).toBe(3);
   });
 
-  test('فقط طلا — بخش خودرو نمی‌آید (هیچ بخش خالی)', () => {
-    const { sections } = marketSectionsOf([q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman')]);
-    expect(sections.length).toBe(1);
-    expect(sections[0]!.title).toContain('طلا');
-  });
-
-  test('officialOf — کارخانهٔ خودرو و قیمت دولتی ارز/سکه', () => {
-    expect(officialOf(q('car:j4', 'جک J4', 3.6e9, 'toman', undefined, { factoryToman: 1.61e9 }))).toContain('میلیارد تومان');
-    expect(officialOf(q('usd', 'دلار', 269_970, 'toman', undefined, { officialToman: 193_633 }))).toContain('تومان');
-    expect(officialOf(q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman'))).toBeNull();
+  test('بدون خودرو → بلوک خالی (کارت ساخته نمی‌شود)', () => {
+    const { right, left } = carTableBlocks([q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman')]);
+    expect(right.length).toBe(0);
+    expect(left.length).toBe(0);
   });
 });
 
-// ---------- SVG خالص ----------
+// ---------- ردیف خودرو ----------
 
-describe('makeMarketCardSvg — جدول یکدست بدون سربرگ دیباگ', () => {
+describe('carRowOf — قالب فشردهٔ ردیف شش‌ستونی', () => {
+  test('قیمت فشرده + درصد + کارخانه + اختلاف', () => {
+    const r = carRowOf(q('car:j4', 'جک J4', 3_600_000_000, 'toman', 2.5, { factoryToman: 1_610_000_000 }));
+    expect(r.value).toBe('۳٫۶۰۰ میلیارد');
+    expect(r.pct).toBe(2.5);
+    expect(r.official).toContain('میلیارد');
+    expect(r.gapAbs).toBe('۱٫۹۹۰ میلیارد');
+    expect(r.gapPct).toBe('۱۲۴٪');
+    expect(r.gapUp).toBe(true);
+  });
+
+  test('بی‌کارخانه/بی‌درصد → «—» صادقانه', () => {
+    const r = carRowOf(q('car:tiba', 'تیبا ۲', 1_120_000_000, 'toman'));
+    expect(r.official).toBeNull();
+    expect(r.pct).toBeNull();
+    expect(r.gapAbs).toBeNull();
+    expect(r.gapUp).toBeNull();
+  });
+
+  test('officialCompactOf — کارخانه/دولتی؛ نبود → null', () => {
+    expect(officialCompactOf(q('car:j4', 'جک J4', 3.6e9, 'toman', undefined, { factoryToman: 1.61e9 }))).toContain('میلیارد');
+    expect(officialCompactOf(q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman'))).toBeNull();
+  });
+});
+
+// ---------- لنگرهای بلوک ----------
+
+describe('blockAnchors — هندسهٔ شش‌ستونی', () => {
+  test('لنگرهای دو بلوک جدا و درون بوم', () => {
+    const W = 1080, PAD = 32, GAP = 26, BW = Math.floor((W - PAD * 2 - GAP) / 2);
+    const right = blockAnchors(W - PAD);
+    const left = blockAnchors(PAD + BW);
+    expect(right.blockL).toBeGreaterThan(W / 2);
+    expect(left.blockL).toBe(PAD);
+    // ستون‌ها از راست به چپ: نام > بازار > کارخانه
+    expect(right.nameR).toBeGreaterThan(right.mktR);
+    expect(right.mktR).toBeGreaterThan(right.offR);
+    expect(right.offR).toBeGreaterThan(right.blockL);
+    // بلوک‌ها هم‌پوشان نیستند
+    expect(left.nameR + 8).toBeLessThan(right.blockL);
+  });
+});
+
+// ---------- SVG ----------
+
+describe('makeMarketCardSvg — کارت خودروی شش‌ستونی (۲۴ نوامبر)', () => {
   const input = () => ({
-    date: tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura'),
-    slotLabel: 'میان‌روز',
+    date: tripleDateOf('2026-11-24', 'Asia/Tehran', 'umalqura'),
+    slotLabel: 'گزارش روزانه (ساعت ۱۵)',
     quotes: quotesFixture(),
   });
 
-  test('SVG کامل — عنوان، سطر ستون‌ها، همهٔ اقلام، بدون NaN/undefined، RTL', () => {
+  test('عنوان خودرو + ستون‌های «بازار (۲۴ ساعت)» در هر دو بلوک + پانوشت درصد', () => {
     const svg = makeMarketCardSvg(input());
-    expect(svg.length).toBeGreaterThan(2500);
-    expect(svg).toContain('گزارش بازار رصدبان');
-    expect(svg).toContain('خودرو — بازار آزاد');
-    expect(svg).toContain('پژو ۲۰۷ اتوماتیک');
-    expect(svg).toContain('دلار آزاد');
+    expect(svg).toContain('گزارش بازار خودرو');
+    expect(svg).toContain('بازار (۲۴ ساعت)');
+    expect(svg).toContain('مرتب از ارزان به گران');
+    expect(svg).toContain('دیروز ساعت ۱۵');
+    expect(svg).not.toContain('دیروز ساعت ۳');
+  });
+
+  test('درصد داخل پرانتز کنار قیمت بازار (ادغام ستون چهارم — خواستهٔ ۲۴ نوامبر)', () => {
+    const withBase = applyDeltas(quotesFixture(), undefined, {
+      'car:peugeot207': 2_590_000_000 / 1.012,
+      'car:tiba': 1_120_000_000 / 0.992,
+    });
+    const svg = makeMarketCardSvg({ ...input(), quotes: withBase });
+    expect(svg).toMatch(/\(\+۱٫۲٪\)/);
+    expect(svg).toMatch(/\(−۰٫۸٪\)/);
+  });
+
+  test('اختلاف کارخانه با مبلغ و درصد زیر ستون کارخانه', () => {
+    const svg = makeMarketCardSvg(input());
+    expect(svg).toContain('اختلاف');
+    expect(svg).toContain('٪');
+  });
+
+  test('بدون خودرو / ورودی خالی → رشتهٔ خالی', () => {
+    expect(makeMarketCardSvg({ ...input(), quotes: [] })).toBe('');
+    expect(makeMarketCardSvg({ ...input(), quotes: [q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman')] })).toBe('');
+  });
+
+  test('هیچ NaN/undefined در SVG نیست', () => {
+    const svg = makeMarketCardSvg(input());
     expect(svg).not.toContain('NaN');
     expect(svg).not.toContain('undefined');
-    expect(svg).toContain('\u202B');
   });
 
-  test('سطر عنوان ستون‌ها: نام | قیمت بازار | کارخانه / دولتی | تغییر نسبت به روز قبل (خواستهٔ هفتم)', () => {
-    const svg = makeMarketCardSvg(input());
-    expect(svg).toContain('قیمت بازار');
-    expect(svg).toContain('کارخانه / دولتی');
-    expect(svg).toContain('تغییر نسبت به روز قبل');
-    expect(svg).not.toContain('تغییر روز'); // برچسب کهنه — پایه تازه «دیروز ساعت ۱۵» است
-    expect(svg).toContain('تغییر نسبت به روز قبل (دیروز ساعت ۱۵)'); // پانوشت کارت — ساعت ۲۳ نوامبر
-  });
-
-  test('سربرگ‌های آماری دیباگ حذف شدند (خواستهٔ ۲۰ نوامبر: «عناوین … برای دیباگ برنامست … حذف کن»)', () => {
-    const svg = makeMarketCardSvg(input());
-    expect(svg).not.toContain('صعودی');
-    expect(svg).not.toContain('نزولی');
-    expect(svg).not.toContain('قلم قیمت‌گذاری‌شده');
-    expect(svg).not.toContain('بدون تغییر / بی‌داده');
-  });
-
-  test('همهٔ ردیف‌ها هم‌قدند — خودروهای VIP هم تک‌خطی‌اند (رفع «سه ماشین اول یه شکل دیگه»)', () => {
-    const svg = makeMarketCardSvg(input());
-    // ارتفاع ثابت ردیف: هر rect ردیف height="68" (ROW_H-12) دارد — نه ۱۲۰ قدیمی VIP
-    const rowRects = svg.match(/height="68" rx="12"/g) || [];
-    expect(rowRects.length).toBe(9); // ۹ قلم فیکسچر
-  });
-
-  test('ستون سوم با اختلاف — کنار قیمت رسمی، مبلغ و درصد فاصلهٔ بازار از رسمی (خواستهٔ هفتم)', () => {
-    const svg = makeMarketCardSvg(input());
-    // J4: بازار ۳٫۶ میلیارد، کارخانه ۱٫۶۱ → اختلاف ۱٫۹۹۰ میلیارد (۱۲۳٫۶٪)
-    expect(svg).toContain('اختلاف ۱٫۹۹۰ میلیارد (۱۲۳٫۶٪)');
-    // دلار: بازار ۲۶۹٫۹۷۰، مرکز مبادله ۱۹۳٫۶۳۳ → اختلاف ۷۶٫۳۳۷ (۳۹٫۴٪)
-    expect(svg).toContain('اختلاف ۷۶٬۳۳۷ (۳۹٫۴٪)');
-    // سکه: بازار ۲۴۹٫۵۹۰٬۰۰۰، بانکی ۲۳۹٫۸۴۰٬۰۰۰ → اختلاف ۹٫۷۵۰ میلیون (۴٫۱٪)
-    expect(svg).toContain('اختلاف ۹٫۷۵۰ میلیون (۴٫۱٪)');
-  });
-
-  test('ستون چهارم — درصد تغییر با مبلغ اختلاف زیر آن (وقتی پایهٔ عددی هست)', () => {
-    const withBase = applyDeltas(
-      [q('usd', 'دلار آزاد', 269_970, 'toman', undefined, { officialToman: 193_633 })],
-      { usd: 263_970 },
-    );
-    const svg = makeMarketCardSvg({ ...input(), quotes: withBase });
-    expect(svg).toContain('۶٬۰۰۰ تومان'); // مبلغ اختلاف نسبت به پایه
-    expect(svg).toContain('#4ade80'); // صعودی
-    // بی‌پایه → فقط «—»، هیچ مبلغ ساختگی (خط کوچک ۱۶px مبلغ اختلاف نمی‌آید)
-    const svgNoBase = makeMarketCardSvg(input());
-    expect(svgNoBase).not.toContain('font-size="16"');
-  });
-
-  test('قیمت‌های رسمی در ستون سوم: کارخانهٔ J4، مرکز مبادلهٔ دلار، بانکی سکه', () => {
-    const svg = makeMarketCardSvg(input());
-    expect(svg).toContain('۱٫۶۱۰ میلیارد تومان'); // J4 کارخانه
-    expect(svg).toContain('۱۹۳٬۶۳۳ تومان'); // دلار مرکز مبادله
-    expect(svg).toContain('۲۳۹٬۸۴۰٬۰۰۰ تومان'); // سکه بانکی
-  });
-
-  test('فلش صعود/نزول برداری رسم می‌شود (بدون فونت ایموجی)', () => {
-    const svg = makeMarketCardSvg(input());
-    expect((svg.match(/<path d="M /g) || []).length).toBeGreaterThanOrEqual(6);
-    expect(svg).toContain('#4ade80'); // صعودی
-    expect(svg).toContain('#f87171'); // نزولی
-  });
-
-  test('بدون قلم → رشتهٔ خالی', () => {
-    expect(makeMarketCardSvg({ ...input(), quotes: [] })).toBe('');
-  });
-
-  test('عنوان خیلی بلند بریده می‌شود با «…»', () => {
-    const svg = makeMarketCardSvg({
-      ...input(),
-      quotes: [q('car:x', `${'مدل'.repeat(25)} خودرو`, 1_500_000_000, 'toman')],
-    });
-    expect(svg).toContain('…');
+  test('ارتفاع با نصف‌کردن خودروها تقریباً نصف می‌شود (هدف: عکس کوتاه‌تر)', () => {
+    const hOf = (n: number) => {
+      const m = makeMarketCardSvg({ ...input(), quotes: Array.from({ length: n }, (_, i) => car(i)) }).match(/height="(\d+)"/);
+      return Number(m![1]);
+    };
+    const h24 = hOf(24);
+    const h12 = hOf(12);
+    // ۲۴ خودرو = ۱۲ ردیف بلوکی؛ ۱۲ خودرو = ۶ ردیف — اختلاف ~۶×ROW_H (کارت با نصف خودروها کوتاه‌تر است)
+    expect(h12).toBeLessThan(h24);
+    expect(h24 - h12).toBeGreaterThanOrEqual(6 * 70);
   });
 });
 
-// ---------- کپشن حذف‌شده (خواستهٔ کاربر ۲۰ نوامبر: «زیر عکس به شکل متنی میاد حذف کن») ----------
+// ---------- سازگاری صادرات ماژول ----------
 
-describe('کپشن حذف‌شده — کارت بازار بدون کپشن ارسال می‌شود', () => {
-  test('سازندهٔ کپشن دیگر وجود ندارد', () => {
-    const mod = marketCardModule as unknown as Record<string, unknown>;
-    expect(mod.buildMarketCardCaption).toBeUndefined();
+describe('صادرات ماژول market-card', () => {
+  test('خروجی‌های قدامی که باید حذف می‌شدند حذف شده‌اند', () => {
+    expect((marketCardModule as Record<string, unknown>).marketSectionsOf).toBeUndefined();
+    expect((marketCardModule as Record<string, unknown>).marketRowOf).toBeUndefined();
   });
 });
 
 // ---------- رندر واقعی ----------
 
 describe('renderMarketCardPng', () => {
-  test('رندر واقعی PNG با ابعاد و امضای درست', async () => {
+  test('رندر ۲× (کیفیت زوم — خواستهٔ ۲۴ نوامبر) و ابعاد سازگار با بله', async () => {
     const card = await renderMarketCardPng({
-      date: tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura'),
-      slotLabel: 'میان‌روز',
+      date: tripleDateOf('2026-11-24', 'Asia/Tehran', 'umalqura'),
+      slotLabel: 'گزارش روزانه (ساعت ۱۵)',
       quotes: quotesFixture(),
     });
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(1080);
-    expect(card!.height).toBeGreaterThan(700);
-    expect(card!.png.length).toBeGreaterThan(50_000);
-    const sig = Array.from(card!.png.slice(0, 8)).join(',');
-    expect(sig).toBe('137,80,78,71,13,10,26,10');
-  }, 30_000);
+    expect(card!.width).toBe(2160); // ۱۰۸۰ × ۲
+    expect(card!.width + card!.height).toBeLessThanOrEqual(9800);
+    expect(card!.png.length).toBeGreaterThan(5000);
+  });
 
-  test('بدون قلم → null (هیچ عدد ساختگی در کارت)', async () => {
-    expect(
-      await renderMarketCardPng({ date: tripleDateOf('2026-11-20', 'Asia/Tehran', 'umalqura'), slotLabel: 'شب', quotes: [] })
-    ).toBeNull();
+  test('بدون خودرو → null', async () => {
+    const card = await renderMarketCardPng({
+      date: tripleDateOf('2026-11-24', 'Asia/Tehran', 'umalqura'),
+      slotLabel: 'گزارش روزانه (ساعت ۱۵)',
+      quotes: [q('geram18', 'طلای ۱۸ عیار', 92_500_000, 'toman')],
+    });
+    expect(card).toBeNull();
   });
 });

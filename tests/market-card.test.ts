@@ -69,12 +69,12 @@ describe('marketSectionsOf — جدول یکدست ۴ستونی (۲۰ نوامب
     expect(fx.rows.find((r) => r.title.includes('بورس'))!.official).toBeNull();
   });
 
-  test('سقف ۱۰ خودرو — مازاد در «moreCars»', () => {
+  test('سقف خودرو ۴۰ (۲۳ نوامبر: «کاملتر») — ۱۴ خودرو همه می‌آیند؛ مازاد واقعی از ۴۰', () => {
     const many: Quote[] = [];
     for (let i = 0; i < 14; i++) many.push(q(`car:m${i}`, `مدل ${i}`, 1_000_000_000 + i * 1000, 'toman'));
     const { sections, moreCars } = marketSectionsOf(many);
-    expect(sections.find((s) => s.title.includes('خودرو'))!.rows.length).toBe(10);
-    expect(moreCars).toBe(4);
+    expect(sections.find((s) => s.title.includes('خودرو'))!.rows.length).toBe(14);
+    expect(moreCars).toBe(0);
   });
 
   test('فقط طلا — بخش خودرو نمی‌آید (هیچ بخش خالی)', () => {
@@ -116,8 +116,8 @@ describe('makeMarketCardSvg — جدول یکدست بدون سربرگ دیبا
     expect(svg).toContain('قیمت بازار');
     expect(svg).toContain('کارخانه / دولتی');
     expect(svg).toContain('تغییر نسبت به روز قبل');
-    expect(svg).not.toContain('تغییر روز'); // برچسب کهنه — پایه تازه «دیروز ساعت ۳» است
-    expect(svg).toContain('تغییر نسبت به روز قبل (دیروز ساعت ۳)'); // پانوشت کارت
+    expect(svg).not.toContain('تغییر روز'); // برچسب کهنه — پایه تازه «دیروز ساعت ۱۵» است
+    expect(svg).toContain('تغییر نسبت به روز قبل (دیروز ساعت ۱۵)'); // پانوشت کارت — ساعت ۲۳ نوامبر
   });
 
   test('سربرگ‌های آماری دیباگ حذف شدند (خواستهٔ ۲۰ نوامبر: «عناوین … برای دیباگ برنامست … حذف کن»)', () => {

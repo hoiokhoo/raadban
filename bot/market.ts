@@ -84,7 +84,7 @@ export interface Quote {
   unit: QuoteUnit;
   /** منبع واقعی این عدد — در پیام می‌آید (نوبیتکس | tgju | بورس تهران | کانال خودرو) */
   srcLabel: string;
-  /** درصد تغییر: پایهٔ «دیروز ساعت ۳» (snapshot گزارش روزانهٔ ۰۳:۰۰)؛ نبود → تغییر روز منبع */
+  /** درصد تغییر: پایهٔ «دیروز ساعت ۱۵» (snapshot گزارش روزانهٔ ۱۵:۰۰)؛ نبود → تغییر روز منبع */
   changePct?: number;
   /** مبلغ اختلاف نسبت به همان پایهٔ درصد — همان واحد value (خواستهٔ کاربر ۲۰ نوامبر
    *  هفتم: «درصد و مبلغ اختلاف کنارش»). پایهٔ عددی نبود → undefined (هیچ عدد ساختگی) */
@@ -111,12 +111,13 @@ export interface Quote {
 
 export type PriceSnapshot = Record<string, number>; // key → مقدار گزارش قبل
 
-/** اعمال تغییرات — خواستهٔ کاربر ۲۰ نوامبر (ششم): «تغییرات نسبت به ساعت ۳ روز قبل
- *  محاسبه بشن» — گزارش بازار روزانهٔ ۰۳:۰۰ است، پس پایهٔ «دیروز ساعت ۳» = snapshot
- *  گزارش روز پیشین. اولویت: ۱) پایهٔ دیروز (prevDay — دقیقاً گزارش ۰۳:۰۰ دیروز)؛
- *  ۲) آخرین گزارش موجود (prev — در گزارش روزانه همان ۳ دیروز است)؛
+/** اعمال تغییرات — خواستهٔ کاربر ۲۰ نوامبر (ششم): «تغییرات نسبت به روز قبل
+ *  محاسبه بشن» (ساعتِ گزارش: ۳ → ۱۵ — خواستهٔ ۲۳ نوامبر) — گزارش بازار روزانهٔ ۱۵:۰۰
+ *  است، پس پایهٔ «دیروز ساعت ۱۵» = snapshot گزارش روز پیشین. اولویت: ۱) پایهٔ دیروز
+ *  (prevDay — دقیقاً گزارش ۱۵:۰۰ دیروز)؛
+ *  ۲) آخرین گزارش موجود (prev — در گزارش روزانه همان ۱۵ دیروز است)؛
  *  ۳) تغییر روزانهٔ خود منبع (tgju/nobitex/tsetmc — فقط وقتی snapshot ما نیست؛
- *  پایه‌اش بسته‌شدن دیروزِ منبع است نه ساعت ۳). هیچ‌کدام → بدون تغییرات («—»).
+ *  پایه‌اش بسته‌شدن دیروزِ منبع است نه ساعت ۱۵). هیچ‌کدام → بدون تغییرات («—»).
  *  تابع خالص تست‌پذیر. */
 export function applyDeltas(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): Quote[] {
   return quotes.map((q) => {
@@ -304,7 +305,8 @@ export const CAR_FEATURED: Array<{ match: string; label: string }> = [
   { match: 'j4', label: 'جک J4' },
   { match: 'j7', label: 'جک J7' },
   { match: 't9', label: 'جک T9' },
-  // «الیت» از فهرست عادی حذف شد — فیدلیتی الیت ۷نفره اکنون در سه‌گانهٔ VIP اول لیست است (۱۹ نوامبر)
+  // «الیت» از فهرست عادی حذف شد — فیدلیتی الیت ۷نفره اکنون با قیمت کارخانهٔ باما در
+  // CAR_BAMA_MODELS می‌آید (۱۹ نوامبر + بازآرایی ۲۳ نوامبر)؛ «فید» = فیدلیتی‌های دیگر کانال
   { match: 'فید', label: 'فیدلیتی' },
   { match: 'لاماری', label: 'لاماری' },
   { match: 'اتلس', label: 'اتلس اس' },
@@ -322,20 +324,114 @@ export interface CarWebSource { match: string; label: string; url: string; hostL
 
 export const CAR_WEB_SOURCES: CarWebSource[] = [];
 
-// ---------- خودروهای VIP — سه‌گانهٔ اول لیست با ستون کارخانه و اختلاف (خواستهٔ کاربر ۱۹ نوامبر) ----------
-// «الآن در بخش خودروها j4 و sr3 و فیدلیتی الیت ۷ نفره وجود نداره ، اولا میخوام این سه خودرو رو
-//  حتما در لیست به شکل مجزا اول لیست بزاری دوما میخوام جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری،
-//  جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت رو بزار»
-// قیمت کارخانه = «قیمت نمایندگی» باما (قیمت رسمی اعلامی کارخانه در نمایندگی‌ها) — جست‌وجوی ۲۰ نوامبر:
-//   jac_j4: بازار ۳٬۶۰۰ میلیارد/نمایندگی ۱٬۶۱۰ میلیارد • kmc_sr3_1.6liter: ۵٬۵۵۰/۳٬۱۴۱ •
-//   fidelity_elite_7seater: ۸٬۰۰۰/۶٬۴۵۸ (میلیارد تومان)
-export interface CarVip { match: string; label: string; url: string }
+// ---------- خودروهای باما — پوشش کامل بازار+کارخانه برای همهٔ خانواده‌های پرتقاضا ----------
+// خواستهٔ کاربر ۲۳ نوامبر ۲۰۲۶: «قیمت ماشین ها اولا کاملتر بشن، دوما به ترتیب قیمت چیده بشن،
+//  سوما هنوز قیمت کارخانه بعضیهاشون نیومده، اولا چک کن از سایت باما دات کام آخرین قیمت
+//  کارخونه و بازارو» — جانشین سه‌گانهٔ VIP (خواستهٔ ۱۹ نوامبر؛ J4/SR3/الیت اکنون در همین
+//  فهرست‌اند). همهٔ اسلاگ‌ها ۲۳ نوامبر از خود bama.ir واکشی و راستی‌آزمایی شدند
+//  (صفحهٔ قیمت + هر دو برچسب «قیمت کارخانه» و «قیمت نمایندگی») — هیچ اسلاگ حدسی نیست.
+//  variants = نام‌های رایج کانال اخبار خودرو برای همین خانواده (تطبیق زیررشتهٔ نرمال‌شده —
+//  کانال می‌نویسد «پ207»، «ریرا»، «هایما s8»، «اریزو8»…). مرتب‌سازی نهایی بر اساس قیمت
+//  در mergeCarQuotes انجام می‌شود، نه اینجا.
+export interface CarBamaModel {
+  /** نخستین variant = کلید پایدار Quote (car:<نرمال>) */
+  variants: string[];
+  label: string;
+  url: string;
+}
 
-export const CAR_VIP: CarVip[] = [
-  { match: 'j4', label: 'جک J4', url: 'https://bama.ir/price/jac_j4' },
-  { match: 'sr3', label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter' },
-  { match: 'الیت', label: 'فیدلیتی الیت ۷نفره', url: 'https://bama.ir/price/fidelity_elite_7seater' },
+export const CAR_BAMA_MODELS: CarBamaModel[] = [
+  // ── سایپا ──
+  { variants: ['پراید'], label: 'پراید ۱۵۱', url: 'https://bama.ir/price/pride_151_gx' },
+  { variants: ['کوییک', 'کوئیک'], label: 'کوییک', url: 'https://bama.ir/price/quick_manuals' },
+  { variants: ['ساینا'], label: 'ساینا', url: 'https://bama.ir/price/saina_manuals_mtgas' },
+  { variants: ['شاهین'], label: 'شاهین', url: 'https://bama.ir/price/shahin_g' },
+  { variants: ['اطلس'], label: 'اطلس', url: 'https://bama.ir/price/atlas_g_mt' },
+  { variants: ['سهند'], label: 'سهند', url: 'https://bama.ir/price/sahand_smt_gasoline' },
+  { variants: ['اریسان'], label: 'آریسان', url: 'https://bama.ir/price/arisun_2' },
+  { variants: ['پارس نوا'], label: 'پارس نوآ', url: 'https://bama.ir/price/parsnoa_1.6liter_mt' },
+  // ── ایران خودرو ──
+  { variants: ['پژو 207', 'پ207', 'پژو207'], label: 'پژو ۲۰۷', url: 'https://bama.ir/price/peugeot_207_manualtu5p' },
+  { variants: ['تارا'], label: 'تارا', url: 'https://bama.ir/price/tara_v1p_6mt' },
+  { variants: ['دنا'], label: 'دنا پلاس', url: 'https://bama.ir/price/dena_plusef7p_6mt' },
+  { variants: ['رانا'], label: 'رانا', url: 'https://bama.ir/price/runna_plus_tu5plus' },
+  { variants: ['سورن'], label: 'سورن پلاس', url: 'https://bama.ir/price/samand_soren_plustu5p' },
+  { variants: ['ری را', 'ریرا'], label: 'ری‌را', url: 'https://bama.ir/price/reera_1.7literturbo_6at' },
+  { variants: ['هایما s5', 'هایما اس5'], label: 'هایما S5', url: 'https://bama.ir/price/haima_s5_6at' },
+  { variants: ['هایما s7', 'هایما اس7'], label: 'هایما S7', url: 'https://bama.ir/price/haima_s7_1.5literturbopro' },
+  { variants: ['هایما 8s', 'هایما s8'], label: 'هایما 8S', url: 'https://bama.ir/price/haima_8s' },
+  { variants: ['هایما 7x', 'هایما x7'], label: 'هایما 7X', url: 'https://bama.ir/price/haima_7x_1.6literturbo' },
+  // ── کرمان موتور ──
+  { variants: ['j4', 'جی4'], label: 'جک J4', url: 'https://bama.ir/price/jac_j4' },
+  { variants: ['sr3'], label: 'کی ام سی SR3', url: 'https://bama.ir/price/kmc_sr3_1.6liter' },
+  { variants: ['j7'], label: 'کی ام سی J7', url: 'https://bama.ir/price/kmc_j7' },
+  { variants: ['t9'], label: 'کی ام سی T9', url: 'https://bama.ir/price/kmc_t9_2literturbo' },
+  { variants: ['t8'], label: 'کی ام سی T8', url: 'https://bama.ir/price/kmc_t8' },
+  { variants: ['x5'], label: 'کی ام سی X5', url: 'https://bama.ir/price/kmc_x5_1.5literturbo' },
+  { variants: ['ej7'], label: 'کی ام سی eJ7', url: 'https://bama.ir/price/kmc_ej7_plus' },
+  { variants: ['a5'], label: 'کی ام سی A5', url: 'https://bama.ir/price/kmc_a5_1.5literturbo' },
+  { variants: ['ایگل'], label: 'کی ام سی ایگل', url: 'https://bama.ir/price/kmc_eagle_1.5liter' },
+  { variants: ['sr6'], label: 'کی ام سی SR6', url: 'https://bama.ir/price/kmc_sr6_1.5literturbo' },
+  // ── لاماری ──
+  { variants: ['لاماری اکو'], label: 'لاماری اکو', url: 'https://bama.ir/price/lamari_echo_1.5literturbo' },
+  { variants: ['لاماری ایما'], label: 'لاماری ایما', url: 'https://bama.ir/price/lamari_eama' },
+  { variants: ['لاماری نئو'], label: 'لاماری نئو', url: 'https://bama.ir/price/lamari_neo_1.5literturbo' },
+  // ── مدیران خودرو (فونیکس) ──
+  { variants: ['اریزو6', 'اریزو 6'], label: 'آریزو ۶ پرو', url: 'https://bama.ir/price/fownix_arrizo6pro' },
+  { variants: ['اریزو8', 'اریزو 8'], label: 'آریزو ۸', url: 'https://bama.ir/price/fownix_arrizo8_excellent' },
+  { variants: ['تیگو7', 'تیگو 7'], label: 'تیگو ۷ پرو', url: 'https://bama.ir/price/fownix_tiggo7pro_premium' },
+  { variants: ['تیگو8', 'تیگو 8'], label: 'تیگو ۸ پرو مکس', url: 'https://bama.ir/price/fownix_tiggo8promax_ie' },
+  { variants: ['اف ایکس'], label: 'فونیکس FX', url: 'https://bama.ir/price/fownix_fx_premium' },
+  // ── فیدلیتی ──
+  { variants: ['الیت', 'فیدلیتی الیت'], label: 'فیدلیتی الیت ۷نفره', url: 'https://bama.ir/price/fidelity_elite_7seater' },
+  // ── سایر داخلی ──
+  { variants: ['اینوی'], label: 'اینوی هیبرید', url: 'https://bama.ir/price/envoy_hybrid_1.5liter' },
 ];
+
+/** نتیجهٔ واکشی یک مدل باما — خالص و تست‌پذیر */
+export interface BamaCarResult {
+  variants: string[];
+  label: string;
+  market: number | null;
+  factory: number | null;
+}
+
+/** ادغام ردیف‌های کانال با نتایج باما — خواستهٔ کاربر ۲۳ نوامبر:
+ *  «کاملتر» + «به ترتیب قیمت» + «قیمت کارخانه از باما».
+ *  • هر خانوادهٔ باما: یک ردیف — بازار = باما (جفتِ هم‌تیپ با کارخانه؛ اختلاف ستون سوم
+ *    معنادار می‌شود)؛ باما بازار نداد → بازار کانال (پشتیبان صادقانه)؛ هیچ‌کدام → غایب.
+ *  • کارخانه = «قیمت کارخانه/نمایندگی» باما؛ بازهٔ معقول ۱۰۰میلیارد تا ۵۰ میلیارد تومان.
+ *  • ردیف‌های کانالِ خارج از پوشش باما (تیبا، پیکان، ۲۰۶، پارس، ۴۰۵، سمند…) عیناً می‌مانند.
+ *  • خروجی: همهٔ خودروها صعودی بر اساس قیمت بازار (ارزان → گران). تابع خالص تست‌پذیر. */
+export function mergeCarQuotes(channelQuotes: Quote[], bama: BamaCarResult[]): Quote[] {
+  const bamaNorms = bama.map((b) => ({ ...b, norms: b.variants.map(normalizeCarModel).filter(Boolean) }));
+  const out: Quote[] = [];
+  const usedChannel = new Set<Quote>();
+  for (const b of bamaNorms) {
+    // نخستین ردیف کانالِ همین خانواده (پشتیبانِ بازار)
+    const chan = channelQuotes.find((q) => !usedChannel.has(q) && b.norms.some((n) => q.key.slice(4).includes(n)));
+    if (chan) usedChannel.add(chan);
+    const bamaMktOk = b.market !== null && b.market >= 1e9 && b.market <= 3e10;
+    const value = bamaMktOk ? (b.market as number) : chan ? chan.value : null;
+    if (value === null) continue; // هیچ منبعی برای بازار نبود — صادقانه غایب
+    const factoryOk = b.factory !== null && b.factory >= 1e8 && b.factory <= 5e10;
+    out.push({
+      key: `car:${b.norms[0]}`,
+      title: b.label,
+      value,
+      unit: 'toman',
+      srcLabel: bamaMktOk ? 'باما (نت)' : (chan?.srcLabel || 'باما (نت)'),
+      note: chan && !bamaMktOk ? chan.note : undefined,
+      factoryToman: factoryOk ? (b.factory as number) : undefined,
+      factorySrc: factoryOk ? 'باما' : undefined,
+      emoji: '🚗',
+    });
+  }
+  // ردیف‌های کانالِ خارج از پوشش باما — دست‌نخورده
+  for (const q of channelQuotes) if (!usedChannel.has(q)) out.push(q);
+  // ترتیب قیمت: صعودی (ارزان → گران) — خواستهٔ کاربر ۲۳ نوامبر
+  return out.sort((a, b2) => a.value - b2.value);
+}
 
 /** نخستین «قیمت بازار X,X…X تومان» صفحهٔ قیمت باما — تیپ مدل‌سال جدیدتر اول می‌آید.
  *  تابع خالص تست‌پذیر؛ نامعتبر → null. */
@@ -351,12 +447,16 @@ export function parseBamaMarketPrice(html: string): number | null {
 
 /** قیمت بازار + قیمت کارخانه (نمایندگی) یک صفحهٔ باما — خواستهٔ کاربر ۱۹ نوامبر:
  *  ستون مجاز قیمت کارخانه و اختلاف بازار/کارخانه. نخستین تطبیق = مدل‌سال جدیدتر.
- *  تابع خالص تست‌پذیر؛ هر عدد نامعتبر → null مستقل. */
+ *  نقد ۲۳ نوامبر — ریشهٔ «قیمت کارخانه بعضی مدل‌ها نیومده»: باما برای بیشتر مدل‌های
+ *  داخلی برچسب رسمی را «قیمت کارخانه» می‌نویسد و فقط برای برخی «قیمت نمایندگی»
+ *  (نمونهٔ واقعی ۲۳ نوامبر: pride_151_gx کارخانه ۱٬۱۹۰میلیارد؛ jac_j4 نمایندگی
+ *  ۱٬۶۱۰میلیارد) — پارسر قبلی فقط «نمایندگی» را می‌گرفت و ۱۶ از ۲۳ قیمت رسمی را
+ *  از دست می‌داد. حالا هر دو برچسب. تابع خالص تست‌پذیر؛ هر عدد نامعتبر → null مستقل. */
 export function parseBamaPrices(html: string): { market: number | null; factory: number | null } {
   try {
     const t = (html || '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ');
     const mkt = t.match(/قیمت بازار\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
-    const fct = t.match(/قیمت نمایندگی\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
+    const fct = t.match(/قیمت (?:کارخانه|نمایندگی)\s*([0-9]{1,3}(?:,[0-9]{3}){2,})\s*تومان/);
     return { market: mkt ? num(mkt[1]) : null, factory: fct ? num(fct[1]) : null };
   } catch {
     return { market: null, factory: null };
@@ -716,70 +816,31 @@ export async function fetchMarketData(opts: FetchMarketOpts = {}): Promise<Marke
       emoji: '🚗',
     });
   }
-  // ── خودروهای VIP — سه‌گانهٔ اول لیست با ستون کارخانه/اختلاف (خواستهٔ کاربر ۱۹ نوامبر):
-  //  «ج4 و sr3 و فیدلیتی الیت ۷ نفره … اول لیست بزاری … جلوش تو یه ستون مجزا قیمت کارخونه رو بزاری،
-  //  جلوش تو ستون مجزا هم ما به التفاوت و هم درصد تفاوت» — بازار: تازه‌ترین کانال/انبار، نبود →
-  //  باما؛ کارخانه: «قیمت نمایندگی» باما (همیشه واکشی می‌شود). هیچ عدد ساختگی. ──
-  const vipQuotes: Quote[] = [];
-  for (const v of CAR_VIP) {
-    const norm = normalizeCarModel(v.match);
-    const chan = carQuotes.find((q) => q.key.slice(4).includes(norm));
-    const r = await get(v.url, timeoutMs);
-    const bp = r.ok && r.text ? parseBamaPrices(r.text) : { market: null, factory: null };
-    const bamaOk = bp.market !== null && bp.market >= 1e9 && bp.market <= 3e10;
-    const value = chan ? chan.value : bamaOk ? bp.market! : null;
-    if (value === null) {
-      failures.push(`خودرو ${v.label}: بازار در کانال و باما هر دو یافت نشد`);
-      continue;
+  // ── پوشش کامل باما — خواستهٔ کاربر ۲۳ نوامبر: «کاملتر + به ترتیب قیمت + قیمت کارخانه
+  //  از باما» — هر خانوادهٔ CAR_BAMA_MODELS واکشی می‌شود (بازار + کارخانه/نمایندگی)؛
+  //  ردیف‌های کانالِ همان خانواده فقط پشتیبانِ بازار‌اند. هیچ عدد ساختگی.
+  //  آزموده‌شده ۲۳ نوامبر (سه اجرا): هر نرخِ بالای ~۲ درخواست/ثانیه از این IP محدودسازی
+  //  نرخ باما را فعال می‌کند (۳کارگر×۳۵۰ms: ۱۰/۳۸؛ ۶هم‌زمانی: ۱۶/۳۸؛ اما متوالیِ ۱s
+  //  پس از کانال‌ها: ۲۰/۲۰ کامل) — پس تک‌رشته با فاصلهٔ ۶۰۰ms و تلاش مجدد با ۲s مکث؛
+  //  کل فهرست ~۶۰ ثانیه، فقط یکبار در روز در اسلات ۱۵:۰۰. ──
+  const bamaResults: BamaCarResult[] = [];
+  let bamaOkCount = 0;
+  const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+  for (const m of CAR_BAMA_MODELS) {
+    let bp: { market: number | null; factory: number | null } = { market: null, factory: null };
+    for (let attempt = 0; attempt < 2 && bp.market === null && bp.factory === null; attempt++) {
+      if (attempt > 0) await sleep(2000); // مکث پیش از تلاش مجدد — محدودکنندهٔ نرخ آرام می‌گیرد
+      const r = await get(m.url, timeoutMs);
+      if (r.ok && r.text) bp = parseBamaPrices(r.text);
     }
-    vipQuotes.push({
-      key: `car:${norm}`,
-      title: v.label,
-      value,
-      unit: 'toman',
-      srcLabel: chan ? chan.srcLabel : 'باما (نت)',
-      note: chan?.note,
-      factoryToman: bp.factory !== null && bp.factory >= 1e8 && bp.factory <= 5e10 ? bp.factory : undefined,
-      factorySrc: bp.factory !== null ? 'باما' : undefined,
-      emoji: '🚗',
-    });
+    await sleep(600); // فاصلهٔ مؤدبانه — نرخ ~۱٫۵ درخواست/ثانیه، زیر آستانهٔ محدودسازی
+    if (bp.market !== null || bp.factory !== null) bamaOkCount++;
+    bamaResults.push({ variants: m.variants, label: m.label, market: bp.market, factory: bp.factory });
   }
-  // VIPها از فهرست عادی حذف — تکراری نمی‌آیند (الیت/فیدلیتی/J4/SR3 فقط در سه‌گانهٔ اول)
-  const vipMatches = CAR_VIP.map((v) => normalizeCarModel(v.match));
-  const carRest = carQuotes.filter((q) => !vipMatches.some((vm) => q.key.slice(4).includes(vm)));
-  // پشتیبان «از نت» — فقط مدل‌های غایب در کانال/انبار (خواستهٔ کاربر ۱۲ نوامبر ۲۰۲۶);
-  // شکست وب → صادقانه غایب. انبار ماندگار آلوده نمی‌شود (منبع قیمت = وب، نه کانال).
-  const storeKeys = Object.keys(carStore);
-  for (const w of CAR_WEB_SOURCES) {
-    const norm = normalizeCarModel(w.match);
-    // مدل تحت پوشش سه‌گانهٔ VIP (با قیمت کارخانهٔ باما) از پشتیبان وب مستثناست —
-    // وگرنه SR3 دوبار می‌آمد: بار با کارخانه (VIP) و بار بی‌کارخانه (وب) — تکرار ردیف
-    if (vipMatches.includes(norm)) continue;
-    if (carRest.some((q) => q.key.slice(4).includes(norm)) || storeKeys.some((k) => k.includes(norm))) continue;
-    const r = await get(w.url, timeoutMs);
-    if (!r.ok || !r.text) continue;
-    const price = parseBamaMarketPrice(r.text);
-    if (price && price >= 1e9 && price <= 3e10) {
-      carRest.push({
-        key: `car:${norm}`,
-        title: w.label,
-        value: price,
-        unit: 'toman',
-        srcLabel: `${w.hostLabel} (نت)`,
-        emoji: '🚗',
-      });
-    }
-  }
-  // ترتیب نمایش: سه‌گانهٔ VIP اول لیست (خواستهٔ ۱۹ نوامبر) — بعد فهرست پرتقاضا — بعد بقیه
-  const orderedCarQuotes: Quote[] = [...vipQuotes];
-  const pending = new Map(carRest.map((q) => [q.key, q] as const));
-  for (const f of CAR_FEATURED) {
-    const fm = normalizeCarModel(f.match);
-    for (const [k, q] of pending) {
-      if (k.slice(4).includes(fm)) { orderedCarQuotes.push(q); pending.delete(k); break; }
-    }
-  }
-  orderedCarQuotes.push(...pending.values());
+  if (bamaOkCount === 0) failures.push('باما: هیچ صفحهٔ قیمت خودرو دریافت نشد (شبکه؟)');
+  else sources.add('باما');
+  // ادغام + مرتب‌سازی صعودی بر اساس قیمت (mergeCarQuotes — خواستهٔ ۲۳ نوامبر)
+  const orderedCarQuotes = mergeCarQuotes(carQuotes, bamaResults);
   quotes.push(...orderedCarQuotes);
 
   return {
@@ -810,7 +871,7 @@ export function officialLabelOf(q: Quote): string {
 }
 
 /** پیام گزارش بازار — پشتیبان متنی کارت؛ همان ساختار ۴ستونی جدول (خواستهٔ ۲۰ نوامبر ششم و هفتم):
- *  «نام: بازار (تغییر نسبت به دیروز ساعت ۳ با مبلغ اختلاف) | کارخانه/دولتی: قیمت (اختلاف مبلغ/درصد
+ *  «نام: بازار (تغییر نسبت به دیروز ساعت ۱۵ با مبلغ اختلاف) | کارخانه/دولتی: قیمت (اختلاف مبلغ/درصد
  *  با بازار)». بدون سربرگ برند، بدون بلوک «دریافت نشد»، بدون خط «منابع». خودرو با عنوان
  *  «آخرین قیمت بازار آزاد خودرو». */
 export function formatMarketMessage(quotes: Quote[], prev?: PriceSnapshot, prevDay?: PriceSnapshot): string {
@@ -856,13 +917,13 @@ export function snapshotOf(quotes: Quote[]): PriceSnapshot {
   return out;
 }
 
-/** سقف کهنگی پایهٔ درصد — گزارش ۰۳:۰۰ روزانه؛ بیشتر از ~۳۶ ساعت یعنی گزارش دیروز ناموفق بوده
- *  و پایهٔ موجود متعلق به «دیروز ساعت ۳» نیست (دو شب قبل است) */
+/** سقف کهنگی پایهٔ درصد — گزارش ۱۵:۰۰ روزانه؛ بیشتر از ~۳۶ ساعت یعنی گزارش دیروز ناموفق بوده
+ *  و پایهٔ موجود متعلق به «دیروز ساعت ۱۵» نیست (دو روز قبل است) */
 export const SNAPSHOT_STALE_MS = 36 * 3_600_000;
 
-/** انتخاب پایهٔ درصد بر اساس تازگی snapshot — خواستهٔ کاربر ۲۰ نوامبر (ششم):
- *  «تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن». snapshot تازه (≤۳۶ ساعت) → پایهٔ
- *  «دیروز ساعت ۳» معتبر است (prevDay مقدم، سپس prev). کهنه/ناموجود → پایه‌ها کنار
+/** انتخاب پایهٔ درصد بر اساس تازگی snapshot — خواستهٔ کاربر ۲۰ نوامبر (ششم) + ساعت ۲۳ نوامبر:
+ *  «تغییرات نسبت به ساعت ۱۵ روز قبل محاسبه بشن». snapshot تازه (≤۳۶ ساعت) → پایهٔ
+ *  «دیروز ساعت ۱۵» معتبر است (prevDay مقدم، سپس prev). کهنه/ناموجود → پایه‌ها کنار
  *  می‌روند (درصد از تغییر روزانهٔ خود منبع یا «—» می‌آید؛ هیچ درصد چندروزهٔ
  *  گمراه‌کننده‌ای نشان داده نمی‌شود). تابع خالص تست‌پذیر. */
 export function snapshotBaseOf(
@@ -878,7 +939,7 @@ export function snapshotBaseOf(
   return { prev: snap, prevDay, fresh: true };
 }
 
-/** ترمیم مهر زمان snapshot بی‌مهر — snapshot نسخه‌های پیش از گزارش ۰۳:۰۰ priceSnapAt
+/** ترمیم مهر زمان snapshot بی‌مهر — snapshot نسخه‌های پیش از گزارش روزانه priceSnapAt
  *  نداشتند و گارد تازگی آن‌ها را بی‌پایه می‌گذاشت (ستون «تغییر نسبت به روز قبل» خالی
  *  می‌ماند — خواستهٔ ۲۰ نوامبر هفتم). lastPriceKey کلید اسلات تهران «YYYY-MM-DDTHH:MM»
  *  است = زمان واقعی آخرین گزارش → مهر معتبر می‌سازد. بی‌snapshot/مهدار/کلید نامعتبر →

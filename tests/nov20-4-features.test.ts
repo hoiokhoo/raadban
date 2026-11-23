@@ -172,9 +172,9 @@ describe('خاموشی صریح اسلات‌ها و حافظهٔ وزنی (خو
     expect(yml).toContain("GEO_HOURS: '6,14,22'");
   });
 
-  test('نقد زمان‌بندی — بازار و نمودار فقط یکبار در روز ساعت ۳؛ صبح ۰۵:۴۵؛ هواشناسی ۲۱:۳۰', () => {
+  test('نقد زمان‌بندی — بازار و نمودار فقط یکبار در روز ساعت ۱۵ (خواستهٔ ۲۳ نوامبر)؛ صبح ۰۵:۴۵؛ هواشناسی ۲۱:۳۰', () => {
     const yml = readFileSync(resolve(import.meta.dir, '../.github/workflows/bale-bot.yml'), 'utf8');
-    expect(yml).toContain("PRICE_HOURS: '03:00'");
+    expect(yml).toContain("PRICE_HOURS: '15:00'");
     expect(yml).toContain("BOT_DAILY_POOL_CAP: '260'"); // آرشیو سبک — نقد state.json
     const ds = JSON.parse(readFileSync(resolve(import.meta.dir, '../bot/daily-settings.json'), 'utf8')) as { weatherHour: string; morningHour: string; eveningHour: string };
     expect(ds.weatherHour).toBe('21:30');

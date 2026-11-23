@@ -10,7 +10,7 @@
 import { describe, expect, test } from 'bun:test';
 import { categorizeFa, groupByCategory, CAT_LABELS, CAT_ORDER, type CatKey } from '../bot/categories';
 import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel, SALE_PORTALS } from '../bot/sale-announcement';
-import { parseBamaPrices, parseBamaMarketPrice, carFactoryDelta, formatMarketMessage, CAR_VIP, CAR_FEATURED } from '../bot/market';
+import { parseBamaPrices, parseBamaMarketPrice, carFactoryDelta, formatMarketMessage, CAR_BAMA_MODELS, CAR_FEATURED } from '../bot/market';
 import { marketSectionsOf } from '../bot/market-card';
 import type { Quote } from '../bot/market';
 
@@ -221,10 +221,14 @@ describe('carFactoryDelta — ما به‌التفاوت و درصد تفاوت'
   });
 });
 
-describe('CAR_VIP — سه‌گانهٔ اول لیست (خواستهٔ ۱۹ نوامبر)', () => {
-  test('J4، SR3، فیدلیتی الیت ۷نفره — به همین ترتیب', () => {
-    expect(CAR_VIP.map((v) => v.label)).toEqual(['جک J4', 'کی ام سی SR3', 'فیدلیتی الیت ۷نفره']);
-    expect(CAR_VIP.every((v) => v.url.startsWith('https://bama.ir/price/'))).toBe(true);
+describe('CAR_BAMA_MODELS — پوشش کامل خانواده‌ها با قیمت کارخانهٔ باما (خواستهٔ ۱۹ + ۲۳ نوامبر)', () => {
+  test('سه‌گانهٔ ۱۹ نوامبر (J4/SR3/الیت) و خانواده‌های پرتقاضا همه حاضرند — همه از bama.ir', () => {
+    const labels = CAR_BAMA_MODELS.map((m) => m.label);
+    for (const must of ['جک J4', 'کی ام سی SR3', 'فیدلیتی الیت ۷نفره', 'پراید ۱۵۱', 'پژو ۲۰۷', 'تارا', 'دنا پلاس', 'شاهین', 'کوییک', 'ساینا', 'سورن پلاس', 'رانا', 'ری‌را', 'هایما S5', 'لاماری اکو', 'آریزو ۸', 'تیگو ۷ پرو', 'اطلس']) {
+      expect(labels).toContain(must);
+    }
+    expect(CAR_BAMA_MODELS.every((m) => m.url.startsWith('https://bama.ir/price/'))).toBe(true);
+    expect(CAR_BAMA_MODELS.length).toBeGreaterThanOrEqual(35);
   });
 });
 

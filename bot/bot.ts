@@ -293,10 +293,11 @@ const CFG = {
   // تنظیمات پیام‌های روزانه (صبحگاهی/شبانگاهی) — فایل مدیریت‌شدهٔ اپلیکیشن، در ریپو کامیت می‌شود
   dailySettingsFile: process.env.BOT_DAILY_SETTINGS_FILE || 'bot/daily-settings.json',
   // اسلات‌های تهران: تحلیل جامع (پیش‌فرض ۸ و ۱۴ و ۲۰) و گزارش بازار — خواستهٔ کاربر
-  // ۲۰ نوامبر (ششم): «بخش قیمتها و نمودار قیمت کلا دیگه فقط یکبار در ساعت ۳ ارسال بشن» —
-  // اسلات واحد ۰۳:۰۰ بامداد تهران (قیمت‌ها + نمودار دارایی‌ها با هم)
+  // ۲۰ نوامبر (ششم): «بخش قیمتها و نمودار قیمت کلا دیگه فقط یکبار در روز ارسال بشن» +
+  // ۲۳ نوامبر: «بخش قیمتها و نمودار قیمتی باید ساعت ۱۵ هرروز باشه نه ساعت ۳ صبح» —
+  // اسلات واحد ۱۵:۰۰ تهران (قیمت‌ها + نمودار دارایی‌ها با هم)
   digestSlots: parseSlots(process.env.DIGEST_HOURS, '8,14,20'),
-  priceSlots: parseSlots(process.env.PRICE_HOURS, '03:00'),
+  priceSlots: parseSlots(process.env.PRICE_HOURS, '15:00'),
   // تحلیل جامع شبانه — هر شب ۲۲:۳۰ تهران (خواستهٔ کاربر ۱۳ نوامبر ۲۰۲۶)؛ قابل تغییر با NIGHTLY_HOURS
   nightlySlots: parseSlots(process.env.NIGHTLY_HOURS, '22:30'),
   // تحلیل ۸ساعتهٔ ژئوپلیتیک — بخش مجزای چپ و راست (خواستهٔ ۱۳ نوامبر؛ ۲۰ نوامبر: ۴→۸ساعته)؛
@@ -690,16 +691,16 @@ export interface BotState {
   /** آخرین اسلات انجام‌شدهٔ تحلیل/بازار — کلید «<تاریخ تهران>T<HH:MM>» (ضدتکرار روزانه) */
   lastDigestKey?: string;
   lastPriceKey?: string;
-  /** قیمت‌های آخرین گزارش بازار — پایهٔ درصد تغییر؛ با گزارش روزانهٔ ۰۳:۰۰ یعنی
-   *  دقیقاً «دیروز ساعت ۳» (خواستهٔ کاربر ۲۰ نوامبر ششم: «تغییرات نسبت به ساعت ۳ روز قبل») */
+  /** قیمت‌های آخرین گزارش بازار — پایهٔ درصد تغییر؛ با گزارش روزانهٔ ۱۵:۰۰ یعنی
+   *  دقیقاً «دیروز ساعت ۱۵» (خواستهٔ کاربر ۲۰ نوامبر ششم + تصحیح ساعت ۲۳ نوامبر) */
   priceSnap?: Record<string, number>;
   /** زمان ISO آخرین snapshot موفق — گارد تازگی: snapshot قدیمی‌تر از ~۳۶ ساعت پایهٔ
-   *  «دیروز ساعت ۳» نیست (گزارش دیروز ناموفق بوده — درصد بر پایهٔ کهنه نشان داده نمی‌شود) */
+   *  «دیروز ساعت ۱۵» نیست (گزارش دیروز ناموفق بوده — درصد بر پایهٔ کهنه نشان داده نمی‌شود) */
   priceSnapAt?: string;
   /** تاریخ تهران آخرین گزارش بازار — برای چرخش پایهٔ «دیروز»؛ نخستین گزارش هر روز،
    *  آخرین snapshot روز پیشین را به priceSnapPrevDay منتقل می‌کند */
   priceSnapDay?: string;
-  /** پایهٔ «دیروز ساعت ۳» درصد تغییر — آخرین snapshot روز پیشین (گزارش روزانهٔ ۰۳:۰۰) */
+  /** پایهٔ «دیروز ساعت ۱۵» درصد تغییر — آخرین snapshot روز پیشین (گزارش روزانهٔ ۱۵:۰۰) */
   priceSnapPrevDay?: Record<string, number>;
   /** کش روزانهٔ تاریخچهٔ قیمت نمادها برای «نمودار روند دارایی‌ها» (bot/assets-chart.ts —
    *  خواستهٔ کاربر ۲۰ نوامبر: «قرار بود چارت نمودار دارایی ها رو هم بزاری») — یک واکشی در روز */
@@ -2660,27 +2661,27 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
     console.log(`اسلات تحلیل جامع رسید ولی استخر کوچک است (${pool.length}) — چرخهٔ بعد تلاش می‌کند`);
   }
 
-  // ۵) گزارش بازار + نمودار دارایی‌ها — اسلات واحد بامداد ۰۳:۰۰ تهران (PRICE_HOURS؛
-  //    خواستهٔ کاربر ۲۰ نوامبر ششم: «بخش قیمتها و نمودار قیمت کلا دیگه فقط یکبار در
-  //    ساعت ۳ ارسال بشن و تغییرات نسبت به ساعت ۳ روز قبل محاسبه بشن»)
+  // ۵) گزارش بازار + نمودار دارایی‌ها — اسلات واحد ۱۵:۰۰ تهران (PRICE_HOURS؛
+  //    خواستهٔ کاربر ۲۰ نوامبر ششم + ۲۳ نوامبر: «بخش قیمتها و نمودار قیمتی باید
+  //    ساعت ۱۵ هرروز باشه نه ساعت ۳ صبح» — تغییرات نسبت به دیروز ساعت ۱۵)
   //    خودرو (انبار ماندگار — پرتیراژها همیشه) + طلا/سکه (tgju) + دلار/بیت‌کوین (نوبیتکس → پشتیبان tgju)
-  //    + شاخص بورس (تستمسن → tgju) + برنت — درصد تغییر هر قلم نسبت به «دیروز ساعت ۳»
-  //    (state.priceSnapPrevDay — snapshot گزارش ۰۳:۰۰ روز پیشین؛ گزارش روزانه یعنی همان ساعت ۳)
+  //    + شاخص بورس (تستمسن → tgju) + برنت — درصد تغییر هر قلم نسبت به «دیروز ساعت ۱۵»
+  //    (state.priceSnapPrevDay — snapshot گزارش ۱۵:۰۰ روز پیشین؛ گزارش روزانه یعنی همان ساعت ۱۵)
   const forcePrice = process.argv.includes('--force-digest') || process.env.FORCE_PRICE === '1';
   const pKey = forcePrice
     ? `force-price-${new Date().toISOString().slice(0, 16)}`
     : dueSlotKey(Date.now(), CFG.priceSlots, state.lastPriceKey);
   if (pKey) {
     const md = await fetchMarketData({ carChannels: CFG.carChannels, carStore: state.carStore });
-    // ── پایهٔ «دیروز ساعت ۳» درصد تغییر (خواستهٔ کاربر ۲۰ نوامبر ششم) — با گزارش
-    //    روزانهٔ ۰۳:۰۰، نخستین (و تنها) گزارش هر روز، snapshot روز پیشین را به پایهٔ
-    //    دیروز منتقل می‌کند؛ یعنی دقیقاً «ساعت ۳ روز قبل». ──
+    // ── پایهٔ «دیروز ساعت ۱۵» درصد تغییر (خواستهٔ کاربر ۲۰ نوامبر ششم + ساعتِ ۲۳ نوامبر) —
+    //    با گزارش روزانهٔ ۱۵:۰۰، نخستین (و تنها) گزارش هر روز، snapshot روز پیشین را به
+    //    پایهٔ دیروز منتقل می‌کند؛ یعنی دقیقاً «ساعت ۱۵ روز قبل». ──
     const pMkt = tehranParts(Date.now());
     if (state.priceSnapDay !== pMkt.dateKey) {
       if (state.priceSnap) state.priceSnapPrevDay = state.priceSnap;
       state.priceSnapDay = pMkt.dateKey;
     }
-    // ترمیم یک‌بارهٔ priceSnapAt — snapshot نسخه‌های پیش از گزارش ۰۳:۰۰ مهر زمان نداشتند
+    // ترمیم یک‌بارهٔ priceSnapAt — snapshot نسخه‌های پیش از گزارش روزانه مهر زمان نداشتند
     // و گارد تازگی آن‌ها را بی‌پایه می‌گذاشت (ستون «تغییر نسبت به روز قبل» خالی می‌ماند).
     // lastPriceKey کلید اسلات تهران است = دقیقاً زمان آخرین گزارش — خواستهٔ ۲۰ نوامبر هفتم.
     const repairedSnapAt = repairSnapshotAt(state.priceSnap, state.priceSnapAt, state.lastPriceKey);
@@ -2689,7 +2690,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
       console.log(`priceSnapAt از lastPriceKey ترمیم شد → ${repairedSnapAt}`);
     }
     // گارد تازگی snapshot — گزارش دیروز ناموفق بوده و پایه کهنه (>۳۶ ساعت) است؟
-    // پس «دیروز ساعت ۳» واقعی نداریم: درصد بر پایهٔ کهنه نشان داده نمی‌شود (applyDeltas
+    // پس «دیروز ساعت ۱۵» واقعی نداریم: درصد بر پایهٔ کهنه نشان داده نمی‌شود (applyDeltas
     // به تغییر روزانهٔ خود منبع یا «—» برمی‌گردد — هیچ درصد گمراه‌کننده‌ای نیست)
     const base = snapshotBaseOf(state.priceSnap, state.priceSnapAt, state.priceSnapPrevDay);
     const snapFresh = base.fresh;
@@ -2699,7 +2700,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
       console.warn(`⚠️ پایهٔ درصد بازار کهنه است (${state.priceSnapAt || 'بدون زمان'}) — درصد از تغییر روزانهٔ منبع/«—» می‌آید، نه مقایسهٔ گمراه‌کنندهٔ چندروزه`);
     }
     if (ctx.dryRun) {
-      console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey} — پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۳' : 'تغییر روزانهٔ منبع'}) ===`);
+      console.log(`=== DRY_RUN — پیش‌نمایش گزارش بازار (اسلات ${pKey} — پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۱۵' : 'تغییر روزانهٔ منبع'}) ===`);
       console.log(formatMarketMessage(md.quotes, snapPrev, snapPrevDay));
       console.log('=== پایان پیش‌نمایش ===');
     } else if (md.quotes.length >= 3) {
@@ -2709,7 +2710,7 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
       const mktHour = pMkt.hhmm.slice(0, 2);
       const mktSlot = pKey.startsWith('force')
         ? 'گزارش فوری'
-        : mktHour < '05' ? 'بامداد (ساعت ۳)' : mktHour < '12' ? 'صبح' : mktHour < '17' ? 'میان‌روز' : 'شب';
+        : `گزارش روزانه (ساعت ${enToFaDigits(mktHour)})`;
       const withDelta = applyDeltas(md.quotes, snapPrev, snapPrevDay);
       let ok = false;
       let viaCard = false;
@@ -2738,14 +2739,14 @@ export async function runDigestAndMarketSlots(ctx: SlotsCtx): Promise<void> {
         summary.priceSent = true;
         state.lastPriceKey = pKey;
         state.priceSnap = snapshotOf(md.quotes);
-        state.priceSnapAt = new Date().toISOString(); // گارد تازگی پایهٔ «دیروز ساعت ۳»
+        state.priceSnapAt = new Date().toISOString(); // گارد تازگی پایهٔ «دیروز ساعت ۱۵»
         state.carStore = md.carStore || state.carStore;
-        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۳' : 'تغییر روزانهٔ منبع'}، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
+        console.log(`گزارش بازار ارسال شد — ${md.quotes.length} قلم، پایهٔ درصد: ${snapFresh ? 'دیروز ساعت ۱۵' : 'تغییر روزانهٔ منبع'}، ${viaCard ? `کارت تصویری ${card!.width}×${card!.height}` : 'پیام متنی'}، ${md.failures.length} منبع دریافت‌نشده (صادقانه)`);
       }
       // ── نمودار روند دارایی‌ها — خواستهٔ کاربر ۲۰ نوامبر (دومی + ششم):
       //    «قرار بود چارت نمودار دارایی ها رو هم بزاری،اما الآن نیست» + «نمودار قیمت کلا
-      //    دیگه فقط یکبار در ساعت ۳» — کارت اسپارک‌لاین ۳۰روزهٔ شش دارایی شاخص، بلافاصله
-      //    پس از کارت بازار در همان اسلات واحد ۰۳:۰۰. تاریخچه یک‌بار در روز کش
+      //    دیگه فقط یکبار در روز (۱۵:۰۰ — خواستهٔ ۲۳ نوامبر)» — کارت اسپارک‌لاین ۳۰روزهٔ
+      //    شش دارایی شاخص، بلافاصله پس از کارت بازار در همان اسلات واحد. تاریخچه یک‌بار در روز کش
       //    می‌شود (state.chartHist)؛ نقطهٔ امروز از tgjuCurrent زندهٔ همین گزارش ملحق می‌شود.
       //    شکست هر نماد → پنل همان نماد حذف؛ <۳ پنل یا خطای رندر → بی‌نمودار صادقانه
       //    (کارت بازار مستقل است و از دست نمی‌رود). فقط عکس — بدون کپشن. ──

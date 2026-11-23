@@ -44,9 +44,10 @@ describe('اسلات واحد بازار ۰۳:۰۰ — یکبار در روز (�
 // ---------- (۲) یکپارچگی تنظیمات ریپو ----------
 
 describe('یکپارچگی تنظیمات ریپو (ششم)', () => {
-  test('workflow — PRICE_HOURS فقط ۰۳:۰۰؛ اسلات‌های قدیمی بازار حذف شدند', () => {
+  test('workflow — PRICE_HOURS فقط ۱۵:۰۰ (خواستهٔ ۲۳ نوامبر: «بخش قیمتها و نمودار قیمتی باید ساعت ۱۵ هرروز باشه نه ساعت ۳ صبح»)؛ اسلات‌های قدیمی بازار حذف شدند', () => {
     const yml = readFileSync(resolve(import.meta.dir, '../.github/workflows/bale-bot.yml'), 'utf8');
-    expect(yml).toContain("PRICE_HOURS: '03:00'");
+    expect(yml).toContain("PRICE_HOURS: '15:00'");
+    expect(yml).not.toContain("PRICE_HOURS: '03:00'");
     expect(yml).not.toContain("PRICE_HOURS: '12:30,20:30'");
     expect(yml).not.toContain("PRICE_HOURS: '12:30,21:00'");
   });

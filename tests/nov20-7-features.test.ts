@@ -15,7 +15,7 @@ import {
   officialDeltaOf,
   repairSnapshotAt,
   formatMarketMessage,
-  CAR_VIP,
+  CAR_BAMA_MODELS,
   CAR_WEB_SOURCES,
   normalizeCarModel,
   type Quote,
@@ -200,11 +200,12 @@ describe('ترمیم priceSnapAt — ستون چهارم خالی نماند', (
   });
 });
 
-describe('بدون تکرار ردیف خودرو — پشتیبان وب مدلِ VIP را دوباره نمی‌آورد', () => {
-  test('هر مدل پشتیبان وب که در سه‌گانهٔ VIP هست در پیکربندی بی‌معناست — SR3 فقط یک‌بار', () => {
-    const vipModels = CAR_VIP.map((v) => normalizeCarModel(v.match));
+describe('بدون تکرار ردیف خودرو — هر خانواده فقط یک‌بار در فهرست باما', () => {
+  test('کلید هر خانوادهٔ CAR_BAMA_MODELS یکتاست — SR3/J4/الیت فقط یک‌بار', () => {
+    const keys = CAR_BAMA_MODELS.map((m) => normalizeCarModel(m.variants[0]));
+    expect(new Set(keys).size).toBe(keys.length);
     for (const w of CAR_WEB_SOURCES) {
-      expect(vipModels).not.toContain(normalizeCarModel(w.match));
+      expect(keys).not.toContain(normalizeCarModel(w.match));
     }
   });
 });

@@ -73,6 +73,7 @@ import {
   NEWS_CARD_ROWS_PER_PAGE,
   type CardPng,
 } from './news-card';
+import { renderFullTextCardPages, FULLTEXT_NEWS_TITLE, FULLTEXT_TWEETS_TITLE, type FullTextCardItem } from './fulltext-card';
 import { groupByCategory, categorizeFa } from './categories';
 import { cleanSaleAnnouncementText, matchSalePortal, extractSaleFactoryPrice, matchSaleCarModel, buildSaleAiUserPrompt, parseSaleAiDraft, resolveSaleAiDraft, SALE_AI_SYSTEM_PROMPT } from './sale-announcement';
 import { groundAiBundle, sanitizeDigestRepetition, type GroundResult } from './grounding';
@@ -141,7 +142,7 @@ import { fetchTruthSocialArchive, type TruthPost } from './truth-social';
 import { dominantKindOf, renderWeatherGif } from './weather-gif';
 import { fetchRadarGif } from './radar-gif';
 import { fetchForecastGif } from './forecast-gif';
-import { highlightIranItemsHtml, isIranRelated } from './iran';
+import { highlightPriorityItemsHtml, isPriorityRelated } from './iran';
 import { isBreakingTweetText, renderBreakingGif } from './breaking';
 import {
   pickHadith,
@@ -3279,7 +3280,7 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   // عنوان روزانهٔ بستهٔ سه‌تایی — خواستهٔ کاربر: صبحگاهی/ظهرگاهی/شبانگاهی (geoDaypartLabel)
   const header = `🧭 <b>تحلیل جامع ${geoDaypartLabel(dKey)} رصدبان</b> — ${esc(weekday)} ${esc(p.dateFa)}`;
   // مورد ایران‌مرتبط بولد — خواستهٔ کاربر ۲۰ نوامبر: «اخبار مرتبط با ایران ... بولدتر»
-  const bodyHighlighted = highlightIranItemsHtml(finalBody);
+  const bodyHighlighted = highlightPriorityItemsHtml(finalBody);
   const chunks = chunkHourlyMessage(`${header}\n\n${bodyHighlighted}`, 3300);
   let ok = false;
   for (const c of chunks) {
@@ -3477,16 +3478,24 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
     }
     // قیمت بازار آزاد مدل — فقط اسلاگ‌های بامای تأییدشده؛ نبود مدل/شکست واکشی → صادقانه غایب
     let marketLine = '📈 قیمت بازار آزاد: مدل در اطلاعیه مشخص نبود';
+    let marketPlain = 'مدل در اطلاعیه مشخص نبود';
     if (model) {
       const r = await fetchText(model.bamaUrl, 12_000);
       const bp = r.ok && r.text ? parseBamaPrices(r.text) : { market: null, factory: null };
-      marketLine = bp.market
-        ? `📈 قیمت بازار آزاد (${model.label}): ${formatMoney(bp.market, 'toman')}`
-        : '📈 قیمت بازار آزاد: از باما دریافت نشد';
+      if (bp.market) {
+        marketLine = `📈 قیمت بازار آزاد (${model.label}): ${formatMoney(bp.market, 'toman')}`;
+        marketPlain = `${formatMoney(bp.market, 'toman')} — ${model.label}`;
+      } else {
+        marketLine = '📈 قیمت بازار آزاد: از باما دریافت نشد';
+        marketPlain = 'از باما دریافت نشد';
+      }
     }
     const factoryLine = factoryPrice
       ? `🏭 قیمت فروش کارخانه: ${formatMoney(factoryPrice, 'toman')}${aiUsed && extractSaleFactoryPrice(clean) === null ? ' (استخراج هوشمند از متن اطلاعیه)' : ''}`
       : '🏭 قیمت فروش کارخانه: در اطلاعیه ذکر نشده';
+    const factoryPlain = factoryPrice
+      ? `${formatMoney(factoryPrice, 'toman')}${aiUsed && extractSaleFactoryPrice(clean) === null ? ' (استخراج هوشمند از متن اطلاعیه)' : ''}`
+      : 'در اطلاعیه ذکر نشده';
     const linkLine = portal
       ? `🛒 <a href="${portal.url}">${portal.label}</a> — ${portal.url}`
       : '🛒 سایت فروش خودروساز: در اطلاعیه ذکر نشده بود';
@@ -3500,10 +3509,44 @@ export async function runSaleAlerts(state: BotState, summary: RunSummary): Promi
       marketLine,
     ].join('\n');
     let sentOk = false;
-    for (const t of CFG.targets) {
-      const s = await sendBaleMessage(CFG.token, t, msg);
-      if (s.ok) sentOk = true;
-      else console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
+    // ── کارت بنفش «متن کامل» (خواستهٔ ۲۵ نوامبر): «بعضی از اخبار الآن خام ارسال میشن …
+    //    اونا هم با یه رنگ پس‌زمینهٔ متفاوت از بخشهای دیگه داخل یه عکس جا بشن» — اطلاعیهٔ
+    //    فروش هم خبر است؛ متن کامل + قیمت‌ها روی کارت، لینکِ قابل‌کلیک در کپشن عکس (روی
+    //    تصویر لینک کلیک نمی‌شود). شکست رندر → همان پیام متنی کامل (پشتیبان همیشگی). ──
+    let saleCardOk = false;
+    if (!CFG.dryRun) {
+      try {
+        const pSale = tehranParts(Date.now());
+        const saleDate = tripleDateOf(pSale.dateKey, 'Asia/Tehran', 'umalqura');
+        const saleItems: FullTextCardItem[] = [
+          { source: 'متن کامل اطلاعیه', text: clean },
+          ...(portal ? [{ source: 'سایت فروش', text: `${portal.label} — ${portal.url}` }] : []),
+          { source: 'قیمت فروش کارخانه', text: factoryPlain },
+          { source: 'قیمت بازار آزاد', text: marketPlain },
+        ];
+        const salePages = await renderFullTextCardPages({ date: saleDate, title: 'اطلاعیه فروش خودرو', items: saleItems });
+        if (salePages.pages.length > 0) {
+          const cap = portal ? `🛒 لینک فروش/ثبت‌نام: ${portal.url}`.slice(0, 1024) : undefined;
+          const fnameBase = String(p.dataPost).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40) || 'sale';
+          for (let pi = 0; pi < salePages.pages.length; pi++) {
+            for (const t of CFG.targets) {
+              const s = await sendBalePhotoBytes(CFG.token, t, salePages.pages[pi]!.png, `raadban-sale-${fnameBase}-${pi + 1}.png`, pi === 0 ? cap : undefined);
+              if (s.ok) { saleCardOk = true; sentOk = true; }
+              else console.error(`❌ ارسال کارت اطلاعیه فروش به ${t}: ${s.error}`);
+            }
+            await sleep(700);
+          }
+        }
+      } catch {
+        // رندر کارت اطلاعیه شکست خورد — پیام متنی کامل (پشتیبان همیشگی)
+      }
+    }
+    if (!saleCardOk) {
+      for (const t of CFG.targets) {
+        const s = await sendBaleMessage(CFG.token, t, msg);
+        if (s.ok) sentOk = true;
+        else console.error(`❌ ارسال اطلاعیه فروش به ${t}: ${s.error}`);
+      }
     }
     if (sentOk) {
       state.saleAlertIds[p.dataPost] = Date.now(); // فقط حالا «دیده‌شده» است — چرخهٔ دیگر تکرارش نمی‌کند
@@ -4742,16 +4785,18 @@ async function main(): Promise<void> {
       const rawCardItems: Array<{ text: string; tick: boolean; source: string }> = grounded
         ? grounded.items.map((g) => ({ text: g.text, tick: g.tick, source: g.source }))
         : mergedItems.slice(0, NEWS_CARD_ROW_CAP).map((m) => ({ text: m.text, tick: m.verified, source: (m.sources[0] || '').trim() }));
-      // تفکیک جاشونده/سرریز — کارت فقط جمله‌های کامل می‌گیرد؛ سرریزها متن کامل در پیام متنی
-      const overflowTexts: string[] = beyondCardItems.map((m) => m.text);
+      // تفکیک جاشونده/سرریز — کارت فقط جمله‌های کامل می‌گیرد؛ سرریزها به «کارت بنفش متن کامل»
+      // می‌روند (خواستهٔ ۲۵ نوامبر: «بعضی اخبار خام ارسال میشن … اونا هم با یه رنگ پس
+      // زمینهٔ متفاوت داخل یه عکس جا بشن»)؛ رندر ناموفق → پیام متنی (پشتیبان همیشگی)
+      const overflowFull: Array<{ text: string; source: string }> = beyondCardItems.map((m) => ({ text: m.text, source: (m.sources[0] || '').trim() }));
       const fittedItems: Array<{ text: string; tick: boolean; source: string }> = [];
       for (const it of rawCardItems) {
         const fitted = finalizeNewsCardText(it.text);
-        if (fitted === null) overflowTexts.push(it.text);
+        if (fitted === null) overflowFull.push({ text: it.text, source: it.source });
         else fittedItems.push({ ...it, text: fitted });
       }
-      if (beyondCardItems.length > 0) console.log(`سپر ظرفیت کارت: ${enToFaDigits(String(beyondCardItems.length))} مورد فراتر از ${enToFaDigits(String(NEWS_CARD_ROW_CAP))} ردیفِ کارت‌ها — متن کامل در پیام متنی جداگانه (نقد ۲۱ نوامبر)`);
-      if (overflowTexts.length > 0) console.log(`سپر «…» و ظرفیت: ${enToFaDigits(String(overflowTexts.length))} مورد — متن کامل در پیام متنی جداگانه (هرگز بریده نمی‌شود)`);
+      if (beyondCardItems.length > 0) console.log(`سپر ظرفیت کارت: ${enToFaDigits(String(beyondCardItems.length))} مورد فراتر از ${enToFaDigits(String(NEWS_CARD_ROW_CAP))} ردیفِ کارت‌ها — کارت بنفش متن کامل (نقد ۲۱ نوامبر)`);
+      if (overflowFull.length > 0) console.log(`سپر «…» و ظرفیت: ${enToFaDigits(String(overflowFull.length))} مورد — کارت بنفش «متن کامل» (هرگز بریده نمی‌شود؛ خواستهٔ ۲۵ نوامبر)`);
       const cardItems = groupByCategory(fittedItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
       let newsCardSent = false;
       let newsCardsCount = 0;
@@ -4797,30 +4842,58 @@ async function main(): Promise<void> {
           ok = true; // کارت‌ها ارسال شدند و بخش تحلیل مستقلی نبود — بسته کامل است
         }
       }
-      // ── سرریز «…» — خواستهٔ کاربر ۲۰ نوامبر (سوم): موردِ بلندتر از سه خطِ کامل در کارت
-      //    نیامد تا با «…» بریده شود؛ متن «کامل» همین‌جا در پیام متنی جداگانه می‌آید —
-      //    خبر کامل، هرگز ناقص (کارت‌ها مستقل ارسال شده‌اند؛ این پیام مکمل است). ──
+      // ── سرریز «…»/ظرفیت — کارت بنفش «متن کامل» (خواستهٔ ۲۵ نوامبر): «بعضی از اخبار
+      //    الآن خام ارسال میشن، متناشون خوبه اما میخوام اونا هم با یه رنگ پس زمینهٔ
+      //    متفاوت از بخشهای دیگه داخل یه عکس جا بشن» — متن کامل، هرگز بریده؛ رندر
+      //    ناموفق/مازاد صفحات → همان پیام متنی پیشین (پشتیبان همیشگی — هیچ متنی گم نمی‌شود). ──
       let overflowSent = 0;
-      if (newsCardSent && overflowTexts.length > 0 && !CFG.dryRun) {
-        const ovChunks = buildBundleChunks(overflowTexts.map((t) => (isIranRelated(t) ? `<b>${t}</b>` : t)), { maxLen: 3300 });
-        for (const c of ovChunks) {
-          let cOk = false;
-          for (const t of CFG.targets) {
-            const s = await sendBaleMessage(CFG.token, t, c);
-            if (s.ok) cOk = true;
-            else console.error(`❌ ارسال متن کامل موارد بلند به ${t} ناموفق: ${s.error}`);
+      if (newsCardSent && overflowFull.length > 0 && !CFG.dryRun) {
+        const ovItems: FullTextCardItem[] = overflowFull.map((o) => ({ source: o.source || undefined, text: o.text }));
+        let leftover: FullTextCardItem[] = ovItems;
+        try {
+          const pOv = tehranParts(Date.now());
+          const ovDate = tripleDateOf(pOv.dateKey, 'Asia/Tehran', 'umalqura');
+          const ovPages = await renderFullTextCardPages({
+            date: ovDate,
+            title: FULLTEXT_NEWS_TITLE,
+            items: ovItems,
+          });
+          if (ovPages.pages.length > 0) {
+            for (let pi = 0; pi < ovPages.pages.length; pi++) {
+              for (const t of CFG.targets) {
+                const s = await sendBalePhotoBytes(CFG.token, t, ovPages.pages[pi]!.png, `raadban-news-full-${pi + 1}.png`);
+                if (s.ok) { overflowSent++; ok = true; }
+                else console.error(`❌ ارسال کارت متن کامل ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
+              }
+              await sleep(700);
+            }
+            console.log(`🟣 متن کامل ${enToFaDigits(String(overflowFull.length - ovPages.overflow.length))} مورد بلند/مازاد در ${enToFaDigits(String(ovPages.pages.length))} کارت بنفش «متن کامل» ارسال شد — بدون هیچ بریدگی «…»`);
+            leftover = ovPages.overflow;
           }
-          if (cOk) { overflowSent++; ok = true; }
-          await sleep(600);
+        } catch {
+          // رندر کارت متن کامل شکست خورد — پشتیبان متنی همان behavior پیشین
         }
-        if (overflowSent > 0) console.log(`📎 متن کامل ${enToFaDigits(String(overflowTexts.length))} مورد بلند (بیش از سه خط) در ${enToFaDigits(String(overflowSent))} پیام متنی جداگانه ارسال شد — بدون هیچ بریدگی «…»`);
+        if (leftover.length > 0) {
+          const ovChunks = buildBundleChunks(leftover.map((o) => (isPriorityRelated(o.text) ? `<b>${o.text}</b>` : o.text)), { maxLen: 3300 });
+          for (const c of ovChunks) {
+            let cOk = false;
+            for (const t of CFG.targets) {
+              const s = await sendBaleMessage(CFG.token, t, c);
+              if (s.ok) cOk = true;
+              else console.error(`❌ ارسال متن کامل موارد بلند به ${t} ناموفق: ${s.error}`);
+            }
+            if (cOk) { overflowSent++; ok = true; }
+            await sleep(600);
+          }
+          if (overflowSent > 0) console.log(`📎 پشتیبان متنی ${enToFaDigits(String(leftover.length))} مورد متن کامل ارسال شد — بدون هیچ بریدگی «…»`);
+        }
       }
       // پشتیبان متن — کارت‌ها ارسال نشدند (یا مسیر خام بدون رندر): بست متنی کامل (خبری از قلم نمی‌افتد)
-      // مورد ایران‌مرتبط بولد — خواستهٔ ۲۰ نوامبر (کارت تصویری رنگ کهربایی هم دارد)
+      // مورد ایران/جنگ‌مرتبط بولد — خواستهٔ ۲۰ نوامبر + گسترش ۲۵ نوامبر (کارت تصویری رنگ کهربایی هم دارد)
       if (!newsCardSent) {
         const chunks = aiText
-          ? chunkHourlyMessage(highlightIranItemsHtml(aiText), 3300)
-          : buildBundleChunks(dedup.kept.map((q) => (isIranRelated(q.text) ? `<b>${q.text}</b>` : q.text)), { maxLen: 3300 });
+          ? chunkHourlyMessage(highlightPriorityItemsHtml(aiText), 3300)
+          : buildBundleChunks(dedup.kept.map((q) => (isPriorityRelated(q.text) ? `<b>${q.text}</b>` : q.text)), { maxLen: 3300 });
         for (const c of chunks) {
           for (const t of CFG.targets) {
             const s = await sendBaleMessage(CFG.token, t, c);
@@ -4833,7 +4906,7 @@ async function main(): Promise<void> {
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)${overflowTexts.length > 0 ? ` + متن کامل ${enToFaDigits(String(overflowTexts.length))} مورد بلند در پیام جداگانه` : ''}` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)${overflowFull.length > 0 ? ` + کارت بنفش متن کامل برای ${enToFaDigits(String(overflowFull.length))} مورد بلند/مازاد` : ''}` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
         // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
           state.hourlyAnalyses = appendAnalysis(history, {
@@ -4950,16 +5023,43 @@ async function main(): Promise<void> {
             await sleep(700);
           }
           twCardsCount = twPages.length;
-          // متن کامل موارد سرریز — پیام متنی مکمل پس از کارت‌ها (خبر کامل، هرگز بریده)
+          // ── متن کامل موارد سرریز — کارت بنفش «متن کامل توییت‌ها» (خواستهٔ ۲۵ نوامبر:
+          //    «بعضی از اخبار الآن خام ارسال میشن … اونا هم با یه رنگ پس زمینهٔ متفاوت از
+          //    بخشهای دیگه داخل یه عکس جا بشن»)؛ رندر ناموفق/مازاد → پیام متنی پیشین. ──
           if (twOverflowItems.length > 0) {
-            const ovChunks = buildBundleChunks(twOverflowItems.map((o) => (isIranRelated(o.fa) ? `<b>${o.fa}</b>` : o.fa)), { maxLen: 3300 });
-            for (const c of ovChunks) {
-              for (const t of CFG.targets) {
-                const s = await sendBaleMessage(CFG.token, t, c);
-                if (s.ok) twOk = true;
-                else console.error(`❌ ارسال متن کامل توییت بلند به ${t} ناموفق: ${s.error}`);
+            const twOvItems: FullTextCardItem[] = twOverflowItems.map((o) => ({ source: o.source, text: o.fa, name: o.faName }));
+            let twLeftover: FullTextCardItem[] = twOvItems;
+            try {
+              const twOvPages = await renderFullTextCardPages({
+                date: twDate,
+                title: FULLTEXT_TWEETS_TITLE,
+                items: twOvItems,
+              });
+              if (twOvPages.pages.length > 0) {
+                for (let pi = 0; pi < twOvPages.pages.length; pi++) {
+                  for (const t of CFG.targets) {
+                    const s = await sendBalePhotoBytes(CFG.token, t, twOvPages.pages[pi]!.png, `raadban-tweets-full-${pi + 1}.png`);
+                    if (s.ok) twOk = true;
+                    else console.error(`❌ ارسال کارت متن کامل توییت ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
+                  }
+                  await sleep(700);
+                }
+                console.log(`🟣 متن کامل ${enToFaDigits(String(twOverflowItems.length - twOvPages.overflow.length))} توییت بلند/مازاد در ${enToFaDigits(String(twOvPages.pages.length))} کارت بنفش «متن کامل توییت‌ها» ارسال شد — بدون هیچ بریدگی «…»`);
+                twLeftover = twOvPages.overflow;
               }
-              await sleep(600);
+            } catch {
+              // رندر کارت متن کامل توییت شکست خورد — پشتیبان متنی همان رفتار پیشین
+            }
+            if (twLeftover.length > 0) {
+              const ovChunks = buildBundleChunks(twLeftover.map((o) => (isPriorityRelated(o.text) ? `<b>${o.text}</b>` : o.text)), { maxLen: 3300 });
+              for (const c of ovChunks) {
+                for (const t of CFG.targets) {
+                  const s = await sendBaleMessage(CFG.token, t, c);
+                  if (s.ok) twOk = true;
+                  else console.error(`❌ ارسال متن کامل توییت بلند به ${t} ناموفق: ${s.error}`);
+                }
+                await sleep(600);
+              }
             }
           }
         }

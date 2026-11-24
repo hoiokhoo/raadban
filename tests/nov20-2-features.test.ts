@@ -362,8 +362,8 @@ describe('assets-chart — SVG و رندر PNG', () => {
   test('رندر واقعی PNG — ابعاد شبکهٔ ۲×۳ (۱۰۸۰×۱۱۰۲) و امضای درست', async () => {
     const card = await renderAssetsChartPng(panelsFixture());
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(2160); // ۲× — کیفیت زوم (۲۴ نوامبر)
-    expect(card!.height).toBe(2204); // ۲×(۱۷۰ سربرگ + ۲۰ + ۳×۲۶۰ + ۲×۲۴ + ۸۴ پانوشت)
+    expect(card!.width).toBe(3240); // ۳× — کیفیت زوم (۲۵ نوامبر: کارت کوتاه = تراکم ۳×)
+    expect(card!.height).toBe(3306); // ۳×(۱۷۰ سربرگ + ۲۰ + ۳×۲۶۰ + ۲×۲۴ + ۸۴ پانوشت)
     expect(card!.png.length).toBeGreaterThan(50_000);
     const sig = Array.from(card!.png.slice(0, 8)).join(',');
     expect(sig).toBe('137,80,78,71,13,10,26,10');

@@ -153,14 +153,15 @@ describe('نقد ۲۱ نوامبر — سپر سرریز کارت توییت', (
     expect(overflow[0]!.fa).toBe(long); // متن کامل — هرگز بریده
     expect(long.length).toBeGreaterThan(TW_MAX_LINES * 60); // واقعاً بلندتر از ظرفیت است
   });
-  test('مازاد بیش از ۵ کارت در overflow برمی‌گردد نه حذف بی‌صدا', () => {
-    // ردیف‌های بلند (~۱۰ خط) → ~۱۱ ردیف در هر صفحهٔ ۶۴۰۰px → ۶۰ مورد = ۶ صفحه؛ پنجم به بعد سرریز
+  test('مازاد بیش از سقف صفحات در overflow برمی‌گردد نه حذف بی‌صدا', () => {
+    // ردیف‌های بلند (~۱۴ خط ≈ ۷۰۴px) → ۲ ردیف در هر صفحهٔ ۲۱۰۰px (خواستهٔ ۲۵ نوامبر:
+    // سقف ارتفاع ۶۴۰۰→۲۱۰۰ — «تعداد توییتهای هر عکس کمتر، تعداد عکس بیشتر»)؛ سقف صفحات ۱۰
     const heavy = Array.from({ length: 14 }, (_, j) => `سطر ${j} از توییت بلند مقام دربارهٔ تحولات منطقه‌ای و اقتصادی روز است و ادامه دارد.`).join(' ');
     const many = Array.from({ length: 60 }, (_, i) => twItem(`توییت ${i}: ${heavy}`));
     const { paged, overflow } = splitTweetItemsForCards(many);
-    expect(paged.length).toBe(5); // سقف صفحات رعایت شد
+    expect(paged.length).toBe(10); // سقف صفحات رعایت شد
     expect(overflow.length).toBeGreaterThan(0); // مازاد حذف نشد — به فراخواننده برگشت
-    expect(paged.length + Math.ceil(overflow.length / 12)).toBeGreaterThanOrEqual(6); // همه جایی دارند
+    expect(paged.length + Math.ceil(overflow.length / 12)).toBeGreaterThanOrEqual(11); // همه جایی دارند
     // هیچ آیتمی هم در صفحات و هم در سرریز نیست
     const inPages = paged.flat();
     for (const o of overflow) expect(inPages.includes(o)).toBe(false);

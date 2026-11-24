@@ -390,17 +390,19 @@ import { tripleDateOf } from '../bot/calendar';
 const CARD_DATE = tripleDateOf('2026-11-16', 'Asia/Tehran', 'umalqura');
 
 describe('کارت چندصفحه‌ای — همهٔ اخبار در قالب تصویر', () => {
-  test('صفحه‌بندی خالص — ۱۵ آیتم → ۲ صفحهٔ ۱۲تایی؛ سقف صفحات رعایت می‌شود', () => {
+  test('صفحه‌بندی خالص — ۱۵ آیتم → ۲ صفحهٔ ۸تایی؛ سقف صفحات رعایت می‌شود', () => {
     const fifteen = Array.from({ length: 15 }, (_, i) => i);
-    const pages = paginateItems(fifteen, 12, 7);
+    const pages = paginateItems(fifteen, 8, 11);
     expect(pages.length).toBe(2);
-    expect(pages[0]!.length).toBe(12);
-    expect(pages[1]!.length).toBe(3);
-    expect(NEWS_CARD_ROWS_PER_PAGE).toBe(12);
+    expect(pages[0]!.length).toBe(8);
+    expect(pages[1]!.length).toBe(7);
+    // ۸ ردیف هر کارت (خواستهٔ ۲۵ نوامبر: «تعداد اخبار هر عکس کمتر، تعداد عکس بیشتر» — کارت
+    // کوتاه‌تر = تراکم رندر ۳×)؛ ظرفیت کل ۸×۱۱=۸۸ ≥ ظرفیت پیشین ۸۴
+    expect(NEWS_CARD_ROWS_PER_PAGE).toBe(8);
     expect(NEWS_CARD_MAX_PAGES * NEWS_CARD_ROWS_PER_PAGE).toBeGreaterThanOrEqual(84);
     // سقف صفحات — ۱۰۰ آیتم با maxPages=2 → فقط ۲ صفحه
-    expect(paginateItems(Array.from({ length: 100 }, (_, i) => i), 12, 2).length).toBe(2);
-    expect(paginateItems([], 12, 7)).toEqual([]);
+    expect(paginateItems(Array.from({ length: 100 }, (_, i) => i), 8, 2).length).toBe(2);
+    expect(paginateItems([], 8, 11)).toEqual([]);
   });
 
   test('برچسب «بخش ۱ از ۲» در کارت — سازندهٔ کپشن حذف شد (فقط عکس — خواستهٔ ۱۹ نوامبر)', () => {

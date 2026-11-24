@@ -7,7 +7,7 @@
  *  ۵) گیف رادار RainViewer (ریاضیات کاشی/گزینش فریم) و گیف پیش‌بینی ۲۴ساعته (پارس ساعتی).
  */
 import { describe, expect, test } from 'bun:test';
-import { renderDensityFor, DENSITY_2X, DENSITY_15X, DENSITY_1X } from '../bot/render-scale';
+import { renderDensityFor, renderGifDensityFor, DENSITY_2X, DENSITY_15X, DENSITY_1X, DENSITY_3X } from '../bot/render-scale';
 import {
   assetsSectionsOf, makeAssetsCardSvg, renderAssetsCardPng, assetsRowOf,
 } from '../bot/assets-card';
@@ -156,10 +156,10 @@ describe('SVG و رندر کارت دارایی‌ها', () => {
     expect(svg).not.toContain('undefined');
   });
 
-  test('رندر ۲× و سازگار با سقف بله', async () => {
+  test('رندر ۳× و سازگار با سقف بله (کارت کوتاه — خواستهٔ ۲۵ نوامبر)', async () => {
     const card = await renderAssetsCardPng(input());
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(2160);
+    expect(card!.width).toBe(3240); // ۳× — کارت دارایی کوتاه است؛ شارپ‌تر با زوم
     expect(card!.width + card!.height).toBeLessThanOrEqual(9800);
   });
 
@@ -221,11 +221,11 @@ describe('غنی‌سازی AI اطلاعیهٔ فروش — فقط از فهر�
 
 // ---------- (۳) تراکم رندر ----------
 
-describe('renderDensityFor — ۲× در حد سقف ابعاد بله (خواستهٔ ۲۴ نوامبر)', () => {
-  test('کارت معمولی ۱۰۸۰×۲۰۰۰ → ۲×', () => {
-    expect(renderDensityFor(1080, 2000)).toBe(DENSITY_2X);
+describe('renderDensityFor — نردبان ۳×→۲×→۱٫۵×→۱× (خواستهٔ ۲۵ نوامبر: کیفیت عکسها)', () => {
+  test('کارت کوتاه ۱۰۸۰×۲۰۰۰ → ۳× (۳۲۴۰px عرض — شارپ‌تر با زوم)', () => {
+    expect(renderDensityFor(1080, 2000)).toBe(DENSITY_3X);
   });
-  test('کارت بلند ۱۰۸۰×۴۵۰۰ → ۱٫۵× (۲× از سقف بله می‌گذرد)', () => {
+  test('کارت بلند ۱۰۸۰×۴۵۰۰ → ۱٫۵× (۲× و ۳× از سقف بله می‌گذرند)', () => {
     expect(renderDensityFor(1080, 4500)).toBe(DENSITY_15X);
   });
   test('کارت خیلی بلند ۱۰۸۰×۵۵۰۰ → ۱× (سقف بله)', () => {
@@ -237,6 +237,12 @@ describe('renderDensityFor — ۲× در حد سقف ابعاد بله (خواس
   test('ابعاد نامعتبر → ۱×', () => {
     expect(renderDensityFor(0, 100)).toBe(DENSITY_1X);
     expect(renderDensityFor(-5, 100)).toBe(DENSITY_1X);
+  });
+  test('renderGifDensityFor — سقف ۲× برای فریم‌های گیف (۳× فقط PNG؛ حجم گیف در سقف می‌ماند)', () => {
+    expect(renderGifDensityFor(1080, 2000)).toBe(DENSITY_2X);
+    expect(renderGifDensityFor(1080, 4500)).toBe(DENSITY_15X);
+    expect(renderGifDensityFor(1080, 5500)).toBe(DENSITY_1X);
+    expect(renderGifDensityFor(1100, 1315)).toBe(DENSITY_2X); // گیف نقشه — ۲×
   });
 });
 

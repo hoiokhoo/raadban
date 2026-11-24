@@ -231,6 +231,6 @@ describe('ممیزی ۴ — رندر نهایی کارت شش‌دارایی ب�
     expect(svg).not.toContain('NaN');
     const card = await renderAssetsChartPng({ date: CARD_DATE, panels });
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(2160); // ۲× — کیفیت زوم (خواستهٔ ۲۴ نوامبر)
+    expect(card!.width).toBe(3240); // ۳× — کیفیت زوم (۲۵ نوامبر: کارت کوتاه = تراکم ۳×)
   }, 30_000);
 });

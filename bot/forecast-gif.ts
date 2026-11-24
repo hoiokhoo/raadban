@@ -9,6 +9,10 @@
  * زبان رنگ همان رادار: آبی=برف، نارنجی→قرمز=باران سبک→شدید، خاکستری=ابری.
  *
  * صادقانه: شکست واکشی/رندر → null؛ فریمِ کمتر از ۳ → null. هیچ عدد ساختگی.
+ *
+ * کیفیت (خواستهٔ ۲۵ نوامبر: «عکسها کیفیتشون کمه») — انکود تطبیقی ۲×→۱٫۵×→۱×: فریم‌ها
+ * یک بار ساخته می‌شوند و بزرگ‌ترین تراکمی که حجم گیف را در سقف نگه دارد برنده است؛
+ * نقشه/متن برداری است و تراکم بالاتر واقعاً شارپ‌تر رندر می‌شود.
  */
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
@@ -17,6 +21,7 @@ import {
   provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, capitalsSvgMeasured, mercProject,
 } from './iran-map-base';
 import { buildIranGrid, classifyRadarSample, radarColor, num, type RadarCell, type RadarSample } from './iran-radar';
+import { renderGifDensityFor, DENSITY_15X, DENSITY_1X } from './render-scale';
 
 export interface ForecastGif {
   gif: Buffer;
@@ -204,26 +209,47 @@ export async function fetchForecastGif(date: TripleDate, timeoutMs = 25_000): Pr
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
     // برچسب‌ها با عرض واقعی اندازه‌گیری‌شده (یک بار برای همهٔ فریم‌ها)
     const capsBlock = await capitalsSvgMeasured().catch(() => capitalsSvg());
-    const encoder = GIFEncoder();
-    let wrote = 0;
+    // ── کیفیت (خواستهٔ ۲۵ نوامبر: «عکسها کیفیتشون کمه») — فریم‌ها یک بار ساخته می‌شوند و
+    //    انکود در بزرگ‌ترین تراکمِ ممکن (۲× → ۱٫۵× → ۱×) تکرار می‌شود تا حجم گیف در سقف
+    //    ۸MB بماند: نقشهٔ استان‌ها/متن برداری است؛ ۲× واقعاً شارپ‌تر است؛ ۲۵فریمِ ۲× اگر
+    //    سنگین بود ۱٫۵× می‌نشیند (گیف پیشین ۲.۳MB در ۱× → ~۵.۲MB در ۱٫۵×). ──
+    const frameSvgs: string[] = [];
     for (let i = 0; i < FORECAST_STEPS.length; i++) {
       const cells = frames[i];
       if (!cells || cells.length < 10) continue;
       const t = FORECAST_STEPS[i]!;
-      const svg = makeForecastFrameSvg(date, cells, frameClockFromTimes(timesRef.v, t), stepLabelFa(t), capsBlock);
-      const { data, info } = await sharp(Buffer.from(svg)).raw().toBuffer({ resolveWithObject: true });
-      const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-      const palette = quantize(u8, 256);
-      const index = applyPalette(u8, palette);
-      encoder.writeFrame(index, info.width, info.height, { palette, delay: FORECAST_FRAME_DELAY_MS });
-      wrote++;
+      frameSvgs.push(makeForecastFrameSvg(date, cells, frameClockFromTimes(timesRef.v, t), stepLabelFa(t), capsBlock));
     }
-    if (wrote < 3) return null;
-    encoder.finish();
-    const gif = Buffer.from(encoder.bytes());
-    if (gif.length < 10_000 || gif.length > FORECAST_GIF_MAX_BYTES) return null;
-    if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
-    return { gif, width: MAP_W, height: TOTAL_H };
+    if (frameSvgs.length < 3) return null;
+    const encodeAt = async (density: number): Promise<ForecastGif | null> => {
+      try {
+        const encoder = GIFEncoder();
+        for (let i = 0; i < frameSvgs.length; i++) {
+          const { data, info } = await sharp(Buffer.from(frameSvgs[i]!), { density }).raw().toBuffer({ resolveWithObject: true });
+          const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+          const palette = quantize(u8, 256);
+          const index = applyPalette(u8, palette);
+          encoder.writeFrame(index, info.width, info.height, { palette, delay: FORECAST_FRAME_DELAY_MS });
+        }
+        encoder.finish();
+        const gif = Buffer.from(encoder.bytes());
+        if (gif.length < 10_000 || gif.length > FORECAST_GIF_MAX_BYTES) return null;
+        if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
+        return { gif, width: Math.round(MAP_W * (density / 72)), height: Math.round(TOTAL_H * (density / 72)) };
+      } catch {
+        return null;
+      }
+    };
+    // پلهٔ آغازین بر پایهٔ شمار فریم: ≤۱۰ فریم از ۲×؛ ۲۵فریمیِ ۲× همیشه از سقف ۸MB
+    // می‌گذرد (~۹MB) — مستقیم از ۱٫۵× شروع می‌کند (۵.۲MB ✓) و انکودِ محکوم‌به‌شکست
+    // و ~۴۵ ثانیه CPU بیهوده صرف نمی‌شود.
+    const startDensity = frameSvgs.length >= 15 ? DENSITY_15X : renderGifDensityFor(MAP_W, TOTAL_H);
+    const densities = [...new Set([startDensity, DENSITY_15X, DENSITY_1X])];
+    for (const density of densities) {
+      const out = await encodeAt(density);
+      if (out) return out;
+    }
+    return null;
   } catch {
     return null;
   }

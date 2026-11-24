@@ -128,8 +128,8 @@ describe('renderWeatherCardPng', () => {
   test('رندر واقعی PNG با ابعاد و حجم منطقی', async () => {
     const card = await renderWeatherCardPng(cardInput());
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(2160); // ۲× — کیفیت زوم (خواستهٔ ۲۴ نوامبر)
-    expect(card!.height).toBeGreaterThan(2400);
+    expect(card!.width).toBe(3240); // ۳× — کیفیت زوم (خواستهٔ ۲۵ نوامبر: کارت کوتاه = تراکم ۳×)
+    expect(card!.height).toBeGreaterThan(3600);
     expect(card!.png.length).toBeGreaterThan(50_000);
     // امضای PNG
     const sig = Array.from(card!.png.slice(0, 8)).join(',');

@@ -186,14 +186,14 @@ describe('صادرات ماژول market-card', () => {
 // ---------- رندر واقعی ----------
 
 describe('renderMarketCardPng', () => {
-  test('رندر ۲× (کیفیت زوم — خواستهٔ ۲۴ نوامبر) و ابعاد سازگار با بله', async () => {
+  test('رندر ۳× (کیفیت زوم — خواستهٔ ۲۵ نوامبر) و ابعاد سازگار با بله', async () => {
     const card = await renderMarketCardPng({
       date: tripleDateOf('2026-11-24', 'Asia/Tehran', 'umalqura'),
       slotLabel: 'گزارش روزانه (ساعت ۱۵)',
       quotes: quotesFixture(),
     });
     expect(card).not.toBeNull();
-    expect(card!.width).toBe(2160); // ۱۰۸۰ × ۲
+    expect(card!.width).toBe(3240); // ۱۰۸۰ × ۳ — کارت کوتاه = شارپ‌تر با زوم
     expect(card!.width + card!.height).toBeLessThanOrEqual(9800);
     expect(card!.png.length).toBeGreaterThan(5000);
   });

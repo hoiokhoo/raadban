@@ -21,6 +21,15 @@
  *  کارت خبر فوری (renderBreakingCardPng) با پالت قرمز کم‌رنگ ساخته شد (گیف چراغ گردان
  *  هم‌زمان در bot/breaking.ts قرمز کم‌رنگ شد).
  *
+ * خواستهٔ کاربر (۲۵ نوامبر ۲۰۲۶):
+ *  ۱) «عکسها کیفیتشون کمه … تعداد اخبار یا توییتهای هر عکس رو کمتر کن، تعداد عکسها رو
+ *     بیشتر» — کارت خبر ۸ ردیف (۱۲→۸، کارت کوتاه‌تر = تراکم ۳×) و کارت توییت سقف
+ *     ارتفاع ۲۱۰۰px (۶۴۰۰→۲۱۰۰ — عملاً ۱× تار می‌شد، حالا ۳×).
+ *  ۲) «داخل هر عکس با همون استانداردی که داشتیم کلمه جنگ و ایران اگر بود اون خبر رو
+ *     متمایزکن» — هایلایت کهربایی/بولد ردیف حالا با isPriorityRelated (جنگ + ایران).
+ *  ۳) «بعضی از اخبار الآن خام ارسال میشن … اونا هم با یه رنگ پس زمینه متفاوت داخل یه
+ *     عکس جا بشن» — سرریزهای متن کامل به کارت بنفش مستقل رفتند (bot/fulltext-card.ts).
+ *
  * همان معماری کارت هواشناسی (bot/weather-card.ts): ساخت SVG با چیدمان راست‌به‌چپ و فونت
  * وزیرمتن → تبدیل به PNG با sharp (libvips/librsvg) — هیچ وابستگی تازه‌ای.
  * صراحت: تیک ✅ این کارت فقط از نتیجهٔ تطبیق اجباری با منبع می‌آید (bot/grounding.ts) —
@@ -31,9 +40,9 @@ import { mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
-import { isIranRelated } from './iran';
+import { isPriorityRelated } from './iran';
 import { type TripleDate } from './calendar';
-import { renderDensityFor } from './render-scale';
+import { renderDensityFor, renderGifDensityFor } from './render-scale';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -95,10 +104,12 @@ export function newsRowHeight(text: string): number {
   return 198;
 }
 
-/** سقف ردیف هر کارت خبری — کارت بلندتر از این در بله ناخوانا می‌شود (۱۶ نوامبر) */
-export const NEWS_CARD_ROWS_PER_PAGE = 12;
-/** سقف کارت‌های هر بسته — ۱۲×۷ = ۸۴ رویداد در هر بازه */
-export const NEWS_CARD_MAX_PAGES = 7;
+/** سقف ردیف هر کارت خبری — خواستهٔ کاربر ۲۵ نوامبر: «تعداد اخبار … هر عکس رو کمتر کن،
+ *  تعداد عکسها رو بیشتر» — ۸ ردیف هر کارت؛ کارت کوتاه‌تر = تراکم ۳× (۳۲۴۰px عرض،
+ *  شارپ‌تر با زوم) و خوانایی بالاتر در بله. */
+export const NEWS_CARD_ROWS_PER_PAGE = 8;
+/** سقف کارت‌های هر بسته — ۸×۱۱ = ۸۸ رویداد در هر بازه (≥ ظرفیت پیشین ۸۴) */
+export const NEWS_CARD_MAX_PAGES = 11;
 
 /** صفحه‌بندی خالص — اقلام به قطعه‌های ≤ per قطعه می‌شوند؛ سقف max قطعه (مازاد صادقانه بی‌کارت می‌ماند) */
 export function paginateItems<T>(items: T[], per: number, maxPages: number): T[][] {
@@ -281,10 +292,11 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
     const yTop = rowY;
     const rh = heights[i]!;
     rowY += rh;
-    // مورد ایران‌مرتبط — خواستهٔ کاربر ۲۰ نوامبر (دوم): «اخبار مرتبط با ایران به رنگ متفاوت و
-    // کمی بولدتر» — متن کهربایی + وزن بولد + نوار لبهٔ کهربایی و زمینهٔ کمی گرم‌تر ردیف
-    const iran = isIranRelated(it.text || '');
-    const bg = iran
+    // مورد ایران/جنگ‌مرتبط — خواستهٔ کاربر ۲۰ نوامبر (دوم): «اخبار مرتبط با ایران به رنگ متفاوت و
+    // کمی بولدتر»؛ خواستهٔ ۲۵ نوامبر: «کلمه جنگ و ایران اگر بود اون خبر رو متمایزکن» —
+    // متن کهربایی + وزن بولد + نوار لبهٔ کهربایی و زمینهٔ کمی گرم‌تر ردیف
+    const hot = isPriorityRelated(it.text || '');
+    const bg = hot
       ? (i % 2 === 0 ? '#1b3350' : '#162b45')
       : i % 2 === 0 ? '#102941' : '#0d2135';
     // تا سه خط کامل — دیگر خبر سه‌خطی با «…» در خط دوم بریده نمی‌شود (۲۰ نوامبر)
@@ -293,14 +305,14 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
     const cy = yTop + (rh - 12) / 2;
     const numCx = W - PAD - 34;
     const textRight = W - PAD - 110;
-    const src = it.source ? `<text x="${textRight}" y="${yTop + rh - 30}" font-size="19" fill="${iran ? '#d9b96a' : '#7fa8c9'}" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
+    const src = it.source ? `<text x="${textRight}" y="${yTop + rh - 30}" font-size="19" fill="${hot ? '#d9b96a' : '#7fa8c9'}" text-anchor="end">${rtl(`منبع: ${esc(it.source)}`)}</text>` : '';
     const bodySvg = lines
-      .map((ln, j) => `<text x="${textRight}" y="${yTop + 52 + j * NEWS_LINE_H}" font-size="27"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#ffd75e' : '#e8f1fa'}" text-anchor="end">${rtl(esc(ln))}</text>`)
+      .map((ln, j) => `<text x="${textRight}" y="${yTop + 52 + j * NEWS_LINE_H}" font-size="27"${hot ? ' font-weight="700"' : ''} fill="${hot ? '#ffd75e' : '#e8f1fa'}" text-anchor="end">${rtl(esc(ln))}</text>`)
       .join('\n');
     pieces.push(`${banner}
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${rh - 12}" rx="14" fill="${bg}"/>
-  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${rh - 32}" rx="2.5" fill="#ffd75e"/>` : ''}
-  <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="${iran ? '#3d4a1e' : '#16405f'}" stroke="${iran ? '#ffd75e' : '#2c6ea5'}" stroke-width="1.5"/>
+  ${hot ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${rh - 32}" rx="2.5" fill="#ffd75e"/>` : ''}
+  <circle cx="${numCx}" cy="${cy - 8}" r="24" fill="${hot ? '#3d4a1e' : '#16405f'}" stroke="${hot ? '#ffd75e' : '#2c6ea5'}" stroke-width="1.5"/>
   <text x="${numCx}" y="${cy}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="middle">${rtl(faDigits(String(i + 1)))}</text>
   ${it.tick ? tickBadgeSvg(numCx - 46, cy - 8) : ''}
   ${bodySvg}
@@ -406,8 +418,11 @@ const TW_CHARS_PER_LINE = 62;
  *  پست‌های بلند تروث‌سوشال تا ~۱۹۸۰ نویسه ÷ ۶۲ → سقف ۳۲ خط (۲۰ نوامبر هشتم: بالاتر رفت از ۱۶ —
  *  هیچ ترجمهٔ کامل توییت دیگر با «…» بریده نمی‌شود؛ ردیف بلندتر، صفحه‌بندی ارتفاعی جای آن می‌دهد) */
 export const TW_MAX_LINES = 32;
-/** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها */
-export const TW_PAGE_MAX_HEIGHT = 6400;
+/** سقف ارتفاع هر کارت توییت (px) — صفحه‌بندی بر پایهٔ ارتفاع واقعی ردیف‌ها.
+ *  خواستهٔ کاربر ۲۵ نوامبر: «تعداد اخبار یا توییتهای هر عکس رو کمتر کن، تعداد عکسها رو
+ *  بیشتر» — ۶۴۰۰→۲۱۰۰: هر صفحهٔ توییت کوتاه‌تر = تراکم رندر ۳× (۳۲۴۰px عرض، شارپ‌تر
+ *  با زوم؛ ۶۴۰۰px عملاً ۱× می‌شد و تار بود)؛ ~۳-۵ توییت هر عکس به‌جای ~۱۲. */
+export const TW_PAGE_MAX_HEIGHT = 2100;
 
 /** ارتفاع ردیف یک توییت — خالص و تست‌پذیر (صفحه‌بندی بر پایهٔ آن) — متن بدون ایموجی */
 export function tweetRowHeight(fa: string): number {
@@ -419,7 +434,7 @@ export function tweetRowHeight(fa: string): number {
  *  مازاد فراتر از maxPages صادقانه در «overflow» برمی‌گردد تا فراخواننده متن کاملش را
  *  در پیام متنی جداگانه بفرستد (نقد سخت‌گیرانهٔ ۲۱ نوامبر: پیش‌تر بی‌صدا حذف و «ارسال‌شده»
  *  علامت می‌خورد — نقض «خبری از قلم نمی‌افتد») */
-export function splitTweetItemsForCards(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): { paged: TweetCardItem[][]; overflow: TweetCardItem[] } {
+export function splitTweetItemsForCards(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 10): { paged: TweetCardItem[][]; overflow: TweetCardItem[] } {
   if (!items || items.length === 0) return { paged: [], overflow: [] };
   const pages: TweetCardItem[][] = [];
   let cur: TweetCardItem[] = [];
@@ -441,7 +456,7 @@ export function splitTweetItemsForCards(items: TweetCardItem[], maxHeight: numbe
 }
 
 /** صفحه‌بندی توییت‌ها — پوشش سازگاری روی splitTweetItemsForCards (تست‌های موجود) */
-export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 5): TweetCardItem[][] {
+export function paginateTweetItems(items: TweetCardItem[], maxHeight: number = TW_PAGE_MAX_HEIGHT, maxPages = 10): TweetCardItem[][] {
   return splitTweetItemsForCards(items, maxHeight, maxPages).paged;
 }
 
@@ -484,8 +499,9 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
       y += heights[i]!;
       // پالت «سبز کم‌رنگ» — خواستهٔ کاربر ۲۰ نوامبر (سوم): پس‌زمینهٔ بستهٔ توییت‌های عادی؛
       // توییت ایران‌مرتبط همان تمایز کهربایی را روی زمینهٔ روشن حفظ می‌کند (ردیف کهرباییِ کم‌رنگ)
-      const iran = isIranRelated(`${it.faName || ''} ${it.fa || ''}`);
-      const bg = iran
+      // توییت ایران/جنگ‌مرتبط — همان تمایز کهربایی روی زمینهٔ روشن (گسترش ۲۵ نوامبر: جنگ هم)
+      const hot = isPriorityRelated(`${it.faName || ''} ${it.fa || ''}`);
+      const bg = hot
         ? (i % 2 === 0 ? '#faf2da' : '#f6ecd0')
         : i % 2 === 0 ? '#e7f3e9' : '#def0e2';
       // نام فارسی توییت‌کننده — خط عنوان؛ نبود آن → «ترجمه فارسی» (سازگاری با دادهٔ قدیمی)
@@ -494,12 +510,12 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
       const nameY = yTop + TW_SOURCE_H + 30;
       const faLines = wrapFa(stripCardEmoji(it.fa || ''), TW_CHARS_PER_LINE, TW_MAX_LINES);
       const faSvg = faLines
-        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${iran ? ' font-weight="700"' : ''} fill="${iran ? '#8a5a12' : '#22432f'}" text-anchor="end">${rtl(esc(ln))}</text>`)
+        .map((ln, j) => `<text x="${textRight}" y="${nameY + 34 + (j + 1) * TW_LINE_H}" font-size="26"${hot ? ' font-weight="700"' : ''} fill="${hot ? '#8a5a12' : '#22432f'}" text-anchor="end">${rtl(esc(ln))}</text>`)
         .join('\n');
       return `
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${heights[i]! - 12}" rx="14" fill="${bg}"/>
-  ${iran ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#d9a441"/>` : ''}
-  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${iran ? '#a1762a' : '#4e7d61'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
+  ${hot ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#d9a441"/>` : ''}
+  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${hot ? '#a1762a' : '#4e7d61'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
   <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#1c5f38" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
   ${faSvg}`;
     })
@@ -725,7 +741,10 @@ export async function renderBreakingCardGif(input: BreakingCardInput): Promise<C
     const sharp = (await import('sharp')).default;
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
     const h0 = breakingCardHeight(input.text || '', hasName);
-    const density = renderDensityFor(W, h0); // فریم‌های گیف هم ۲× در حد بله — کارت بلند → ۱×
+    // فریم‌های گیف سقف ۲× دارند (renderGifDensityFor) — ۳× فقط برای PNG؛ فریم ۳×ِ ۱۲گانه
+    // حجم گیف را از سقف ۸MB می‌گذراند و متحرک‌بودن قربانی می‌شود (کیفیت ۲۵ نوامبر بدون
+    // قربانی گیف)؛ کارت بلند → همان ۱×
+    const density = renderGifDensityFor(W, h0);
     const meta = await sharp(Buffer.from(svg0), { density }).metadata();
     if (!meta.width || !meta.height) return null;
     const encoder = GIFEncoder();

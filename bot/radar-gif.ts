@@ -12,6 +12,10 @@
  * صادقانه: شکست API/کاشی/رندر → null (فراخواننده به گیف پیش‌بینی ۲۴ساعته و کارت‌های
  * شهرها تکیه می‌کند — هیچ جایگزین ساختگی ساخته نمی‌شود). آسمان صاف = کاشی‌های خالی؛
  * گیف همچنان ساخته می‌شود (حقیقتِ «بارشی نیست»).
+ *
+ * کیفیت (خواستهٔ ۲۵ نوامبر: «عکسها کیفیتشون کمه») — انکود تطبیقی ۲×→۱٫۵×→۱×: رادار
+ * raster است (کاشی z=6) اما متن/مرزها/برچسب‌ها برداری‌اند و تراکم بالاتر واقعاً شارپ‌تر
+ * است؛ بزرگ‌ترین تراکمی که حجم گیف را در سقف نگه دارد انتخاب می‌شود.
  */
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
@@ -19,6 +23,7 @@ import {
   MAP_W, MAP_H, MERC_BBOX,
   provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, capitalsSvgMeasured,
 } from './iran-map-base';
+import { renderGifDensityFor, DENSITY_15X, DENSITY_1X } from './render-scale';
 
 export interface RadarGif {
   gif: Buffer;
@@ -233,29 +238,45 @@ export async function fetchRadarGif(date: TripleDate, timeoutMs = 15_000): Promi
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
     // برچسب‌ها با عرض واقعی اندازه‌گیری‌شده (یک بار برای همهٔ فریم‌ها) — شکست → تخمین
     const capsBlock = await capitalsSvgMeasured().catch(() => capitalsSvg());
-    const encoder = GIFEncoder();
-    let wrote = 0;
+    // ── کیفیت (خواستهٔ ۲۵ نوامبر) — فریم‌ها یک بار واکشی/ساخته می‌شوند؛ انکود سپس در
+    //    بزرگ‌ترین تراکمِ ممکن (۲× → ۱٫۵× → ۱×) تکرار می‌شود تا حجم گیف در سقف بماند؛
+    //    واکشی شبکه فقط یک بار انجام می‌گیرد (کاشی‌ها در حافظه). ──
+    const frameSvgs: string[] = [];
     for (let i = 0; i < frames.length; i++) {
       const f = frames[i]!;
       const comp = await fetchFrameComposite(host, f, range, timeoutMs);
       if (!comp) continue;
       const dataUrl = `data:image/png;base64,${comp.toString('base64')}`;
       const fcTag = nowcastTimes.has(f.time) ? 'پیش‌بینی ۳۰ دقیقه' : '';
-      const svg = makeRadarFrameSvg(date, dataUrl, frameClockFa(f.time), fcTag, capsBlock);
-      const { data, info } = await sharp(Buffer.from(svg)).raw().toBuffer({ resolveWithObject: true });
-      const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-      const palette = quantize(u8, 256);
-      const index = applyPalette(u8, palette);
-      const isLast = i === frames.length - 1 || wrote === frames.length - 1;
-      encoder.writeFrame(index, info.width, info.height, { palette, delay: isLast ? RADAR_LAST_DELAY_MS : RADAR_FRAME_DELAY_MS });
-      wrote++;
+      frameSvgs.push(makeRadarFrameSvg(date, dataUrl, frameClockFa(f.time), fcTag, capsBlock));
     }
-    if (wrote < 3) return null;
-    encoder.finish();
-    const gif = Buffer.from(encoder.bytes());
-    if (gif.length < 10_000 || gif.length > RADAR_GIF_MAX_BYTES) return null;
-    if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
-    return { gif, width: MAP_W, height: TOTAL_H };
+    if (frameSvgs.length < 3) return null;
+    const encodeAt = async (density: number): Promise<RadarGif | null> => {
+      try {
+        const encoder = GIFEncoder();
+        for (let i = 0; i < frameSvgs.length; i++) {
+          const { data, info } = await sharp(Buffer.from(frameSvgs[i]!), { density }).raw().toBuffer({ resolveWithObject: true });
+          const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+          const palette = quantize(u8, 256);
+          const index = applyPalette(u8, palette);
+          const isLast = i === frameSvgs.length - 1;
+          encoder.writeFrame(index, info.width, info.height, { palette, delay: isLast ? RADAR_LAST_DELAY_MS : RADAR_FRAME_DELAY_MS });
+        }
+        encoder.finish();
+        const gif = Buffer.from(encoder.bytes());
+        if (gif.length < 10_000 || gif.length > RADAR_GIF_MAX_BYTES) return null;
+        if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
+        return { gif, width: Math.round(MAP_W * (density / 72)), height: Math.round(TOTAL_H * (density / 72)) };
+      } catch {
+        return null;
+      }
+    };
+    const densities = [...new Set([renderGifDensityFor(MAP_W, TOTAL_H), DENSITY_15X, DENSITY_1X])];
+    for (const density of densities) {
+      const out = await encodeAt(density);
+      if (out) return out;
+    }
+    return null;
   } catch {
     return null;
   }

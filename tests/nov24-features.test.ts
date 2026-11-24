@@ -19,7 +19,7 @@ import {
   buildSaleAiUserPrompt, parseSaleAiDraft, resolveSaleAiDraft, priceGroundedInText, saleAiPortalLabels, saleAiModelLabels,
 } from '../bot/sale-announcement';
 import {
-  MAP_W, MAP_H, mercProject, placeCapitalLabels, PROVINCE_CAPS, provinceFillsSvg, provinceBordersSvg, capitalsSvg, estLabelWidth,
+  MAP_W, MAP_H, mercProject, placeCapitalLabels, PROVINCE_CAPS, provinceFillsSvg, provinceBordersSvg, capitalsSvg, estLabelWidth, pointInPolygon,
 } from '../bot/iran-map-base';
 import { pickRadarFrames, lonToTileX, latToTileY, iranTileRange, radarTileUrl, frameClockFa, type RvFrame } from '../bot/radar-gif';
 import { buildOpenMeteoHourlyUrl, parseHourlyAt, parseForecastFrames, stepLabelFa, makeForecastCellsSvg, FORECAST_STEPS } from '../bot/forecast-gif';
@@ -292,6 +292,47 @@ describe('نقشهٔ ایران — مرز استان‌ها و چینش برچ�
     }
     expect(estLabelWidth('تهران')).toBeGreaterThan(20);
   });
+
+  test('نقطه‌درمضلع — مراکز استان‌ها درون استان خویش‌اند (با تحمل ۸px ساحل ساده‌شده)', () => {
+    // مرز Natural Earth پس از ساده‌سازی Douglas-Peucker خط ساحلی را چند پیکسل جابه‌جا
+    // می‌کند — شهرهای ساحلی (بندرعباس) تا ۸px بیرون چندضلعی می‌افتند؛ این تحمل است
+    // نه ساختگی — مختصات شهرها واقعی‌اند.
+    for (const p of IRAN_PROVINCES) {
+      const cap = PROVINCE_CAPS.find((c) => c.province === p.nameFa);
+      if (!cap) continue;
+      const [x, y] = mercProject(cap.lon, cap.lat);
+      const inside = p.rings.some((ring) => {
+        const poly = ring.map(([lon, lat]) => mercProject(lon, lat) as [number, number]);
+        if (pointInPolygon(x, y, poly)) return true;
+        // تحمل ساحل: فاصله تا نزدیک‌ترین ضلع مضلع
+        let best = Infinity;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const ax = poly[j]![0]!, ay = poly[j]![1]!;
+          const bx = poly[i]![0]!, by = poly[i]![1]!;
+          const dx = bx - ax, dy = by - ay;
+          const len2 = dx * dx + dy * dy;
+          const t = len2 ? Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / len2)) : 0;
+          best = Math.min(best, Math.hypot(x - (ax + t * dx), y - (ay + t * dy)));
+        }
+        return best <= 8;
+      });
+      expect(inside).toBe(true); // نشانِ مرکز هر استان درون (یا بر مرزِ ساده‌شدهٔ) همان استان است
+    }
+  });
+
+  test('برچسب هیچ مرکزی در استان همسایه نمی‌افتد (خواستهٔ ۲۵ نوامبر: «داخل مرز هر استان»)', () => {
+    const polysOf = new Map<string, Array<Array<[number, number]>>>(
+      IRAN_PROVINCES.map((p) => [p.nameFa, p.rings.map((r) => r.map(([lon, lat]) => mercProject(lon, lat) as [number, number]))]),
+    );
+    for (const placed of placeCapitalLabels()) {
+      const polys = polysOf.get(placed.cap.province)!;
+      const cx = placed.x;
+      const cy = placed.y;
+      const centerInside = polys.some((poly) => pointInPolygon(cx, cy, poly));
+      expect(centerInside).toBe(true); // مرکز برچسب هر مرکز استان درون همان استان می‌ماند
+      expect(placed.forced).toBeUndefined(); // هیچ برچسبی ناگزیر بیرون از استان نیفتاده
+    }
+  });
 });
 
 // ---------- (۵) گیف رادار RainViewer ----------
@@ -339,7 +380,7 @@ describe('radar-gif — ریاضیات کاشی و گزینش فریم (کپی �
 
 // ---------- (۶) گیف پیش‌بینی ۲۴ساعته ----------
 
-describe('forecast-gif — مدل عددی Open-Meteo در ۹ فریم ۳ساعته', () => {
+describe('forecast-gif — مدل عددی Open-Meteo در ۲۵ فریم ساعتی', () => {
   test('نشانی درخواست ساعتی — ۲۵ ساعت، منطقهٔ تهران', () => {
     const url = buildOpenMeteoHourlyUrl([35.7, 32.6], [51.4, 51.7]);
     expect(url).toContain('hourly=precipitation%2Crain%2Csnowfall%2Ccloud_cover');
@@ -356,7 +397,7 @@ describe('forecast-gif — مدل عددی Open-Meteo در ۹ فریم ۳ساع�
     expect(parseHourlyAt(p, 9)).toBeNull();
   });
 
-  test('parseForecastFrames — ۹ گام زمانی × نقاط گرید', () => {
+  test('parseForecastFrames — ۲۵ گام ساعتی × نقاط گرید', () => {
     const grid = [{ lat: 35.7, lon: 51.4 }, { lat: 32.6, lon: 51.7 }];
     const json = [
       { hourly: { precipitation: Array(25).fill(1), rain: Array(25).fill(1), snowfall: Array(25).fill(0), cloud_cover: Array(25).fill(50) } },

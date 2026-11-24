@@ -1549,6 +1549,63 @@ export async function sendBalePhotoBytes(token: string, chatId: string, bytes: U
   return { ok: false, error: lastErr || 'نامشخص' };
 }
 
+// ---------- ارسال گیف متحرک با sendAnimation — خواستهٔ کاربر ۲۵ نوامبر ۲۰۲۶: ----------
+// «پیشبینی مدل حتما گیف و متحرک داخل بله باشه چون الآن گیف نیست هیچکدوم عکس ثابته» —
+// علت: همهٔ گیف‌ها با sendPhoto فرستاده می‌شدند و بله GIF را به عکس ثابت تبدیل می‌کند.
+// مستندات رسمی بله (docs.bale.ai) متد sendAnimation دارد (سازگار با API بات تلگرام) —
+// فیلد multipart باید animation باشد نه photo؛ در غیر این صورت بله گیف را عکس می‌بیند.
+export async function sendBaleAnimationBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string, durationSec = 0): Promise<{ ok: boolean; error?: string }> {
+  if (bytes.length < 1000) return { ok: false, error: `گیف خیلی کوچک است (${bytes.length} بایت)` };
+  if (bytes.length > 10 * 1024 * 1024) return { ok: false, error: 'گیف بزرگ‌تر از ۱۰ مگابایت است' };
+  const cap = (caption || '').trim().slice(0, 1024);
+  let lastErr = '';
+  const MAX_TRIES = 3;
+  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
+    const form = new FormData();
+    form.append('chat_id', chatId);
+    if (cap) form.append('caption', cap.replace(/<[^>]+>/g, ''));
+    if (durationSec > 0) form.append('duration', String(durationSec));
+    form.append('animation', new Blob([bytes as BlobPart], { type: 'image/gif' }), filename);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 45_000);
+    try {
+      const res = await fetch(`${BALES_API_BASE}/bot${token}/sendAnimation`, { method: 'POST', body: form, signal: controller.signal });
+      const text = await res.text().catch(() => '');
+      if (res.ok) return { ok: true };
+      let retryAfter: number | undefined;
+      try {
+        const j = JSON.parse(text) as { parameters?: { retry_after?: number } };
+        retryAfter = j.parameters?.retry_after;
+      } catch { /* پاسخ JSON نبود */ }
+      lastErr = `آپلود گیف ناموفق (HTTP ${res.status}): ${text.slice(0, 160)}`;
+      const waitSec = retryAfter ? Math.min(retryAfter, 30) : res.status >= 500 ? attempt * 2.5 : 0;
+      if ((retryAfter || res.status >= 500) && attempt < MAX_TRIES) {
+        await sleep(waitSec * 1000);
+        continue;
+      }
+      return { ok: false, error: lastErr };
+    } catch (e) {
+      const msg = e instanceof Error ? (e.name === 'AbortError' ? 'timeout آپلود گیف' : e.message) : 'خطای ناشناخته';
+      lastErr = msg;
+      if (attempt < MAX_TRIES) { await sleep(2000 * attempt); continue; }
+      return { ok: false, error: msg };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  return { ok: false, error: lastErr || 'نامشخص' };
+}
+
+/** نردبان گیف: اول sendAnimation (متحرک واقعی در بله)؛ اگر بله آن را نپذیرفت →
+ *  sendPhoto (بدترین حالت: عکس ثابت — همان رفتار سابق). خواستهٔ ۲۵ نوامبر ۲۰۲۶. */
+export async function sendBaleGifBytes(token: string, chatId: string, bytes: Uint8Array, filename: string, caption?: string): Promise<{ ok: boolean; mode?: 'animation' | 'photo'; error?: string }> {
+  const anim = await sendBaleAnimationBytes(token, chatId, bytes, filename, caption);
+  if (anim.ok) return { ok: true, mode: 'animation' };
+  const photo = await sendBalePhotoBytes(token, chatId, bytes, filename, caption, 'image/gif');
+  if (photo.ok) return { ok: true, mode: 'photo' };
+  return { ok: false, error: `sendAnimation: ${anim.error || 'نامشخص'} | sendPhoto: ${photo.error || 'نامشخص'}` };
+}
+
 // ---------- ارسال فوری — تک‌پیام: کارتِ متحرک، چراغ گردان «داخل خودِ خبر» ----------
 // خواستهٔ کاربر ۲۰ نوامبر (پنجم): «چراغ گردون رو داخل همون خبر بزار متحرک نه پیام جدا» —
 // دیگر گیف جدا + کارت جدا (دو پیام) نیست؛ خودِ کارت فوری به GIF متحرک رندر می‌شود
@@ -1578,7 +1635,10 @@ async function sendBreakingNow(source: string, faText: string, faName?: string):
   const sendMediaToAll = async (bytes: Uint8Array, filename: string, capText: string, mime?: string): Promise<boolean> => {
     let ok = false;
     for (const t of CFG.targets) {
-      const s = await sendBalePhotoBytes(CFG.token, t, bytes, filename, capText, mime);
+      // گیف → sendAnimation (متحرک در بله — خواستهٔ ۲۵ نوامبر ۲۰۲۶: «گیف ثابت نباشد»)
+      const s = mime === 'image/gif'
+        ? await sendBaleGifBytes(CFG.token, t, bytes, filename, capText)
+        : await sendBalePhotoBytes(CFG.token, t, bytes, filename, capText, mime);
       if (s.ok) ok = true;
       else console.error(`❌ ارسال کارت فوری به ${t}: ${s.error}`);
     }
@@ -1597,7 +1657,7 @@ async function sendBreakingNow(source: string, faText: string, faName?: string):
     if (gif) {
       const cap = splitPhotoCaption(fullCaption, 1024);
       for (const t of CFG.targets) {
-        const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption, 'image/gif');
+        const s = await sendBaleGifBytes(CFG.token, t, gif.gif, 'raadban-breaking.gif', cap.caption);
         if (s.ok) { anyOk = true; if (cap.rest) await sendBaleMessage(CFG.token, t, cap.rest); }
         else console.error(`❌ ارسال گیف فوری به ${t}: ${s.error}`);
       }
@@ -3687,7 +3747,7 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       if (dom && gif) {
         let gifOk = false;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, gif.gif, 'raadban-weather.gif', undefined, 'image/gif');
+          const s = await sendBaleGifBytes(CFG.token, t, gif.gif, 'raadban-weather.gif');
           if (!s.ok) { console.error(`❌ ارسال گیف هواشناسی به ${t}: ${s.error || 'نامشخص'}`); continue; }
           gifOk = true;
         }
@@ -3709,7 +3769,7 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
     //  استان قرار داده بشه طوری که بهم نخورن» —
     // ۱) گیف رادار بارشی: تصویر رادار «عیناً» از RainViewer (سرویس حرفه‌ای، API عمومی)
     //    روی نقشهٔ استان‌ها با مراکز استان؛ ۲) گیف پیش‌بینی ۲۴ساعته: مدل عددی Open-Meteo
-    //    (۹ فریم ۳ساعته) به همان سبک حرفه‌ای. هر دو مستقل؛ شکست هر کدام فقط خودش را
+    //    (۲۵ فریم ساعتی) به همان سبک حرفه‌ای. هر دو مستقل؛ شکست هر کدام فقط خودش را
     //    می‌اندازد (کارت‌های شهرها قبلاً مستقل رفته‌اند). جایگزین نقشهٔ ایستای خودساخته.
     const rainKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastRainMapKey, pNow);
     if (rainKey && anySent) {
@@ -3719,7 +3779,7 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       if (radar) {
         let radarOk = false;
         for (const t of CFG.targets) {
-          const s = await sendBalePhotoBytes(CFG.token, t, radar.gif, 'raadban-iran-radar.gif', undefined, 'image/gif');
+          const s = await sendBaleGifBytes(CFG.token, t, radar.gif, 'raadban-iran-radar.gif');
           if (!s.ok) { console.error(`❌ ارسال گیف رادار ایران به ${t}: ${s.error || 'نامشخص'}`); continue; }
           radarOk = true;
         }
@@ -3732,14 +3792,14 @@ export async function runDailyMessages(state: BotState, summary: RunSummary): Pr
       } else {
         console.warn('⚠️ گیف رادار RainViewer ساخته نشد (API/کاشی/رندر) — گیف پیش‌بینی ۲۴ساعته مستقل می‌رود');
       }
-      // ۲) پیش‌بینی ۲۴ ساعته — مدل عددی Open-Meteo، ۹ فریم ۳ساعته (اسلات ضدتکرار خودش)
+      // ۲) پیش‌بینی ۲۴ ساعته — مدل عددی Open-Meteo، ۲۵ فریم ساعتی (اسلات ضدتکرار خودش)
       const fcKey = dueSlotKey(Date.now(), [dSettings.weatherHour], daily.lastForecastMapKey, pNow);
       if (fcKey) {
         const fc = await fetchForecastGif(rainDate).catch(() => null);
         if (fc) {
           let fcOk = false;
           for (const t of CFG.targets) {
-            const s = await sendBalePhotoBytes(CFG.token, t, fc.gif, 'raadban-iran-forecast.gif', undefined, 'image/gif');
+            const s = await sendBaleGifBytes(CFG.token, t, fc.gif, 'raadban-iran-forecast.gif');
             if (!s.ok) { console.error(`❌ ارسال گیف پیش‌بینی ۲۴ساعته به ${t}: ${s.error || 'نامشخص'}`); continue; }
             fcOk = true;
           }

@@ -3,6 +3,7 @@
  *  امروز تمام شده؛ رندر/مانتاژ همین مسیر تست می‌شود. */
 import { writeFileSync } from 'node:fs';
 import { makeForecastFrameSvg, stepLabelFa, FORECAST_STEPS } from '../bot/forecast-gif';
+import { capitalsSvgMeasured, capitalsSvg } from '../bot/iran-map-base';
 import { buildIranGrid } from '../bot/iran-radar';
 import { tripleDateOf } from '../bot/calendar';
 import type { RadarCell } from '../bot/iran-radar';
@@ -27,12 +28,13 @@ const frames: RadarCell[][] = FORECAST_STEPS.map((t) =>
 
 const sharp = (await import('sharp')).default;
 const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
+const capsBlock = await capitalsSvgMeasured().catch(() => capitalsSvg());
 const encoder = GIFEncoder();
 let first = true;
 for (let i = 0; i < FORECAST_STEPS.length; i++) {
   const t = FORECAST_STEPS[i]!;
   const clock = `${String((18 + t) % 24).padStart(2, '0')}:00`;
-  const svg = makeForecastFrameSvg(date, frames[i]!, clock, stepLabelFa(t));
+  const svg = makeForecastFrameSvg(date, frames[i]!, clock, stepLabelFa(t), capsBlock);
   if (first) {
     writeFileSync('download/preview-forecast-frame0.svg', Buffer.from(svg)); // بازبینی SVG خام
     first = false;
@@ -41,7 +43,7 @@ for (let i = 0; i < FORECAST_STEPS.length; i++) {
   const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
   const palette = quantize(u8, 256);
   const index = applyPalette(u8, palette);
-  encoder.writeFrame(index, info.width, info.height, { palette, delay: 900 });
+  encoder.writeFrame(index, info.width, info.height, { palette, delay: 550 });
 }
 encoder.finish();
 const gif = Buffer.from(encoder.bytes());

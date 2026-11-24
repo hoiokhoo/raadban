@@ -17,7 +17,7 @@ import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
 import {
   MAP_W, MAP_H, MERC_BBOX,
-  provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg,
+  provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, capitalsSvgMeasured,
 } from './iran-map-base';
 
 export interface RadarGif {
@@ -118,8 +118,8 @@ function rtl(s: string): string {
 const FONT_FA = "'B Nazanin', Vazirmatn, sans-serif";
 
 /** SVG کامل یک فریم رادار — تصویر ترکیب کاشی‌ها (data URL) زیر مرزها/مراکز استان.
- *  خالص. */
-export function makeRadarFrameSvg(date: TripleDate, radarDataUrl: string, clockFa: string, fcTag: string): string {
+ *  خالص. capsBlock اختیاری: برچسب‌های اندازه‌گیری‌شده (capitalsSvgMeasured). */
+export function makeRadarFrameSvg(date: TripleDate, radarDataUrl: string, clockFa: string, fcTag: string, capsBlock?: string): string {
   const legendY = HEADER_H - 38;
   const chip = (x: number, color: string) => `<rect x="${x}" y="${legendY - 13}" width="30" height="17" rx="8.5" fill="${color}"/>`;
   const txt = (x: number, s: string, anchor: 'start' | 'end' = 'end', fill = '#9fc3e8') =>
@@ -144,7 +144,7 @@ export function makeRadarFrameSvg(date: TripleDate, radarDataUrl: string, clockF
     </g>
     ${provinceBordersSvg()}
     ${iranOutlineSvg()}
-    ${capitalsSvg()}
+    ${capsBlock ?? capitalsSvg()}
   </g>
   <text x="${MAP_W - 24}" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • فقط ایران')}</text>
   <text x="24" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('تصویر رادار: RainViewer')}</text>
@@ -231,6 +231,8 @@ export async function fetchRadarGif(date: TripleDate, timeoutMs = 15_000): Promi
     const nowcastTimes = new Set((maps.radar?.nowcast || []).map((f) => f.time));
     const sharp = (await import('sharp')).default;
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
+    // برچسب‌ها با عرض واقعی اندازه‌گیری‌شده (یک بار برای همهٔ فریم‌ها) — شکست → تخمین
+    const capsBlock = await capitalsSvgMeasured().catch(() => capitalsSvg());
     const encoder = GIFEncoder();
     let wrote = 0;
     for (let i = 0; i < frames.length; i++) {
@@ -239,7 +241,7 @@ export async function fetchRadarGif(date: TripleDate, timeoutMs = 15_000): Promi
       if (!comp) continue;
       const dataUrl = `data:image/png;base64,${comp.toString('base64')}`;
       const fcTag = nowcastTimes.has(f.time) ? 'پیش‌بینی ۳۰ دقیقه' : '';
-      const svg = makeRadarFrameSvg(date, dataUrl, frameClockFa(f.time), fcTag);
+      const svg = makeRadarFrameSvg(date, dataUrl, frameClockFa(f.time), fcTag, capsBlock);
       const { data, info } = await sharp(Buffer.from(svg)).raw().toBuffer({ resolveWithObject: true });
       const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const palette = quantize(u8, 256);

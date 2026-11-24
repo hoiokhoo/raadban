@@ -105,6 +105,51 @@ export function estLabelWidth(name: string): number {
   return (name || '').length * 9.4 + 6;
 }
 
+// ---------- احاطهٔ برچسب درون استان خویش — خواستهٔ کاربر ۲۵ نوامبر ۲۰۲۶: ----------
+// «اسم برخی استانها درست نیست و داخل مرز هر استان هم نیست» — علت: جابه‌جایی حریصانه
+// فقط از برخورد برچسب‌ها جلوگیری می‌کرد و برچسب می‌توانست تا ±۵۲px از نشان دور شود و
+// در استان همسایه بیفتد (نام «غلط» در حیطهٔ استان دیگر). حالا جعبهٔ برچسب باید
+// درون مضلع استان خودش بماند (تست نقطه‌درمضلع — ray casting).
+
+/** کش چندضلعی‌های استان‌ها در مختصات پیکسلی (تنبل) */
+let POLY_CACHE: Map<string, Array<Array<[number, number]>>> | null = null;
+function provincePolys(): Map<string, Array<Array<[number, number]>>> {
+  if (!POLY_CACHE) {
+    POLY_CACHE = new Map();
+    for (const p of IRAN_PROVINCES) {
+      POLY_CACHE.set(p.nameFa, p.rings.map((r) => r.map(([lon, lat]) => mercProject(lon, lat) as [number, number])));
+    }
+  }
+  return POLY_CACHE;
+}
+
+/** نقطه در مضلع (ray casting) — خالص و تست‌پذیر */
+export function pointInPolygon(x: number, y: number, poly: Array<[number, number]>): boolean {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const xi = poly[i]![0]!, yi = poly[i]![1]!;
+    const xj = poly[j]![0]!, yj = poly[j]![1]!;
+    if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+/** جعبهٔ برچسب درون استان؟ — سخت: مرکز + ۴ گوشه همه درون «یک» حلقهٔ همان استان */
+function boxInsideProvinceStrict(box: { x: number; y: number; w: number; h: number }, polys: Array<Array<[number, number]>>): boolean {
+  const pts: Array<[number, number]> = [
+    [box.x, box.y], [box.x + box.w, box.y], [box.x, box.y + box.h], [box.x + box.w, box.y + box.h],
+    [box.x + box.w / 2, box.y + box.h / 2],
+  ];
+  return polys.some((poly) => pts.every(([px, py]) => pointInPolygon(px, py, poly)));
+}
+
+/** نرم: فقط مرکز جعبه درون یکی از حلقه‌های استان — پلهٔ دوم برای استان‌های کوچک */
+function boxInsideProvinceLoose(box: { x: number; y: number; w: number; h: number }, polys: Array<Array<[number, number]>>): boolean {
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h / 2;
+  return polys.some((poly) => pointInPolygon(cx, cy, poly));
+}
+
 /** آیا دو جعبه (با بالشتک ۳px) برخورد دارند؟ — خالص */
 function boxesHit(a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }): boolean {
   const pad = 3;
@@ -112,46 +157,147 @@ function boxesHit(a: { x: number; y: number; w: number; h: number }, b: { x: num
     && Math.abs(a.y + a.h / 2 - (b.y + b.h / 2)) < (a.h + b.h) / 2 + pad;
 }
 
-/** چینش برچسب مراکز استان — بزرگ‌ها اولویت چینش؛ کاندیدهای جابه‌جایی تا یافتن جای بی‌برخورد.
- *  خروجی همیشه برای همهٔ ۳۱ مرکز جا دارد (آخرین کاندید در بدترین حالت تحمیلی). خالص تست‌پذیر. */
-export function placeCapitalLabels(caps: ProvinceCap[] = [...PROVINCE_CAPS]): PlacedLabel[] {
-  const order = [...caps].sort((a, b) => (b.big ? 1 : 0) - (a.big ? 1 : 0));
+/** مساحت پیکسلی استان (بزرگ‌ترین حلقه، shoelace) — برای اولویت استان‌های تنگ‌تر */
+function provincePixelArea(nameFa: string): number {
+  const polys = provincePolys().get(nameFa) || [];
+  let best = 0;
+  for (const poly of polys) {
+    let s = 0;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      s += poly[j]![0]! * poly[i]![1]! - poly[i]![0]! * poly[j]![1]!;
+    }
+    const a = Math.abs(s) / 2;
+    if (a > best) best = a;
+  }
+  return best;
+}
+
+/** یک چینش کامل با ترتیب مشخص — سه پلهٔ سخت‌گیری برای هر مرکز:
+ *  ۱) بی‌برخورد + کاملاً درون استان خویش؛ ۲) بی‌برخورد + مرکز جعبه درون استان؛
+ *  ۳) ناگزیر — بی‌برخوردِ نزدیک‌ترین (forced). خالص. */
+function placeWithOrder(caps: ProvinceCap[], order: ProvinceCap[], widthOf: (name: string) => number): PlacedLabel[] {
+  const polysOf = provincePolys();
   const placed: PlacedLabel[] = [];
+  // کاندیدها: نزدیک به دور (dx از نشان، dy، anchor) — متن کنار/بالا/پایینِ نشان
+  const CANDS: Array<{ dx: number; dy: number; anchor: 'start' | 'middle' | 'end' }> = [
+    { dx: -10, dy: -16, anchor: 'end' }, // بالای نشان، متن به چپ پایان می‌یابد
+    { dx: 10, dy: -16, anchor: 'start' }, // بالای نشان، به راست
+    { dx: -10, dy: 20, anchor: 'end' }, // پایین نشان
+    { dx: 10, dy: 20, anchor: 'start' },
+    { dx: 0, dy: -30, anchor: 'middle' }, // بالاتر وسط
+    { dx: 0, dy: 34, anchor: 'middle' }, // پایین‌تر وسط
+    { dx: -12, dy: 3, anchor: 'end' }, // هم‌سطح نشان
+    { dx: 12, dy: 3, anchor: 'start' },
+    { dx: 0, dy: -48, anchor: 'middle' },
+    { dx: 0, dy: 52, anchor: 'middle' },
+    { dx: -24, dy: -16, anchor: 'end' },
+    { dx: 24, dy: -16, anchor: 'start' },
+    { dx: -24, dy: 20, anchor: 'end' },
+    { dx: 24, dy: 20, anchor: 'start' },
+    { dx: -26, dy: 3, anchor: 'end' },
+    { dx: 26, dy: 3, anchor: 'start' },
+    { dx: 0, dy: -66, anchor: 'middle' },
+    { dx: 0, dy: 70, anchor: 'middle' },
+    { dx: -42, dy: 3, anchor: 'end' },
+    { dx: 42, dy: 3, anchor: 'start' },
+  ];
   for (const cap of order) {
     const [dotX, dotY] = mercProject(cap.lon, cap.lat);
-    const w = estLabelWidth(cap.name);
-    // کاندیدها: (dx از نقطهٔ لنگر متن، dy، anchor) — متن کنار/بالا/پایینِ نشان
-    const cands: Array<{ dx: number; dy: number; anchor: 'start' | 'middle' | 'end' }> = [
-      { dx: -10, dy: -16, anchor: 'end' }, // بالای نشان، متن به چپ پایان می‌یابد
-      { dx: 10, dy: -16, anchor: 'start' }, // بالای نشان، به راست
-      { dx: -10, dy: 20, anchor: 'end' }, // پایین نشان
-      { dx: 10, dy: 20, anchor: 'start' },
-      { dx: 0, dy: -30, anchor: 'middle' }, // بالاتر وسط
-      { dx: 0, dy: 34, anchor: 'middle' }, // پایین‌تر وسط
-      { dx: -12, dy: 3, anchor: 'end' }, // هم‌سطح نشان
-      { dx: 12, dy: 3, anchor: 'start' },
-      { dx: 0, dy: -48, anchor: 'middle' },
-      { dx: 0, dy: 52, anchor: 'middle' },
-    ];
-    let chosen: PlacedLabel | null = null;
-    for (const c of cands) {
-      // x مرکز متن برای anchor — جعبهٔ برخورد حول مرکز متن (هم‌قد با جعبهٔ ذخیره‌شده: ۲۲px)
+    const w = widthOf(cap.name);
+    const polys = polysOf.get(cap.province) || [];
+    // ارزیابی هر کاندید — بالاترین پلهٔ ممکن
+    let best: { c: (typeof CANDS)[number]; x: number; y: number; tier: number } | null = null;
+    for (const c of CANDS) {
       const cx = c.anchor === 'end' ? dotX + c.dx - w / 2 : c.anchor === 'start' ? dotX + c.dx + w / 2 : dotX + c.dx;
       const cy = dotY + c.dy;
       const box = { x: cx - w / 2, y: cy - 11, w, h: 22 };
-      // درون بوم بماند
       if (box.x < 4 || box.x + box.w > MAP_W - 4 || box.y < 4 || box.y + box.h > MAP_H - 4) continue;
       if (placed.some((p) => boxesHit(box, { x: p.x - p.w / 2, y: p.y - 11, w: p.w, h: 22 }))) continue;
-      chosen = { cap, x: cx, y: cy, dotX, dotY, anchor: c.anchor, w };
-      break;
+      const tier = boxInsideProvinceStrict(box, polys) ? 1 : boxInsideProvinceLoose(box, polys) ? 2 : 3;
+      if (!best || tier < best.tier) {
+        best = { c, x: cx, y: cy, tier };
+        if (tier === 1) break; // بهترین ممکن — همین
+      }
     }
-    if (!chosen) {
+    if (!best) {
       // بدترین حالت — بالای نشان با anchor وسط (تحمیلی؛ رخداد نادر)
-      chosen = { cap, x: dotX, y: dotY - 30, dotX, dotY, anchor: 'middle', w, forced: true };
+      placed.push({ cap, x: dotX, y: dotY - 30, dotX, dotY, anchor: 'middle', w, forced: true });
+      continue;
     }
-    placed.push(chosen);
+    placed.push({ cap, x: best.x, y: best.y, dotX, dotY, anchor: best.c.anchor, w, forced: best.tier === 3 ? true : undefined });
   }
   return placed;
+}
+
+/** چینش برچسب مراکز استان — دو ترتیب آزموده می‌شود و بهترین (کمترین «تحمیلی») برمی‌گردد:
+ *  ۱) استان‌های تنگ‌تر (مساحت کمتر) اول — قم/البرز/قزوین/تهران جای خود را زودتر می‌گیرند
+ *     و استان‌های پهناور بعداً حول آن‌ها جا می‌شوند (اصلاح تداخل زنجان/کرج/قزوین — ۲۵ نوامبر)؛
+ *  ۲) ترتیب قدیمی «بزرگ‌ها اول» — پشتیبان.
+ *  widthOf اختیاری: عرض واقعی هر نام (اندازه‌گیری رندر — measureLabelWidths)؛
+ *  پیش‌فرض تخمین estLabelWidth. خروجی همیشه برای همهٔ ۳۱ مرکز جا دارد. خالص تست‌پذیر. */
+export function placeCapitalLabels(caps: ProvinceCap[] = [...PROVINCE_CAPS], widthOf: (name: string) => number = estLabelWidth): PlacedLabel[] {
+  const crampedFirst = [...caps].sort((a, b) => provincePixelArea(a.province) - provincePixelArea(b.province));
+  const best = placeWithOrder(caps, crampedFirst, widthOf);
+  if (!best.some((p) => p.forced)) return best;
+  const bigFirst = [...caps].sort((a, b) => (b.big ? 1 : 0) - (a.big ? 1 : 0));
+  const alt = placeWithOrder(caps, bigFirst, widthOf);
+  const forcedBest = best.filter((p) => p.forced).length;
+  const forcedAlt = alt.filter((p) => p.forced).length;
+  return forcedAlt < forcedBest ? alt : best;
+}
+
+// ---------- اندازه‌گیری واقعی عرض برچسب‌ها — چون تخمین طول×۹٫۴ با عرض رندر واقعی
+// (شکل حروف/فونت موجود در محیط) تا ±۳۰٪ فاصله دارد (یافتهٔ ۲۵ نوامبر: ایلام ۳۵px واقعی
+// در برابر ۵۳ تخمینی) و کادر برخورد ناهم‌مکان با متن رندرشده، مرکزِ چند برچسب بیرون
+// استان خویش می‌افتاد. راه‌حل: همهٔ نام‌ها را «همان‌جا که رندر می‌شود» یک‌بار با sharp
+// اندازه می‌گیریم و عرض واقعی (+۸px هالهٔ stroke=۳) به چینش می‌دهیم. شکست اندازه‌گیری →
+// بازگشت به تخمین (همان رفتار قبلی). کش ماژولی — در هر فرایند فقط یک رندر کوچک.
+
+let WIDTH_CACHE: Map<string, number> | null = null;
+
+/** اندازه‌گیری عرض واقعی نام‌ها با رندر یک SVG خطی — خروجی: نام → عرض px (+۸ هاله). */
+export async function measureLabelWidths(names: string[]): Promise<Map<string, number>> {
+  if (WIDTH_CACHE) return WIDTH_CACHE;
+  try {
+    const sharp = (await import('sharp')).default;
+    const ROW = 34;
+    const W = 400;
+    const MID = 200;
+    const rows = names
+      .map((n, i) => `<text x="${MID}" y="${i * ROW + 24}" font-family="${FONT_FA}" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">${rtl(esc(n))}</text>`)
+      .join('\n  ');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${names.length * ROW}"><rect width="${W}" height="${names.length * ROW}" fill="#000000"/>\n  ${rows}\n</svg>`;
+    const { data, info } = await sharp(Buffer.from(svg)).raw().toBuffer({ resolveWithObject: true });
+    const map = new Map<string, number>();
+    names.forEach((n, i) => {
+      const yA = i * ROW;
+      const yB = Math.min(info.height, (i + 1) * ROW);
+      let x0 = W;
+      let x1 = -1;
+      for (let y = yA; y < yB; y++) {
+        for (let x = 0; x < W; x++) {
+          const idx = (y * W + x) * info.channels;
+          if (data[idx]! > 100) { if (x < x0) x0 = x; if (x > x1) x1 = x; }
+        }
+      }
+      if (x1 >= x0 && x1 >= 0) map.set(n, x1 - x0 + 1 + 8); // +۸px هالهٔ stroke=۳ از دو طرف
+    });
+    if (map.size === names.length) {
+      WIDTH_CACHE = map;
+      return map;
+    }
+    return new Map();
+  } catch {
+    return new Map();
+  }
+}
+
+/** برچسب مراکز استان با «عرض واقعی اندازه‌گیری‌شده» — نسخهٔ async برای خط تولید؛
+ *  در صورت شکست اندازه‌گیری، همان چینش تخمینی (رفتار قبلی). */
+export async function capitalsSvgMeasured(): Promise<string> {
+  const m = await measureLabelWidths(PROVINCE_CAPS.map((c) => c.name));
+  const widthOf = (n: string) => m.get(n) ?? estLabelWidth(n);
+  return capitalsSvg(placeCapitalLabels([...PROVINCE_CAPS], widthOf));
 }
 
 // ---------- SVG — خالص ----------
@@ -218,16 +364,20 @@ export function graticuleSvg(): string {
 }
 
 /** نشان + برچسب مراکز استان — نقطهٔ روشن + متن با هالهٔ تیره (خوانا روی هر رنگ داده).
- *  خالص. */
+ *  نکتهٔ حیاتی (۲۵ نوامبر ۲۰۲۶): آزمایش کنترل‌شده با librsvg نشان داد text-anchor
+ *  «start/end» برای متن فارسی RTL همچنان مثل LTR لنگر می‌شود — یعنی متنِ برچسب‌های
+ *  end/start به اندازهٔ «یک عرض برچسب» از کادر برخورد دور رندر می‌شد و نام مرکز استان
+ *  در استان همسایه می‌افتاد (خواستهٔ کاربر: «اسم برخی استانها درست نیست و داخل مرز هر
+ *  استان هم نیست»). راه‌حل قطعی: همهٔ برچسب‌ها text-anchor=middle — متقارن در هر دو
+ *  تفسیر RTL/LTR؛ کادر برخورد و متن رندرشده هم‌مکان می‌شوند. خالص. */
 export function capitalsSvg(placed: PlacedLabel[] = placeCapitalLabels()): string {
   return placed
     .map((p) => {
-      const ax = p.anchor === 'end' ? p.x - p.w / 2 : p.anchor === 'start' ? p.x + p.w / 2 : p.x;
       const by = p.y + 6; // خط مبنا = مرکز جعبه + ~۶px (فونت ۱۷)
       return `
   <circle cx="${p.dotX.toFixed(1)}" cy="${p.dotY.toFixed(1)}" r="3.2" fill="#eaf4ff" stroke="#0a1c30" stroke-width="1.2"/>
-  <text x="${ax.toFixed(1)}" y="${by.toFixed(1)}" font-family="${FONT_FA}" font-size="17" font-weight="700" fill="#0a1c30" stroke="#0a1c30" stroke-width="3" text-anchor="${p.anchor}" opacity="0.9">${rtl(esc(p.cap.name))}</text>
-  <text x="${ax.toFixed(1)}" y="${by.toFixed(1)}" font-family="${FONT_FA}" font-size="17" font-weight="700" fill="#f2f8ff" text-anchor="${p.anchor}">${rtl(esc(p.cap.name))}</text>`;
+  <text x="${p.x.toFixed(1)}" y="${by.toFixed(1)}" font-family="${FONT_FA}" font-size="17" font-weight="700" fill="#0a1c30" stroke="#0a1c30" stroke-width="3" text-anchor="middle" opacity="0.9">${rtl(esc(p.cap.name))}</text>
+  <text x="${p.x.toFixed(1)}" y="${by.toFixed(1)}" font-family="${FONT_FA}" font-size="17" font-weight="700" fill="#f2f8ff" text-anchor="middle">${rtl(esc(p.cap.name))}</text>`;
     })
     .join('\n  ');
 }

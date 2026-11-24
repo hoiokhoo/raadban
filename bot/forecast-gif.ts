@@ -3,8 +3,8 @@
  * «از یه سایت هواشناسی که مدل پیشبینی ۲۴ ساعته رو داده … گیف متحرکش رو بزاری که بهتره».
  *
  * دادهٔ «مدل عددی» واقعی است: Open-Meteo (همان سرویسی که کارت‌های هواشناسی شهرها را
- * می‌سازد — تجمیع مدل‌های ملی DWD ICON/GFS) روی گرید ~۰٫۷° داخل مرز ایران؛ ۹ فریم
- * (اکنون، +۳، +۶، …، +۲۴ ساعت) از بارش/برف/ابری، رندر نرمِ هم‌الگوی نقشه‌های حرفه‌ای
+ * می‌سازد — تجمیع مدل‌های ملی DWD ICON/GFS) روی گرید ~۰٫۷° داخل مرز ایران؛ ۲۵ فریم ساعتی
+ * (اکنون تا +۲۴ ساعت، گام ساعتی) از بارش/برف/ابری، رندر نرمِ هم‌الگوی نقشه‌های حرفه‌ای
  * (لکه‌های هم‌پوشان تارشده) روی همان نقشهٔ استان‌ها/مراکز استان (iran-map-base).
  * زبان رنگ همان رادار: آبی=برف، نارنجی→قرمز=باران سبک→شدید، خاکستری=ابری.
  *
@@ -14,7 +14,7 @@ import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
 import {
   MAP_W, MAP_H,
-  provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, mercProject,
+  provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, capitalsSvgMeasured, mercProject,
 } from './iran-map-base';
 import { buildIranGrid, classifyRadarSample, radarColor, num, type RadarCell, type RadarSample } from './iran-radar';
 
@@ -30,8 +30,11 @@ const HEADER_H = 200;
 const FOOTER_H = 52;
 const TOTAL_H = HEADER_H + MAP_H + FOOTER_H;
 
-/** فریم‌ها: اکنون + هر ۳ ساعت تا ۲۴ ساعت — ۹ فریم */
-export const FORECAST_STEPS = [0, 3, 6, 9, 12, 15, 18, 21, 24] as const;
+/** فریم‌ها: اکنون + هر «۱ ساعت» تا ۲۴ ساعت — ۲۵ فریم ساعتی.
+ *  خواستهٔ کاربر ۲۵ نوامبر ۲۰۲۶: «پیشبینی مدل ۲۴ ساعت آینده رو گیف متحرک کن نه فقط سه ساعته» —
+ *  گام ساعتی، حرکت روان سامانهٔ بارش در کل شبانه‌روز.
+ *  دادهٔ واکشی هم‌چنان ساعتی است (forecast_hours=25) — فقط گام نمایش ساعتی شد. */
+export const FORECAST_STEPS: readonly number[] = Array.from({ length: 25 }, (_, i) => i);
 
 /** ضلع لکهٔ «فعلی» بر پایهٔ شدت — بزرگ‌تر از رادار ایستا برای پوشش پیوستهٔ نرم */
 export function blobRadius(level: 0 | 1 | 2): number {
@@ -125,8 +128,9 @@ export function frameClockFromTimes(times: string[] | undefined, t: number): str
   return m ? faDigits(m[1]!) : '';
 }
 
-/** SVG کامل یک فریم پیش‌بینی — خالص. */
-export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clockFa: string, label: string): string {
+/** SVG کامل یک فریم پیش‌بینی — خالص. capsBlock اختیاری: برچسب‌های اندازه‌گیری‌شده
+ *  (capitalsSvgMeasured) — در نبودش همان چینش تخمینی. */
+export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clockFa: string, label: string, capsBlock?: string): string {
   const legendY = HEADER_H - 38;
   const chip = (x: number, color: string) => `<rect x="${x}" y="${legendY - 13}" width="30" height="17" rx="8.5" fill="${color}"/>`;
   const txt = (x: number, s: string, anchor: 'start' | 'end' = 'end', fill = '#9fc3e8') =>
@@ -135,7 +139,7 @@ export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clock
   ${txt(MAP_W - 154, 'باران')}${chip(MAP_W - 244, '#f97316')}
   ${txt(MAP_W - 284, 'شدید')}${chip(MAP_W - 354, '#dc2626')}
   ${txt(MAP_W - 394, 'ابری')}${chip(MAP_W - 466, '#8ea6bd')}
-  <text x="24" y="${legendY}" font-family="${FONT_FA}" font-size="20" fill="#8fb8d9" text-anchor="start">${rtl(esc('پیش‌بینی ۲۴ ساعت آینده — گام ۳ ساعته'))}</text>`;
+  <text x="24" y="${legendY}" font-family="${FONT_FA}" font-size="20" fill="#8fb8d9" text-anchor="start">${rtl(esc('پیش‌بینی ۲۴ ساعت آینده — گام ساعتی'))}</text>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${MAP_W}" height="${TOTAL_H}" viewBox="0 0 ${MAP_W} ${TOTAL_H}">
   <defs>
     ${iranMapClipPath()}
@@ -157,7 +161,7 @@ export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clock
     </g>
     ${provinceBordersSvg()}
     ${iranOutlineSvg()}
-    ${capitalsSvg()}
+    ${capsBlock ?? capitalsSvg()}
   </g>
   <text x="${MAP_W - 24}" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • فقط ایران')}</text>
   <text x="24" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('دادهٔ مدل عددی: Open-Meteo')}</text>
@@ -168,7 +172,8 @@ export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clock
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 export const FORECAST_GIF_MAX_BYTES = 8_000_000;
-export const FORECAST_FRAME_DELAY_MS = 900;
+/** ۲۵ فریم × ۵۵۰ms ≈ ۱۳٫۸ ثانیه برای هر دور حلقه — روان و خوانا */
+export const FORECAST_FRAME_DELAY_MS = 550;
 
 /** گیف پیش‌بینی ۲۴ساعته — شکست هر مرحله → null صادقانه. */
 export async function fetchForecastGif(date: TripleDate, timeoutMs = 25_000): Promise<ForecastGif | null> {
@@ -197,13 +202,15 @@ export async function fetchForecastGif(date: TripleDate, timeoutMs = 25_000): Pr
     if (frames.length < 3) return null;
     const sharp = (await import('sharp')).default;
     const { GIFEncoder, quantize, applyPalette } = await import('gifenc');
+    // برچسب‌ها با عرض واقعی اندازه‌گیری‌شده (یک بار برای همهٔ فریم‌ها)
+    const capsBlock = await capitalsSvgMeasured().catch(() => capitalsSvg());
     const encoder = GIFEncoder();
     let wrote = 0;
     for (let i = 0; i < FORECAST_STEPS.length; i++) {
       const cells = frames[i];
       if (!cells || cells.length < 10) continue;
       const t = FORECAST_STEPS[i]!;
-      const svg = makeForecastFrameSvg(date, cells, frameClockFromTimes(timesRef.v, t), stepLabelFa(t));
+      const svg = makeForecastFrameSvg(date, cells, frameClockFromTimes(timesRef.v, t), stepLabelFa(t), capsBlock);
       const { data, info } = await sharp(Buffer.from(svg)).raw().toBuffer({ resolveWithObject: true });
       const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
       const palette = quantize(u8, 256);

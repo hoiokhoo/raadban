@@ -52,6 +52,8 @@ import {
   validateDigestText,
   parseSlots,
   tehranParts,
+  tehranOffsetMinutes,
+  tehranTzIsSane,
   dueSlotKey,
   slotLabel,
   type TehranParts,
@@ -3868,6 +3870,16 @@ async function main(): Promise<void> {
     tweetsFetched: 0, tweetsSent: 0, tweetAccountsTried: 0,
   };
   console.log('=== رصدبان‌بات — چرخهٔ ریل‌تایم (~۱۰ دقیقه) آغاز شد ===');
+
+  // گارد زمان‌بندی — ممیزی ۲۵ نوامبر: کل اسلات‌ها (۱۵:۰۰ بازار، ۰۶/۱۴/۲۲ تحلیل،
+  // ۰۵:۴۵/۲۱:۰۰ روزانه، ۲۱:۳۰ هواشناسی) به وقت دیوارِ تهران ارزیابی می‌شوند و تنها
+  // مرجع آن tzdata رانر است. ایران از ۱۴۰۱ ساعت تابستانی ندارد (تهران = ۳:۳۰+ ثابت)؛
+  // رانر با tzdata کهنه در تابستان ۴:۳۰+ می‌شود و همهٔ اسلات‌ها یک ساعت دیر می‌زنند.
+  // این گارد جابه‌جایی را بلند اعلام می‌کند تا پیش از اسپم/تأخیر رفع شود.
+  if (!tehranTzIsSane(Date.now())) {
+    const off = tehranOffsetMinutes(Date.now());
+    console.error(`⚠️⚠️ گارد زمان‌بندی: اختلاف تهران-UTC هم‌اکنون ${off} دقیقه است، انتظار ۲۱۰ (۳:۳۰+ ثابت، بدون ساعت تابستانی). اسلات‌ها احتمالاً جابه‌جا می‌زنند — tzdata رانر/محیط را به‌روز کنید (ICU/tzdata ≥ 2022c).`);
+  }
 
   // حالت کشف چت‌ها: «bun bot/bot.ts --discover-chats» — هیچ خبری جمع نمی‌شود و چیزی ارسال نمی‌شود
   if (process.argv.includes('--discover-chats')) {

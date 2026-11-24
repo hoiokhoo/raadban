@@ -156,6 +156,24 @@ export function parseSlots(raw: string | undefined, fallback = '8,14,20'): strin
 
 export interface TehranParts { dateKey: string; hhmm: string; minutes: number; dateFa: string; }
 
+/** اختلاف تهران با UTC به دقیقه در لحظهٔ داده‌شده — خالص و تست‌پذیر.
+ *  ایران از مهر ۱۴۰۱ (۲۰۲۲) ساعت تابستانی ندارد → پاسخ صحیح همیشه ۲۱۰ (۳:۳۰+)
+ *  در هر فصل سال. رانر با tzdata کهنه (پیش از 2022c) در تابستان ۲۷۰ می‌دهد و
+ *  همهٔ اسلات‌ها (۱۵:۰۰ بازار و …) یک ساعت جابه‌جا می‌شوند — گاردِ bot.ts همین را می‌سنجد. */
+export function tehranOffsetMinutes(now: number): number {
+  const hhmmUtc = new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', hour12: false, hour: '2-digit', minute: '2-digit' }).format(now);
+  const hhmmTeh = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tehran', hour12: false, hour: '2-digit', minute: '2-digit' }).format(now);
+  const [uh, um] = hhmmUtc.split(':').map(Number);
+  const [th, tm] = hhmmTeh.split(':').map(Number);
+  const d = (th % 24) * 60 + tm - ((uh % 24) * 60 + um);
+  return ((d % 1440) + 1440) % 1440; // نرمال به بازهٔ [۰، ۱۴۴۰)
+}
+
+/** گارد یکتایی زمانی — true یعنی tzdata رانر درست است (تهران ۳:۳۰+ ثابت). */
+export function tehranTzIsSane(now: number): boolean {
+  return tehranOffsetMinutes(now) === 210;
+}
+
 /** اجزای زمان تهران — تقویم شمسی برای نمایش با Intl (تست‌شده در Bun) */
 export function tehranParts(now: number): TehranParts {
   const dateKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tehran', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);

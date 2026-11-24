@@ -5,7 +5,7 @@
 import { describe, expect, test } from 'bun:test';
 import {
   DEFAULT_SYSTEM_BOT_DIGEST, addToPool, dueSlotKey, parseSlots, poolCorpus, slotLabel,
-  tehranParts, thinPool, validateDigestText, type PoolItem,
+  tehranOffsetMinutes, tehranParts, tehranTzIsSane, thinPool, validateDigestText, type PoolItem,
 } from '../bot/digest';
 
 function poolItem(i: number, over: Partial<PoolItem> = {}): PoolItem {
@@ -145,6 +145,24 @@ describe('tehranParts', () => {
     expect(p.dateKey).toBe('2026-11-09');
     expect(p.hhmm).toBe('00:30');
     expect(p.dateFa).toContain('آبان');
+  });
+});
+
+describe('گارد زمان‌بندی tehranOffsetMinutes — ممیزی ۲۵ نوامبر', () => {
+  test('زمستان: تهران ۳:۳۰+ ثابت (بدون ساعت تابستانی از ۱۴۰۱/۲۰۲۲)', () => {
+    // ۲۰۲۶-۰۱-۱۵ ۱۲:۰۰ UTC = ۱۵:۳۰ تهران
+    expect(tehranOffsetMinutes(Date.parse('2026-01-15T12:00:00Z'))).toBe(210);
+  });
+  test('تابستان: باز هم ۳:۳۰+ — ایران ساعت تابستانی ندارد', () => {
+    // ۲۰۲۶-۰۷-۱۵ ۱۲:۰۰ UTC = ۱۵:۳۰ تهران
+    expect(tehranOffsetMinutes(Date.parse('2026-07-15T12:00:00Z'))).toBe(210);
+  });
+  test('مرز نیمه‌شب: نرمال به بازهٔ [۰،۱۴۴۰) بدون منفی', () => {
+    // ۲۰۲۶-۰۳-۲۰ ۲۲:۰۰ UTC = ۰۱:۳۰ فردای تهران
+    expect(tehranOffsetMinutes(Date.parse('2026-03-20T22:00:00Z'))).toBe(210);
+  });
+  test('tehranTzIsSane روی محیط سندباکس true — tzdata به‌روز است', () => {
+    expect(tehranTzIsSane(Date.now())).toBe(true);
   });
 });
 

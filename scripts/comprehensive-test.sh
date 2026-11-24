@@ -22,8 +22,11 @@ bun run scripts/seed-events.ts >/dev/null 2>&1 || echo "⚠️  seed رویدا�
 
 # ۱) تایپ‌چک — فقط src و tests (نمونه‌ها/اسکریپت‌های قدیمی خارج از دامنهٔ محصول)
 section "۱) تایپ‌چک TypeScript"
-ERRS=$(bunx tsc --noEmit 2>&1 | grep -cE "^(src|tests)/")
-if [ "$ERRS" = "0" ]; then ok "tsc: صفر خطا در src/ و tests/"; else bad "tsc: $ERRS خطا — $(bunx tsc --noEmit 2>&1 | grep -E '^(src|tests)/' | head -3)"; fi
+# ممیزی ۲۵ نوامبر: bot/ خودِ رباتِ در حال اجراست و باید مثل src/ و tests/ گیت شود —
+# پیش‌تر فقط src|tests شمرده می‌شد و خطای تایپ در bot بی‌صدا سبز می‌گذشت.
+# (اسکریپت‌های یک‌بارمصرفِ tools/ در tsconfig خارج از دامنه‌اند — پایین ببینید)
+ERRS=$(bunx tsc --noEmit 2>&1 | grep -cE "^(src|tests|bot)/")
+if [ "$ERRS" = "0" ]; then ok "tsc: صفر خطا در src/ و tests/ و bot/"; else bad "tsc: $ERRS خطا — $(bunx tsc --noEmit 2>&1 | grep -E '^(src|tests|bot)/' | head -3)"; fi
 
 # ۲) لینت
 section "۲) لینت"

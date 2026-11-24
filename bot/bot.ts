@@ -88,7 +88,7 @@ import {
   type SourceHealth,
   type AdminHealth,
 } from './admin-alerts';
-import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, tweetDisplayBody, type BundleItem } from './bundle';
+import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, budgetQueueForBundle, tweetDisplayBody, type BundleItem } from './bundle';
 import { cutAtSentence, needsTranslationLang } from './lang';
 import {
   DEFAULT_SYSTEM_HOURLY,
@@ -293,6 +293,11 @@ const CFG = {
   bundlePeriodHours: Math.max(1, Math.min(12, Number(process.env.BUNDLE_PERIOD_HOURS || 2) || 2)),
   // فاصلهٔ بستهٔ توییت از بستهٔ خبر به ساعت — «یک ساعت بعد از دستهٔ اخبار» (اسلات‌های فرد)
   tweetOffsetHours: Math.max(0, Math.min(6, Number(process.env.TWEET_OFFSET_HOURS || 1) || 0)),
+  // ── سقف حجم بسته‌ها — خواستهٔ ۲۵ نوامبر ۲۰۲۶: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!» ──
+  // هر اسلات حداکثر این تعداد مورد (خبر/توییت) ارسال می‌کند؛ مازاد به تعویق می‌افتد (اسلات بعد)،
+  // اولویت‌دارهای جنگ/ایران هرگز به تعویق نمی‌افتند. سپر انباشت در خود bot.ts (نزدیک مصرف).
+  newsBundleMaxItems: Math.max(8, Math.min(88, Number(process.env.NEWS_BUNDLE_MAX_ITEMS || 24) || 24)),
+  tweetBundleMaxItems: Math.max(4, Math.min(60, Number(process.env.TWEET_BUNDLE_MAX_ITEMS || 16) || 16)),
   // کانال‌های اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — خواستهٔ کاربر: کانال آخرین خودرو
   saleChannels: (process.env.SALE_CHANNELS || 'Akharin_khodro').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
   // تنظیمات پیام‌های روزانه (صبحگاهی/شبانگاهی) — فایل مدیریت‌شدهٔ اپلیکیشن، در ریپو کامیت می‌شود
@@ -3998,12 +4003,30 @@ async function main(): Promise<void> {
   const sentTitleTexts: string[] = [];
   const sentMsgTexts: string[] = [];
   let tweetNextCursor: number | null = null;
+  // ── ذخیرهٔ دورهٔ‌ای state وسط چرخه (ممیزی ۲۵ نوامبر — پیشنهاد اعمال‌شده): پیش‌تر فقط
+  //    finally ذخیره می‌شد؛ اگر رانر پس از ارسال‌ها و پیش از پایان کشته شود، علامت‌های
+  //    ضدتکرار می‌پریدند → ارسال دوباره. این‌جا پس از هر نقطهٔ عطف ارسال، همان ادغامِ
+  //    finally (خالص و idempotent — فراخوانی دوباره در finally بی‌ضرر است) به‌صورت درجا
+  //    اعمال و اتمیک ذخیره می‌شود؛ خطای ذخیره چرخه را نمی‌کشد (finally سپر نهایی است). ──
+  const persistNow = (): void => {
+    try {
+      const m = mergeSentState(state, sentIds, sentTitles, Date.now(), undefined, undefined, undefined, { titleTexts: sentTitleTexts, msgTexts: sentMsgTexts });
+      state.sentIds = m.sentIds;
+      state.sentTitles = m.sentTitles;
+      state.sentTitleTexts = m.sentTitleTexts;
+      state.sentMsgTexts = m.sentMsgTexts;
+      saveState(CFG.stateFile, state);
+    } catch (e) {
+      console.warn('⚠️ ذخیرهٔ دورهٔ‌ای state ناموفق (چرخه ادامه می‌یابد؛ ذخیرهٔ نهایی در finally):', e instanceof Error ? e.message : String(e));
+    }
+  };
   try {
   // ── پیام‌های روزانه: صبحگاهی ۰۵:۴۵ / شبانگاهی ۲۱:۰۰ به وقت کانال (خواستهٔ ۱۰ نوامبر +
   //  ۲۰ نوامبر ششم: «زمان بندی پیام صبح رو بزار ۵:۴۵ صبح») ──
   //  پیش از جمع‌آوری خبر اجرا می‌شود تا پیام صبحگاهی با تأخیر جمع‌آوری معوق نماند؛
   //  ضدتکرار مطلق احادیث در state.daily (کامیت ریپو) — پس از ری‌استارت هم می‌ماند.
   await runDailyMessages(state, summary);
+  persistNow(); // صبحگاهی/شبانگاهی ارسال شد — علامت‌ها بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
 
   // ۱) منابع — محافظت‌شده (نقد ۲۱ نوامبر): JSON خراب پیش‌تر «کل» چرخه را می‌کشت؛ حالا خطا
   //    ثبت می‌شود و بقیهٔ چرخه (توییت/اسلات‌ها/روزانه) سالم ادامه می‌یابد.
@@ -4644,6 +4667,7 @@ async function main(): Promise<void> {
 
   // ── اطلاعیه‌های فروش/پیش‌فروش خودرو — فوراً اعلام می‌شود (خواستهٔ کاربر ۱۰ نوامبر ۲۰۲۶) ──
   if (bundleMode) await runSaleAlerts(state, summary);
+  persistNow(); // خبرهای فوری/فروش خودرو ارسال شدند — علامت‌ها بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
 
   // ── بستهٔ خبری ۲ساعته + بستهٔ جداگانهٔ توییت — خواستهٔ کاربر (۱۲ نوامبر ۲۰۲۶):
   // «چرخهٔ خبر هر ۲ ساعت اما خبری از قلم نیفته؛ توییت‌های افراد تأثیرگذار هر ۲ ساعت اما یک ساعت
@@ -4668,9 +4692,19 @@ async function main(): Promise<void> {
     const newsGate = Boolean(newsSlotKey) && queue.length > 0;
     const items: HourlyItem[] = [];
     const newsRetryQueue: BundleItem[] = [];
+    // ── سقف حجم بستهٔ خبری — خواستهٔ ۲۵ نوامبر: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!» ──
+    // هر اسلات ≤ CFG.newsBundleMaxItems مورد (پیش‌فرض ۲۴ = ۳ کارت ۸ردیفی)؛ مازاد به تعویق:
+    // به ابتدای صف برمی‌گردد و اسلات بعدی اول ارسال می‌شود — هیچ حذف بی‌صدا (اصل «خبری از قلم
+    // نمی‌افتد» دست‌نخورده، فقط ≤ یک دوره دیرتر). جنگ/ایران هرگز به تعویق نمی‌افتند.
+    // سپر انباشت: صف ≥ ۴۰۰ (از سقف سخت ۶۰۰) یعنی عقب‌افتادگی سنگین — سقف خاموش، تخلیهٔ کامل
+    // (تأخیرِ روبه‌رشد بدتر از بستهٔ پرحجم است). پیکرهٔ تحلیل هوشمند فقط همین موارد ارسالی است.
+    const newsBudget = budgetQueueForBundle(queue, { maxItems: CFG.newsBundleMaxItems, isPriority: isPriorityRelated, backlogFlush: 400 });
+    if (newsBudget.deferred.length > 0) {
+      console.log(`📊 سقف حجم بسته: ${enToFaDigits(String(newsBudget.send.length))} مورد این اسلات — ${enToFaDigits(String(newsBudget.deferred.length))} مورد به اسلات بعد به تعویق افتاد (خبری حذف نمی‌شود؛ جنگ/ایران همیشه همراهند)`);
+    }
     if (newsGate) {
       const foreignQ: Array<{ q: BundleItem; text: string }> = [];
-      for (const q of queue) {
+      for (const q of newsBudget.send) {
         const text = q.text.replace(/\n?🖼 عکس خود خبر: \S+/g, '').replace(/^✅$|^⚠️$/gm, '').trim();
         if (needsTranslation(text)) { foreignQ.push({ q, text }); continue; }
         items.push({
@@ -4918,8 +4952,8 @@ async function main(): Promise<void> {
       if (ok) {
         summary.bundleSent = true;
         summary.bundleItems = queue.length;
-        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)${overflowFull.length > 0 ? ` + کارت بنفش متن کامل برای ${enToFaDigits(String(overflowFull.length))} مورد بلند/مازاد` : ''}` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
-        // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در ریپو کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
+        console.log(`🕒 بستهٔ خبری ارسال شد (اسلات ${newsSlotKey}) — ${queue.length} مورد صف (پس از ضدتکرار و تجمیع: ${mergedItems.length})${newsBudget.deferred.length > 0 ? ` — ${enToFaDigits(String(newsBudget.deferred.length))} مورد به اسلات بعد به تعویق (سقف حجم)` : ''}${newsCardSent ? ` — ${enToFaDigits(String(newsCardsCount))} کارت تصویری (${enToFaDigits(String(cardItems.length))} ردیف)${overflowFull.length > 0 ? ` + کارت بنفش متن کامل برای ${enToFaDigits(String(overflowFull.length))} مورد بلند/مازاد` : ''}` : ' — بست متنی (کارت ناموفق)'}${aiText ? ' — تحلیل هوشمند' : ' — مسیر خام'}${summary.groundDropped ? ` — ${summary.groundDropped} مورد بی‌خاستگاه حذف` : ''}`);
+        // ذخیرهٔ تحلیل برای حافظهٔ تاریخچهٔ چرخه‌های بعد — state در شاخهٔ bot-state کامیت می‌شود (پس از ری‌استارت هم می‌ماند)
         if (aiText) {
           state.hourlyAnalyses = appendAnalysis(history, {
             hourKey: newsSlotKey,
@@ -4936,7 +4970,10 @@ async function main(): Promise<void> {
         queue.length = 0;
         // غیرفارسی‌های بی‌ترجمه به صف برمی‌گردند — اسلات بعد دوباره ترجمه/ارسال (نقد ۲۱ نوامبر)
         for (const r of newsRetryQueue) queue.push(r);
+        // به‌تعویق‌افتاده‌های سقف حجم — ابتدای صف اسلات بعد (خبری حذف نمی‌شود؛ فقط ≤ یک دوره دیرتر)
+        for (const d of newsBudget.deferred) queue.push(d);
         state.lastNewsSlotKey = newsSlotKey;
+        persistNow(); // بستهٔ خبری ارسال شد — علامت‌ها/اسلات بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
       } else {
         console.warn('⚠️ ارسال بستهٔ خبری ناموفق — اسلات علامت نمی‌خورد تا چرخهٔ بعدِ همین اسلات دوباره تلاش کند (خبری از قلم نمی‌افتد)');
       }
@@ -4951,6 +4988,12 @@ async function main(): Promise<void> {
     // ── بستهٔ جداگانهٔ توییت — اسلات‌های فرد (دقیقاً یک ساعت بعد از بستهٔ خبر)؛
     //  «اگر جدید نبود هیچ متنی نفرست»: صف خالی = سکوت مطلق (خواستهٔ ۱۳ نوامبر) ──
     const tweetSlotKey = dueBundleSlotKey(Date.now(), CFG.tweetOffsetHours * 60, periodMin, state.lastTweetSlotKey, pSlot);
+    // ── سقف حجم بستهٔ توییت — هم‌الگوی بستهٔ خبر (خواستهٔ ۲۵ نوامبر: «حجم اخبار زیاده») ──
+    // سپر انباشت: صف ≥ ۸۰ (از سقف سخت ۱۲۰) → تخلیهٔ کامل.
+    const twBudget = budgetQueueForBundle(tweetQueue, { maxItems: CFG.tweetBundleMaxItems, isPriority: isPriorityRelated, backlogFlush: 80 });
+    if (twBudget.deferred.length > 0) {
+      console.log(`📊 سقف حجم توییت: ${enToFaDigits(String(twBudget.send.length))} مورد این اسلات — ${enToFaDigits(String(twBudget.deferred.length))} مورد به اسلات بعد به تعویق`);
+    }
     if (tweetSlotKey && tweetQueue.length > 0) {
       // ── گیت ترجمه در زمان ارسال هم اجرا می‌شود (۱۵ نوامبر): صف‌های ساخته‌شده پیش از
       //  رفع باگ عبری ممکن است متن خام غیرفارسی داشته باشند؛ اینجا دوباره از gateFa
@@ -4958,7 +5001,7 @@ async function main(): Promise<void> {
       //  دوباره از ایکس گرفته می‌شوند). هیچ توییت غیرفارسی خام ارسال نمی‌شود. ──
       const twItems: HourlyItem[] = [];
       let twUntranslated = 0;
-      for (const q of tweetQueue) {
+      for (const q of twBudget.send) {
         let text = q.text.trim();
         if (needsTranslation(text)) {
           const fa = await gateFa(text);
@@ -5093,7 +5136,10 @@ async function main(): Promise<void> {
         // علامت متن‌های واقعاً ارسال‌شده پس از موفقیت — نه هنگام صف‌گذاری
         for (const m of twBundle.merged) { sentTitleTexts.push(normalizeTitle(m.text).slice(0, 160)); markMsg(m.text); }
         tweetQueue.length = 0;
+        // به‌تعویق‌افتاده‌های سقف حجم — اسلات بعد اولِ صف (هیچ توییتی حذف نمی‌شود)
+        for (const d of twBudget.deferred) tweetQueue.push(d);
         state.lastTweetSlotKey = tweetSlotKey;
+        persistNow(); // بستهٔ توییت ارسال شد — بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
       } else {
         console.warn('⚠️ ارسال بستهٔ توییت ناموفق — صف برای چرخهٔ بعد می‌ماند');
       }
@@ -5107,16 +5153,19 @@ async function main(): Promise<void> {
     // اسلات‌های تحلیل جامع و گزارش بازار در حالت بست هم فعال‌اند (با مهلت‌سنجی — نقد ۲۱ نوامبر)
     if (overBudget()) console.warn('⏱️ مهلت چرخه — اسلات‌های تحلیل/بازار به چرخهٔ بعد می‌مانند (اسلات علامت نمی‌خورد)');
     else await runDigestAndMarketSlots({ state, summary, sentIds, sentTitles, sentTitleTexts, dryRun: false });
+    persistNow(); // گزارش بازار/دارایی ارسال شد — snapshot بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
   }
 
   // ── تحلیل جامع ۸ساعتهٔ یکپارچه — خواستهٔ کاربر ۲۰ نوامبر (سوم): تنها بستهٔ تحلیلی روز،
   //    اسلات‌های ۰۶/۱۴/۲۲ با وزن ۶۰/۳۰/۱۰؛ تحلیل جامع ۰۸/۱۴/۲۰ و شبانهٔ ۲۲:۳۰ در آن ادغام شدند ──
   if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل جامع ۸ساعته به چرخهٔ بعد می‌ماند (اسلات علامت نمی‌خورد؛ state سالم ذخیره می‌شود)');
   else await runGeoAnalysis({ state, summary, dryRun: false, sentIds, sentTitles, sentTitleTexts, sentMsgTexts });
+  persistNow(); // تحلیل ۸ساعته ارسال شد — بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
 
   // ── تحلیل جامع شبانهٔ ۲۲:۳۰ — خاموش (NIGHTLY_HOURS='none'): در بستهٔ شبانگاهی ۲۲:۰۰ ادغام شد ──
   if (overBudget()) console.warn('⏱️ مهلت چرخه — تحلیل شبانه به چرخهٔ بعد می‌ماند');
   else await runNightlyAnalysis({ state, summary, dryRun: false });
+  persistNow(); // تحلیل شبانه (در صورت فعال‌بودن) — بی‌درنگ ذخیره (ممیزی ۲۵ نوامبر)
 
   // ── اعلان‌های خودکار مدیر — N چرخهٔ پیاپی شکست یا منبع خاموش چندروزه (خواستهٔ ۱۵ نوامبر) ──
   await runAdminAlerts(state, summary, perSource);

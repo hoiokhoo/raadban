@@ -36,6 +36,28 @@ jobs:
       - name: دریافت ریپو
         uses: actions/checkout@v4
 
+      # ── مهاجرت حافظهٔ ضدتکرار به شاخهٔ bot-state (ممیزی ۲۵ نوامبر — پیشنهاد اعمال‌شده):
+      #    هر ~۱۰ دقیقه یک کامیت state به main می‌رفت (≈۱۴۴ کامیت/روز؛ ریپو روز به روز سنگین‌تر).
+      #    حالا state روی شاخهٔ تک‌کامیتیِ اختصاصی bot-state با force-push به‌روز می‌شود — main
+      #    برای همیشه پاک می‌ماند و تاریخچه رشد نمی‌کند. bot/state.json داخل main فقط «seed»ِ
+      #    اولین اجراست (فروزن)؛ بار زندهٔ هر اجرا از bot-state می‌آید.
+      #    اگر شاخه موجود باشد اما بارگذاری نشد، اجرا عمداً متوقف می‌شود — سکوتِ یک چرخه از
+      #    ارسال دوبارهٔ خبرها بهتر است (۳۶ ساعت TTL علامت‌ها). ──
+      - name: بارگذاری حافظهٔ ضدتکرار از شاخهٔ bot-state
+        id: load-state
+        run: |
+          REF=$(git ls-remote origin refs/heads/bot-state | cut -f1)
+          if [ -z "$REF" ]; then
+            echo "شاخهٔ bot-state هنوز ساخته نشده — seed درون ریپو استفاده می‌شود (اولین اجرای پس از مهاجرت)"
+          elif git fetch --depth=1 origin bot-state 2>/dev/null \
+            && git show FETCH_HEAD:bot/state.json > bot/state.json 2>/dev/null \
+            && [ -s bot/state.json ]; then
+            echo "state زنده از شاخهٔ bot-state بارگذاری شد ($REF)"
+          else
+            echo "::error::شاخهٔ bot-state موجود است اما بارگذاری نشد — برای جلوگیری از ارسال دوباره این اجرا متوقف می‌شود؛ چرخهٔ بعد دوباره تلاش می‌کند"
+            exit 1
+          fi
+
       - name: نصب Bun
         uses: oven-sh/setup-bun@v2
 
@@ -64,6 +86,11 @@ jobs:
           CHANNEL_MODE: 'bundle' # bundle = بستهٔ ۲ساعتهٔ خبر + بستهٔ جداگانهٔ توییت | analysis = فقط تحلیل جامع+بازار | news = خبر پیاپی
           BUNDLE_PERIOD_HOURS: '2' # دورهٔ بستهٔ خبری به ساعت — اسلات‌های قطعی: ۰۰، ۰۲، ۰۴، … به وقت تهران
           TWEET_OFFSET_HOURS: '1' # فاصلهٔ بستهٔ توییت از بستهٔ خبر — اسلات‌های ۰۱، ۰۳، ۰۵، … (یک ساعت بعد)
+          # ── سقف حجم بسته‌ها (خواستهٔ ۲۵ نوامبر: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!») ──
+          # هر اسلات حداکثر این تعداد مورد ارسال می‌شود؛ مازاد به اسلات بعد به تعویق می‌افتد
+          # (هیچ حذف نمی‌شود؛ جنگ/ایران هرگز به تعویق نمی‌افتند). ۲۴ = ۳ کارت ۸ردیفی خبر.
+          NEWS_BUNDLE_MAX_ITEMS: '24'
+          TWEET_BUNDLE_MAX_ITEMS: '16'
           SALE_CHANNELS: 'Akharin_khodro' # اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — فوراً اعلام می‌شود
           BOT_DAILY_SETTINGS_FILE: bot/daily-settings.json # پیام صبحگاهی ۰۵:۴۵ (خواستهٔ ۲۰ نوامبر ششم) و شبانگاهی ۲۱:۰۰ + اوقات شرعی
           # ── تحلیل جامع ۸ساعتهٔ یکپارچه (خواستهٔ ۲۰ نوامبر سوم): «کلا در طی روز یه بستهٔ سه‌تایی
@@ -84,25 +111,34 @@ jobs:
           FONTCONFIG_FILE: ${{ github.workspace }}/.fontconfig.conf
         run: bun bot/bot.ts ${{ inputs.discover_chats == true && '--discover-chats' || '' }} ${{ (inputs.force_digest == true || inputs.force_digest == 'true') && '--force-digest' || '' }}
 
-      - name: ثبت حافظهٔ ضدتکرار (state) در ریپو
+      # ── ثبت state در شاخهٔ bot-state (نه main!) — ممیزی ۲۵ نوامبر: شاخهٔ تک‌کامیتیِ
+      #    اختصاصی؛ هر اجرا با force-push همان یک کامیت را بازمی‌سازد (plumbing — بدون
+      #    جابه‌جایی working tree). blob یکسان → push لازم نیست. تاریخچهٔ main دیگر رشد
+      #    نمی‌کند؛ state همچنان کاملاً ماندگار و قابل بازرسی است (شاخه عمومی bot-state).
+      #    !cancelled + گیت موفقیتِ بارگذاری: (۱) شکست ربات هم state را ثبت می‌کند —
+      #    finallyِ خود ربات ذخیره می‌کند و علامت‌ها نمی‌پرند (پیش‌تر قدم بعدی رد می‌شد و
+      #    علامت‌های ارسالِ انجام‌شده گم می‌شدند)؛ (۲) شکستِ بارگذاری state یعنی ثبتِ seed
+      #    کهنه و برگشتِ حافظه است — عمداً رد می‌شود؛ (۳) لغو دستی هم push نمی‌کند. ──
+      - name: ثبت حافظهٔ ضدتکرار (state) در شاخهٔ bot-state
+        if: ${{ !cancelled() && steps.load-state.outcome == 'success' }}
         run: |
           git config user.name "raadban-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add bot/state.json
-          if git diff --cached --quiet; then
-            echo "state تغییری نکرد — کامیت لازم نیست"
-          else
-            git commit -m "وضعیت ضدتکرار ربات: $(date -u +'%Y-%m-%dT%H:%MZ')"
-            # نقد ۲۱ نوامبر: «|| true» شکستِ rebase را می‌بلعید و از دست رفتن علامت‌های
-            # ضدتکرار (ارسال دوبارهٔ خبر) بی‌صدا می‌گذاشت — حالا تلاش دوم با بازنشانی
-            # صادقانه انجام می‌شود و شکست نهایی به‌عنوان خطای ران دیده می‌شود.
-            if ! git pull --rebase origin "${GITHUB_REF_NAME}"; then
-              echo "::warning::rebase ناموفق — تلاش دوم پس از هم‌ترازی مجدد"
-              git rebase --abort || true
-              git pull --rebase origin "${GITHUB_REF_NAME}"
-            fi
-            git push origin HEAD:"${GITHUB_REF_NAME}"
+          if [ ! -s bot/state.json ]; then
+            echo "::warning::bot/state.json خالی/گم است — چیزی ثبت نمی‌شود"
+            exit 0
           fi
+          BLOB=$(git hash-object -w bot/state.json)
+          git fetch --depth=1 origin bot-state 2>/dev/null || true
+          PREV=$(git rev-parse FETCH_HEAD:bot/state.json 2>/dev/null || true)
+          if [ "$PREV" = "$BLOB" ]; then
+            echo "state تغییری نکرد — push لازم نیست"
+            exit 0
+          fi
+          TREE_BOT=$(printf '100644 blob %s\tstate.json\n' "$BLOB" | git mktree)
+          TREE_ROOT=$(printf '040000 tree %s\tbot\n' "$TREE_BOT" | git mktree)
+          COMMIT=$(git commit-tree "$TREE_ROOT" -m "state $(date -u +'%Y-%m-%dT%H:%MZ')")
+          git push --force origin "$COMMIT:refs/heads/bot-state"
 
       # چرخهٔ خودادامهٔ ۲۴ ساعته: هر اجرا پس از ~۷ دقیقه انتظار، اجرای بعدی را خودش راه می‌اندازد.
       # با اجرای ~۲ تا ۴ دقیقه‌ای ربات، فاصلهٔ واقعی پیام‌ها ≈ هر ۱۰ دقیقه — ریل‌تایم بدون لیمیت.

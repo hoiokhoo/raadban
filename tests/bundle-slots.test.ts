@@ -229,3 +229,68 @@ describe('buildBundleChunks — مسیر پشتیبان خبر (بدون سرب�
     expect(chunks[0]).not.toContain('🕒');
   });
 });
+
+// ---------- سقف حجم بسته‌ها (خواستهٔ ۲۵ نوامبر: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!») ----------
+
+import { budgetQueueForBundle } from '../bot/bundle';
+
+describe('budgetQueueForBundle — سقف حجم بسته با اولویت جنگ/ایران', () => {
+  const isPriority = (t: string) => /جنگ|ایران/.test(t);
+  const q = (n: number, text?: string): BundleItem => ({
+    kind: 'news',
+    text: text || `خبر شمارهٔ ${n} از دنیای امروز`,
+    ids: [`id-${n}`],
+    titleKeys: [`tk-${n}`],
+    titleTexts: [],
+    queuedAt: new Date(Date.parse('2026-11-25T08:00:00Z') + n * 60_000).toISOString(),
+  });
+
+  test('زیر سقف → همه ارسال، هیچ به‌تعویق', () => {
+    const items = [q(1), q(2), q(3)];
+    const b = budgetQueueForBundle(items, { maxItems: 24, isPriority });
+    expect(b.send).toHaveLength(3);
+    expect(b.deferred).toHaveLength(0);
+  });
+
+  test('بیش از سقف → اولویت‌دار جلو می‌پرد + FIFO بقیه؛ مازاد به‌تعویق (هیچ حذف)', () => {
+    const items = [q(1), q(2, 'اخبار جنگ امروز از جبهه‌ها'), q(3), q(4), q(5)];
+    const b = budgetQueueForBundle(items, { maxItems: 3, isPriority });
+    // جنگ اول؛ سپس قدیمی‌ترین‌ها؛ ۲ مورد آخر به تعویق
+    expect(b.send.map((x) => x.ids[0])).toEqual(['id-2', 'id-1', 'id-3']);
+    expect(b.deferred.map((x) => x.ids[0])).toEqual(['id-4', 'id-5']);
+    // هیچی گم نمی‌شود
+    expect(b.send.length + b.deferred.length).toBe(5);
+  });
+
+  test('اولویت‌دارها هرگز به تعویق نمی‌افتند حتی اگر از سقف بگذرند', () => {
+    const items = [q(1, 'ایران و جنگ'), q(2, 'جنگ در خاورمیانه'), q(3, 'ایران بازار'), q(4), q(5)];
+    const b = budgetQueueForBundle(items, { maxItems: 2, isPriority });
+    expect(b.send.map((x) => x.ids[0])).toEqual(['id-1', 'id-2', 'id-3']); // هر ۳ اولویت
+    expect(b.deferred.map((x) => x.ids[0])).toEqual(['id-4', 'id-5']);
+  });
+
+  test('سپر انباشت: صف ≥ backlogFlush → سقف خاموش، تخلیهٔ کامل', () => {
+    const items = Array.from({ length: 20 }, (_, i) => q(i + 1));
+    const b = budgetQueueForBundle(items, { maxItems: 5, isPriority, backlogFlush: 20 });
+    expect(b.send).toHaveLength(20);
+    expect(b.deferred).toHaveLength(0);
+  });
+
+  test('ورودی خراب env (صفر/منفی) → حداقل ۱؛ بیش از ۸۸ قفل می‌شود', () => {
+    const items = [q(1), q(2)];
+    // max=0 → قفل به ۱ → یک مورد ارسال، یکی به تعویق (نه لال‌شدن ربات)
+    const b0 = budgetQueueForBundle(items, { maxItems: 0, isPriority });
+    expect(b0.send).toHaveLength(1);
+    expect(b0.deferred).toHaveLength(1);
+    const many = Array.from({ length: 100 }, (_, i) => q(i + 1));
+    const b = budgetQueueForBundle(many, { maxItems: 500, isPriority });
+    expect(b.send.length).toBeLessThanOrEqual(88);
+  });
+
+  test('ترتیب پایدار درون هر گروه (اولویت به ترتیب صف، نه به‌هم‌ریخته)', () => {
+    const items = [q(1), q(2, 'ایران ۱'), q(3, 'ایران ۲'), q(4)];
+    const b = budgetQueueForBundle(items, { maxItems: 2, isPriority });
+    expect(b.send.map((x) => x.ids[0])).toEqual(['id-2', 'id-3']);
+    expect(b.deferred.map((x) => x.ids[0])).toEqual(['id-1', 'id-4']);
+  });
+});

@@ -11,7 +11,6 @@ import { fetchHourlyForecast, type HourlyEntry } from '../bot/weather';
 import { tripleDateOf } from '../bot/calendar';
 import { renderWeatherCardPng } from '../bot/weather-card';
 import { dominantKindOf, renderWeatherGif } from '../bot/weather-gif';
-import { fetchIranRainMapPng } from '../bot/rain-map';
 
 const tz = 'Asia/Tehran';
 const weatherHour = '21:00';
@@ -60,15 +59,4 @@ if (mainHours) {
   }
   writeFileSync('download/preview/weather-dominant.gif', gif.gif);
   console.log(`✅ گیف وضعیت غالب: ${dom.label} — ${gif.gif.length} بایت (${gif.gif.slice(0, 3).toString('latin1')}) → download/preview/weather-dominant.gif`);
-}
-
-// نقشهٔ بارشی کشور — خواستهٔ کاربر ۲۰ نوامبر (زیر پیام هواشناسی)
-{
-  const rain = await fetchIranRainMapPng(tripleDateOf(tomorrowKey, tz, 'umalqura'));
-  if (!rain) {
-    console.error('❌ رندر نقشهٔ بارشی ناموفق بود');
-    process.exit(2);
-  }
-  writeFileSync('download/preview/rain-map.png', rain.png);
-  console.log(`✅ نقشهٔ بارشی: ${rain.width}×${rain.height} — ${Math.round(rain.png.length / 1024)} کیلوبایت → download/preview/rain-map.png`);
 }

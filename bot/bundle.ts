@@ -75,6 +75,40 @@ export function dueBundleSlotKey(
 
 const DIVIDER = '➖➖➖➖➖';
 
+// ---------- سقف حجم بسته‌ها (خواستهٔ ۲۵ نوامبر ۲۰۲۶: «حجم اخبار زیاده») ----------
+
+export interface BundleBudget<T> {
+  /** موارد همین اسلات — اولویت‌دار (جنگ/ایران) همیشه انتخاب، سپس ترتیب صف (قدیمی→جدید) */
+  send: T[];
+  /** به‌تعویق‌افتاده‌ها — به ابتدای صف برمی‌گردند و اسلات بعدی اول ارسال می‌شوند؛
+   *  هیچ موردی بی‌صدا حذف نمی‌شود (اصل «خبری از قلم نمی‌افتد» دست‌نخورده) */
+  deferred: T[];
+}
+
+/** سقف حجم بسته — نظم صف با «اولویت + FIFO»: موارد جنگ/ایران هرگز به تعویق نمی‌افتند و
+ *  جلو می‌پرند؛ بقیه به ترتیب arrival تا سقف. مازاد deferred — اسلات بعد (≤ یک دوره) ارسال می‌شود.
+ *  سپر انباشت: صفِ ≥ backlogFlush یعنی عقب‌افتادگی سنگین/فشار پایدار — سقف خاموش می‌شود و
+ *  همه ارسال می‌شود (گرسنگیِ دائمی خبر بدتر از بستهٔ پرحجم است؛ صف خودش سقف سخت دارد).
+ *  تابع خالص تست‌پذیر — کمینهٔ ۱ و بیشینهٔ ۸۸ قفل شده تا تنظیم غلط env ربات را لال نکند. */
+export function budgetQueueForBundle<T extends { text: string }>(
+  queue: T[],
+  opts: { maxItems: number; isPriority: (text: string) => boolean; backlogFlush?: number }
+): BundleBudget<T> {
+  const max = Math.max(1, Math.min(88, Math.floor(opts.maxItems) || 1));
+  if (queue.length <= max) return { send: queue.slice(), deferred: [] };
+  if (opts.backlogFlush !== undefined && queue.length >= opts.backlogFlush) {
+    return { send: queue.slice(), deferred: [] }; // سپر انباشت — تخلیهٔ کامل
+  }
+  const priority: T[] = [];
+  const rest: T[] = [];
+  for (const q of queue) (opts.isPriority(q.text) ? priority : rest).push(q);
+  const send = priority.slice(); // گروه اولویت کامل می‌رود حتی اگر از سقف بگذرد
+  if (send.length < max) send.push(...rest.slice(0, max - send.length));
+  const deferred = rest.slice(Math.max(0, max - priority.length));
+  return { send, deferred };
+}
+
+
 export interface BundleChunkOpts {
   maxLen?: number;
 }

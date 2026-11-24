@@ -46,8 +46,10 @@ local-*
 *.log
 dev.log
 dev.out.log
-test
-prompt
+# فایل‌های موقت محلی ریشه — ممیزی ۲۵ نوامبر: الگوی کلی «test»/«prompt» هر فایلی با این
+# نام را در هر عمقی نادیده می‌گرفت (مثلاً bot/test)؛ ریشه‌-anchor شد تا فقط مقصود اصلی
+/test
+/prompt
 
 server.log
 # Skills directory

@@ -21,6 +21,7 @@ import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
 import { renderDensityFor } from './render-scale';
 import { compactNum, faGroup, formatMoney, officialDeltaOf, type MacroStats, type Quote } from './market';
+import { FONT_FA } from './card-font';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -223,7 +224,10 @@ export function makeAssetsCardSvg(input: AssetsCardInput): string {
           const cyText = ry + 50;
           const pctColor = r.pct === null || Math.abs(r.pct) < 0.05 ? '#94a3b8' : r.pct > 0 ? '#4ade80' : '#f87171';
           const hasPct = r.pct !== null && Math.abs(r.pct) >= 0.05;
-          const pctText = hasPct ? `${faDigits(Math.abs(r.pct!).toFixed(1))}٪` : null;
+          // ممیزی ۲۷ نوامبر — جداکنندهٔ اعشار فارسی «٫»: faDigits فقط ارقام را برمی‌گرداند و «.»
+          // لاتینِ toFixed دست‌نخورده می‌ماند و «۳۸.۸٪» با نقطهٔ لاتین رندر می‌شد (ناسازگار با
+          // faGroup بقیهٔ گزارش و assets-chart که «٫» درست می‌سازند)
+          const pctText = hasPct ? `${faDigits(Math.abs(r.pct!).toFixed(1).replace('.', '٫'))}٪` : null;
           const pctY = r.chgAbs && hasPct ? ry + 40 : cyText;
           const chgY = ry + 64;
           const gapColor = r.gapUp === null || r.gapUp ? '#fbbf24' : '#4ade80';
@@ -233,9 +237,9 @@ export function makeAssetsCardSvg(input: AssetsCardInput): string {
   <text x="${X_MKT_R}" y="${cyText}" font-size="25" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(esc(r.value))}</text>
   ${r.official
     ? `<text x="${X_OFF_R}" y="${r.gapAbs ? ry + 34 : cyText}" font-size="23" fill="#9fc3e8" text-anchor="end">${rtl(esc(r.official))}</text>${r.gapAbs && r.gapPct && r.gapUp !== null ? `<text x="${X_OFF_R}" y="${ry + 62}" font-size="17" fill="${gapColor}" text-anchor="end">${rtl(`اختلاف ${esc(r.gapAbs)} (${esc(r.gapPct)})`)}</text>` : ''}`
-    : `<text x="${X_OFF_R}" y="${cyText}" font-size="24" fill="#5b7f9e" text-anchor="end">${rtl('—')}</text>`}
+    : `<text x="${X_OFF_R}" y="${cyText}" font-size="24" fill="#7fa8c6" text-anchor="end">${rtl('—')}</text>`}
   ${hasPct ? `${arrowSvg(PAD, pctY - 9, r.pct! > 0, pctColor)}
-  <text x="${X_PCT_L}" y="${pctY}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="start">${rtl(pctText!)}</text>` : `<text x="${X_PCT_L}" y="${cyText}" font-size="24" fill="#5b7f9e" text-anchor="start">${rtl('—')}</text>`}
+  <text x="${X_PCT_L}" y="${pctY}" font-size="24" font-weight="700" fill="${pctColor}" text-anchor="start">${rtl(pctText!)}</text>` : `<text x="${X_PCT_L}" y="${cyText}" font-size="24" fill="#7fa8c6" text-anchor="start">${rtl('—')}</text>`}
   ${hasPct && r.chgAbs ? `<text x="${X_PCT_L}" y="${chgY}" font-size="16" fill="${pctColor}" text-anchor="start">${rtl(esc(r.chgAbs))}</text>` : ''}`;
         })
         .join('');
@@ -249,7 +253,7 @@ export function makeAssetsCardSvg(input: AssetsCardInput): string {
   <text x="${W - PAD}" y="${footerY}" font-size="19" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • طلا/ارز: tgju/نوبیتکس • رسمی: مرکز مبادله/بانکی')}</text>
   <text x="${PAD}" y="${footerY}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('تورم: بانک مرکزی • مسکن: کیلید')}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>

@@ -180,16 +180,21 @@ describe('attributionOf — استخراج ارجاع به رسانهٔ مرجع
 });
 
 describe('attributionMatch — تطبیق چندسیگنالی نتیجهٔ وب با متن خبر', () => {
-  test('عدد مشترک — سنگین‌ترین سیگنال، حتی بین دو زبان', () => {
-    expect(attributionMatch('Oil surges 12 percent after OPEC meeting in Vienna', 'به نقل از بلومبرگ، قیمت نفت ۱۲ درصد بعد از نشست اوپک در وین رشد کرد')).toBe(true);
+  test('عدد مشترک ≥۳رقمی — سنگین‌ترین سیگنال، حتی بین دو زبان (ممیزی ۲۷ نوامبر)', () => {
+    expect(attributionMatch('Oil surges after OPEC cuts 120 thousand barrels', 'به نقل از بلومبرگ، قیمت نفت بعد از کاهش ۱۲۰ هزار بشکری اوپک رشد کرد')).toBe(true);
+    // عدد ۲رقمی به‌تنهایی دیگر تأیید نیست — «۱۲» مشترک با خبر بی‌ربط پیش‌تر تأیید می‌شد
+    expect(attributionMatch('Oil surges 12 percent after OPEC meeting in Vienna', 'به نقل از بلومبرگ، قیمت نفت ۱۲ درصد بعد از نشست اوپک در وین رشد کرد و تحلیل‌های متفاوتی از پیامدهای آن برای بازارهای جهانی و اقتصاد کشورهای تولیدکننده منتشر شد')).toBe(false);
   });
 
   test('دو نام لاتین مشترک (Bessent + Iran)', () => {
     expect(attributionMatch('Bessent says Iran has no oil on the water', 'Bloomberg: Bessent گفت ایران دیگر نفت ندارد — تحریم Iran')).toBe(true);
   });
 
-  test('پیکرهٔ هم‌زبان (فارسی-فارسی) با ژاکارد', () => {
+  test('پیکرهٔ هم‌زبان (فارسی-فارسی) با ژاکارد (ممیزی ۲۷ نوامبر: بالا ≥۰٫۳۵ تنها کافی؛ متوسط با سیگنال دوم)', () => {
+    // نزدیک‌هم‌متنی (ژاکارد ~۰٫۳۷ = همان داستان) — تأیید
     expect(attributionMatch('بسنت: ایران دیگر نفت روی آب ندارد', 'وزیر خارجه آمریکا بسنت گفت ایران دیگر هیچ نفت روی آب برای فروش ندارد و نفتکش بارگیری نکرده است')).toBe(true);
+    // ژاکاردِ واژه‌های عمومیِ پایین (۰٫۱۸ — پیش‌تر تأیید می‌شد) با سیگنال دوم — رد
+    expect(attributionMatch('وزیر آمریکا دربارهٔ ایران گفتگو کرد', TANKER)).toBe(false);
   });
 
   test('نتیجهٔ بی‌ربط تطبیق نمی‌شود', () => {
@@ -315,7 +320,10 @@ describe('تنظیمات موتور ورودی خبر (bale-bot.yml + CFG)', () 
     const yml = readFileSync('.github/workflows/bale-bot.yml', 'utf8');
     expect(yml).toContain("NEWS_BUNDLE_MAX_ITEMS: '16'");
     expect(yml).toContain("NEWS_IMPORTANCE_THRESHOLD: '55'");
-    expect(yml).toContain("NEWS_INTAKE_MIN_KEEP: '3'");
+    // ممیزی ۲۷ نوامبر — سهمیهٔ حداقل ۳→۰ («اخبار بی‌اهمیت رو دیگه منتشر نکنی») +
+    // سپر سوم حجم: سقف روزانهٔ انتشار خبر
+    expect(yml).toContain("NEWS_INTAKE_MIN_KEEP: '0'");
+    expect(yml).toContain("NEWS_DAILY_MAX_ITEMS: '96'");
     expect(yml).toContain("ATTRIBUTION_VERIFY_MAX: '6'");
     expect(yml).not.toContain("NEWS_BUNDLE_MAX_ITEMS: '24'");
   });

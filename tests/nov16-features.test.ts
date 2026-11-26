@@ -307,11 +307,11 @@ describe('وقایع جهانی امروز — ویکی‌پدیای انگلی�
 // ---------- (۶) یکپارچگی — بستهٔ توییت با نام فارسی ----------
 
 describe('بستهٔ توییت — یکپارچگی پلتفرم/نام فارسی', () => {
-  test('توییت تروث‌سوشال ترامپ: نشانگر 🅣 + نام فارسی: ترجمهٔ کامل — بدون متن اصلی', () => {
+  test('توییت تروث‌سوشال ترامپ: نشانگر تروث‌سوشال + نام فارسی: ترجمهٔ کامل — بدون متن اصلی', () => {
     const res = buildTweetBundleChunks([
       {
         id: 'ts-1',
-        source: '🅣 Donald Trump (تروث‌سوشال)',
+        source: 'Donald Trump — تروث‌سوشال',
         text: 'صلح از طریق قدرت!',
         orig: 'Peace through strength!',
         faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)',
@@ -419,32 +419,33 @@ describe('کارت توییت‌ها — فقط فارسی روان کامل (خ
   const twInput: TweetCardInput = {
     date: CARD_DATE,
     items: [
-      { source: '🅣 Donald Trump (تروث‌سوشال)', fa: 'صلح از طریق قدرت!', faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' },
+      { source: 'Donald Trump — تروث‌سوشال', fa: 'صلح از طریق قدرت!', faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' },
       { source: '𝕏 mb_ghalibaf', fa: 'ایران آماده است.', faName: 'محمدباقر قالیباف (رئیس مجلس شورای اسلامی)', verified: true },
     ],
   };
 
   test('ردیف هر توییت: منبع + نام فارسی (خط عنوان) + ترجمهٔ کامل — بدون متن اصلی', () => {
     const svg = makeTweetCardSvg(twInput);
-    expect(svg).toContain('Donald Trump (تروث‌سوشال)');
+    expect(svg).toContain('Donald Trump — تروث‌سوشال');
     expect(svg).not.toContain('Peace through strength!'); // متن اصلی حذف — خواستهٔ صریح کاربر
     expect(svg).toContain('دونالد ترامپ (رئیس‌جمهور آمریکا)');
     expect(svg).toContain('صلح از طریق قدرت!');
     expect(svg).toContain('𝕏 mb_ghalibaf');
-    expect(svg).toContain('✅'); // verified
+    expect(svg).not.toContain('✅'); // گلیف ✅ در فونت‌های سرور نیست — توافقی می‌شد (ممیزی ۲۷ نوامبر)
+    expect(svg).toContain('#16a34a'); // تیک بَج برداری verified
     expect(svg).toContain('توییت‌های مقامات تأثیرگذار');
   });
 
   test('ترجمهٔ کامل بدون خلاصه‌سازی — توییت بلند چندخطی رندر می‌شود (ریشهٔ «توییت‌ها کامل نیومدن»؛ پالت سبز کم‌رنگ — ۲۰ نوامبر سوم)', () => {
     const long = 'این متن آزمونی طولانی برای بررسی کامل بودن ترجمه در کارت تصویری است. '.repeat(12);
-    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 Donald Trump (تروث‌سوشال)', fa: long, faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' }] });
+    const svg = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: 'Donald Trump — تروث‌سوشال', fa: long, faName: 'دونالد ترامپ (رئیس‌جمهور آمریکا)' }] });
     const faLines = svg.split('\n').filter((l) => l.includes('fill="#22432f"') && l.includes('font-size="26"')).length;
     expect(faLines).toBeGreaterThan(4); // چندین خط ترجمه — نه سقف دوخطی قدیمی
     expect(svg).toContain('#eef6ee'); // پس‌زمینهٔ سبز کم‌رنگ کارت توییت — خواستهٔ ۲۰ نوامبر سوم
     expect(TW_MAX_LINES).toBe(32); // ۲۰ نوامبر هشتم: ۱۶→۳۲ — پست‌های بلند تروث‌سوشال (تا ~۱۹۸۰ نویسه) کامل جا می‌شوند
     // متن فوق‌بلند (فراتر از حتی ۳۲ خط) → بریده با «…» در بستهٔ عادی (کارت هرگز سرریز نمی‌کند — صادقانه؛
     // کارت فوری بیرون از بسته، خودش بی‌سقف است و هرگز بریده نمی‌شود)
-    const overflow = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: '🅣 x', fa: 'کلمه '.repeat(2000), faName: 'نام' }] });
+    const overflow = makeTweetCardSvg({ date: CARD_DATE, items: [{ source: 'تروث‌سوشال — ترامپ', fa: 'کلمه '.repeat(2000), faName: 'نام' }] });
     expect(overflow).toContain('…');
   });
 

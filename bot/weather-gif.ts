@@ -120,8 +120,10 @@ export function makeWeatherGifFrameSvg(kind: string, i: number, size = GIF_SIZE)
         return `<circle cx="${rx.toFixed(1)}" cy="${ry.toFixed(1)}" r="${(size * 0.014).toFixed(1)}" fill="#e0f2fe"/>`;
       }).join('');
   } else {
-    // storm — رعد و برق چشمک‌زن
-    const flash = i % 4 === 0 || i % 4 === 1;
+    // storm — رعد و برق چشمک‌زن؛ ممیزی ۲۷ نوامبر: الگوی قبلی (۲ فریم روشن از هر ۴) ≈ ۲٫۸ تپش
+    // در ثانیه بود که به آستانهٔ خطر صرع نوری (۳ بر ثانیه، WCAG 2.3.1) نزدیک است — حالا فقط
+    // ۱ فریم روشن از هر ۵ (~۱٫۱ بر ثانیه): چشمک محسوس و ایمن.
+    const flash = i % 5 === 0;
     art = cloud(cx, cy - size * 0.07, r / 9, '#64748b') + cloud(cx - size * 0.02, cy - size * 0.085, r / 12, '#94a3b8')
       + (flash
         ? `<path d="M ${cx} ${cy + size * 0.01} L ${cx - size * 0.055} ${cy + size * 0.09} L ${cx - size * 0.01} ${cy + size * 0.09} L ${cx - size * 0.05} ${cy + size * 0.17}" fill="none" stroke="#facc15" stroke-width="${(size * 0.016).toFixed(1)}" stroke-linejoin="round"/>`

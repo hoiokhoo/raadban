@@ -30,8 +30,10 @@ if (!process.env.FONTCONFIG_FILE) {
 }
 
 /** خانوادهٔ فونت کارت — «نازنین» خواستهٔ کاربر ۱۵ نوامبر ۲۰۲۶؛ وزیرمتن پشتیبان نویسه‌های
- *  فاقد در نازنین (°، ٪، —) و sans-serif پشتیبان پایانی. */
-export const FONT_FA = "'B Nazanin', Vazirmatn, sans-serif";
+ *  فاقد در نازنین (°، ٪، —) و sans-serif پشتیبان پایانی. ممیزی ۲۷ نوامبر: تعریف به
+ *  bot/card-font.ts (ماژول مشترک همهٔ کارت‌ها) منتقل شد و از این‌جا صادر می‌ماند. */
+export { FONT_FA } from './card-font';
+import { FONT_FA } from './card-font';
 /** ضخامت لایهٔ تیره‌کنندهٔ پس‌زمینهٔ طبیعت — «کمی تیره که مشکل خوندن ایجاد نکنه» */
 export const BG_DARKEN = 0.45;
 
@@ -176,7 +178,7 @@ export function makeWeatherCardSvg(input: WeatherCardInput, opts: WeatherCardSvg
   // سربرگ
   const header = `
   <rect width="${W}" height="${HEADER_H}" fill="url(#hdr)" fill-opacity="${hdrA}"/>
-  <text x="${W - PAD}" y="82" font-family="${FONT_FA}" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(`پیش‌بینی ساعتی فردا — ${city}`)}</text>
+  <text x="${W - PAD}" y="82" font-family="${FONT_FA}" font-size="42" font-weight="700" fill="#ffffff" text-anchor="end">${rtl(`پیش‌بینی ساعتی فردا — ${esc(city)}`)}</text>
   <text x="${W - PAD}" y="134" font-family="${FONT_FA}" font-size="28" fill="#9fc3e8" text-anchor="end">${rtl(`${tomorrow.weekdayFa} ${tomorrow.shamsi} • ${tomorrow.miladi}`)}</text>
   <text x="${W - PAD}" y="196" font-family="${FONT_FA}" font-size="34" font-weight="500" fill="#ffd75e" text-anchor="end">${rtl(`کمینه ${faDigits(String(minT))}°  •  بیشینه ${faDigits(String(maxT))}°  •  ${faDigits(String(hours.length))} ساعت معتبر`)}</text>`;
 
@@ -215,7 +217,7 @@ export function makeWeatherCardSvg(input: WeatherCardInput, opts: WeatherCardSvg
 
   // «Open-Meteo» حذف شد — خواستهٔ کاربر ۲۰ نوامبر ۲۰۲۶ («کلمه open meteo حذف بشه»)
   const footer = `
-  <text x="${W - PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="end">${rtl(`مدل‌های عددی جوّ • منطقهٔ زمانی ${city}`)}</text>
+  <text x="${W - PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="end">${rtl(`مدل‌های عددی جوّ • منطقهٔ زمانی ${esc(city)}`)}</text>
   <text x="${PAD}" y="${H - 34}" font-family="${FONT_FA}" font-size="22" fill="${photo ? '#b9cfe3' : '#6f93b4'}" text-anchor="start">${rtl(`رصدبان | هر شب ساعت ${faDigits(input.weatherHour)}`)}</text>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">

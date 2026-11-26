@@ -43,6 +43,7 @@ import { faDigits } from './daily';
 import { isPriorityRelated } from './iran';
 import { type TripleDate } from './calendar';
 import { renderDensityFor, renderGifDensityFor } from './render-scale';
+import { FONT_FA } from './card-font';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -67,6 +68,11 @@ export interface NewsCardInput {
   items: NewsCardItem[];
   /** کل رویدادهای بازه پس از تجمیع — برای تراشهٔ «+N رویداد در کارت‌های بعدی» */
   total?: number;
+  /** ممیزی ۲۷ نوامبر — شمار «مواردی که پس از «این» صفحه می‌مانند» (درست به‌ازای هر صفحه؛
+   *  کلِ total منهای مواردِ نمایش‌داده‌شده تا پایان همین صفحه). نبود → همان محاسبهٔ قدیمی. */
+  moreAfter?: number;
+  /** برچسب تراشهٔ «+N رویداد …» — پیش‌فرض «دیگر در کارت‌های بعدی»؛ صفحهٔ آخر: «بلندتر در کارت‌های «متن کامل»» */
+  moreLabel?: string;
   /** موارد حذف‌شدهٔ بی‌خاستگاه در تطبیق اجباری — شفافیت در کارت */
   dropped?: number;
   /** شمارهٔ صفحه (کارت چندتکه — خواستهٔ ۱۶ نوامبر: همهٔ اخبار در قالب تصویر) */
@@ -244,9 +250,12 @@ function rtl(s: string): string {
   return `\u202B${s}\u202C`;
 }
 
-/** نشان تیک برداری — دایرهٔ سبز + خط تیک سفید (بدون فونت ایموجی) */
-function tickBadgeSvg(cx: number, cy: number): string {
-  return `<circle cx="${cx}" cy="${cy}" r="14" fill="#16a34a"/><path d="M ${cx - 6} ${cy} L ${cx - 1.5} ${cy + 5} L ${cx + 6.5} ${cy - 5}" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+/** نشان تیک برداری — دایرهٔ سبز + خط تیک سفید (بدون فونت ایموجی). ممیزی ۲۷ نوامبر:
+ *  شعاع قابل‌تنظیم (۱۴ ردیف کارت / ۱۰ پانوشت) — ✅ U+2705 در هیچ‌کدام از فونت‌های سرور
+ *  نیست و روی کارت به مربع سیاه تبدیل می‌شد (نمونهٔ همان بیماری پرچم 🇺🇸). */
+function tickBadgeSvg(cx: number, cy: number, r = 14): string {
+  const s = r / 14;
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#16a34a"/><path d="M ${cx - 6 * s} ${cy} L ${cx - 1.5 * s} ${cy + 5 * s} L ${cx + 6.5 * s} ${cy - 5 * s}" fill="none" stroke="#ffffff" stroke-width="${3}" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 
 // ---------- ساخت SVG — خالص و تست‌پذیر (بدون sharp) ----------
@@ -255,7 +264,10 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
   const { date, items } = input;
   if (!items || items.length === 0) return '';
   const total = input.total ?? items.length;
-  const more = Math.max(0, total - items.length);
+  // ممیزی ۲۷ نوامبر — شمارِ «بعد از این صفحه» درست شد: پیش‌تر هر صفحه «total − طولِ خودش»
+  //  می‌گفت؛ در صفحهٔ ۲ از ۴، مواردِ صفحهٔ ۱ هم دوباره شمرده می‌شد و صفحهٔ آخر وعدهٔ
+  //  «کارت‌های بعدی» می‌داد که وجود نداشتند (سرریزها به کارت‌های «متن کامل» می‌روند).
+  const more = Math.max(0, input.moreAfter ?? total - items.length);
   // بنر دسته — پیش از نخستین موردِ هر دسته در این صفحه (اولین مورد صفحه همیشه بنر دارد)
   const banners = new Map<number, string>();
   let lastSection = '';
@@ -286,7 +298,7 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
       ? `
   <rect x="${PAD}" y="${rowY}" width="${W - PAD * 2}" height="${BANNER_H - 10}" rx="12" fill="#16405f"/>
   <rect x="${W - PAD - 8}" y="${rowY + 6}" width="4" height="${BANNER_H - 22}" rx="2" fill="#ffd75e"/>
-  <text x="${W - PAD - 26}" y="${rowY + 38}" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(banners.get(i)!))}</text>`
+  <text x="${W - PAD - 26}" y="${rowY + 38}" font-size="26" font-weight="700" fill="#ffd75e" text-anchor="end">${rtl(esc(stripCardEmoji(banners.get(i)!)))}</text>`
       : '';
     if (banners.get(i)) rowY += BANNER_H;
     const yTop = rowY;
@@ -322,15 +334,16 @@ export function makeNewsCardSvg(input: NewsCardInput): string {
 
   const moreSvg =
     more > 0
-      ? `<text x="${W / 2}" y="${HEADER_H + 14 + bannersH + rowsH + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد دیگر در کارت‌های بعدی`)}</text>`
+      ? `<text x="${W / 2}" y="${HEADER_H + 14 + bannersH + rowsH + 40}" font-size="24" fill="#9fc3e8" text-anchor="middle">${rtl(`+ ${faDigits(String(more))} رویداد ${input.moreLabel || 'دیگر در کارت‌های بعدی'}`)}</text>`
       : '';
 
   const footerY = H - 34;
   const footer = `
   <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان')}</text>
-  <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl('تیک ✅ = پوشش حداقل دو منبع مستقل')}</text>`;
+  ${tickBadgeSvg(PAD + 10, footerY - 7, 10)}
+  <text x="${PAD + 28}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl(`تیک = پوشش حداقل دو منبع مستقل${input.dropped ? ` • ${faDigits(String(input.dropped))} مورد بی‌خاستگاه حذف شد` : ''}`)}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>
@@ -373,15 +386,28 @@ export async function renderNewsCardPng(input: NewsCardInput): Promise<CardPng |
 
 // ---------- کارت چندصفحه‌ای — همهٔ اخبار در قالب تصویر (خواستهٔ کاربر ۱۶ نوامبر) ----------
 
-/** صفحه‌بندی + رندر همهٔ موارد در چند کارت پیاپی — خروجی خالی یعنی شکست/بی‌مورد (فراخواننده به متن برمی‌گردد). */
+/** صفحه‌بندی + رندر همهٔ موارد در چند کارت پیاپی — خروجی خالی یعنی شکست/بی‌مورد (فراخواننده به متن برمی‌گردد).
+ *  ممیزی ۲۷ نوامبر — تراشهٔ «+N رویداد» درست به‌ازای هر صفحه: پیش‌تر «total منهای طولِ
+ *  همان صفحه» بود و در صفحه‌های میانی بیش‌شماری می‌کرد؛ حالا «باقی‌ماندهٔ واقعی پس از این
+ *  صفحه» و صفحهٔ آخر به‌جای وعدهٔ کارت بعدی (که نیست) به کارت‌های «متن کامل» ارجاع می‌دهد. */
 export async function renderNewsCardPages(input: NewsCardInput, opts: { rowsPerPage?: number; maxPages?: number } = {}): Promise<CardPng[]> {
   const per = opts.rowsPerPage ?? NEWS_CARD_ROWS_PER_PAGE;
   const maxPages = opts.maxPages ?? NEWS_CARD_MAX_PAGES;
   const pages = paginateItems(input.items || [], per, maxPages);
+  const totalAll = input.total ?? (input.items || []).length;
   const out: CardPng[] = [];
   for (let p = 0; p < pages.length; p++) {
     const part = { no: p + 1, of: pages.length };
-    const card = await renderNewsCardPng({ ...input, items: pages[p]!, part });
+    const isLast = p === pages.length - 1;
+    const shownThrough = Math.min(totalAll, (p + 1) * per);
+    const card = await renderNewsCardPng({
+      ...input,
+      items: pages[p]!,
+      part,
+      total: totalAll,
+      moreAfter: Math.max(0, totalAll - shownThrough),
+      moreLabel: isLast ? 'بلندتر در کارت‌های «متن کامل»' : 'دیگر در کارت‌های بعدی',
+    });
     if (card) out.push(card);
   }
   return out;
@@ -515,7 +541,7 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
       return `
   <rect x="${PAD}" y="${yTop}" width="${W - PAD * 2}" height="${heights[i]! - 12}" rx="14" fill="${bg}"/>
   ${hot ? `<rect x="${PAD + 8}" y="${yTop + 10}" width="5" height="${heights[i]! - 32}" rx="2.5" fill="#d9a441"/>` : ''}
-  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${hot ? '#a1762a' : '#4e7d61'}" text-anchor="end">${rtl(esc(it.source))}${it.verified ? ' ✅' : ''}</text>
+  <text x="${textRight}" y="${yTop + 38}" font-size="24" font-weight="700" fill="${hot ? '#a1762a' : '#4e7d61'}" text-anchor="end">${'\u202B'}${esc(it.source)}${it.verified ? '<tspan fill="#16a34a" font-weight="700"> ✓</tspan>' : ''}${'\u202C'}</text>
   <text x="${textRight}" y="${nameY}" font-size="27" font-weight="700" fill="#1c5f38" text-anchor="end">${rtl(esc(nameLines[0] || nameLine))}</text>
   ${faSvg}`;
     })
@@ -523,9 +549,9 @@ export function makeTweetCardSvg(input: TweetCardInput): string {
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#5f8870" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#3f6b52" text-anchor="end">${rtl('رصدبان • توییت/تروث‌سوشال مقامات تأثیرگذار')}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#14532d"/><stop offset="1" stop-color="#227a44"/>
@@ -675,9 +701,9 @@ export function makeBreakingCardSvg(input: BreakingCardInput, animFrame?: number
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#a3736c" text-anchor="end">${rtl('رصدبان • ارسال فوری بدون وقفه')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#8a5148" text-anchor="end">${rtl('رصدبان • ارسال فوری بدون وقفه')}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#8f1420"/><stop offset="1" stop-color="#c62b3a"/>
@@ -716,12 +742,12 @@ export const BREAKING_CARD_GIF_MAX_BYTES = 8_000_000;
  *  (انکود گیف ۱۲فریمی از کارت خیلی بلند، سنگین و پُرحجم است؛ PNG همان متن کامل را در یک پیام می‌دهد) */
 export const BREAKING_GIF_MAX_HEIGHT = 6000;
 
-/** سقف ارتفاع PNG کارت فوری — نقد سخت‌گیرانهٔ ۲۱ نوامبر: سقف مجموع عرض+ارتفاع
- *  عکس بله (خانوادهٔ تلگرام) ~۱۰۰۰۰px است؛ کارت ۱۰۸۰پیکسلی یعنی PNG بلندتر از
- *  ~۸۸۰۰px توسط بله رد می‌شد و تلاش آپلود تلف می‌شد. بلندتر از این → null →
- *  فراخواننده به گیف مستقل + کپشن کامل (splitPhotoCaption) و سپس متن کامل می‌رود —
- *  هیچ متنی گم نمی‌شود. */
-export const BREAKING_PNG_MAX_HEIGHT = 8800;
+/** سقف ارتفاع PNG کارت فوری — نقد سخت‌گیرانهٔ ۲۱ نوامبر + تصحیح ممیزی ۲۷ نوامبر: سقف
+ *  مجموع عرض+ارتفاع عکس بله (BALE_DIM_SUM_MAX = ۹۸۰۰px — نه ~۱۰٬۰۰۰ حدس‌زده‌شده) یعنی
+ *  کارت ۱۰۸۰پیکسلی حداکثر ۹۸۰۰−۱۰۸۰ = ۸۷۲۰px ارتفاع دارد؛ پیش‌تر ۸۸۰۰ گذاشته بودیم و
+ *  بلندترین PNG «پذیرفته‌شده» هنوز از سقف واقعی بله بالاتر بود و آپلودش می‌سوخت. بلندتر از
+ *  این → null → فراخواننده به گیف مستقل + کپشن کامل و سپس متن کامل می‌رود — هیچ متنی گم نمی‌شود. */
+export const BREAKING_PNG_MAX_HEIGHT = 8720;
 
 /** کارت PNG فوری برای این متن بیش از حد بلند است؟ — خالص و تست‌پذیر */
 export function breakingPngTooTall(text: string, hasName: boolean): boolean {
@@ -744,23 +770,31 @@ export async function renderBreakingCardGif(input: BreakingCardInput): Promise<C
     // فریم‌های گیف سقف ۲× دارند (renderGifDensityFor) — ۳× فقط برای PNG؛ فریم ۳×ِ ۱۲گانه
     // حجم گیف را از سقف ۸MB می‌گذراند و متحرک‌بودن قربانی می‌شود (کیفیت ۲۵ نوامبر بدون
     // قربانی گیف)؛ کارت بلند → همان ۱×
-    const density = renderGifDensityFor(W, h0);
-    const meta = await sharp(Buffer.from(svg0), { density }).metadata();
-    if (!meta.width || !meta.height) return null;
-    const encoder = GIFEncoder();
-    for (let i = 0; i < BREAKING_CARD_GIF_FRAMES; i++) {
-      const svg = makeBreakingCardSvg(input, i);
-      const { data } = await sharp(Buffer.from(svg), { density }).raw().toBuffer({ resolveWithObject: true });
-      const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
-      const palette = quantize(u8, 128);
-      const index = applyPalette(u8, palette);
-      encoder.writeFrame(index, meta.width, meta.height, { palette, delay: BREAKING_CARD_GIF_DELAY_MS });
+    // ممیزی ۲۷ نوامبر — نردبان تطبیقی (هم‌الگوی radar/forecast-gif): پیش‌تر فقط یک تلاش
+    // بود و گیفِ >۸MB کل مسیر متحرک را برای همیشه به PNG می‌کشت؛ حالا ۲×→۱٫۵×→۱× دوباره
+    // انکود می‌شود و فقط از سقف واقعی عبور کند متحرک رها می‌شود.
+    const { DENSITY_15X, DENSITY_1X } = await import('./render-scale');
+    const ladder = [renderGifDensityFor(W, h0), DENSITY_15X, DENSITY_1X].filter((d, i, a) => a.indexOf(d) === i);
+    for (const density of ladder) {
+      const meta = await sharp(Buffer.from(svg0), { density }).metadata();
+      if (!meta.width || !meta.height) return null;
+      const encoder = GIFEncoder();
+      for (let i = 0; i < BREAKING_CARD_GIF_FRAMES; i++) {
+        const svg = makeBreakingCardSvg(input, i);
+        const { data } = await sharp(Buffer.from(svg), { density }).raw().toBuffer({ resolveWithObject: true });
+        const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+        const palette = quantize(u8, 128);
+        const index = applyPalette(u8, palette);
+        encoder.writeFrame(index, meta.width, meta.height, { palette, delay: BREAKING_CARD_GIF_DELAY_MS });
+      }
+      encoder.finish();
+      const gif = Buffer.from(encoder.bytes());
+      if (gif.slice(0, 3).toString('latin1') !== 'GIF') continue;
+      if (gif.length < 5000 || gif.length > BREAKING_CARD_GIF_MAX_BYTES) continue; // نردبان: تراکم پایین‌تر
+      if (density !== ladder[0]) console.log(`🎞 گیف فوری در تراکم ${density} بازانکود شد (نسخهٔ ${ladder[0]} از سقف ${BREAKING_CARD_GIF_MAX_BYTES} گذشت)`);
+      return { png: gif, width: meta.width, height: meta.height };
     }
-    encoder.finish();
-    const gif = Buffer.from(encoder.bytes());
-    if (gif.length < 5000 || gif.length > BREAKING_CARD_GIF_MAX_BYTES) return null;
-    if (gif.slice(0, 3).toString('latin1') !== 'GIF') return null;
-    return { png: gif, width: meta.width, height: meta.height };
+    return null; // هر سه پله از سقف حجم گذشت — فراخواننده به PNG ثابت می‌رود (مسیر موجود)
   } catch {
     return null;
   }

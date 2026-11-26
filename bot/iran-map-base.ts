@@ -18,7 +18,10 @@ import { IRAN_PROVINCES } from './iran-provinces';
 export const MAP_W = 1100;
 /** جعبهٔ جغرافیایی — همان IRAN_BBOX رادار: lon ۴۳–۶۴ / lat ۲۴–۴۱ */
 export const MERC_BBOX = { minLat: 24, maxLat: 41, minLon: 43, maxLon: 64 } as const;
-const MARGIN = 6;
+/** حاشیهٔ داخلی نقشه — کادر پروجکشن دقیقاً [MARGIN .. W−MARGIN] × [MARGIN .. H−MARGIN] است؛
+ *  ممیزی ۲۷ نوامبر صادر شد تا گیف رادار تصویر رادار را در «همان» کادر بچیند (پیش‌تر تصویر
+ *  تمام‌بوم کشیده می‌شد و لکه‌های بارش تا ۱۲px از مرز استان‌ها جابه‌جا می‌افتاد). */
+export const MARGIN = 6;
 
 /** عرض جغرافیایی → y مرکاتور (رادیان‌نما) — خالص */
 function mercY(latDeg: number): number {

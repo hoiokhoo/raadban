@@ -20,7 +20,7 @@
 import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
 import {
-  MAP_W, MAP_H, MERC_BBOX,
+  MAP_W, MAP_H, MERC_BBOX, MARGIN,
   provinceFillsSvg, provinceBordersSvg, iranOutlineSvg, iranMapClipPath, graticuleSvg, capitalsSvg, capitalsSvgMeasured,
 } from './iran-map-base';
 import { renderGifDensityFor, DENSITY_15X, DENSITY_1X } from './render-scale';
@@ -145,7 +145,7 @@ export function makeRadarFrameSvg(date: TripleDate, radarDataUrl: string, clockF
     ${graticuleSvg()}
     ${provinceFillsSvg()}
     <g clip-path="url(#iranClip)">
-      <image x="0" y="0" width="${MAP_W}" height="${MAP_H}" preserveAspectRatio="none" href="${radarDataUrl}"/>
+      <image x="${MARGIN}" y="${MARGIN}" width="${MAP_W - MARGIN * 2}" height="${MAP_H - MARGIN * 2}" preserveAspectRatio="none" href="${radarDataUrl}"/>
     </g>
     ${provinceBordersSvg()}
     ${iranOutlineSvg()}

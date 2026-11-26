@@ -115,7 +115,9 @@ describe('ممیزی ۲ — درصد/رنگ/جهت از یک متغیر واحد
     expect(p.pct).toBeCloseTo(10, 0);
     expect(p.values[p.values.length - 1]!).toBeGreaterThan(p.values[0]!); // نقطهٔ پایانی بالاتر — نه فقط عدد
     const svg = makeAssetsChartSvg({ date: CARD_DATE, panels: [p, panelOf([100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 90]), panelOf(Array.from({ length: 12 }, (_, i) => 100 - i))] });
-    expect(svg).toContain('▲');
+    // ممیزی ۲۷ نوامبر — فلش برداری به‌جای گلیف ▲ (فونت فارسی ندارد؛ دو زبان بصری در یک کارت)
+    expect(svg).not.toContain('▲');
+    expect(svg).toMatch(/<path d="M \d+/);
     expect(svg).toContain('#4ade80'); // سبز فقط برای رشد واقعی
   });
 
@@ -124,7 +126,9 @@ describe('ممیزی ۲ — درصد/رنگ/جهت از یک متغیر واحد
     expect(p.pct).toBeCloseTo(-10, 0);
     expect(p.values[p.values.length - 1]!).toBeLessThan(p.values[0]!);
     const svg = makeAssetsChartSvg({ date: CARD_DATE, panels: [p, panelOf([100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110]), panelOf(Array.from({ length: 12 }, (_, i) => 100 + i))] });
-    expect(svg).toContain('▼');
+    // ممیزی ۲۷ نوامبر — فلش برداری به‌جای گلیف ▼
+    expect(svg).not.toContain('▼');
+    expect(svg).toMatch(/<path d="M \d+/);
     expect(svg).toContain('#f87171');
   });
 

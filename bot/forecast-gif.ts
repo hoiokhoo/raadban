@@ -169,7 +169,7 @@ export function makeForecastFrameSvg(date: TripleDate, cells: RadarCell[], clock
     ${capsBlock ?? capitalsSvg()}
   </g>
   <text x="${MAP_W - 24}" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • فقط ایران')}</text>
-  <text x="24" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('دادهٔ مدل عددی: Open-Meteo')}</text>
+  <text x="24" y="${TOTAL_H - 18}" font-family="${FONT_FA}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('پیش‌بینی ساعتی بارش — مدل عددی')}</text>
 </svg>`;
 }
 
@@ -179,6 +179,10 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 export const FORECAST_GIF_MAX_BYTES = 8_000_000;
 /** ۲۵ فریم × ۵۵۰ms ≈ ۱۳٫۸ ثانیه برای هر دور حلقه — روان و خوانا */
 export const FORECAST_FRAME_DELAY_MS = 550;
+/** ممیزی ۲۷ نوامبر — مکث پایان دور (هم‌الگوی گیف رادار RADAR_LAST_DELAY_MS): حلقهٔ
+ *  بی‌مکث ۲۴ ساعته مانند اژدهای خوردنِ دُمش می‌گذرد؛ فریم آخر ۱۳۰۰ms می‌ماند تا چشم
+ *  «امروز» را قفل کند و شروع دور بعدی ناگهانی نباشد. */
+export const FORECAST_LAST_DELAY_MS = 1300;
 
 /** گیف پیش‌بینی ۲۴ساعته — شکست هر مرحله → null صادقانه. */
 export async function fetchForecastGif(date: TripleDate, timeoutMs = 25_000): Promise<ForecastGif | null> {
@@ -229,7 +233,7 @@ export async function fetchForecastGif(date: TripleDate, timeoutMs = 25_000): Pr
           const u8 = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
           const palette = quantize(u8, 256);
           const index = applyPalette(u8, palette);
-          encoder.writeFrame(index, info.width, info.height, { palette, delay: FORECAST_FRAME_DELAY_MS });
+          encoder.writeFrame(index, info.width, info.height, { palette, delay: i === frameSvgs.length - 1 ? FORECAST_LAST_DELAY_MS : FORECAST_FRAME_DELAY_MS });
         }
         encoder.finish();
         const gif = Buffer.from(encoder.bytes());

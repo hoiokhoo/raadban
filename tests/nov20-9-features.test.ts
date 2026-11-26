@@ -90,12 +90,13 @@ describe('کارت‌ها بدون ایموجی — ارتفاع و رندر س�
     expect(svg).toContain('پایان مذاکرات');
   });
 
-  test('دست‌نخوردن منابع نمایشی خودِ اپ — برچسب 𝕏/🅣 و تیک تأیید سرِ جای خودشان', () => {
+  test('دست‌نخوردن منابع نمایشی خودِ اپ — برچسب 𝕏 و تیک تأییدِ برداری سرِ جای خودشان (ممیزی ۲۷ نوامبر: ✅→بَج برداری)', () => {
     // پالایش فقط متنِ بدنه است؛ برچسب منبع و تیک‌بَج برداریِ اپ پالایش نمی‌شوند
     const item: TweetCardItem = { source: '𝕏 Mike Johnson', fa: 'متن آزمونی', faName: 'مایک جانسون', verified: true };
     const svg = makeTweetCardSvg({ date: DATE, items: [item] });
     expect(svg).toContain('Mike Johnson');
-    expect(svg).toContain('✅'); // نشان تأیید — برداری/سالم در خط منبع
+    expect(svg).not.toContain('✅'); // گلیف ✅ در فونت‌های سرور نیست — توافقی/مربع می‌شد
+    expect(svg).toContain('#16a34a'); // تیک بَج برداری — دایرهٔ سبز + خط سفید
   });
 });
 

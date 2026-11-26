@@ -309,8 +309,10 @@ describe('assets-chart — SVG و رندر PNG', () => {
     for (const a of CHART_ASSETS) expect(svg).toContain(a.title);
     expect(svg).toContain('نمودار روند دارایی‌ها');
     expect(svg).toContain(`روند ${faDigits('30')} روز اخیر`);
-    expect(svg).toContain('▲');
-    expect(svg).toContain('▼');
+    // ممیزی ۲۷ نوامبر — فلش ▲/▼ به برداری رفت (گلیف در فونت‌های فارسی سرور نیست)
+    expect(svg).not.toContain('▲');
+    expect(svg).not.toContain('▼');
+    expect(svg).toMatch(/<path d="M \d+/);
     expect(svg).not.toContain('NaN');
     expect(svg).not.toContain('undefined');
     // ممیزی ۲۰ نوامبر پنجم: جهت محور برای خواننده صریح است — تاریخ آغاز و پایان زیر دو سر پنل + پانوشت

@@ -28,7 +28,8 @@ import { faDigits } from './daily';
 import { isPriorityRelated } from './iran';
 import { type TripleDate } from './calendar';
 import { wrapFaFull, stripCardEmoji } from './news-card';
-import { renderDensityFor } from './render-scale';
+import { renderDensityFor, BALE_DIM_SUM_MAX } from './render-scale';
+import { FONT_FA } from './card-font';
 import type { CardPng } from './news-card';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
@@ -83,26 +84,33 @@ export function fullTextRowHeight(item: FullTextCardItem): number {
 }
 
 /** صفحه‌بندی ارتفاعی — هم‌الگوی splitTweetItemsForCards؛ مازاد در overflow برمی‌گردد
- *  (سپر «خبری از قلم نمی‌افتد») تا فراخواننده متن کاملش را بفرستد. خالص و تست‌پذیر. */
+ *  (سپر «خبری از قلم نمی‌افتد») تا فراخواننده متن کاملش را بفرستد. خالص و تست‌پذیر.
+ *  ممیزی ۲۷ نوامبر — سقف تک‌آیتم: موردِ تنها که بلندتر از خودِ صفحه است پیش‌تر شرط
+ *  `cur.length > 0` را دور می‌زد و صفحه‌ای بلندتر از سقف (تا >۹٬۰۰۰px — بی‌فرست‌نی) می‌ساخت؛
+ *  حالا چنین آیتمی مستقیم به overflow (پیام متنی — بدون سقف ارتفاع) می‌رود. */
 export function splitFullTextItemsForCards(items: FullTextCardItem[], maxHeight: number = FT_PAGE_MAX_HEIGHT, maxPages: number = FT_MAX_PAGES): { paged: FullTextCardItem[][]; overflow: FullTextCardItem[] } {
   if (!items || items.length === 0) return { paged: [], overflow: [] };
   const pages: FullTextCardItem[][] = [];
+  const overflow: FullTextCardItem[] = [];
   let cur: FullTextCardItem[] = [];
-  let h = HEADER_H + FOOTER_H + 26;
+  const pageBase = HEADER_H + FOOTER_H + 26;
+  let h = pageBase;
   for (let k = 0; k < items.length; k++) {
     const it = items[k]!;
     const rh = fullTextRowHeight(it);
+    // تک‌آیتمِ بلندتر از کل صفحه — هیچ صفحه‌ای جایش نیست؛ سرریز صادقانه (پیام متنی کامل)
+    if (rh > maxHeight - pageBase) { overflow.push(it); continue; }
     if (cur.length > 0 && h + rh > maxHeight) {
       pages.push(cur);
       cur = [];
-      h = HEADER_H + FOOTER_H + 26;
-      if (pages.length >= maxPages) return { paged: pages, overflow: items.slice(k) };
+      h = pageBase;
+      if (pages.length >= maxPages) return { paged: pages, overflow: [...overflow, ...items.slice(k)] };
     }
     cur.push(it);
     h += rh;
   }
   if (cur.length > 0) pages.push(cur);
-  return { paged: pages, overflow: [] };
+  return { paged: pages, overflow };
 }
 
 function esc(s: string): string {
@@ -173,10 +181,10 @@ export function makeFullTextCardSvg(input: FullTextCardInput): string {
 
   const footerY = H - 34;
   const footer = `
-  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#8d7bb0" text-anchor="end">${rtl('رصدبان • متن کامل — بدون خلاصه‌سازی')}</text>
-  <text x="${PAD}" y="${footerY}" font-size="20" fill="#8d7bb0" text-anchor="start">${rtl('موارد جنگ/ایران کهربایی متمایز')}</text>`;
+  <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6a578f" text-anchor="end">${rtl('رصدبان • متن کامل — بدون خلاصه‌سازی')}</text>
+  <text x="${PAD}" y="${footerY}" font-size="20" fill="#6a578f" text-anchor="start">${rtl('موارد جنگ/ایران کهربایی متمایز')}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#3b1d6e"/><stop offset="1" stop-color="#7c3aed"/>
@@ -203,6 +211,9 @@ export async function renderFullTextCardPng(input: FullTextCardInput): Promise<C
     if (!svg) return null;
     const sharp = (await import('sharp')).default;
     const d = svgDimsOf(svg);
+    // ممیزی ۲۷ نوامبر — گارد فرست‌پذیری بله: حتی ۱× نباید از سقف مجموع عرض+ارتفاع بگذرد؛
+    // کارتِ نافرستنی صادقانه null می‌شود و فراخواننده به پیام متنی کامل برمی‌گردد (هیچ بریدگی).
+    if (d && d.w + d.h > BALE_DIM_SUM_MAX) return null;
     const png = await sharp(Buffer.from(svg), { density: d ? renderDensityFor(d.w, d.h) : 72 }).png().toBuffer();
     const meta = await sharp(png).metadata();
     if (!meta.width || !meta.height || png.length < 5000) return null;

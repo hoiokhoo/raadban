@@ -22,6 +22,7 @@ import { faDigits } from './daily';
 import { type TripleDate } from './calendar';
 import { renderDensityFor } from './render-scale';
 import { compactNum, faGroup, officialDeltaOf, type Quote } from './market';
+import { FONT_FA } from './card-font';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -155,7 +156,7 @@ function blockRowsSvg(rows: MarketRow[], blockRight: number, yStart: number): st
     // درصد ۲۴ساعته — داخل پرانتز کنار قیمت بازار (ادغام ستون چهارم — خواستهٔ ۲۴ نوامبر)؛
     // علامت +/− داخل پرانتز + رنگ سبز/قرمز جهت را می‌رساند (فلش برداری در این تنگا جا ندارد)
     const hasPct = r.pct !== null && Math.abs(r.pct as number) >= 0.05;
-    const pctColor = !hasPct ? '#5b7f9e' : (r.pct as number) > 0 ? '#4ade80' : '#f87171';
+    const pctColor = !hasPct ? '#7fa8c6' : (r.pct as number) > 0 ? '#4ade80' : '#f87171';
     const pctInner = hasPct ? `${(r.pct as number) > 0 ? '+' : '−'}${faGroup(Math.abs(r.pct as number), 1)}٪` : '—';
     // اختلاف بازار از کارخانه — کهربایی (بازار گران‌تر) / سبز (ارزان‌تر)
     const gapColor = r.gapUp === null || r.gapUp ? '#fbbf24' : '#4ade80';
@@ -165,7 +166,7 @@ function blockRowsSvg(rows: MarketRow[], blockRight: number, yStart: number): st
   <text x="${a.mktR}" y="${cy}" font-size="21" font-weight="700" fill="#ffffff" text-anchor="end">${'\u202B'}${esc(r.value)} <tspan font-size="16" font-weight="400" fill="${pctColor}">(${pctInner})</tspan>${'\u202C'}</text>
   ${r.official
     ? `<text x="${a.offR}" y="${ry + 33}" font-size="18" fill="#9fc3e8" text-anchor="end">${rtl(esc(r.official))}</text>${r.gapAbs && r.gapPct && r.gapUp !== null ? `<text x="${a.offR}" y="${ry + 58}" font-size="14" fill="${gapColor}" text-anchor="end">${rtl(`اختلاف ${esc(r.gapAbs)} (${esc(r.gapPct)})`)}</text>` : ''}`
-    : `<text x="${a.offR}" y="${cy}" font-size="21" fill="#5b7f9e" text-anchor="end">${rtl('—')}</text>`}`);
+    : `<text x="${a.offR}" y="${cy}" font-size="21" fill="#7fa8c6" text-anchor="end">${rtl('—')}</text>`}`);
   });
   return out.join('\n');
 }
@@ -217,7 +218,7 @@ export function makeMarketCardSvg(input: MarketCardInput): string {
   <text x="${W - PAD}" y="${footerY}" font-size="19" fill="#6f93b4" text-anchor="end">${rtl('رصدبان • کارخانه/نمایندگی: باما')}</text>
   <text x="${PAD}" y="${footerY}" font-size="19" fill="#6f93b4" text-anchor="start">${rtl('درصد داخل پرانتز = تغییر نسبت به دیروز ساعت ۱۵')}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>

@@ -43,6 +43,7 @@ import { fileURLToPath } from 'node:url';
 import { faDigits } from './daily';
 import { type TripleDate, tripleDateOf } from './calendar';
 import { renderDensityFor } from './render-scale';
+import { FONT_FA } from './card-font';
 import { formatMoney } from './market';
 
 // ---------- فونت‌پیکربندی پروژه‌ای — پیش از نخستین رندر sharp ----------
@@ -335,15 +336,24 @@ export function makeAssetsChartSvg(input: AssetsChartInput): string {
     const up = p.pct > PCT_NEUTRAL_EPS;
     const down = p.pct < -PCT_NEUTRAL_EPS;
     const color = up ? COLOR_UP : down ? COLOR_DOWN : COLOR_FLAT; // رنگ فقط از همان pct
-    const arrow = up ? '▲' : down ? '▼' : '—';
-    const pctTxt = `${arrow}${faDigits(String(Math.abs(p.pct)).replace('.', '٫'))}٪`;
+    // ممیزی ۲۷ نوامبر — فلش برداری به‌جای گلیف ▲▼ (در هیچ‌کدام از فونت‌های فارسی سرور
+    // نیست و به DejaVu می‌افتاد — دو زبان بصری مختلف در یک کارت، هم‌سو با فلش‌های برداری
+    // کارت بازار bot/market-card.ts و bot/assets-card.ts)
+    const pctArrow = (x: number, y: number): string =>
+      up
+        ? `<path d="M ${x + 5} ${y + 5} L ${x + 15} ${y + 5} L ${x + 10} ${y - 5} Z" fill="${color}"/>`
+        : down
+          ? `<path d="M ${x + 5} ${y - 5} L ${x + 15} ${y - 5} L ${x + 10} ${y + 5} Z" fill="${color}"/>`
+          : '';
+    const pctTxt = `${faDigits(String(Math.abs(p.pct)).replace('.', '٫'))}٪`;
     const cur = p.values[p.values.length - 1]!;
     const spark = sparklinePoints(p.values, x + 24, y + 104, PANEL_W - 48, 116);
     pieces.push(`
   <rect x="${x}" y="${y}" width="${PANEL_W}" height="${PANEL_H}" rx="14" fill="${bg}"/>
   <text x="${x + PANEL_W - 24}" y="${y + 44}" font-size="27" font-weight="700" fill="#e8f1fa" text-anchor="end">${rtl(esc(p.title))}</text>
   <text x="${x + PANEL_W - 24}" y="${y + 78}" font-size="22" fill="#9fc3e8" text-anchor="end">${rtl(formatMoney(cur, p.unit))}</text>
-  <text x="${x + 24}" y="${y + 44}" font-size="26" font-weight="700" fill="${color}" text-anchor="start">${rtl(pctTxt)}</text>
+  <text x="${x + 48}" y="${y + 44}" font-size="26" font-weight="700" fill="${color}" text-anchor="start">${rtl(pctTxt)}</text>
+  ${pctArrow(x + 26, y + 44)}
   <text x="${x + 24}" y="${y + 74}" font-size="17" fill="#6f93b4" text-anchor="start">${rtl(spanLabel(p))}</text>
   <polyline points="${spark.pts}" fill="none" stroke="${color}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
   <polygon points="${spark.area}" fill="${color}" fill-opacity="0.13" stroke="none"/>
@@ -357,7 +367,7 @@ export function makeAssetsChartSvg(input: AssetsChartInput): string {
   <text x="${W - PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="end">${rtl('رصدبان')}</text>
   <text x="${PAD}" y="${footerY}" font-size="20" fill="#6f93b4" text-anchor="start">${rtl(`پنجرهٔ تقویمی ${faDigits(String(CHART_DAYS))} روز • چپ: آغاز بازه — راست: امروز`)}</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT_FA}">
   <defs>
     <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2239"/><stop offset="1" stop-color="#164a75"/>

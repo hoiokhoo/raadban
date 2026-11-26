@@ -89,6 +89,7 @@ import {
   type AdminHealth,
 } from './admin-alerts';
 import { dueBundleSlotKey, buildBundleChunks, buildTweetBundleChunks, budgetQueueForBundle, tweetDisplayBody, type BundleItem } from './bundle';
+import { intakeVerdict, filterNewsIntake, attributionOf, attributionMatch } from './news-intake';
 import { cutAtSentence, needsTranslationLang } from './lang';
 import {
   DEFAULT_SYSTEM_HOURLY,
@@ -293,10 +294,15 @@ const CFG = {
   bundlePeriodHours: Math.max(1, Math.min(12, Number(process.env.BUNDLE_PERIOD_HOURS || 2) || 2)),
   // فاصلهٔ بستهٔ توییت از بستهٔ خبر به ساعت — «یک ساعت بعد از دستهٔ اخبار» (اسلات‌های فرد)
   tweetOffsetHours: Math.max(0, Math.min(6, Number(process.env.TWEET_OFFSET_HOURS || 1) || 0)),
-  // ── سقف حجم بسته‌ها — خواستهٔ ۲۵ نوامبر ۲۰۲۶: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!» ──
-  // هر اسلات حداکثر این تعداد مورد (خبر/توییت) ارسال می‌کند؛ مازاد به تعویق می‌افتد (اسلات بعد)،
-  // اولویت‌دارهای جنگ/ایران هرگز به تعویق نمی‌افتند. سپر انباشت در خود bot.ts (نزدیک مصرف).
-  newsBundleMaxItems: Math.max(8, Math.min(88, Number(process.env.NEWS_BUNDLE_MAX_ITEMS || 24) || 24)),
+  // ── سقف حجم بسته‌ها — خواستهٔ ۲۵ نوامبر ۲۰۲۶ + نیم — خواستهٔ ۲۶ نوامبر: «حجم اخبارمون
+  //    خیلی زیاده؛ اخبار بی‌اهمیت منتشر نشن» — ۲۴→۱۶ (دو کارت ۸ردیفی)؛ گیت اهمیت
+  //    (news-intake) شانهٔ اول است و این سقف سپر دوم است ──
+  newsBundleMaxItems: Math.max(8, Math.min(88, Number(process.env.NEWS_BUNDLE_MAX_ITEMS || 16) || 16)),
+  // ── موتور ورودی خبر (خواستهٔ ۲۶ نوامبر ۲۰۲۶ — bot/news-intake.ts): گیت‌های قطعیِ پیش از
+  //    صف/پیکره — ضدتبلیغ، بازنشر توییت، ناساز تاریخی، اهمیت‌سنجی؛ + تأیید وب ارجاع‌ها ──
+  newsImportanceThreshold: Math.max(0, Math.min(100, Number(process.env.NEWS_IMPORTANCE_THRESHOLD ?? 55) || 55)),
+  newsIntakeMinKeep: Math.max(0, Math.min(50, Number(process.env.NEWS_INTAKE_MIN_KEEP ?? 3) || 3)),
+  attributionVerifyMax: Math.max(0, Math.min(12, Number(process.env.ATTRIBUTION_VERIFY_MAX ?? 6) || 6)),
   tweetBundleMaxItems: Math.max(4, Math.min(60, Number(process.env.TWEET_BUNDLE_MAX_ITEMS || 16) || 16)),
   // کانال‌های اطلاعیهٔ فروش/پیش‌فروش خودرو (t.me/s/<id>) — خواستهٔ کاربر: کانال آخرین خودرو
   saleChannels: (process.env.SALE_CHANNELS || 'Akharin_khodro').split(/[,\s]+/).map((s) => s.trim().replace(/^@/, '')).filter(Boolean),
@@ -2616,6 +2622,26 @@ export interface RunSummary {
   bundleSent?: boolean;
   bundleItems?: number;
   saleAlertsSent?: number;
+  // ── موتور ورودی خبر (خواستهٔ ۲۶ نوامبر ۲۰۲۶) — آمار گیت‌ها برای لاگ/پایش ──
+  /** موارد ردشدهٔ گیت ورودی: تبلیغ */
+  intakeAdsDropped?: number;
+  /** موارد ردشدهٔ گیت ورودی: بازنشر توییت */
+  intakeTweetRelayDropped?: number;
+  /** موارد ردشدهٔ گیت ورودی: ناسازگاری تاریخی */
+  intakeHistoryDropped?: number;
+  /** موارد ردشدهٔ گیت ورودی: کم‌اهمیت */
+  intakeLowImportanceDropped?: number;
+  /** ارجاع‌های تأییدشده با وب («به نقل از بلومبرگ» → برچسب رسانهٔ اصلی) */
+  attributionVerified?: number;
+}
+
+/** شمارش ردهای گیت ورودی خبر در خلاصهٔ چرخه — برای پایش (خواستهٔ ۲۶ نوامبر ۲۰۲۶). خالص. */
+export function countIntakeDrop(summary: RunSummary, reason: string | undefined): void {
+  if (!reason) return;
+  if (reason.startsWith('تبلیغ')) summary.intakeAdsDropped = (summary.intakeAdsDropped || 0) + 1;
+  else if (reason.startsWith('بازنشر توییت')) summary.intakeTweetRelayDropped = (summary.intakeTweetRelayDropped || 0) + 1;
+  else if (reason.startsWith('ناسازگاری')) summary.intakeHistoryDropped = (summary.intakeHistoryDropped || 0) + 1;
+  else summary.intakeLowImportanceDropped = (summary.intakeLowImportanceDropped || 0) + 1;
 }
 
 /** کشف چت‌های ربات از getUpdates — برای یافتن شناسهٔ کانال‌ها (حالت --discover-chats).
@@ -3116,7 +3142,17 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   const geopolitical = filterGeoGeopolitical(noAds);
   const ritualDropped = noAds.length - geopolitical.length;
   if (ritualDropped > 0) console.log(`پالایهٔ مناسکتی: ${enToFaDigits(String(ritualDropped))} پیام صرفاً دینی/یادبودی از ورودی تحلیل حذف شد`);
-  const filtered = geopolitical;
+  // ── گیت ورودی موتور خبر (خواستهٔ کاربر ۲۶ نوامبر: «اولواً به هیچ عنوان پیام‌های تبلیغاتی
+  //    کانال‌ها وارد برنامه نشن» + «اگر زده فلانی توییت زد اصلاً واردش نکن»): تبلیغِ عهده‌کارت/
+  //    شبا/تلفن (نمونهٔ واقعی کاربر — درخواست کمک برای سیستم صوت هیئت)، بازنشر توییت و
+  //    ناساز تاریخی هرگز به پیکرهٔ تحلیل هم نمی‌رسد. اهمیت‌سنجی اینجا خاموش است —
+  //    تحلیل باید کل رویدادهای سالم بازه را ببیند (حجم‌گیری در صف خبری انجام می‌شود). ──
+  const geoIntake = filterNewsIntake(geopolitical, { importance: false });
+  const filtered = geoIntake.kept;
+  const geoHard = geoIntake.droppedAds.length + geoIntake.droppedTweetRelay.length + geoIntake.droppedHistory.length;
+  if (geoHard > 0) {
+    console.log(`🛡 گیت ورودی خبر (ژئو): ${enToFaDigits(String(geoIntake.droppedAds.length))} تبلیغ، ${enToFaDigits(String(geoIntake.droppedTweetRelay.length))} بازنشر توییت، ${enToFaDigits(String(geoIntake.droppedHistory.length))} ناساز تاریخی حذف شد`);
+  }
   const merged = mergeSimilarItems(geoItemsForMerge(filtered));
   // ── رویدادهای ۸ ساعت اخیر از آرشیو روزانه (خبر + توییت) — سوخت ۶۰٪ پیکرهٔ یکپارچه ──
   const catTitles = new Map<string, string>(loadBotConfig().categories.map((c) => [c.slug, c.title]));
@@ -3162,7 +3198,19 @@ export async function runGeoAnalysis(ctx: GeoCtx): Promise<void> {
   if (CFG.channelMode === 'bundle') {
     const queue = Array.isArray(state.bundleQueue) ? state.bundleQueue : [];
     state.bundleQueue = queue;
-    const queuedList = merged
+    // ── گیت ورودی صف خبری (خواستهٔ ۲۶ نوامبر: «مستقیم اول وارد موتور صحت‌سنجی، بعد تجمیع
+    //    و تحلیل» — خبر کانالی فقط اگر سالم «و کافی مهم» باشد به صف می‌رود؛ کم‌اهمیت‌ها
+    //    (نمونهٔ کاربر: ثبت‌نام اعتکاف استانی) دیگه منتشر نمی‌شوند — سهمیهٔ حداقل
+    //    (minKeep) مانع گرسنگی روزهای بی‌خبر می‌شود. جنگ/ایران (امتیاز ≥۹۵) هرگز حذف نمی‌شوند. ──
+    const queueGate = filterNewsIntake(merged, { threshold: CFG.newsImportanceThreshold, minKeep: CFG.newsIntakeMinKeep });
+    if (queueGate.droppedAds.length + queueGate.droppedTweetRelay.length + queueGate.droppedHistory.length + queueGate.droppedLowImportance.length > 0) {
+      console.log(`🛡 گیت ورودی صف خبری (ژئو): تبلیغ ${enToFaDigits(String(queueGate.droppedAds.length))} / بازنشر توییت ${enToFaDigits(String(queueGate.droppedTweetRelay.length))} / ناساز تاریخی ${enToFaDigits(String(queueGate.droppedHistory.length))} / کم‌اهمیت ${enToFaDigits(String(queueGate.droppedLowImportance.length))} حذف شد`);
+    }
+    summary.intakeAdsDropped = (summary.intakeAdsDropped || 0) + queueGate.droppedAds.length;
+    summary.intakeTweetRelayDropped = (summary.intakeTweetRelayDropped || 0) + queueGate.droppedTweetRelay.length;
+    summary.intakeHistoryDropped = (summary.intakeHistoryDropped || 0) + queueGate.droppedHistory.length;
+    summary.intakeLowImportanceDropped = (summary.intakeLowImportanceDropped || 0) + queueGate.droppedLowImportance.length;
+    const queuedList = queueGate.kept
       .sort((a, b) => (b.verified ? 1 : 0) - (a.verified ? 1 : 0))
       .slice(0, 16);
     for (const m of queuedList) {
@@ -4491,6 +4539,14 @@ async function main(): Promise<void> {
         continue;
       }
       if (text !== s.text) summary.translated++;
+      // ── گیت ورودی موتور خبر (خواستهٔ ۲۶ نوامبر: «اولواً به هیچ عنوان پیام‌های تبلیغاتی
+      //    وارد برنامه نشن» + توییت‌نما/تاریخی/کم‌اهمیت) — پیش از ارسال/صف‌گذاری ──
+      const sendGate = intakeVerdict(text, { threshold: CFG.newsImportanceThreshold });
+      if (!sendGate.ok) {
+        countIntakeDrop(summary, sendGate.reason);
+        console.log(`🛡 گیت ورودی خبر: حذف (${sendGate.reason}) — ${trimFa(text, 60)}`);
+        continue;
+      }
       // تجمیع منابع: چند خبرگزاری = «خبرگزاری‌های A و B و C: متن خبر» (خواستهٔ صریح کاربر)
       // textLimit ۳۴۰۰ — خبر کامل می‌آید؛ حالت عکس خودش در sendToTarget به کپشن + پیام ادامه تقسیم می‌شود
       const msg = composeGroupMessage(s.g, text, s.verdict, 3400);
@@ -4510,9 +4566,25 @@ async function main(): Promise<void> {
   } else {
     // مسیر شکست مدل (در حالت بست: مسیر صف‌گذاری مستقیم همهٔ رویدادها) —
     // فقط خبرهای فارسیِ روان می‌روند؛ غیرفارسی بدون ترجمه هرگز نمی‌رود (چرخهٔ بعد دوباره تلاش می‌کند)
-    const fluent = ordered.filter((g) => fluentFaText(g) !== null);
+    let fluent = ordered.filter((g) => fluentFaText(g) !== null);
     const stuck = ordered.length - fluent.length;
     summary.skippedUntranslated = (summary.skippedUntranslated || 0) + stuck;
+    // ── گیت ورودی موتور خبر (خواستهٔ ۲۶ نوامبر) — پیش از صف‌گذاری مسیر پشتیبان: تبلیغ
+    //    (نمونهٔ واقعی کاربر: پیام درخواست کمک با شماره کارت/شبا)، بازنشر توییت، ناساز
+    //    تاریخی و کم‌اهمیت هرگز به صف بستهٔ خبری نمی‌رود؛ سهمیهٔ حداقل مانع گرسنگی
+    //    روزهای بی‌خبر می‌شود و جنگ/ایران (امتیاز ≥۹۵) هرگز حذف نمی‌شوند. ──
+    const fluentGate = filterNewsIntake(
+      fluent.map((g) => ({ g, text: ((g.primary.translationFa || '').trim() || g.primary.content || '').slice(0, 3400) })),
+      { threshold: CFG.newsImportanceThreshold, minKeep: CFG.newsIntakeMinKeep },
+    );
+    summary.intakeAdsDropped = (summary.intakeAdsDropped || 0) + fluentGate.droppedAds.length;
+    summary.intakeTweetRelayDropped = (summary.intakeTweetRelayDropped || 0) + fluentGate.droppedTweetRelay.length;
+    summary.intakeHistoryDropped = (summary.intakeHistoryDropped || 0) + fluentGate.droppedHistory.length;
+    summary.intakeLowImportanceDropped = (summary.intakeLowImportanceDropped || 0) + fluentGate.droppedLowImportance.length;
+    if (fluent.length - fluentGate.kept.length > 0) {
+      console.log(`🛡 گیت ورودی خبر: ${enToFaDigits(String(fluent.length - fluentGate.kept.length))} رویداد حذف شد (تبلیغ ${enToFaDigits(String(fluentGate.droppedAds.length))} / بازنشر توییت ${enToFaDigits(String(fluentGate.droppedTweetRelay.length))} / ناساز تاریخی ${enToFaDigits(String(fluentGate.droppedHistory.length))} / کم‌اهمیت ${enToFaDigits(String(fluentGate.droppedLowImportance.length))}) — «خبر خام کانال‌ها» سالم و مهم وارد صف می‌شود`);
+    }
+    fluent = fluentGate.kept.map((x) => x.g);
     if (!bundleMode) {
       for (const t of CFG.targets) {
         const h = await sendBaleMessage(CFG.token, t, [
@@ -4688,16 +4760,32 @@ async function main(): Promise<void> {
     //    غیرفارسی‌ها ترجمهٔ دسته‌ای می‌گیرند (سقف ۲۴ مورد در چرخه)؛ ترجمه‌نشده در صف
     //    می‌مانند و اسلات بعد دوباره — نه متن خام، نه خبر گم‌شده. فقط وقتی اسلات «واقعاً»
     //    فرا رسیده ترجمه می‌کنیم (ترجمهٔ بی‌ارسال، هر ۱۰ دقیقه تکرار نمی‌شود). ──
+    // ── گیت صفِ زنده (ممیزی ۲۶ نوامبر) — هر چرخه (نه فقط اسلات): موارد صفِ به‌جامانده
+    //    از پیش از این استقرار هم داوری می‌شوند؛ تبلیغ/بازنشر توییت/ناساز تاریخی/کم‌اهمیت
+    //    با دلیل حذف و دیگر برنمی‌گردند. پیش از محاسبهٔ newsGate می‌دود تا صفِ خالی‌شده
+    //    در همین چرخه «صف خالی» گزارش شود، نه هشدار گمراه‌کنندهٔ «ترجمه‌نشده». ──
+    const liveGate = filterNewsIntake(queue, { threshold: CFG.newsImportanceThreshold, minKeep: CFG.newsIntakeMinKeep });
+    const liveDropped = queue.length - liveGate.kept.length;
+    if (liveDropped > 0) {
+      summary.intakeAdsDropped = (summary.intakeAdsDropped || 0) + liveGate.droppedAds.length;
+      summary.intakeTweetRelayDropped = (summary.intakeTweetRelayDropped || 0) + liveGate.droppedTweetRelay.length;
+      summary.intakeHistoryDropped = (summary.intakeHistoryDropped || 0) + liveGate.droppedHistory.length;
+      summary.intakeLowImportanceDropped = (summary.intakeLowImportanceDropped || 0) + liveGate.droppedLowImportance.length;
+      console.log(`🛡 گیت صف خبری: ${enToFaDigits(String(liveDropped))} مورد صف حذف شد (تبلیغ ${enToFaDigits(String(liveGate.droppedAds.length))} / بازنشر توییت ${enToFaDigits(String(liveGate.droppedTweetRelay.length))} / ناساز تاریخی ${enToFaDigits(String(liveGate.droppedHistory.length))} / کم‌اهمیت ${enToFaDigits(String(liveGate.droppedLowImportance.length))})`);
+      queue.length = 0;
+      queue.push(...liveGate.kept);
+      persistNow(); // پاک‌سازی صف — بی‌درنگ ذخیره
+    }
     const newsSlotKey = dueBundleSlotKey(Date.now(), 0, periodMin, state.lastNewsSlotKey, pSlot);
     const newsGate = Boolean(newsSlotKey) && queue.length > 0;
     const items: HourlyItem[] = [];
     const newsRetryQueue: BundleItem[] = [];
-    // ── سقف حجم بستهٔ خبری — خواستهٔ ۲۵ نوامبر: «برای اینکه حجم اخبار زیادن پیشنهادی نداری؟!» ──
-    // هر اسلات ≤ CFG.newsBundleMaxItems مورد (پیش‌فرض ۲۴ = ۳ کارت ۸ردیفی)؛ مازاد به تعویق:
-    // به ابتدای صف برمی‌گردد و اسلات بعدی اول ارسال می‌شود — هیچ حذف بی‌صدا (اصل «خبری از قلم
-    // نمی‌افتد» دست‌نخورده، فقط ≤ یک دوره دیرتر). جنگ/ایران هرگز به تعویق نمی‌افتند.
-    // سپر انباشت: صف ≥ ۴۰۰ (از سقف سخت ۶۰۰) یعنی عقب‌افتادگی سنگین — سقف خاموش، تخلیهٔ کامل
-    // (تأخیرِ روبه‌رشد بدتر از بستهٔ پرحجم است). پیکرهٔ تحلیل هوشمند فقط همین موارد ارسالی است.
+    // ── سقف حجم بستهٔ خبری — خواستهٔ ۲۵ نوامبر + نیم ۲۶ نوامبر ──
+    // هر اسلات ≤ CFG.newsBundleMaxItems مورد (پیش‌فرض ۱۶ = ۲ کارت ۸ردیفی — ۲۴→۱۶ خواستهٔ
+    // ۲۶ نوامبر: «حجم اخبارمون خیلی زیاده»؛ گیت اهمیتِ ورودی شانهٔ اول است، این سپر دوم)؛
+    // مازاد به تعویق: به ابتدای صف برمی‌گردد و اسلات بعدی اول ارسال می‌شود — هیچ حذف بی‌صدا
+    // (اصل «خبری از قلم نمی‌افتد» دست‌نخورده، فقط ≤ یک دوره دیرتر). جنگ/ایران هرگز به تعویق نمی‌افتند.
+    // سپر انباشت: صف ≥ ۴۰۰ (از سقف سخت ۶۰۰) یعنی عقب‌افتادگی سنگین — سقف خاموش، تخلیهٔ کامل.
     const newsBudget = budgetQueueForBundle(queue, { maxItems: CFG.newsBundleMaxItems, isPriority: isPriorityRelated, backlogFlush: 400 });
     if (newsBudget.deferred.length > 0) {
       console.log(`📊 سقف حجم بسته: ${enToFaDigits(String(newsBudget.send.length))} مورد این اسلات — ${enToFaDigits(String(newsBudget.deferred.length))} مورد به اسلات بعد به تعویق افتاد (خبری حذف نمی‌شود؛ جنگ/ایران همیشه همراهند)`);
@@ -4755,6 +4843,36 @@ async function main(): Promise<void> {
       const dedup = dropAlreadySent(items, [...titleSets, ...sentMsgSets]);
       if (dedup.dropped > 0) console.log(`ضدتکرار زمان جمع‌بندی: ${dedup.dropped} مورد با مضمون تکراریِ ارسال‌شده‌های قبل حذف شد`);
       const mergedItems = mergeSimilarItems(dedup.kept);
+      // ── موتور حقیقت‌سنجی ارجاع‌ها (خواستهٔ ۲۶ نوامبر: «اگر زده به نقل از بلومبرگ، برنامه بره
+      //    سایت بلومبرگ رو چک کنه اگر درست بود همون خبر از خبرگزاری اصلی رو بفرسته»):
+      //    موردِ تک‌منبعیِ دارای ارجاع به رسانهٔ مرجع → جست‌وجوی خبری وب؛ یافتهٔ هم‌موضوع
+      //    (تطبیق چندسیگنالی attributionMatch: عدد مشترک / ≥۲ نام لاتین مشترک / ژاکارد)
+      //    = تأیید → برچسب منبع = رسانهٔ اصلی («همون خبر از خبرگزاری اصلی»)
+      //    + تیک قطعی (تأیید وب ≥ دو منبع مستقل)؛ نتیجه‌ای نیامد = همین موردِ تک‌منبعی
+      //    می‌ماند (شکست شبکه ≠ خبر ساختگی — هیچ خبر واقعی حذف نمی‌شود؛ قانون آهنین).
+      //    سقف CFG.attributionVerifyMax بررسی در هر اسلات (بودجهٔ شبکه/زمان چرخه). ──
+      if (CFG.attributionVerifyMax > 0 && !CFG.dryRun) {
+        let attrChecks = 0;
+        for (const m of mergedItems) {
+          if (attrChecks >= CFG.attributionVerifyMax) break;
+          const attr = attributionOf(m.text);
+          if (!attr || m.sources.length > 1) continue; // چندمنبعی از پیش معتبر است؛ تک‌منبعیِ بی‌ارجاع موضوع ندارد
+          attrChecks++;
+          const q = trimFa(m.text, 90);
+          const found = await searchWeb(`${attr.outletEn} ${q}`).catch(() => [] as WebEvidence[]);
+          const hit = found.find((f) => attributionMatch(f.title, m.text));
+          if (hit) {
+            m.source = attr.outlet;
+            m.sources = [attr.outlet];
+            m.verified = true; // تیک از تأیید وب — هم‌ارز تیک چندمنبعی (grounding)
+            summary.attributionVerified = (summary.attributionVerified || 0) + 1;
+          }
+          await sleep(400);
+        }
+        if (summary.attributionVerified) {
+          console.log(`🔎 حقیقت‌سنجی ارجاع‌ها: ${enToFaDigits(String(summary.attributionVerified))} مورد «به نقل از رسانهٔ مرجع» با وب تأیید و به رسانهٔ اصلی نسبت داده شد (${enToFaDigits(String(attrChecks))} بررسی)`);
+        }
+      }
       const history = Array.isArray(state.hourlyAnalyses) ? state.hourlyAnalyses : [];
       const userMsg = [
         'تحلیل‌های ساعات پیشین (تازه‌ترین اول — برای پیوستگی روایت بخوانید):',
@@ -4846,7 +4964,11 @@ async function main(): Promise<void> {
       const cardItems = groupByCategory(fittedItems, (it) => categorizeFa(it.text)).flatMap((sec) => sec.items.map((it) => ({ ...it, section: sec.label })));
       let newsCardSent = false;
       let newsCardsCount = 0;
-      if (cardItems.length >= 3 && !CFG.dryRun) {
+      // ── «تمامی اخبار در قالب تصویری» (خواستهٔ ۲۶ نوامبر: «دوماً میخوام تمامی اخبار در قالب
+      //    تصویری بشن») — آبشار تصویری سه‌لایه؛ هیچ بسته‌ای (حتی ۱-۲ موردی) به بست متنی
+      //    نمی‌افتد: (۱) کارت خبر ۸ردیفی → (۲) کارت بنفش «متن کامل» همهٔ موارد →
+      //    (۳) بست متنی صرفاً آخرین پشتیبانِ صداقت (شکست هر دو رندر). آستانه ۳→۱. ──
+      if (cardItems.length >= 1 && !CFG.dryRun) {
         const pCard = tehranParts(Date.now());
         const cardDate = tripleDateOf(pCard.dateKey, 'Asia/Tehran', 'umalqura');
         const pages = await renderNewsCardPages({
@@ -4855,9 +4977,33 @@ async function main(): Promise<void> {
           total: mergedItems.length,
           dropped: grounded?.dropped ?? 0,
         }).catch(() => [] as CardPng[]);
-        if (pages.length === 0) {
-          console.warn('⚠️ رندر کارت‌های بستهٔ خبری ناموفق بود — بست متنی ارسال می‌شود (صادقانه)');
-        } else {
+        if (pages.length === 0 && cardItems.length > 0) {
+          // ── لایهٔ دوم آبشار: کارت بنفش «متن کامل» — پشتیبانِ تصویریِ کارت خبر؛ بست متنی
+          //    دیگر اولین پشتیبان نیست (خواستهٔ ۲۶ نوامبر)؛ فقط شکست این هم → متن ──
+          console.warn('⚠️ رندر کارت‌های بستهٔ خبری ناموفق — آبشار تصویری: کارت بنفش «متن کامل» همهٔ موارد');
+          try {
+            const fbItems: FullTextCardItem[] = [
+              ...overflowFull,
+              ...cardItems.map((c) => ({ source: c.source || undefined, text: c.text })),
+            ];
+            const fb = await renderFullTextCardPages({ date: cardDate, title: FULLTEXT_NEWS_TITLE, items: fbItems });
+            for (let pi = 0; pi < fb.pages.length; pi++) {
+              for (const t of CFG.targets) {
+                const s = await sendBalePhotoBytes(CFG.token, t, fb.pages[pi]!.png, `raadban-news-full-${pi + 1}.png`);
+                if (s.ok) newsCardSent = true;
+                else console.error(`❌ ارسال کارت متن کامل (آبشار) ${enToFaDigits(String(pi + 1))} به ${t}: ${s.error}`);
+              }
+              await sleep(700);
+            }
+            if (newsCardSent) {
+              console.log(`🟣 آبشار تصویری: ${enToFaDigits(String(fbItems.length))} مورد در ${enToFaDigits(String(fb.pages.length))} کارت بنفش «متن کامل» ارسال شد (کارت خبر ناکام ماند) — هیچ بست متنی`);
+              overflowFull.length = 0; // در آبشار مصرف شد — گام پایین‌دست دوباره نفرستد
+            }
+          } catch {
+            // شکست کارت بنفش — بست متنی صادقانه (آخرین پشتیبان آبشار)
+          }
+          if (!newsCardSent) console.warn('⚠️ آبشار تصویری هم ناکام ماند — بست متنی صادقانه (آخرین پشتیبان؛ هیچ خبری گم نمی‌شود)');
+        } else if (pages.length > 0) {
           for (let pi = 0; pi < pages.length; pi++) {
             // فقط عکس — کپشن زیر عکس کامل حذف شد (خواستهٔ صریح کاربر ۱۹ نوامبر:
             // «میخوام کل متن زیر عکس حذف بشه فقط عکس حاوی اخبار باشه»)
@@ -4934,8 +5080,9 @@ async function main(): Promise<void> {
           if (overflowSent > 0) console.log(`📎 پشتیبان متنی ${enToFaDigits(String(leftover.length))} مورد متن کامل ارسال شد — بدون هیچ بریدگی «…»`);
         }
       }
-      // پشتیبان متن — کارت‌ها ارسال نشدند (یا مسیر خام بدون رندر): بست متنی کامل (خبری از قلم نمی‌افتد)
-      // مورد ایران/جنگ‌مرتبط بولد — خواستهٔ ۲۰ نوامبر + گسترش ۲۵ نوامبر (کارت تصویری رنگ کهربایی هم دارد)
+      // ── آخرین پشتیبان آبشار تصویری (خواستهٔ ۲۶ نوامبر: «تمامی اخبار در قالب تصویری»):
+      //    فقط وقتی هر دو کارت (خبر + بنفش متن کامل) شکست خوردند — بست متنی کامل صادقانه
+      //    (هیچ خبری از قلم نمی‌افتد). مورد ایران/جنگ‌مرتبط بولد (خواستهٔ ۲۰ نوامبر + ۲۵ نوامبر). ──
       if (!newsCardSent) {
         const chunks = aiText
           ? chunkHourlyMessage(highlightPriorityItemsHtml(aiText), 3300)
